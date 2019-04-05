@@ -1,2 +1,26 @@
 # R programming language
 
+## Basic characteristics
+
+
+## Why R?
+
+
+## Setting up
+
+
+### R Studio
+
+
+### Libraries for data science
+* dplyr
+* ggplot2
+
+## R basics
+
+
+## Further reading and references
+
+## Learning outcomes
+
+## Practice problems
