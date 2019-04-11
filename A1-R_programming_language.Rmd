@@ -1,20 +1,46 @@
 # R programming language
 
 ## Basic characteristics
-
+R is free software for statistical computing and graphics. It is widely used by statisticians, scientists, and other professionals for software development and data analysis. It is an interpreted language and therefore the programs do not need compilation. 
 
 ## Why R?
+R is one of the main two languages used for statistics and machine learning (the other being Python).
+
+**Pros**
+
+* **Libraries.** Comprehensive collection of statistical and machine learning packages.
+* Easy to code.
+* **Open source.** Anyone can access R and develop new methods. Additionally, it is relatively simple to get source code of established methods.
+* **Large community.** The use of R has been rising for some time, in industry and academia. Therefore a large collection of blogs and tutorials exists, along with people offering help on pages like StackExchange and CrossValidated.
+* Integration with other languages and LaTeX.
+* **New methods.** Many researchers develop R packages based on their research, therefore new methods are available soon after development.
+
+
+**Cons**
+
+* **Slow.** Programs run slower than in other programming languages, however this can be somewhat ammended by effective coding or integration with other languages.
+* **Memory intensive.** This can become a problem with large data sets, as they need to be stored in the memory, along with all the information the models produce.
+* Some packages are not as good as they should be, or have poor documentation.
+* Object oriented programming in R can be very confusing and complex.
 
 
 ## Setting up
+https://www.r-project.org/
 
 
-### R Studio
-
+### RStudio
+RStudio is the most widely used IDE for R. It is completely free
 
 ### Libraries for data science
-* dplyr
-* ggplot2
+
+* **dplyr** efficient data manipulation
+* **ggplot2** plotting
+* **stats** several statistical models
+* **rstan** Bayesian inference.
+* **MCMCpack**
+* **rmarkdown** and **knitr** Dynamic reports.
+* **devtools** Package development.
+
 
 ## R basics
 
@@ -65,6 +91,7 @@ paste(student_name, "is", n, "years old")
 * can only contain one type of variable
 * if different types are provided, all are transformed to the most basic type in the vector
 * access elements by indexes or logical vectors of the same length
+* a scalar value is regarded as a vector of length 1
 
 
 ```{r, error=TRUE}
@@ -191,8 +218,8 @@ student_data
 colnames(student_data) <- c("name", "age", "pass") # change column names
 student_data[1, ]
 student_data[ ,colnames(student_data) %in% c("name", "pass")]
-student_data$Pass # access column by name
-student_data[student_data$Pass == TRUE, ]
+student_data$pass # access column by name
+student_data[student_data$pass == TRUE, ]
 ```
 
 
@@ -237,42 +264,73 @@ for (i in some_numbers) {
 my_sum
 ```
 
-### Functions
+## Functions
 
 * for help use `?function_name`
 
-## Other tips I wish I knew sooner
+### Writing functions
+We can write our own functions with `function()`. In the brackets, we
+define the parameters the function gets, and in curly brackets we define what
+the function does. We use `return()` to return values.
 
-### Dynamically setting working directory
-To set the working directory use the `setwd()` function.
-To dynamically set the working directory to the parent folder of a R script
-we can use
-
-```{r, error=TRUE, eval=FALSE}
-setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+```{r}
+sum_first_n_elements <- function (n) {
+  my_sum <- 0
+  for (i in 1:n) {
+    my_sum <- my_sum + i
+  }
+  return (my_sum)
+}
+sum_first_n_elements(10)
 ```
 
 
-### Apply functions
-To avoid slow R loops, you can sometimes use one of the apply functions,
-which decrease the execution time considerably.
+
+## Other tips I wish I knew sooner
+
+* Use `set.seed(arbitrary_number)` at the beginning of a script to set the seed and ensure replication.
+* To dynamically set the working directory in R Studio to the parent folder of a R script use `setwd(dirname(rstudioapi::getSourceEditorContext()$path))`.
+* To avoid slow R loops use the apply family of functions. See `?apply` and `?lapply`.
+* To make your data manipulation (and therefore your life) a whole lot easier, use the **dplyr** package.
+* Use `getAnywhere(function_name)` to get the source code of any function.
+* Use browser for debugging. See `?browser`.
+
+<!-- ### Dynamically setting working directory -->
+<!-- To set the working directory use the `setwd()` function. -->
+<!-- To dynamically set the working directory to the parent folder of a R script -->
+<!-- we can use -->
+
+<!-- ```{r, error=TRUE, eval=FALSE} -->
+<!-- setwd(dirname(rstudioapi::getSourceEditorContext()$path)) -->
+<!-- ``` -->
 
 
-### Dplyr and ggplot
-Dplyr can make your data manipulation (and therefore your life) a whole lot 
-easier. Instead of several nested for loops or complex apply structures, 
-dpylr can do useful data
-filtering, transformation, grouping, summarization,... in a matter of
-only a few lines.
-
-ggplot ...
+<!-- ### Apply functions -->
+<!-- To avoid slow R loops, you can sometimes use one of the apply functions, -->
+<!-- which decrease the execution time considerably. For details see -->
+<!-- `?apply` and `?lapply`, or check one of the tutorials on apply function -->
+<!-- on the internet. -->
 
 
-### Browser and debugging
-The browser function is used for debugging. By writing the line `browser()`
-inside a loop or a function, the function pauses and you can evaluate the
-variables currently stored in the environment and go through next calls 
-step-wise. For more information on the browser function see `?browser()`.
+<!-- ### Dplyr and ggplot -->
+<!-- Dplyr can make your data manipulation (and therefore your life) a whole lot  -->
+<!-- easier. Instead of several nested for loops or complex apply structures,  -->
+<!-- dpylr can do useful data -->
+<!-- filtering, transformation, grouping, summarization,... in a matter of -->
+<!-- only a few lines. -->
+
+<!-- ggplot ... -->
+
+
+<!-- ### Browser and debugging -->
+<!-- The browser function is used for debugging. By writing the line `browser()` -->
+<!-- inside a loop or a function, the function pauses and you can evaluate the -->
+<!-- variables currently stored in the environment and go through next calls  -->
+<!-- step-wise. For more information on the browser function see `?browser()`. -->
+
+
+<!-- ### Getting function code -->
+<!-- Use `getAnywhere(function_name)` to see the code of the function. -->
 
 
 ## Further reading and references
@@ -283,4 +341,37 @@ step-wise. For more information on the browser function see `?browser()`.
 
 ## Learning outcomes
 
+Data science students should work towards obtaining the knowledge and the skills that enable them to:
+
+* Use the R programming language for common programming tasks, data manipulation, file I/0, etc.
+* Find suitable R packages for the task at hand and use them.
+* Recognize when R is and when it is not a suitable language to use.
+
+
 ## Practice problems
+For each problem use a separate R script. Name the scripts as Problem#_Surname_Name.R. Make sure your results are reproducible.
+
+
+### Problem 1 -- Matrices
+Use the normal random number generator to create:
+
+* 4x4 matrix $A$,
+* 2x5 matrix $B$,
+* 5x4 matrix $C$.
+
+Calculate:
+
+* the mean of values in $A$,
+* the variance of values in $A$,
+* the max value in all of the matrices,
+* the sum of $A$ and its transpose,
+* the element-wise product of $A$ and its transpose,
+* the scalar product of $B$ and $C$,
+* the determinant of $B^TB$.
+
+Tip: see `rnorm()`.
+
+
+### Problem 2 -- Data
+
+### Problem 3 -- Functions
