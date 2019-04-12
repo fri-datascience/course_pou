@@ -286,7 +286,7 @@ sum_first_n_elements(10)
 
 
 
-## Other tips I wish I knew sooner
+## Other tips
 
 * Use `set.seed(arbitrary_number)` at the beginning of a script to set the seed and ensure replication.
 * To dynamically set the working directory in R Studio to the parent folder of a R script use `setwd(dirname(rstudioapi::getSourceEditorContext()$path))`.
@@ -337,7 +337,7 @@ sum_first_n_elements(10)
 * Getting started with R Studio: https://www.youtube.com/watch?v=lVKMsaWju8w
 * Official R manuals: https://cran.r-project.org/manuals.html
 * Cheatsheets: https://www.rstudio.com/resources/cheatsheets/
-* Our literature from the R, dplyr, ggplot2, and R Markdown workshop: https://github.com/bstatcomp/Rworkshop
+* Workshop on R, dplyr, ggplot2, and R Markdown: https://github.com/bstatcomp/Rworkshop
 
 ## Learning outcomes
 
@@ -348,30 +348,30 @@ Data science students should work towards obtaining the knowledge and the skills
 * Recognize when R is and when it is not a suitable language to use.
 
 
-## Practice problems
-For each problem use a separate R script. Name the scripts as Problem#_Surname_Name.R. Make sure your results are reproducible.
+<!-- ## Practice problems -->
+<!-- For each problem use a separate R script. Name the scripts as Problem#_Surname_Name.R. Make sure your results are reproducible. -->
 
 
-### Problem 1 -- Matrices
-Use the normal random number generator to create:
+<!-- ### Problem 1 -- Matrices -->
+<!-- Use the normal random number generator to create: -->
 
-* 4x4 matrix $A$,
-* 2x5 matrix $B$,
-* 5x4 matrix $C$.
+<!-- * 4x4 matrix $A$, -->
+<!-- * 2x5 matrix $B$, -->
+<!-- * 5x4 matrix $C$. -->
 
-Calculate:
+<!-- Calculate: -->
 
-* the mean of values in $A$,
-* the variance of values in $A$,
-* the max value in all of the matrices,
-* the sum of $A$ and its transpose,
-* the element-wise product of $A$ and its transpose,
-* the scalar product of $B$ and $C$,
-* the determinant of $B^TB$.
+<!-- * the mean of values in $A$, -->
+<!-- * the variance of values in $A$, -->
+<!-- * the max value in all of the matrices, -->
+<!-- * the sum of $A$ and its transpose, -->
+<!-- * the element-wise product of $A$ and its transpose, -->
+<!-- * the scalar product of $B$ and $C$, -->
+<!-- * the determinant of $B^TB$. -->
 
-Tip: see `rnorm()`.
+<!-- Tip: see `rnorm()`. -->
 
 
-### Problem 2 -- Data
+<!-- ### Problem 2 -- Data -->
 
-### Problem 3 -- Functions
+<!-- ### Problem 3 -- Functions -->
