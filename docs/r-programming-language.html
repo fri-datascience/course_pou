@@ -25,7 +25,7 @@
 <meta name="author" content="Erik Štrumbelj">
 
 
-<meta name="date" content="2019-04-04">
+<meta name="date" content="2019-05-30">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="introduction.html">
-<link rel="next" href="references.html">
+<link rel="next" href="probability-distributions.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,41 +51,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -106,10 +132,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#outcomes-and-events"><i class="fa fa-check"></i><b>1.1</b> Outcomes and events</a></li>
-<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#further-reading-and-references"><i class="fa fa-check"></i><b>1.2</b> Further reading and references</a></li>
-<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#learning-outcomes"><i class="fa fa-check"></i><b>1.3</b> Learning outcomes</a></li>
-<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#practice-problems"><i class="fa fa-check"></i><b>1.4</b> Practice problems</a></li>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
@@ -133,15 +157,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="A.5" data-path="r-programming-language.html"><a href="r-programming-language.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
 <li class="chapter" data-level="A.5.1" data-path="r-programming-language.html"><a href="r-programming-language.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
 </ul></li>
-<li class="chapter" data-level="A.6" data-path="r-programming-language.html"><a href="r-programming-language.html#other-tips-i-wish-i-knew-sooner"><i class="fa fa-check"></i><b>A.6</b> Other tips I wish I knew sooner</a></li>
-<li class="chapter" data-level="A.7" data-path="r-programming-language.html"><a href="r-programming-language.html#further-reading-and-references-1"><i class="fa fa-check"></i><b>A.7</b> Further reading and references</a></li>
-<li class="chapter" data-level="A.8" data-path="r-programming-language.html"><a href="r-programming-language.html#learning-outcomes-1"><i class="fa fa-check"></i><b>A.8</b> Learning outcomes</a></li>
-<li class="chapter" data-level="A.9" data-path="r-programming-language.html"><a href="r-programming-language.html#practice-problems-1"><i class="fa fa-check"></i><b>A.9</b> Practice problems</a><ul>
-<li class="chapter" data-level="A.9.1" data-path="r-programming-language.html"><a href="r-programming-language.html#problem-1-matrices"><i class="fa fa-check"></i><b>A.9.1</b> Problem 1 – Matrices</a></li>
-<li class="chapter" data-level="A.9.2" data-path="r-programming-language.html"><a href="r-programming-language.html#problem-2-data"><i class="fa fa-check"></i><b>A.9.2</b> Problem 2 – Data</a></li>
-<li class="chapter" data-level="A.9.3" data-path="r-programming-language.html"><a href="r-programming-language.html#problem-3-functions"><i class="fa fa-check"></i><b>A.9.3</b> Problem 3 – Functions</a></li>
+<li class="chapter" data-level="A.6" data-path="r-programming-language.html"><a href="r-programming-language.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
+<li class="chapter" data-level="A.7" data-path="r-programming-language.html"><a href="r-programming-language.html#further-reading-and-references"><i class="fa fa-check"></i><b>A.7</b> Further reading and references</a></li>
+<li class="chapter" data-level="A.8" data-path="r-programming-language.html"><a href="r-programming-language.html#learning-outcomes"><i class="fa fa-check"></i><b>A.8</b> Learning outcomes</a></li>
 </ul></li>
-</ul></li>
+<li class="chapter" data-level="B" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>B</b> Probability distributions</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>      
@@ -216,53 +236,53 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li>no type declaration</li>
 <li>define variables with <code>&lt;-</code> instead of <code>=</code> (although both work, there is a slight difference, additionally most of the packages use the arrow)</li>
-<li>for strings use <code>&quot;&quot;</code></li>
+<li>for strings use <code>""</code></li>
 <li>for comments use <code>#</code></li>
 <li>change types with <code>as.type()</code> functions</li>
 <li>no special type for single character like C++ for example</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n            &lt;-<span class="st"> </span><span class="dv">20</span>
+<pre class="sourceCode r"><code class="sourceCode r">n            &lt;-<span class="st"> </span><span class="dv">20</span>
 x            &lt;-<span class="st"> </span><span class="fl">2.7</span>
 m            &lt;-<span class="st"> </span>n <span class="co"># m gets value 20</span>
 my_flag      &lt;-<span class="st"> </span><span class="ot">TRUE</span>
 student_name &lt;-<span class="st"> &quot;Luka&quot;</span>
-<span class="kw">typeof</span>(n)</code></pre></div>
+<span class="kw">typeof</span>(n)</code></pre>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(student_name)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(student_name)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(my_flag)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(my_flag)</code></pre>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(n))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(n))</code></pre>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">as.character</span>(n))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">as.character</span>(n))</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </div>
 <div id="basic-operations" class="section level3">
 <h3><span class="header-section-number">A.4.2</span> Basic operations</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n <span class="op">+</span><span class="st"> </span>x</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">n <span class="op">+</span><span class="st"> </span>x</code></pre>
 <pre><code>## [1] 22.7</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n <span class="op">-</span><span class="st"> </span>x</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">n <span class="op">-</span><span class="st"> </span>x</code></pre>
 <pre><code>## [1] 17.3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diff &lt;-<span class="st"> </span>n <span class="op">-</span><span class="st"> </span>x <span class="co"># variable diff gets the difference between n and x</span>
-diff</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">diff &lt;-<span class="st"> </span>n <span class="op">-</span><span class="st"> </span>x <span class="co"># variable diff gets the difference between n and x</span>
+diff</code></pre>
 <pre><code>## [1] 17.3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n <span class="op">*</span><span class="st"> </span>x</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">n <span class="op">*</span><span class="st"> </span>x</code></pre>
 <pre><code>## [1] 54</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n <span class="op">/</span><span class="st"> </span>x</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">n <span class="op">/</span><span class="st"> </span>x</code></pre>
 <pre><code>## [1] 7.407407</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">^</span><span class="dv">2</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x<span class="op">^</span><span class="dv">2</span></code></pre>
 <pre><code>## [1] 7.29</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(x)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(x)</code></pre>
 <pre><code>## [1] 1.643168</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">n <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n <span class="op">==</span><span class="st"> </span>n</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">n <span class="op">==</span><span class="st"> </span>n</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">n <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n <span class="op">!=</span><span class="st"> </span>n</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">n <span class="op">!=</span><span class="st"> </span>n</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(student_name, <span class="st">&quot;is&quot;</span>, n, <span class="st">&quot;years old&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(student_name, <span class="st">&quot;is&quot;</span>, n, <span class="st">&quot;years old&quot;</span>)</code></pre>
 <pre><code>## [1] &quot;Luka is 20 years old&quot;</code></pre>
 </div>
 <div id="vectors" class="section level3">
@@ -274,26 +294,26 @@ diff</code></pre></div>
 <li>access elements by indexes or logical vectors of the same length</li>
 <li>a scalar value is regarded as a vector of length 1</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="co"># creates a vector of integers from 1 to 4</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="co"># creates a vector of integers from 1 to 4</span></code></pre>
 <pre><code>## [1] 1 2 3 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">student_ages  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">23</span>, <span class="dv">21</span>)
+<pre class="sourceCode r"><code class="sourceCode r">student_ages  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">23</span>, <span class="dv">21</span>)
 student_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luke&quot;</span>, <span class="st">&quot;Jen&quot;</span>, <span class="st">&quot;Mike&quot;</span>)
 passed        &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
-<span class="kw">length</span>(student_ages)</code></pre></div>
+<span class="kw">length</span>(student_ages)</code></pre>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access by index</span>
-student_ages[<span class="dv">2</span>] </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># access by index</span>
+student_ages[<span class="dv">2</span>] </code></pre>
 <pre><code>## [1] 23</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">student_ages[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">student_ages[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</code></pre>
 <pre><code>## [1] 20 23</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">student_ages[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">24</span> <span class="co"># change values</span>
+<pre class="sourceCode r"><code class="sourceCode r">student_ages[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">24</span> <span class="co"># change values</span>
 
 <span class="co"># access by logical vectors</span>
-student_ages[passed <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>] <span class="co"># same as student_ages[passed]</span></code></pre></div>
+student_ages[passed <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>] <span class="co"># same as student_ages[passed]</span></code></pre>
 <pre><code>## [1] 20 24</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">student_ages[student_names <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luke&quot;</span>, <span class="st">&quot;Mike&quot;</span>)]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">student_ages[student_names <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luke&quot;</span>, <span class="st">&quot;Mike&quot;</span>)]</code></pre>
 <pre><code>## [1] 20 21</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">student_names[student_ages <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">student_names[student_ages <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>]</code></pre>
 <pre><code>## [1] &quot;Jen&quot;  &quot;Mike&quot;</code></pre>
 <div id="operations-with-vectors" class="section level4">
 <h4><span class="header-section-number">A.4.3.1</span> Operations with vectors</h4>
@@ -301,24 +321,24 @@ student_ages[passed <span class="op">==</span><span class="st"> </span><span cla
 <li>most operations are element-wise</li>
 <li>if we operate on vectors of different lengths, the shorter vector periodically repeats its elements until it reaches the length of the longer one</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)
+<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)
 b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>)
 d &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">7</span>)
-a <span class="op">+</span><span class="st"> </span>b</code></pre></div>
+a <span class="op">+</span><span class="st"> </span>b</code></pre>
 <pre><code>## [1] 3 5 6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a <span class="op">*</span><span class="st"> </span>b</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">a <span class="op">*</span><span class="st"> </span>b</code></pre>
 <pre><code>## [1] 2 6 5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a <span class="op">+</span><span class="st"> </span>d</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">a <span class="op">+</span><span class="st"> </span>d</code></pre>
 <pre><code>## Warning in a + d: longer object length is not a multiple of shorter object
 ## length</code></pre>
 <pre><code>## [1]  7 10 11</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>b</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">a <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>b</code></pre>
 <pre><code>## [1] 5 7 7</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a <span class="op">&gt;</span><span class="st"> </span>b</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">a <span class="op">&gt;</span><span class="st"> </span>b</code></pre>
 <pre><code>## [1] FALSE  TRUE  TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b <span class="op">==</span><span class="st"> </span>a</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">b <span class="op">==</span><span class="st"> </span>a</code></pre>
 <pre><code>## [1] FALSE FALSE FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a <span class="op">%*%</span><span class="st"> </span>b <span class="co"># vector multiplication, not element-wise</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">a <span class="op">%*%</span><span class="st"> </span>b <span class="co"># vector multiplication, not element-wise</span></code></pre>
 <pre><code>##      [,1]
 ## [1,]   13</code></pre>
 </div>
@@ -330,21 +350,21 @@ a <span class="op">+</span><span class="st"> </span>b</code></pre></div>
 <li>suitable for categorical variables</li>
 <li>ordinal (ordered) or nominal (unordered)</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">car_brand &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;Audi&quot;</span>, <span class="st">&quot;BMW&quot;</span>, <span class="st">&quot;Mercedes&quot;</span>, <span class="st">&quot;BMW&quot;</span>), <span class="dt">ordered =</span> <span class="ot">FALSE</span>)
-car_brand</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">car_brand &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;Audi&quot;</span>, <span class="st">&quot;BMW&quot;</span>, <span class="st">&quot;Mercedes&quot;</span>, <span class="st">&quot;BMW&quot;</span>), <span class="dt">ordered =</span> <span class="ot">FALSE</span>)
+car_brand</code></pre>
 <pre><code>## [1] Audi     BMW      Mercedes BMW     
 ## Levels: Audi BMW Mercedes</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">freq      &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="dt">x       =</span> <span class="ot">NA</span>,
+<pre class="sourceCode r"><code class="sourceCode r">freq      &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="dt">x       =</span> <span class="ot">NA</span>,
                     <span class="dt">levels  =</span> <span class="kw">c</span>(<span class="st">&quot;never&quot;</span>,<span class="st">&quot;rarely&quot;</span>,<span class="st">&quot;sometimes&quot;</span>,<span class="st">&quot;often&quot;</span>,<span class="st">&quot;always&quot;</span>),
                     <span class="dt">ordered =</span> <span class="ot">TRUE</span>)
 freq[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;rarely&quot;</span>, <span class="st">&quot;sometimes&quot;</span>, <span class="st">&quot;rarely&quot;</span>)
-freq</code></pre></div>
+freq</code></pre>
 <pre><code>## [1] rarely    sometimes rarely   
 ## Levels: never &lt; rarely &lt; sometimes &lt; often &lt; always</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">freq[<span class="dv">4</span>]   &lt;-<span class="st"> &quot;quite_often&quot;</span> <span class="co"># non-existing level, returns NA</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">freq[<span class="dv">4</span>]   &lt;-<span class="st"> &quot;quite_often&quot;</span> <span class="co"># non-existing level, returns NA</span></code></pre>
 <pre><code>## Warning in `[&lt;-.factor`(`*tmp*`, 4, value = &quot;quite_often&quot;): invalid factor
 ## level, NA generated</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">freq</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">freq</code></pre>
 <pre><code>## [1] rarely    sometimes rarely    &lt;NA&gt;     
 ## Levels: never &lt; rarely &lt; sometimes &lt; often &lt; always</code></pre>
 </div>
@@ -353,26 +373,26 @@ freq</code></pre></div>
 <ul>
 <li>two-dimensional generalizations of vectors</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>,
+<pre class="sourceCode r"><code class="sourceCode r">my_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>,
                       <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">2</span>),
                     <span class="dt">nrow  =</span> <span class="dv">2</span>,
                     <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
-my_matrix</code></pre></div>
+my_matrix</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    1
 ## [2,]    5    4    2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_square_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>,
+<pre class="sourceCode r"><code class="sourceCode r">my_square_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>,
                              <span class="dv">2</span>, <span class="dv">3</span>),
                            <span class="dt">nrow  =</span> <span class="dv">2</span>)
-my_square_matrix</code></pre></div>
+my_square_matrix</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    2
 ## [2,]    3    3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_matrix[<span class="dv">1</span>,<span class="dv">2</span>] <span class="co"># first row, second column</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">my_matrix[<span class="dv">1</span>,<span class="dv">2</span>] <span class="co"># first row, second column</span></code></pre>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_matrix[<span class="dv">2</span>, ] <span class="co"># second row</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">my_matrix[<span class="dv">2</span>, ] <span class="co"># second row</span></code></pre>
 <pre><code>## [1] 5 4 2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_matrix[ ,<span class="dv">3</span>] <span class="co"># third column</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">my_matrix[ ,<span class="dv">3</span>] <span class="co"># third column</span></code></pre>
 <pre><code>## [1] 1 2</code></pre>
 <div id="matrix-functions-and-operations" class="section level4">
 <h4><span class="header-section-number">A.4.5.1</span> Matrix functions and operations</h4>
@@ -380,40 +400,40 @@ my_square_matrix</code></pre></div>
 <li>most operation element-wise</li>
 <li>mind the dimensions when using matrix multiplication <code>%*%</code></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(my_matrix) <span class="co"># number of matrix rows</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(my_matrix) <span class="co"># number of matrix rows</span></code></pre>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(my_matrix) <span class="co"># number of matrix columns</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(my_matrix) <span class="co"># number of matrix columns</span></code></pre>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(my_matrix) <span class="co"># matrix dimension</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(my_matrix) <span class="co"># matrix dimension</span></code></pre>
 <pre><code>## [1] 2 3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t</span>(my_matrix) <span class="co"># transpose</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t</span>(my_matrix) <span class="co"># transpose</span></code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    5
 ## [2,]    2    4
 ## [3,]    1    2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">diag</span>(my_matrix) <span class="co"># the diagonal of the matrix as vector</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">diag</span>(my_matrix) <span class="co"># the diagonal of the matrix as vector</span></code></pre>
 <pre><code>## [1] 1 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">diag</span>(<span class="dv">1</span>, <span class="dt">nrow =</span> <span class="dv">3</span>) <span class="co"># creates a diagonal matrix</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">diag</span>(<span class="dv">1</span>, <span class="dt">nrow =</span> <span class="dv">3</span>) <span class="co"># creates a diagonal matrix</span></code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    0    0
 ## [2,]    0    1    0
 ## [3,]    0    0    1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">det</span>(my_square_matrix) <span class="co"># matrix determinant</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">det</span>(my_square_matrix) <span class="co"># matrix determinant</span></code></pre>
 <pre><code>## [1] -3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_matrix <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>my_matrix</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">my_matrix <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>my_matrix</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    3    6    3
 ## [2,]   15   12    6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_matrix <span class="op">*</span><span class="st"> </span>my_matrix <span class="co"># element-wise multiplication</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">my_matrix <span class="op">*</span><span class="st"> </span>my_matrix <span class="co"># element-wise multiplication</span></code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    4    1
 ## [2,]   25   16    4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_matrix <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(my_matrix) <span class="co"># matrix multiplication</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">my_matrix <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(my_matrix) <span class="co"># matrix multiplication</span></code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    6   15
 ## [2,]   15   45</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_vec &lt;-<span class="st"> </span><span class="kw">as.vector</span>(my_matrix) <span class="co"># transform to vector</span>
-my_vec</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">my_vec &lt;-<span class="st"> </span><span class="kw">as.vector</span>(my_matrix) <span class="co"># transform to vector</span>
+my_vec</code></pre>
 <pre><code>## [1] 1 5 2 4 1 2</code></pre>
 </div>
 </div>
@@ -422,16 +442,16 @@ my_vec</code></pre></div>
 <ul>
 <li>multi-dimensional generalizations of matrices</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_array &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))
-my_array[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">my_array &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))
+my_array[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]</code></pre>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_array[<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">my_array[<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>]</code></pre>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_array[<span class="dv">1</span>, , ]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">my_array[<span class="dv">1</span>, , ]</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    5
 ## [2,]    3    7</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(my_array)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(my_array)</code></pre>
 <pre><code>## [1] 2 2 2</code></pre>
 </div>
 <div id="data-frames" class="section level3">
@@ -440,26 +460,26 @@ my_array[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">
 <li>basic data structure for analysis</li>
 <li>differ from matrices as columns can be of different types</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">student_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;Name&quot;</span> =<span class="st"> </span>student_names, 
+<pre class="sourceCode r"><code class="sourceCode r">student_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;Name&quot;</span> =<span class="st"> </span>student_names, 
                            <span class="st">&quot;Age&quot;</span>  =<span class="st"> </span>student_ages, 
                            <span class="st">&quot;Pass&quot;</span> =<span class="st"> </span>passed)
-student_data</code></pre></div>
+student_data</code></pre>
 <pre><code>##   Name Age  Pass
 ## 1 Luke  20  TRUE
 ## 2  Jen  24  TRUE
 ## 3 Mike  21 FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(student_data) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;pass&quot;</span>) <span class="co"># change column names</span>
-student_data[<span class="dv">1</span>, ]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(student_data) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;pass&quot;</span>) <span class="co"># change column names</span>
+student_data[<span class="dv">1</span>, ]</code></pre>
 <pre><code>##   name age pass
 ## 1 Luke  20 TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">student_data[ ,<span class="kw">colnames</span>(student_data) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;pass&quot;</span>)]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">student_data[ ,<span class="kw">colnames</span>(student_data) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;pass&quot;</span>)]</code></pre>
 <pre><code>##   name  pass
 ## 1 Luke  TRUE
 ## 2  Jen  TRUE
 ## 3 Mike FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">student_data<span class="op">$</span>pass <span class="co"># access column by name</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">student_data<span class="op">$</span>pass <span class="co"># access column by name</span></code></pre>
 <pre><code>## [1]  TRUE  TRUE FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">student_data[student_data<span class="op">$</span>pass <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, ]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">student_data[student_data<span class="op">$</span>pass <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, ]</code></pre>
 <pre><code>##   name age pass
 ## 1 Luke  20 TRUE
 ## 2  Jen  24 TRUE</code></pre>
@@ -471,11 +491,11 @@ student_data[<span class="dv">1</span>, ]</code></pre></div>
 <li>access elements with double square brackets</li>
 <li>elements can be named</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">first_list  &lt;-<span class="st"> </span><span class="kw">list</span>(student_ages, my_matrix, student_data)
+<pre class="sourceCode r"><code class="sourceCode r">first_list  &lt;-<span class="st"> </span><span class="kw">list</span>(student_ages, my_matrix, student_data)
 second_list &lt;-<span class="st"> </span><span class="kw">list</span>(student_ages, my_matrix, student_data, first_list)
-first_list[[<span class="dv">1</span>]]</code></pre></div>
+first_list[[<span class="dv">1</span>]]</code></pre>
 <pre><code>## [1] 20 24 21</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">second_list[[<span class="dv">4</span>]]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">second_list[[<span class="dv">4</span>]]</code></pre>
 <pre><code>## [[1]]
 ## [1] 20 24 21
 ## 
@@ -489,13 +509,13 @@ first_list[[<span class="dv">1</span>]]</code></pre></div>
 ## 1 Luke  20  TRUE
 ## 2  Jen  24  TRUE
 ## 3 Mike  21 FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">second_list[[<span class="dv">4</span>]][[<span class="dv">1</span>]] <span class="co"># first element of the fourth element of second_list</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">second_list[[<span class="dv">4</span>]][[<span class="dv">1</span>]] <span class="co"># first element of the fourth element of second_list</span></code></pre>
 <pre><code>## [1] 20 24 21</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(second_list)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(second_list)</code></pre>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">second_list[[<span class="kw">length</span>(second_list) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]] &lt;-<span class="st"> &quot;add_me&quot;</span> <span class="co"># append an element</span>
+<pre class="sourceCode r"><code class="sourceCode r">second_list[[<span class="kw">length</span>(second_list) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]] &lt;-<span class="st"> &quot;add_me&quot;</span> <span class="co"># append an element</span>
 <span class="kw">names</span>(first_list) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Matrix&quot;</span>, <span class="st">&quot;Data&quot;</span>)
-first_list<span class="op">$</span>Age</code></pre></div>
+first_list<span class="op">$</span>Age</code></pre>
 <pre><code>## [1] 20 24 21</code></pre>
 </div>
 <div id="loops" class="section level3">
@@ -504,20 +524,20 @@ first_list<span class="op">$</span>Age</code></pre></div>
 <li>mostly for loop</li>
 <li>for loop can iterate over an arbitrary vector</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># iterate over consecutive natural numbers</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># iterate over consecutive natural numbers</span>
 my_sum &lt;-<span class="st"> </span><span class="dv">0</span>
 <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {
   my_sum &lt;-<span class="st"> </span>my_sum <span class="op">+</span><span class="st"> </span>i
 }
-my_sum</code></pre></div>
+my_sum</code></pre>
 <pre><code>## [1] 55</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># iterate over an arbirary vector</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># iterate over an arbirary vector</span>
 my_sum       &lt;-<span class="st"> </span><span class="dv">0</span>
 some_numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">3.5</span>, <span class="dv">6</span>, <span class="dv">100</span>)
 <span class="cf">for</span> (i <span class="cf">in</span> some_numbers) {
   my_sum &lt;-<span class="st"> </span>my_sum <span class="op">+</span><span class="st"> </span>i
 }
-my_sum</code></pre></div>
+my_sum</code></pre>
 <pre><code>## [1] 111.5</code></pre>
 </div>
 </div>
@@ -528,20 +548,22 @@ my_sum</code></pre></div>
 </ul>
 <div id="writing-functions" class="section level3">
 <h3><span class="header-section-number">A.5.1</span> Writing functions</h3>
-<p>We can write our own functions with <code>function()</code>. In the brackets, we define the parameters the function gets, and in curly brackets we define what the function does. We use <code>return()</code> to return values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sum_first_n_elements &lt;-<span class="st"> </span><span class="cf">function</span> (n) {
+<p>We can write our own functions with <code>function()</code>. In the brackets, we
+define the parameters the function gets, and in curly brackets we define what
+the function does. We use <code>return()</code> to return values.</p>
+<pre class="sourceCode r"><code class="sourceCode r">sum_first_n_elements &lt;-<span class="st"> </span><span class="cf">function</span> (n) {
   my_sum &lt;-<span class="st"> </span><span class="dv">0</span>
   <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
     my_sum &lt;-<span class="st"> </span>my_sum <span class="op">+</span><span class="st"> </span>i
   }
   <span class="kw">return</span> (my_sum)
 }
-<span class="kw">sum_first_n_elements</span>(<span class="dv">10</span>)</code></pre></div>
+<span class="kw">sum_first_n_elements</span>(<span class="dv">10</span>)</code></pre>
 <pre><code>## [1] 55</code></pre>
 </div>
 </div>
-<div id="other-tips-i-wish-i-knew-sooner" class="section level2">
-<h2><span class="header-section-number">A.6</span> Other tips I wish I knew sooner</h2>
+<div id="other-tips" class="section level2">
+<h2><span class="header-section-number">A.6</span> Other tips</h2>
 <ul>
 <li>Use <code>set.seed(arbitrary_number)</code> at the beginning of a script to set the seed and ensure replication.</li>
 <li>To dynamically set the working directory in R Studio to the parent folder of a R script use <code>setwd(dirname(rstudioapi::getSourceEditorContext()$path))</code>.</li>
@@ -577,16 +599,16 @@ my_sum</code></pre></div>
 <!-- ### Getting function code -->
 <!-- Use `getAnywhere(function_name)` to see the code of the function. -->
 </div>
-<div id="further-reading-and-references-1" class="section level2">
+<div id="further-reading-and-references" class="section level2">
 <h2><span class="header-section-number">A.7</span> Further reading and references</h2>
 <ul>
 <li>Getting started with R Studio: <a href="https://www.youtube.com/watch?v=lVKMsaWju8w" class="uri">https://www.youtube.com/watch?v=lVKMsaWju8w</a></li>
 <li>Official R manuals: <a href="https://cran.r-project.org/manuals.html" class="uri">https://cran.r-project.org/manuals.html</a></li>
 <li>Cheatsheets: <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a></li>
-<li>Our literature from the R, dplyr, ggplot2, and R Markdown workshop: <a href="https://github.com/bstatcomp/Rworkshop" class="uri">https://github.com/bstatcomp/Rworkshop</a></li>
+<li>Workshop on R, dplyr, ggplot2, and R Markdown: <a href="https://github.com/bstatcomp/Rworkshop" class="uri">https://github.com/bstatcomp/Rworkshop</a></li>
 </ul>
 </div>
-<div id="learning-outcomes-1" class="section level2">
+<div id="learning-outcomes" class="section level2">
 <h2><span class="header-section-number">A.8</span> Learning outcomes</h2>
 <p>Data science students should work towards obtaining the knowledge and the skills that enable them to:</p>
 <ul>
@@ -594,37 +616,25 @@ my_sum</code></pre></div>
 <li>Find suitable R packages for the task at hand and use them.</li>
 <li>Recognize when R is and when it is not a suitable language to use.</li>
 </ul>
-</div>
-<div id="practice-problems-1" class="section level2">
-<h2><span class="header-section-number">A.9</span> Practice problems</h2>
-<p>For each problem use a separate R script. Name the scripts as Problem#_Surname_Name.R. Make sure your results are reproducible.</p>
-<div id="problem-1-matrices" class="section level3">
-<h3><span class="header-section-number">A.9.1</span> Problem 1 – Matrices</h3>
-<p>Use the normal random number generator to create:</p>
-<ul>
-<li>4x4 matrix <span class="math inline">\(A\)</span>,</li>
-<li>2x5 matrix <span class="math inline">\(B\)</span>,</li>
-<li>5x4 matrix <span class="math inline">\(C\)</span>.</li>
-</ul>
-<p>Calculate:</p>
-<ul>
-<li>the mean of values in <span class="math inline">\(A\)</span>,</li>
-<li>the variance of values in <span class="math inline">\(A\)</span>,</li>
-<li>the max value in all of the matrices,</li>
-<li>the sum of <span class="math inline">\(A\)</span> and its transpose,</li>
-<li>the element-wise product of <span class="math inline">\(A\)</span> and its transpose,</li>
-<li>the scalar product of <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span>,</li>
-<li>the determinant of <span class="math inline">\(B^TB\)</span>.</li>
-</ul>
-<p>Tip: see <code>rnorm()</code>.</p>
-</div>
-<div id="problem-2-data" class="section level3">
-<h3><span class="header-section-number">A.9.2</span> Problem 2 – Data</h3>
-</div>
-<div id="problem-3-functions" class="section level3">
-<h3><span class="header-section-number">A.9.3</span> Problem 3 – Functions</h3>
+<!-- ## Practice problems -->
+<!-- For each problem use a separate R script. Name the scripts as Problem#_Surname_Name.R. Make sure your results are reproducible. -->
+<!-- ### Problem 1 -- Matrices -->
+<!-- Use the normal random number generator to create: -->
+<!-- * 4x4 matrix $A$, -->
+<!-- * 2x5 matrix $B$, -->
+<!-- * 5x4 matrix $C$. -->
+<!-- Calculate: -->
+<!-- * the mean of values in $A$, -->
+<!-- * the variance of values in $A$, -->
+<!-- * the max value in all of the matrices, -->
+<!-- * the sum of $A$ and its transpose, -->
+<!-- * the element-wise product of $A$ and its transpose, -->
+<!-- * the scalar product of $B$ and $C$, -->
+<!-- * the determinant of $B^TB$. -->
+<!-- Tip: see `rnorm()`. -->
+<!-- ### Problem 2 -- Data -->
+<!-- ### Problem 3 -- Functions -->
 
-</div>
 </div>
 </div>
             </section>
@@ -633,7 +643,7 @@ my_sum</code></pre></div>
         </div>
       </div>
 <a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="probability-distributions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -683,7 +693,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

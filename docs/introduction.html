@@ -25,7 +25,7 @@
 <meta name="author" content="Erik Štrumbelj">
 
 
-<meta name="date" content="2019-04-04">
+<meta name="date" content="2019-05-30">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -50,6 +50,69 @@
 
 
 
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -69,13 +132,36 @@
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#outcomes-and-events"><i class="fa fa-check"></i><b>1.1</b> Outcomes and events</a></li>
-<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#further-reading-and-references"><i class="fa fa-check"></i><b>1.2</b> Further reading and references</a></li>
-<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#learning-outcomes"><i class="fa fa-check"></i><b>1.3</b> Learning outcomes</a></li>
-<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#practice-problems"><i class="fa fa-check"></i><b>1.4</b> Practice problems</a></li>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a></li>
+<li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A.1" data-path="r-programming-language.html"><a href="r-programming-language.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
+<li class="chapter" data-level="A.2" data-path="r-programming-language.html"><a href="r-programming-language.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
+<li class="chapter" data-level="A.3" data-path="r-programming-language.html"><a href="r-programming-language.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3.1" data-path="r-programming-language.html"><a href="r-programming-language.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
+<li class="chapter" data-level="A.3.2" data-path="r-programming-language.html"><a href="r-programming-language.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
+</ul></li>
+<li class="chapter" data-level="A.4" data-path="r-programming-language.html"><a href="r-programming-language.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4.1" data-path="r-programming-language.html"><a href="r-programming-language.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
+<li class="chapter" data-level="A.4.2" data-path="r-programming-language.html"><a href="r-programming-language.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
+<li class="chapter" data-level="A.4.3" data-path="r-programming-language.html"><a href="r-programming-language.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
+<li class="chapter" data-level="A.4.4" data-path="r-programming-language.html"><a href="r-programming-language.html#factors"><i class="fa fa-check"></i><b>A.4.4</b> Factors</a></li>
+<li class="chapter" data-level="A.4.5" data-path="r-programming-language.html"><a href="r-programming-language.html#matrices"><i class="fa fa-check"></i><b>A.4.5</b> Matrices</a></li>
+<li class="chapter" data-level="A.4.6" data-path="r-programming-language.html"><a href="r-programming-language.html#arrays"><i class="fa fa-check"></i><b>A.4.6</b> Arrays</a></li>
+<li class="chapter" data-level="A.4.7" data-path="r-programming-language.html"><a href="r-programming-language.html#data-frames"><i class="fa fa-check"></i><b>A.4.7</b> Data frames</a></li>
+<li class="chapter" data-level="A.4.8" data-path="r-programming-language.html"><a href="r-programming-language.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
+<li class="chapter" data-level="A.4.9" data-path="r-programming-language.html"><a href="r-programming-language.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="A.5" data-path="r-programming-language.html"><a href="r-programming-language.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5.1" data-path="r-programming-language.html"><a href="r-programming-language.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
+</ul></li>
+<li class="chapter" data-level="A.6" data-path="r-programming-language.html"><a href="r-programming-language.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
+<li class="chapter" data-level="A.7" data-path="r-programming-language.html"><a href="r-programming-language.html#further-reading-and-references"><i class="fa fa-check"></i><b>A.7</b> Further reading and references</a></li>
+<li class="chapter" data-level="A.8" data-path="r-programming-language.html"><a href="r-programming-language.html#learning-outcomes"><i class="fa fa-check"></i><b>A.8</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>B</b> Probability distributions</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>      
@@ -98,37 +184,233 @@
             <section class="normal" id="section-">
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<div class="alert alert-info">
-<p><strong>Note:</strong> Murphy:Ch01 covers most of the in this chapter material really well (and with much more supporting material and examples), although some definitions are slightly different. Wasserman:Ch06 is a very nice complementary reference for definition of model, parametric and nonparametric.</p>
-</div>
-<p>Uncertainty - a lack of complete information about something - can be the result of many things. In the context of Probability and Statistics courses uncertainty is often synonymous with the randomness of the studied phenomena. However, that need not always be the case. Incomplete information could also be due to lack of knowledge, ignorance, or just plain laziness.</p>
-<p>Whatever the reason might be for our uncertainty, quantitative reasoning with uncertainty requires us to give a complete and precise description of the studied phenomena and the uncertainty. Informally, the minimal amount of structure we need is</p>
-<ol style="list-style-type: lower-roman">
-<li><p>a description of all possible truths’,</p></li>
-<li><p>a set of all events - subsets of possible truths that we allow ourselves to assign uncertainty to, and</p></li>
-<li><p>an assignment of uncertainty to each event.</p></li>
+<p>This chapter deals with measures and probability spaces. At the end of
+the chapter, we look more closely at discrete probability spaces.</p>
+<p>The students are expected to acquire the following knowledge:</p>
+<p><strong>Theoretical</strong></p>
+<ol style="list-style-type: decimal">
+<li>Use properties of probability to calculate probabilities.</li>
+<li>Combinatorics.</li>
+<li>Understanding of continuity of probability.</li>
 </ol>
-<p>The formalism we will use throughout the course is a probability space - a triplet that formalizes what can informally be stated as</p>
-<div id="outcomes-and-events" class="section level2">
-<h2><span class="header-section-number">1.1</span> Outcomes and events</h2>
-</div>
-<div id="further-reading-and-references" class="section level2">
-<h2><span class="header-section-number">1.2</span> Further reading and references</h2>
-</div>
-<div id="learning-outcomes" class="section level2">
-<h2><span class="header-section-number">1.3</span> Learning outcomes</h2>
-<p>Data science students should work towards obtaining the knowledge and the skills that enable them to:</p>
+<p><strong>R</strong></p>
 <ul>
-<li>Classify real world problems into subtasks of machine learning.</li>
-<li>Distinguish between parametric and nonparametric models and describe their characteristics.</li>
-<li>Recognize which set of solutions (which hypothesis) we restrict ourselves to by selecting a particular model.</li>
-<li>Identify which aspects of model utility (error, interpretability, computation speed) are more important for the problem at hand.</li>
-<li>Describe the concepts <em>curse of dimensionality</em> and <em>no free lunch</em> and their implications for practical work.</li>
+<li>vectors</li>
+<li>for loop</li>
+<li>estimating probability with simulation</li>
+<li>sample function</li>
+<li>matrices</li>
+</ul>
+<div id="measure-and-probability-spaces" class="section level2">
+<h2><span class="header-section-number">1.1</span> Measure and probability spaces</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  (Completing a set to a Sigma algebra)  </strong></span>Let <span class="math inline">\(\Omega = \{1,2,...,10\}\)</span>. Let <span class="math inline">\(A = [\{ \}, \{1\}, \{2\}, \Omega]\)</span>.</p>
+<ul>
+<li>Show that <span class="math inline">\(A\)</span> is not a sigma algebra of <span class="math inline">\(\Omega\)</span>.</li>
+<li>Find the minimum number of elements to complete A to a sigma algebra of
+<span class="math inline">\(\Omega\)</span>.</li>
 </ul>
 </div>
-<div id="practice-problems" class="section level2">
-<h2><span class="header-section-number">1.4</span> Practice problems</h2>
-<p>some practice problems? (=homework)</p>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ul>
+<li><span class="math inline">\(1^c = \{2,3,...,10\} \notin A \implies\)</span> <span class="math inline">\(A\)</span> is not sigma algebra.</li>
+<li>First we need the complements of all elements, so we need to add sets
+<span class="math inline">\(\{2,3,...,10\}\)</span> and <span class="math inline">\(\{1,3,4,...,10\}\)</span>. Next we need unions of all sets –
+we add the set <span class="math inline">\(\{1,2\}\)</span>. Again we need the complement of this set, so we add
+<span class="math inline">\(\{3,4,...,10\}\)</span>. So the minimum number of elements we need to add is 4.</li>
+</ul>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 1.2  (Diversity of sigma algebras)  </strong></span>Let <span class="math inline">\(\Omega\)</span> be a set.</p>
+<ul>
+<li>Show that <span class="math inline">\(2^{\Omega}\)</span> is a sigma algebra.</li>
+<li>Find the smallest sigma algebra of <span class="math inline">\(\Omega\)</span>.</li>
+<li>Find the largest Sigma algebra of <span class="math inline">\(\Omega\)</span>.</li>
+</ul>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ul>
+<li><span style="color:red">TODO</span></li>
+<li><span class="math inline">\(A = \{\emptyset, \Omega\}\)</span></li>
+<li><span class="math inline">\(2^{\Omega}\)</span></li>
+</ul>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 1.3  </strong></span>Find all sigma algebras for <span class="math inline">\(\Omega = \{0, 1, 2\}\)</span>.</p>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ul>
+<li><span class="math inline">\(A = \{\emptyset, \Omega\}\)</span></li>
+<li><span class="math inline">\(A = 2^{\Omega}\)</span></li>
+<li><span class="math inline">\(A = \{\emptyset, \{0\}, \{1,2\}, \Omega\}\)</span></li>
+<li><span class="math inline">\(A = \{\emptyset, \{1\}, \{0,2\}, \Omega\}\)</span></li>
+<li><span class="math inline">\(A = \{\emptyset, \{2\}, \{0,1\}, \Omega\}\)</span></li>
+</ul>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 1.4  (Difference between algebra and sigma algebra)  </strong></span>
+<span style="color:red">TODO</span></p>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> 
+<span style="color:red">TODO</span></p>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-10" class="exercise"><strong>Exercise 1.5  (Intro to measure)  </strong></span>
+Take the measurable space <span class="math inline">\(\Omega = \{1,2\}\)</span>, <span class="math inline">\(F = 2^{\Omega}\)</span>. Which of the
+following is a measure? Which is a probability measure?</p>
+<ul>
+<li><span class="math inline">\(\mu(\emptyset) = 0\)</span>, <span class="math inline">\(\mu(\{1\}) = 5\)</span>, <span class="math inline">\(\mu(\{2\}) = 6\)</span>, <span class="math inline">\(\mu(\{1,2\}) = 11\)</span></li>
+<li><span class="math inline">\(\mu(\emptyset) = 0\)</span>, <span class="math inline">\(\mu(\{1\}) = 0\)</span>, <span class="math inline">\(\mu(\{2\}) = 0\)</span>, <span class="math inline">\(\mu(\{1,2\}) = 1\)</span></li>
+<li><span class="math inline">\(\mu(\emptyset) = 0\)</span>, <span class="math inline">\(\mu(\{1\}) = 0\)</span>, <span class="math inline">\(\mu(\{2\}) = 0\)</span>, <span class="math inline">\(\mu(\{1,2\}) = 0\)</span></li>
+<li><span class="math inline">\(\mu(\emptyset) = 0\)</span>, <span class="math inline">\(\mu(\{1\}) = 0\)</span>, <span class="math inline">\(\mu(\{2\}) = 1\)</span>, <span class="math inline">\(\mu(\{1,2\}) = 1\)</span></li>
+<li><span class="math inline">\(\mu(\emptyset)=0\)</span>, <span class="math inline">\(\mu(\{1\})=0\)</span>, <span class="math inline">\(\mu(\{2\})=\infty\)</span>, <span class="math inline">\(\mu(\{1,2\})=\infty\)</span></li>
+</ul>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ul>
+<li>Measure. Not probability measure since <span class="math inline">\(\mu(\Omega) &gt; 1\)</span>.</li>
+<li>Neither due to countable additivity.</li>
+<li>Measure. Not probability measure since <span class="math inline">\(\mu(\Omega) = 0\)</span>.</li>
+<li>Probability measure.</li>
+<li>Measure. Not probability measure since <span class="math inline">\(\mu(\Omega) &gt; 1\)</span>.</li>
+</ul>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 1.6  </strong></span>
+Define a probability space that could be used to model a fair 6-sided die.</p>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ul>
+<li><span class="math inline">\(\Omega = \{1,2,3,4,5,6\}\)</span></li>
+<li><span class="math inline">\(F = 2^{\Omega}\)</span></li>
+<li><span class="math inline">\(\forall \omega \in \Omega\)</span>, <span class="math inline">\(P(\omega) = \frac{1}{6}\)</span></li>
+</ul>
+</div>
+
+</div>
+<div id="properties-of-probability-measures" class="section level2">
+<h2><span class="header-section-number">1.2</span> Properties of probability measures</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 1.7  </strong></span>
+A standard deck (52 cards) is distributed to two persons: 26 cards to each
+person. All partitions are equally likely. Find the probability that:</p>
+<ul>
+<li>The first person gets 4 Queens.</li>
+<li>The first person gets at least 2 Queens.</li>
+<li>The first person gets at least 2 Queens and at least 2 Kings.</li>
+<li><span style="color:blue"> R: Use simulation (sample) to check the above
+answers. </span></li>
+</ul>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ul>
+<li><span class="math inline">\(\frac{{48}\choose{22}}{{52}\choose{26}}\)</span></li>
+<li>For the simulation, let us represent cards with numbers from 1 to 52, and
+let 1 through 4 represent Queens, and 5 through 8 represent Kings.</li>
+</ul>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+cards &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">52</span>
+n     &lt;-<span class="st"> </span><span class="dv">10000</span>
+q4    &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)
+q2    &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)
+q2k2  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
+  p1      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">52</span>, <span class="dv">26</span>)
+  q4[i]   &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">==</span><span class="st"> </span><span class="dv">4</span>
+  q2[i]   &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>
+  q2k2[i] &lt;-<span class="st"> </span>(<span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>) <span class="op">&amp;</span><span class="st"> </span>(<span class="kw">sum</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">8</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>)
+}
+<span class="kw">sum</span>(q4) <span class="op">/</span><span class="st"> </span>n</code></pre>
+<pre><code>## [1] 0.0556</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(q2) <span class="op">/</span><span class="st"> </span>n</code></pre>
+<pre><code>## [1] 0.6995</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(q2k2) <span class="op">/</span><span class="st"> </span>n</code></pre>
+<pre><code>## [1] 0.4711</code></pre>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-17" class="exercise"><strong>Exercise 1.8  </strong></span>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be events with probabilities <span class="math inline">\(P(A) = \frac{5}{6}\)</span> and
+<span class="math inline">\(P(B) = \frac{1}{4}\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>Show that <span class="math inline">\(\frac{1}{12} \leq P(A\cap B) \leq \frac{1}{4}\)</span>,
+and give examples to show that both extremes are possible.</li>
+<li>Find corresponding bounds for <span class="math inline">\(P(A\cup B)\)</span>.</li>
+<li>R: Draw samples from the examples and estimate the probability of
+<span class="math inline">\(P(A\cap B)\)</span>.</li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> Smth</p>
+<ul>
+<li>From the properties of probability we have</li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+  P(A \cap B) = P(A) + P(B) - P(A \cup B).
+\end{equation}\]</span></p>
+<p>The maximum probability of the union can be 1, for example if we take a 12-sided
+dice, and <span class="math inline">\(A\)</span> corresponds to throwing 1 through 10 and <span class="math inline">\(B\)</span> corresponds to
+throwing 9 through 12. So</p>
+<p><span class="math display">\[\begin{equation}
+  P(A \cap B) = \frac{5}{6} + \frac{1}{4} - 1 = \frac{1}{12}.
+\end{equation}\]</span></p>
+<p>Therefore, the lower bound for the probability of intersection is
+<span class="math inline">\(\frac{1}{12}\)</span>.</p>
+<p>Conversely, the minimum probability of union can be <span class="math inline">\(\frac{5}{6}\)</span>, so</p>
+<p><span class="math display">\[\begin{equation}
+  P(A \cap B) = \frac{5}{6} + \frac{1}{4} - \frac{5}{6} = \frac{1}{4}.
+\end{equation}\]</span></p>
+<p>Therefore, the upper bound for the probability of intersection is <span class="math inline">\(\frac{1}{4}\)</span>.</p>
+<ul>
+<li>We use the …</li>
+<li>We use <em>sample</em> in R:</li>
+</ul>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1000</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
+<span class="kw">mean</span>(a)</code></pre>
+<pre><code>## [1] 437</code></pre>
+
+<div class="exercise">
+<p><span id="exr:Poispmf" class="exercise"><strong>Exercise 1.9  </strong></span>Something with Poisson.</p>
+</div>
+
+<p>This is <a href="introduction.html#exr:Poispmf">1.9</a>.</p>
 
 </div>
 </div>
@@ -187,6 +469,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

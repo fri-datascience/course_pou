@@ -1,0 +1,229 @@
+# Introduction {#introduction}
+
+This chapter deals with measures and probability spaces. At the end of
+the chapter, we look more closely at discrete probability spaces.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+1. Use properties of probability to calculate probabilities.
+2. Combinatorics.
+3. Understanding of continuity of probability.
+
+**R**
+
+- vectors
+- for loop
+- estimating probability with simulation
+- sample function
+- matrices
+
+```{r, echo = FALSE}
+togs <- TRUE
+# togs <- FALSE
+```
+
+## Measure and probability spaces
+```{exercise, name = "Completing a set to a Sigma algebra"}
+Let $\Omega = \{1,2,...,10\}$. Let $A = [\{ \}, \{1\}, \{2\}, \Omega]$.
+
+- Show that $A$ is not a sigma algebra of $\Omega$.
+- Find the minimum number of elements to complete A to a sigma algebra of
+$\Omega$.
+
+```
+```{solution, echo = togs}
+
+
+- $1^c = \{2,3,...,10\} \notin A \implies$ $A$ is not sigma algebra.
+- First we need the complements of all elements, so we need to add sets
+$\{2,3,...,10\}$ and $\{1,3,4,...,10\}$. Next we need unions of all sets --
+we add the set $\{1,2\}$. Again we need the complement of this set, so we add
+$\{3,4,...,10\}$. So the minimum number of elements we need to add is 4.
+
+```
+
+
+```{exercise, name = "Diversity of sigma algebras"}
+Let $\Omega$ be a set.
+
+- Show that $2^{\Omega}$ is a sigma algebra.
+- Find the smallest sigma algebra of $\Omega$.
+- Find the largest Sigma algebra of $\Omega$.
+
+```
+```{solution, echo = togs}
+
+
+- <span style="color:red">TODO</span>
+- $A = \{\emptyset, \Omega\}$
+- $2^{\Omega}$
+
+```
+
+
+```{exercise}
+Find all sigma algebras for $\Omega = \{0, 1, 2\}$.
+
+```
+```{solution, echo = togs}
+
+
+- $A = \{\emptyset, \Omega\}$
+- $A = 2^{\Omega}$
+- $A = \{\emptyset, \{0\}, \{1,2\}, \Omega\}$
+- $A = \{\emptyset, \{1\}, \{0,2\}, \Omega\}$
+- $A = \{\emptyset, \{2\}, \{0,1\}, \Omega\}$
+
+```
+
+
+```{exercise, name = "Difference between algebra and sigma algebra"}
+
+<span style="color:red">TODO</span>
+
+```
+```{solution, echo = togs}
+
+<span style="color:red">TODO</span>
+
+```
+
+
+
+```{exercise, name = "Intro to measure"}
+
+Take the measurable space $\Omega = \{1,2\}$, $F = 2^{\Omega}$. Which of the
+following is a measure? Which is a probability measure?
+
+- $\mu(\emptyset) = 0$, $\mu(\{1\}) = 5$, $\mu(\{2\}) = 6$, $\mu(\{1,2\}) = 11$
+- $\mu(\emptyset) = 0$, $\mu(\{1\}) = 0$, $\mu(\{2\}) = 0$, $\mu(\{1,2\}) = 1$
+- $\mu(\emptyset) = 0$, $\mu(\{1\}) = 0$, $\mu(\{2\}) = 0$, $\mu(\{1,2\}) = 0$
+- $\mu(\emptyset) = 0$, $\mu(\{1\}) = 0$, $\mu(\{2\}) = 1$, $\mu(\{1,2\}) = 1$
+- $\mu(\emptyset)=0$, $\mu(\{1\})=0$, $\mu(\{2\})=\infty$, $\mu(\{1,2\})=\infty$
+
+```
+```{solution, echo = togs}
+
+
+  - Measure. Not probability measure since $\mu(\Omega) > 1$.
+  - Neither due to countable additivity.
+  - Measure. Not probability measure since $\mu(\Omega) = 0$.
+  - Probability measure.
+  - Measure. Not probability measure since $\mu(\Omega) > 1$.
+
+```
+
+
+```{exercise}
+
+Define a probability space that could be used to model a fair 6-sided die.
+
+```
+```{solution, echo = togs}
+
+
+- $\Omega = \{1,2,3,4,5,6\}$
+- $F = 2^{\Omega}$
+- $\forall \omega \in \Omega$, $P(\omega) = \frac{1}{6}$
+
+```
+
+## Properties of probability measures
+
+```{exercise}
+
+A standard deck (52 cards) is distributed to two persons: 26 cards to each
+person. All partitions are equally likely. Find the probability that:
+  
+- The first person gets 4 Queens.
+- The first person gets at least 2 Queens.
+- The first person gets at least 2 Queens and at least 2 Kings.
+- <span style="color:blue"> R: Use simulation (sample) to check the above
+answers. </span>
+
+```
+```{solution, echo = togs}
+
+
+- $\frac{{48}\choose{22}}{{52}\choose{26}}$
+- For the simulation, let us represent cards with numbers from 1 to 52, and
+let 1 through 4 represent Queens, and 5 through 8 represent Kings.
+
+```
+```{r, echo = togs}
+set.seed(1)
+cards <- 1:52
+n     <- 10000
+q4    <- vector(mode = "logical", length = n)
+q2    <- vector(mode = "logical", length = n)
+q2k2  <- vector(mode = "logical", length = n)
+for (i in 1:n) {
+  p1      <- sample(1:52, 26)
+  q4[i]   <- sum(1:4 %in% p1) == 4
+  q2[i]   <- sum(1:4 %in% p1) >= 2
+  q2k2[i] <- (sum(1:4 %in% p1) >= 2) & (sum(5:8 %in% p1) >= 2)
+}
+sum(q4) / n
+sum(q2) / n
+sum(q2k2) / n
+```
+
+
+```{exercise}
+Let $A$ and $B$ be events with probabilities $P(A) = \frac{5}{6}$ and
+$P(B) = \frac{1}{4}$.
+
+1. Show that $\frac{1}{12} \leq P(A\cap B) \leq \frac{1}{4}$,
+and give examples to show that both extremes are possible.
+2. Find corresponding bounds for $P(A\cup B)$.
+3. R: Draw samples from the examples and estimate the probability of 
+$P(A\cap B)$.
+
+```
+```{solution, echo = togs}
+Smth
+
+
+- From the properties of probability we have
+
+\begin{equation}
+  P(A \cap B) = P(A) + P(B) - P(A \cup B).
+\end{equation}
+  
+The maximum probability of the union can be 1, for example if we take a 12-sided
+dice, and $A$ corresponds to throwing 1 through 10 and $B$ corresponds to
+throwing 9 through 12. So
+
+\begin{equation}
+  P(A \cap B) = \frac{5}{6} + \frac{1}{4} - 1 = \frac{1}{12}.
+\end{equation}
+  
+Therefore, the lower bound for the probability of intersection is 
+$\frac{1}{12}$.
+  
+Conversely, the minimum probability of union can be $\frac{5}{6}$, so
+  
+\begin{equation}
+  P(A \cap B) = \frac{5}{6} + \frac{1}{4} - \frac{5}{6} = \frac{1}{4}.
+\end{equation}
+  
+Therefore, the upper bound for the probability of intersection is $\frac{1}{4}$.
+
+- We use the ...
+- We use _sample_ in R:
+
+```
+```{r, echo = togs}
+a <- sample(1000, 1:6, replace = TRUE)
+mean(a)
+```
+
+
+```{exercise, label = Poispmf}
+Something with Poisson.
+
+```
+
+This is \@ref(exr:Poispmf).
