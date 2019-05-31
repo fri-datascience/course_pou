@@ -2,9 +2,9 @@
 
 Name | pdf/pmf | cdf | mean | variance | Use in R | relationships
 ------------- | ------------- | --- | --- | --- | --- | --- 
-Bernoulli | | | | | | 
-binomial | | | | | | 
-Poisson | \@ref(exr:Poispmf) | | | | | 
+Bernoulli | $p^k (1 - p)^{1 - k}$ \@ref(exr:binomialpmf) | | | | | 
+binomial | $\binom{n}{k} p^k (1 - p)^{n - k}$ \@ref(exr:binomialpmf) | | | | | 
+Poisson | | | | | | 
 geometric | | | | | | 
 Normal | | | | | | 
 MVN | | | | 
