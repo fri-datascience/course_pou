@@ -1,6 +1,6 @@
 --- 
-title: "Principles of Uncertainty"
-author: "Erik Štrumbelj"
+title: "Principles of Uncertainty -- exercises"
+author: "Gregor Pirš and Erik Štrumbelj"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -13,4 +13,4 @@ description: "Course notes"
 
 # Preface {-}
 
-These are the course notes for the Principles of uncertainty course of the Data Science Master's at University of Ljubljana, Faculty of computer and information science.
+These are the exercises for the Principles of uncertainty course of the Data Science Master's at University of Ljubljana, Faculty of computer and information science.
