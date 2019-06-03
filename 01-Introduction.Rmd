@@ -1,4 +1,4 @@
-# Probability spaces {#introduction}
+# Introduction {#introduction}
 
 This chapter deals with measures and probability spaces. At the end of
 the chapter, we look more closely at discrete probability spaces.
@@ -139,8 +139,8 @@ person. All partitions are equally likely. Find the probability that:
   
 - The first person gets 4 Queens.
 - The first person gets at least 2 Queens.
-# - The first person gets at least 2 Queens and at least 2 Kings.
-- <span style="color:blue"> R: Use simulation (sample) to check the above
+- The first person gets at least 2 Queens and at least 2 Kings.
+- <span style="color:blue"> R: Use simulation (_sample_) to check the above
 answers. </span>
 
 ```
@@ -148,8 +148,6 @@ answers. </span>
 
 
 - $\frac{{48}\choose{22}}{{52}\choose{26}}$
-- $1 - \frac{{48}\choose{26}}{{52}\choose{26}} - 
-  4 \frac{{48}\choose{25}}{{52}\choose{26}}$
 - For the simulation, let us represent cards with numbers from 1 to 52, and
 let 1 through 4 represent Queens, and 5 through 8 represent Kings.
 
@@ -160,25 +158,28 @@ cards <- 1:52
 n     <- 10000
 q4    <- vector(mode = "logical", length = n)
 q2    <- vector(mode = "logical", length = n)
+q2k2  <- vector(mode = "logical", length = n)
 for (i in 1:n) {
   p1      <- sample(1:52, 26)
   q4[i]   <- sum(1:4 %in% p1) == 4
   q2[i]   <- sum(1:4 %in% p1) >= 2
+  q2k2[i] <- (sum(1:4 %in% p1) >= 2) & (sum(5:8 %in% p1) >= 2)
 }
 sum(q4) / n
 sum(q2) / n
+sum(q2k2) / n
 ```
 
 
 ```{exercise}
-Let $A$ and $B$ be events with probabilities $P(A) = \frac{5}{6}$ and
-$P(B) = \frac{1}{4}$.
+Let $A$ and $B$ be events with probabilities $P(A) = \frac{2}{3}$ and
+$P(B) = \frac{1}{2}$.
 
-1. Show that $\frac{1}{12} \leq P(A\cap B) \leq \frac{1}{4}$,
+1. Show that $\frac{1}{6} \leq P(A\cap B) \leq \frac{1}{2}$,
 and give examples to show that both extremes are possible.
 2. Find corresponding bounds for $P(A\cup B)$.
-3. R: Draw samples from the examples and estimate the probability of 
-$P(A\cap B)$.
+3. R: Draw samples from the examples and show the probability bounds of 
+$P(A \cap B)$.
 
 ```
 ```{solution, echo = togs}
@@ -192,49 +193,193 @@ Smth
 \end{equation}
   
 From this follows
+
 \begin{align}
-  P(A \cap B) \geq P(A) + P(B) - 1
-              = \frac{5}{6} + \frac{1}{4} - 1
-              = \frac{1}{12}.
+  P(A \cap B) &\geq P(A) + P(B) -  1 \\
+              &= \frac{2}{3} + \frac{1}{2} - 1 \\
+              &= \frac{1}{6},
 \end{align}
   
-On the other hand
-\begin{equation}
-  P(A \cup B) = P(A) + P(B) - P(A \cap B) \geq 0.
-\end{equation}
-  
-The maximum probability of the union can be 1, for example if we take a 12-sided
-die, and $A$ corresponds to throwing 1 through 10 and $B$ corresponds to
-throwing 9 through 12. So
+which is the lower bound for the intersection. Conversely, we have
 
 \begin{equation}
-  P(A \cap B) = \frac{5}{6} + \frac{1}{4} - 1 = \frac{1}{12}.
+  P(A \cup B) = P(A) + P(B) - P(A \cap B) \geq P(A).
 \end{equation}
   
-Therefore, the lower bound for the probability of intersection is 
-$\frac{1}{12}$.
-  
-Conversely, the minimum probability of union can be $\frac{5}{6}$, so
-  
-\begin{equation}
-  P(A \cap B) = \frac{5}{6} + \frac{1}{4} - \frac{5}{6} = \frac{1}{4}.
-\end{equation}
-  
-Therefore, the upper bound for the probability of intersection is $\frac{1}{4}$.
+From this follows
 
-- We use the ...
+\begin{align}
+  P(A \cap B) &\leq P(B) \\
+              &= \frac{1}{2},
+\end{align}
+  
+which is the upper bound for the intersection.
+
+For an example take a fair die. To achieve the lower bound let $A = \{1,2,3\}$
+and $B = \{3,4,5,6\}$, then their intersection is $A \cap B = \{3\}$. To
+achieve the upper bound take $A = \{1,2,3\}$ and $B = \{1,2,3,4\}$.
+
+
+- For the bounds of the union we will use the results from the first part. 
+Again from the properties of probability we have
+
+\begin{align}
+  P(A \cup B) &= P(A) + P(B) - P(A \cap B) \\
+              &\geq P(A) + P(B) - \frac{1}{2} \\
+              &= \frac{2}{3}.
+\end{align}
+  
+Conversely
+
+\begin{align}
+  P(A \cup B) &= P(A) + P(B) - P(A \cap B) \\
+              &\leq P(A) + P(B) - \frac{1}{6} \\
+              &= 1.
+\end{align}
+  
+Therefore $\frac{2}{3} \leq P(A \cup B) \leq 1$.
+
+
 - We use _sample_ in R:
 
 ```
 ```{r, echo = togs}
-a <- sample(1000, 1:6, replace = TRUE)
-mean(a)
+set.seed(1)
+n      <- 10000
+samps  <- sample(1:6, n, replace = TRUE)
+
+# lower bound
+lb     <- vector(mode = "logical", length = n)
+A      <- c(1,2,3)
+B      <- c(3,4,5,6)
+for (i in 1:n) {
+  lb[i] <- samps[i] %in% A & samps[i] %in% B
+}
+sum(lb) / n
+
+# upper bound
+ub     <- vector(mode = "logical", length = n)
+A      <- c(1,2,3)
+B      <- c(1,2,3,4)
+for (i in 1:n) {
+  ub[i] <- samps[i] %in% A & samps[i] %in% B
+}
+sum(ub) / n
+```
+
+```{exercise}
+A fair coin is tossed repeatedly. Show that, with probability one, a head turns
+up soonder or later. Show similarly that any given finite sequence of heads and
+tails occurs eventually with probability one.
+```
+```{solution, echo = togs}
+\begin{align}
+P(\text{no heads}) &= \lim_{n \rightarrow \infty} P(\text{no heads in first }n 
+                                 \text{ tosses}) \\
+                   &= \lim_{n \rightarrow \infty} 2^{-n} \\
+                   &= 0.
+\end{align}
+
+P(\text{no heads}) = \lim_{n} P(\text{no heads in first }n 
+                                 \text{tosses})
+<span style="color:red">TODO: Second part</span>
+
 ```
 
 
-```{exercise, label = Poispmf}
-Something with Poisson.
+```{exercise}
+
+
+An Erdos-Renyi random graph $G(n,p)$ is a model with n nodes, where
+each pair of nodes is connected with probability $p$.
+
+
+- Calculate the probability that there exists a node that is not
+connected to any other node in $G(4,0.6)$.
+- Show that the upper bound for the probability that there exist 2 nodes that are not connected to any other node for an arbitrary $G(n,p)$ is $\binom{n}{2} (1-p)^{2n - 3}$.
+- <span style="color:blue">R: Estimate the probability from the first point using simulation.</span>
+  
 
 ```
+```{solution, echo = togs}
 
-This is \@ref(exr:Poispmf).
+
+- Let $A_i$ be the event that the $i$-th node is not connected to
+any other node. Then our goal is to calculate $P(\cup_{i=1}^n A_i)$.
+Using the inclusion-exclusion principle, we get
+
+\begin{align}
+  P(\cup_{i=1}^n A_i) &= \sum_i A_i - \sum_{i<j} P(A_i \cap A_j) +
+    \sum_{i<j<k} P(A_i \cap A_j \cap A_k) - P(A_1 \cap A_2 \cap A_3 \cap A_4) \\
+                      &=4 (1 - p)^3 - \binom{4}{2} (1 - p)^5 +
+                        \binom{4}{3} (1 - p)^6 - (1 - p)^6 \\
+                      &\approx 0.21.
+\end{align}
+  
+- Let $A_{ij}$ be the event that nodes $i$ and $j$ are not connected to any other node. We are interested in $P(\cup_{i<j}A_{ij})$. By using Boole`s inequality, we get
+
+\begin{align}
+P(\cup_{i<j}A_{ij}) \leq \sum_{i<j} P(A_{ij}).
+\end{align}
+
+What is the probability of $A_{ij}$? There need to be no connections to the $i$-th node to the remaining nodes (excluding $j$), the same for the $j$-th node, and there can be no connection between them. Therefore
+
+\begin{align}
+P(\cup_{i<j}A_{ij}) &\leq \sum_{i<j} (1 - p)^{2(n-2) + 1} \\
+                    &= \binom{n}{2} (1 - p)^{2n - 3}.
+\end{align}
+
+
+```
+```{r, echo = togs}
+set.seed(1)
+n_samp <- 100000
+n      <- 4
+p      <- 0.6
+conn_samp <- vector(mode = "logical", length = n_samp)
+for (i in 1:n_samp) {
+  tmp_mat                     <- matrix(data = 0, nrow = n, ncol = n)
+  samp_conn                   <- sample(c(0,1), 
+                                        choose(4,2), 
+                                        replace = TRUE, 
+                                        prob    = c(1 - p, p))
+  tmp_mat[lower.tri(tmp_mat)] <- samp_conn
+  tmp_mat[upper.tri(tmp_mat)] <- t(tmp_mat)[upper.tri(t(tmp_mat))]
+  not_conn                    <- apply(tmp_mat, 1, sum)
+  if (any(not_conn == 0)) {
+    conn_samp[i] <- TRUE
+  } else {
+    conn_samp[i] <- FALSE
+  }
+}
+sum(conn_samp) / n_samp
+```
+
+
+## Discrete probability spaces
+```{exercise, label = binomialpmf}
+Show that the standard measurable space on $\Omega = \{0,1,...,n\} equipped with binomial measure is a discrete probability space.
+
+- Define another probability measure on this measurable space.
+- Show that for $n=1$ the binomial measure is the same as the bernoulli measure.
+- <span style="color:blue">R: Draw 1000 samples from the binomial distribution $p=0.5$, $n=20$ (_rbinom_) and compare relative frequencies with theoretical probabiliy measure</span>.
+
+```
+```{solution, echo = togs}
+We need to show that the terms of 
+$\sum_{k=0}^n \binom{n}{k} p^k (1 - p)^{n - k}$ sum to 1. For that we use the
+binomial theorem $\sum_{k=0}^n \binom{n}{k} x^k y^{n-k} = (x + y)^n. So
+
+\begin{equation}
+  \sum_{k=0}^n \binom{n}{k} p^k (1 - p)^{n - k} = (p + 1 - p)^n = 1.
+\end{equation}
+
+- P(\{k\}) = \frac{1}{n + 1}.
+- \binom{1}{k} p^k (1 - p)^{1 - k}
+
+```
+```{r, echo = togs}
+bin_samp <- rbinom(n = 1000, size = 20, prob = 0.5)
+```
+
+

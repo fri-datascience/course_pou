@@ -1,7 +1,7 @@
 --- 
 title: "Principles of Uncertainty"
 author: "Erik Štrumbelj"
-date: "2019-05-30"
+date: "2019-05-31"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib]
