@@ -1,4 +1,4 @@
-# Introduction {#introduction}
+# Probability spaces {#introduction}
 
 This chapter deals with measures and probability spaces. At the end of
 the chapter, we look more closely at discrete probability spaces.
@@ -111,13 +111,15 @@ person. All partitions are equally likely. Find the probability that:
   
 - The first person gets 4 Queens.
 - The first person gets at least 2 Queens.
-- The first person gets at least 2 Queens and at least 2 Kings.
+# - The first person gets at least 2 Queens and at least 2 Kings.
 - <span style="color:blue"> R: Use simulation (sample) to check the above
 answers. </span>
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 - $\frac{{48}\choose{22}}{{52}\choose{26}}$
+- $1 - \frac{{48}\choose{26}}{{52}\choose{26}} - 
+  4 \frac{{48}\choose{25}}{{52}\choose{26}}$
 - For the simulation, let us represent cards with numbers from 1 to 52, and
 let 1 through 4 represent Queens, and 5 through 8 represent Kings.
 </div>\EndKnitrBlock{solution}
@@ -128,12 +130,10 @@ cards <- 1:52
 n     <- 10000
 q4    <- vector(mode = "logical", length = n)
 q2    <- vector(mode = "logical", length = n)
-q2k2  <- vector(mode = "logical", length = n)
 for (i in 1:n) {
   p1      <- sample(1:52, 26)
   q4[i]   <- sum(1:4 %in% p1) == 4
   q2[i]   <- sum(1:4 %in% p1) >= 2
-  q2k2[i] <- (sum(1:4 %in% p1) >= 2) & (sum(5:8 %in% p1) >= 2)
 }
 sum(q4) / n
 ```
@@ -148,14 +148,6 @@ sum(q2) / n
 
 ```
 ## [1] 0.6995
-```
-
-```r
-sum(q2k2) / n
-```
-
-```
-## [1] 0.4711
 ```
 
 
@@ -174,7 +166,19 @@ $P(A\cap B)$.
 - From the properties of probability we have
 
 \begin{equation}
-  P(A \cap B) = P(A) + P(B) - P(A \cup B).
+  P(A \cup B) = P(A) + P(B) - P(A \cap B) \leq 1.
+\end{equation}
+  
+From this follows
+\begin{align}
+  P(A \cap B) \geq P(A) + P(B) - 1
+              = \frac{5}{6} + \frac{1}{4} - 1
+              = \frac{1}{12}.
+\end{align}
+  
+On the other hand
+\begin{equation}
+  P(A \cup B) = P(A) + P(B) - P(A \cap B) \geq 0.
 \end{equation}
   
 The maximum probability of the union can be 1, for example if we take a 12-sided
