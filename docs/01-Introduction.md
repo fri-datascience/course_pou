@@ -117,7 +117,7 @@ answers. </span>
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
-- $\frac{{48}\choose{22}}{{52}\choose{26}}$
+- $\frac{\binom{48}{22}}{\binom{52}{26}}$
 - For the simulation, let us represent cards with numbers from 1 to 52, and
 let 1 through 4 represent Queens, and 5 through 8 represent Kings.
 </div>\EndKnitrBlock{solution}
