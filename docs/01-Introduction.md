@@ -65,10 +65,22 @@ $\{3,4,...,10\}$. So the minimum number of elements we need to add is 4.
 
 
 \BeginKnitrBlock{exercise}\iffalse{-91-68-105-102-102-101-114-101-110-99-101-32-98-101-116-119-101-101-110-32-97-108-103-101-98-114-97-32-97-110-100-32-115-105-103-109-97-32-97-108-103-101-98-114-97-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-8"><strong>(\#exr:unnamed-chunk-8)  \iffalse (Difference between algebra and sigma algebra) \fi{} </strong></span>
-<span style="color:red">TODO</span>
+Let $\Omega = \mathbb{N}$ and $\mathcal{A} = \{A \subseteq \mathbb{N}: 
+A \text{ is finite or } A^c \text{ is finite.} \}$. Show that 
+$\mathcal{A}$ is an algebra but not a sigma algebra.
+
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
-<span style="color:red">TODO</span>
+- $\emptyset$ is finite so $\emptyset \in \mathcal{A}$.
+- Let $A \in \mathcal{A}$ and $B \in \mathcal{A}$. If both are finite, then
+their union is also finite and therefore in $\mathcal{A}$. Let at least 
+one of them not
+be finite. Then their union is not finite. But $(A \cup B)^c = A^c \cap B^c$.
+And since at least one is infinite, then its complement is finite and the
+intersection is too. So finite unions are in $\mathcal{A}$.
+- Let us look at numbers $2n$. For any $n$, $2n \in \mathcal{A}$ 
+as it is finite. But $\bigcup_{k = 1}^{\infty} \in \mathcal{A}$.
+
 </div>\EndKnitrBlock{solution}
 
 
@@ -268,13 +280,30 @@ tails occurs eventually with probability one.</div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}\begin{align}
 P(\text{no heads}) &= \lim_{n \rightarrow \infty} P(\text{no heads in first }n 
                                  \text{ tosses}) \\
-                   &= \lim_{n \rightarrow \infty} 2^{-n} \\
+                   &= \lim_{n \rightarrow \infty} \frac{1}{2^n} \\
                    &= 0.
 \end{align}
 
-P(\text{no heads}) = \lim_{n} P(\text{no heads in first }n 
-                                 \text{tosses})
-<span style="color:red">TODO: Second part</span>
+For the second part, let us fix the given sequence of heads and tails of length 
+$k$ as $s$. A probability that this happens in $k$ tosses is $\frac{1}{2^k}$.
+
+\begin{align}
+P(s \text{ occurs}) &= \lim_{n \rightarrow \infty} P(s \text{ occurs in first } 
+                                                     nk \text{ tosses})
+\end{align}
+
+The right part of the upper equation is greater than if $s$ occurs eiter in the
+first $k$ tosses, second $k$ tosses,..., $n$-th $k$ tosses. Therefore
+
+\begin{align}
+P(s \text{ occurs}) &\geq \lim_{n \rightarrow \infty} 
+                  P(s \text{ occurs in first } n \text{ disjoint sequences of length } k) \\
+                  &= \lim_{n \rightarrow \infty} 
+                  (1 - P(s \text{ does not occur in first } n \text{ disjoint sequences})) \\
+                  &= 1 -  \lim_{n \rightarrow \infty} P(s \text{ does not occur in first } n \text{ disjoint sequences}) \\
+                  &= 1 - \lim_{n \rightarrow \infty} (1 - \frac{1}{2^k})^n \\ 
+                  &= 1.
+\end{align}
 </div>\EndKnitrBlock{solution}
 
 
@@ -364,7 +393,10 @@ binomial theorem $\sum_{k=0}^n \binom{n}{k} x^k y^{n-k} = (x + y)^n$. So
 \end{equation}
 
 - $P(\{k\}) = \frac{1}{n + 1}$.
-- <span style="color:red">TODO</span>
+- When $n=1$ then $k \in \{0,1\}$. Inserting $n=1$ into the binomial measure, 
+we get $\binom{1}{k}p^k (1-p)^{1 - k}$. Now 
+$\binom{1}{1} = \binom{1}{0} = 1$, so the measure is $p^k (1-p)^{1 - k}$, 
+which is the Bernoulli measure.
 </div>\EndKnitrBlock{solution}
 
 ```r
@@ -403,7 +435,21 @@ plot(bin_plot)
   e^{-\lambda} e^{\lambda} = 1.$ We used the Taylor expansion of
   the exponential function.
   
-- <span style="color:red">TODO</span>
+- <span style="color:red">TODO</span> Since we only have to define a probability
+measure, we could only assign probabilities that sum to one to a finite 
+number of events in $\Omega$, and probability zero to the other infinite 
+number of events. However to make this solution more educational, we will 
+try to find a measure that assigns a non-zero probability to all events in 
+$\Omega$. A good start for this would be to find a converging infinite series,
+as the probabilities will have to sum to one. One simple converging series is 
+the geometric series $\sum_{k=0}^n p^k$ for $|p| < 1$. Let us choose an 
+arbitrary $p = 0.5$. Then $\sum_{k=0}^n p^k = \frac{1}{1 - 0.5} = 2$.
+To complete the measure, we have to normalize it, so it sums to one,
+therefore $P(\{k\}) = \frac{0.5^k}{2}$ is a probability measure on $\Omega$.
+
+We could make it even more difficult by making this measure dependent
+on some parameter $\alpha$, but this is out of the scope of this introductory
+chapter.
 
   </div>\EndKnitrBlock{solution}
 

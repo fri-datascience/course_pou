@@ -266,13 +266,22 @@ we add the set <span class="math inline">\(\{1,2\}\)</span>. Again we need the c
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 1.4  (Difference between algebra and sigma algebra)  </strong></span>
-<span style="color:red">TODO</span></p>
+Let <span class="math inline">\(\Omega = \mathbb{N}\)</span> and <span class="math inline">\(\mathcal{A} = \{A \subseteq \mathbb{N}: A \text{ is finite or } A^c \text{ is finite.} \}\)</span>. Show that
+<span class="math inline">\(\mathcal{A}\)</span> is an algebra but not a sigma algebra.</p>
 </div>
 
 
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> 
-<span style="color:red">TODO</span></p>
+- <span class="math inline">\(\emptyset\)</span> is finite so <span class="math inline">\(\emptyset \in \mathcal{A}\)</span>.
+- Let <span class="math inline">\(A \in \mathcal{A}\)</span> and <span class="math inline">\(B \in \mathcal{A}\)</span>. If both are finite, then
+their union is also finite and therefore in <span class="math inline">\(\mathcal{A}\)</span>. Let at least
+one of them not
+be finite. Then their union is not finite. But <span class="math inline">\((A \cup B)^c = A^c \cap B^c\)</span>.
+And since at least one is infinite, then its complement is finite and the
+intersection is too. So finite unions are in <span class="math inline">\(\mathcal{A}\)</span>.
+- Let us look at numbers <span class="math inline">\(2n\)</span>. For any <span class="math inline">\(n\)</span>, <span class="math inline">\(2n \in \mathcal{A}\)</span>
+as it is finite. But <span class="math inline">\(\bigcup_{k = 1}^{\infty} \in \mathcal{A}\)</span>.</p>
 </div>
 
 
@@ -458,12 +467,26 @@ tails occurs eventually with probability one.
 <p> <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
 P(\text{no heads}) &amp;= \lim_{n \rightarrow \infty} P(\text{no heads in first }n 
                                  \text{ tosses}) \\
-                   &amp;= \lim_{n \rightarrow \infty} 2^{-n} \\
+                   &amp;= \lim_{n \rightarrow \infty} \frac{1}{2^n} \\
                    &amp;= 0.
 \end{align}\]</span></p>
-<p>P() = _{n} P(n
-)
-<span style="color:red">TODO: Second part</span></p>
+<p>For the second part, let us fix the given sequence of heads and tails of length
+<span class="math inline">\(k\)</span> as <span class="math inline">\(s\)</span>. A probability that this happens in <span class="math inline">\(k\)</span> tosses is <span class="math inline">\(\frac{1}{2^k}\)</span>.</p>
+<p><span class="math display">\[\begin{align}
+P(s \text{ occurs}) &amp;= \lim_{n \rightarrow \infty} P(s \text{ occurs in first } 
+                                                     nk \text{ tosses})
+\end{align}\]</span></p>
+<p>The right part of the upper equation is greater than if <span class="math inline">\(s\)</span> occurs eiter in the
+first <span class="math inline">\(k\)</span> tosses, second <span class="math inline">\(k\)</span> tosses,…, <span class="math inline">\(n\)</span>-th <span class="math inline">\(k\)</span> tosses. Therefore</p>
+<p><span class="math display">\[\begin{align}
+P(s \text{ occurs}) &amp;\geq \lim_{n \rightarrow \infty} 
+                  P(s \text{ occurs in first } n \text{ disjoint sequences of length } k) \\
+                  &amp;= \lim_{n \rightarrow \infty} 
+                  (1 - P(s \text{ does not occur in first } n \text{ disjoint sequences})) \\
+                  &amp;= 1 -  \lim_{n \rightarrow \infty} P(s \text{ does not occur in first } n \text{ disjoint sequences}) \\
+                  &amp;= 1 - \lim_{n \rightarrow \infty} (1 - \frac{1}{2^k})^n \\ 
+                  &amp;= 1.
+\end{align}\]</span></p>
 </div>
 
 
@@ -552,7 +575,10 @@ binomial theorem <span class="math inline">\(\sum_{k=0}^n \binom{n}{k} x^k y^{n-
 \end{equation}\]</span></p>
 <ul>
 <li><span class="math inline">\(P(\{k\}) = \frac{1}{n + 1}\)</span>.</li>
-<li><span style="color:red">TODO</span></li>
+<li>When <span class="math inline">\(n=1\)</span> then <span class="math inline">\(k \in \{0,1\}\)</span>. Inserting <span class="math inline">\(n=1\)</span> into the binomial measure,
+we get <span class="math inline">\(\binom{1}{k}p^k (1-p)^{1 - k}\)</span>. Now
+<span class="math inline">\(\binom{1}{1} = \binom{1}{0} = 1\)</span>, so the measure is <span class="math inline">\(p^k (1-p)^{1 - k}\)</span>,
+which is the Bernoulli measure.</li>
 </ul>
 </div>
 
@@ -587,9 +613,23 @@ bin_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span clas
 <li><p><span class="math inline">\(\sum_{k = 0}^{\infty} p(1 - p)^k = p \sum_{k = 0}^{\infty} (1 - p)^k = p \frac{1}{1 - 1 + p} = 1\)</span>. We used the formula for geometric series.</p></li>
 <li><p><span class="math inline">\(\sum_{k = 0}^{\infty} \frac{\lambda^k e^{-\lambda}}{k!} = e^{-\lambda} \sum_{k = 0}^{\infty} \frac{\lambda^k}{k!} = e^{-\lambda} e^{\lambda} = 1.\)</span> We used the Taylor expansion of
 the exponential function.</p></li>
-<li><p><span style="color:red">TODO</span></p>
-</div></li>
+<li><p><span style="color:red">TODO</span> Since we only have to define a probability
+measure, we could only assign probabilities that sum to one to a finite
+number of events in <span class="math inline">\(\Omega\)</span>, and probability zero to the other infinite
+number of events. However to make this solution more educational, we will
+try to find a measure that assigns a non-zero probability to all events in
+<span class="math inline">\(\Omega\)</span>. A good start for this would be to find a converging infinite series,
+as the probabilities will have to sum to one. One simple converging series is
+the geometric series <span class="math inline">\(\sum_{k=0}^n p^k\)</span> for <span class="math inline">\(|p| &lt; 1\)</span>. Let us choose an
+arbitrary <span class="math inline">\(p = 0.5\)</span>. Then <span class="math inline">\(\sum_{k=0}^n p^k = \frac{1}{1 - 0.5} = 2\)</span>.
+To complete the measure, we have to normalize it, so it sums to one,
+therefore <span class="math inline">\(P(\{k\}) = \frac{0.5^k}{2}\)</span> is a probability measure on <span class="math inline">\(\Omega\)</span>.</p></li>
 </ul>
+<p>We could make it even more difficult by making this measure dependent
+on some parameter <span class="math inline">\(\alpha\)</span>, but this is out of the scope of this introductory
+chapter.</p>
+</div>
+
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
 pois_samp &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">lambda =</span> <span class="dv">10</span>)
 pois_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> pois_samp) <span class="op">%&gt;%</span>
