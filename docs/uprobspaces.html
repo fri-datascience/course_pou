@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>References | Principles of Uncertainty – exercises</title>
+  <title>Chapter 2 Uncountable probability spaces | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="References | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 2 Uncountable probability spaces | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 2 Uncountable probability spaces | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="probability-distributions.html">
-
+<link rel="prev" href="introduction.html">
+<link rel="next" href="r-programming-language.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -137,7 +137,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
-<li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#exercises"><i class="fa fa-check"></i><b>2.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#borel-sets"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
+<li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
@@ -186,8 +187,153 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="uprobspaces" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Uncountable probability spaces</h1>
+<p>This chapter deals with uncountable probability spaces.</p>
+<p>The students are expected to acquire the following knowledge:</p>
+<p><strong>Theoretical</strong></p>
+<ul>
+<li>Understand Borel sets and identify them</li>
+<li>Estimate Lebesgue measure for different sets.</li>
+<li>Know when sets are Borel-measurable.</li>
+</ul>
+<p><strong>R</strong></p>
+<ul>
+<li>uniform sampling</li>
+<li>mean</li>
+<li>recursion</li>
+</ul>
+<div id="borel-sets" class="section level2">
+<h2><span class="header-section-number">2.1</span> Borel sets</h2>
+</div>
+<div id="lebesgue-measure" class="section level2">
+<h2><span class="header-section-number">2.2</span> Lebesgue measure</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 2.1  </strong></span>Show that the Lebesgue measure of rational numbers on <span class="math inline">\([0,1]\)</span> is 0.
+<span style="color:blue">R: Implement a random number generator, which
+generates uniform samples of irrational numbers in <span class="math inline">\([0,1]\)</span> by uniformly sampling
+from <span class="math inline">\([0,1]\)</span> and rejecting a sample if it is rational.</span></p>
+</div>
+
+
+<div class="solution">
+ <span class="solution"><em>Solution. </em></span> There are a countable number of rational numbers. Therefore, we can write
+<span class="math display">\[\begin{align}
+  \lambda(\mathbb{Q}) &amp;= \lambda(\cup_{i = 1}^{\infty} q_i) &amp;\\
+                      &amp;= \sum_{i = 1}^{\infty} \lambda(q_i) &amp;\text{ (countable additivity)} \\
+                      &amp;= \sum_{i = 1}^{\infty} 0  &amp;\text{ (Lebesgue measure of a singleton)} \\
+                      &amp;= 0.
+\end{align}\]</span>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 2.2  </strong></span>Show that <span class="math inline">\(\mathcal{C} = \sigma(\mathcal{C})\)</span> if and only if <span class="math inline">\(\mathcal{C}\)</span> is
+a sigma algebra.</p>
+</div>
+
+
+<div class="solution">
+ <span class="solution"><em>Solution. </em></span> <span style="color:red">TODO</span>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 2.3  </strong></span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Prove that the Lebesgue measure of <span class="math inline">\(\mathbb{R}\)</span> is infinity.</p></li>
+<li><p><em>Paradox</em>. Show that the cardinality of <span class="math inline">\(\mathbb{R}\)</span> and <span class="math inline">\((0,1)\)</span> is the same,
+while their Lebesgue measures are infinity and one respectably.</p></li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li>Let <span class="math inline">\(a_i\)</span> be the <span class="math inline">\(i\)</span>-th integer for <span class="math inline">\(i \in \mathbb{Z}\)</span>. We can write
+<span class="math inline">\(\mathbb{R} = \cup_{-\infty}^{\infty} (a_i, a_{i + 1}]\)</span>.</li>
+</ol>
+<p><span class="math display">\[\begin{align}
+  \lambda(\mathbb{R}) &amp;= \lambda(\cup_{i = -\infty}^{\infty} (a_i, a_{i + 1}]) \\
+                      &amp;= \lambda(\lim_{n \rightarrow \infty} \cup_{i = -n}^{n} (a_i, a_{i + 1}]) \\
+                      &amp;= \lim_{n \rightarrow \infty} \lambda(\cup_{i = -n}^{n} (a_i, a_{i + 1}]) \\
+                      &amp;= \lim_{n \rightarrow \infty} \sum_{i = -n}^{n} \lambda((a_i, a_{i + 1}]) \\
+                      &amp;= \lim_{n \rightarrow \infty} \sum_{i = -n}^{n} 1 \\
+                      &amp;= \lim_{n \rightarrow \infty} 2n \\
+                      &amp;= \infty.
+    
+\end{align}\]</span></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>We need to find a bijection between <span class="math inline">\(\mathbb{R}\)</span> and <span class="math inline">\((0,1)\)</span>. A well-known
+function that maps from a bounded interval to <span class="math inline">\(\mathbb{R}\)</span> is the tangent.
+To make the bijection easier to achieve, we will take the inverse, which
+maps from <span class="math inline">\(\mathbb{R}\)</span> to <span class="math inline">\((-\frac{\pi}{2}, \frac{\pi}{2})\)</span>. However, we need
+to change the function so it maps to <span class="math inline">\((0,1)\)</span>. First we add <span class="math inline">\(\frac{\pi}{2}\)</span>, so
+that we move the function above zero. Then we only have to divide by the max
+value, which in this case is <span class="math inline">\(\pi\)</span>. So our bijection is</li>
+</ol>
+<p><span class="math display">\[\begin{equation}
+ f(x) = \frac{\tan^{-1}(x) + \frac{\pi}{2}}{\pi}.
+\end{equation}\]</span></p>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 2.4  </strong></span>
+Take the measure space <span class="math inline">\((\Omega_1 = (0,1], B_{(0,1], \lambda})\)</span> (we know
+that this is a probability space on <span class="math inline">\((0,1]\)</span>).</p>
+<ol style="list-style-type: lower-alpha">
+<li>Define an injective map (function) from <span class="math inline">\(\Omega_1\)</span> to
+<span class="math inline">\(\Omega_2 = \{1,2,3,4,5,6\}\)</span> such that the measure space
+<span class="math inline">\((\Omega_2, 2^{\Omega_2}, \lambda(f^{-1}()))\)</span> will be a discrete probability
+space with uniform probabilities
+(<span class="math inline">\(P(\omega) = \frac{1}{6}, \forall \omega \in \Omega_2)\)</span>.</li>
+<li>Is the map that you defined in (a) the only such map?</li>
+<li>How would you in the same fashion define an injective map that would result
+in a probability space that can be interpreted as a coin toss with probability
+<span class="math inline">\(p\)</span> of heads?</li>
+<li><span style="color:blue">R: Use the map in (a) as a basis for a random
+generator for this fair die.</span></li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li>In other words, we have to assign disjunct intervals of the same size to
+each element of <span class="math inline">\(\Omega_2\)</span>. Therefore</li>
+</ol>
+<p><span class="math display">\[\begin{equation}
+  f(x) = \lceil 6x \rceil.
+\end{equation}\]</span></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>No we could for example rearrange the order in which the intervals are
+mapped to integers. Additionally, we could have several disjoint intervals that
+mapped to the same integer, as long as the Lebesgue measure of their union
+would be <span class="math inline">\(\frac{1}{6}\)</span> and the function would remain injective.</li>
+<li>We have <span class="math inline">\(\Omega_3 = \{0,1\}\)</span>, where zero represents heads and one represents
+tails. Then
+<span class="math display">\[\begin{equation}
+  f(x) = 0^{I_{A}(x)},
+\end{equation}\]</span>
+where <span class="math inline">\(A = \{y \in (0,1] : y &lt; p\}\)</span>.</li>
+</ol>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+unif_s &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)
+die_s  &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>unif_s)
+<span class="kw">summary</span>(<span class="kw">as.factor</span>(die_s))</code></pre>
+<pre><code>##   1   2   3   4   5   6 
+## 166 154 200 146 166 168</code></pre>
+
+</div>
+</div>
+
+
 
 </div>
             </section>
@@ -195,8 +341,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="probability-distributions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-programming-language.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
