@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>References | Principles of Uncertainty – exercises</title>
+  <title>Chapter 3 Conditional probability | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="References | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 3 Conditional probability | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 3 Conditional probability | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="probability-distributions.html">
-
+<link rel="prev" href="uprobspaces.html">
+<link rel="next" href="r-programming-language.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -188,8 +188,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="condprob" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Conditional probability</h1>
+<p>This chapter deals with conditional probability.</p>
+<p>The students are expected to acquire the following knowledge:</p>
+<p><strong>Theoretical</strong></p>
+<ul>
+<li>identify whether variables are independent</li>
+<li>calculation of conditional probabilities</li>
+</ul>
+<p><strong>R</strong></p>
+<ul>
+<li>simulating conditional variables</li>
+</ul>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.1</code></pre>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 3.1  (Monty Hall problem)  </strong></span>Describe Monty Hall problem.</p>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> a</p>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
+ifchange &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)
+ifstay   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {
+  where_car      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>), <span class="dv">1</span>)
+  where_player   &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>), <span class="dv">1</span>)
+  open_samp      &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)[where_car <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">&amp;</span><span class="st"> </span>where_player <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)]
+  <span class="cf">if</span> (<span class="kw">length</span>(open_samp) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {
+    where_open &lt;-<span class="st"> </span>open_samp
+  } <span class="cf">else</span> {
+      where_open &lt;-<span class="st"> </span><span class="kw">sample</span>(open_samp, <span class="dv">1</span>)
+  }
+  ifstay[i]      &lt;-<span class="st"> </span>where_car <span class="op">==</span><span class="st"> </span>where_player
+  where_ifchange &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)[where_open <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">&amp;</span><span class="st"> </span>where_player <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)]
+  ifchange[i]    &lt;-<span class="st"> </span>where_ifchange <span class="op">==</span><span class="st"> </span>where_car
+}
+<span class="kw">sum</span>(ifstay) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<pre><code>## [1] 0.333</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(ifchange) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<pre><code>## [1] 0.667</code></pre>
+
+</div>
+
+
 
 </div>
             </section>
@@ -197,8 +244,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="probability-distributions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="uprobspaces.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-programming-language.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

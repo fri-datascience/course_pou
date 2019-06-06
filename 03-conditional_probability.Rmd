@@ -1,0 +1,121 @@
+# Conditional probability {#condprob}
+
+This chapter deals with conditional probability.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- identify whether variables are independent
+- calculation of conditional probabilities
+
+**R**
+
+- simulating conditional variables
+
+
+```{r, echo = FALSE}
+togs <- TRUE
+library(ggplot2)
+# togs <- FALSE
+```
+
+
+```{exercise, name = "Monty Hall problem"}
+Describe Monty Hall problem.
+
+
+```
+```{solution, echo = togs}
+W.L.O.G. assume we always pick the first door. 
+p(W | change) = \frac{p(change | win) p(win)}{p(change)}
+
+p(W | car in door 1) = \frac{p(car in door 1 | w) p(w)}{p(car in door 1)} = 0
+p(W | car in door 2) = \frac{p(car in door 2 | w) p(w)}{p(car in door 2)} = ...
+p(W | car in door 2) = \frac{p(car in door 3 | w) p(w)}{p(car in door 1)} = ...
+
+p(W | change)
+p(W | no change) = \frac{p(no change | W) p(W)}{p(no change)}
+                 = \frac{1/3}{\sum p(no change | outcome) p(outcome)}
+                 = \frac{1/3}{1 / 3 + }
+
+p(W | car in door 1) = 
+  
+p(W) = \sum p(W | car in door i) p(car in door i)
+
+
+
+# no change
+p(W | car in door 1) = 2
+
+p(select car | change) = \frac{p(change | p select car) p(select car)}{} 
+
+verjetnost da menjam, če je avto v i-tih vratih
+
+p(W | no change) = \frac{1}{3}
+
+p(car in door 1 | change) = \frac{p(change | car in door 1) p(car in door 1)}{p(change)}
+
+p(car in door 1 | no change) = \frac{p(no change | car in door 1) p(car in door 1)}{p(no change)}
+
+nekak morn prit do tega, da dobim verjetnost izbire pravega, če vidim kozo
+
+
+
+p(car = player | no change)
+
+# no change
+p(select car | car in 1) p(car in 1) = p(car in 1 | select car) p(select car) = 1/3
+p(select car | car in 2) p(car in 2) = p(car in 2 | select car) p(select car) = 0
+p(select car | car in 3) p(car in 3) = p(car in 3 | select car) p(select car) = 0
+
+# change
+p(select car | car in 1) p(car in 1) = p(car in 1 | select car) p(select car) = 0 # i changed from 1 so if I selected the car, it couldn't have been in 1
+p(select car | car in 2) p(car in 2) = p(car in 2 | select car) p(select car) = 1 * 1/3
+p(select car | car in 3) p(car in 3) = p(car in 3 | select car) p(select car) = 1 * 1/3
+
+Let us look at p(car in 2 | select car) more closely. We first selected door 1.
+Then the host open up a door with a goat. It could not be door 1, since that is
+what we picked. If we know that we selected a car after changing, the car could
+not have been in door 1, or in the opened door. Tu nekje je skrito, da so bila
+odprta vrata 3?
+
+# no change
+p(select car | open door 2) = p(open door 2 | select car) p(select car) = 1/2 * 1/3
+p(select car | open door 3) = p(open door 3 | select car) p(select car) = 1/2 * 1/3
+sum = 2 / 6 = 1 / 3
+
+# change
+p(select car | open door 2) = p(open door 2 | select car, change, first door 1) p(select car) = 1 * 1/3
+p(select car | open door 3) = p(open door 3 | select car, change, first door 1) p(select car) = 1 * 1/3
+sum = 2 / 3
+
+select car implicira, da avto ni bil za prvimi vrati. sledi, da ni mogel odpreti
+tretjih vrat, ker je bil tam.
+
+p(select car | change) = ... 
+
+
+```
+
+```{r, echo = togs}
+set.seed(1)
+nsamps <- 1000
+ifchange <- vector(mode = "logical", length = nsamps)
+ifstay   <- vector(mode = "logical", length = nsamps)
+for (i in 1:nsamps) {
+  where_car      <- sample(c(1:3), 1)
+  where_player   <- sample(c(1:3), 1)
+  open_samp      <- (1:3)[where_car != (1:3) & where_player != (1:3)]
+  if (length(open_samp) == 1) {
+    where_open <- open_samp
+  } else {
+      where_open <- sample(open_samp, 1)
+  }
+  ifstay[i]      <- where_car == where_player
+  where_ifchange <- (1:3)[where_open != (1:3) & where_player != (1:3)]
+  ifchange[i]    <- where_ifchange == where_car
+}
+sum(ifstay) / nsamps
+sum(ifchange) / nsamps
+```

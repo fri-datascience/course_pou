@@ -18,10 +18,95 @@ The students are expected to acquire the following knowledge:
 
 ```{r, echo = FALSE}
 togs <- TRUE
+library(ggplot2)
 # togs <- FALSE
 ```
 
 ## Borel sets
+```{exercise}
+
+a. Prove that the intersection of two sigma algebras on $\Omega$ is a sigma 
+algebra.
+
+b. Prove that the collection of all open subsets $(a,b)$ on $(0,1]$ is not a 
+sigma algebra of $(0,1]$.
+
+```
+```{solution, echo = togs}
+
+a. The empty set and the full set are in both, so they must also be in the
+intersection.
+
+
+b. Either the full set (and 1 as complement of (0,1)) is not in the collection, 
+or ...
+
+
+
+```
+
+```{exercise}
+
+Let $\mathbb{C}$ and $\mathbb{D}$ be to collections of subsets on $\Omega$ such
+that $\mathbb{C} \leq \mathbb{D}$. Prove that 
+$\sigma(\mathbb{C}) \leq \sigma(\mathbb{D})$.
+
+```
+```{solution, echo = togs}
+
+a. The empty set and the full set are in both, so they must also be in the
+intersection.
+
+
+b. Either the full set (and 1 as complement of (0,1)) is not in the collection, 
+or ...
+
+
+
+```
+
+```{exercise}
+
+Simulate from the 2nd, 3rd, and 4th Cantor sets and plot results in a 
+meaningful way.
+
+```
+```{r, echo = togs}
+set.seed(1)
+nsamps <- 100
+cantor_n <- function (n) {
+  if (n <= 0) {
+    return (c(0, 1))
+  }
+  cantor_prev <- cantor_n(n - 1)
+  return (c(cantor_prev / 3, 2/3 + cantor_prev / 3))
+}
+
+sample_cantor <- function (n, nsamps) {
+  samps <- vector(mode = "numeric", length = nsamps)
+  cant  <- cantor_n(n)
+  mat   <- matrix(cant, ncol = 2, byrow = TRUE)
+  for(i in 1:nsamps) {
+    ind      <- sample(1:nrow(mat), 1)
+    bounds   <- mat[ind, ]
+    samps[i] <- runif(1, min = bounds[1], max = bounds[2])
+  }
+  return(samps)
+}
+
+depth_2     <- sample_cantor(2, nsamps)
+depth_3     <- sample_cantor(3, nsamps)
+depth_4     <- sample_cantor(4, nsamps)
+plot_data   <- data.frame(samps = c(depth_2, depth_3, depth_4), 
+                          depth = c(rep(2, nsamps), rep(3, nsamps), 
+                                    rep(4, nsamps)))
+cantor_plot <- ggplot(data = plot_data, aes(x = samps)) +
+  geom_linerange(aes(ymin = 0, ymax = depth, col = factor(depth))) +
+  ylab("depth")
+plot(cantor_plot)
+
+
+```
 
 ## Lebesgue measure
 

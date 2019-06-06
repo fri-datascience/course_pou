@@ -17,12 +17,90 @@ The students are expected to acquire the following knowledge:
 - recursion
 
 
+```
+## Warning: package 'ggplot2' was built under R version 3.5.1
+```
 
 ## Borel sets
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-2"><strong>(\#exr:unnamed-chunk-2) </strong></span>
+a. Prove that the intersection of two sigma algebras on $\Omega$ is a sigma 
+algebra.
+
+b. Prove that the collection of all open subsets $(a,b)$ on $(0,1]$ is not a 
+sigma algebra of $(0,1]$.
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+a. The empty set and the full set are in both, so they must also be in the
+intersection.
+
+
+b. Either the full set (and 1 as complement of (0,1)) is not in the collection, 
+or ...
+
+
+</div>\EndKnitrBlock{solution}
+
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-4"><strong>(\#exr:unnamed-chunk-4) </strong></span>
+Let $\mathbb{C}$ and $\mathbb{D}$ be to collections of subsets on $\Omega$ such
+that $\mathbb{C} \leq \mathbb{D}$. Prove that 
+$\sigma(\mathbb{C}) \leq \sigma(\mathbb{D})$.
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+a. The empty set and the full set are in both, so they must also be in the
+intersection.
+
+
+b. Either the full set (and 1 as complement of (0,1)) is not in the collection, 
+or ...
+
+
+</div>\EndKnitrBlock{solution}
+
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-6"><strong>(\#exr:unnamed-chunk-6) </strong></span>
+Simulate from the 2nd, 3rd, and 4th Cantor sets and plot results in a 
+meaningful way.
+</div>\EndKnitrBlock{exercise}
+
+```r
+set.seed(1)
+nsamps <- 100
+cantor_n <- function (n) {
+  if (n <= 0) {
+    return (c(0, 1))
+  }
+  cantor_prev <- cantor_n(n - 1)
+  return (c(cantor_prev / 3, 2/3 + cantor_prev / 3))
+}
+
+sample_cantor <- function (n, nsamps) {
+  samps <- vector(mode = "numeric", length = nsamps)
+  cant  <- cantor_n(n)
+  mat   <- matrix(cant, ncol = 2, byrow = TRUE)
+  for(i in 1:nsamps) {
+    ind      <- sample(1:nrow(mat), 1)
+    bounds   <- mat[ind, ]
+    samps[i] <- runif(1, min = bounds[1], max = bounds[2])
+  }
+  return(samps)
+}
+
+depth_2     <- sample_cantor(2, nsamps)
+depth_3     <- sample_cantor(3, nsamps)
+depth_4     <- sample_cantor(4, nsamps)
+plot_data   <- data.frame(samps = c(depth_2, depth_3, depth_4), 
+                          depth = c(rep(2, nsamps), rep(3, nsamps), 
+                                    rep(4, nsamps)))
+cantor_plot <- ggplot(data = plot_data, aes(x = samps)) +
+  geom_linerange(aes(ymin = 0, ymax = depth, col = factor(depth))) +
+  ylab("depth")
+plot(cantor_plot)
+```
+
+<img src="02-uncountable_probability_spaces_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 ## Lebesgue measure
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-2"><strong>(\#exr:unnamed-chunk-2) </strong></span>Show that the Lebesgue measure of rational numbers on $[0,1]$ is 0. 
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-8"><strong>(\#exr:unnamed-chunk-8) </strong></span>Show that the Lebesgue measure of rational numbers on $[0,1]$ is 0. 
 <span style="color:blue">R: Implement a random number generator, which
 generates uniform samples of irrational numbers in $[0,1]$ by uniformly sampling
 from $[0,1]$ and rejecting a sample if it is rational.</span>
@@ -35,13 +113,13 @@ from $[0,1]$ and rejecting a sample if it is rational.</span>
                       &= 0.
 \end{align}</div>\EndKnitrBlock{solution}
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-4"><strong>(\#exr:unnamed-chunk-4) </strong></span>Show that $\mathcal{C} = \sigma(\mathcal{C})$ if and only if $\mathcal{C}$ is
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-10"><strong>(\#exr:unnamed-chunk-10) </strong></span>Show that $\mathcal{C} = \sigma(\mathcal{C})$ if and only if $\mathcal{C}$ is
 a sigma algebra.
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}<span style="color:red">TODO</span></div>\EndKnitrBlock{solution}
 
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-6"><strong>(\#exr:unnamed-chunk-6) </strong></span>
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-12"><strong>(\#exr:unnamed-chunk-12) </strong></span>
 
 a. Prove that the Lebesgue measure of $\mathbb{R}$ is infinity. 
 
@@ -81,7 +159,7 @@ value, which in this case is $\pi$. So our bijection is
 </div>\EndKnitrBlock{solution}
 
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-8"><strong>(\#exr:unnamed-chunk-8) </strong></span>
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-14"><strong>(\#exr:unnamed-chunk-14) </strong></span>
 Take the measure space $(\Omega_1 = (0,1], B_{(0,1], \lambda})$ (we know 
 that this is a probability space on $(0,1]$).
 
