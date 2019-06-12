@@ -177,9 +177,7 @@ that the set is measurable.
   </div>\EndKnitrBlock{solution}
 
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-12"><strong>(\#exr:unnamed-chunk-12) </strong></span>
-
-Let $\Omega = [0,1]$, and let $\mathcal{F}_3$ consist of all countable subsets
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-12"><strong>(\#exr:unnamed-chunk-12) </strong></span>Let $\Omega = [0,1]$, and let $\mathcal{F}_3$ consist of all countable subsets
 of $\Omega$, and all subsets of $\Omega$ having a countable complement. 
 
 a. Show
@@ -206,7 +204,7 @@ complement. We can write
 \begin{equation}
   (\cup_{i=1}^{\infty} A_i)^c = \cap_{i=1}^{\infty} A_i^c.
 \end{equation}
-Since at least one $A_i$ on the right side is countable, the whole intersection
+Since at least one $A_i^c$ on the right side is countable, the whole intersection
 is countable, and therefore the union has a countable complement. It follows
 that the union is in $\mathcal{F}_3$.
 
@@ -224,7 +222,7 @@ one $A_i$ be uncountable. W.L.O.G. let that be $A_1$. Then
   P(\cup_{i=1}^{\infty} A_i) = 1 + \sum_{i=2}^{\infty}P( A_i)) = 1.
 \end{equation}
 Since the union is uncountable, the above equation holds. Third, let at least
-two $A_i$ be uncountable. We have to check, whether it is possible for two
+two $A_i$ be uncountable. We have to check whether it is possible for two
 uncountable sets in $\mathcal{F}_3$ to be disjoint. If that is possible, then
 their measures would sum to more than one and $P$ would not be a probability
 measure. W.L.O.G. let $A_1$ and $A_2$ be uncountable. Then we have
@@ -244,9 +242,7 @@ is a legitimate probability space.
 
 ## Lebesgue measure
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-14"><strong>(\#exr:unnamed-chunk-14) </strong></span>
-
-Show that the Lebesgue measure of rational numbers on $[0,1]$ is 0. 
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-14"><strong>(\#exr:unnamed-chunk-14) </strong></span>Show that the Lebesgue measure of rational numbers on $[0,1]$ is 0. 
 <span style="color:blue">R: Implement a random number generator, which
 generates uniform samples of irrational numbers in $[0,1]$ by uniformly sampling
 from $[0,1]$ and rejecting a sample if it is rational.</span>

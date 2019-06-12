@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-06-06">
+<meta name="date" content="2019-06-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -140,7 +140,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#borel-sets"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a></li>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
+<li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
+<li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
 <li class="chapter" data-level="A.1" data-path="r-programming-language.html"><a href="r-programming-language.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
@@ -210,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.1</span> Borel sets</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 2.1  </strong></span></p>
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Prove that the intersection of two sigma algebras on <span class="math inline">\(\Omega\)</span> is a sigma
 algebra.</p></li>
@@ -250,7 +254,7 @@ Countable additivity: Let <span class="math inline">\(\{A_i\}\)</span> be a coun
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 2.2  </strong></span>Show that <span class="math inline">\(\mathcal{C} = \sigma(\mathcal{C})\)</span> if and only if <span class="math inline">\(\mathcal{C}\)</span> is
+<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 1.2  </strong></span>Show that <span class="math inline">\(\mathcal{C} = \sigma(\mathcal{C})\)</span> if and only if <span class="math inline">\(\mathcal{C}\)</span> is
 a sigma algebra.</p>
 </div>
 
@@ -274,7 +278,7 @@ Since this is the smallest subset in the intersection it follows that
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 2.3  </strong></span>Let <span class="math inline">\(\mathcal{C}\)</span> and <span class="math inline">\(\mathcal{D}\)</span> be two collections of subsets on <span class="math inline">\(\Omega\)</span>
+<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 1.3  </strong></span>Let <span class="math inline">\(\mathcal{C}\)</span> and <span class="math inline">\(\mathcal{D}\)</span> be two collections of subsets on <span class="math inline">\(\Omega\)</span>
 such that <span class="math inline">\(\mathcal{C} \subset \mathcal{D}\)</span>. Prove that
 <span class="math inline">\(\sigma(\mathcal{C}) \subset \sigma(\mathcal{D})\)</span>.</p>
 </div>
@@ -296,7 +300,7 @@ so that <span class="math inline">\(F_j = \sigma(\mathcal{D})\)</span>. Then we 
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 2.4  </strong></span>
+<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 1.4  </strong></span>
 <span style="color:blue">R: Simulate from the 2nd, 3rd, and 4th Cantor sets and
 plot results in a meaningful way.</span></p>
 </div>
@@ -336,7 +340,7 @@ cantor_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span c
 <img src="02-uncountable_probability_spaces_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-10" class="exercise"><strong>Exercise 2.5  </strong></span></p>
+<p><span id="exr:unnamed-chunk-10" class="exercise"><strong>Exercise 1.5  </strong></span></p>
 <p>Prove that the following subsets of <span class="math inline">\((0,1]\)</span> are Borel-measurable.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Any countable set.</p></li>
@@ -370,8 +374,7 @@ that the set is measurable.
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 2.6  </strong></span></p>
-<p>Let <span class="math inline">\(\Omega = [0,1]\)</span>, and let <span class="math inline">\(\mathcal{F}_3\)</span> consist of all countable subsets
+<p><span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 1.6  </strong></span>Let <span class="math inline">\(\Omega = [0,1]\)</span>, and let <span class="math inline">\(\mathcal{F}_3\)</span> consist of all countable subsets
 of <span class="math inline">\(\Omega\)</span>, and all subsets of <span class="math inline">\(\Omega\)</span> having a countable complement.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Show
@@ -401,7 +404,7 @@ complement. We can write
 <span class="math display">\[\begin{equation}
   (\cup_{i=1}^{\infty} A_i)^c = \cap_{i=1}^{\infty} A_i^c.
 \end{equation}\]</span>
-Since at least one <span class="math inline">\(A_i\)</span> on the right side is countable, the whole intersection
+Since at least one <span class="math inline">\(A_i^c\)</span> on the right side is countable, the whole intersection
 is countable, and therefore the union has a countable complement. It follows
 that the union is in <span class="math inline">\(\mathcal{F}_3\)</span>.</p></li>
 <li>The tuple <span class="math inline">\((\Omega, \mathcal{F}_3)\)</span> is a measurable space. Therefore, we only
@@ -418,7 +421,7 @@ one <span class="math inline">\(A_i\)</span> be uncountable. W.L.O.G. let that b
   P(\cup_{i=1}^{\infty} A_i) = 1 + \sum_{i=2}^{\infty}P( A_i)) = 1.
 \end{equation}\]</span>
 Since the union is uncountable, the above equation holds. Third, let at least
-two <span class="math inline">\(A_i\)</span> be uncountable. We have to check, whether it is possible for two
+two <span class="math inline">\(A_i\)</span> be uncountable. We have to check whether it is possible for two
 uncountable sets in <span class="math inline">\(\mathcal{F}_3\)</span> to be disjoint. If that is possible, then
 their measures would sum to more than one and <span class="math inline">\(P\)</span> would not be a probability
 measure. W.L.O.G. let <span class="math inline">\(A_1\)</span> and <span class="math inline">\(A_2\)</span> be uncountable. Then we have
@@ -439,8 +442,7 @@ is a legitimate probability space.
 <h2><span class="header-section-number">2.2</span> Lebesgue measure</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 2.7  </strong></span></p>
-<p>Show that the Lebesgue measure of rational numbers on <span class="math inline">\([0,1]\)</span> is 0.
+<p><span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 1.7  </strong></span>Show that the Lebesgue measure of rational numbers on <span class="math inline">\([0,1]\)</span> is 0.
 <span style="color:blue">R: Implement a random number generator, which
 generates uniform samples of irrational numbers in <span class="math inline">\([0,1]\)</span> by uniformly sampling
 from <span class="math inline">\([0,1]\)</span> and rejecting a sample if it is rational.</span></p>
@@ -460,7 +462,7 @@ from <span class="math inline">\([0,1]\)</span> and rejecting a sample if it is 
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-16" class="exercise"><strong>Exercise 2.8  </strong></span></p>
+<p><span id="exr:unnamed-chunk-16" class="exercise"><strong>Exercise 2.1  </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Prove that the Lebesgue measure of <span class="math inline">\(\mathbb{R}\)</span> is infinity.</p></li>
 <li><p><em>Paradox</em>. Show that the cardinality of <span class="math inline">\(\mathbb{R}\)</span> and <span class="math inline">\((0,1)\)</span> is the same,
@@ -501,7 +503,7 @@ value, which in this case is <span class="math inline">\(\pi\)</span>. So our bi
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-18" class="exercise"><strong>Exercise 2.9  </strong></span>
+<p><span id="exr:unnamed-chunk-18" class="exercise"><strong>Exercise 2.2  </strong></span>
 Take the measure space <span class="math inline">\((\Omega_1 = (0,1], B_{(0,1], \lambda})\)</span> (we know
 that this is a probability space on <span class="math inline">\((0,1]\)</span>).</p>
 <ol style="list-style-type: lower-alpha">

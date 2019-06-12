@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-06-06">
+<meta name="date" content="2019-06-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -140,7 +140,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#borel-sets"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a></li>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
+<li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
+<li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
 <li class="chapter" data-level="A.1" data-path="r-programming-language.html"><a href="r-programming-language.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
@@ -196,20 +200,392 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>identify whether variables are independent</li>
 <li>calculation of conditional probabilities</li>
+<li>understanding of conditional dependence and independence</li>
+<li>how to apply Bayes’ theorem to solve difficult probabilistic questions</li>
 </ul>
 <p><strong>R</strong></p>
 <ul>
-<li>simulating conditional variables</li>
+<li>simulating conditional probabilities</li>
+<li>cumsum</li>
+<li>apply</li>
 </ul>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.1</code></pre>
+<div id="calculating-conditional-probabilities" class="section level2">
+<h2><span class="header-section-number">3.1</span> Calculating conditional probabilities</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 3.1  (Monty Hall problem)  </strong></span>Describe Monty Hall problem.</p>
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  </strong></span>A military officer is in charge of identifying enemy aircraft and shooting them
+down. He is able to positively identify an enemy airplane 95% of the time
+and positively identify a friendly airplane 90% of the time. Furthermore, 99%
+of the airplanes are friendly. When the officer identifies an airplane as an
+enemy airplane, what is the probability that it is not and they will shoot at
+a friendly airplane?</p>
 </div>
 
 
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> a</p>
+<p> <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(E = 0\)</span> denote that the observed plane is friendly and <span class="math inline">\(E=1\)</span> that it
+is an enemy. Let <span class="math inline">\(I = 0\)</span> denote that the officer identified it as friendly and
+<span class="math inline">\(I = 1\)</span> as enemy. Then</p>
+<p><span class="math display">\[\begin{align}
+  P(E = 0 | I = 1) &amp;= \frac{P(I = 1 | E = 0)P(E = 0)}{P(I = 1)} \\ 
+                   &amp;= \frac{P(I = 1 | E = 0)P(E = 0)}{P(I = 1 | E = 0)P(E = 0) + 
+                       P(I = 1 | E = 1)P(E = 1)} \\
+                   &amp;= \frac{0.1 \times 0.99}{0.1 \times 0.99 + 
+                      0.95  \times 0.01} \\
+                   &amp;= 0.91.
+\end{align}\]</span></p>
+</div>
+
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 1.2  </strong></span><span style="color:blue">R: Consider tossing a fair die. Let <span class="math inline">\(A = \{2,4,6\}\)</span>
+and <span class="math inline">\(B = \{1,2,3,4\}\)</span>. Then <span class="math inline">\(P(A) = \frac{1}{2}\)</span>, <span class="math inline">\(P(B) = \frac{2}{3}\)</span> and
+<span class="math inline">\(P(AB) = \frac{1}{3}\)</span>. Since <span class="math inline">\(P(AB) = P(A)P(B)\)</span>, the events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are
+independent. Simulate draws from the sample space and verify that the
+proportions are the same. Then find two events <span class="math inline">\(C\)</span> and <span class="math inline">\(D\)</span> that are not
+independent and repeat the simulation.</span>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">10000</span>
+tosses &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, nsamps, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
+PA &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>)) <span class="op">/</span><span class="st"> </span>nsamps
+PB &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) <span class="op">/</span><span class="st"> </span>nsamps
+PA <span class="op">*</span><span class="st"> </span>PB</code></pre>
+<pre><code>## [1] 0.3283998</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<pre><code>## [1] 0.3217</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Let C = {1,2} and D = {2,3}</span>
+PC &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>nsamps
+PD &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)) <span class="op">/</span><span class="st"> </span>nsamps
+PC <span class="op">*</span><span class="st"> </span>PD</code></pre>
+<pre><code>## [1] 0.1114867</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<pre><code>## [1] 0.1631</code></pre>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 1.3  </strong></span>A machine reports the true value of a thrown 12-sided die 5 out of 6 times.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>If the machine reports a 1 has been tossed, what is the probability that
+it is actually a 1?</p></li>
+<li><p>Now let the machine only report whether a 1 has been
+tossed or not. Does the probability change?</p></li>
+<li><p><span style="color:blue">R: Use simulation to check your answers
+to a) and b). </span></p></li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Let <span class="math inline">\(T = 1\)</span> denote that the toss is 1 and <span class="math inline">\(M = 1\)</span> that the machine reports a 1.
+<span class="math display">\[\begin{align}
+  P(T = 1 | M = 1) &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{P(M = 1)} \\ 
+                &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{\sum_{k=1}^{12} 
+                  P(M = 1 | T = k)P(T = k)} \\
+                &amp;= \frac{\frac{5}{6}\frac{1}{12}}{\frac{5}{6}\frac{1}{12} + 11 \frac{1}{6} \frac{1}{11} \frac{1}{12}} \\
+                &amp;= \frac{5}{6}.
+\end{align}\]</span></p></li>
+<li>Yes.
+<span class="math display">\[\begin{align}
+  P(T = 1 | M = 1) &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{P(M = 1)} \\ 
+                &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{\sum_{k=1}^{12} 
+                  P(M = 1 | T = k)P(T = k)} \\
+                &amp;= \frac{\frac{5}{6}\frac{1}{12}}{\frac{5}{6}\frac{1}{12} + 11 \frac{1}{6} \frac{1}{12}} \\
+                &amp;= \frac{5}{16}.
+\end{align}\]</span>
+</div></li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps   &lt;-<span class="st"> </span><span class="dv">10000</span>
+report_a &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> nsamps)
+report_b &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)
+truths   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>) {
+  toss      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">size =</span> <span class="dv">1</span>)
+  truth     &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="dv">5</span><span class="op">/</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">6</span>))
+  truths[i] &lt;-<span class="st"> </span>truth
+  <span class="cf">if</span> (truth) {
+    report_a[i] &lt;-<span class="st"> </span>toss
+    report_b[i] &lt;-<span class="st"> </span>toss <span class="op">==</span><span class="st"> </span><span class="dv">1</span>
+  } <span class="cf">else</span> {
+    remaining   &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">12</span> <span class="op">!=</span><span class="st"> </span>toss]
+    report_a[i] &lt;-<span class="st"> </span><span class="kw">sample</span>(remaining, <span class="dt">size =</span> <span class="dv">1</span>)
+    report_b[i] &lt;-<span class="st"> </span>toss <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>
+  }
+}
+truth_a1 &lt;-<span class="st"> </span>truths[report_a <span class="op">==</span><span class="st"> </span><span class="dv">1</span>]
+<span class="kw">sum</span>(truth_a1) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(truth_a1)</code></pre>
+<pre><code>## [1] 0.8384075</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">truth_b1 &lt;-<span class="st"> </span>truths[report_b]
+<span class="kw">sum</span>(truth_b1) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(truth_b1)</code></pre>
+<pre><code>## [1] 0.3110339</code></pre>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-9" class="exercise"><strong>Exercise 3.1  </strong></span>A coin is tossed independently <span class="math inline">\(n\)</span> times. The probability of heads at each
+toss is <span class="math inline">\(p\)</span>. At each time <span class="math inline">\(k\)</span>, <span class="math inline">\((k = 2,3,...,n)\)</span> we get a reward at time <span class="math inline">\(k+1\)</span>
+if <span class="math inline">\(k\)</span>-th toss was a head and the previous toss was a tail. Let <span class="math inline">\(A_k\)</span> be the
+evebt that a reward is obtained at time <span class="math inline">\(k\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Are events <span class="math inline">\(A_k\)</span> and <span class="math inline">\(A_{k+1}\)</span> independent?</p></li>
+<li><p>Are events <span class="math inline">\(A_k\)</span> and <span class="math inline">\(A_{k+2}\)</span> independent?</p></li>
+<li><p><span style="color:blue">R: simulate 10 tosses 10000 times, where
+<span class="math inline">\(p = 0.7\)</span>. Check your
+answers to a) and b) by counting the frequencies of the events <span class="math inline">\(A_5\)</span>,
+<span class="math inline">\(A_6\)</span>, and <span class="math inline">\(A_7\)</span>.</span></p></li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p>For <span class="math inline">\(A_k\)</span> to happen, we need the tosses <span class="math inline">\(k-2\)</span> and <span class="math inline">\(k-1\)</span> be tails and heads
+respectively. For <span class="math inline">\(A_{k+1}\)</span> to happen, we need tosses <span class="math inline">\(k-1\)</span> and <span class="math inline">\(k\)</span> be tails
+and heads respectively. As the toss <span class="math inline">\(k-1\)</span> need to be heads for one and tails
+for the other, these two events can not happen simultaneously. Therefore the
+probability of their intersection is 0. But the probability of each of them
+separately is <span class="math inline">\(p(1-p) &gt; 0\)</span>. Therefore, they are not independent.</p></li>
+<li>For <span class="math inline">\(A_k\)</span> to happen, we need the tosses <span class="math inline">\(k-2\)</span> and <span class="math inline">\(k-1\)</span> be tails and heads
+respectively. For <span class="math inline">\(A_{k+2}\)</span> to happen, we need tosses <span class="math inline">\(k\)</span> and <span class="math inline">\(k+1\)</span> be tails
+and heads respectively. So the probability of intersection is <span class="math inline">\(p^2(1-p)^2\)</span>.
+And the probability of each separately is again <span class="math inline">\(p(1-p)\)</span>. Therefore, they
+are independent.
+</div></li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">10000</span>
+p      &lt;-<span class="st"> </span><span class="fl">0.7</span>
+rewardA_<span class="dv">5</span>  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)
+rewardA_<span class="dv">6</span>  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)
+rewardA_<span class="dv">7</span>  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)
+rewardA_<span class="dv">56</span> &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)
+rewardA_<span class="dv">57</span> &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {
+  samps &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.3</span>))
+  rewardA_<span class="dv">5</span>[i]  &lt;-<span class="st"> </span>(samps[<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samps[<span class="dv">3</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)
+  rewardA_<span class="dv">6</span>[i]  &lt;-<span class="st"> </span>(samps[<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samps[<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)
+  rewardA_<span class="dv">7</span>[i]  &lt;-<span class="st"> </span>(samps[<span class="dv">6</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samps[<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)
+  rewardA_<span class="dv">56</span>[i] &lt;-<span class="st"> </span>(rewardA_<span class="dv">5</span>[i] <span class="op">&amp;</span><span class="st"> </span>rewardA_<span class="dv">6</span>[i])
+  rewardA_<span class="dv">57</span>[i] &lt;-<span class="st"> </span>(rewardA_<span class="dv">5</span>[i] <span class="op">&amp;</span><span class="st"> </span>rewardA_<span class="dv">7</span>[i])
+}
+<span class="kw">sum</span>(rewardA_<span class="dv">5</span>) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<pre><code>## [1] 0.2141</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(rewardA_<span class="dv">6</span>) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<pre><code>## [1] 0.2122</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(rewardA_<span class="dv">7</span>) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<pre><code>## [1] 0.2107</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(rewardA_<span class="dv">56</span>) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(rewardA_<span class="dv">57</span>) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<pre><code>## [1] 0.0454</code></pre>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 1.6  </strong></span>A drawer contains two coins. One is an unbiased coin, the other is a biased
+coin, which will turn up heads with probability <span class="math inline">\(p\)</span> and tails with
+probability <span class="math inline">\(1-p\)</span>. One coin is selected uniformly at random.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>The selected coin is tossed <span class="math inline">\(n\)</span> times. The coin turns up heads <span class="math inline">\(k\)</span> times and
+tails <span class="math inline">\(n-k\)</span> times. What is the probability that the coin is biased?</p></li>
+<li><p>The selected coin is tossed repeatedly until it turns up heads <span class="math inline">\(k\)</span> times.
+Given that it is tossed <span class="math inline">\(n\)</span> times in total, what is the probability that the
+coin is biased?</p></li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Let <span class="math inline">\(B = 1\)</span> denote that the coin is biased and let <span class="math inline">\(H = k\)</span> denote that
+we’ve seen <span class="math inline">\(k\)</span> heads.
+<span class="math display">\[\begin{align}
+  P(B = 1 | H = k) &amp;= \frac{P(H = k | B = 1)P(B = 1)}{P(H = k)} \\
+                &amp;= \frac{P(H = k | B = 1)P(B = 1)}{P(H = k | B = 1)P(B = 1) + P(H = k | B = 0)P(B = 0)} \\
+                &amp;= \frac{p^k(1-p)^{n-k} 0.5}{p^k(1-p)^{n-k} 0.5 + 0.5^{n+1}} \\
+                &amp;= \frac{p^k(1-p)^{n-k}}{p^k(1-p)^{n-k} + 0.5^n}.
+\end{align}\]</span></p></li>
+<li>The same results as in a). The only difference between these two scenarios
+is that in b) the last throw must be heads. However, this holds for the biased
+and the unbiased coin and therefore does not affect the probability of the
+coin being biased.
+</div></li>
+</ol>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 1.7  </strong></span>Judy goes around the company for Women’s day and shares flowers. In every
+office she leaves a flower, if there is at least one woman inside.
+The probability
+that there’s a woman in the office is <span class="math inline">\(\frac{3}{5}\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>What is the probability that Judy leaves her first flower in the
+fourth office?</p></li>
+<li><p>Given that she has given away exactly three flowers in the first four
+offices,
+what is the probability that she gives her fourth flower in the eighth office?</p></li>
+<li><p>What is the probability that she leaves the second flower in the fifth
+office?</p></li>
+<li><p>What is the probability that she leaves the second flower in the fifth
+office,
+given that she did not leave the second flower in the second office?</p></li>
+<li><p>Judy needs a new supply of flowers immediately after the office, where she
+gives away her last flower. What is the probability that she visits at least
+five offices, if she starts with two flowers?</p></li>
+<li><span style="color:blue">R: simulate Judy’s walk 10000 times to
+check your answers a) - e).</span></li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(X_i = k\)</span> denote the event that … <span class="math inline">\(i\)</span>-th sample on the <span class="math inline">\(k\)</span>-th run.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Since the events are independent, we can multiply their probabilities to get
+<span class="math display">\[\begin{equation}
+  P(X_1 = 4) = 0.4^3 \times 0.6 = 0.0384.
+\end{equation}\]</span></p></li>
+<li><p>Since the events are independent, the results is the same as in a).</p></li>
+<li><p>For this to be possible, she had to leave the first flower in one of the
+first four offices. Therefore there are four possibilities, and for each
+of those the probability is <span class="math inline">\(0.4^3 \times 0.6\)</span>. Additionally, the probability
+that she leaves a flower in the fifth office is <span class="math inline">\(0.6\)</span>. So
+<span class="math display">\[\begin{equation}
+  P(X_2 = 5) = \binom{4}{1} \times 0.4^3 \times 0.6^2 = 0.09216. 
+\end{equation}\]</span></p></li>
+<li><p>We use Bayes’ theorem.
+<span class="math display">\[\begin{align}
+  P(X_2 = 5 | X_2 \neq 2) &amp;= \frac{P(X_2 \neq 2 | X_2 = 5)P(X_2 = 5)}{P(X_2 \neq 2)} \\
+                       &amp;= \frac{0.09216}{0.64} \\
+                       &amp;= 0.144.
+\end{align}\]</span>
+The denominator in the second equation can be calculated as follows. One of
+three things has to happen for the second not to be dealt in the second
+round. First, both are zero, so <span class="math inline">\(0.4^2\)</span>. Second, first is zero, and second is
+one, so <span class="math inline">\(0.4 \times 0.6\)</span>. Third,
+the first is one and the second one zero, so <span class="math inline">\(0.6 \times 0.4\)</span>. Summing these
+values we get <span class="math inline">\(0.64\)</span>.</p></li>
+<li><p>We will look at the complement, so the events that she gave away exactly
+two flowers
+after two, three and four offices.
+<span class="math display">\[\begin{equation}
+  P(X_2 \geq 5) = 1 - 0.6^2 - 2 \times 0.4 \times 0.6^2 - 3 \times 0.4^2 \times 0.6^2 = 0.1792.
+\end{equation}\]</span>
+The multiplying parts represent the possibilities of the first flower.</p></li>
+</ol>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps     &lt;-<span class="st"> </span><span class="dv">100000</span>
+Judyswalks &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="dv">8</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {
+  thiswalk &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.4</span>, <span class="fl">0.6</span>))
+  Judyswalks[i, ] &lt;-<span class="st"> </span>thiswalk
+}
+csJudy &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(Judyswalks, <span class="dv">1</span>, cumsum))
+
+<span class="co"># a</span>
+<span class="kw">sum</span>(csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">3</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<pre><code>## [1] 0.03848</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># b</span>
+csJsubset &lt;-<span class="st"> </span>csJudy[csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">3</span>] <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, ]
+<span class="kw">sum</span>(csJsubset[ ,<span class="dv">8</span>] <span class="op">==</span><span class="st"> </span><span class="dv">4</span> <span class="op">&amp;</span><span class="st"> </span>csJsubset[ ,<span class="dv">7</span>] <span class="op">==</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(csJsubset)</code></pre>
+<pre><code>## [1] 0.03665893</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># c</span>
+<span class="kw">sum</span>(csJudy[ ,<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<pre><code>## [1] 0.09117</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># d</span>
+<span class="kw">sum</span>(csJudy[ ,<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(csJudy[ ,<span class="dv">2</span>] <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>)</code></pre>
+<pre><code>## [1] 0.1422398</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># e</span>
+<span class="kw">sum</span>(csJudy[ ,<span class="dv">4</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<pre><code>## [1] 0.17818</code></pre>
+</div>
+<div id="conditional-independence" class="section level2">
+<h2><span class="header-section-number">3.2</span> Conditional independence</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-17" class="exercise"><strong>Exercise 1.8  </strong></span>Describe:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>A real-world example of two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> that are dependent but
+become conditionally independent if conditioned on a third event <span class="math inline">\(C\)</span>.</p></li>
+<li>A real-world example of two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> that are independent, but
+become dependent if conditioned on some third event <span class="math inline">\(C\)</span>.</li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Let <span class="math inline">\(A\)</span> be the height of a person and let <span class="math inline">\(B\)</span> be the person’s knowledge
+in the Dutch language. These events are dependent since the Dutch are known
+to be taller than average. However if <span class="math inline">\(C\)</span> is the nationality of the person,
+then <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are independent given <span class="math inline">\(C\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(A\)</span> be the event that Mary passes the exam and let <span class="math inline">\(B\)</span> be the event
+that John passes the exam. These events are independent. However, if the
+event <span class="math inline">\(C\)</span> is that Mary and John studied together, then <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are
+conditionally dependent given <span class="math inline">\(C\)</span>.</p></li>
+</ol>
+</div>
+
+</div>
+<div id="monty-hall-problem" class="section level2">
+<h2><span class="header-section-number">3.3</span> Monty Hall problem</h2>
+<p>The Monty Hall problem is a famous probability puzzle with non-intuitive
+outcome. Many established mathematicians and statisticians had problems
+solving it and many even disregarded the correct solution until they’ve seen
+the proof by simulation. Here we will show how it can be solved relatively
+simply with the use of Bayes’ theorem if we select the variables in a smart way.</p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-19" class="exercise"><strong>Exercise 3.2  (Monty Hall problem)  </strong></span>A prize is placed at random behind one of three doors. You pick a door. Now
+Monty Hall chooses one of the other two doors, opens it and shows you that it is
+empty. He then gives you the opportunity to keep your door or switch to the
+other unopened door. Should you stay or switch? Use Bayes’ theorem to c
+alculate the probability of winning if you switch and if you do not.
+<span style="color:blue">R: Check your answers in R.</span></p>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> W.L.O.G. assume we always pick the first door. The host can only open door 2
+or door 3, as he can not open the door we picked. Let <span class="math inline">\(k \in \{2,3\}\)</span>.</p>
+<p>Let us first look at what happens if we do not change. Then we have</p>
+<p><span class="math display">\[\begin{align}
+  P(\text{car in 1} | \text{open $k$}) &amp;= \frac{P(\text{open $k$} | \text{car in 1})P(\text{car in 1})}{P(\text{open $k$})} \\
+                                     &amp;= \frac{P(\text{open $k$} | \text{car in 1})P(\text{car in 1})}{\sum_{n=1}^3 P(\text{open $k$} |  \text{car in $n$})P(\text{car in $n$)}}.
+\end{align}\]</span></p>
+<p>The probability that he opened <span class="math inline">\(k\)</span> if the car is in 1 is <span class="math inline">\(\frac{1}{2}\)</span>,
+as he can choose
+between door 2 and 3 as both have a goat behind it. Let us look at the
+normalization constant. Whek <span class="math inline">\(n = 1\)</span> we get the value in the nominator. When
+<span class="math inline">\(n=k\)</span>, we get 0, as he will not open the door if there’s a prize behind. The
+remaining option is that we select 1, the car is behind <span class="math inline">\(k\)</span> and he opens the
+only door left. Since he can’t open 1 due to it being our pick and <span class="math inline">\(k\)</span> due to
+having the prize, the probability of opening the remaining door is 1, and the
+prior probability of the car being behind this door is <span class="math inline">\(\frac{1}{3}\)</span>. So
+we have</p>
+<p><span class="math display">\[\begin{align}
+  P(\text{car in 1} | \text{open $k$}) &amp;= \frac{\frac{1}{2}\frac{1}{3}}{\frac{1}{2}\frac{1}{3} + \frac{1}{3}} \\
+                                       &amp;= \frac{1}{3}.
+\end{align}\]</span></p>
+<p>Now let us look at what happens if we do change. Let <span class="math inline">\(k&#39; \in \{2,3\}\)</span> be the
+door that is not opened. If we change, we select this door, so we have</p>
+<p><span class="math display">\[\begin{align}
+  P(\text{car in $k&#39;$} | \text{open $k$}) &amp;= \frac{P(\text{open $k$} | \text{car in $k&#39;$})P(\text{car in $k&#39;$})}{P(\text{open $k$})} \\
+                                          &amp;= \frac{P(\text{open $k$} | \text{car in $k&#39;$})P(\text{car in $k&#39;$})}{\sum_{n=1}^3 P(\text{open $k$} |  \text{car in $n$})P(\text{car in $n$)}}.
+\end{align}\]</span></p>
+<p>The denominator stays the same, the only thing that is different from before is
+<span class="math inline">\(P(\text{open $k$} | \text{car in $k&#39;$})\)</span>. We have a situation where we
+initially
+selected door 1 and the car is in door <span class="math inline">\(k&#39;\)</span>. The probability that the host will
+open door <span class="math inline">\(k\)</span> is then 1, as he can not pick any other door. So we have</p>
+<p><span class="math display">\[\begin{align}
+  P(\text{car in $k&#39;$} | \text{open $k$}) &amp;= \frac{\frac{1}{3}}{\frac{1}{2}\frac{1}{3} + \frac{1}{3}} \\
+                                       &amp;= \frac{2}{3}.
+\end{align}\]</span></p>
+<p>Therefore it makes sense to change the door.</p>
 </div>
 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
@@ -234,6 +610,7 @@ ifstay   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span clas
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(ifchange) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
 <pre><code>## [1] 0.667</code></pre>
 
+</div>
 </div>
 
 
