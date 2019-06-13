@@ -424,6 +424,52 @@ conditionally dependent given $C$.
 
 </div>\EndKnitrBlock{solution}
 
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-19"><strong>(\#exr:unnamed-chunk-19) </strong></span>We have two coins of identical appearance. We know that one is a fair coin
+and the other flips heads 80% of the time. We choose one of the two 
+coins uniformly at random. We discard the coin that was not chosen. We now
+flip the chosen coin independently 10 times, producing a sequence
+$Y_1 = y_1$, $Y_2 = y_2$, ..., $Y_10 = y_10$.
+
+a. Intuitively, without doing and computation, are these random variables
+independent?
+
+b. Compute the probability $P(Y_1 = 1)$.
+
+c. Compute the probabilities $P(Y_2 = 1 | Y_1 = 1)$ and
+P(Y_{10} = 1 | Y_1 = 1,...,Y_9 = 1)$.
+
+d. Given your answers to b) and c), would you now change your answer to a)?
+If so, discuss why your intuition had failed.
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+b. $P(Y_1 = 1) = 0.5 * 0.8 + 0.5 * 0.5 = 0.65.
+
+c. Since we know that $Y_1 = 1$ this should change our view of the probability
+of the coin being biased or not. Let $B = 1$ denote the event that the
+coin is biased and let $B = 0$ denote that the coin is unbiased. By using
+marginal probability, we can write
+\begin{align}
+  P(Y_2 = 1 | Y_1 = 1) &= P(Y_2 = 1, B = 1 | Y_1 = 1) + P(Y_2 = 1, B = 0 | Y_1 = 1) \\
+                       &= \sum_{k=1}^2 P(Y_2 = 1 | B = k, Y_1 = 1)P(B = k | Y_1 = 1) \\
+                       &= 0.8 \frac{P(Y_1 = 1 | B = 1)P(B = 1)}{P(Y_1 = 1)} + 
+                          0.5 \frac{P(Y_1 = 1 | B = 0)P(B = 0)}{P(Y_1 = 1)} \\
+                       &= 0.8 \frac{0.8 \times 0.5}{0.65} + 0.5 \frac{0.5 \times 0.5}{0.65} \\
+                       &\approx 0.68.
+\end{align}
+For the other calculation we follow the same procedure. Let $X = 1$ denote
+that first nine tosses are all heads (equivalent to $Y_1 = 1$,..., $Y_9 = 1$).
+\begin{align}
+  P(Y_{10} = 1 | X = 1) &= P(Y_2 = 1, B = 1 | X = 1) + P(Y_2 = 1, B = 0 | X = 1) \\
+                       &= \sum_{k=1}^2 P(Y_2 = 1 | B = k, X = 1)P(B = k | X = 1) \\
+                       &= 0.8 \frac{P(X = 1 | B = 1)P(B = 1)}{P(X = 1)} + 
+                          0.5 \frac{P(X = 1 | B = 0)P(B = 0)}{P(X = 1)} \\
+                       &= 0.8 \frac{0.8^9 \times 0.5}{0.5 \times 0.8^9 + 0.5 \times 0.5^9} + 0.5 \frac{0.5^9 \times 0.5}{0.5 \times 0.8^9 + 0.5 \times 0.5^9} \\
+                       &\approx 0.8.
+\end{align}
+
+</div>\EndKnitrBlock{solution}
+
 ## Monty Hall problem
 The Monty Hall problem is a famous probability puzzle with non-intuitive
 outcome. Many established mathematicians and statisticians had problems
@@ -431,7 +477,7 @@ solving it and many even disregarded the correct solution until they've seen
 the proof by simulation. Here we will show how it can be solved relatively
 simply with the use of Bayes' theorem if we select the variables in a smart way.
 
-\BeginKnitrBlock{exercise}\iffalse{-91-77-111-110-116-121-32-72-97-108-108-32-112-114-111-98-108-101-109-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-19"><strong>(\#exr:unnamed-chunk-19)  \iffalse (Monty Hall problem) \fi{} </strong></span>A prize is placed at random behind one of three doors. You pick a door. Now
+\BeginKnitrBlock{exercise}\iffalse{-91-77-111-110-116-121-32-72-97-108-108-32-112-114-111-98-108-101-109-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-21"><strong>(\#exr:unnamed-chunk-21)  \iffalse (Monty Hall problem) \fi{} </strong></span>A prize is placed at random behind one of three doors. You pick a door. Now
 Monty Hall chooses one of the other two doors, opens it and shows you that it is
 empty. He then gives you the opportunity to keep your door or switch to the 
 other unopened door. Should you stay or switch?  Use Bayes' theorem to c
