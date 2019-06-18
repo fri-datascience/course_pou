@@ -32,8 +32,8 @@ a.
 b. 
 \begin{equation}
   F(x) = \begin{cases}
-           e^{-\frac{1}{x}}, & x > 0    \\
-            0, & x \leq 0.
+           e^{-\frac{1}{x}} & x > 0    \\
+            0 & x \leq 0.
           \end{cases}
 \end{equation}
             
@@ -105,7 +105,7 @@ f3 <- function (x) {
   return(tmp)
 }
 
-cdf_data <- tibble(x  = seq(-1, 20, by = 0.01),
+cdf_data <- tibble(x  = seq(-1, 20, by = 0.001),
                    f1 = f1(x),
                    f2 = f2(x),
                    f3 = f3(x)) %>%
@@ -118,35 +118,126 @@ cdf_data <- tibble(x  = seq(-1, 20, by = 0.01),
 #   geom_hline(yintercept = 1)
 # plot(geo_plot)
 
-geo_plot <- ggplot(data = cdf_data, aes(x = x, y = value, color = variable)) +
-  geom_step() +
-  geom_hline(yintercept = 1)
-plot(geo_plot)
+cdf_plot <- ggplot(data = cdf_data, aes(x = x, y = value, color = variable)) +
+  geom_hline(yintercept = 1) +
+  geom_line()
+plot(cdf_plot)
 ```
 
 <img src="04-random_variables_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-5"><strong>(\#exr:unnamed-chunk-5) </strong></span><span style="color:red">TODO: Mixed random variable CDF, find
-PDF.</span>
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-5"><strong>(\#exr:unnamed-chunk-5) </strong></span>Let $X$ be a random variable with CDF 
+\begin{equation}
+  F(x) = \begin{cases}
+            0 & x < 0 \\
+            \frac{x^2}{2} & 0 \leq x < 1 \\
+            \frac{1}{2} + \frac{p}{2} & 1 \leq x < 2 \\
+            \frac{1}{2} + \frac{p}{2} + \frac{1 - p}{2} & x \geq 2
+          \end{cases}
+\end{equation}
 
+a. <span style="color:blue">R: Plot this CDF for $p = 0.3$. Is it a discrete, 
+continuous, or mixed random 
+varible?</span>
+  
+b. Find the probability density/mass of $X$. 
 </div>\EndKnitrBlock{exercise}
-\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}</div>\EndKnitrBlock{solution}
 
 ```r
-f1 <- function (x) {
-  tmp        <- 1 - exp(-x^2)
-  tmp[x < 0] <- 0
+f1 <- function (x, p) {
+  tmp          <- x
+  tmp[x >= 2]  <- 0.5 + (p * 0.5) + ((1-p) * 0.5)
+  tmp[x < 2]   <- 0.5 + (p * 0.5) 
+  tmp[x < 1]   <- (x[x < 1])^2 / 2
+  tmp[x < 0]   <- 0
   return(tmp)
 }
+
+cdf_data <- tibble(x = seq(-1, 5, by = 0.001), y = f1(x, 0.3))
+cdf_plot <- ggplot(data = cdf_data, aes(x = x, y = y)) +
+  geom_hline(yintercept = 1) +
+  geom_line(color = "blue")
+plot(cdf_plot)
 ```
 
+<img src="04-random_variables_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+a. $X$ is a mixed random variable.
+
+b. Since $X$ is a mixed random variable, we have to find the PDF of the
+continuous part and the PMF of the discrete part. We get the continuous
+part by differentiating the corresponding CDF, $\frac{d}{dx}\frac{x^2}{2} = x$. 
+So the PDF, when $0 \leq x < 1$, is $p(x) = x$. Let us look at the discrete
+part now. It has two steps, so this is a discrete distribution with two
+outcomes -- numbers two and three. The first happens with probability 
+$\frac{p}{2}$, and the second with probability $\frac{1 - p}{2}$. This reminds
+us of the bernoulli distribution, the only difference is that the probabilities
+of outcomes are halved, as they need to be suitably normalized. So the PMF
+for the discrete part is $P(X = x) = (\frac{p}{2})^{2 - \lfloor x \rfloor} 
+(\frac{1 - p}{2})^{\lfloor x \rfloor - 1}$.</div>\EndKnitrBlock{solution}
+
+
 ## Discrete random variables
-\BeginKnitrBlock{exercise}\iffalse{-91-66-105-110-111-109-105-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:bincdf"><strong>(\#exr:bincdf)  \iffalse (Binomial random variable) \fi{} </strong></span>
-<span style="color:red">TODO</span>
+\BeginKnitrBlock{exercise}\iffalse{-91-66-105-110-111-109-105-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:bincdf"><strong>(\#exr:bincdf)  \iffalse (Binomial random variable) \fi{} </strong></span>Let $X_k$, $k = 1,...,n$, be random variables with the Bernoulli measure as the 
+PMF with $p = 0.4$. Let $X = \sum_{k=1}^n$.
+
+a. We call $X_k$ a Bernoulli random variable. Find the CDF of $X_k$.
+
+b. Find PDF of $X$.
+
+c. Find CDF of $X$. 
+
+d. <span style="color:blue">R: Simulate from the binomial distribution
+with $n = 10$ and $p = 0.5$, and from $n$ Bernoulli distributions with
+$p = 0.5$. Visually compare the sum of Bernoullis and the binomial. Hint:
+  there is no standard function like _rpois_ for a Bernoulli random
+variable. Check exercise \@ref(exr:binomialpmf) to find out how to sample 
+from a Bernoulli
+distribution.</span>
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
-a.</div>\EndKnitrBlock{solution}
+a. There are two outcomes -- zero and one. Zero happens with probability
+$1 - p$. Therefore
+\begin{equation}
+  F(k) = \begin{cases}
+            0 & k < 0 \\
+            1 - p & 0 \leq k < 1 \\
+            1 & k \geq 1.
+          \end{cases}
+\end{equation}
+            
+b. For the probability of $X$ to be equal to some $k \leq n$, exactly $k$
+  Bernoulli variables need to be one, and the others zero. So $p^k(1-p)^{n-k}$.
+There are $\binom{n}{k}$ such possible arrangements. Therefore
+\begin{align}
+  P(X = k) = P(\sum X_k = 2) = \binom{n}{k} p^k (1 - p)^{n-k}.
+\end{align}
+  
+c. 
+\begin{equation}
+  F(k) = \sum_{i = 1}^{\lfloor k \rfloor} \binom{n}{i} p^i (1 - p)^{n - i}
+\end{equation}      
+            </div>\EndKnitrBlock{solution}
+
+```r
+set.seed(1)
+nsamps        <- 10000
+binom_samp    <- rbinom(nsamps, size = 10, prob = 0.5)
+bernoulli_mat <- matrix(data = NA, nrow = nsamps, ncol = 10)
+for (i in 1:nsamps) {
+  bernoulli_mat[i, ] <- rbinom(10, size = 1, prob = 0.5)
+}
+bern_samp <- apply(bernoulli_mat, 1, sum)
+b_data    <- tibble(x    = c(binom_samp, bern_samp), 
+                    type = c(rep("binomial", 10000), rep("Bernoulli_sum", 10000)))
+b_plot    <- ggplot(data = b_data, aes(x = x, fill = type)) +
+  geom_bar(position = "dodge")
+plot(b_plot)
+```
+
+<img src="04-random_variables_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 
 \BeginKnitrBlock{exercise}\iffalse{-91-71-101-111-109-101-116-114-105-99-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:geocdf"><strong>(\#exr:geocdf)  \iffalse (Geometric random variable) \fi{} </strong></span>A variable with PMF $p(1-p)^k$ is a geometric random 
@@ -163,7 +254,7 @@ theoretical values.</span>
 
 a.
 \begin{align}
-  P(X <= k) &= \sum_{i = 0}^k p(1-p)^i \\
+  P(X \leq k) &= \sum_{i = 0}^k p(1-p)^i \\
             &= p \sum_{i = 0}^k (1-p)^i \\
             &= p \frac{1 - (1-p)^{k+1}}{1 - (1 - p)} \\
             &= 1 - (1-p)^{k + 1}
@@ -183,21 +274,22 @@ geo_plot <- ggplot(data = geo_samp, aes(x = x, y = n, fill = type)) +
 plot(geo_plot)
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
-\BeginKnitrBlock{exercise}\iffalse{-91-80-111-105-115-115-111-110-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-11"><strong>(\#exr:unnamed-chunk-11)  \iffalse (Poisson random variable) \fi{} </strong></span>A variable with PMF $\frac{\lambda^k e^{-\lambda}}{k!}$ is a Poisson random 
+\BeginKnitrBlock{exercise}\iffalse{-91-80-111-105-115-115-111-110-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-12"><strong>(\#exr:unnamed-chunk-12)  \iffalse (Poisson random variable) \fi{} </strong></span>A variable with PMF $\frac{\lambda^k e^{-\lambda}}{k!}$ is a Poisson random 
 variable with support in non-negative integers. It has one positive parameter 
 $\lambda$, 
-which also represents its mean value. 
+which also represents its mean value and variance (a measure of the deviation
+of the values from the mean -- more on mean and variance in the next chapter). 
 This distribution is usually the default choice for modeling counts. We have
 already encountered a Poisson random variable in exercise \@ref(exr:geopoispmf),
 where we also sampled from this distribution.
 
 The CDF of a Poisson random variable is $P(X <= x) = e^{-\lambda} \sum_{i=0}^x \frac{\lambda^{i}}{i!}$.
 
-a. <span style="color:blue">R: Draw 1000 samples from the geometric
-distribution with $p$ = 0.3$ and compare their frequencies to
-theoretical values.</span>
+a. <span style="color:blue">R: Draw 1000 samples from the Poisson
+distribution with $p$ = 0.3$ and compare their empirical cumulative
+distribution function with the theoretical CDF.</span>
 </div>\EndKnitrBlock{exercise}
 
 ```r
@@ -206,18 +298,14 @@ pois_samp <- rpois(n = 1000, lambda = 5)
 pois_samp <- data.frame(x = pois_samp)
 pois_plot <- ggplot(data = pois_samp, aes(x = x, colour = "ECDF")) +
   stat_ecdf(geom = "step") +
-  stat_function(data = data.frame(x = 0:17), aes(x = x, colour = "CDF"), geom = "line", fun = ppois, args = list(lambda = 5)) +
+  geom_step(data = tibble(x = 0:17, y = ppois(x, 5)), aes(x = x, y = y, colour = "CDF")) +
+  # stat_function(data = data.frame(x = 0:17), aes(x = x, colour = "CDF"), geom = "line", fun = ppois, args = list(lambda = 5)) +
   scale_colour_manual("Lgend title", values = c("black", "red"))
 plot(pois_plot)
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-12-1.png" width="672" />
-\BeginKnitrBlock{exercise}\iffalse{-91-110-101-103-97-116-105-118-101-32-98-105-110-111-109-105-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:negbincdf"><strong>(\#exr:negbincdf)  \iffalse (negative binomial random variable) \fi{} </strong></span>
-<span style="color:red">TODO</span>
-</div>\EndKnitrBlock{exercise}
-\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+<img src="04-random_variables_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
-a.</div>\EndKnitrBlock{solution}
 
 ## Continuous random variables
 \BeginKnitrBlock{exercise}\iffalse{-91-69-120-112-111-110-101-110-116-105-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:expcdf"><strong>(\#exr:expcdf)  \iffalse (Exponential random variable) \fi{} </strong></span>A variable $X$ with PDF $\lambda e^{-\lambda x}$ is an exponential random 
@@ -344,8 +432,9 @@ set.seed(1)
 
 
 \BeginKnitrBlock{exercise}\iffalse{-91-66-101-116-97-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:betacdf"><strong>(\#exr:betacdf)  \iffalse (Beta random variable) \fi{} </strong></span>A variable $X$ with PDF 
-$\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)}$,
-where $\text{B}(\alpha, \beta) = \frac{\Gamma(\alpha) \Gammma(\beta)}{\Gamma(\alpha + \beta)}$
+$p(x) = \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)}$,
+where $\text{B}(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}$ and 
+$\Gamma(x) = \int_0^{\infty} x^{z - 1} e^{-x} dx$
   is a Beta random 
 variable with support on $[0,1]$. It has two positive 
 parameters $\alpha$ and $\beta$. 
@@ -365,7 +454,10 @@ compare the histogram with Beta PDF.</span>
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
-a. 
+a.
+\begin{equation}
+  p(x) = \frac{x^{1 - 1} (1 - x)^{1 - 1}}{\text{B}(1, 1)} = 1.
+\end{equation}
 
 </div>\EndKnitrBlock{solution}
 
@@ -407,7 +499,17 @@ set.seed(1)
 ```
 
 
-\BeginKnitrBlock{exercise}\iffalse{-91-78-111-114-109-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:normalpdf"><strong>(\#exr:normalpdf)  \iffalse (Normal random variable) \fi{} </strong></span><span style="color:red">TODO</span></div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{exercise}\iffalse{-91-78-111-114-109-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:normalpdf"><strong>(\#exr:normalpdf)  \iffalse (Normal random variable) \fi{} </strong></span>A random variable with PDF $p(x) = $ is a normal random variable.
+Many statistical methods assume a normal distribution. Due to it's flexibility
+it is also one of the most researched distributions. For that reason 
+statisticians often use transformations of variables or approximate
+distributions with the normal distribution.
+
+a. For Poisson distributed variables with a large $\lambda$, the normal
+distribution provides a good approximation. Let $X \sim \text{Poisson}(50)$.
+Approximate $X$ with the normal distribution and compare it's density with
+the Poisson histogram. What are the values of $\mu$ and $\sigma^2$ that
+should provide the best approximation?</div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a.
@@ -415,10 +517,32 @@ a.
 
 ```r
 set.seed(1)
+nsamps     <- 100000
+pois_samps <- rpois(nsamps, lambda = 50)
+norm_samps <- rnorm(nsamps, mean = 50, sd = sqrt(50))
+my_plot    <- ggplot() +
+  geom_bar(data = tibble(x = pois_samps), aes(x = x, y = (..count..)/sum(..count..))) +
+  geom_density(data = tibble(x = norm_samps), aes(x = x), color = "red")
+plot(my_plot)
 ```
 
+<img src="04-random_variables_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
-\BeginKnitrBlock{exercise}\iffalse{-91-76-111-103-105-115-116-105-99-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:logitpdf"><strong>(\#exr:logitpdf)  \iffalse (Logistic random variable) \fi{} </strong></span><span style="color:red">TODO</span></div>\EndKnitrBlock{exercise}
+
+\BeginKnitrBlock{exercise}\iffalse{-91-76-111-103-105-115-116-105-99-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:logitpdf"><strong>(\#exr:logitpdf)  \iffalse (Logistic random variable) \fi{} </strong></span>A logistic random variable has CDF $F(x) = \frac{1}{1 + e^{-\frac{x - \mu}{s}}},
+where $\mu$ is real and $s > 0$.
+The distribution of the logistic random variable resembles a normal random 
+variable, however it has heavier tails.
+
+a. Find the PDF of a logistic random variable.
+
+b. <span style="color:blue">R: Implement logistic PDF and CDF and visually
+compare both for $X \sim \text{N}(0, 1)$ and $Y \sim \text{logit}(0, \sqrt{\frac{3}{\pi^2}})$.</span>
+
+c. Find $P(...)$ TAIL PROBABILITIES.
+
+
+<span style="color:red">TODO</span></div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a.
@@ -426,6 +550,15 @@ a.
 
 ```r
 set.seed(1)
+logit_pdf <- function (x, mu, s) {
+  return ((exp(-(x - mu)/(s))) / (s * (1 + exp(-(x - mu)/(s)))^2))
+}
+nl_plot <- ggplot(data = data.frame(x = seq(-5, 5, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 1), aes(color = "normal")) +
+  stat_function(fun = logit_pdf, args = list(mu = 0, s = sqrt(3/pi^2)), aes(color = "logit"))
+plot(nl_plot)
 ```
+
+<img src="04-random_variables_files/figure-html/unnamed-chunk-27-1.png" width="672" />
 
 ## Transformations
