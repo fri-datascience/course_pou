@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-06-18">
+<meta name="date" content="2019-06-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -146,7 +146,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
-<li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#identifying-random-variables"><i class="fa fa-check"></i><b>4.1</b> Identifying random variables</a></li>
+<li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.4</b> Transformations</a></li>
@@ -252,7 +252,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tr class="even">
 <td>geometric</td>
 <td><span class="math inline">\(p(1-p)^k\)</span> <br> <a href="introduction.html#exr:geopoispmf">1.12</a></td>
-<td><span class="math inline">\(1 - (1-p)^{k + 1}\)</span> <br> <a href="rvs.html#exr:geocdf">4.3</a></td>
+<td><span class="math inline">\(1 - (1-p)^{k + 1}\)</span> <br> <a href="rvs.html#exr:geocdf">4.4</a></td>
 <td></td>
 <td></td>
 <td></td>
@@ -260,8 +260,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td>Normal</td>
-<td></td>
-<td></td>
+<td><span class="math inline">\(p(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}\)</span> <br> <a href="rvs.html#exr:normalpdf">4.10</a></td>
+<td><span class="math inline">\(F(x) = \int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(t - \mu)^2}{2 \sigma^2}} dt\)</span> <br> <a href="rvs.html#exr:normalpdf">4.10</a></td>
 <td></td>
 <td></td>
 <td></td>
@@ -296,7 +296,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td>beta</td>
-<td><span class="math inline">\(\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)}\)</span> <a href="rvs.html#exr:betacdf">4.6</a></td>
+<td><span class="math inline">\(\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)}\)</span> <a href="rvs.html#exr:betacdf">4.8</a></td>
 <td></td>
 <td></td>
 <td></td>
@@ -314,8 +314,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td>exponential</td>
-<td><span class="math inline">\(\lambda e^{-\lambda}\)</span> <br> <a href="rvs.html#exr:expcdf">4.4</a></td>
-<td><span class="math inline">\(1 - e^{-\lambda x}\)</span> <br> <a href="rvs.html#exr:expcdf">4.4</a></td>
+<td><span class="math inline">\(\lambda e^{-\lambda}\)</span> <br> <a href="rvs.html#exr:expcdf">4.6</a></td>
+<td><span class="math inline">\(1 - e^{-\lambda x}\)</span> <br> <a href="rvs.html#exr:expcdf">4.6</a></td>
 <td></td>
 <td></td>
 <td></td>
@@ -323,8 +323,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td>logistic</td>
-<td></td>
-<td></td>
+<td><span class="math inline">\(\frac{e^{-\frac{x - \mu}{s}}}{(1 + e{-\frac{x - \mu}{s}})^2}\)</span> <br> <a href="rvs.html#exr:logitpdf">4.11</a></td>
+<td><span class="math inline">\(F(x) = \frac{1}{1 + e^{-\frac{x - \mu}{s}}}\)</span> <br> <a href="rvs.html#exr:logitpdf">4.11</a></td>
 <td></td>
 <td></td>
 <td></td>

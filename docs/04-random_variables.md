@@ -17,7 +17,7 @@ The students are expected to acquire the following knowledge:
 
 
 
-## Identifying random variables
+## General properties and calculations
 \BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-2"><strong>(\#exr:unnamed-chunk-2) </strong></span>Which of the functions below are valid CDFs? Find their respective densities.
 <span style="color:blue">R: Plot the three functions.</span>
   
@@ -178,6 +178,46 @@ for the discrete part is $P(X = x) = (\frac{p}{2})^{2 - \lfloor x \rfloor}
 (\frac{1 - p}{2})^{\lfloor x \rfloor - 1}$.</div>\EndKnitrBlock{solution}
 
 
+\BeginKnitrBlock{exercise}\iffalse{-91-67-111-110-118-111-108-117-116-105-111-110-115-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:conv"><strong>(\#exr:conv)  \iffalse (Convolutions) \fi{} </strong></span>Convolutions are probability distributions that correspond to sums of
+independent random variables.
+
+a. Let $X$ and $Y$ be independent discrete variables. 
+Find the PMF of $Z = X + Y$. Hint: Use the law of
+total probability.
+
+b. Let $X$ and $Y$ be independent continuous variables. 
+Find the PDF of $Z = X + Y$ 
+Hint: Start with the CDF.
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+a.
+\begin{align}
+  P(Z = z) &= P(X + Y = z) & \\ 
+           &= \sum_{k = -\infty}^\infty P(X + Y = z | Y = k) P(Y = k) & \text{ (law of total probability)} \\
+           &= \sum_{k = -\infty}^\infty P(X + k = z | Y = k) P(Y = k) & \\
+           &= \sum_{k = -\infty}^\infty P(X + k = z) P(Y = k) & \text{ (independence of $X$ and $Y$)} \\
+           &= \sum_{k = -\infty}^\infty P(X = z - k) P(Y = k). &
+\end{align}
+  
+b. Let $f$ and $g$ be the PDFs of $X$ and $Y$ respectively.
+\begin{align}
+  F(z)     &= P(Z < z) \\ 
+           &= P(X + Y < z) \\ 
+           &= \int_{-\infty}^{\infty} P(X + Y < z | Y = y)P(Y = y)dy \\
+           &= \int_{-\infty}^{\infty} P(X + y < z | Y = y)P(Y = y)dy \\
+           &= \int_{-\infty}^{\infty} P(X + y < z)P(Y = y)dy \\
+           &= \int_{-\infty}^{\infty} P(X < z - y)P(Y = y)dy \\
+           &= \int_{-\infty}^{\infty} (\int_{-\infty}^{z - y} f(x) dx) g(y) dy
+\end{align}
+Now
+\begin{align}
+  p(z) &= \frac{d}{dz} F(z) & \\
+       &= \int_{-\infty}^{\infty} (\frac{d}{dz}\int_{-\infty}^{z - y} f(x) dx) g(y) dy & \\
+       &= \int_{-\infty}^{\infty} f(z - y) g(y) dy & \text{ (fundamental theorem of calculus)}.
+\end{align}</div>\EndKnitrBlock{solution}
+
+
 ## Discrete random variables
 \BeginKnitrBlock{exercise}\iffalse{-91-66-105-110-111-109-105-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:bincdf"><strong>(\#exr:bincdf)  \iffalse (Binomial random variable) \fi{} </strong></span>Let $X_k$, $k = 1,...,n$, be random variables with the Bernoulli measure as the 
 PMF with $p = 0.4$. Let $X = \sum_{k=1}^n$.
@@ -237,7 +277,7 @@ b_plot    <- ggplot(data = b_data, aes(x = x, fill = type)) +
 plot(b_plot)
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 
 \BeginKnitrBlock{exercise}\iffalse{-91-71-101-111-109-101-116-114-105-99-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:geocdf"><strong>(\#exr:geocdf)  \iffalse (Geometric random variable) \fi{} </strong></span>A variable with PMF $p(1-p)^k$ is a geometric random 
@@ -274,9 +314,9 @@ geo_plot <- ggplot(data = geo_samp, aes(x = x, y = n, fill = type)) +
 plot(geo_plot)
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
-\BeginKnitrBlock{exercise}\iffalse{-91-80-111-105-115-115-111-110-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-12"><strong>(\#exr:unnamed-chunk-12)  \iffalse (Poisson random variable) \fi{} </strong></span>A variable with PMF $\frac{\lambda^k e^{-\lambda}}{k!}$ is a Poisson random 
+\BeginKnitrBlock{exercise}\iffalse{-91-80-111-105-115-115-111-110-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-13"><strong>(\#exr:unnamed-chunk-13)  \iffalse (Poisson random variable) \fi{} </strong></span>A variable with PMF $\frac{\lambda^k e^{-\lambda}}{k!}$ is a Poisson random 
 variable with support in non-negative integers. It has one positive parameter 
 $\lambda$, 
 which also represents its mean value and variance (a measure of the deviation
@@ -304,7 +344,7 @@ pois_plot <- ggplot(data = pois_samp, aes(x = x, colour = "ECDF")) +
 plot(pois_plot)
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 
 ## Continuous random variables
@@ -375,7 +415,7 @@ exp_plot <- ggplot(data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
 plot(exp_plot)
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 ```r
 exp_pdf <- function(x, lambda) {
@@ -396,7 +436,7 @@ ggplot(data = data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
   scale_color_manual(values = c("red", "black"))
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 ```r
 ggplot(data = data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
@@ -405,7 +445,7 @@ ggplot(data = data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
   scale_color_manual(values = c("red", "black"))
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-16-2.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-17-2.png" width="672" />
 
 ```r
 ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
@@ -414,12 +454,16 @@ ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
   scale_color_manual(values = c("red", "black"))
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-16-3.png" width="672" />
-\BeginKnitrBlock{exercise}\iffalse{-91-71-97-109-109-97-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:gammapdf"><strong>(\#exr:gammapdf)  \iffalse (Gamma random variable) \fi{} </strong></span>Let $X_i \sim \text{Exp}(\lambda), i = 1,...,n$.
+<img src="04-random_variables_files/figure-html/unnamed-chunk-17-3.png" width="672" />
 
-a. Find the PDF of $\sum_{i=1}^n X_i$.
 
-<span style="color:red">TODO</span></div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{exercise}\iffalse{-91-85-110-105-102-111-114-109-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unifpdf"><strong>(\#exr:unifpdf)  \iffalse (Uniform random variable) \fi{} </strong></span>Continuous uniform random variable with parameters $a$ and $b$ has the PDF 
+\begin{equation}
+  p(x) = \begin{cases}
+           \frac{1}{b - a} & x \in [a,b] \\
+           0 & \text{otherwise}.
+         \end{cases}
+\end{equation}</div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a.
@@ -430,19 +474,21 @@ set.seed(1)
 ```
 
 
-
 \BeginKnitrBlock{exercise}\iffalse{-91-66-101-116-97-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:betacdf"><strong>(\#exr:betacdf)  \iffalse (Beta random variable) \fi{} </strong></span>A variable $X$ with PDF 
-$p(x) = \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)}$,
+\begin{equation}
+  p(x) = \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)},
+\end{equation}
 where $\text{B}(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}$ and 
 $\Gamma(x) = \int_0^{\infty} x^{z - 1} e^{-x} dx$
   is a Beta random 
 variable with support on $[0,1]$. It has two positive 
-parameters $\alpha$ and $\beta$. 
+parameters $\alpha$ and $\beta$. Notation:
 \begin{equation}
   X | \alpha, \beta \sim \text{Beta}(\alpha, \beta)
 \end{equation}
-It is usually used in modeling rates.
-<span style="color:red">TODO: CDF</span>
+It is usually used in modeling rates. 
+<span style="color:red">TODO: CDF? Complex, not useful? Added value?</span>
+
 
 a. Calculate the PDF for $\alpha = 1$ and $\beta = 1$. What do you notice?
 
@@ -458,6 +504,7 @@ a.
 \begin{equation}
   p(x) = \frac{x^{1 - 1} (1 - x)^{1 - 1}}{\text{B}(1, 1)} = 1.
 \end{equation}
+This is the uniform distribution on [0,1].
 
 </div>\EndKnitrBlock{solution}
 
@@ -471,7 +518,7 @@ ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
   stat_function(fun = dbeta, args = list(shape1 = 0.1, shape2 = 0.1), aes(color = "alpha = 0.1"))
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 ```r
 set.seed(1)
@@ -486,61 +533,12 @@ ggplot(data = data.frame(x = samps), aes(x = x)) +
                 size  = 1.2)
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-21-1.png" width="672" />
-
-\BeginKnitrBlock{exercise}\iffalse{-91-85-110-105-102-111-114-109-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unifpdf"><strong>(\#exr:unifpdf)  \iffalse (Uniform random variable) \fi{} </strong></span><span style="color:red">TODO</span></div>\EndKnitrBlock{exercise}
-\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
-
-a.
-</div>\EndKnitrBlock{solution}
-
-```r
-set.seed(1)
-```
+<img src="04-random_variables_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 
-\BeginKnitrBlock{exercise}\iffalse{-91-78-111-114-109-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:normalpdf"><strong>(\#exr:normalpdf)  \iffalse (Normal random variable) \fi{} </strong></span>A random variable with PDF $p(x) = $ is a normal random variable.
-Many statistical methods assume a normal distribution. Due to it's flexibility
-it is also one of the most researched distributions. For that reason 
-statisticians often use transformations of variables or approximate
-distributions with the normal distribution.
+\BeginKnitrBlock{exercise}\iffalse{-91-71-97-109-109-97-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:gammapdf"><strong>(\#exr:gammapdf)  \iffalse (Gamma random variable) \fi{} </strong></span>Let $X_i \sim \text{Exp}(\lambda), i = 1,...,n$.
 
-a. For Poisson distributed variables with a large $\lambda$, the normal
-distribution provides a good approximation. Let $X \sim \text{Poisson}(50)$.
-Approximate $X$ with the normal distribution and compare it's density with
-the Poisson histogram. What are the values of $\mu$ and $\sigma^2$ that
-should provide the best approximation?</div>\EndKnitrBlock{exercise}
-\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
-
-a.
-</div>\EndKnitrBlock{solution}
-
-```r
-set.seed(1)
-nsamps     <- 100000
-pois_samps <- rpois(nsamps, lambda = 50)
-norm_samps <- rnorm(nsamps, mean = 50, sd = sqrt(50))
-my_plot    <- ggplot() +
-  geom_bar(data = tibble(x = pois_samps), aes(x = x, y = (..count..)/sum(..count..))) +
-  geom_density(data = tibble(x = norm_samps), aes(x = x), color = "red")
-plot(my_plot)
-```
-
-<img src="04-random_variables_files/figure-html/unnamed-chunk-25-1.png" width="672" />
-
-
-\BeginKnitrBlock{exercise}\iffalse{-91-76-111-103-105-115-116-105-99-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:logitpdf"><strong>(\#exr:logitpdf)  \iffalse (Logistic random variable) \fi{} </strong></span>A logistic random variable has CDF $F(x) = \frac{1}{1 + e^{-\frac{x - \mu}{s}}},
-where $\mu$ is real and $s > 0$.
-The distribution of the logistic random variable resembles a normal random 
-variable, however it has heavier tails.
-
-a. Find the PDF of a logistic random variable.
-
-b. <span style="color:blue">R: Implement logistic PDF and CDF and visually
-compare both for $X \sim \text{N}(0, 1)$ and $Y \sim \text{logit}(0, \sqrt{\frac{3}{\pi^2}})$.</span>
-
-c. Find $P(...)$ TAIL PROBABILITIES.
-
+a. Find the PDF of $\sum_{i=1}^n X_i$.
 
 <span style="color:red">TODO</span></div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
@@ -550,15 +548,163 @@ a.
 
 ```r
 set.seed(1)
+```
+
+\BeginKnitrBlock{exercise}\iffalse{-91-78-111-114-109-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:normalpdf"><strong>(\#exr:normalpdf)  \iffalse (Normal random variable) \fi{} </strong></span>A random variable with PDF 
+\begin{equation}
+ p(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}
+\end{equation}
+is a normal random variable with parameters $\mu$ in reals and $\sigma^2 > 0$.
+The first is the mean parameter and the second is the variance parameter.
+Many statistical methods assume a normal distribution. We write
+\begin{equation}
+  X \sim \text{N}(\mu, \sigma^2),
+\end{equation}
+and it's CDF is
+\begin{equation}
+  F(x) = \int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(t - \mu)^2}{2 \sigma^2}} dt,
+\end{equation}
+which is intractable and is usually approximated.
+Due to it's flexibility
+it is also one of the most researched distributions. For that reason 
+statisticians often use transformations of variables or approximate
+distributions with the normal distribution.
+
+a. Show that a variable $\frac{X - \mu}{\sigma} \sim \text{N}(0,1)$. This
+transformation is called standardization, and $\text{N}(0,1)$ is
+a standardized normal distribution.
+
+b. Derive the PDF of a sum of two normal random variables.
+
+c. <span style="color:blue">R: The normal distribution provides a good 
+approximation for the Poisson distribution with a large $\lambda$. 
+Let $X \sim \text{Poisson}(50)$.
+Approximate $X$ with the normal distribution and compare it's density with
+the Poisson histogram. What are the values of $\mu$ and $\sigma^2$ that
+should provide the best approximation? Note that R function _rnorm_ takes
+standard deviation ($\sigma$) as a parameter and not variance.</span></div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+a.
+\begin{align}
+  P(\frac{X - \mu}{\sigma} < x) &= P(X < \sigma x + \mu) \\
+  &= F(\sigma x + \mu) \\
+  &= \int_{-\infty}^{\sigma x + \mu} \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(t - \mu)^2}{2\sigma^2}} dt
+\end{align}
+Now let $s = f(t) = \frac{t - \mu}{\sigma}$, then $ds = \frac{dt}{\sigma}$ and
+$f(\sigma x + \mu) = x$, so
+\begin{align}
+  P(\frac{X - \mu}{\sigma} < x) &= \int_{-\infty}^{x} \frac{1}{\sqrt{2 \pi}} 
+    e^{\frac{s^2}{2}} ds.
+\end{align}
+There is no need to evaluate this integral, as we recognize it as the CDF
+of a normal distribution with $\mu = 0$ and $\sigma^2 = 1$.
+    
+b. 
+\begin{align}
+  p_{X + Y}(z) &= \int_{-\infty}^\infty p_X(z - t) p_Y(t) dt \\
+\end{align}
+</div>\EndKnitrBlock{solution}
+
+```r
+set.seed(1)
+mean_par   <- 50
+nsamps     <- 100000
+pois_samps <- rpois(nsamps, lambda = mean_par)
+norm_samps <- rnorm(nsamps, mean = mean_par, sd = sqrt(mean_par))
+my_plot    <- ggplot() +
+  geom_bar(data = tibble(x = pois_samps), aes(x = x, y = (..count..)/sum(..count..))) +
+  geom_density(data = tibble(x = norm_samps), aes(x = x), color = "red")
+plot(my_plot)
+```
+
+<img src="04-random_variables_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+
+
+\BeginKnitrBlock{exercise}\iffalse{-91-76-111-103-105-115-116-105-99-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:logitpdf"><strong>(\#exr:logitpdf)  \iffalse (Logistic random variable) \fi{} </strong></span>A logistic random variable has CDF
+\begin{equation}
+  F(x) = \frac{1}{1 + e^{-\frac{x - \mu}{s}}},
+\end{equation}
+where $\mu$ is real and $s > 0$. We write
+\begin{equation}
+  X \sim \text{Logistic}(\mu, s).
+\end{equation}
+The distribution of the logistic random variable resembles a normal random 
+variable, however it has heavier tails.
+
+a. Find the PDF of a logistic random variable.
+
+b. <span style="color:blue">R: Implement logistic PDF and CDF and visually
+compare both for $X \sim \text{N}(0, 1)$ and $Y \sim \text{logit}(0, \sqrt{\frac{3}{\pi^2}})$. 
+These distributions have the same mean and variance. Additionally, plot
+the same plot on the interval [5,10], to better see the difference
+in the tails. </span>
+
+c. <span style="color:blue">R: For the distributions in b) find the 
+probability $P(|X| > 4)$ and iterpret the result.  </span>
+
+
+<span style="color:red">TODO</span></div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+a. 
+\begin{align}
+  p(x) &= \frac{d}{dx} \frac{1}{1 + e^{-\frac{x - \mu}{s}}} \\
+       &= \frac{- \frac{d}{dx} (1 + e^{-\frac{x - \mu}{s}})}{(1 + e{-\frac{x - \mu}{s}})^2} \\
+       &= \frac{e^{-\frac{x - \mu}{s}}}{(1 + e{-\frac{x - \mu}{s}})^2}.
+\end{align}
+
+</div>\EndKnitrBlock{solution}
+
+```r
+# a
+set.seed(1)
 logit_pdf <- function (x, mu, s) {
   return ((exp(-(x - mu)/(s))) / (s * (1 + exp(-(x - mu)/(s)))^2))
 }
-nl_plot <- ggplot(data = data.frame(x = seq(-5, 5, by = 0.01)), aes(x = x)) +
-  stat_function(fun = dnorm, args = list(mean = 0, sd = 1), aes(color = "normal")) +
-  stat_function(fun = logit_pdf, args = list(mu = 0, s = sqrt(3/pi^2)), aes(color = "logit"))
+nl_plot <- ggplot(data = data.frame(x = seq(-12, 12, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 2), aes(color = "normal")) +
+  stat_function(fun = logit_pdf, args = list(mu = 0, s = sqrt(12/pi^2)), aes(color = "logit"))
 plot(nl_plot)
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+
+```r
+nl_plot <- ggplot(data = data.frame(x = seq(5, 10, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 2), aes(color = "normal")) +
+  stat_function(fun = logit_pdf, args = list(mu = 0, s = sqrt(12/pi^2)), aes(color = "logit"))
+plot(nl_plot)
+```
+
+<img src="04-random_variables_files/figure-html/unnamed-chunk-28-2.png" width="672" />
+
+```r
+# b
+logit_cdf <- function (x, mu, s) {
+  return (1 / (1 + exp(-(x - mu) / s)))
+}
+
+p_logistic <- 1 - logit_cdf(4, 0, sqrt(12/pi^2)) + logit_cdf(-4, 0, sqrt(12/pi^2))
+p_norm     <- 1 - pnorm(4, 0, 2) + pnorm(-4, 0, 2)
+p_logistic
+```
+
+```
+## [1] 0.05178347
+```
+
+```r
+p_norm
+```
+
+```
+## [1] 0.04550026
+```
+
+```r
+# Logistic distribution has wider tails, therefore the probability of larger
+# absolute values is higher.
+```
 
 ## Transformations
