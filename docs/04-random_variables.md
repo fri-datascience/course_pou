@@ -280,7 +280,11 @@ plot(b_plot)
 <img src="04-random_variables_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 
-\BeginKnitrBlock{exercise}\iffalse{-91-71-101-111-109-101-116-114-105-99-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:geocdf"><strong>(\#exr:geocdf)  \iffalse (Geometric random variable) \fi{} </strong></span>A variable with PMF $p(1-p)^k$ is a geometric random 
+\BeginKnitrBlock{exercise}\iffalse{-91-71-101-111-109-101-116-114-105-99-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:geocdf"><strong>(\#exr:geocdf)  \iffalse (Geometric random variable) \fi{} </strong></span>A variable with PMF 
+\begin{equation}
+  $p(1-p)^k$ 
+\end{equation}
+is a geometric random 
 variable with support in non-negative integers. It has one positive parameter 
 $p$.
 
@@ -345,7 +349,44 @@ plot(pois_plot)
 ```
 
 <img src="04-random_variables_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+\BeginKnitrBlock{exercise}\iffalse{-91-78-101-103-97-116-105-118-101-32-98-105-110-111-109-105-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:negbinpdf"><strong>(\#exr:negbinpdf)  \iffalse (Negative binomial random variable) \fi{} </strong></span>A variable with PMF 
+\begin{equation}
+  $p(k) = \binom{k + r - 1}{k}(1-p)^r p^k$ 
+\end{equation}
+is a negative binomial random 
+variable with support in non-negative integers. It has two parameters 
+$r > 0$ and $p \in (0,1)$.
 
+a. Derive the CDF of a geometric random variable.
+
+b. <span style="color:blue">R: Draw samples from ... and plot the
+distributions of those samples using _facet_wrap_.</span>
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+a.
+\begin{align}
+  P(X \leq k) &= \sum_{i = 0}^k p(1-p)^i \\
+            &= p \sum_{i = 0}^k (1-p)^i \\
+            &= p \frac{1 - (1-p)^{k+1}}{1 - (1 - p)} \\
+            &= 1 - (1-p)^{k + 1}
+\end{align}
+</div>\EndKnitrBlock{solution}
+
+```r
+set.seed(1)
+geo_samp <- rgeom(n = 1000, prob = 0.3)
+geo_samp <- data.frame(x = geo_samp) %>%
+  count(x) %>%
+  mutate(n = n / 1000, type = "empirical_frequencies") %>%
+  bind_rows(data.frame(x = 0:20, n = dgeom(0:20, prob = 0.3), type = "theoretical_measure"))
+
+geo_plot <- ggplot(data = geo_samp, aes(x = x, y = n, fill = type)) +
+  geom_bar(stat="identity", position = "dodge")
+plot(geo_plot)
+```
+
+<img src="04-random_variables_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 ## Continuous random variables
 \BeginKnitrBlock{exercise}\iffalse{-91-69-120-112-111-110-101-110-116-105-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:expcdf"><strong>(\#exr:expcdf)  \iffalse (Exponential random variable) \fi{} </strong></span>A variable $X$ with PDF $\lambda e^{-\lambda x}$ is an exponential random 
@@ -366,7 +407,8 @@ simulation (_rexp_). Plot the probability in a meaningful way.</span>
   
 e. <span style="color:blue">R: Implement PDF, CDF, and the quantile
 function and compare their values with corresponding R
-functions visually. Hint: use BOLD line.</span>
+functions visually. Hint: use the size parameter in _geom_line_ to
+make one of the curves wider.</span>
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
@@ -415,7 +457,7 @@ exp_plot <- ggplot(data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
 plot(exp_plot)
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 ```r
 exp_pdf <- function(x, lambda) {
@@ -436,7 +478,7 @@ ggplot(data = data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
   scale_color_manual(values = c("red", "black"))
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 ```r
 ggplot(data = data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
@@ -445,7 +487,7 @@ ggplot(data = data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
   scale_color_manual(values = c("red", "black"))
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-17-2.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-19-2.png" width="672" />
 
 ```r
 ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
@@ -454,7 +496,7 @@ ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
   scale_color_manual(values = c("red", "black"))
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-17-3.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-19-3.png" width="672" />
 
 
 \BeginKnitrBlock{exercise}\iffalse{-91-85-110-105-102-111-114-109-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unifpdf"><strong>(\#exr:unifpdf)  \iffalse (Uniform random variable) \fi{} </strong></span>Continuous uniform random variable with parameters $a$ and $b$ has the PDF 
@@ -463,14 +505,79 @@ ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
            \frac{1}{b - a} & x \in [a,b] \\
            0 & \text{otherwise}.
          \end{cases}
-\end{equation}</div>\EndKnitrBlock{exercise}
+\end{equation}
+  
+a. Derive the CDF of the uniform random variable.
+
+b. Derive the quantile function of the uniform random variable.
+
+c. Let $X \sim \text{Uniform}(a,b)$. Derive the CDF of the variable 
+$Y = \frac{X - a}{b - a}$. This is the **standard uniform random variable**.
+
+d. Let $X \sim \text{Uniform}(-1, 3)$. 
+Find such $z$ that $P(X < z + \mu_x) = \frac{1}{5}$.
+
+e. <span style="color:blue">R: Check your result from d) using 
+simulation.</span></div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
+
 a.
+\begin{align}
+  F(x) &= \int_{a}^x \frac{1}{b - a} dt \\
+       &= \frac{1}{b - a} \int_{a}^x dt \\
+       &= \frac{x - a}{b - a}.
+\end{align}
+  
+b.
+\begin{align}
+  F(F^{-1}(p))                &= p \\
+  \frac{F^{-1}(p) - a}{b - a} &= p \\
+  F^{-1}(p)                   &= p(b - a) + a.
+\end{align}
+  
+c.
+\begin{align}
+  F_Y(y) &= P(Y < y) \\
+         &= P(\frac{X - a}{b - a} < y) \\
+         &= P(X < y(b - a) + a) \\
+         &= F_X(y(b - a) + a) \\
+         &= \frac{(y(b - a) + a) - a}{b - a} \\
+         &= y.
+\end{align}
+  
+d.
+\begin{align}
+  P(X < z + 1) &= \frac{1}{5} \\
+  F(z + 1)     &= \frac{1}{5} \\
+  z + 1        &= F^{-1}(\frac{1}{5}) \\
+  z            &= \frac{1}{5}4 - 1 - 1 \\
+  z            &= -1.2.
+\end{align}
 </div>\EndKnitrBlock{solution}
 
 ```r
 set.seed(1)
+a         <- -1
+b         <- 3
+nsamps    <- 10000
+unif_samp <- runif(nsamps, a, b)
+mu_x      <- mean(unif_samp)
+new_samp  <- unif_samp - mu_x
+quantile(new_samp, probs = 1/5)
+```
+
+```
+##       20% 
+## -1.203192
+```
+
+```r
+punif(-0.2, -1, 3)
+```
+
+```
+## [1] 0.2
 ```
 
 
@@ -486,8 +593,12 @@ parameters $\alpha$ and $\beta$. Notation:
 \begin{equation}
   X | \alpha, \beta \sim \text{Beta}(\alpha, \beta)
 \end{equation}
-It is usually used in modeling rates. 
-<span style="color:red">TODO: CDF? Complex, not useful? Added value?</span>
+It is often used in modeling rates. 
+The CDF of a Beta random variable is
+\begin{equation}
+  F(x) = \frac{\text{B}(x; \alpha, \beta)}{\text{B}(\alpha, \beta)},
+\end{equation}
+  where $\text{B}(x; \alpha, \beta) = \int_0^x t^{\alpha+1} (1 - t)^{\beta - 1} dt$.
 
 
 a. Calculate the PDF for $\alpha = 1$ and $\beta = 1$. What do you notice?
@@ -504,7 +615,7 @@ a.
 \begin{equation}
   p(x) = \frac{x^{1 - 1} (1 - x)^{1 - 1}}{\text{B}(1, 1)} = 1.
 \end{equation}
-This is the uniform distribution on [0,1].
+This is the standard uniform distribution.
 
 </div>\EndKnitrBlock{solution}
 
@@ -518,7 +629,7 @@ ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
   stat_function(fun = dbeta, args = list(shape1 = 0.1, shape2 = 0.1), aes(color = "alpha = 0.1"))
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 ```r
 set.seed(1)
@@ -533,22 +644,67 @@ ggplot(data = data.frame(x = samps), aes(x = x)) +
                 size  = 1.2)
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 
 
-\BeginKnitrBlock{exercise}\iffalse{-91-71-97-109-109-97-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:gammapdf"><strong>(\#exr:gammapdf)  \iffalse (Gamma random variable) \fi{} </strong></span>Let $X_i \sim \text{Exp}(\lambda), i = 1,...,n$.
+\BeginKnitrBlock{exercise}\iffalse{-91-71-97-109-109-97-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:gammapdf"><strong>(\#exr:gammapdf)  \iffalse (Gamma random variable) \fi{} </strong></span>A random variable with PDF 
+\begin{equation}
+ p(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x}
+\end{equation}
+is a Gamma random variable with parameters shape $\alpha > 0$ and rate 
+$\beta > 0$.
+We write
+\begin{equation}
+  X \sim \text{Gamma}(\alpha, \beta)
+\end{equation}
+and it's CDF is
+\begin{equation}
+  \frac{\gamma(\alpha, \beta x)}{\Gamma(\alpha)},
+\end{equation}
+where $\gamma(s, x) = \int_0^x t^{s-1} e^{-t} dt$.
+It is usually used in modeling positive phenomena (for example insurance 
+claims and rainfalls). 
 
-a. Find the PDF of $\sum_{i=1}^n X_i$.
+a. Let $X \sim \text{Gamma}(1, \beta)$. Find the PDF of $X$. 
+Do you recognize this PDF?
 
-<span style="color:red">TODO</span></div>\EndKnitrBlock{exercise}
+b. Let $k = \alpha$ and $\theta = \frac{1}{\beta}$. Find the PDF
+of $X | k, \theta \sim \text{Gamma}(k, \theta)$. Most (?ALL)
+random variables can be reparameterized, and sometimes a reparameterized
+distribution is more suitable for certain calculations. The first
+parameterization is for example usually used in Bayesian statistics, while this
+parameterization is more common in econometrics and some other applied fields.
+Note that you also need to pay attention to the parameters in statistical
+software, so diligently read the help files when using functions like
+_rgamma_ to see how the function is parameterized.
+
+c. <span style="color:blue">R: Plot gamma CDF for random variables
+with shape and rate parameters (1,1), (10,1), (1,10). </span>
+</div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
-a.
+a. 
+\begin{align}
+  p(x) &= \frac{\beta^1}{\Gamma(1)} x^{1 - 1}e^{-\beta x} \\
+       &= \beta e^{-\beta x}
+\end{align}
+This is the PDF of the exponential distribution with parameter $\beta$.
+
+b.
+\begin{align}
+  p(x) &= \frac{1}{\Gamma(k)\beta^k} x^{k - 1}e^{-\frac{x}{\theta}}.
+\end{align}
 </div>\EndKnitrBlock{solution}
 
 ```r
 set.seed(1)
+ggplot(data = data.frame(x = seq(0, 25, by = 0.01)), aes(x = x)) +
+  stat_function(fun = pgamma, args = list(shape = 1, rate = 1), aes(color = "Gamma(1,1)")) +
+  stat_function(fun = pgamma, args = list(shape = 10, rate = 1), aes(color = "Gamma(10,1)")) +
+  stat_function(fun = pgamma, args = list(shape = 1, rate = 10), aes(color = "Gamma(1,10)"))
 ```
+
+<img src="04-random_variables_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 \BeginKnitrBlock{exercise}\iffalse{-91-78-111-114-109-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:normalpdf"><strong>(\#exr:normalpdf)  \iffalse (Normal random variable) \fi{} </strong></span>A random variable with PDF 
 \begin{equation}
@@ -572,9 +728,10 @@ distributions with the normal distribution.
 
 a. Show that a variable $\frac{X - \mu}{\sigma} \sim \text{N}(0,1)$. This
 transformation is called standardization, and $\text{N}(0,1)$ is
-a standardized normal distribution.
+a **standardized normal distribution**.
 
-b. Derive the PDF of a sum of two normal random variables.
+b. <span style="color:blue">R: Plot the normal distribution with
+$\mu = 0$ and different values for the $\sigma$ parameter.</span>
 
 c. <span style="color:blue">R: The normal distribution provides a good 
 approximation for the Poisson distribution with a large $\lambda$. 
@@ -599,15 +756,23 @@ $f(\sigma x + \mu) = x$, so
 \end{align}
 There is no need to evaluate this integral, as we recognize it as the CDF
 of a normal distribution with $\mu = 0$ and $\sigma^2 = 1$.
-    
-b. 
-\begin{align}
-  p_{X + Y}(z) &= \int_{-\infty}^\infty p_X(z - t) p_Y(t) dt \\
-\end{align}
+
 </div>\EndKnitrBlock{solution}
 
 ```r
 set.seed(1)
+# a
+ggplot(data = data.frame(x = seq(-15, 15, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 1), aes(color = "sd = 1")) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 0.4), aes(color = "sd = 0.1")) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 2), aes(color = "sd = 2")) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 5), aes(color = "sd = 5"))
+```
+
+<img src="04-random_variables_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+
+```r
+# b
 mean_par   <- 50
 nsamps     <- 100000
 pois_samps <- rpois(nsamps, lambda = mean_par)
@@ -618,7 +783,7 @@ my_plot    <- ggplot() +
 plot(my_plot)
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-28-2.png" width="672" />
 
 
 \BeginKnitrBlock{exercise}\iffalse{-91-76-111-103-105-115-116-105-99-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:logitpdf"><strong>(\#exr:logitpdf)  \iffalse (Logistic random variable) \fi{} </strong></span>A logistic random variable has CDF
@@ -641,10 +806,8 @@ the same plot on the interval [5,10], to better see the difference
 in the tails. </span>
 
 c. <span style="color:blue">R: For the distributions in b) find the 
-probability $P(|X| > 4)$ and iterpret the result.  </span>
-
-
-<span style="color:red">TODO</span></div>\EndKnitrBlock{exercise}
+probability $P(|X| > 4)$ and interpret the result.  </span>
+</div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a. 
@@ -668,7 +831,7 @@ nl_plot <- ggplot(data = data.frame(x = seq(-12, 12, by = 0.01)), aes(x = x)) +
 plot(nl_plot)
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-30-1.png" width="672" />
 
 ```r
 nl_plot <- ggplot(data = data.frame(x = seq(5, 10, by = 0.01)), aes(x = x)) +
@@ -677,7 +840,7 @@ nl_plot <- ggplot(data = data.frame(x = seq(5, 10, by = 0.01)), aes(x = x)) +
 plot(nl_plot)
 ```
 
-<img src="04-random_variables_files/figure-html/unnamed-chunk-28-2.png" width="672" />
+<img src="04-random_variables_files/figure-html/unnamed-chunk-30-2.png" width="672" />
 
 ```r
 # b
