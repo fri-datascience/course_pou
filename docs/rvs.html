@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-06-19">
+<meta name="date" content="2019-06-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -200,24 +200,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="rvs" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Random variables</h1>
-<p>This chapter deals with random variables.</p>
+<p>This chapter deals with random variables and their distributions.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
 <ul>
-<li></li>
+<li>Identification of random variables.</li>
+<li>Convolutions of random variables.</li>
+<li>Derivation of PDF, PMF, CDF, and quantile function.</li>
+<li>Definitions and properties of common discrete random variables.</li>
+<li>Definitions and properties of common continuous random variables.</li>
+<li>Transforming univariate random variables.</li>
 </ul>
 <p><strong>R</strong></p>
 <ul>
-<li>sampling from distributions</li>
-<li>calculating PDF, CDF, and quantile functions</li>
-<li>plotting results</li>
-<li>facet wrap</li>
+<li>Familiarize with PDF, PMF, CDF, and quantile functions for several distributions.</li>
+<li>Visual inspection of probability distributions.</li>
+<li>Analytical and empirical calculation of probabilities based on distributions.</li>
+<li>New R functions for plotting (for example, <em>facet_wrap</em>).</li>
 </ul>
 <div id="general-properties-and-calculations" class="section level2">
 <h2><span class="header-section-number">4.1</span> General properties and calculations</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 4.1  </strong></span>Which of the functions below are valid CDFs? Find their respective densities.
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  </strong></span>Which of the functions below are valid CDFs? Find their respective densities.
 <span style="color:blue">R: Plot the three functions.</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math display">\[\begin{equation}
@@ -324,7 +329,7 @@ cdf_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span clas
 <p><img src="04-random_variables_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-5" class="exercise"><strong>Exercise 4.2  </strong></span>Let <span class="math inline">\(X\)</span> be a random variable with CDF
+<p><span id="exr:unnamed-chunk-5" class="exercise"><strong>Exercise 4.1  </strong></span>Let <span class="math inline">\(X\)</span> be a random variable with CDF
 <span class="math display">\[\begin{equation}
   F(x) = \begin{cases}
             0 &amp; x &lt; 0 \\
@@ -368,14 +373,14 @@ So the PDF, when <span class="math inline">\(0 \leq x &lt; 1\)</span>, is <span 
 part now. It has two steps, so this is a discrete distribution with two
 outcomes – numbers two and three. The first happens with probability
 <span class="math inline">\(\frac{p}{2}\)</span>, and the second with probability <span class="math inline">\(\frac{1 - p}{2}\)</span>. This reminds
-us of the bernoulli distribution, the only difference is that the probabilities
+us of the Bernoulli distribution, the only difference is that the probabilities
 of outcomes are halved, as they need to be suitably normalized. So the PMF
 for the discrete part is <span class="math inline">\(P(X = x) = (\frac{p}{2})^{2 - \lfloor x \rfloor} (\frac{1 - p}{2})^{\lfloor x \rfloor - 1}\)</span>.
 </div></li>
 </ol>
 
 <div class="exercise">
-<p><span id="exr:conv" class="exercise"><strong>Exercise 4.3  (Convolutions)  </strong></span>Convolutions are probability distributions that correspond to sums of
+<p><span id="exr:conv" class="exercise"><strong>Exercise 4.2  (Convolutions)  </strong></span>Convolutions are probability distributions that correspond to sums of
 independent random variables.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent discrete variables.
@@ -421,17 +426,23 @@ Now
 <h2><span class="header-section-number">4.2</span> Discrete random variables</h2>
 
 <div class="exercise">
-<p><span id="exr:bincdf" class="exercise"><strong>Exercise 4.4  (Binomial random variable)  </strong></span>Let <span class="math inline">\(X_k\)</span>, <span class="math inline">\(k = 1,...,n\)</span>, be random variables with the Bernoulli measure as the
+<p><span id="exr:bincdf" class="exercise"><strong>Exercise 4.3  (Binomial random variable)  </strong></span>Let <span class="math inline">\(X_k\)</span>, <span class="math inline">\(k = 1,...,n\)</span>, be random variables with the Bernoulli measure as the
 PMF with <span class="math inline">\(p = 0.4\)</span>. Let <span class="math inline">\(X = \sum_{k=1}^n\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>We call <span class="math inline">\(X_k\)</span> a Bernoulli random variable. Find the CDF of <span class="math inline">\(X_k\)</span>.</p></li>
-<li><p>Find PDF of <span class="math inline">\(X\)</span>.</p></li>
+<li><p>We call <span class="math inline">\(X_k\)</span> a Bernoulli random variable with parameter <span class="math inline">\(p \in (0,1)\)</span>.
+Find the CDF of <span class="math inline">\(X_k\)</span>.</p></li>
+<li><p>Find PDF of <span class="math inline">\(X\)</span>.
+This is a Binomial random variable with support in <span class="math inline">\(\{0,1,2,...,n\}\)</span> and
+parameters <span class="math inline">\(p \in (0,1)\)</span> and <span class="math inline">\(n \in \mathbb{N}_0\)</span>. We denote
+<span class="math display">\[\begin{equation}
+  X | n,p \sim \text{Binomial}(n,p).
+\end{equation}\]</span></p></li>
 <li><p>Find CDF of <span class="math inline">\(X\)</span>.</p></li>
 <li><span style="color:blue">R: Simulate from the binomial distribution
 with <span class="math inline">\(n = 10\)</span> and <span class="math inline">\(p = 0.5\)</span>, and from <span class="math inline">\(n\)</span> Bernoulli distributions with
 <span class="math inline">\(p = 0.5\)</span>. Visually compare the sum of Bernoullis and the binomial. Hint:
 there is no standard function like <em>rpois</em> for a Bernoulli random
-variable. Check exercise <a href="#exr:binomialpmf"><strong>??</strong></a> to find out how to sample
+variable. Check exercise <a href="introduction.html#exr:binomialpmf">1.11</a> to find out how to sample
 from a Bernoulli
 distribution.</span></li>
 </ol>
@@ -478,13 +489,17 @@ b_plot    &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span cla
 <p><img src="04-random_variables_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 
 <div class="exercise">
-<p><span id="exr:geocdf" class="exercise"><strong>Exercise 4.5  (Geometric random variable)  </strong></span>A variable with PMF
+<p><span id="exr:geocdf" class="exercise"><strong>Exercise 4.4  (Geometric random variable)  </strong></span>A variable with PMF
 <span class="math display">\[\begin{equation}
-  $p(1-p)^k$ 
+  P(k) = p(1-p)^k
 \end{equation}\]</span>
 is a geometric random
-variable with support in non-negative integers. It has one positive parameter
-<span class="math inline">\(p\)</span>.</p>
+variable with support in non-negative
+integers. It has one positive parameter
+<span class="math inline">\(p\)</span>. We denote
+<span class="math display">\[\begin{equation}
+  X | p \sim \text{Geometric}(p)
+\end{equation}\]</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Derive the CDF of a geometric random variable.</p></li>
 <li><span style="color:blue">R: Draw 1000 samples from the geometric
@@ -519,13 +534,21 @@ geo_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span clas
 <p><img src="04-random_variables_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-13" class="exercise"><strong>Exercise 4.6  (Poisson random variable)  </strong></span>A variable with PMF <span class="math inline">\(\frac{\lambda^k e^{-\lambda}}{k!}\)</span> is a Poisson random
+<p><span id="exr:unnamed-chunk-13" class="exercise"><strong>Exercise 4.5  (Poisson random variable)  </strong></span>A variable with PMF
+<span class="math display">\[\begin{equation}
+  P(k) = \frac{\lambda^k e^{-\lambda}}{k!}
+\end{equation}\]</span>
+is a Poisson random
 variable with support in non-negative integers. It has one positive parameter
 <span class="math inline">\(\lambda\)</span>,
 which also represents its mean value and variance (a measure of the deviation
 of the values from the mean – more on mean and variance in the next chapter).
+We denote
+<span class="math display">\[\begin{equation}
+  X | \lambda \sim \text{Poisson}(\lambda).
+\end{equation}\]</span>
 This distribution is usually the default choice for modeling counts. We have
-already encountered a Poisson random variable in exercise <a href="#exr:geopoispmf"><strong>??</strong></a>,
+already encountered a Poisson random variable in exercise <a href="introduction.html#exr:geopoispmf">1.12</a>,
 where we also sampled from this distribution.</p>
 <p>The CDF of a Poisson random variable is <span class="math inline">\(P(X &lt;= x) = e^{-\lambda} \sum_{i=0}^x \frac{\lambda^{i}}{i!}\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
@@ -541,23 +564,34 @@ pois_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span
 pois_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> pois_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">colour =</span> <span class="st">&quot;ECDF&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_ecdf</span>(<span class="dt">geom =</span> <span class="st">&quot;step&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_step</span>(<span class="dt">data =</span> <span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">17</span>, <span class="dt">y =</span> <span class="kw">ppois</span>(x, <span class="dv">5</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">colour =</span> <span class="st">&quot;CDF&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="co"># stat_function(data = data.frame(x = 0:17), aes(x = x, colour = &quot;CDF&quot;), geom = &quot;line&quot;, fun = ppois, args = list(lambda = 5)) +</span>
 <span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="st">&quot;Lgend title&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>))
 <span class="kw">plot</span>(pois_plot)</code></pre>
 <img src="04-random_variables_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 <div class="exercise">
-<p><span id="exr:negbinpdf" class="exercise"><strong>Exercise 4.7  (Negative binomial random variable)  </strong></span>A variable with PMF
+<p><span id="exr:negbinpdf" class="exercise"><strong>Exercise 4.6  (Negative binomial random variable)  </strong></span>A variable with PMF
 <span class="math display">\[\begin{equation}
-  $p(k) = \binom{k + r - 1}{k}(1-p)^r p^k$ 
+  p(k) = \binom{k + r - 1}{k}(1-p)^r p^k
 \end{equation}\]</span>
 is a negative binomial random
 variable with support in non-negative integers. It has two parameters
-<span class="math inline">\(r &gt; 0\)</span> and <span class="math inline">\(p \in (0,1)\)</span>.</p>
+<span class="math inline">\(r &gt; 0\)</span> and <span class="math inline">\(p \in (0,1)\)</span>. We denote
+<span class="math display">\[\begin{equation}
+  X | r,p \sim \text{NB}(r,p).
+\end{equation}\]</span></p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Derive the CDF of a geometric random variable.</p></li>
-<li><span style="color:blue">R: Draw samples from … and plot the
-distributions of those samples using <em>facet_wrap</em>.</span></li>
+<li><p>Let us reparameterize the negative binomial distribution with <span class="math inline">\(q = 1 - p\)</span>.
+Find the PDF of <span class="math inline">\(X \sim \text{NB}(1, q)\)</span>. Do you recognize this distribution?</p></li>
+<li><p>Show that the sum of two negative binomial random variables with the same
+<span class="math inline">\(p\)</span> is also a negative binomial random variable. Hint: Use the fact that
+the number of ways to place <span class="math inline">\(n\)</span> indistinct balls into <span class="math inline">\(k\)</span> boxes is
+<span class="math inline">\(\binom{n + k - 1}{n}\)</span>.</p></li>
+<li><span style="color:blue">R: Draw samples from <span class="math inline">\(X \sim \text{NB}(5, 0.4)\)</span>
+and <span class="math inline">\(Y \sim \text{NB}(3, 0.4)\)</span>.
+Draw samples from <span class="math inline">\(Z = X + Y\)</span>, where you use the parameters calculated in
+b). Plot both distributions, their sum, and <span class="math inline">\(Z\)</span> using <em>facet_wrap</em>.
+Be careful, as R uses a different
+parameterization <em>size</em>=<span class="math inline">\(r\)</span> and <em>prob</em>=<span class="math inline">\(1 - p\)</span>.</span></li>
 </ol>
 </div>
 
@@ -565,36 +599,63 @@ distributions of those samples using <em>facet_wrap</em>.</span></li>
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> </p>
 <ol style="list-style-type: lower-alpha">
-<li><span class="math display">\[\begin{align}
-P(X \leq k) &amp;= \sum_{i = 0}^k p(1-p)^i \\
-          &amp;= p \sum_{i = 0}^k (1-p)^i \\
-          &amp;= p \frac{1 - (1-p)^{k+1}}{1 - (1 - p)} \\
-          &amp;= 1 - (1-p)^{k + 1}
-\end{align}\]</span></li>
+<li><p><span class="math display">\[\begin{align}
+P(X = k) &amp;= \binom{k + 1 - 1}{k}q^1 (1-q)^k \\
+         &amp;= q(1-q)^k.
+\end{align}\]</span>
+This is the geometric distribution.</p></li>
+<li><p>Let <span class="math inline">\(X \sim \text{NB}(r_1, p)\)</span> and <span class="math inline">\(Y \sim \text{NB}(r_2, p)\)</span>.
+Let <span class="math inline">\(Z = X + Y\)</span>.
+<span class="math display">\[\begin{align}
+  P(Z = z) &amp;= \sum_{k = 0}^{\infty} P(X = z - k)P(Y = k) &amp; \text{ if k &lt; 0, then the probabilities are 0} \\
+        &amp;= \sum_{k = 0}^{z} P(X = z - k)P(Y = k) &amp; \text{ if k &gt; z, then the probabilities are 0} \\
+        &amp;= \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k}(1 - p)^{r_1} p^{z - k} \binom{k + r_2 - 1}{k}(1 - p)^{r_2} p^{k} &amp; \\
+        &amp;= \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}(1 - p)^{r_1 + r_2} p^{z} &amp; \\
+        &amp;= (1 - p)^{r_1 + r_2} p^{z} \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}&amp;
+\end{align}\]</span>
+The part before the sum reminds us of the negative binomial distribution with
+parameters <span class="math inline">\(r_1 + r_2\)</span> and <span class="math inline">\(p\)</span>. To complete this term to the
+negative binomial PDF we need <span class="math inline">\(\binom{z + r_1 + r_2 -1}{z}\)</span>. So the
+only thing we need to prove is that the sum equals this term.
+Both terms in the sum can be interpreted as numbers of ways to
+place a number of balls into boxes. For the left term it is
+<span class="math inline">\(z-k\)</span> balls into <span class="math inline">\(r_1\)</span> boxes, and for the right <span class="math inline">\(k\)</span> balls into
+<span class="math inline">\(r_2\)</span> boxes. For each <span class="math inline">\(k\)</span> we are distributing <span class="math inline">\(z\)</span> balls in total.
+By summing over all <span class="math inline">\(k\)</span>, we actually get all the
+possible placements of <span class="math inline">\(z\)</span> balls into <span class="math inline">\(r_1 + r_2\)</span> boxes.
+Therefore
+<span class="math display">\[\begin{align}
+  P(Z = z) &amp;= (1 - p)^{r_1 + r_2} p^{z} \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}&amp; \\
+        &amp;= \binom{z + r_1 + r_2 -1}{z} (1 - p)^{r_1 + r_2} p^{z}.
+\end{align}\]</span>
+From this it also follows that the sum of geometric distributions with the same
+parameter is a negative binomial distribution.</p></li>
+<li><span class="math inline">\(Z \sim \text{NB}(8, 0.4)\)</span>.</li>
 </ol>
 </div>
 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-geo_samp &lt;-<span class="st"> </span><span class="kw">rgeom</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">prob =</span> <span class="fl">0.3</span>)
-geo_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> geo_samp) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">n =</span> <span class="kw">dgeom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.3</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))
-
-geo_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> geo_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
-<span class="kw">plot</span>(geo_plot)</code></pre>
+nsamps &lt;-<span class="st"> </span><span class="dv">10000</span>
+x      &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">5</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)
+y      &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)
+xpy    &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y
+z      &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)
+samps  &lt;-<span class="st"> </span><span class="kw">tibble</span>(x, y, xpy, z)
+samps  &lt;-<span class="st"> </span><span class="kw">melt</span>(samps)
+<span class="kw">ggplot</span>(<span class="dt">data =</span> samps, <span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>variable)</code></pre>
 <p><img src="04-random_variables_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 </div>
 <div id="continuous-random-variables" class="section level2">
 <h2><span class="header-section-number">4.3</span> Continuous random variables</h2>
 
 <div class="exercise">
-<p><span id="exr:expcdf" class="exercise"><strong>Exercise 4.8  (Exponential random variable)  </strong></span>A variable <span class="math inline">\(X\)</span> with PDF <span class="math inline">\(\lambda e^{-\lambda x}\)</span> is an exponential random
+<p><span id="exr:expcdf" class="exercise"><strong>Exercise 4.7  (Exponential random variable)  </strong></span>A variable <span class="math inline">\(X\)</span> with PDF <span class="math inline">\(\lambda e^{-\lambda x}\)</span> is an exponential random
 variable with support in non-negative real numbers. It has one positive
-parameter <span class="math inline">\(\lambda\)</span>.
+parameter <span class="math inline">\(\lambda\)</span>. We denote
 <span class="math display">\[\begin{equation}
-  X | \lambda \sim \text{Exp}(\lambda)
+  X | \lambda \sim \text{Exp}(\lambda).
 \end{equation}\]</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Derive the CDF of an exponential random variable.</p></li>
@@ -675,7 +736,7 @@ exp_quant &lt;-<span class="st"> </span><span class="cf">function</span>(q, lamb
 <p><img src="04-random_variables_files/figure-html/unnamed-chunk-19-3.png" width="672" /></p>
 
 <div class="exercise">
-<p><span id="exr:unifpdf" class="exercise"><strong>Exercise 4.9  (Uniform random variable)  </strong></span>Continuous uniform random variable with parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> has the PDF
+<p><span id="exr:unifpdf" class="exercise"><strong>Exercise 4.8  (Uniform random variable)  </strong></span>Continuous uniform random variable with parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> has the PDF
 <span class="math display">\[\begin{equation}
   p(x) = \begin{cases}
            \frac{1}{b - a} &amp; x \in [a,b] \\
@@ -694,7 +755,7 @@ simulation.</span>
 </div>
 
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p></li>
+ <span class="solution"><em>Solution. </em></span> </li>
 <li><p><span class="math display">\[\begin{align}
 F(x) &amp;= \int_{a}^x \frac{1}{b - a} dt \\
      &amp;= \frac{1}{b - a} \int_{a}^x dt \\
@@ -737,7 +798,7 @@ new_samp  &lt;-<span class="st"> </span>unif_samp <span class="op">-</span><span
 <pre><code>## [1] 0.2</code></pre>
 
 <div class="exercise">
-<p><span id="exr:betacdf" class="exercise"><strong>Exercise 4.10  (Beta random variable)  </strong></span>A variable <span class="math inline">\(X\)</span> with PDF
+<p><span id="exr:betacdf" class="exercise"><strong>Exercise 4.9  (Beta random variable)  </strong></span>A variable <span class="math inline">\(X\)</span> with PDF
 <span class="math display">\[\begin{equation}
   p(x) = \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)},
 \end{equation}\]</span>
@@ -750,15 +811,15 @@ parameters <span class="math inline">\(\alpha\)</span> and <span class="math inl
   X | \alpha, \beta \sim \text{Beta}(\alpha, \beta)
 \end{equation}\]</span>
 It is often used in modeling rates.
-The CDF of a Beta random variable is
-<span class="math display">\[\begin{equation}
-  F(x) = \frac{\text{B}(x; \alpha, \beta)}{\text{B}(\alpha, \beta)},
-\end{equation}\]</span>
-where <span class="math inline">\(\text{B}(x; \alpha, \beta) = \int_0^x t^{\alpha+1} (1 - t)^{\beta - 1} dt\)</span>.</p>
+<!--The CDF of a Beta random variable is-->
+<!--\begin{equation}-->
+<!--  F(x) = \frac{\text{B}(x; \alpha, \beta)}{\text{B}(\alpha, \beta)},-->
+<!--\end{equation}-->
+<!--  where $\text{B}(x; \alpha, \beta) = \int_0^x t^{\alpha+1} (1 - t)^{\beta - 1} dt$.--></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Calculate the PDF for <span class="math inline">\(\alpha = 1\)</span> and <span class="math inline">\(\beta = 1\)</span>. What do you notice?</p></li>
 <li><p><span style="color:blue">R: Plot densities of the beta distribution
-for <span class="math inline">\(\alpha = 0.5\)</span>, <span class="math inline">\(\beta = 0.5\)</span>, <span class="math inline">\(\alpha = 4\)</span>, <span class="math inline">\(\beta = 1\)</span>, <span class="math inline">\(\alpha = 1\)</span>, <span class="math inline">\(\beta = 4\)</span>, <span class="math inline">\(alpha = 0.1\)</span>, <span class="math inline">\(\beta = 0.1\)</span>.</span></p></li>
+for parameter pairs (2, 2), (4, 1), (1, 4), (2, 5), and (0.1, 0.1).</span></p></li>
 <li><span style="color:blue">R: Sample from <span class="math inline">\(X \sim \text{Beta}(2, 5)\)</span> and
 compare the histogram with Beta PDF.</span></li>
 </ol>
@@ -796,15 +857,16 @@ samps  &lt;-<span class="st"> </span><span class="kw">rbeta</span>(nsamps, <span
 <p><img src="04-random_variables_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 
 <div class="exercise">
-<p><span id="exr:gammapdf" class="exercise"><strong>Exercise 4.11  (Gamma random variable)  </strong></span>A random variable with PDF
+<p><span id="exr:gammapdf" class="exercise"><strong>Exercise 4.10  (Gamma random variable)  </strong></span>A random variable with PDF
 <span class="math display">\[\begin{equation}
  p(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x}
 \end{equation}\]</span>
-is a Gamma random variable with parameters shape <span class="math inline">\(\alpha &gt; 0\)</span> and rate
+is a Gamma random variable with support on the positive numbers and
+parameters shape <span class="math inline">\(\alpha &gt; 0\)</span> and rate
 <span class="math inline">\(\beta &gt; 0\)</span>.
 We write
 <span class="math display">\[\begin{equation}
-  X \sim \text{Gamma}(\alpha, \beta)
+  X | \alpha, \beta \sim \text{Gamma}(\alpha, \beta)
 \end{equation}\]</span>
 and it’s CDF is
 <span class="math display">\[\begin{equation}
@@ -853,15 +915,16 @@ p(x) &amp;= \frac{1}{\Gamma(k)\beta^k} x^{k - 1}e^{-\frac{x}{\theta}}.
 <p><img src="04-random_variables_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 
 <div class="exercise">
-<p><span id="exr:normalpdf" class="exercise"><strong>Exercise 4.12  (Normal random variable)  </strong></span>A random variable with PDF
+<p><span id="exr:normalpdf" class="exercise"><strong>Exercise 4.11  (Normal random variable)  </strong></span>A random variable with PDF
 <span class="math display">\[\begin{equation}
  p(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}
 \end{equation}\]</span>
-is a normal random variable with parameters <span class="math inline">\(\mu\)</span> in reals and <span class="math inline">\(\sigma^2 &gt; 0\)</span>.
+is a normal random variable with support on the real axis and
+parameters <span class="math inline">\(\mu\)</span> in reals and <span class="math inline">\(\sigma^2 &gt; 0\)</span>.
 The first is the mean parameter and the second is the variance parameter.
-Many statistical methods assume a normal distribution. We write
+Many statistical methods assume a normal distribution. We denote
 <span class="math display">\[\begin{equation}
-  X \sim \text{N}(\mu, \sigma^2),
+  X | \mu, \sigma \sim \text{N}(\mu, \sigma^2),
 \end{equation}\]</span>
 and it’s CDF is
 <span class="math display">\[\begin{equation}
@@ -906,14 +969,14 @@ of a normal distribution with <span class="math inline">\(\mu = 0\)</span> and <
 </div>
 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-<span class="co"># a</span>
+<span class="co"># b</span>
 <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="fl">0.4</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 0.1&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 2&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 5&quot;</span>))</code></pre>
 <p><img src="04-random_variables_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># b</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># c</span>
 mean_par   &lt;-<span class="st"> </span><span class="dv">50</span>
 nsamps     &lt;-<span class="st"> </span><span class="dv">100000</span>
 pois_samps &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="dt">lambda =</span> mean_par)
@@ -925,13 +988,13 @@ my_plot    &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span 
 <p><img src="04-random_variables_files/figure-html/unnamed-chunk-28-2.png" width="672" /></p>
 
 <div class="exercise">
-<p><span id="exr:logitpdf" class="exercise"><strong>Exercise 4.13  (Logistic random variable)  </strong></span>A logistic random variable has CDF
+<p><span id="exr:logitpdf" class="exercise"><strong>Exercise 4.12  (Logistic random variable)  </strong></span>A logistic random variable has CDF
 <span class="math display">\[\begin{equation}
   F(x) = \frac{1}{1 + e^{-\frac{x - \mu}{s}}},
 \end{equation}\]</span>
-where <span class="math inline">\(\mu\)</span> is real and <span class="math inline">\(s &gt; 0\)</span>. We write
+where <span class="math inline">\(\mu\)</span> is real and <span class="math inline">\(s &gt; 0\)</span>. The support is on the real axis. We denote
 <span class="math display">\[\begin{equation}
-  X \sim \text{Logistic}(\mu, s).
+  X | \mu, s \sim \text{Logistic}(\mu, s).
 \end{equation}\]</span>
 The distribution of the logistic random variable resembles a normal random
 variable, however it has heavier tails.</p>
@@ -959,7 +1022,7 @@ probability <span class="math inline">\(P(|X| &gt; 4)\)</span> and interpret the
 </ol>
 </div>
 
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># b</span>
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
 logit_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, mu, s) {
   <span class="kw">return</span> ((<span class="kw">exp</span>(<span class="op">-</span>(x <span class="op">-</span><span class="st"> </span>mu)<span class="op">/</span>(s))) <span class="op">/</span><span class="st"> </span>(s <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(x <span class="op">-</span><span class="st"> </span>mu)<span class="op">/</span>(s)))<span class="op">^</span><span class="dv">2</span>))
@@ -974,7 +1037,7 @@ nl_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> logit_pdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mu =</span> <span class="dv">0</span>, <span class="dt">s =</span> <span class="kw">sqrt</span>(<span class="dv">12</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>)), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;logit&quot;</span>))
 <span class="kw">plot</span>(nl_plot)</code></pre>
 <p><img src="04-random_variables_files/figure-html/unnamed-chunk-30-2.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># b</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># c</span>
 logit_cdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, mu, s) {
   <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(x <span class="op">-</span><span class="st"> </span>mu) <span class="op">/</span><span class="st"> </span>s)))
 }
@@ -990,6 +1053,68 @@ p_logistic</code></pre>
 </div>
 <div id="transformations" class="section level2">
 <h2><span class="header-section-number">4.4</span> Transformations</h2>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-31" class="exercise"><strong>Exercise 4.13  </strong></span>Let <span class="math inline">\(X\)</span> be a random variable that is uniformly distributed on
+<span class="math inline">\(\{-2, -1, 0, 1, 2\}\)</span>. Find the PMF of <span class="math inline">\(Y = X^2\)</span>.
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> 
+<span class="math display">\[\begin{align}
+  P_Y(y) = \sum_{x \in \sqrt(y)} P_X(x) = \begin{cases}
+    0           &amp; y \notin \{0,1,4\} \\
+    \frac{1}{5} &amp; y = 0 \\
+    \frac{2}{5} &amp; y \in \{1,4\}
+  \end{cases}
+\end{align}\]</span></p>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:lognpdf" class="exercise"><strong>Exercise 4.14  (Lognormal random variable)  </strong></span>A lognormal random variable is a variable whose logarithm is normally
+distributed. In practice, we often encounter skewed data. Usually
+using a log transformation on such data makes it more symmetric and therefore
+more suitable for modeling with the normal distribution (more on why we wish
+to model data with the normal distribution in the following chapters).</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Let <span class="math inline">\(X \sim \text{N}(\mu,\sigma)\)</span>. Find the PDF of <span class="math inline">\(Y: \log(Y) = X\)</span>.</p></li>
+<li><p><span style="color:blue">R: Sample from the lognormal distribution with
+parameters <span class="math inline">\(\mu = 5\)</span> and <span class="math inline">\(\sigma = 2\)</span>.
+Plot a histogram of the samples.
+Then log-transform the samples and plot a histogram along with the
+theoretical normal PDF.</span></p></li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math display">\[\begin{align}
+  p_Y(y) &amp;= p_X(\log(y)) \frac{d}{dy} \log(y) \\
+      &amp;= \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(\log(y) - \mu)^2}{2 \sigma^2}} \frac{1}{y} \\
+      &amp;= \frac{1}{y \sqrt{2 \pi \sigma^2}} e^{\frac{(\log(y) - \mu)^2}{2 \sigma^2}}.
+\end{align}\]</span></li>
+</ol>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps   &lt;-<span class="st"> </span><span class="dv">10000</span>
+mu       &lt;-<span class="st"> </span><span class="fl">0.5</span>
+sigma    &lt;-<span class="st"> </span><span class="fl">0.4</span>
+ln_samps &lt;-<span class="st"> </span><span class="kw">rlnorm</span>(nsamps, mu, sigma)
+ln_plot  &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> ln_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)
+<span class="kw">plot</span>(ln_plot)</code></pre>
+<p><img src="04-random_variables_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">norm_samps &lt;-<span class="st"> </span><span class="kw">log</span>(ln_samps)
+n_plot     &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> norm_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)
+<span class="kw">plot</span>(n_plot)</code></pre>
+<p><img src="04-random_variables_files/figure-html/unnamed-chunk-34-2.png" width="672" /></p>
 
 </div>
 </div>

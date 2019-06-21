@@ -21,7 +21,7 @@ $\chi^2$ |  | | | | |
 Wishart |  | | | | | 
 Pareto |  | | | | |
 Weibull |  | | | | | 
-negative binomial |  | | | | | 
+negative binomial | $\binom{k + r - 1}{k}(1-p)^r p^k$ <br> \@ref(exr:negbinpdf) | | | | | 
 multinomial |  | | | | | 
 
 

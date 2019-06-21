@@ -1,19 +1,24 @@
 # Random variables {#rvs}
 
-This chapter deals with random variables.
+This chapter deals with random variables and their distributions.
 
 The students are expected to acquire the following knowledge:
 
 **Theoretical**
 
-- 
+- Identification of random variables.
+- Convolutions of random variables.
+- Derivation of PDF, PMF, CDF, and quantile function.
+- Definitions and properties of common discrete random variables.
+- Definitions and properties of common continuous random variables.
+- Transforming univariate random variables.
 
 **R**
 
-- sampling from distributions
-- calculating PDF, CDF, and quantile functions
-- plotting results
-- facet wrap
+- Familiarize with PDF, PMF, CDF, and quantile functions for several distributions.
+- Visual inspection of probability distributions.
+- Analytical and empirical calculation of probabilities based on distributions.
+- New R functions for plotting (for example, _facet_wrap_).
 
 
 
@@ -172,7 +177,7 @@ So the PDF, when $0 \leq x < 1$, is $p(x) = x$. Let us look at the discrete
 part now. It has two steps, so this is a discrete distribution with two
 outcomes -- numbers two and three. The first happens with probability 
 $\frac{p}{2}$, and the second with probability $\frac{1 - p}{2}$. This reminds
-us of the bernoulli distribution, the only difference is that the probabilities
+us of the Bernoulli distribution, the only difference is that the probabilities
 of outcomes are halved, as they need to be suitably normalized. So the PMF
 for the discrete part is $P(X = x) = (\frac{p}{2})^{2 - \lfloor x \rfloor} 
 (\frac{1 - p}{2})^{\lfloor x \rfloor - 1}$.</div>\EndKnitrBlock{solution}
@@ -222,9 +227,15 @@ Now
 \BeginKnitrBlock{exercise}\iffalse{-91-66-105-110-111-109-105-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:bincdf"><strong>(\#exr:bincdf)  \iffalse (Binomial random variable) \fi{} </strong></span>Let $X_k$, $k = 1,...,n$, be random variables with the Bernoulli measure as the 
 PMF with $p = 0.4$. Let $X = \sum_{k=1}^n$.
 
-a. We call $X_k$ a Bernoulli random variable. Find the CDF of $X_k$.
+a. We call $X_k$ a Bernoulli random variable with parameter $p \in (0,1)$. 
+Find the CDF of $X_k$.
 
-b. Find PDF of $X$.
+b. Find PDF of $X$. 
+This is a Binomial random variable with support in $\{0,1,2,...,n\}$ and
+parameters $p \in (0,1)$ and $n \in \mathbb{N}_0$. We denote
+\begin{equation}
+  X | n,p \sim \text{Binomial}(n,p).
+\end{equation}
 
 c. Find CDF of $X$. 
 
@@ -282,11 +293,15 @@ plot(b_plot)
 
 \BeginKnitrBlock{exercise}\iffalse{-91-71-101-111-109-101-116-114-105-99-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:geocdf"><strong>(\#exr:geocdf)  \iffalse (Geometric random variable) \fi{} </strong></span>A variable with PMF 
 \begin{equation}
-  $p(1-p)^k$ 
+  P(k) = p(1-p)^k
 \end{equation}
 is a geometric random 
-variable with support in non-negative integers. It has one positive parameter 
-$p$.
+variable with support in non-negative 
+integers. It has one positive parameter 
+$p$. We denote
+\begin{equation}
+  X | p \sim \text{Geometric}(p)
+\end{equation}
 
 a. Derive the CDF of a geometric random variable.
 
@@ -320,11 +335,19 @@ plot(geo_plot)
 
 <img src="04-random_variables_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
-\BeginKnitrBlock{exercise}\iffalse{-91-80-111-105-115-115-111-110-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-13"><strong>(\#exr:unnamed-chunk-13)  \iffalse (Poisson random variable) \fi{} </strong></span>A variable with PMF $\frac{\lambda^k e^{-\lambda}}{k!}$ is a Poisson random 
+\BeginKnitrBlock{exercise}\iffalse{-91-80-111-105-115-115-111-110-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-13"><strong>(\#exr:unnamed-chunk-13)  \iffalse (Poisson random variable) \fi{} </strong></span>A variable with PMF 
+\begin{equation}
+  P(k) = \frac{\lambda^k e^{-\lambda}}{k!}
+\end{equation}
+ is a Poisson random 
 variable with support in non-negative integers. It has one positive parameter 
 $\lambda$, 
 which also represents its mean value and variance (a measure of the deviation
 of the values from the mean -- more on mean and variance in the next chapter). 
+We denote
+\begin{equation}
+  X | \lambda \sim \text{Poisson}(\lambda).
+\end{equation}
 This distribution is usually the default choice for modeling counts. We have
 already encountered a Poisson random variable in exercise \@ref(exr:geopoispmf),
 where we also sampled from this distribution.
@@ -343,7 +366,6 @@ pois_samp <- data.frame(x = pois_samp)
 pois_plot <- ggplot(data = pois_samp, aes(x = x, colour = "ECDF")) +
   stat_ecdf(geom = "step") +
   geom_step(data = tibble(x = 0:17, y = ppois(x, 5)), aes(x = x, y = y, colour = "CDF")) +
-  # stat_function(data = data.frame(x = 0:17), aes(x = x, colour = "CDF"), geom = "line", fun = ppois, args = list(lambda = 5)) +
   scale_colour_manual("Lgend title", values = c("black", "red"))
 plot(pois_plot)
 ```
@@ -351,39 +373,81 @@ plot(pois_plot)
 <img src="04-random_variables_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 \BeginKnitrBlock{exercise}\iffalse{-91-78-101-103-97-116-105-118-101-32-98-105-110-111-109-105-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:negbinpdf"><strong>(\#exr:negbinpdf)  \iffalse (Negative binomial random variable) \fi{} </strong></span>A variable with PMF 
 \begin{equation}
-  $p(k) = \binom{k + r - 1}{k}(1-p)^r p^k$ 
+  p(k) = \binom{k + r - 1}{k}(1-p)^r p^k
 \end{equation}
 is a negative binomial random 
 variable with support in non-negative integers. It has two parameters 
-$r > 0$ and $p \in (0,1)$.
+$r > 0$ and $p \in (0,1)$. We denote
+\begin{equation}
+  X | r,p \sim \text{NB}(r,p).
+\end{equation}
 
-a. Derive the CDF of a geometric random variable.
+a. Let us reparameterize the negative binomial distribution with $q = 1 - p$.
+Find the PDF of $X \sim \text{NB}(1, q)$. Do you recognize this distribution?
 
-b. <span style="color:blue">R: Draw samples from ... and plot the
-distributions of those samples using _facet_wrap_.</span>
+b. Show that the sum of two negative binomial random variables with the same
+$p$ is also a negative binomial random variable. Hint: Use the fact that
+the number of ways to place $n$ indistinct balls into $k$ boxes is
+$\binom{n + k - 1}{n}$.
+
+c. <span style="color:blue">R: Draw samples from $X \sim \text{NB}(5, 0.4)$
+and $Y \sim \text{NB}(3, 0.4)$. 
+Draw samples from $Z = X + Y$, where you use the parameters calculated in 
+b). Plot both distributions, their sum, and $Z$ using _facet_wrap_. 
+Be careful, as R uses a different 
+parameterization _size_=$r$ and _prob_=$1 - p$.</span>
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a.
 \begin{align}
-  P(X \leq k) &= \sum_{i = 0}^k p(1-p)^i \\
-            &= p \sum_{i = 0}^k (1-p)^i \\
-            &= p \frac{1 - (1-p)^{k+1}}{1 - (1 - p)} \\
-            &= 1 - (1-p)^{k + 1}
+  P(X = k) &= \binom{k + 1 - 1}{k}q^1 (1-q)^k \\
+           &= q(1-q)^k.
 \end{align}
+This is the geometric distribution.
+  
+b. Let $X \sim \text{NB}(r_1, p)$ and $Y \sim \text{NB}(r_2, p)$.
+Let $Z = X + Y$.
+\begin{align}
+  P(Z = z) &= \sum_{k = 0}^{\infty} P(X = z - k)P(Y = k) & \text{ if k < 0, then the probabilities are 0} \\
+           &= \sum_{k = 0}^{z} P(X = z - k)P(Y = k) & \text{ if k > z, then the probabilities are 0} \\
+           &= \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k}(1 - p)^{r_1} p^{z - k} \binom{k + r_2 - 1}{k}(1 - p)^{r_2} p^{k} & \\
+           &= \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}(1 - p)^{r_1 + r_2} p^{z} & \\
+           &= (1 - p)^{r_1 + r_2} p^{z} \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}&
+\end{align}
+The part before the sum reminds us of the negative binomial distribution with
+parameters $r_1 + r_2$ and $p$. To complete this term to the
+negative binomial PDF we need $\binom{z + r_1 + r_2 -1}{z}$. So the
+only thing we need to prove is that the sum equals this term. 
+Both terms in the sum can be interpreted as numbers of ways to
+place a number of balls into boxes. For the left term it is
+$z-k$ balls into $r_1$ boxes, and for the right $k$ balls into
+$r_2$ boxes. For each $k$ we are distributing $z$ balls in total. 
+By summing over all $k$, we actually get all the
+possible placements of $z$ balls into $r_1 + r_2$ boxes.
+Therefore
+\begin{align}
+  P(Z = z) &= (1 - p)^{r_1 + r_2} p^{z} \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}& \\
+           &= \binom{z + r_1 + r_2 -1}{z} (1 - p)^{r_1 + r_2} p^{z}.
+\end{align}
+From this it also follows that the sum of geometric distributions with the same
+parameter is a negative binomial distribution.
+
+c. $Z \sim \text{NB}(8, 0.4)$.
 </div>\EndKnitrBlock{solution}
 
 ```r
 set.seed(1)
-geo_samp <- rgeom(n = 1000, prob = 0.3)
-geo_samp <- data.frame(x = geo_samp) %>%
-  count(x) %>%
-  mutate(n = n / 1000, type = "empirical_frequencies") %>%
-  bind_rows(data.frame(x = 0:20, n = dgeom(0:20, prob = 0.3), type = "theoretical_measure"))
-
-geo_plot <- ggplot(data = geo_samp, aes(x = x, y = n, fill = type)) +
-  geom_bar(stat="identity", position = "dodge")
-plot(geo_plot)
+nsamps <- 10000
+x      <- rnbinom(nsamps, size = 5, prob = 0.6)
+y      <- rnbinom(nsamps, size = 3, prob = 0.6)
+xpy    <- x + y
+z      <- rnbinom(nsamps, size = 8, prob = 0.6)
+samps  <- tibble(x, y, xpy, z)
+samps  <- melt(samps)
+ggplot(data = samps, aes(x = value)) +
+  geom_bar() +
+  facet_wrap(~ variable)
 ```
 
 <img src="04-random_variables_files/figure-html/unnamed-chunk-16-1.png" width="672" />
@@ -391,9 +455,9 @@ plot(geo_plot)
 ## Continuous random variables
 \BeginKnitrBlock{exercise}\iffalse{-91-69-120-112-111-110-101-110-116-105-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:expcdf"><strong>(\#exr:expcdf)  \iffalse (Exponential random variable) \fi{} </strong></span>A variable $X$ with PDF $\lambda e^{-\lambda x}$ is an exponential random 
 variable with support in non-negative real numbers. It has one positive 
-parameter $\lambda$. 
+parameter $\lambda$. We denote
 \begin{equation}
-  X | \lambda \sim \text{Exp}(\lambda)
+  X | \lambda \sim \text{Exp}(\lambda).
 \end{equation}
 
 a. Derive the CDF of an exponential random variable.
@@ -507,6 +571,7 @@ ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
          \end{cases}
 \end{equation}
   
+
 a. Derive the CDF of the uniform random variable.
 
 b. Derive the quantile function of the uniform random variable.
@@ -518,24 +583,23 @@ d. Let $X \sim \text{Uniform}(-1, 3)$.
 Find such $z$ that $P(X < z + \mu_x) = \frac{1}{5}$.
 
 e. <span style="color:blue">R: Check your result from d) using 
-simulation.</span></div>\EndKnitrBlock{exercise}
+simulation.</span>
+  </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
-
-
 a.
 \begin{align}
   F(x) &= \int_{a}^x \frac{1}{b - a} dt \\
        &= \frac{1}{b - a} \int_{a}^x dt \\
        &= \frac{x - a}{b - a}.
 \end{align}
-  
+
 b.
 \begin{align}
   F(F^{-1}(p))                &= p \\
   \frac{F^{-1}(p) - a}{b - a} &= p \\
   F^{-1}(p)                   &= p(b - a) + a.
 \end{align}
-  
+
 c.
 \begin{align}
   F_Y(y) &= P(Y < y) \\
@@ -545,7 +609,7 @@ c.
          &= \frac{(y(b - a) + a) - a}{b - a} \\
          &= y.
 \end{align}
-  
+
 d.
 \begin{align}
   P(X < z + 1) &= \frac{1}{5} \\
@@ -594,17 +658,17 @@ parameters $\alpha$ and $\beta$. Notation:
   X | \alpha, \beta \sim \text{Beta}(\alpha, \beta)
 \end{equation}
 It is often used in modeling rates. 
-The CDF of a Beta random variable is
-\begin{equation}
-  F(x) = \frac{\text{B}(x; \alpha, \beta)}{\text{B}(\alpha, \beta)},
-\end{equation}
-  where $\text{B}(x; \alpha, \beta) = \int_0^x t^{\alpha+1} (1 - t)^{\beta - 1} dt$.
+<!--The CDF of a Beta random variable is--> 
+<!--\begin{equation}--> 
+<!--  F(x) = \frac{\text{B}(x; \alpha, \beta)}{\text{B}(\alpha, \beta)},--> 
+<!--\end{equation}--> 
+<!--  where $\text{B}(x; \alpha, \beta) = \int_0^x t^{\alpha+1} (1 - t)^{\beta - 1} dt$.--> 
 
 
 a. Calculate the PDF for $\alpha = 1$ and $\beta = 1$. What do you notice?
 
 b. <span style="color:blue">R: Plot densities of the beta distribution
-for $\alpha = 0.5$, $\beta = 0.5$, $\alpha = 4$, $\beta = 1$, $\alpha = 1$, $\beta = 4$, $alpha = 0.1$, $\beta = 0.1$.</span>
+for parameter pairs (2, 2), (4, 1), (1, 4), (2, 5), and (0.1, 0.1).</span>
 
 c. <span style="color:blue">R: Sample from $X \sim \text{Beta}(2, 5)$ and
 compare the histogram with Beta PDF.</span>
@@ -651,11 +715,12 @@ ggplot(data = data.frame(x = samps), aes(x = x)) +
 \begin{equation}
  p(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x}
 \end{equation}
-is a Gamma random variable with parameters shape $\alpha > 0$ and rate 
+is a Gamma random variable with support on the positive numbers and 
+parameters shape $\alpha > 0$ and rate 
 $\beta > 0$.
 We write
 \begin{equation}
-  X \sim \text{Gamma}(\alpha, \beta)
+  X | \alpha, \beta \sim \text{Gamma}(\alpha, \beta)
 \end{equation}
 and it's CDF is
 \begin{equation}
@@ -710,11 +775,12 @@ ggplot(data = data.frame(x = seq(0, 25, by = 0.01)), aes(x = x)) +
 \begin{equation}
  p(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}
 \end{equation}
-is a normal random variable with parameters $\mu$ in reals and $\sigma^2 > 0$.
+is a normal random variable with support on the real axis and 
+parameters $\mu$ in reals and $\sigma^2 > 0$.
 The first is the mean parameter and the second is the variance parameter.
-Many statistical methods assume a normal distribution. We write
+Many statistical methods assume a normal distribution. We denote
 \begin{equation}
-  X \sim \text{N}(\mu, \sigma^2),
+  X | \mu, \sigma \sim \text{N}(\mu, \sigma^2),
 \end{equation}
 and it's CDF is
 \begin{equation}
@@ -761,7 +827,7 @@ of a normal distribution with $\mu = 0$ and $\sigma^2 = 1$.
 
 ```r
 set.seed(1)
-# a
+# b
 ggplot(data = data.frame(x = seq(-15, 15, by = 0.01)), aes(x = x)) +
   stat_function(fun = dnorm, args = list(mean = 0, sd = 1), aes(color = "sd = 1")) +
   stat_function(fun = dnorm, args = list(mean = 0, sd = 0.4), aes(color = "sd = 0.1")) +
@@ -772,7 +838,7 @@ ggplot(data = data.frame(x = seq(-15, 15, by = 0.01)), aes(x = x)) +
 <img src="04-random_variables_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 
 ```r
-# b
+# c
 mean_par   <- 50
 nsamps     <- 100000
 pois_samps <- rpois(nsamps, lambda = mean_par)
@@ -790,9 +856,9 @@ plot(my_plot)
 \begin{equation}
   F(x) = \frac{1}{1 + e^{-\frac{x - \mu}{s}}},
 \end{equation}
-where $\mu$ is real and $s > 0$. We write
+where $\mu$ is real and $s > 0$. The support is on the real axis. We denote
 \begin{equation}
-  X \sim \text{Logistic}(\mu, s).
+  X | \mu, s \sim \text{Logistic}(\mu, s).
 \end{equation}
 The distribution of the logistic random variable resembles a normal random 
 variable, however it has heavier tails.
@@ -820,7 +886,7 @@ a.
 </div>\EndKnitrBlock{solution}
 
 ```r
-# a
+# b
 set.seed(1)
 logit_pdf <- function (x, mu, s) {
   return ((exp(-(x - mu)/(s))) / (s * (1 + exp(-(x - mu)/(s)))^2))
@@ -843,7 +909,7 @@ plot(nl_plot)
 <img src="04-random_variables_files/figure-html/unnamed-chunk-30-2.png" width="672" />
 
 ```r
-# b
+# c
 logit_cdf <- function (x, mu, s) {
   return (1 / (1 + exp(-(x - mu) / s)))
 }
@@ -871,3 +937,66 @@ p_norm
 ```
 
 ## Transformations
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-31"><strong>(\#exr:unnamed-chunk-31) </strong></span>Let $X$ be a random variable that is uniformly distributed on 
+$\{-2, -1, 0, 1, 2\}$. Find the PMF of $Y = X^2$.</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+\begin{align}
+  P_Y(y) = \sum_{x \in \sqrt(y)} P_X(x) = \begin{cases}
+    0           & y \notin \{0,1,4\} \\
+    \frac{1}{5} & y = 0 \\
+    \frac{2}{5} & y \in \{1,4\}
+  \end{cases}
+\end{align}
+
+</div>\EndKnitrBlock{solution}
+
+
+
+\BeginKnitrBlock{exercise}\iffalse{-91-76-111-103-110-111-114-109-97-108-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:lognpdf"><strong>(\#exr:lognpdf)  \iffalse (Lognormal random variable) \fi{} </strong></span>A lognormal random variable is a variable whose logarithm is normally
+distributed. In practice, we often encounter skewed data. Usually
+using a log transformation on such data makes it more symmetric and therefore
+more suitable for modeling with the normal distribution (more on why we wish 
+to model data with the normal distribution in the following chapters).
+
+a. Let $X \sim \text{N}(\mu,\sigma)$. Find the PDF of $Y: \log(Y) = X$.
+
+b. <span style="color:blue">R: Sample from the lognormal distribution with
+parameters $\mu = 5$ and $\sigma = 2$. 
+Plot a histogram of the samples. 
+Then log-transform the samples and plot a histogram along with the
+theoretical normal PDF.</span>
+
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+a. 
+\begin{align}
+  p_Y(y) &= p_X(\log(y)) \frac{d}{dy} \log(y) \\
+         &= \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(\log(y) - \mu)^2}{2 \sigma^2}} \frac{1}{y} \\
+         &= \frac{1}{y \sqrt{2 \pi \sigma^2}} e^{\frac{(\log(y) - \mu)^2}{2 \sigma^2}}.
+\end{align}
+
+</div>\EndKnitrBlock{solution}
+
+```r
+set.seed(1)
+nsamps   <- 10000
+mu       <- 0.5
+sigma    <- 0.4
+ln_samps <- rlnorm(nsamps, mu, sigma)
+ln_plot  <- ggplot(data = data.frame(x = ln_samps), aes(x = x)) +
+  geom_histogram(color = "black")
+plot(ln_plot)
+```
+
+<img src="04-random_variables_files/figure-html/unnamed-chunk-34-1.png" width="672" />
+
+```r
+norm_samps <- log(ln_samps)
+n_plot     <- ggplot(data = data.frame(x = norm_samps), aes(x = x)) +
+  geom_histogram(aes(y = ..density..), color = "black") +
+  stat_function(fun = dnorm, args = list(mean = mu, sd = sigma), color = "red")
+plot(n_plot)
+```
+
+<img src="04-random_variables_files/figure-html/unnamed-chunk-34-2.png" width="672" />
