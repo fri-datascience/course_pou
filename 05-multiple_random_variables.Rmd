@@ -1,0 +1,100 @@
+# Multiple random variables {#rvs}
+
+This chapter deals with multiple random variables and their distributions.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- a
+
+**R**
+
+- a
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+togs <- TRUE
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+# togs <- FALSE
+```
+
+## General properties and calculations
+```{exercise}
+Let $X \sim \text{N}(0,1)$ and $Y \sim \text{N}(0,1)$ be independent random
+variables. Draw 1000 samples from $(X,Y)$ and plot a scatterplot.
+
+Now let $X \sim \text{N}(0,1)$ and $Y | X = x \sim N(ax, 1). Draw 1000 samples
+from $(X,Y)$ for $a = 1$, $a=0$, and $a=-0.5$. Plot the scatterplots.
+
+How would you interpret parameter $a$?
+  
+Plot the marginal distribution of $Y$ for cases $a=1$, $a=0$, and $a=-0.5$.
+Can you guess which distribution it is?
+
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE}
+set.seed(1)
+nsamps <- 1000
+x      <- rnorm(nsamps)
+y      <- rnorm(nsamps)
+ggplot(data.frame(x, y), aes(x = x, y = y)) +
+  geom_point()
+
+y1 <- rnorm(nsamps, mean = 1 * x)
+y2 <- rnorm(nsamps, mean = 0 * x)
+y3 <- rnorm(nsamps, mean = -0.5 * x)
+df <- tibble(x = c(x,x,x),
+             y = c(y1,y2,y3),
+             a = c(rep(1, nsamps), rep(0, nsamps), rep(-0.5, nsamps)))
+ggplot(df, aes(x = x, y = y)) +
+  geom_point() +
+  facet_wrap(~a)
+
+# Parameter a controls the scale of linear dependency between X and Y.
+
+ggplot(df, aes(x = y)) +
+  geom_density() +
+  facet_wrap(~a)
+```
+
+```{exercise, name = "Multinomial distribution"}
+Let $X \sim \text{N}(0,1)$ and $Y \sim \text{N}(0,1)$ be independent random
+variables. Draw 1000 samples from $(X,Y)$ and plot a scatterplot.
+
+Now let $X \sim \text{N}(0,1)$ and $Y | X = x \sim N(ax, 1). Draw 1000 samples
+from $(X,Y)$ for $a = 1$, $a=0$, and $a=-0.5$. Plot the scatterplots.
+
+How would you interpret parameter $a$?
+  
+Plot the marginal distribution of $Y$ for cases $a=1$, $a=0$, and $a=-0.5$.
+Can you guess which distribution it is?
+
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE}
+set.seed(1)
+nsamps <- 1000
+x      <- rnorm(nsamps)
+y      <- rnorm(nsamps)
+ggplot(data.frame(x, y), aes(x = x, y = y)) +
+  geom_point()
+
+y1 <- rnorm(nsamps, mean = 1 * x)
+y2 <- rnorm(nsamps, mean = 0 * x)
+y3 <- rnorm(nsamps, mean = -0.5 * x)
+df <- tibble(x = c(x,x,x),
+             y = c(y1,y2,y3),
+             a = c(rep(1, nsamps), rep(0, nsamps), rep(-0.5, nsamps)))
+ggplot(df, aes(x = x, y = y)) +
+  geom_point() +
+  facet_wrap(~a)
+
+# Parameter a controls the scale of linear dependency between X and Y.
+
+ggplot(df, aes(x = y)) +
+  geom_density() +
+  facet_wrap(~a)
+```
