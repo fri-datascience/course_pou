@@ -12,18 +12,10 @@ The students are expected to acquire the following knowledge:
 
 - a
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- TRUE
-library(ggplot2)
-library(dplyr)
-library(reshape2)
-library(tidyr)
-# togs <- FALSE
-```
+
 
 ## General properties and calculations
-```{exercise}
-<span style="color:blue">Let $X \sim \text{N}(0,1)$ and $Y \sim \text{N}(0,1)$ 
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-2"><strong>(\#exr:unnamed-chunk-2) </strong></span><span style="color:blue">Let $X \sim \text{N}(0,1)$ and $Y \sim \text{N}(0,1)$ 
 be independent random
 variables. Draw 1000 samples from $(X,Y)$ and plot a scatterplot.
 Now let $X \sim \text{N}(0,1)$ and $Y | X = x \sim N(ax, 1). Draw 1000 samples
@@ -32,16 +24,20 @@ How would you interpret parameter $a$?
 Plot the marginal distribution of $Y$ for cases $a=1$, $a=0$, and $a=-0.5$.
 Can you guess which distribution it is?</span>
 
+</div>\EndKnitrBlock{exercise}
 
-```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```r
 set.seed(1)
 nsamps <- 1000
 x      <- rnorm(nsamps)
 y      <- rnorm(nsamps)
 ggplot(data.frame(x, y), aes(x = x, y = y)) +
   geom_point()
+```
 
+<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+
+```r
 y1 <- rnorm(nsamps, mean = 1 * x)
 y2 <- rnorm(nsamps, mean = 0 * x)
 y3 <- rnorm(nsamps, mean = -0.5 * x)
@@ -52,7 +48,11 @@ ggplot(df, aes(x = x, y = y)) +
   geom_point() +
   facet_wrap(~a) +
   coord_equal(ratio=1)
+```
 
+<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-3-2.png" width="672" />
+
+```r
 # Parameter a controls the scale of linear dependency between X and Y.
 
 ggplot(df, aes(x = y)) +
@@ -60,9 +60,10 @@ ggplot(df, aes(x = y)) +
   facet_wrap(~a)
 ```
 
+<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-3-3.png" width="672" />
 
-```{exercise, name = "Multinomial distribution"}
-Let $X_i$, $i = 1,...,k$ represent $k$ events, and $p_i$ the probabilities
+
+\BeginKnitrBlock{exercise}\iffalse{-91-77-117-108-116-105-110-111-109-105-97-108-32-100-105-115-116-114-105-98-117-116-105-111-110-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-4"><strong>(\#exr:unnamed-chunk-4)  \iffalse (Multinomial distribution) \fi{} </strong></span>Let $X_i$, $i = 1,...,k$ represent $k$ events, and $p_i$ the probabilities
 of these events happening in a trial. Let $n$ be the number of trials, and
 $X$ a multivariate random variable, the collection of $X_i$. 
 Then $p(x) = \frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}$
@@ -72,10 +73,8 @@ a. Show that the marginal distribution of $X_i$ is a binomial distribution.
 
 b. 
 
-
-```
-```{solution, echo = togs}
-
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a. We will approach this proof from the probabilistic point of view.
 W.L.O.G. let $x_1$ be the marginal distribution we are interested in.
@@ -87,16 +86,14 @@ What is left to do is to calculate the number of permutations of event 1
 happening and event 1 not happening. We choose $x_1$ trials, from $n$ trials.
 Therefore $p(x_1) = \binom{n}{x_1} p_1^{x_1} (1 - p_1)^{n - x_1}$, which is
 the binomial PMF. Interested students are encouraged to prove this 
-mathematically.
-```
-```{r, echo = togs, message = FALSE, warning=FALSE}
-set.seed(1)
+mathematically.</div>\EndKnitrBlock{solution}
 
+```r
+set.seed(1)
 ```
 
 ## Bivariate distribution examples
-```{exercise, name = "Discrete bivariate random variable"}
-Let $X$ represent the event that a die rolls an even number and let $Y$ 
+\BeginKnitrBlock{exercise}\iffalse{-91-68-105-115-99-114-101-116-101-32-98-105-118-97-114-105-97-116-101-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-7"><strong>(\#exr:unnamed-chunk-7)  \iffalse (Discrete bivariate random variable) \fi{} </strong></span>Let $X$ represent the event that a die rolls an even number and let $Y$ 
 represent the event that
 a die rolls one, two, or a three.
 
@@ -107,10 +104,8 @@ b. Find the PMF of $(X,Y)$.
 c. Find the CDF of $(X,Y)$.
 
 d. Find $P(X = 1 | Y = 1)$.
-
-```
-```{solution, echo = togs}
-
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a.
 \begin{align}
@@ -140,12 +135,10 @@ d.
 \begin{align}
   P(X = 1 | Y = 1) = \frac{1}{3}
 \end{align}
+</div>\EndKnitrBlock{solution}
 
-```
 
-
-```{exercise, name = "Continuous bivariate random variable"}
-Let $p(x,y) = 6 (x - y)^2$ be the PDF of a bivariate random
+\BeginKnitrBlock{exercise}\iffalse{-91-67-111-110-116-105-110-117-111-117-115-32-98-105-118-97-114-105-97-116-101-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-9"><strong>(\#exr:unnamed-chunk-9)  \iffalse (Continuous bivariate random variable) \fi{} </strong></span>Let $p(x,y) = 6 (x - y)^2$ be the PDF of a bivariate random
 variable $(X,Y)$, where both variables range from zero to one.
 
 a. Find CDF.
@@ -159,10 +152,8 @@ by value -- this can help us visualize the PDF.</span>
   
 d. <span style="color:blue">R: Plot the marginal distribution of $Y$ and
 the conditional distributions of $X | Y = y$, where 
-$y \in \{0, 0.1, 0.5\}.</span>
-```
-```{solution, echo = togs}
-
+$y \in \{0, 0.1, 0.5\}.</span></div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a. 
 \begin{align}
@@ -196,9 +187,9 @@ c.
          &= \frac{6 (x - y)^2}{6 (x^2 - x + \frac{1}{3})} \\
          &= \frac{(x - y)^2}{x^2 - x + \frac{1}{3}}
   \end{align}
+</div>\EndKnitrBlock{solution}
 
-```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```r
 set.seed(1)
 
 # a
@@ -212,8 +203,11 @@ colnames(df) <- c("x", "y")
 df           <- cbind(df, pdf = get_pdf(df$x, df$y))
 ggplot(data = df, aes(x = x, y = y, color = pdf)) +
   geom_point()
+```
 
+<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
+```r
 # b
 mar_pdf <- function (x) {
   return (6 * x^2 - 6 * x + 2)
@@ -231,8 +225,9 @@ ggplot(df, aes(x = x, y = value, color = dist)) +
   geom_line()
 ```
 
-```{exercise, name = "Mixed bivariate random variable"}
-Let $f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}$
+<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-11-2.png" width="672" />
+
+\BeginKnitrBlock{exercise}\iffalse{-91-77-105-120-101-100-32-98-105-118-97-114-105-97-116-101-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-12"><strong>(\#exr:unnamed-chunk-12)  \iffalse (Mixed bivariate random variable) \fi{} </strong></span>Let $f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}$
 be the PDF of a bivariate random variable, where $x \in (0, \infty)$ and
 $y \in \mathbb{N}_0$.
 
@@ -251,10 +246,8 @@ parameters $\beta = 1$ and
 $\alpha = 1$. Plot a scatterplot. Plot a bar plot of the marginal distribution
 of $Y$, and the theoretical PMF calculated from d) on the range from 0 to 10.
 Hint: Use the __gamma__ function in R.?</span>
-
-```
-```{solution, echo = togs}
-
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a.
 \begin{align}
@@ -286,9 +279,9 @@ d.
        &= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}}.
 \end{align}
 We do not recognize this distribution.
+</div>\EndKnitrBlock{solution}
 
-```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```r
 set.seed(1)
 px <- function (x, alpha, beta) {
   return((1 / factorial(x)) * (beta^alpha / gamma(alpha)) * 
@@ -298,19 +291,22 @@ nsamps <- 1000
 rx     <- rgamma(nsamps, 1, 1)
 ryx    <- rpois(nsamps, rx)
 ggplot(data = data.frame(x = rx, y = ryx), aes(x = x, y = y)) + geom_point()
+```
+
+<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+
+```r
 ggplot(data = data.frame(x = rx, y = ryx), aes(x = y)) + 
   geom_bar(aes(y = (..count..)/sum(..count..))) +
   stat_function(fun = px, args = list(alpha = 1, beta = 1), color = "red")
-
 ```
 
-```{exercise}
-Let $f(x,y) = cx^2y$ for $x^2 \leq y \leq 1$ and zero otherwise. 
+<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-14-2.png" width="672" />
+
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-15"><strong>(\#exr:unnamed-chunk-15) </strong></span>Let $f(x,y) = cx^2y$ for $x^2 \leq y \leq 1$ and zero otherwise. 
 Find such $c$ that $f$ is a PDF of a bivariate random
-variable. This exercise is borrowed from Wasserman.
-```
-```{solution, echo = togs}
-\begin{align}
+variable. This exercise is borrowed from Wasserman.</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}\begin{align}
   1 &= \int_{-1}^{1} \int_{x^2}^1 cx^2y dy dx \\
     &= \int_{-1}^{1} cx^2 (\frac{1}{2} - \frac{x^4}{2}) dx \\
     &= \frac{c}{2} \int_{-1}^{1} x^2 - x^6 dx \\
@@ -318,6 +314,5 @@ variable. This exercise is borrowed from Wasserman.
     &= \frac{c}{2} \frac{8}{21} \\
     &= \frac{4c}{21}
 \end{align}
-It follows $c = \frac{21}{4}$.
-```
+It follows $c = \frac{21}{4}$.</div>\EndKnitrBlock{solution}
 
