@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 5 Multiple random variables | Principles of Uncertainty – exercises</title>
+  <meta name="description" content="Course notes">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 5 Multiple random variables | Principles of Uncertainty – exercises" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
+  
+  <meta property="og:description" content="Course notes" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Multiple random variables | Principles of Uncertainty – exercises" />
+  
+  <meta name="twitter:description" content="Course notes" />
+  
+
+<meta name="author" content="Gregor Pirš and Erik Štrumbelj">
+
+
+<meta name="date" content="2019-06-27">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="rvs.html">
+<link rel="next" href="r-programming-language.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Principles of uncertainty</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
+<li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#borel-sets"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
+<li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
+<li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
+<li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
+<li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
+<li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
+<li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
+<li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.4</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
+<li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
+<li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A.1" data-path="r-programming-language.html"><a href="r-programming-language.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
+<li class="chapter" data-level="A.2" data-path="r-programming-language.html"><a href="r-programming-language.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
+<li class="chapter" data-level="A.3" data-path="r-programming-language.html"><a href="r-programming-language.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3.1" data-path="r-programming-language.html"><a href="r-programming-language.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
+<li class="chapter" data-level="A.3.2" data-path="r-programming-language.html"><a href="r-programming-language.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
+</ul></li>
+<li class="chapter" data-level="A.4" data-path="r-programming-language.html"><a href="r-programming-language.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4.1" data-path="r-programming-language.html"><a href="r-programming-language.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
+<li class="chapter" data-level="A.4.2" data-path="r-programming-language.html"><a href="r-programming-language.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
+<li class="chapter" data-level="A.4.3" data-path="r-programming-language.html"><a href="r-programming-language.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
+<li class="chapter" data-level="A.4.4" data-path="r-programming-language.html"><a href="r-programming-language.html#factors"><i class="fa fa-check"></i><b>A.4.4</b> Factors</a></li>
+<li class="chapter" data-level="A.4.5" data-path="r-programming-language.html"><a href="r-programming-language.html#matrices"><i class="fa fa-check"></i><b>A.4.5</b> Matrices</a></li>
+<li class="chapter" data-level="A.4.6" data-path="r-programming-language.html"><a href="r-programming-language.html#arrays"><i class="fa fa-check"></i><b>A.4.6</b> Arrays</a></li>
+<li class="chapter" data-level="A.4.7" data-path="r-programming-language.html"><a href="r-programming-language.html#data-frames"><i class="fa fa-check"></i><b>A.4.7</b> Data frames</a></li>
+<li class="chapter" data-level="A.4.8" data-path="r-programming-language.html"><a href="r-programming-language.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
+<li class="chapter" data-level="A.4.9" data-path="r-programming-language.html"><a href="r-programming-language.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="A.5" data-path="r-programming-language.html"><a href="r-programming-language.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5.1" data-path="r-programming-language.html"><a href="r-programming-language.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
+</ul></li>
+<li class="chapter" data-level="A.6" data-path="r-programming-language.html"><a href="r-programming-language.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
+<li class="chapter" data-level="A.7" data-path="r-programming-language.html"><a href="r-programming-language.html#further-reading-and-references"><i class="fa fa-check"></i><b>A.7</b> Further reading and references</a></li>
+<li class="chapter" data-level="A.8" data-path="r-programming-language.html"><a href="r-programming-language.html#learning-outcomes"><i class="fa fa-check"></i><b>A.8</b> Learning outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>B</b> Probability distributions</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>      
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Principles of Uncertainty – exercises</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mrvs" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Multiple random variables</h1>
+<p>This chapter deals with multiple random variables and their distributions.</p>
+<p>The students are expected to acquire the following knowledge:</p>
+<p><strong>Theoretical</strong></p>
+<ul>
+<li>Connection between the binomial and multinomial distribution.</li>
+<li>Calculation of PDF of transformed multiple random variables.</li>
+<li>Finding marginal and conditional distributions.</li>
+</ul>
+<p><strong>R</strong></p>
+<ul>
+<li>Scatterplots of bivariate random variables.</li>
+<li>Sampling from the multinomial distribution.</li>
+<li>Sampling from transformed bivariate random variables.</li>
+<li>New R functions (for example, <em>expand.grid</em>).</li>
+<li>New ggplot parameters (for example, <em>alpha</em> for transparency).</li>
+<li>Transparency in ggplot.</li>
+</ul>
+<div id="general" class="section level2">
+<h2><span class="header-section-number">5.1</span> General</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X \sim \text{N}(0,1)\)</span> and <span class="math inline">\(Y \sim \text{N}(0,1)\)</span>
+be independent random
+variables. Draw 1000 samples from <span class="math inline">\((X,Y)\)</span> and plot a scatterplot.
+Now let <span class="math inline">\(X \sim \text{N}(0,1)\)</span> and $Y | X = x N(ax, 1). Draw 1000 samples
+from <span class="math inline">\((X,Y)\)</span> for <span class="math inline">\(a = 1\)</span>, <span class="math inline">\(a=0\)</span>, and <span class="math inline">\(a=-0.5\)</span>. Plot the scatterplots.
+How would you interpret parameter <span class="math inline">\(a\)</span>?
+Plot the marginal distribution of <span class="math inline">\(Y\)</span> for cases <span class="math inline">\(a=1\)</span>, <span class="math inline">\(a=0\)</span>, and <span class="math inline">\(a=-0.5\)</span>.
+Can you guess which distribution it is?</span></p>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
+x      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)
+y      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)
+<span class="kw">ggplot</span>(<span class="kw">data.frame</span>(x, y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
+<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">y1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">1</span> <span class="op">*</span><span class="st"> </span>x)
+y2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">0</span> <span class="op">*</span><span class="st"> </span>x)
+y3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="fl">-0.5</span> <span class="op">*</span><span class="st"> </span>x)
+df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(x,x,x),
+             <span class="dt">y =</span> <span class="kw">c</span>(y1,y2,y3),
+             <span class="dt">a =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>, nsamps), <span class="kw">rep</span>(<span class="dv">0</span>, nsamps), <span class="kw">rep</span>(<span class="op">-</span><span class="fl">0.5</span>, nsamps)))
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_equal</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</code></pre>
+<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Parameter a controls the scale of linear dependency between X and Y.</span>
+
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a)</code></pre>
+<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+
+<div class="exercise">
+<p><span id="exr:mnompdf" class="exercise"><strong>Exercise 5.1  (Multinomial distribution)  </strong></span>Let <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i = 1,...,k\)</span> represent <span class="math inline">\(k\)</span> events, and <span class="math inline">\(p_i\)</span> the probabilities
+of these events happening in a trial. Let <span class="math inline">\(n\)</span> be the number of trials, and
+<span class="math inline">\(X\)</span> a multivariate random variable, the collection of <span class="math inline">\(X_i\)</span>.
+Then <span class="math inline">\(p(x) = \frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}\)</span>
+is the PMF of a multinomial distribution.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Show that the marginal distribution of <span class="math inline">\(X_i\)</span> is a binomial distribution.</p></li>
+<li><p>Take 1000 samples from the multinomial distribution with <span class="math inline">\(n=4\)</span> and
+probabilities <span class="math inline">\(p = (0.2, 0.2, 0.5, 0.1)\)</span>. Then take 1000 samples from
+four binomial distributions with the same parameters. Inspect the results
+visually.</p></li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li>We will approach this proof from the probabilistic point of view.
+W.L.O.G. let <span class="math inline">\(x_1\)</span> be the marginal distribution we are interested in.
+The term <span class="math inline">\(p^{x_1}\)</span> denotes the probability that event 1 happened <span class="math inline">\(x_1\)</span> times.
+For this event not to happen, one of the other events needs to happen. So
+for each of the remaining trials, the probability of another event is
+<span class="math inline">\(\sum_{i=2}^k p_i = 1 - p_1\)</span>, and there were <span class="math inline">\(n - x_1\)</span> such trials.
+What is left to do is to calculate the number of permutations of event 1
+happening and event 1 not happening. We choose <span class="math inline">\(x_1\)</span> trials, from <span class="math inline">\(n\)</span> trials.
+Therefore <span class="math inline">\(p(x_1) = \binom{n}{x_1} p_1^{x_1} (1 - p_1)^{n - x_1}\)</span>, which is
+the binomial PMF. Interested students are encouraged to prove this
+mathematically.
+</div></li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps      &lt;-<span class="st"> </span><span class="dv">1000</span>
+samps_mult  &lt;-<span class="st"> </span><span class="kw">rmultinom</span>(nsamps, <span class="dv">4</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>))
+samps_mult  &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(<span class="kw">t</span>(samps_mult)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>()
+samps       &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+  <span class="dt">V1 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.2</span>),
+  <span class="dt">V2 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.2</span>),
+  <span class="dt">V3 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.5</span>),
+  <span class="dt">V4 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.1</span>)
+) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>(samps_mult) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_cols</span>(<span class="st">&quot;dist&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;binomial&quot;</span>, <span class="dv">4</span><span class="op">*</span>nsamps), <span class="kw">rep</span>(<span class="st">&quot;multinomial&quot;</span>, <span class="dv">4</span><span class="op">*</span>nsamps)))
+
+<span class="kw">ggplot</span>(samps, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> dist)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>key)</code></pre>
+<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="bivariate-distribution-examples" class="section level2">
+<h2><span class="header-section-number">5.2</span> Bivariate distribution examples</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 1.3  (Discrete bivariate random variable)  </strong></span>Let <span class="math inline">\(X\)</span> represent the event that a die rolls an even number and let <span class="math inline">\(Y\)</span>
+represent the event that
+a die rolls one, two, or a three.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find the marginal distributions of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Find the PMF of <span class="math inline">\((X,Y)\)</span>.</p></li>
+<li><p>Find the CDF of <span class="math inline">\((X,Y)\)</span>.</p></li>
+<li>Find <span class="math inline">\(P(X = 1 | Y = 1)\)</span>.</li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align}
+P(X = 1) = \frac{1}{2} \text{ and } P(X = 0) = \frac{1}{2} \\
+P(Y = 1) = \frac{1}{2} \text{ and } P(Y = 0) = \frac{1}{2} \\
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+P(X = 1, Y = 1) = \frac{1}{6} \\
+P(X = 1, Y = 0) = \frac{2}{6} \\
+P(X = 0, Y = 1) = \frac{2}{6} \\
+P(X = 0, Y = 0) = \frac{1}{6}
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+  P(X \leq x, Y \leq y) = \begin{cases}
+ \frac{1}{6} &amp; x = 0, y = 0 \\
+ \frac{3}{6} &amp; x \neq y \\
+ 1           &amp; x = 1, y = 1
+  \end{cases}
+\end{align}\]</span></p></li>
+<li><span class="math display">\[\begin{align}
+P(X = 1 | Y = 1) = \frac{1}{3}
+\end{align}\]</span></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 1.4  (Continuous bivariate random variable)  </strong></span>Let <span class="math inline">\(p(x,y) = 6 (x - y)^2\)</span> be the PDF of a bivariate random
+variable <span class="math inline">\((X,Y)\)</span>, where both variables range from zero to one.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find CDF.</p></li>
+<li><p>Find marginal distributions.</p></li>
+<li><p>Find conditional distributions.</p></li>
+<li><p><span style="color:blue">R: Plot a grid of points and colour them
+by value – this can help us visualize the PDF.</span></p></li>
+<li><span style="color:blue">R: Plot the marginal distribution of <span class="math inline">\(Y\)</span> and
+the conditional distributions of <span class="math inline">\(X | Y = y\)</span>, where
+<span class="math inline">\(y \in \{0, 0.1, 0.5\}\)</span>.</span>
+</div>
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p></li>
+<li><p><span class="math display">\[\begin{align}
+  F(x,y) &amp;= \int_0^{x} \int_0^{y} 6 (t - s)^2 ds dt\\
+      &amp;= 6 \int_0^{x} \int_0^{y} t^2 - 2ts + s^2 ds dt\\
+      &amp;= 6 \int_0^{x} t^2y - ty^2 + \frac{y^3}{3} dt \\
+      &amp;= 6 (\frac{x^3 y}{3} - \frac{x^2y^2}{2} + \frac{x y^3}{3}) \\
+      &amp;= 2 x^3 y - 3 t^2y^2 + 2 x y^3
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+  p(x) &amp;= \int_0^{1} 6 (x - y)^2 dy\\
+    &amp;= 6 (x^2 - x + \frac{1}{3}) \\
+    &amp;= 6x^2 - 6x + 2
+\end{align}\]</span>
+<span class="math display">\[\begin{align}
+  p(x) &amp;= \int_0^{1} 6 (x - y)^2 dx\\
+    &amp;= 6 (y^2 - y + \frac{1}{3}) \\
+    &amp;= 6y^2 - 6y + 2
+\end{align}\]</span></p></li>
+<li><span class="math display">\[\begin{align}
+  p(x|y) &amp;= \frac{p(xy)}{p(y)} \\
+      &amp;= \frac{6 (x - y)^2}{6 (y^2 - y + \frac{1}{3})} \\
+      &amp;= \frac{(x - y)^2}{y^2 - y + \frac{1}{3}}
+  \end{align}\]</span>
+<span class="math display">\[\begin{align}
+  p(y|x) &amp;= \frac{p(xy)}{p(x)} \\
+      &amp;= \frac{6 (x - y)^2}{6 (x^2 - x + \frac{1}{3})} \\
+      &amp;= \frac{(x - y)^2}{x^2 - x + \frac{1}{3}}
+  \end{align}\]</span></li>
+</ol>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+
+<span class="co"># a</span>
+get_pdf    &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {
+  <span class="kw">return</span> ((x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>)
+}
+x_axis       &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)
+y_axis       &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)
+df           &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(x_axis, y_axis)
+<span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)
+df           &lt;-<span class="st"> </span><span class="kw">cbind</span>(df, <span class="dt">pdf =</span> <span class="kw">get_pdf</span>(df<span class="op">$</span>x, df<span class="op">$</span>y))
+<span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> pdf)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
+<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># b</span>
+mar_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x) {
+  <span class="kw">return</span> (<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
+}
+cond_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {
+  <span class="kw">return</span> (((x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(y<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>y <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))
+}
+df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x    =</span> x_axis, 
+             <span class="dt">mar  =</span> <span class="kw">mar_pdf</span>(x), 
+             <span class="dt">y0   =</span> <span class="kw">cond_pdf</span>(x, <span class="dv">0</span>), 
+             <span class="dt">y0.1 =</span> <span class="kw">cond_pdf</span>(x, <span class="fl">0.1</span>), 
+             <span class="dt">y0.5 =</span> <span class="kw">cond_pdf</span>(x, <span class="fl">0.5</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(dist, value, <span class="op">-</span>x)
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value, <span class="dt">color =</span> dist)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
+<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-11" class="exercise"><strong>Exercise 5.2  (Mixed bivariate random variable)  </strong></span>Let <span class="math inline">\(f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}\)</span>
+be the PDF of a bivariate random variable, where <span class="math inline">\(x \in (0, \infty)\)</span> and
+<span class="math inline">\(y \in \mathbb{N}_0\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find the marginal distribution of <span class="math inline">\(X\)</span>. Do you recognize this distribution?</p></li>
+<li><p>Find the conditional distribution of <span class="math inline">\(Y | X\)</span>. Do you recognize this
+distribution?</p></li>
+<li><p>Calculate the probability <span class="math inline">\(P(Y = 2 | X &lt; 5)\)</span> for <span class="math inline">\((X,Y)\)</span>.</p></li>
+<li><p>Find the marginal distribution of <span class="math inline">\(Y\)</span>. Do you recognize this distribution?</p></li>
+<li><span style="color:blue">R: Take 1000 random samples from <span class="math inline">\((X,Y)\)</span> with
+parameters <span class="math inline">\(\beta = 1\)</span> and
+<span class="math inline">\(\alpha = 1\)</span>. Plot a scatterplot. Plot a bar plot of the marginal distribution
+of <span class="math inline">\(Y\)</span>, and the theoretical PMF calculated from d) on the range from 0 to 10.
+Hint: Use the <strong>gamma</strong> function in R.?</span></li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align}
+p(x) &amp;= \sum_{k = 0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)k!} x^{k + \alpha -1} e^{-x(1 + \beta)} &amp; \\
+     &amp;= \sum_{k = 0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)k!} x^{k} x^{\alpha -1} e^{-x} e^{-\beta x} &amp; \\
+     &amp;= \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x} \sum_{k = 0}^{\infty} \frac{1}{k!} x^{k} e^{-x} &amp; \\
+     &amp;= \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x} &amp; \text{the last term above sums to one -- Poisson PMF}
+\end{align}\]</span>
+This is the Gamma PDF.</p></li>
+<li><p><span class="math display">\[\begin{align}
+p(y|x) &amp;= \frac{p(x,y)}{p(x)} \\
+       &amp;= \frac{f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}}{\frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x}} \\
+       &amp;= \frac{x^y e^{-x}}{y!}.
+\end{align}\]</span>
+This is the Poisson PMF.</p></li>
+<li><p><span class="math display">\[\begin{align}
+P(Y = 2 | X = 2.5) = \frac{2.5^2 e^{-2.5}}{2!} \approx 0.26.
+\end{align}\]</span></p></li>
+<li><span class="math display">\[\begin{align}
+  p(y) &amp;= \int_{0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y + \alpha -1} e^{-x(1 + \beta)} dx &amp; \\
+    &amp;= \frac{1}{y!} \int_{0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx &amp; \\
+    &amp;= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \int_{0}^{\infty} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}} \frac{(1 + \beta)^{y + \alpha}}{\Gamma(y + \alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx &amp; \text{we add the term so that we have Gamma PDF inside the integral} \\
+    &amp;= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}}.
+\end{align}\]</span>
+We add the terms in the third equality to get a Gamma PDF inside the integral,
+which then integrates to one.
+We do not recognize this distribution.</li>
+</ol>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+px &lt;-<span class="st"> </span><span class="cf">function</span> (x, alpha, beta) {
+  <span class="kw">return</span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">factorial</span>(x)) <span class="op">*</span><span class="st"> </span>(beta<span class="op">^</span>alpha <span class="op">/</span><span class="st"> </span><span class="kw">gamma</span>(alpha)) <span class="op">*</span><span class="st"> </span>
+<span class="st">           </span>(<span class="kw">gamma</span>(x <span class="op">+</span><span class="st"> </span>alpha) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>beta)<span class="op">^</span>(x <span class="op">+</span><span class="st"> </span>alpha)))
+}
+nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
+rx     &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsamps, <span class="dv">1</span>, <span class="dv">1</span>)
+ryx    &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, rx)
+<span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre>
+<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> px, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">beta =</span> <span class="dv">1</span>), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</code></pre>
+<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 1.7  </strong></span>Let <span class="math inline">\(f(x,y) = cx^2y\)</span> for <span class="math inline">\(x^2 \leq y \leq 1\)</span> and zero otherwise.
+Find such <span class="math inline">\(c\)</span> that <span class="math inline">\(f\)</span> is a PDF of a bivariate random
+variable. This exercise is borrowed from Wasserman.
+</div>
+
+
+<div class="solution">
+ <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
+  1 &amp;= \int_{-1}^{1} \int_{x^2}^1 cx^2y dy dx \\
+    &amp;= \int_{-1}^{1} cx^2 (\frac{1}{2} - \frac{x^4}{2}) dx \\
+    &amp;= \frac{c}{2} \int_{-1}^{1} x^2 - x^6 dx \\
+    &amp;= \frac{c}{2} (\frac{1}{3} + \frac{1}{3} - \frac{1}{7} - \frac{1}{7}) \\
+    &amp;= \frac{c}{2} \frac{8}{21} \\
+    &amp;= \frac{4c}{21}
+\end{align}\]</span>
+It follows <span class="math inline">\(c = \frac{21}{4}\)</span>.
+</div>
+
+</div>
+<div id="transformations-1" class="section level2">
+<h2><span class="header-section-number">5.3</span> Transformations</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-16" class="exercise"><strong>Exercise 2.1  </strong></span>Let <span class="math inline">\((X,Y)\)</span> be uniformly distributed on the unit ball
+<span class="math inline">\(\{(x,y,z) : x^2 + y^2 + z^2 \leq 1\}\)</span>. Let <span class="math inline">\(R = \sqrt{X^2 + Y^2 + Z^2}\)</span>.
+Find the CDF and PDF of <span class="math inline">\(R\)</span>.</p>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
+  P(R &lt; r) &amp;= P(\sqrt{X^2 + Y^2 + Z^2} &lt; r) \\
+           &amp;= P(X^2 + Y^2 + Z^2 &lt; r^2) \\
+           &amp;= \frac{\frac{4}{3} \pi r^2}{\frac{4}{3}\pi} \\
+           &amp;= r^3.
+\end{align}\]</span>
+The second line shows us that we are looking at the probability which is
+represented by a smaller ball with radius <span class="math inline">\(r\)</span>. To get the probability, we
+divide it by the radius of the whole ball. We get the PDF by differentiating
+the CDF, so <span class="math inline">\(p(r) = 3r^2\)</span>.</p>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-18" class="exercise"><strong>Exercise 2.2  </strong></span>Let <span class="math inline">\((U,V)\)</span> be a random variable with PDF <span class="math inline">\(p(u,v) = \frac{1}{8 \sqrt{u}}\)</span>,
+<span class="math inline">\(U \in [0,4]\)</span> and <span class="math inline">\(V \in [\sqrt{U}, \sqrt{U} - 1]\)</span>. Let <span class="math inline">\(X = \sqrt{U}\)</span> and
+<span class="math inline">\(Y = V - \sqrt{U}\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find PDF of <span class="math inline">\((X,Y)\)</span>. What can you tell about distributions of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>?
+This exercise shows how we can simplify a probabilistic problem with a
+clever use of transformations.</p></li>
+<li><p><span style="color:blue">R: Take 1000 samples from <span class="math inline">\((X,Y)\)</span> and transform
+them with inverses of the above functions to get samples from <span class="math inline">\((U,V)\)</span>.
+Plot both sets of samples.</span></p></li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li>First we need to find the inverse functions. Since <span class="math inline">\(x = \sqrt{u}\)</span> it
+follows that <span class="math inline">\(u = x^2\)</span>, and that <span class="math inline">\(x \in [-2,2]\)</span>. Similarly
+<span class="math inline">\(v = y + x\)</span> and <span class="math inline">\(y \in [0,1]\)</span>. Let us first find the Jacobian.
+<span class="math display">\[\renewcommand\arraystretch{1.6}
+J(x,y) =
+\begin{bmatrix}
+  \frac{\partial u}{\partial x} &amp;
+  \frac{\partial v}{\partial x} \\%[1ex] % &lt;-- 1ex more space between rows of matrix
+  \frac{\partial u}{\partial y} &amp;
+  \frac{\partial v}{\partial y}
+\end{bmatrix} =
+  \begin{bmatrix}
+  2x &amp;
+  1 \\%[1ex] % &lt;-- 1ex more space between rows of matrix
+  0 &amp;
+  1
+\end{bmatrix},
+\]</span>
+and the determinant is <span class="math inline">\(|J(x,y)| = 2x\)</span>. Putting everything together, we get
+<span class="math display">\[\begin{align}
+  p_{X,Y}(x,y) = p_{U,V}(x^2, y + x) |J(x,y)| = \frac{1}{8 \sqrt{x^2}} 2x = \frac{1}{4}.
+\end{align}\]</span>
+This reminds us of the Uniform distribution. Indeed we can see that
+<span class="math inline">\(p_X(x) = \frac{1}{4}\)</span> and <span class="math inline">\(p_Y(y) = 1\)</span>. So instead of dealing with an
+awkward PDF of <span class="math inline">\((U,V)\)</span> and the corresponding dynamic bounds, we are now
+looking at two independent Uniform random variables. In practice, this could
+make modeling much easier.</li>
+</ol>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
+x      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, <span class="dt">min =</span> <span class="dv">-2</span>, <span class="dt">max =</span> <span class="dv">2</span>)
+y      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps)
+orig   &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">vrs =</span> <span class="st">&quot;original&quot;</span>)
+u      &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span>
+v      &lt;-<span class="st"> </span>y <span class="op">+</span><span class="st"> </span>x
+transf &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> u, <span class="dt">y =</span> v, <span class="dt">vrs =</span> <span class="st">&quot;transformed&quot;</span>)
+df     &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(orig, transf)
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> vrs)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</code></pre>
+<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+
+</div>
+</div>
+
+
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="rvs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-programming-language.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

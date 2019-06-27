@@ -19,6 +19,7 @@ The students are expected to acquire the following knowledge:
 - Visual inspection of probability distributions.
 - Analytical and empirical calculation of probabilities based on distributions.
 - New R functions for plotting (for example, _facet_wrap_).
+- Creating random number generators based on the Uniform distribution.
 
 
 
@@ -1000,3 +1001,58 @@ plot(n_plot)
 ```
 
 <img src="04-random_variables_files/figure-html/unnamed-chunk-34-2.png" width="672" />
+
+\BeginKnitrBlock{exercise}\iffalse{-91-80-114-111-98-97-98-105-108-105-116-121-32-105-110-116-101-103-114-97-108-32-116-114-97-110-115-102-111-114-109-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-35"><strong>(\#exr:unnamed-chunk-35)  \iffalse (Probability integral transform) \fi{} </strong></span>This exercise is borrowed from Wasserman. 
+Let $X$ have a continuous, strictly increasing CDF $F$. Let $Y = F(X)$.
+
+a. Find the density of $Y$. This is called the probability integral transform.
+
+b. Let $U \sim \text{Uniform}(0,1)$ and let $X = F^{-1}(U)$. Show that
+$X \sim F$. 
+
+c. <span style="color:blue">R: Implement a program that takes Uniform(0,1) 
+random variables
+and generates random variables from an exponential($\beta$) distribution.
+Compare your implemented function with function __rexp__ in R.</span>
+
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+a.
+\begin{align}
+  F_Y(y) &= P(Y < y) \\
+         &= P(F(X) < y) \\
+         &= P(X < F_X^{-1}(y)) \\
+         &= F_X(F_X^{-1}(y)) \\
+         &= y.
+\end{align}
+From the above it follows that $p(y) = 1$. Note that we need to know the
+inverse CDF to be able to apply this procedure.
+
+b.
+\begin{align}
+  P(X < x) &= P(F^{-1}(U) < x) \\
+           &= P(U < F(x)) \\
+           &= F_U(F(x)) \\
+           &= F(x).
+\end{align}
+
+</div>\EndKnitrBlock{solution}
+
+```r
+set.seed(1)
+nsamps <- 10000
+beta   <- 4
+generate_exp <- function (n, beta) {
+  tmp <- runif(n)
+  X   <- qexp(tmp, beta)
+  return (X)
+}
+df <- tibble("R"           = rexp(nsamps, beta), 
+             "myGenerator" = generate_exp(nsamps, beta)) %>%
+  gather()
+ggplot(data = df, aes(x = value, fill = key)) +
+  geom_histogram(position = "dodge")
+```
+
+<img src="04-random_variables_files/figure-html/unnamed-chunk-37-1.png" width="672" />

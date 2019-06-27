@@ -1,4 +1,4 @@
-# Multiple random variables {#rvs}
+# Multiple random variables {#mrvs}
 
 This chapter deals with multiple random variables and their distributions.
 
@@ -6,15 +6,22 @@ The students are expected to acquire the following knowledge:
 
 **Theoretical**
 
-- a
+- Connection between the binomial and multinomial distribution.
+- Calculation of PDF of transformed multiple random variables.
+- Finding marginal and conditional distributions.
 
 **R**
 
-- a
+- Scatterplots of bivariate random variables.
+- Sampling from the multinomial distribution.
+- Sampling from transformed bivariate random variables.
+- New R functions (for example, _expand.grid_).
+- New ggplot parameters (for example, _alpha_ for transparency).
+- Transparency in ggplot.
 
 
 
-## General properties and calculations
+## General
 \BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-2"><strong>(\#exr:unnamed-chunk-2) </strong></span><span style="color:blue">Let $X \sim \text{N}(0,1)$ and $Y \sim \text{N}(0,1)$ 
 be independent random
 variables. Draw 1000 samples from $(X,Y)$ and plot a scatterplot.
@@ -63,7 +70,7 @@ ggplot(df, aes(x = y)) +
 <img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-3-3.png" width="672" />
 
 
-\BeginKnitrBlock{exercise}\iffalse{-91-77-117-108-116-105-110-111-109-105-97-108-32-100-105-115-116-114-105-98-117-116-105-111-110-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-4"><strong>(\#exr:unnamed-chunk-4)  \iffalse (Multinomial distribution) \fi{} </strong></span>Let $X_i$, $i = 1,...,k$ represent $k$ events, and $p_i$ the probabilities
+\BeginKnitrBlock{exercise}\iffalse{-91-77-117-108-116-105-110-111-109-105-97-108-32-100-105-115-116-114-105-98-117-116-105-111-110-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:mnompdf"><strong>(\#exr:mnompdf)  \iffalse (Multinomial distribution) \fi{} </strong></span>Let $X_i$, $i = 1,...,k$ represent $k$ events, and $p_i$ the probabilities
 of these events happening in a trial. Let $n$ be the number of trials, and
 $X$ a multivariate random variable, the collection of $X_i$. 
 Then $p(x) = \frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}$
@@ -71,7 +78,10 @@ is the PMF of a multinomial distribution.
 
 a. Show that the marginal distribution of $X_i$ is a binomial distribution.
 
-b. 
+b. Take 1000 samples from the multinomial distribution with $n=4$ and
+probabilities $p = (0.2, 0.2, 0.5, 0.1)$. Then take 1000 samples from 
+four binomial distributions with the same parameters. Inspect the results
+visually.
 
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
@@ -90,10 +100,29 @@ mathematically.</div>\EndKnitrBlock{solution}
 
 ```r
 set.seed(1)
+nsamps      <- 1000
+samps_mult  <- rmultinom(nsamps, 4, prob = c(0.2, 0.2, 0.5, 0.1))
+samps_mult  <- as_tibble(t(samps_mult)) %>%
+  gather()
+samps       <- tibble(
+  V1 = rbinom(nsamps, 4, 0.2),
+  V2 = rbinom(nsamps, 4, 0.2),
+  V3 = rbinom(nsamps, 4, 0.5),
+  V4 = rbinom(nsamps, 4, 0.1)
+) %>%
+  gather() %>%
+  bind_rows(samps_mult) %>%
+  bind_cols("dist" = c(rep("binomial", 4*nsamps), rep("multinomial", 4*nsamps)))
+
+ggplot(samps, aes(x = value, fill = dist)) +
+  geom_bar(position = "dodge") +
+  facet_wrap(~ key)
 ```
 
+<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+
 ## Bivariate distribution examples
-\BeginKnitrBlock{exercise}\iffalse{-91-68-105-115-99-114-101-116-101-32-98-105-118-97-114-105-97-116-101-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-7"><strong>(\#exr:unnamed-chunk-7)  \iffalse (Discrete bivariate random variable) \fi{} </strong></span>Let $X$ represent the event that a die rolls an even number and let $Y$ 
+\BeginKnitrBlock{exercise}\iffalse{-91-68-105-115-99-114-101-116-101-32-98-105-118-97-114-105-97-116-101-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-6"><strong>(\#exr:unnamed-chunk-6)  \iffalse (Discrete bivariate random variable) \fi{} </strong></span>Let $X$ represent the event that a die rolls an even number and let $Y$ 
 represent the event that
 a die rolls one, two, or a three.
 
@@ -138,7 +167,7 @@ d.
 </div>\EndKnitrBlock{solution}
 
 
-\BeginKnitrBlock{exercise}\iffalse{-91-67-111-110-116-105-110-117-111-117-115-32-98-105-118-97-114-105-97-116-101-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-9"><strong>(\#exr:unnamed-chunk-9)  \iffalse (Continuous bivariate random variable) \fi{} </strong></span>Let $p(x,y) = 6 (x - y)^2$ be the PDF of a bivariate random
+\BeginKnitrBlock{exercise}\iffalse{-91-67-111-110-116-105-110-117-111-117-115-32-98-105-118-97-114-105-97-116-101-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-8"><strong>(\#exr:unnamed-chunk-8)  \iffalse (Continuous bivariate random variable) \fi{} </strong></span>Let $p(x,y) = 6 (x - y)^2$ be the PDF of a bivariate random
 variable $(X,Y)$, where both variables range from zero to one.
 
 a. Find CDF.
@@ -152,7 +181,7 @@ by value -- this can help us visualize the PDF.</span>
   
 d. <span style="color:blue">R: Plot the marginal distribution of $Y$ and
 the conditional distributions of $X | Y = y$, where 
-$y \in \{0, 0.1, 0.5\}.</span></div>\EndKnitrBlock{exercise}
+$y \in \{0, 0.1, 0.5\}$.</span></div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a. 
@@ -205,7 +234,7 @@ ggplot(data = df, aes(x = x, y = y, color = pdf)) +
   geom_point()
 ```
 
-<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 ```r
 # b
@@ -225,9 +254,9 @@ ggplot(df, aes(x = x, y = value, color = dist)) +
   geom_line()
 ```
 
-<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-11-2.png" width="672" />
+<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-10-2.png" width="672" />
 
-\BeginKnitrBlock{exercise}\iffalse{-91-77-105-120-101-100-32-98-105-118-97-114-105-97-116-101-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-12"><strong>(\#exr:unnamed-chunk-12)  \iffalse (Mixed bivariate random variable) \fi{} </strong></span>Let $f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}$
+\BeginKnitrBlock{exercise}\iffalse{-91-77-105-120-101-100-32-98-105-118-97-114-105-97-116-101-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-11"><strong>(\#exr:unnamed-chunk-11)  \iffalse (Mixed bivariate random variable) \fi{} </strong></span>Let $f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}$
 be the PDF of a bivariate random variable, where $x \in (0, \infty)$ and
 $y \in \mathbb{N}_0$.
 
@@ -278,6 +307,8 @@ d.
        &= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \int_{0}^{\infty} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}} \frac{(1 + \beta)^{y + \alpha}}{\Gamma(y + \alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx & \text{we add the term so that we have Gamma PDF inside the integral} \\
        &= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}}.
 \end{align}
+We add the terms in the third equality to get a Gamma PDF inside the integral, 
+which then integrates to one.
 We do not recognize this distribution.
 </div>\EndKnitrBlock{solution}
 
@@ -293,7 +324,7 @@ ryx    <- rpois(nsamps, rx)
 ggplot(data = data.frame(x = rx, y = ryx), aes(x = x, y = y)) + geom_point()
 ```
 
-<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 ```r
 ggplot(data = data.frame(x = rx, y = ryx), aes(x = y)) + 
@@ -301,9 +332,9 @@ ggplot(data = data.frame(x = rx, y = ryx), aes(x = y)) +
   stat_function(fun = px, args = list(alpha = 1, beta = 1), color = "red")
 ```
 
-<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-14-2.png" width="672" />
+<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-13-2.png" width="672" />
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-15"><strong>(\#exr:unnamed-chunk-15) </strong></span>Let $f(x,y) = cx^2y$ for $x^2 \leq y \leq 1$ and zero otherwise. 
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-14"><strong>(\#exr:unnamed-chunk-14) </strong></span>Let $f(x,y) = cx^2y$ for $x^2 \leq y \leq 1$ and zero otherwise. 
 Find such $c$ that $f$ is a PDF of a bivariate random
 variable. This exercise is borrowed from Wasserman.</div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}\begin{align}
@@ -316,3 +347,84 @@ variable. This exercise is borrowed from Wasserman.</div>\EndKnitrBlock{exercise
 \end{align}
 It follows $c = \frac{21}{4}$.</div>\EndKnitrBlock{solution}
 
+
+## Transformations
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-16"><strong>(\#exr:unnamed-chunk-16) </strong></span>Let $(X,Y)$ be uniformly distributed on the unit ball
+$\{(x,y,z) : x^2 + y^2 + z^2 \leq 1\}$. Let $R = \sqrt{X^2 + Y^2 + Z^2}$.
+Find the CDF and PDF of $R$.
+
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}\begin{align}
+  P(R < r) &= P(\sqrt{X^2 + Y^2 + Z^2} < r) \\
+           &= P(X^2 + Y^2 + Z^2 < r^2) \\
+           &= \frac{\frac{4}{3} \pi r^2}{\frac{4}{3}\pi} \\
+           &= r^3.
+\end{align}
+The second line shows us that we are looking at the probability which is
+represented by a smaller ball with radius $r$. To get the probability, we
+divide it by the radius of the whole ball. We get the PDF by differentiating
+the CDF, so $p(r) = 3r^2$.
+</div>\EndKnitrBlock{solution}
+
+
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-18"><strong>(\#exr:unnamed-chunk-18) </strong></span>Let $(U,V)$ be a random variable with PDF $p(u,v) = \frac{1}{8 \sqrt{u}}$,
+$U \in [0,4]$ and $V \in [\sqrt{U}, \sqrt{U} - 1]$. Let $X = \sqrt{U}$ and
+$Y = V - \sqrt{U}$.
+
+a. Find PDF of $(X,Y)$. What can you tell about distributions of $X$ and $Y$?
+This exercise shows how we can simplify a probabilistic problem with a
+clever use of transformations.
+
+b. <span style="color:blue">R: Take 1000 samples from $(X,Y)$ and transform
+them with inverses of the above functions to get samples from $(U,V)$.
+Plot both sets of samples.</span>
+
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+a. First we need to find the inverse functions. Since $x = \sqrt{u}$ it
+follows that $u = x^2$, and that $x \in [-2,2]$. Similarly
+$v = y + x$ and $y \in [0,1]$. Let us first find the Jacobian.
+\[\renewcommand\arraystretch{1.6}
+J(x,y) =
+\begin{bmatrix}
+  \frac{\partial u}{\partial x} &
+  \frac{\partial v}{\partial x} \\%[1ex] % <-- 1ex more space between rows of matrix
+  \frac{\partial u}{\partial y} &
+  \frac{\partial v}{\partial y}
+\end{bmatrix} =
+  \begin{bmatrix}
+  2x &
+  1 \\%[1ex] % <-- 1ex more space between rows of matrix
+  0 &
+  1
+\end{bmatrix},
+\]
+and the determinant is $|J(x,y)| = 2x$. Putting everything together, we get
+\begin{align}
+  p_{X,Y}(x,y) = p_{U,V}(x^2, y + x) |J(x,y)| = \frac{1}{8 \sqrt{x^2}} 2x = \frac{1}{4}.
+\end{align}
+This reminds us of the Uniform distribution. Indeed we can see that 
+$p_X(x) = \frac{1}{4}$ and $p_Y(y) = 1$. So instead of dealing with an
+awkward PDF of $(U,V)$ and the corresponding dynamic bounds, we are now
+looking at two independent Uniform random variables. In practice, this could
+make modeling much easier.
+
+
+</div>\EndKnitrBlock{solution}
+
+```r
+set.seed(1)
+nsamps <- 1000
+x      <- runif(nsamps, min = -2, max = 2)
+y      <- runif(nsamps)
+orig   <- tibble(x = x, y = y, vrs = "original")
+u      <- x^2
+v      <- y + x
+transf <- tibble(x = u, y = v, vrs = "transformed")
+df     <- bind_rows(orig, transf)
+ggplot(df, aes(x = x, y = y, color = vrs)) +
+  geom_point(alpha = 0.3)
+```
+
+<img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-20-1.png" width="672" />

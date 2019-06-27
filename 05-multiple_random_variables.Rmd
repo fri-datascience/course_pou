@@ -1,4 +1,4 @@
-# Multiple random variables {#rvs}
+# Multiple random variables {#mrvs}
 
 This chapter deals with multiple random variables and their distributions.
 
@@ -6,11 +6,18 @@ The students are expected to acquire the following knowledge:
 
 **Theoretical**
 
-- a
+- Connection between the binomial and multinomial distribution.
+- Calculation of PDF of transformed multiple random variables.
+- Finding marginal and conditional distributions.
 
 **R**
 
-- a
+- Scatterplots of bivariate random variables.
+- Sampling from the multinomial distribution.
+- Sampling from transformed bivariate random variables.
+- New R functions (for example, _expand.grid_).
+- New ggplot parameters (for example, _alpha_ for transparency).
+- Transparency in ggplot.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 togs <- TRUE
@@ -21,7 +28,7 @@ library(tidyr)
 # togs <- FALSE
 ```
 
-## General properties and calculations
+## General
 ```{exercise}
 <span style="color:blue">Let $X \sim \text{N}(0,1)$ and $Y \sim \text{N}(0,1)$ 
 be independent random
@@ -61,7 +68,7 @@ ggplot(df, aes(x = y)) +
 ```
 
 
-```{exercise, name = "Multinomial distribution"}
+```{exercise, name = "Multinomial distribution", label = mnompdf}
 Let $X_i$, $i = 1,...,k$ represent $k$ events, and $p_i$ the probabilities
 of these events happening in a trial. Let $n$ be the number of trials, and
 $X$ a multivariate random variable, the collection of $X_i$. 
@@ -70,7 +77,10 @@ is the PMF of a multinomial distribution.
 
 a. Show that the marginal distribution of $X_i$ is a binomial distribution.
 
-b. 
+b. Take 1000 samples from the multinomial distribution with $n=4$ and
+probabilities $p = (0.2, 0.2, 0.5, 0.1)$. Then take 1000 samples from 
+four binomial distributions with the same parameters. Inspect the results
+visually.
 
 
 ```
@@ -91,6 +101,23 @@ mathematically.
 ```
 ```{r, echo = togs, message = FALSE, warning=FALSE}
 set.seed(1)
+nsamps      <- 1000
+samps_mult  <- rmultinom(nsamps, 4, prob = c(0.2, 0.2, 0.5, 0.1))
+samps_mult  <- as_tibble(t(samps_mult)) %>%
+  gather()
+samps       <- tibble(
+  V1 = rbinom(nsamps, 4, 0.2),
+  V2 = rbinom(nsamps, 4, 0.2),
+  V3 = rbinom(nsamps, 4, 0.5),
+  V4 = rbinom(nsamps, 4, 0.1)
+) %>%
+  gather() %>%
+  bind_rows(samps_mult) %>%
+  bind_cols("dist" = c(rep("binomial", 4*nsamps), rep("multinomial", 4*nsamps)))
+
+ggplot(samps, aes(x = value, fill = dist)) +
+  geom_bar(position = "dodge") +
+  facet_wrap(~ key)
 
 ```
 
@@ -159,7 +186,7 @@ by value -- this can help us visualize the PDF.</span>
   
 d. <span style="color:blue">R: Plot the marginal distribution of $Y$ and
 the conditional distributions of $X | Y = y$, where 
-$y \in \{0, 0.1, 0.5\}.</span>
+$y \in \{0, 0.1, 0.5\}$.</span>
 ```
 ```{solution, echo = togs}
 
@@ -285,6 +312,8 @@ d.
        &= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \int_{0}^{\infty} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}} \frac{(1 + \beta)^{y + \alpha}}{\Gamma(y + \alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx & \text{we add the term so that we have Gamma PDF inside the integral} \\
        &= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}}.
 \end{align}
+We add the terms in the third equality to get a Gamma PDF inside the integral, 
+which then integrates to one.
 We do not recognize this distribution.
 
 ```
@@ -321,3 +350,89 @@ variable. This exercise is borrowed from Wasserman.
 It follows $c = \frac{21}{4}$.
 ```
 
+
+## Transformations
+```{exercise}
+Let $(X,Y)$ be uniformly distributed on the unit ball
+$\{(x,y,z) : x^2 + y^2 + z^2 \leq 1\}$. Let $R = \sqrt{X^2 + Y^2 + Z^2}$.
+Find the CDF and PDF of $R$.
+
+
+```
+```{solution, echo = togs}
+\begin{align}
+  P(R < r) &= P(\sqrt{X^2 + Y^2 + Z^2} < r) \\
+           &= P(X^2 + Y^2 + Z^2 < r^2) \\
+           &= \frac{\frac{4}{3} \pi r^2}{\frac{4}{3}\pi} \\
+           &= r^3.
+\end{align}
+The second line shows us that we are looking at the probability which is
+represented by a smaller ball with radius $r$. To get the probability, we
+divide it by the radius of the whole ball. We get the PDF by differentiating
+the CDF, so $p(r) = 3r^2$.
+
+```
+
+
+```{exercise}
+Let $(U,V)$ be a random variable with PDF $p(u,v) = \frac{1}{8 \sqrt{u}}$,
+$U \in [0,4]$ and $V \in [\sqrt{U}, \sqrt{U} - 1]$. Let $X = \sqrt{U}$ and
+$Y = V - \sqrt{U}$.
+
+a. Find PDF of $(X,Y)$. What can you tell about distributions of $X$ and $Y$?
+This exercise shows how we can simplify a probabilistic problem with a
+clever use of transformations.
+
+b. <span style="color:blue">R: Take 1000 samples from $(X,Y)$ and transform
+them with inverses of the above functions to get samples from $(U,V)$.
+Plot both sets of samples.</span>
+
+
+```
+```{solution, echo = togs}
+
+
+a. First we need to find the inverse functions. Since $x = \sqrt{u}$ it
+follows that $u = x^2$, and that $x \in [-2,2]$. Similarly
+$v = y + x$ and $y \in [0,1]$. Let us first find the Jacobian.
+\[\renewcommand\arraystretch{1.6}
+J(x,y) =
+\begin{bmatrix}
+  \frac{\partial u}{\partial x} &
+  \frac{\partial v}{\partial x} \\%[1ex] % <-- 1ex more space between rows of matrix
+  \frac{\partial u}{\partial y} &
+  \frac{\partial v}{\partial y}
+\end{bmatrix} =
+  \begin{bmatrix}
+  2x &
+  1 \\%[1ex] % <-- 1ex more space between rows of matrix
+  0 &
+  1
+\end{bmatrix},
+\]
+and the determinant is $|J(x,y)| = 2x$. Putting everything together, we get
+\begin{align}
+  p_{X,Y}(x,y) = p_{U,V}(x^2, y + x) |J(x,y)| = \frac{1}{8 \sqrt{x^2}} 2x = \frac{1}{4}.
+\end{align}
+This reminds us of the Uniform distribution. Indeed we can see that 
+$p_X(x) = \frac{1}{4}$ and $p_Y(y) = 1$. So instead of dealing with an
+awkward PDF of $(U,V)$ and the corresponding dynamic bounds, we are now
+looking at two independent Uniform random variables. In practice, this could
+make modeling much easier.
+
+
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE}
+set.seed(1)
+nsamps <- 1000
+x      <- runif(nsamps, min = -2, max = 2)
+y      <- runif(nsamps)
+orig   <- tibble(x = x, y = y, vrs = "original")
+u      <- x^2
+v      <- y + x
+transf <- tibble(x = u, y = v, vrs = "transformed")
+df     <- bind_rows(orig, transf)
+ggplot(df, aes(x = x, y = y, color = vrs)) +
+  geom_point(alpha = 0.3)
+```

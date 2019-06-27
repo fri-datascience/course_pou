@@ -10,9 +10,9 @@ Normal | $\frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}$ <b
 MVN | | | | 
 categorical | | | | | | 
 dirichlet |  | | | | | 
-beta | $\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)}$ \@ref(exr:betacdf) | | | | | 
-gamma |  | | | | | 
-exponential | $\lambda e^{-\lambda}$ <br> \@ref(exr:expcdf)| $1 - e^{-\lambda x}$ <br> \@ref(exr:expcdf) | | | | 
+beta | $\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)}$ <br> \@ref(exr:betacdf) | | | | | 
+gamma | $\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x}$  <br> \@ref(exr:gammapdf) | $\frac{\gamma(\alpha, \beta x)}{\Gamma(\alpha)}$ <br> \@ref(exr:gammapdf)| | | | 
+exponential | $\lambda e^{-\lambda x}$ <br> \@ref(exr:expcdf)| $1 - e^{-\lambda x}$ <br> \@ref(exr:expcdf) | | | | 
 logistic | $\frac{e^{-\frac{x - \mu}{s}}}{(1 + e{-\frac{x - \mu}{s}})^2}$ <br> \@ref(exr:logitpdf) | $\frac{1}{1 + e^{-\frac{x - \mu}{s}}}$ <br> \@ref(exr:logitpdf) | | | | 
 rayleigh |  | | | | | 
 t | | | | | | 
@@ -22,6 +22,6 @@ Wishart |  | | | | |
 Pareto |  | | | | |
 Weibull |  | | | | | 
 negative binomial | $\binom{k + r - 1}{k}(1-p)^r p^k$ <br> \@ref(exr:negbinpdf) | | | | | 
-multinomial |  | | | | | 
+multinomial | $\frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k} <br> \@ref(exr:mnompdf)$ | | | | | 
 
 
