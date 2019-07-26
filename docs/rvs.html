@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-06-27">
+<meta name="date" content="2019-07-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -155,6 +155,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
+<li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
@@ -348,7 +352,7 @@ cdf_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span clas
 <li><p><span style="color:blue">R: Plot this CDF for <span class="math inline">\(p = 0.3\)</span>. Is it a discrete,
 continuous, or mixed random
 varible?</span></p></li>
-<li>Find the probability density/mass of <span class="math inline">\(X\)</span>.</li>
+<li><p>Find the probability density/mass of <span class="math inline">\(X\)</span>.</p></li>
 </ol>
 </div>
 
@@ -372,7 +376,7 @@ cdf_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span clas
 <p> <span class="solution"><em>Solution. </em></span> </p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math inline">\(X\)</span> is a mixed random variable.</p></li>
-<li>Since <span class="math inline">\(X\)</span> is a mixed random variable, we have to find the PDF of the
+<li><p>Since <span class="math inline">\(X\)</span> is a mixed random variable, we have to find the PDF of the
 continuous part and the PMF of the discrete part. We get the continuous
 part by differentiating the corresponding CDF, <span class="math inline">\(\frac{d}{dx}\frac{x^2}{2} = x\)</span>.
 So the PDF, when <span class="math inline">\(0 \leq x &lt; 1\)</span>, is <span class="math inline">\(p(x) = x\)</span>. Let us look at the discrete
@@ -381,7 +385,7 @@ outcomes – numbers two and three. The first happens with probability
 <span class="math inline">\(\frac{p}{2}\)</span>, and the second with probability <span class="math inline">\(\frac{1 - p}{2}\)</span>. This reminds
 us of the Bernoulli distribution, the only difference is that the probabilities
 of outcomes are halved, as they need to be suitably normalized. So the PMF
-for the discrete part is <span class="math inline">\(P(X = x) = (\frac{p}{2})^{2 - \lfloor x \rfloor} (\frac{1 - p}{2})^{\lfloor x \rfloor - 1}\)</span>.
+for the discrete part is <span class="math inline">\(P(X = x) = (\frac{p}{2})^{2 - \lfloor x \rfloor} (\frac{1 - p}{2})^{\lfloor x \rfloor - 1}\)</span>.</p>
 </div></li>
 </ol>
 
@@ -392,9 +396,9 @@ independent random variables.</p>
 <li><p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent discrete variables.
 Find the PMF of <span class="math inline">\(Z = X + Y\)</span>. Hint: Use the law of
 total probability.</p></li>
-<li>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent continuous variables.
+<li><p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent continuous variables.
 Find the PDF of <span class="math inline">\(Z = X + Y\)</span>
-Hint: Start with the CDF.</li>
+Hint: Start with the CDF.</p></li>
 </ol>
 </div>
 
@@ -409,7 +413,7 @@ P(Z = z) &amp;= P(X + Y = z) &amp; \\
          &amp;= \sum_{k = -\infty}^\infty P(X + k = z) P(Y = k) &amp; \text{ (independence of $X$ and $Y$)} \\
          &amp;= \sum_{k = -\infty}^\infty P(X = z - k) P(Y = k). &amp;
 \end{align}\]</span></p></li>
-<li>Let <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> be the PDFs of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> respectively.
+<li><p>Let <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> be the PDFs of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> respectively.
 <span class="math display">\[\begin{align}
   F(z)     &amp;= P(Z &lt; z) \\ 
         &amp;= P(X + Y &lt; z) \\ 
@@ -424,7 +428,7 @@ Now
   p(z) &amp;= \frac{d}{dz} F(z) &amp; \\
     &amp;= \int_{-\infty}^{\infty} (\frac{d}{dz}\int_{-\infty}^{z - y} f(x) dx) g(y) dy &amp; \\
     &amp;= \int_{-\infty}^{\infty} f(z - y) g(y) dy &amp; \text{ (fundamental theorem of calculus)}.
-\end{align}\]</span>
+\end{align}\]</span></p>
 </div></li>
 </ol>
 </div>
@@ -444,13 +448,13 @@ parameters <span class="math inline">\(p \in (0,1)\)</span> and <span class="mat
   X | n,p \sim \text{Binomial}(n,p).
 \end{equation}\]</span></p></li>
 <li><p>Find CDF of <span class="math inline">\(X\)</span>.</p></li>
-<li><span style="color:blue">R: Simulate from the binomial distribution
+<li><p><span style="color:blue">R: Simulate from the binomial distribution
 with <span class="math inline">\(n = 10\)</span> and <span class="math inline">\(p = 0.5\)</span>, and from <span class="math inline">\(n\)</span> Bernoulli distributions with
 <span class="math inline">\(p = 0.5\)</span>. Visually compare the sum of Bernoullis and the binomial. Hint:
 there is no standard function like <em>rpois</em> for a Bernoulli random
 variable. Check exercise <a href="introduction.html#exr:binomialpmf">1.11</a> to find out how to sample
 from a Bernoulli
-distribution.</span></li>
+distribution.</span></p></li>
 </ol>
 </div>
 
@@ -473,10 +477,10 @@ There are <span class="math inline">\(\binom{n}{k}\)</span> such possible arrang
 <span class="math display">\[\begin{align}
   P(X = k) = P(\sum X_k = 2) = \binom{n}{k} p^k (1 - p)^{n-k}.
 \end{align}\]</span></p></li>
-<li><span class="math display">\[\begin{equation}
+<li><p><span class="math display">\[\begin{equation}
   F(k) = \sum_{i = 1}^{\lfloor k \rfloor} \binom{n}{i} p^i (1 - p)^{n - i}
 \end{equation}\]</span><br />
-
+</p>
 </div></li>
 </ol>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
@@ -508,9 +512,9 @@ integers. It has one positive parameter
 \end{equation}\]</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Derive the CDF of a geometric random variable.</p></li>
-<li><span style="color:blue">R: Draw 1000 samples from the geometric
+<li><p><span style="color:blue">R: Draw 1000 samples from the geometric
 distribution with <span class="math inline">\(p\)</span> = 0.3$ and compare their frequencies to
-theoretical values.</span></li>
+theoretical values.</span></p></li>
 </ol>
 </div>
 
@@ -592,12 +596,12 @@ Find the PDF of <span class="math inline">\(X \sim \text{NB}(1, q)\)</span>. Do 
 <span class="math inline">\(p\)</span> is also a negative binomial random variable. Hint: Use the fact that
 the number of ways to place <span class="math inline">\(n\)</span> indistinct balls into <span class="math inline">\(k\)</span> boxes is
 <span class="math inline">\(\binom{n + k - 1}{n}\)</span>.</p></li>
-<li><span style="color:blue">R: Draw samples from <span class="math inline">\(X \sim \text{NB}(5, 0.4)\)</span>
+<li><p><span style="color:blue">R: Draw samples from <span class="math inline">\(X \sim \text{NB}(5, 0.4)\)</span>
 and <span class="math inline">\(Y \sim \text{NB}(3, 0.4)\)</span>.
 Draw samples from <span class="math inline">\(Z = X + Y\)</span>, where you use the parameters calculated in
 b). Plot both distributions, their sum, and <span class="math inline">\(Z\)</span> using <em>facet_wrap</em>.
 Be careful, as R uses a different
-parameterization <em>size</em>=<span class="math inline">\(r\)</span> and <em>prob</em>=<span class="math inline">\(1 - p\)</span>.</span></li>
+parameterization <em>size</em>=<span class="math inline">\(r\)</span> and <em>prob</em>=<span class="math inline">\(1 - p\)</span>.</span></p></li>
 </ol>
 </div>
 
@@ -636,7 +640,7 @@ Therefore
 \end{align}\]</span>
 From this it also follows that the sum of geometric distributions with the same
 parameter is a negative binomial distribution.</p></li>
-<li><span class="math inline">\(Z \sim \text{NB}(8, 0.4)\)</span>.</li>
+<li><p><span class="math inline">\(Z \sim \text{NB}(8, 0.4)\)</span>.</p></li>
 </ol>
 </div>
 
@@ -669,10 +673,10 @@ parameter <span class="math inline">\(\lambda\)</span>. We denote
 <li><p>Calculate the probability <span class="math inline">\(P(1 \leq X \leq 3)\)</span>, where <span class="math inline">\(X \sim \text{Exp(1.5)}\)</span>.</p></li>
 <li><p><span style="color:blue">R: Check your answer to c) with a
 simulation (<em>rexp</em>). Plot the probability in a meaningful way.</span></p></li>
-<li><span style="color:blue">R: Implement PDF, CDF, and the quantile
+<li><p><span style="color:blue">R: Implement PDF, CDF, and the quantile
 function and compare their values with corresponding R
 functions visually. Hint: use the size parameter in <em>geom_line</em> to
-make one of the curves wider.</span></li>
+make one of the curves wider.</span></p></li>
 </ol>
 </div>
 
@@ -694,12 +698,12 @@ e^{-\lambda F^{-1}(x)}     &amp;= 1 - x \\
 -\lambda F^{-1}(x)         &amp;= \ln(1 - x) \\
 F^{-1}(x)                  &amp;= - \frac{ln(1 - x)}{\lambda}.
 \end{align}\]</span></p></li>
-<li><span class="math display">\[\begin{align}
+<li><p><span class="math display">\[\begin{align}
   P(1 \leq X \leq 3) &amp;= P(X  \leq 3) - P(X \leq 1) \\
                   &amp;= P(X \leq 3) - P(X \leq 1) \\
                   &amp;= 1 - e^{-1.5 \times 3} - 1 + e^{-1.5 \times 1} \\
                   &amp;\approx 0.212.
-\end{align}\]</span></li>
+\end{align}\]</span></p></li>
 </ol>
 </div>
 
@@ -756,12 +760,12 @@ exp_quant &lt;-<span class="st"> </span><span class="cf">function</span>(q, lamb
 <span class="math inline">\(Y = \frac{X - a}{b - a}\)</span>. This is the <strong>standard uniform random variable</strong>.</p></li>
 <li><p>Let <span class="math inline">\(X \sim \text{Uniform}(-1, 3)\)</span>.
 Find such <span class="math inline">\(z\)</span> that <span class="math inline">\(P(X &lt; z + \mu_x) = \frac{1}{5}\)</span>.</p></li>
-<li><span style="color:blue">R: Check your result from d) using
-simulation.</span>
+<li><p><span style="color:blue">R: Check your result from d) using
+simulation.</span></p>
 </div>
-
+<p></p>
 <div class="solution">
- <span class="solution"><em>Solution. </em></span> </li>
+<p> <span class="solution"><em>Solution. </em></span> </p></li>
 <li><p><span class="math display">\[\begin{align}
 F(x) &amp;= \int_{a}^x \frac{1}{b - a} dt \\
      &amp;= \frac{1}{b - a} \int_{a}^x dt \\
@@ -780,13 +784,13 @@ F_Y(y) &amp;= P(Y &lt; y) \\
        &amp;= \frac{(y(b - a) + a) - a}{b - a} \\
        &amp;= y.
 \end{align}\]</span></p></li>
-<li><span class="math display">\[\begin{align}
+<li><p><span class="math display">\[\begin{align}
 P(X &lt; z + 1) &amp;= \frac{1}{5} \\
 F(z + 1)     &amp;= \frac{1}{5} \\
 z + 1        &amp;= F^{-1}(\frac{1}{5}) \\
 z            &amp;= \frac{1}{5}4 - 1 - 1 \\
 z            &amp;= -1.2.
-\end{align}\]</span></li>
+\end{align}\]</span></p></li>
 </ol>
 </div>
 
@@ -826,8 +830,8 @@ It is often used in modeling rates.
 <li><p>Calculate the PDF for <span class="math inline">\(\alpha = 1\)</span> and <span class="math inline">\(\beta = 1\)</span>. What do you notice?</p></li>
 <li><p><span style="color:blue">R: Plot densities of the beta distribution
 for parameter pairs (2, 2), (4, 1), (1, 4), (2, 5), and (0.1, 0.1).</span></p></li>
-<li><span style="color:blue">R: Sample from <span class="math inline">\(X \sim \text{Beta}(2, 5)\)</span> and
-compare the histogram with Beta PDF.</span></li>
+<li><p><span style="color:blue">R: Sample from <span class="math inline">\(X \sim \text{Beta}(2, 5)\)</span> and
+compare the histogram with Beta PDF.</span></p></li>
 </ol>
 </div>
 
@@ -893,8 +897,8 @@ parameterization is more common in econometrics and some other applied fields.
 Note that you also need to pay attention to the parameters in statistical
 software, so diligently read the help files when using functions like
 <em>rgamma</em> to see how the function is parameterized.</p></li>
-<li><span style="color:blue">R: Plot gamma CDF for random variables
-with shape and rate parameters (1,1), (10,1), (1,10). </span></li>
+<li><p><span style="color:blue">R: Plot gamma CDF for random variables
+with shape and rate parameters (1,1), (10,1), (1,10). </span></p></li>
 </ol>
 </div>
 
@@ -907,9 +911,9 @@ with shape and rate parameters (1,1), (10,1), (1,10). </span></li>
     &amp;= \beta e^{-\beta x}
 \end{align}\]</span>
 This is the PDF of the exponential distribution with parameter <span class="math inline">\(\beta\)</span>.</p></li>
-<li><span class="math display">\[\begin{align}
+<li><p><span class="math display">\[\begin{align}
 p(x) &amp;= \frac{1}{\Gamma(k)\beta^k} x^{k - 1}e^{-\frac{x}{\theta}}.
-\end{align}\]</span></li>
+\end{align}\]</span></p></li>
 </ol>
 </div>
 
@@ -947,15 +951,15 @@ transformation is called standardization, and <span class="math inline">\(\text{
 a <strong>standardized normal distribution</strong>.</p></li>
 <li><p><span style="color:blue">R: Plot the normal distribution with
 <span class="math inline">\(\mu = 0\)</span> and different values for the <span class="math inline">\(\sigma\)</span> parameter.</span></p></li>
-<li><span style="color:blue">R: The normal distribution provides a good
+<li><p><span style="color:blue">R: The normal distribution provides a good
 approximation for the Poisson distribution with a large <span class="math inline">\(\lambda\)</span>.
 Let <span class="math inline">\(X \sim \text{Poisson}(50)\)</span>.
 Approximate <span class="math inline">\(X\)</span> with the normal distribution and compare it’s density with
 the Poisson histogram. What are the values of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> that
 should provide the best approximation? Note that R function <em>rnorm</em> takes
-standard deviation (<span class="math inline">\(\sigma\)</span>) as a parameter and not variance.</span>
+standard deviation (<span class="math inline">\(\sigma\)</span>) as a parameter and not variance.</span></p>
 </div>
-
+<p></p>
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> </p></li>
 <li><p><span class="math display">\[\begin{align}
@@ -1011,8 +1015,8 @@ compare both for <span class="math inline">\(X \sim \text{N}(0, 1)\)</span> and 
 These distributions have the same mean and variance. Additionally, plot
 the same plot on the interval [5,10], to better see the difference
 in the tails. </span></p></li>
-<li><span style="color:blue">R: For the distributions in b) find the
-probability <span class="math inline">\(P(|X| &gt; 4)\)</span> and interpret the result. </span></li>
+<li><p><span style="color:blue">R: For the distributions in b) find the
+probability <span class="math inline">\(P(|X| &gt; 4)\)</span> and interpret the result. </span></p></li>
 </ol>
 </div>
 

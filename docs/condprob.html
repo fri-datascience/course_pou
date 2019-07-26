@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-06-27">
+<meta name="date" content="2019-07-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -155,6 +155,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
+<li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
@@ -298,14 +302,14 @@ to a) and b). </span></p></li>
                 &amp;= \frac{\frac{5}{6}\frac{1}{12}}{\frac{5}{6}\frac{1}{12} + 11 \frac{1}{6} \frac{1}{11} \frac{1}{12}} \\
                 &amp;= \frac{5}{6}.
 \end{align}\]</span></p></li>
-<li>Yes.
+<li><p>Yes.
 <span class="math display">\[\begin{align}
   P(T = 1 | M = 1) &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{P(M = 1)} \\ 
                 &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{\sum_{k=1}^{12} 
                   P(M = 1 | T = k)P(T = k)} \\
                 &amp;= \frac{\frac{5}{6}\frac{1}{12}}{\frac{5}{6}\frac{1}{12} + 11 \frac{1}{6} \frac{1}{12}} \\
                 &amp;= \frac{5}{16}.
-\end{align}\]</span>
+\end{align}\]</span></p>
 </div></li>
 </ol>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
@@ -358,11 +362,11 @@ and heads respectively. As the toss <span class="math inline">\(k-1\)</span> nee
 for the other, these two events can not happen simultaneously. Therefore the
 probability of their intersection is 0. But the probability of each of them
 separately is <span class="math inline">\(p(1-p) &gt; 0\)</span>. Therefore, they are not independent.</p></li>
-<li>For <span class="math inline">\(A_k\)</span> to happen, we need the tosses <span class="math inline">\(k-2\)</span> and <span class="math inline">\(k-1\)</span> be tails and heads
+<li><p>For <span class="math inline">\(A_k\)</span> to happen, we need the tosses <span class="math inline">\(k-2\)</span> and <span class="math inline">\(k-1\)</span> be tails and heads
 respectively. For <span class="math inline">\(A_{k+2}\)</span> to happen, we need tosses <span class="math inline">\(k\)</span> and <span class="math inline">\(k+1\)</span> be tails
 and heads respectively. So the probability of intersection is <span class="math inline">\(p^2(1-p)^2\)</span>.
 And the probability of each separately is again <span class="math inline">\(p(1-p)\)</span>. Therefore, they
-are independent.
+are independent.</p>
 </div></li>
 </ol>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
@@ -417,10 +421,10 @@ we’ve seen <span class="math inline">\(k\)</span> heads.
                 &amp;= \frac{p^k(1-p)^{n-k} 0.5}{p^k(1-p)^{n-k} 0.5 + 0.5^{n+1}} \\
                 &amp;= \frac{p^k(1-p)^{n-k}}{p^k(1-p)^{n-k} + 0.5^n}.
 \end{align}\]</span></p></li>
-<li>The same results as in a). The only difference between these two scenarios
+<li><p>The same results as in a). The only difference between these two scenarios
 is that in b) the last throw must be heads. However, this holds for the biased
 and the unbiased coin and therefore does not affect the probability of the
-coin being biased.
+coin being biased.</p>
 </div></li>
 </ol>
 
@@ -443,8 +447,8 @@ given that she did not leave the second flower in the second office?</p></li>
 <li><p>Judy needs a new supply of flowers immediately after the office, where she
 gives away her last flower. What is the probability that she visits at least
 five offices, if she starts with two flowers?</p></li>
-<li><span style="color:blue">R: simulate Judy’s walk 10000 times to
-check your answers a) - e).</span></li>
+<li><p><span style="color:blue">R: simulate Judy’s walk 10000 times to
+check your answers a) - e).</span></p></li>
 </ol>
 </div>
 
@@ -520,8 +524,8 @@ csJsubset &lt;-<span class="st"> </span>csJudy[csJudy[ ,<span class="dv">4</span
 <ol style="list-style-type: lower-alpha">
 <li><p>A real-world example of two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> that are dependent but
 become conditionally independent if conditioned on a third event <span class="math inline">\(C\)</span>.</p></li>
-<li>A real-world example of two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> that are independent, but
-become dependent if conditioned on some third event <span class="math inline">\(C\)</span>.</li>
+<li><p>A real-world example of two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> that are independent, but
+become dependent if conditioned on some third event <span class="math inline">\(C\)</span>.</p></li>
 </ol>
 </div>
 
@@ -553,8 +557,8 @@ independent?</p></li>
 <li><p>Compute the probability <span class="math inline">\(P(Y_1 = 1)\)</span>.</p></li>
 <li><p>Compute the probabilities <span class="math inline">\(P(Y_2 = 1 | Y_1 = 1)\)</span> and
 P(Y_{10} = 1 | Y_1 = 1,…,Y_9 = 1)$.</p></li>
-<li>Given your answers to b) and c), would you now change your answer to a)?
-If so, discuss why your intuition had failed.</li>
+<li><p>Given your answers to b) and c), would you now change your answer to a)?
+If so, discuss why your intuition had failed.</p></li>
 </ol>
 </div>
 

@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-06-27">
+<meta name="date" content="2019-07-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="rvs.html">
-<link rel="next" href="r-programming-language.html">
+<link rel="next" href="integ.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -155,6 +155,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
+<li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
@@ -324,7 +328,7 @@ a die rolls one, two, or a three.</p>
 <li><p>Find the marginal distributions of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p></li>
 <li><p>Find the PMF of <span class="math inline">\((X,Y)\)</span>.</p></li>
 <li><p>Find the CDF of <span class="math inline">\((X,Y)\)</span>.</p></li>
-<li>Find <span class="math inline">\(P(X = 1 | Y = 1)\)</span>.</li>
+<li><p>Find <span class="math inline">\(P(X = 1 | Y = 1)\)</span>.</p></li>
 </ol>
 </div>
 
@@ -349,9 +353,9 @@ P(X = 0, Y = 0) = \frac{1}{6}
  1           &amp; x = 1, y = 1
   \end{cases}
 \end{align}\]</span></p></li>
-<li><span class="math display">\[\begin{align}
+<li><p><span class="math display">\[\begin{align}
 P(X = 1 | Y = 1) = \frac{1}{3}
-\end{align}\]</span></li>
+\end{align}\]</span></p></li>
 </ol>
 </div>
 
@@ -365,11 +369,11 @@ variable <span class="math inline">\((X,Y)\)</span>, where both variables range 
 <li><p>Find conditional distributions.</p></li>
 <li><p><span style="color:blue">R: Plot a grid of points and colour them
 by value – this can help us visualize the PDF.</span></p></li>
-<li><span style="color:blue">R: Plot the marginal distribution of <span class="math inline">\(Y\)</span> and
+<li><p><span style="color:blue">R: Plot the marginal distribution of <span class="math inline">\(Y\)</span> and
 the conditional distributions of <span class="math inline">\(X | Y = y\)</span>, where
-<span class="math inline">\(y \in \{0, 0.1, 0.5\}\)</span>.</span>
+<span class="math inline">\(y \in \{0, 0.1, 0.5\}\)</span>.</span></p>
 </div>
-
+<p></p>
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> </p></li>
 <li><p><span class="math display">\[\begin{align}
@@ -389,7 +393,7 @@ the conditional distributions of <span class="math inline">\(X | Y = y\)</span>,
     &amp;= 6 (y^2 - y + \frac{1}{3}) \\
     &amp;= 6y^2 - 6y + 2
 \end{align}\]</span></p></li>
-<li><span class="math display">\[\begin{align}
+<li><p><span class="math display">\[\begin{align}
   p(x|y) &amp;= \frac{p(xy)}{p(y)} \\
       &amp;= \frac{6 (x - y)^2}{6 (y^2 - y + \frac{1}{3})} \\
       &amp;= \frac{(x - y)^2}{y^2 - y + \frac{1}{3}}
@@ -398,7 +402,7 @@ the conditional distributions of <span class="math inline">\(X | Y = y\)</span>,
   p(y|x) &amp;= \frac{p(xy)}{p(x)} \\
       &amp;= \frac{6 (x - y)^2}{6 (x^2 - x + \frac{1}{3})} \\
       &amp;= \frac{(x - y)^2}{x^2 - x + \frac{1}{3}}
-  \end{align}\]</span></li>
+  \end{align}\]</span></p></li>
 </ol>
 </div>
 
@@ -443,11 +447,11 @@ be the PDF of a bivariate random variable, where <span class="math inline">\(x \
 distribution?</p></li>
 <li><p>Calculate the probability <span class="math inline">\(P(Y = 2 | X &lt; 5)\)</span> for <span class="math inline">\((X,Y)\)</span>.</p></li>
 <li><p>Find the marginal distribution of <span class="math inline">\(Y\)</span>. Do you recognize this distribution?</p></li>
-<li><span style="color:blue">R: Take 1000 random samples from <span class="math inline">\((X,Y)\)</span> with
+<li><p><span style="color:blue">R: Take 1000 random samples from <span class="math inline">\((X,Y)\)</span> with
 parameters <span class="math inline">\(\beta = 1\)</span> and
 <span class="math inline">\(\alpha = 1\)</span>. Plot a scatterplot. Plot a bar plot of the marginal distribution
 of <span class="math inline">\(Y\)</span>, and the theoretical PMF calculated from d) on the range from 0 to 10.
-Hint: Use the <strong>gamma</strong> function in R.?</span></li>
+Hint: Use the <strong>gamma</strong> function in R.?</span></p></li>
 </ol>
 </div>
 
@@ -471,7 +475,7 @@ This is the Poisson PMF.</p></li>
 <li><p><span class="math display">\[\begin{align}
 P(Y = 2 | X = 2.5) = \frac{2.5^2 e^{-2.5}}{2!} \approx 0.26.
 \end{align}\]</span></p></li>
-<li><span class="math display">\[\begin{align}
+<li><p><span class="math display">\[\begin{align}
   p(y) &amp;= \int_{0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y + \alpha -1} e^{-x(1 + \beta)} dx &amp; \\
     &amp;= \frac{1}{y!} \int_{0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx &amp; \\
     &amp;= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \int_{0}^{\infty} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}} \frac{(1 + \beta)^{y + \alpha}}{\Gamma(y + \alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx &amp; \text{we add the term so that we have Gamma PDF inside the integral} \\
@@ -479,7 +483,7 @@ P(Y = 2 | X = 2.5) = \frac{2.5^2 e^{-2.5}}{2!} \approx 0.26.
 \end{align}\]</span>
 We add the terms in the third equality to get a Gamma PDF inside the integral,
 which then integrates to one.
-We do not recognize this distribution.</li>
+We do not recognize this distribution.</p></li>
 </ol>
 </div>
 
@@ -605,17 +609,13 @@ df     &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(orig, tra
 
 </div>
 </div>
-
-
-
-</div>
             </section>
 
           </div>
         </div>
       </div>
 <a href="rvs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="r-programming-language.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="integ.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

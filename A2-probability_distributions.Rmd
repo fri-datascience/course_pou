@@ -22,6 +22,6 @@ Wishart |  | | | | |
 Pareto |  | | | | |
 Weibull |  | | | | | 
 negative binomial | $\binom{k + r - 1}{k}(1-p)^r p^k$ <br> \@ref(exr:negbinpdf) | | | | | 
-multinomial | $\frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k} <br> \@ref(exr:mnompdf)$ | | | | | 
+multinomial | $\frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}$ <br> \@ref(exr:mnompdf) | | | | | 
 
 

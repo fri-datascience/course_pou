@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-06-27">
+<meta name="date" content="2019-07-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -156,6 +156,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
+<li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
 <li class="chapter" data-level="A.1" data-path="r-programming-language.html"><a href="r-programming-language.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
@@ -229,8 +233,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: lower-alpha">
 <li><p>Prove that the intersection of two sigma algebras on <span class="math inline">\(\Omega\)</span> is a sigma
 algebra.</p></li>
-<li>Prove that the collection of all open subsets <span class="math inline">\((a,b)\)</span> on <span class="math inline">\((0,1]\)</span> is not a
-sigma algebra of <span class="math inline">\((0,1]\)</span>.</li>
+<li><p>Prove that the collection of all open subsets <span class="math inline">\((a,b)\)</span> on <span class="math inline">\((0,1]\)</span> is not a
+sigma algebra of <span class="math inline">\((0,1]\)</span>.</p></li>
 </ol>
 </div>
 
@@ -390,10 +394,10 @@ of <span class="math inline">\(\Omega\)</span>, and all subsets of <span class="
 <ol style="list-style-type: lower-alpha">
 <li><p>Show
 that <span class="math inline">\(\mathcal{F}_3\)</span> is a sigma algebra.</p></li>
-<li>Let us define <span class="math inline">\(P(A)=0\)</span> if <span class="math inline">\(A\)</span> is
+<li><p>Let us define <span class="math inline">\(P(A)=0\)</span> if <span class="math inline">\(A\)</span> is
 countable, and <span class="math inline">\(P(A) = 1\)</span> if <span class="math inline">\(A\)</span> has
 a countable complement. Is <span class="math inline">\((\Omega, \mathcal{F}_3, P)\)</span> a legitimate
-probability space?</li>
+probability space?</p></li>
 </ol>
 </div>
 
@@ -418,7 +422,7 @@ complement. We can write
 Since at least one <span class="math inline">\(A_i^c\)</span> on the right side is countable, the whole intersection
 is countable, and therefore the union has a countable complement. It follows
 that the union is in <span class="math inline">\(\mathcal{F}_3\)</span>.</p></li>
-<li>The tuple <span class="math inline">\((\Omega, \mathcal{F}_3)\)</span> is a measurable space. Therefore, we only
+<li><p>The tuple <span class="math inline">\((\Omega, \mathcal{F}_3)\)</span> is a measurable space. Therefore, we only
 need to check whether <span class="math inline">\(P\)</span> is a probability measure. The measure of the empty
 set is zero as it is countable. We have to check for countable additivity.
 Let us look at three situations. Let <span class="math inline">\(A_i\)</span> be disjoint sets. First, let
@@ -445,7 +449,7 @@ the complement of <span class="math inline">\(B\)</span>, which is countable. Fo
 empty set, <span class="math inline">\(B\)</span> would have to equal to <span class="math inline">\(\Omega\)</span>. But <span class="math inline">\(\Omega\)</span> is uncountable and
 therefore <span class="math inline">\(B\)</span> can not equal to <span class="math inline">\(\Omega\)</span>. It follows that two uncountable sets
 in <span class="math inline">\(\mathcal{F}_3\)</span> can not have an empty intersection. Therefore the tuple
-is a legitimate probability space.
+is a legitimate probability space.</p>
 </div></li>
 </ol>
 </div>
