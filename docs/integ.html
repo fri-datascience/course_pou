@@ -223,7 +223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.1</span> Monte Carlo integration</h2>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X \sim \text{Gamma}(3,2)\)</span> and <span class="math inline">\(Y = \log(X)\)</span>. Use Monte Carlo integration to estimate the probability $P(-1 Y 1). Can you find the exact value?</span>
+<span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 6.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X \sim \text{Gamma}(3,2)\)</span> and <span class="math inline">\(Y = \log(X)\)</span>. Use Monte Carlo integration to estimate the probability <span class="math inline">\(P(-1 \leq Y \leq 1)\)</span>. Can you find the exact value?</span>
 </div>
 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
@@ -235,6 +235,63 @@ y      &lt;-<span class="st"> </span><span class="kw">log</span>(x)
 </div>
 <div id="lebesgue-integrals" class="section level2">
 <h2><span class="header-section-number">6.2</span> Lebesgue integrals</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 6.2  (borrowed from Binder)  </strong></span>Find the Lebesgue integral of the following functions on (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>, <span class="math inline">\(\lambda\)</span>).</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align}
+f(\omega) = 
+  \begin{cases}
+    \omega, &amp; \text{for } \omega = 0,1,...,n \\
+    0, &amp; \text{elsewhere}
+  \end{cases}
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+f(\omega) = 
+  \begin{cases}
+    1, &amp; \text{for } \omega = \mathbb{Q}^c \cap [0,1] \\
+    0, &amp; \text{elsewhere}
+  \end{cases}
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+f(\omega) = 
+  \begin{cases}
+    n, &amp; \text{for } \omega = \mathbb{Q}^c \cap [0,n] \\
+    0, &amp; \text{elsewhere}
+  \end{cases}
+\end{align}\]</span></p>
+</div>
+<p></p>
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p></li>
+<li><p><span class="math display">\[\begin{align}
+\int f(\omega) d\lambda = \sum_{\omega = 0}^n \omega \lambda(\omega) = 0.
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+\int f(\omega) d\lambda = 1 \times \lambda(\mathbb{Q}^c \cap [0,1]) = 1.
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+\int f(\omega) d\lambda = n \times \lambda(\mathbb{Q}^c \cap [0,n]) = n^2.
+\end{align}\]</span></p>
+</div></li>
+</ol>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 6.3  (borrowed from Binder)  </strong></span>Let <span class="math inline">\(c \in \mathbb{R}\)</span> be fixed and (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>) a measurable space. If for any Borel set <span class="math inline">\(A\)</span>, <span class="math inline">\(\delta_c (A) = 1\)</span> if <span class="math inline">\(c \in A\)</span>, and <span class="math inline">\(\delta_c (A) = 0\)</span> otherwise, then <span class="math inline">\(\delta_c\)</span> is called a <em>Dirac measure</em>. Let <span class="math inline">\(g\)</span> be a non-negative, measurable function. Show that <span class="math inline">\(\int g d \delta_c = g(c)\)</span>.
+</div>
+
+
+<div class="solution">
+ <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
+  \int g d \delta_c &amp;= \sup_{q \in S(g)} \int q d \delta_c \\
+                    &amp;= \sup_{q \in S(g)} \sum_{i = 1}^n a_i \delta_c(A_i) \\
+                    &amp;= \sup_{q \in S(g)} \sum_{i = 1}^n a_i \text{I}_{A_i}(c) \\
+                    &amp;= \sup_{q \in S(g)} q(c) \\
+                    &amp;= g(c)
+\end{align}\]</span>
+<span style="color:red">TODO: Check with Erik.</span>
+</div>
+
 
 </div>
 </div>

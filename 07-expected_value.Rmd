@@ -1,0 +1,22 @@
+# Expected value {#ev}
+
+This chapter deals with expected values of random variables.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- 
+
+**R**
+
+- 
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+togs <- TRUE
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+library(tidyr)
+# togs <- FALSE
+```
