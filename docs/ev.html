@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>References | Principles of Uncertainty – exercises</title>
+  <title>Chapter 7 Expected value | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="References | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 7 Expected value | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 7 Expected value | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="probability-distributions.html">
-
+<link rel="prev" href="integ.html">
+<link rel="next" href="r-programming-language.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -211,8 +211,104 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="ev" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Expected value</h1>
+<p>This chapter deals with expected values of random variables.</p>
+<p>The students are expected to acquire the following knowledge:</p>
+<p><strong>Theoretical</strong></p>
+<ul>
+<li>Calculation of the expected value.</li>
+<li>Calculation of variance and covariance.</li>
+<li>Cauchy distribution.</li>
+</ul>
+<p><strong>R</strong></p>
+<ul>
+<li>Estimation of expected value.</li>
+<li>Estimation of variance and covariance.</li>
+</ul>
+<div id="expected-values-and-variances-of-common-distributions" class="section level2">
+<h2><span class="header-section-number">7.1</span> Expected values and variances of common distributions</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  (Expected values)  </strong></span>Find the formulas for the expected values of the following distributions.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find <span class="math inline">\(E[X]\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(Var[X]\)</span>.</p></li>
+<li><p><span style="color:blue">R: Check your answers to a) and b) with a
+simulation.</span></p></li>
+<li><p><span style="color:blue">R: Plot the density of <span class="math inline">\(X\)</span>. Add a horizontal line at the expected value that touches the density curve. Shade the area within a standard deviation of the expected value. </span></p></li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
+<span class="co"># c</span>
+X &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsamps, <span class="dv">10</span>, <span class="dv">1</span>)
+<span class="kw">mean</span>(X)</code></pre>
+<pre><code>## [1] 9.859184</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(X)</code></pre>
+<pre><code>## [1] 10.01599</code></pre>
+</div>
+<div id="sums-functions-conditional-expectations" class="section level2">
+<h2><span class="header-section-number">7.2</span> Sums, functions, conditional expectations</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-5" class="exercise"><strong>Exercise 4.1  (Sum of independent random variables)  </strong></span>Let <span class="math inline">\(X_1, X_2,...,X_n\)</span> be IID random variables with expected value <span class="math inline">\(E[X_i] = \mu\)</span> and variance <span class="math inline">\(Var[X_i] = \sigma^2\)</span>. Find the expected value and variance of <span class="math inline">\(\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i\)</span>. <span class="math inline">\(\bar{X}\)</span> is called a <em>statistic</em> (a function of the values in a sample). It is itself a random variable. <span style="color:blue">R: Take <span class="math inline">\(n = 5, 10, 100, 1000\)</span> samples from the N(<span class="math inline">\(2\)</span>, <span class="math inline">\(6\)</span>) distribution 10000 times. Plot the theoretical density and the densities of <span class="math inline">\(\bar{X}\)</span> statistic for each <span class="math inline">\(n\)</span>. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span></p>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> Let us start with the expectation of <span class="math inline">\(\bar{X}\)</span>.</p>
+<p><span class="math display">\[\begin{align}
+  E[\bar{X}] &amp;= E[\frac{1}{n} \sum_{i=1}^n X_i] &amp; \\
+             &amp;= \frac{1}{n} E[\sum_{i=1}^n X_i] &amp; \text{ (multiplication with a scalar)} \\
+             &amp;= \frac{1}{n} \sum_{i=1}^n E[X_i] &amp; \text{ (linearity)} \\
+             &amp;= \frac{1}{n} n \mu &amp; \\
+             &amp;= \mu.
+\end{align}\]</span></p>
+<p>Now the variance
+<span class="math display">\[\begin{align}
+  Var[\bar{X}] &amp;= Var[\frac{1}{n} \sum_{i=1}^n X_i] &amp; \\
+             &amp;= \frac{1}{n^2} Var[\sum_{i=1}^n X_i] &amp; \text{ (multiplication with a scalar)} \\
+             &amp;= \frac{1}{n} \sum_{i=1}^n Var[X_i] &amp; \text{ (independence of samples)} \\
+             &amp;= \frac{1}{n^2} n \sigma^2 &amp; \\
+             &amp;= \frac{1}{n} \sigma^2.
+\end{align}\]</span></p>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">10000</span>
+mu     &lt;-<span class="st"> </span><span class="dv">2</span>
+sigma  &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">6</span>)
+N      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">500</span>)
+X      &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="kw">length</span>(N))
+ind    &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="cf">for</span> (n <span class="cf">in</span> N) {
+  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {
+    X[i,ind] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rnorm</span>(n, mu, sigma))
+  }
+  ind &lt;-<span class="st"> </span>ind <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+}
+<span class="kw">colnames</span>(X) &lt;-<span class="st"> </span>N
+X           &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.data.frame</span>(X))
+
+<span class="kw">ggplot</span>(<span class="dt">data =</span> X, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">colour =</span> variable)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">data  =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">6</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x), 
+                <span class="dt">fun   =</span> dnorm, 
+                <span class="dt">args  =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma), 
+                <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</code></pre>
+<p><img src="07-expected_value_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+
+</div>
+</div>
+
+
 
 </div>
             </section>
@@ -220,8 +316,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="probability-distributions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="integ.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-programming-language.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

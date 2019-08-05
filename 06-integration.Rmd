@@ -23,7 +23,7 @@ library(tidyr)
 
 ## Monte Carlo integration
 ```{exercise}
-<span style="color:blue">Let $X \sim \text{Gamma}(3,2)$ and $Y = \log(X)$. Use Monte Carlo integration to estimate the probability $P(-1 \leq Y  \leq 1)$. Can you find the exact value?</span>
+<span style="color:blue">Let $X \sim \text{Gamma}(3,2)$ and $Y = \log(X)$. Use Monte Carlo integration to estimate the probability $P(-1 \leq Y  \leq 1)$. Can you find the exact value?</span><span style="color:red">Is this Monte Carlo integration???</span>
 ```
 ```{r, echo = togs, message = FALSE, warning=FALSE}
 set.seed(1)
