@@ -24,31 +24,283 @@ library(tidyr)
 # togs <- FALSE
 ```
 
-## Expected values and variances of common distributions
-```{exercise, name = "Expected values"}
-Find the formulas for the expected values of the following distributions.
+## Discrete random variables
+```{exercise, name = "Bernoulli", label = Bernev}
+Let $X \sim \text{Bernoulli}(p)$. 
 
 a. Find $E[X]$.
 
 b. Find $Var[X]$.
 
-c. <span style="color:blue">R: Check your answers to a) and b) with a 
-simulation.</span>
-  
-d. <span style="color:blue">R: Plot the density of $X$. Add a horizontal line at the expected value that touches the density curve. Shade the area within a standard deviation of the expected value. </span>
-
+c. <span style="color:blue">R: Let $p = 0.4$. Check your answers to a) and b) with a simulation.</span>
 ```
 ```{solution, echo = togs}
 
+
+a. 
+\begin{align*}
+  E[X] = \sum_{k=0}^1 p^k (1-p)^{1-k} k = p.
+\end{align*}
+  
+b.
+\begin{align*}
+  Var[X] = E[X^2] - E[X]^2 = \sum_{k=0}^1 (p^k (1-p)^{1-k} k^2) - p^2 = p(1-p).
+\end{align*}
 
 ```
 ```{r, echo = togs, message = FALSE, warning=FALSE}
 set.seed(1)
 nsamps <- 1000
-# c
-X <- rgamma(nsamps, 10, 1)
-mean(X)
-var(X)
+x      <- rbinom(nsamps, 1, 0.4)
+mean(x)
+var(x)
+0.4 * (1 - 0.4)
+```
+
+```{exercise, name = "Binomial", label = binomev}
+Let $X \sim \text{Binomial}(n,p)$. 
+
+a. Find $E[X]$.
+
+b. Find $Var[X]$.
+
+```
+```{solution, echo = togs}
+
+
+a. Let $X = \sum_{i=0}^n X_i$, where $X_i \sim \text{Bernoulli}(p)$. Then, due to linearity of expectation
+\begin{align*}
+  E[X] = E[\sum_{i=0}^n X_i] = \sum_{i=0}^n E[X_i] = np.
+\end{align*}
+  
+b. Again let $X = \sum_{i=0}^n X_i$, where $X_i \sim \text{Bernoulli}(p)$. Since the Bernoulli variables $X_i$ are independent we have
+\begin{align*}
+  Var[X] = Var[\sum_{i=0}^n X_i] = \sum_{i=0}^n Var[X_i] = np(1-p).
+\end{align*}
+
+```
+
+```{exercise, name = "Poisson", label = poisev}
+Let $X \sim \text{Poisson}(\lambda)$. 
+
+a. Find $E[X]$.
+
+b. Find $Var[X]$.
+
+```
+```{solution, echo = togs}
+
+
+a.
+\begin{align*}
+  E[X] &= \sum_{k=0}^\infty \frac{\lambda^k e^{-\lambda}}{k!} k & \\
+       &= e^{-\lambda} \lambda \sum_{k=0}^\infty \frac{\lambda^{k-1}}{(k - 1)!} & \\
+       &= e^{-\lambda} \lambda \sum_{k=1}^\infty \frac{\lambda^{k-1}}{(k - 1)!} & \text{term at $k=0$ is 0} \\
+       &= e^{-\lambda} \lambda \sum_{k=0}^\infty \frac{\lambda^{k}}{k!} & \\
+       &= e^{-\lambda} \lambda e^\lambda & \\
+       &= \lambda.
+\end{align*}
+  
+b. 
+\begin{align*}
+  Var[X] &= E[X^2] - E[X]^2 & \\
+         &= e^{-\lambda} \lambda \sum_{k=1}^\infty k \frac{\lambda^{k-1}}{(k - 1)!} - \lambda^2 & \\
+         &= e^{-\lambda} \lambda \sum_{k=1}^\infty (k - 1) + 1) \frac{\lambda^{k-1}}{(k - 1)!} - \lambda^2 & \\
+         &= e^{-\lambda} \lambda \big(\sum_{k=1}^\infty (k - 1) \frac{\lambda^{k-1}}{(k - 1)!} + \sum_{k=1}^\infty \frac{\lambda^{k-1}}{(k - 1)!}\Big) - \lambda^2 & \\
+         &= e^{-\lambda} \lambda \big(\lambda\sum_{k=2}^\infty \frac{\lambda^{k-2}}{(k - 2)!} + e^\lambda\Big) - \lambda^2 & \\
+         &= e^{-\lambda} \lambda \big(\lambda e^\lambda + e^\lambda\Big) - \lambda^2 & \\
+         &= \lambda^2 + \lambda - \lambda^2 & \\
+         &= \lambda.
+\end{align*}
+```
+
+
+```{exercise, name = "Geometric", label = geoev}
+Let $X \sim \text{Geometric}(p)$. 
+
+a. Find $E[X]$. Hint: $\frac{d}{dx} x^k = k x^(k - 1)$.
+
+
+```
+```{solution, echo = togs}
+
+
+a.
+\begin{align*}
+  E[X] &= \sum_{k=0}^\infty (1 - p)^k p k & \\
+       &= p (1 - p) \sum_{k=0}^\infty (1 - p)^{k-1} k & \\
+       &= p (1 - p) \sum_{k=0}^\infty -\frac{d}{dp}(1 - p)^k & \\
+       &= p (1 - p) \Big(-\frac{d}{dp}\Big) \sum_{k=0}^\infty (1 - p)^k & \\
+       &= p (1 - p) \Big(-\frac{d}{dp}\Big) \frac{1}{1 - (1 - p)} & \text{geometric series} \\
+       &= \frac{1 - p}{p}
+\end{align*}
+
+```
+
+## Continuous random variables
+```{exercise, name = "Gamma", label = gammaev}
+Let $X \sim \text{Gamma}(\alpha, \beta)$. Hint: $\Gamma(z) = \int_0^\infty t^{z-1}e^{-t} dt$ and $\Gamma(z + 1) = z \Gamma(z)$.
+
+
+a. Find $E[X]$.
+
+b. Find $Var[X]$.
+  
+c. <span style="color:blue">R: Let $\alpha = 10$ and $\beta = 2$. Plot the density of $X$. Add a horizontal line at the expected value that touches the density curve (_geom_segment_). Shade the area within a standard deviation of the expected value. </span>
+
+```
+```{solution, echo = togs}
+
+
+a.
+\begin{align*}
+  E[X] &= \int_0^\infty \frac{\beta^\alpha}{\Gamma(\alpha)}x^\alpha e^{-\beta x} dx & \\
+       &= \frac{\beta^\alpha}{\Gamma(\alpha) \int_0^\infty }x^\alpha e^{-\beta x} dx & \text{ (let $t = \beta x$)} \\
+       &= \frac{\beta^\alpha}{\Gamma(\alpha) \int_0^\infty }\frac{t^\alpha}{\beta^\alpha} e^{-t} \frac{dt}{\beta} & \\
+       &= \frac{1}{\beta \Gamma(\alpha) \int_0^\infty }t^\alpha e^{-t} dt & \\
+       &= \frac{\Gamma(\alpha + 1)}{\beta \Gamma(\alpha)} & \\
+       &= \frac{\alpha \Gamma(\alpha)}{\beta \Gamma(\alpha)} & \\
+       &= \frac{\alpha}{\beta}. &
+\end{align*}
+
+  
+b.
+\begin{align*}
+ Var[X] &= E[X^2] - E[X]^2 \\
+        &= \int_0^\infty \frac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha+1} e^{-\beta x} dx - \frac{\alpha^2}{\beta^2} \\
+        &= \frac{\Gamma(\alpha + 2)}{\beta^2 \Gamma(\alpha)} - \frac{\alpha^2}{\beta^2} \\
+        &= \frac{(\alpha + 1)\alpha\Gamma(\alpha)}{\beta^2 \Gamma(\alpha)} - \frac{\alpha^2}{\beta^2} \\
+        &= \frac{\alpha^2 + \alpha}{\beta^2} - \frac{\alpha^2}{\beta^2} \\
+        &= \frac{\alpha}{\beta^2}.
+\end{align*}
+
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE}
+set.seed(1)
+x  <- seq(0, 25, by = 0.01)
+y  <- dgamma(x, shape = 10, rate = 2)
+df <- data.frame(x = x, y = y)
+ggplot(df, aes(x = x, y = y)) +
+  geom_line() +
+  geom_segment(aes(x = 5, y = 0, xend = 5,
+                   yend = dgamma(5, shape = 10, rate = 2)),
+               color = "red") +
+  stat_function(fun = dgamma, args = list(shape = 10, rate = 2), 
+                xlim = c(5 - sqrt(10/4), 5 + sqrt(10/4)), geom = "area", fill = "gray", alpha = 0.4)
+
+```
+
+```{exercise, name = "Beta", label = betaev}
+Let $X \sim \text{Beta}(\alpha, \beta)$.
+
+
+a. Find $E[X]$. Hint 1: $\text{B}(x,y) = \int_0^1 t^{x-1} (1 - t)^{y-1} dt$. Hint 2: $\text{B}(x + 1, y) = \text{B}(x,y)\frac{x}{x + y}$. 
+
+b. Find $Var[X]$.
+
+
+```
+```{solution, echo = togs}
+
+
+a.
+\begin{align*}
+  E[X] &= \int_0^1 \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)} x dx \\
+       &= \frac{1}{\text{B}(\alpha, \beta)}\int_0^1 x^{\alpha} (1 - x)^{\beta - 1} dx \\
+       &= \frac{1}{\text{B}(\alpha, \beta)} \text{B}(\alpha + 1, \beta) \\
+       &= \frac{1}{\text{B}(\alpha, \beta)} \text{B}(\alpha, \beta) \frac{\alpha}{\alpha + \beta} \\
+       &= \frac{\alpha}{\alpha + \beta}. \\
+\end{align*}
+
+  
+b.
+\begin{align*}
+  Var[X] &= E[X^2] - E[X]^2 \\
+       &= \int_0^1 \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)} x^2 dx - \frac{\alpha^2}{(\alpha + \beta)^2} \\
+       &= \frac{1}{\text{B}(\alpha, \beta)}\int_0^1 x^{\alpha + 1} (1 - x)^{\beta - 1} dx - \frac{\alpha^2}{(\alpha + \beta)^2} \\
+       &= \frac{1}{\text{B}(\alpha, \beta)} \text{B}(\alpha + 2, \beta) - \frac{\alpha^2}{(\alpha + \beta)^2} \\
+       &= \frac{1}{\text{B}(\alpha, \beta)} \text{B}(\alpha + 1, \beta) \frac{\alpha + 1}{\alpha + \beta + 1} - \frac{\alpha^2}{(\alpha + \beta)^2} \\
+       &= \frac{\alpha + 1}{\alpha + \beta + 1} \frac{\alpha}{\alpha + \beta} - \frac{\alpha^2}{(\alpha + \beta)^2}\\
+       &= \frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}.
+\end{align*}
+
+
+```
+
+
+```{exercise, name = "Exponential", label = expev}
+Let $X \sim \text{Exp}(\lambda)$.
+
+
+a. Find $E[X]$. Hint: $\Gamma(z + 1) = z\Gamma(z)$ and $\Gamma(1) = 1$.
+
+b. Find $Var[X]$.
+
+
+```
+```{solution, echo = togs}
+
+
+a.
+\begin{align*}
+  E[X] &= \int_0^\infty \lambda e^{-\lambda x} x dx & \\
+       &= \lambda \int_0^\infty x e^{-\lambda x} dx & \\
+       &= \lambda \int_0^\infty \frac{t}{\lambda} e^{-t} \frac{dt}{\lambda} & \text{$t = \lambda x$}\\
+       &= \lambda \lambda^{-2} \Gamma(2) & \text{definition of gamma function}  \\
+       &= \lambda^{-1}.
+\end{align*}
+
+  
+b.
+\begin{align*}
+  Var[X] &= E[X^2] - E[X]^2  & \\
+         &= \int_0^\infty \lambda e^{-\lambda x} x^2 dx - \lambda^{-2} & \\
+         &= \lambda \int_0^\infty \frac{t^2}{\lambda^2} e^{-t} \frac{dt}{\lambda} - \lambda^{-2} &  \text{$t = \lambda x$} \\
+         &= \lambda \lambda^{-3} \Gamma(3) - \lambda^{-2} &  \text{definition of gamma function} &  \\
+         &= \lambda^{-2} 2 \Gamma(2) - \lambda^{-2} & \\
+         &= 2 \lambda^{-2} - \lambda^{-2} & \\
+         &= \lambda^{-2}. & \\
+\end{align*}
+
+
+```
+
+
+```{exercise, name = "Normal", label = normev}
+Let $X \sim \text{N}(\mu, \sigma)$.
+
+
+a. Find $E[X]$.
+
+b. Find $Var[X]$.
+
+
+```
+```{solution, echo = togs}
+
+
+a.
+\begin{align*}
+  E[X] &= \int_{-\infty}^\infty  dx & \\
+       &= \lambda \int_0^\infty x e^{-\lambda x} dx & \\
+       &= \lambda \int_0^\infty \frac{t}{\lambda} e^{-t} \frac{dt}{\lambda} & \text{$t = \lambda x$}\\
+       &= \lambda \lambda^{-2} \Gamma(2) & \text{definition of gamma function}  \\
+       &= \lambda^{-1}.
+\end{align*}
+
+  
+b.
+\begin{align*}
+  Var[X] &= E[X^2] - E[X]^2  & \\
+         &= \int_0^\infty \lambda e^{-\lambda x} x^2 dx - \lambda^{-2} & \\
+         &= \lambda \int_0^\infty \frac{t^2}{\lambda^2} e^{-t} \frac{dt}{\lambda} - \lambda^{-2} &  \text{$t = \lambda x$} \\
+         &= \lambda \lambda^{-3} \Gamma(3) - \lambda^{-2} &  \text{definition of gamma function} &  \\
+         &= \lambda^{-2} 2 \Gamma(2) - \lambda^{-2} & \\
+         &= 2 \lambda^{-2} - \lambda^{-2} & \\
+         &= \lambda^{-2}. & \\
+\end{align*}
+
 
 ```
 
