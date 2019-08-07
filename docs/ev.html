@@ -435,14 +435,14 @@ Var[X] &amp;= E[X^2] - E[X]^2 \\
 <li><p><span class="math display">\[\begin{align*}
 E[X] &amp;= \int_0^\infty \lambda e^{-\lambda x} x dx &amp; \\
      &amp;= \lambda \int_0^\infty x e^{-\lambda x} dx &amp; \\
-     &amp;= \lambda \int_0^\infty \frac{t}{\lambda} e^{-t} \frac{dt}{\lambda} &amp; \text{t = \lambda x}\\
+     &amp;= \lambda \int_0^\infty \frac{t}{\lambda} e^{-t} \frac{dt}{\lambda} &amp; \text{$t = \lambda x$}\\
      &amp;= \lambda \lambda^{-2} \Gamma(2) &amp; \text{definition of gamma function}  \\
      &amp;= \lambda^{-1}.
 \end{align*}\]</span></p></li>
 <li><p><span class="math display">\[\begin{align*}
 Var[X] &amp;= E[X^2] - E[X]^2  &amp; \\
        &amp;= \int_0^\infty \lambda e^{-\lambda x} x^2 dx - \lambda^{-2} &amp; \\
-       &amp;= \lambda \int_0^\infty \frac{t^2}{\lambda^2} e^{-t} \frac{dt}{\lambda} - \lambda^{-2} &amp;  \text{t = \lambda x} \\
+       &amp;= \lambda \int_0^\infty \frac{t^2}{\lambda^2} e^{-t} \frac{dt}{\lambda} - \lambda^{-2} &amp;  \text{$t = \lambda x$} \\
        &amp;= \lambda \lambda^{-3} \Gamma(3) - \lambda^{-2} &amp;  \text{definition of gamma function} &amp;  \\
        &amp;= \lambda^{-2} 2 \Gamma(2) - \lambda^{-2} &amp; \\
        &amp;= 2 \lambda^{-2} - \lambda^{-2} &amp; \\
@@ -451,12 +451,67 @@ Var[X] &amp;= E[X^2] - E[X]^2  &amp; \\
 </ol>
 </div>
 
+
+<div class="exercise">
+<p><span id="exr:normev" class="exercise"><strong>Exercise 7.8  (Normal)  </strong></span>Let <span class="math inline">\(X \sim \text{N}(\mu, \sigma)\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Show that <span class="math inline">\(E[X] = \mu\)</span>. Hint: Use the error function <span class="math inline">\(\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt\)</span>. The statistical interpretation of this function is that if <span class="math inline">\(Y \sim \text{N}(0, 0.5)\)</span>, then the error function describes the probability of <span class="math inline">\(Y\)</span> falling between <span class="math inline">\(-x\)</span> and <span class="math inline">\(x\)</span>.</p></li>
+<li><p>Show that <span class="math inline">\(Var[X] = \sigma^2\)</span>. Hint: Start with the definition of variance.</p></li>
+</ol>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math display">\[\begin{align*}
+E[X] &amp;= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} x dx &amp; \\
+     &amp;= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty x e^{-\frac{(x - \mu)^2}{2\sigma^2}} dx &amp; \\
+     &amp;= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty \Big(t \sqrt{2\sigma^2} + \mu\Big)e^{-t^2} \sqrt{2 \sigma^2} dt &amp; t = \frac{x - \mu}{\sqrt{2\sigma}} \\
+     &amp;= \frac{\sqrt{2\sigma^2}}{\sqrt{\pi}} \int_{-\infty}^\infty t  e^{-t^2} dt + \frac{1}{\sqrt{\pi}} \int_{-\infty}^\infty \mu e^{-t^2} dt &amp; \\
+\end{align*}\]</span></li>
+</ol>
+<p>Let us calculate these integrals separately.
+<span class="math display">\[\begin{align*}
+  \int t e^{-t^2} dt &amp;= -\frac{1}{2}\int e^{s} ds &amp; s = -t^2 \\
+                     &amp;= -\frac{e^s}{2} + C \\
+                     &amp;= -\frac{e^{-t^2}}{2} + C &amp; \text{undoing substitution}.
+\end{align*}\]</span>
+Inserting the integration limits we get
+<span class="math display">\[\begin{align*}
+  \int_{-\infty}^\infty t e^{-t^2} dt &amp;= 0,
+\end{align*}\]</span>
+due to the integrated function being symmetric.</p>
+<p>Reordering the second integral we get
+<span class="math display">\[\begin{align*}
+  \mu \frac{1}{\sqrt{\pi}} \int_{-\infty}^\infty e^{-t^2} dt &amp;= \mu \text{erf}(\infty) &amp; \text{definition of error function} \\
+                                                             &amp;= \mu &amp; \text{probability of $Y$ falling between $-\infty$ and $\infty$}.
+\end{align*}\]</span>
+Combining all of the above we get
+<span class="math display">\[\begin{align*}
+  E[X] &amp;= \frac{\sqrt{2\sigma^2}}{\sqrt{\pi}} \times 0 + \mu 
+       &amp;= \mu.\\
+\end{align*}\]</span></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><span class="math display">\[\begin{align*}
+  Var[X] &amp;= E[(X - E[X])^2] \\
+      &amp;= E[(X - \mu)^2] \\
+      &amp;= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty (x - \mu)^2 e^{-\frac{(x - \mu)^2}{2\sigma^2}} dx \\
+      &amp;= \frac{\sigma^2}{\sqrt{2\pi}} \int_{-\infty}^\infty t^2 e^{-\frac{t^2}{2}} dt \\
+      &amp;= \frac{\sigma^2}{\sqrt{2\pi}} \bigg(\Big(- t e^{-\frac{t^2}{2}} |_{-\infty}^\infty \Big) + \int_{-\infty}^\infty e^{-\frac{t^2}{2}} \bigg) dt &amp; \text{integration by parts} \\
+      &amp;= \frac{\sigma^2}{\sqrt{2\pi}} \sqrt{2 \pi} \int_{-\infty}^\infty  \frac{1}{\sqrt(\pi)}e^{-s^2} \bigg) &amp; s = \frac{t}{\sqrt{2}} \text{ and evaluating the left expression at the bounds} \\
+      &amp;= \frac{\sigma^2}{\sqrt{2\pi}} \sqrt{2 \pi} \Big(\text{erf}(\infty) &amp; \text{definition of error function} \\
+      &amp;= \sigma^2.
+\end{align*}\]</span></li>
+</ol>
+</div>
+
 </div>
 <div id="sums-functions-conditional-expectations" class="section level2">
 <h2><span class="header-section-number">7.3</span> Sums, functions, conditional expectations</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-11" class="exercise"><strong>Exercise 7.8  (Sum of independent random variables)  </strong></span>Let <span class="math inline">\(X_1, X_2,...,X_n\)</span> be IID random variables with expected value <span class="math inline">\(E[X_i] = \mu\)</span> and variance <span class="math inline">\(Var[X_i] = \sigma^2\)</span>. Find the expected value and variance of <span class="math inline">\(\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i\)</span>. <span class="math inline">\(\bar{X}\)</span> is called a <em>statistic</em> (a function of the values in a sample). It is itself a random variable. <span style="color:blue">R: Take <span class="math inline">\(n = 5, 10, 100, 1000\)</span> samples from the N(<span class="math inline">\(2\)</span>, <span class="math inline">\(6\)</span>) distribution 10000 times. Plot the theoretical density and the densities of <span class="math inline">\(\bar{X}\)</span> statistic for each <span class="math inline">\(n\)</span>. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span></p>
+<p><span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 7.9  (Sum of independent random variables)  </strong></span>Let <span class="math inline">\(X_1, X_2,...,X_n\)</span> be IID random variables with expected value <span class="math inline">\(E[X_i] = \mu\)</span> and variance <span class="math inline">\(Var[X_i] = \sigma^2\)</span>. Find the expected value and variance of <span class="math inline">\(\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i\)</span>. <span class="math inline">\(\bar{X}\)</span> is called a <em>statistic</em> (a function of the values in a sample). It is itself a random variable. <span style="color:blue">R: Take <span class="math inline">\(n = 5, 10, 100, 1000\)</span> samples from the N(<span class="math inline">\(2\)</span>, <span class="math inline">\(6\)</span>) distribution 10000 times. Plot the theoretical density and the densities of <span class="math inline">\(\bar{X}\)</span> statistic for each <span class="math inline">\(n\)</span>. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span></p>
 </div>
 
 
@@ -501,7 +556,7 @@ X           &lt;-<span class="st"> </span><span class="kw">melt</span>(<span cla
                 <span class="dt">fun   =</span> dnorm, 
                 <span class="dt">args  =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma), 
                 <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</code></pre>
-<p><img src="07-expected_value_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="07-expected_value_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 
 </div>
 </div>

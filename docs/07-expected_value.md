@@ -233,17 +233,17 @@ a.
 \begin{align*}
   E[X] &= \int_0^\infty \lambda e^{-\lambda x} x dx & \\
        &= \lambda \int_0^\infty x e^{-\lambda x} dx & \\
-       &= \lambda \int_0^\infty \frac{t}{\lambda} e^{-t} \frac{dt}{\lambda} & \text{t = \lambda x}\\
+       &= \lambda \int_0^\infty \frac{t}{\lambda} e^{-t} \frac{dt}{\lambda} & \text{$t = \lambda x$}\\
        &= \lambda \lambda^{-2} \Gamma(2) & \text{definition of gamma function}  \\
        &= \lambda^{-1}.
 \end{align*}
 
-  
+
 b.
 \begin{align*}
   Var[X] &= E[X^2] - E[X]^2  & \\
          &= \int_0^\infty \lambda e^{-\lambda x} x^2 dx - \lambda^{-2} & \\
-         &= \lambda \int_0^\infty \frac{t^2}{\lambda^2} e^{-t} \frac{dt}{\lambda} - \lambda^{-2} &  \text{t = \lambda x} \\
+         &= \lambda \int_0^\infty \frac{t^2}{\lambda^2} e^{-t} \frac{dt}{\lambda} - \lambda^{-2} &  \text{$t = \lambda x$} \\
          &= \lambda \lambda^{-3} \Gamma(3) - \lambda^{-2} &  \text{definition of gamma function} &  \\
          &= \lambda^{-2} 2 \Gamma(2) - \lambda^{-2} & \\
          &= 2 \lambda^{-2} - \lambda^{-2} & \\
@@ -252,9 +252,66 @@ b.
 
 </div>\EndKnitrBlock{solution}
 
+
+\BeginKnitrBlock{exercise}\iffalse{-91-78-111-114-109-97-108-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:normev"><strong>(\#exr:normev)  \iffalse (Normal) \fi{} </strong></span>Let $X \sim \text{N}(\mu, \sigma)$.
+
+
+a. Show that $E[X] = \mu$. Hint: Use the error function $\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt$. The statistical interpretation of this function is that if $Y \sim \text{N}(0, 0.5)$, then the error function describes the probability of $Y$ falling between $-x$ and $x$.
+
+b. Show that $Var[X] = \sigma^2$. Hint: Start with the definition of variance.
+
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+a.
+\begin{align*}
+  E[X] &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} x dx & \\
+       &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty x e^{-\frac{(x - \mu)^2}{2\sigma^2}} dx & \\
+       &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty \Big(t \sqrt{2\sigma^2} + \mu\Big)e^{-t^2} \sqrt{2 \sigma^2} dt & t = \frac{x - \mu}{\sqrt{2\sigma}} \\
+       &= \frac{\sqrt{2\sigma^2}}{\sqrt{\pi}} \int_{-\infty}^\infty t  e^{-t^2} dt + \frac{1}{\sqrt{\pi}} \int_{-\infty}^\infty \mu e^{-t^2} dt & \\
+\end{align*}
+
+Let us calculate these integrals separately.
+\begin{align*}
+  \int t e^{-t^2} dt &= -\frac{1}{2}\int e^{s} ds & s = -t^2 \\
+                     &= -\frac{e^s}{2} + C \\
+                     &= -\frac{e^{-t^2}}{2} + C & \text{undoing substitution}.
+\end{align*}
+Inserting the integration limits we get 
+\begin{align*}
+  \int_{-\infty}^\infty t e^{-t^2} dt &= 0,
+\end{align*}
+due to the integrated function being symmetric.
+
+Reordering the second integral we get
+\begin{align*}
+  \mu \frac{1}{\sqrt{\pi}} \int_{-\infty}^\infty e^{-t^2} dt &= \mu \text{erf}(\infty) & \text{definition of error function} \\
+                                                             &= \mu & \text{probability of $Y$ falling between $-\infty$ and $\infty$}.
+\end{align*} 
+Combining all of the above we get
+\begin{align*}
+  E[X] &= \frac{\sqrt{2\sigma^2}}{\sqrt{\pi}} \times 0 + \mu 
+       &= \mu.\\
+\end{align*}
+
+
+b. 
+\begin{align*}
+  Var[X] &= E[(X - E[X])^2] \\
+         &= E[(X - \mu)^2] \\
+         &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty (x - \mu)^2 e^{-\frac{(x - \mu)^2}{2\sigma^2}} dx \\
+         &= \frac{\sigma^2}{\sqrt{2\pi}} \int_{-\infty}^\infty t^2 e^{-\frac{t^2}{2}} dt \\
+         &= \frac{\sigma^2}{\sqrt{2\pi}} \bigg(\Big(- t e^{-\frac{t^2}{2}} |_{-\infty}^\infty \Big) + \int_{-\infty}^\infty e^{-\frac{t^2}{2}} \bigg) dt & \text{integration by parts} \\
+         &= \frac{\sigma^2}{\sqrt{2\pi}} \sqrt{2 \pi} \int_{-\infty}^\infty  \frac{1}{\sqrt(\pi)}e^{-s^2} \bigg) & s = \frac{t}{\sqrt{2}} \text{ and evaluating the left expression at the bounds} \\
+         &= \frac{\sigma^2}{\sqrt{2\pi}} \sqrt{2 \pi} \Big(\text{erf}(\infty) & \text{definition of error function} \\
+         &= \sigma^2.
+\end{align*}
+
+</div>\EndKnitrBlock{solution}
+
 ## Sums, functions, conditional expectations
 
-\BeginKnitrBlock{exercise}\iffalse{-91-83-117-109-32-111-102-32-105-110-100-101-112-101-110-100-101-110-116-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-115-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-11"><strong>(\#exr:unnamed-chunk-11)  \iffalse (Sum of independent random variables) \fi{} </strong></span>Let $X_1, X_2,...,X_n$ be IID random variables with expected value $E[X_i] = \mu$ and variance $Var[X_i] = \sigma^2$. Find the expected value and variance of $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$. $\bar{X}$ is called a _statistic_ (a function of the values in a sample). It is itself a random variable. <span style="color:blue">R: Take $n = 5, 10, 100, 1000$ samples from the N($2$, $6$) distribution 10000 times. Plot the theoretical density and the densities of $\bar{X}$ statistic for each $n$. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span>
+\BeginKnitrBlock{exercise}\iffalse{-91-83-117-109-32-111-102-32-105-110-100-101-112-101-110-100-101-110-116-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-115-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-12"><strong>(\#exr:unnamed-chunk-12)  \iffalse (Sum of independent random variables) \fi{} </strong></span>Let $X_1, X_2,...,X_n$ be IID random variables with expected value $E[X_i] = \mu$ and variance $Var[X_i] = \sigma^2$. Find the expected value and variance of $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$. $\bar{X}$ is called a _statistic_ (a function of the values in a sample). It is itself a random variable. <span style="color:blue">R: Take $n = 5, 10, 100, 1000$ samples from the N($2$, $6$) distribution 10000 times. Plot the theoretical density and the densities of $\bar{X}$ statistic for each $n$. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span>
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Let us start with the expectation of $\bar{X}$.
 
@@ -301,4 +358,4 @@ ggplot(data = X, aes(x = value, colour = variable)) +
                 color = "black")
 ```
 
-<img src="07-expected_value_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="07-expected_value_files/figure-html/unnamed-chunk-14-1.png" width="672" />

@@ -251,7 +251,7 @@ a.
        &= \lambda^{-1}.
 \end{align*}
 
-  
+
 b.
 \begin{align*}
   Var[X] &= E[X^2] - E[X]^2  & \\
@@ -271,9 +271,9 @@ b.
 Let $X \sim \text{N}(\mu, \sigma)$.
 
 
-a. Find $E[X]$.
+a. Show that $E[X] = \mu$. Hint: Use the error function $\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt$. The statistical interpretation of this function is that if $Y \sim \text{N}(0, 0.5)$, then the error function describes the probability of $Y$ falling between $-x$ and $x$.
 
-b. Find $Var[X]$.
+b. Show that $Var[X] = \sigma^2$. Hint: Start with the definition of variance.
 
 
 ```
@@ -282,23 +282,46 @@ b. Find $Var[X]$.
 
 a.
 \begin{align*}
-  E[X] &= \int_{-\infty}^\infty  dx & \\
-       &= \lambda \int_0^\infty x e^{-\lambda x} dx & \\
-       &= \lambda \int_0^\infty \frac{t}{\lambda} e^{-t} \frac{dt}{\lambda} & \text{$t = \lambda x$}\\
-       &= \lambda \lambda^{-2} \Gamma(2) & \text{definition of gamma function}  \\
-       &= \lambda^{-1}.
+  E[X] &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} x dx & \\
+       &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty x e^{-\frac{(x - \mu)^2}{2\sigma^2}} dx & \\
+       &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty \Big(t \sqrt{2\sigma^2} + \mu\Big)e^{-t^2} \sqrt{2 \sigma^2} dt & t = \frac{x - \mu}{\sqrt{2\sigma}} \\
+       &= \frac{\sqrt{2\sigma^2}}{\sqrt{\pi}} \int_{-\infty}^\infty t  e^{-t^2} dt + \frac{1}{\sqrt{\pi}} \int_{-\infty}^\infty \mu e^{-t^2} dt & \\
 \end{align*}
 
-  
-b.
+Let us calculate these integrals separately.
 \begin{align*}
-  Var[X] &= E[X^2] - E[X]^2  & \\
-         &= \int_0^\infty \lambda e^{-\lambda x} x^2 dx - \lambda^{-2} & \\
-         &= \lambda \int_0^\infty \frac{t^2}{\lambda^2} e^{-t} \frac{dt}{\lambda} - \lambda^{-2} &  \text{$t = \lambda x$} \\
-         &= \lambda \lambda^{-3} \Gamma(3) - \lambda^{-2} &  \text{definition of gamma function} &  \\
-         &= \lambda^{-2} 2 \Gamma(2) - \lambda^{-2} & \\
-         &= 2 \lambda^{-2} - \lambda^{-2} & \\
-         &= \lambda^{-2}. & \\
+  \int t e^{-t^2} dt &= -\frac{1}{2}\int e^{s} ds & s = -t^2 \\
+                     &= -\frac{e^s}{2} + C \\
+                     &= -\frac{e^{-t^2}}{2} + C & \text{undoing substitution}.
+\end{align*}
+Inserting the integration limits we get 
+\begin{align*}
+  \int_{-\infty}^\infty t e^{-t^2} dt &= 0,
+\end{align*}
+due to the integrated function being symmetric.
+
+Reordering the second integral we get
+\begin{align*}
+  \mu \frac{1}{\sqrt{\pi}} \int_{-\infty}^\infty e^{-t^2} dt &= \mu \text{erf}(\infty) & \text{definition of error function} \\
+                                                             &= \mu & \text{probability of $Y$ falling between $-\infty$ and $\infty$}.
+\end{align*} 
+Combining all of the above we get
+\begin{align*}
+  E[X] &= \frac{\sqrt{2\sigma^2}}{\sqrt{\pi}} \times 0 + \mu 
+       &= \mu.\\
+\end{align*}
+
+
+b. 
+\begin{align*}
+  Var[X] &= E[(X - E[X])^2] \\
+         &= E[(X - \mu)^2] \\
+         &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty (x - \mu)^2 e^{-\frac{(x - \mu)^2}{2\sigma^2}} dx \\
+         &= \frac{\sigma^2}{\sqrt{2\pi}} \int_{-\infty}^\infty t^2 e^{-\frac{t^2}{2}} dt \\
+         &= \frac{\sigma^2}{\sqrt{2\pi}} \bigg(\Big(- t e^{-\frac{t^2}{2}} |_{-\infty}^\infty \Big) + \int_{-\infty}^\infty e^{-\frac{t^2}{2}} \bigg) dt & \text{integration by parts} \\
+         &= \frac{\sigma^2}{\sqrt{2\pi}} \sqrt{2 \pi} \int_{-\infty}^\infty  \frac{1}{\sqrt(\pi)}e^{-s^2} \bigg) & s = \frac{t}{\sqrt{2}} \text{ and evaluating the left expression at the bounds} \\
+         &= \frac{\sigma^2}{\sqrt{2\pi}} \sqrt{2 \pi} \Big(\text{erf}(\infty) & \text{definition of error function} \\
+         &= \sigma^2.
 \end{align*}
 
 
