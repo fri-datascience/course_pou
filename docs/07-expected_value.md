@@ -9,6 +9,7 @@ The students are expected to acquire the following knowledge:
 - Calculation of the expected value.
 - Calculation of variance and covariance.
 - Cauchy distribution.
+- <span style="color:red">Add expected value of a variable with non-Riemann integrable? ERIK?</span>
 
 **R**
 
@@ -311,7 +312,99 @@ b.
 
 ## Sums, functions, conditional expectations
 
-\BeginKnitrBlock{exercise}\iffalse{-91-83-117-109-32-111-102-32-105-110-100-101-112-101-110-100-101-110-116-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-115-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-12"><strong>(\#exr:unnamed-chunk-12)  \iffalse (Sum of independent random variables) \fi{} </strong></span>Let $X_1, X_2,...,X_n$ be IID random variables with expected value $E[X_i] = \mu$ and variance $Var[X_i] = \sigma^2$. Find the expected value and variance of $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$. $\bar{X}$ is called a _statistic_ (a function of the values in a sample). It is itself a random variable. <span style="color:blue">R: Take $n = 5, 10, 100, 1000$ samples from the N($2$, $6$) distribution 10000 times. Plot the theoretical density and the densities of $\bar{X}$ statistic for each $n$. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span>
+\BeginKnitrBlock{exercise}\iffalse{-91-69-120-112-101-99-116-97-116-105-111-110-32-111-102-32-116-114-97-110-115-102-111-114-109-97-116-105-111-110-115-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-12"><strong>(\#exr:unnamed-chunk-12)  \iffalse (Expectation of transformations) \fi{} </strong></span>Let $X$ follow a normal distribution.
+
+a. Find $E[2X + 4]$.
+
+b. Find $E[X^2]$.
+
+c. Find $E[\exp(X)]$.
+
+d. <span style="color:blue">R: Check your results numerically for $\mu = 0.4$ and $\sigma^2 = 0.25$ and plot the densities of all four distributions.</span>
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+a.
+\begin{align}
+  E[2X + 4] &= 2E[X] + 4 & \text{linearity of expectation} \\
+            &= 2\mu + 4. \\
+\end{align}
+  
+  
+b.
+\begin{align}
+  E[X^2] &= E[X]^2 - Var[X] & \text{definition of variance} \\
+         &= \mu^2 + \sigma^2.
+\end{align}
+  
+
+c.
+\begin{align}
+  E[\exp(X)] &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} e^x dx & \\
+             &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty  e^{\frac{2 \sigma^2 x}{2\sigma^2} -\frac{(x - \mu)^2}{2\sigma^2}} dx & \\
+             &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty  e^{-\frac{x^2 - 2x(\mu + \sigma^2) + \mu^2}{2\sigma^2}} dx & \\
+             &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty  e^{-\frac{(x - (\mu + \sigma^2))^2 + \mu^2 - (\mu + \sigma^2)^2}{2\sigma^2}} dx & \text{complete the square} \\
+             &= \frac{1}{\sqrt{2\pi \sigma^2}} e^{\frac{- \mu^2 + (\mu + \sigma^2)^2}{2\sigma^2}} \int_{-\infty}^\infty  e^{-\frac{(x - (\mu + \sigma^2))^2}{2\sigma^2}} dx &  \\
+             &= \frac{1}{\sqrt{2\pi \sigma^2}} e^{\frac{- \mu^2 + (\mu + \sigma^2)^2}{2\sigma^2}} \sigma \sqrt{2 \pi} \text{erf}(\infty) & \text{using the same substitutions as in \@ref(exr:normev)} \\
+             &= e^{\frac{2\mu + \sigma^2}{2}}.
+\end{align}
+</div>\EndKnitrBlock{solution}
+
+```r
+set.seed(1)
+mu    <- 0.4
+sigma <- 0.5
+x     <- rnorm(100000, mean = mu, sd = sigma)
+
+mean(2*x + 4)
+```
+
+```
+## [1] 4.797756
+```
+
+```r
+2 * mu + 4
+```
+
+```
+## [1] 4.8
+```
+
+```r
+mean(x^2)
+```
+
+```
+## [1] 0.4108658
+```
+
+```r
+mu^2 + sigma^2
+```
+
+```
+## [1] 0.41
+```
+
+```r
+mean(exp(x))
+```
+
+```
+## [1] 1.689794
+```
+
+```r
+exp((2 * mu + sigma^2) / 2)
+```
+
+```
+## [1] 1.690459
+```
+
+
+\BeginKnitrBlock{exercise}\iffalse{-91-83-117-109-32-111-102-32-105-110-100-101-112-101-110-100-101-110-116-32-114-97-110-100-111-109-32-118-97-114-105-97-98-108-101-115-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-15"><strong>(\#exr:unnamed-chunk-15)  \iffalse (Sum of independent random variables) \fi{} </strong></span>Let $X_1, X_2,...,X_n$ be IID random variables with expected value $E[X_i] = \mu$ and variance $Var[X_i] = \sigma^2$. Find the expected value and variance of $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$. $\bar{X}$ is called a _statistic_ (a function of the values in a sample). It is itself a random variable. <span style="color:blue">R: Take $n = 5, 10, 100, 1000$ samples from the N($2$, $6$) distribution 10000 times. Plot the theoretical density and the densities of $\bar{X}$ statistic for each $n$. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span>
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Let us start with the expectation of $\bar{X}$.
 
@@ -358,4 +451,176 @@ ggplot(data = X, aes(x = value, colour = variable)) +
                 color = "black")
 ```
 
-<img src="07-expected_value_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="07-expected_value_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+
+\BeginKnitrBlock{exercise}\iffalse{-91-67-111-110-100-105-116-105-111-110-97-108-32-101-120-112-101-99-116-97-116-105-111-110-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-18"><strong>(\#exr:unnamed-chunk-18)  \iffalse (Conditional expectation) \fi{} </strong></span>Let $X \in \mathbb{R}_0^+$ and $Y \in \mathbb{N}_0$ be random variables with joint distribution $p_{XY}(X,Y) = \frac{1}{y + 1} e^{-\frac{x}{y + 1}} 0.5^{y + 1}$.
+
+a. Find $E[X | Y]$ by first finding $p_Y$ and then $p_{X|Y}$.
+
+b. Find $E[X]$.
+
+c. <span style="color:blue">R: check your answers to a) and b) by drawing 10000 samples from $p_Y$ and $p_{X|Y}$.</span>
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+
+a.
+\begin{align}
+  p(y) &= \int_0^\infty \frac{1}{y + 1} e^{-\frac{x}{y + 1}} 0.5^{y + 1} dx \\
+       &= \frac{0.5^{y + 1}}{y + 1} \int_0^\infty e^{-\frac{x}{y + 1}} dx \\
+       &= \frac{0.5^{y + 1}}{y + 1} (y + 1) \\
+       &= 0.5^{y + 1} \\
+       &= 0.5(1 - 0.5)^y.
+\end{align}
+We recognize this as the geometric distribution.
+\begin{align}
+  p(x|y) &= \frac{p(X,Y)}{P(Y)} \\
+         &= \frac{1}{y + 1} e^{-\frac{x}{y + 1}}.
+\end{align}
+We recognize this as the exponential distribution.
+\begin{align}
+  E[X | Y] &= \int_0^\infty x \frac{1}{y + 1} e^{-\frac{x}{y + 1}} dx \\
+           &= y + 1 & \text{expected value of the exponential distribution}
+\end{align}
+  
+b. Use the law of iterated expectation.
+\begin{align}
+  E[X] &= E[E[X | Y]] \\
+       &= E[Y + 1] \\
+       &= E[Y] + 1 \\
+       &= \frac{1 - 0.5}{0.5} + 1 \\
+       &= 2.
+\end{align}
+
+
+</div>\EndKnitrBlock{solution}
+
+```r
+set.seed(1)
+y  <- rgeom(100000, 0.5)
+x  <- rexp(100000, rate = 1 / (y + 1))
+x2 <- x[y == 3]
+
+mean(x2)
+```
+
+```
+## [1] 4.048501
+```
+
+```r
+3 + 1
+```
+
+```
+## [1] 4
+```
+
+```r
+mean(x)
+```
+
+```
+## [1] 2.007639
+```
+
+```r
+(1 - 0.5) / 0.5 + 1
+```
+
+```
+## [1] 2
+```
+
+
+## Covariance
+\BeginKnitrBlock{exercise}\iffalse{-91-67-111-118-97-114-105-97-110-99-101-32-111-102-32-99-111-110-116-105-110-117-111-117-115-32-118-97-114-105-97-98-108-101-115-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-21"><strong>(\#exr:unnamed-chunk-21)  \iffalse (Covariance of continuous variables) \fi{} </strong></span>Let $X \sim \text{Uniform}(0,1)$ and $Y | X = x \sim \text{Uniform(0,x)}$.
+
+a. Find the covariance of $X$ and $Y$.
+
+b. Find the correlation of $X$ and $Y$.
+
+c. <span style="color:blue">R: check your answers to a) and b) with simulation. Plot $X$ against $Y$ on a scatterplot and indicate the slope of the covariance. Add a smooting line of a linear model.</span>
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+a. The joint PDF is $p(x,y) = p(x)p(y|x) = \frac{1}{x}$.
+\begin{align}
+  Cov(X,Y) &= E[XY] - E[X]E[Y] \\
+\end{align}
+Let us first evaluate the first term:
+\begin{align}
+  E[XY] &= \int_0^1 \int_0^x x y \frac{1}{x} dy dx \\
+        &= \int_0^1 \int_0^x y dy dx \\
+        &= \int_0^1 \frac{x^2}{2} dx \\
+        &= \frac{1}{6}.
+\end{align}
+Now let us find $E[Y]$, $E[X]$ is trivial.
+\begin{align}
+  E[Y] = E[E[Y | X]] = E[\frac{X}{2}] = \frac{1}{2} \int_0^1 x dx = \frac{1}{4}.
+\end{align}
+Combining all:
+\begin{align}
+  Cov(X,Y) &= \frac{1}{6} - \frac{1}{2} \frac{1}{4} = \frac{1}{24}.
+\end{align}
+  
+b. 
+\begin{align}
+  \rho(X,Y) &= \frac{Cov(X,Y)}{\sqrt{Var[X]Var[Y]}} \\
+\end{align}
+Let us calculate $Var[X]$.
+\begin{align}
+  Var[X] &= E[X^2] - \frac{1}{4} \\
+         &= \int_0^1 x^2 - \frac{1}{4} \\
+         &= \frac{1}{3} - \frac{1}{4} \\
+         &= \frac{1}{12}.
+\end{align}
+Let us calculate $E[E[Y^2|X]]$.
+\begin{align}
+  E[E[Y^2|X]] &= E[\frac{x^2}{3}] \\
+              &= \frac{1}{9}.
+\end{align}
+Then $Var[Y] = \frac{1}{9} - \frac{1}{16} = \frac{7}{144}$. Combining all
+\begin{align}
+  \rho(X,Y) &= \frac{\frac{1}{24}}{\sqrt{\frac{1}{12}\frac{5}{144}}} \\
+            &= 0.65.
+\end{align}
+
+
+</div>\EndKnitrBlock{solution}
+
+```r
+set.seed(1)
+nsamps <- 100000
+x      <- runif(nsamps)
+y      <- runif(nsamps, 0, x)
+
+cov(x, y)
+```
+
+```
+## [1] 0.0416452
+```
+
+```r
+1/24
+```
+
+```
+## [1] 0.04166667
+```
+
+```r
+cor(x, y)
+```
+
+```
+## [1] 0.6537223
+```
+
+```r
+(1 / 24) / (sqrt(7 / (12 * 144)))
+```
+
+```
+## [1] 0.6546537
+```
