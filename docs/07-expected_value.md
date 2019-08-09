@@ -533,14 +533,116 @@ mean(x)
 ```
 
 
+\BeginKnitrBlock{exercise}\iffalse{-91-67-97-117-99-104-121-32-100-105-115-116-114-105-98-117-116-105-111-110-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-21"><strong>(\#exr:unnamed-chunk-21)  \iffalse (Cauchy distribution) \fi{} </strong></span>Let $p(x | x_0, \gamma) = \frac{1}{\pi \gamma \Big(1 + \big(\frac{x - x_0}{\gamma}\big)^2\Big)}$. A random variable with this PDF follows a Cauchy distribution. This distribution is symmetric and has wider tails than the normal distribution. 
+
+a. <span style="color:blue">R: Draw $n = 1,...,1000$ samples from a standard normal and $\text{Cauchy}(0, 1)$. For each $n$ plot the mean and the median of the sample using facets. Interpret the results.</span>
+  
+b. To get a mathematical explanation of the results in a), evaluate the integral $\int_0^\infty \frac{x}{1 + x^2} dx$ and consider that $E[X] = \int_{-\infty}^\infty \frac{x}{1 + x^2}dx$.
+</div>\EndKnitrBlock{exercise}
+
+```r
+set.seed(1)
+n         <- 1000
+means_n   <- vector(mode = "numeric", length = n)
+means_c   <- vector(mode = "numeric", length = n)
+medians_n <- vector(mode = "numeric", length = n)
+medians_c <- vector(mode = "numeric", length = n)
+for (i in 1:n) {
+  tmp_n        <- rnorm(i)
+  tmp_c        <- rcauchy(i)
+  means_n[i]   <- mean(tmp_n)
+  means_c[i]   <- mean(tmp_c)
+  medians_n[i] <- median(tmp_n)
+  medians_c[i] <- median(tmp_c)
+}
+df <- data.frame("distribution" = c(rep("normal", 2 * n),
+                                    rep("Cauchy", 2 * n)),
+                 "type"         = c(rep("mean", n),
+                                    rep("median", n),
+                                    rep("mean", n),
+                                    rep("median", n)),
+                 "value"        = c(means_n, medians_n, means_c, medians_c),
+                 "n"            = rep(1:n, times = 4))
+ggplot(df, aes(x = n, y = value)) +
+  geom_line(alpha = 0.5) +
+  facet_wrap(~ type + distribution , scales = "free")
+```
+
+<img src="07-expected_value_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+a.
+\begin{align}
+  \int_0^\infty \frac{x}{1 + x^2} dx &= \frac{1}{2} \int_0^\infty \frac{1}{u} du & u = 1 + x^2 \\
+                                     &= \frac{1}{2} \ln(x) |_0^\infty.
+\end{align}
+This integral is not finite. The same holds for the negative part. Therefore, the expectation is undefined.
+
+</div>\EndKnitrBlock{solution}
+
 ## Covariance
-\BeginKnitrBlock{exercise}\iffalse{-91-67-111-118-97-114-105-97-110-99-101-32-111-102-32-99-111-110-116-105-110-117-111-117-115-32-118-97-114-105-97-98-108-101-115-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-21"><strong>(\#exr:unnamed-chunk-21)  \iffalse (Covariance of continuous variables) \fi{} </strong></span>Let $X \sim \text{Uniform}(0,1)$ and $Y | X = x \sim \text{Uniform(0,x)}$.
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-24"><strong>(\#exr:unnamed-chunk-24) </strong></span>Below is a table of values for random variables $X$ and $Y$.
+
+X | Y
+-- | --
+2.1 | 8
+-0.5 | 11
+1 | 10
+-2 | 12
+4 | 9
+
+
+
+a. Find sample covariance of $X$ and $Y$.
+
+b. Find sample variances of $X$ and $Y$.
+
+c. Find sample correlation of $X$ and $Y$.
+
+d. Find sample variance of $Z = 2X - 3Y$.
+
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+a. $\bar{X} = 0.92$ and $\bar{Y} = 10$.
+\begin{align}
+  s(X, Y) &= \frac{1}{n - 1} \sum_{i=1}^5 (X_i - 0.92) (Y_i - 10) \\
+            &= -3.175.
+\end{align}
+
+b.
+\begin{align}
+  s(X) &= \frac{\sum_{i=1}^5(X_i - 0.92)^2}{5 - 1} \\
+       &= 5.357.
+\end{align}
+\begin{align}
+  s(Y) &= \frac{\sum_{i=1}^5(Y_i - 10)^2}{5 - 1} \\
+       &= 2.5.
+\end{align}
+  
+c.
+\begin{align}
+  r(X,Y) &= \frac{Cov(X,Y)}{\sqrt{Var[X]Var[Y]}} \\
+            &= \frac{-3.175}{\sqrt{5.357 \times 2.5}} \\
+            &= -8.68.
+\end{align}
+
+d.
+\begin{align}
+  s(Z) &= 2^2 s(X) + 3^2 s(Y) + 2 \times 2 \times 3 s(X, Y) \\
+       &= 4 \times 5.357 + 9 \times 2.5 + 12 \times 3.175 \\
+       &= 82.028.
+\end{align}
+
+</div>\EndKnitrBlock{solution}
+
+
+
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-26"><strong>(\#exr:unnamed-chunk-26) </strong></span>Let $X \sim \text{Uniform}(0,1)$ and $Y | X = x \sim \text{Uniform(0,x)}$.
 
 a. Find the covariance of $X$ and $Y$.
 
 b. Find the correlation of $X$ and $Y$.
 
-c. <span style="color:blue">R: check your answers to a) and b) with simulation. Plot $X$ against $Y$ on a scatterplot and indicate the slope of the covariance. Add a smooting line of a linear model.</span>
+c. <span style="color:blue">R: check your answers to a) and b) with simulation. Plot $X$ against $Y$ on a scatterplot.</span>
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 a. The joint PDF is $p(x,y) = p(x)p(y|x) = \frac{1}{x}$.
@@ -590,7 +692,7 @@ Then $Var[Y] = \frac{1}{9} - \frac{1}{16} = \frac{7}{144}$. Combining all
 
 ```r
 set.seed(1)
-nsamps <- 100000
+nsamps <- 10000
 x      <- runif(nsamps)
 y      <- runif(nsamps, 0, x)
 
@@ -598,7 +700,7 @@ cov(x, y)
 ```
 
 ```
-## [1] 0.0416452
+## [1] 0.04274061
 ```
 
 ```r
@@ -614,7 +716,7 @@ cor(x, y)
 ```
 
 ```
-## [1] 0.6537223
+## [1] 0.6629567
 ```
 
 ```r
@@ -624,3 +726,11 @@ cor(x, y)
 ```
 ## [1] 0.6546537
 ```
+
+```r
+ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "lm")
+```
+
+<img src="07-expected_value_files/figure-html/unnamed-chunk-28-1.png" width="672" />
