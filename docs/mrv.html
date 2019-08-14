@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-08-09">
+<meta name="date" content="2019-08-14">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -300,25 +300,127 @@ plot_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span c
 <p><img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
 
 <div class="exercise">
-<p><span id="exr:mvneigen" class="exercise"><strong>Exercise 8.2  (Eigendecomposition)  </strong></span></p>
-<ol style="list-style-type: lower-alpha">
-<li></div>
-<p></p>
-<div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p></li>
-<li><p>1</p></li>
+<p><span id="exr:mvneigen" class="exercise"><strong>Exercise 8.2  (Eigendecomposition)  </strong></span><span style="color:blue">R: Let <span class="math inline">\(\Sigma = U \Lambda U^T\)</span> be the eigendecomposition of covariance matrix <span class="math inline">\(\sigma\)</span>. Follow the procdeure below, to sample from a multivariate normal with <span class="math inline">\(\mu = [-2, 1]^T\)</span> and <span class="math inline">\(\Sigma = \begin{bmatrix}  0.3, -0.5 \\  -0.5, 1.6 \end{bmatrix}\)</span>:</span></p>
+<ol style="list-style-type: decimal">
+<li><p><span style="color:blue">Sample from two independent standardized normal distributions to get <span class="math inline">\(X\)</span>.</span></p></li>
+<li><p><span style="color:blue">Find the eigen decomposition of <span class="math inline">\(X\)</span> (<em>eigen</em>).</span></p></li>
+<li><p><span style="color:blue">Multiply <span class="math inline">\(X\)</span> by <span class="math inline">\(\Lambda^{\frac{1}{2}}\)</span> to get <span class="math inline">\(X2\)</span>. Consider how the eigendecomposition for <span class="math inline">\(X2\)</span> changes compared to <span class="math inline">\(X\)</span>. </span></p></li>
+<li><p><span style="color:blue">Multiply <span class="math inline">\(X2\)</span> by <span class="math inline">\(U\)</span> to get <span class="math inline">\(X3\)</span>. Consider how the eigendecomposition for <span class="math inline">\(X3\)</span> changes compared to <span class="math inline">\(X2\)</span>. </span></p></li>
+<li><p><span style="color:blue">Add <span class="math inline">\(\mu\)</span> to <span class="math inline">\(X3\)</span>. Consider how the eigendecomposition for <span class="math inline">\(X4\)</span> changes compared to <span class="math inline">\(X3\)</span>. </span></p></li>
+<li><p><span style="color:blue">Plot the data and the eigenvectors (scaled with <span class="math inline">\(\Lambda^{\frac{1}{2}}\)</span>) at each step. Hint: Use <em>geom_segment</em> for the eigenvectors. </span></p></li>
 </ol>
 </div>
 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a</span>
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
-sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="fl">1.2</span>, <span class="fl">-0.8</span>,
-                         <span class="fl">-0.8</span>, <span class="fl">1.6</span>),
+sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">-0.5</span>,
+                         <span class="fl">-0.5</span>, <span class="fl">1.6</span>),
                 <span class="dt">nrow  =</span> <span class="dv">2</span>,
                 <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
 ed    &lt;-<span class="st"> </span><span class="kw">eigen</span>(sigma)
-eval  &lt;-<span class="st"> </span>ed<span class="op">$</span>values
-evec  &lt;-<span class="st"> </span>ed<span class="op">$</span>vectors</code></pre>
+e_val  &lt;-<span class="st"> </span>ed<span class="op">$</span>values
+e_vec  &lt;-<span class="st"> </span>ed<span class="op">$</span>vectors
+
+
+
+<span class="co"># b</span>
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
+X      &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">rnorm</span>(nsamps <span class="op">*</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)
+vec1   &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">nrow =</span> <span class="dv">2</span>)
+
+X2     &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sqrt</span>(<span class="kw">diag</span>(e_val)) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X))
+vec2   &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">diag</span>(e_val)) <span class="op">%*%</span><span class="st"> </span>vec1
+
+X3     &lt;-<span class="st"> </span><span class="kw">t</span>(e_vec <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X2))
+vec3   &lt;-<span class="st"> </span>e_vec <span class="op">%*%</span><span class="st"> </span>vec2
+
+X4     &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">t</span>(X3))
+vec4   &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>vec3
+
+vec_mat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>),
+                      <span class="kw">t</span>(<span class="kw">cbind</span>(vec1, vec2, vec3, vec4)),
+                      <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>))
+
+
+df     &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">rbind</span>(X, X2, X3, X4), <span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>, nsamps),
+                                             <span class="kw">rep</span>(<span class="dv">2</span>, nsamps),
+                                             <span class="kw">rep</span>(<span class="dv">3</span>, nsamps),
+                                             <span class="kw">rep</span>(<span class="dv">4</span>, nsamps)))
+
+
+<span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;D1&quot;</span>, <span class="st">&quot;D2&quot;</span>, <span class="st">&quot;wh&quot;</span>)
+<span class="kw">colnames</span>(vec_mat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;D1&quot;</span>, <span class="st">&quot;D2&quot;</span>, <span class="st">&quot;E1&quot;</span>, <span class="st">&quot;E2&quot;</span>, <span class="st">&quot;wh&quot;</span>)
+<span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> D1, <span class="dt">y =</span> D2)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> vec_mat, <span class="kw">aes</span>(<span class="dt">xend =</span> E1, <span class="dt">yend =</span> E2), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>wh) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre>
+<p><img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+
+<div class="exercise">
+<p><span id="exr:mvncond" class="exercise"><strong>Exercise 8.3  (Marginal and conditional distributions)  </strong></span>Let <span class="math inline">\(X \sim \text{N}(\mu, \Sigma)\)</span>, where $= [2, 0, -1]^T and <span class="math inline">\(\Sigma = \begin{bmatrix}  1 &amp; -0.2 &amp; 0.5 \\  -0.2 &amp; 1.4 &amp; 0 \\  0.5 &amp; 0 &amp; 2 \\ \end{bmatrix}\)</span>. <span style="color:blue">R: For the calculation in the following points, you can use R.</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find the distribution of <span class="math inline">\(\Sigma_A\)</span>.</p></li>
+<li><p>Find the distribution of <span class="math inline">\(\Sigma_A | Sigma_B\)</span>.</p></li>
+<li><p>Find the distribution of.</p></li>
+<li><p>Find the distribution of.</p></li>
+<li><p>Find the distribution of.</p></li>
+<li><p><span style="color:blue">R: Visually compare the distributions of a) and b), and c), d) and e) at different conditional values.</span></p>
+</div></li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r">mu    &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">-1</span>)
+Sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">-0.2</span>, <span class="fl">0.5</span>,
+                  <span class="fl">-0.2</span>, <span class="fl">1.4</span>, <span class="fl">-1.2</span>,
+                  <span class="fl">0.5</span>, <span class="fl">-1.2</span>, <span class="dv">2</span>),
+                <span class="dt">nrow =</span> <span class="dv">3</span>,
+                <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
+mu_A     &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)
+mu_B     &lt;-<span class="st"> </span><span class="dv">-1</span>
+Sigma_A  &lt;-<span class="st"> </span>Sigma[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]
+Sigma_B  &lt;-<span class="st"> </span>Sigma[<span class="dv">3</span>, <span class="dv">3</span>]
+Sigma_AB &lt;-<span class="st"> </span>Sigma[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">3</span>]
+
+
+<span class="co"># b</span>
+tmp_b   &lt;-<span class="st"> </span>Sigma_AB <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>Sigma_B)
+mu_b    &lt;-<span class="st"> </span>mu_A <span class="op">-</span><span class="st"> </span>tmp_b <span class="op">*</span><span class="st"> </span>mu_B
+Sigma_b &lt;-<span class="st"> </span>Sigma_B <span class="op">-</span><span class="st"> </span><span class="kw">t</span>(Sigma_AB) <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(Sigma_A) <span class="op">%*%</span><span class="st"> </span>Sigma_AB
+
+tmp_b</code></pre>
+<pre><code>## [1]  0.25 -0.60</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">mu_b</code></pre>
+<pre><code>## [1]  2.25 -0.60</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Sigma_b</code></pre>
+<pre><code>##           [,1]
+## [1,] 0.8602941</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># d</span>
+Sigma_d &lt;-<span class="st"> </span>Sigma_A <span class="op">-</span><span class="st"> </span>(Sigma_AB <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>Sigma_B)) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(Sigma_AB)
+Sigma_d</code></pre>
+<pre><code>##       [,1] [,2]
+## [1,] 0.875 0.10
+## [2,] 0.100 0.68</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Sigma_d</code></pre>
+<pre><code>##       [,1] [,2]
+## [1,] 0.875 0.10
+## [2,] 0.100 0.68</code></pre>
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\mu_A = [2, 0, -1]^T\)</span> and <span class="math inline">\(\Sigma_A = \begin{bmatrix}  1 &amp; -0.2 &amp; \\  -0.2 &amp; 1.4 \\ \end{bmatrix}\)</span>.</p></li>
+<li><p><span class="math display">\[\begin{align}
+  X_A | X_B &amp;= b \sim \text{N}(\mu_t, \Sigma_t), \\
+  \mu_t     &amp;= [2.25, -0.6]^T + [2.25, -0.6]^T b, \\
+  \Sigma_t  &amp;= 
+  \begin{bmatrix} 
+  0.875 &amp; 0.1 \\
+  0.1 &amp; 0.68 \\
+\end{bmatrix}
+\end{align}\]</span></p></li>
+</ol>
+</div>
+
 
 </div>
 </div>
