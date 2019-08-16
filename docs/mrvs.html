@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-08-14">
+<meta name="date" content="2019-08-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -167,7 +167,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
-<li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multivariate normal random variables</a></li>
+<li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
+<li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
+<li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
@@ -273,64 +275,12 @@ df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt"
 <span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a)</code></pre>
 <p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
-
-<div class="exercise">
-<p><span id="exr:mnompdf" class="exercise"><strong>Exercise 5.1  (Multinomial distribution)  </strong></span>Let <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i = 1,...,k\)</span> represent <span class="math inline">\(k\)</span> events, and <span class="math inline">\(p_i\)</span> the probabilities
-of these events happening in a trial. Let <span class="math inline">\(n\)</span> be the number of trials, and
-<span class="math inline">\(X\)</span> a multivariate random variable, the collection of <span class="math inline">\(X_i\)</span>.
-Then <span class="math inline">\(p(x) = \frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}\)</span>
-is the PMF of a multinomial distribution.</p>
-<ol style="list-style-type: lower-alpha">
-<li><p>Show that the marginal distribution of <span class="math inline">\(X_i\)</span> is a binomial distribution.</p></li>
-<li><p>Take 1000 samples from the multinomial distribution with <span class="math inline">\(n=4\)</span> and
-probabilities <span class="math inline">\(p = (0.2, 0.2, 0.5, 0.1)\)</span>. Then take 1000 samples from
-four binomial distributions with the same parameters. Inspect the results
-visually.</p></li>
-</ol>
-</div>
-
-
-<div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
-<ol style="list-style-type: lower-alpha">
-<li>We will approach this proof from the probabilistic point of view.
-W.L.O.G. let <span class="math inline">\(x_1\)</span> be the marginal distribution we are interested in.
-The term <span class="math inline">\(p^{x_1}\)</span> denotes the probability that event 1 happened <span class="math inline">\(x_1\)</span> times.
-For this event not to happen, one of the other events needs to happen. So
-for each of the remaining trials, the probability of another event is
-<span class="math inline">\(\sum_{i=2}^k p_i = 1 - p_1\)</span>, and there were <span class="math inline">\(n - x_1\)</span> such trials.
-What is left to do is to calculate the number of permutations of event 1
-happening and event 1 not happening. We choose <span class="math inline">\(x_1\)</span> trials, from <span class="math inline">\(n\)</span> trials.
-Therefore <span class="math inline">\(p(x_1) = \binom{n}{x_1} p_1^{x_1} (1 - p_1)^{n - x_1}\)</span>, which is
-the binomial PMF. Interested students are encouraged to prove this
-mathematically.
-</div></li>
-</ol>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-nsamps      &lt;-<span class="st"> </span><span class="dv">1000</span>
-samps_mult  &lt;-<span class="st"> </span><span class="kw">rmultinom</span>(nsamps, <span class="dv">4</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>))
-samps_mult  &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(<span class="kw">t</span>(samps_mult)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">gather</span>()
-samps       &lt;-<span class="st"> </span><span class="kw">tibble</span>(
-  <span class="dt">V1 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.2</span>),
-  <span class="dt">V2 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.2</span>),
-  <span class="dt">V3 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.5</span>),
-  <span class="dt">V4 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.1</span>)
-) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">gather</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">bind_rows</span>(samps_mult) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">bind_cols</span>(<span class="st">&quot;dist&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;binomial&quot;</span>, <span class="dv">4</span><span class="op">*</span>nsamps), <span class="kw">rep</span>(<span class="st">&quot;multinomial&quot;</span>, <span class="dv">4</span><span class="op">*</span>nsamps)))
-
-<span class="kw">ggplot</span>(samps, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> dist)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>key)</code></pre>
-<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="bivariate-distribution-examples" class="section level2">
 <h2><span class="header-section-number">5.2</span> Bivariate distribution examples</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 1.3  (Discrete bivariate random variable)  </strong></span>Let <span class="math inline">\(X\)</span> represent the event that a die rolls an even number and let <span class="math inline">\(Y\)</span>
+<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 1.2  (Discrete bivariate random variable)  </strong></span>Let <span class="math inline">\(X\)</span> represent the event that a die rolls an even number and let <span class="math inline">\(Y\)</span>
 represent the event that
 a die rolls one, two, or a three.</p>
 <ol style="list-style-type: lower-alpha">
@@ -370,7 +320,7 @@ P(X = 1 | Y = 1) = \frac{1}{3}
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 1.4  (Continuous bivariate random variable)  </strong></span>Let <span class="math inline">\(p(x,y) = 6 (x - y)^2\)</span> be the PDF of a bivariate random
+<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 1.3  (Continuous bivariate random variable)  </strong></span>Let <span class="math inline">\(p(x,y) = 6 (x - y)^2\)</span> be the PDF of a bivariate random
 variable <span class="math inline">\((X,Y)\)</span>, where both variables range from zero to one.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Find CDF.</p></li>
@@ -428,7 +378,7 @@ df           &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(x
 df           &lt;-<span class="st"> </span><span class="kw">cbind</span>(df, <span class="dt">pdf =</span> <span class="kw">get_pdf</span>(df<span class="op">$</span>x, df<span class="op">$</span>y))
 <span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> pdf)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
-<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># b</span>
 mar_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x) {
   <span class="kw">return</span> (<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
@@ -444,10 +394,10 @@ df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt"
 <span class="st">  </span><span class="kw">gather</span>(dist, value, <span class="op">-</span>x)
 <span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value, <span class="dt">color =</span> dist)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
-<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-11" class="exercise"><strong>Exercise 5.2  (Mixed bivariate random variable)  </strong></span>Let <span class="math inline">\(f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}\)</span>
+<p><span id="exr:unnamed-chunk-9" class="exercise"><strong>Exercise 3.1  (Mixed bivariate random variable)  </strong></span>Let <span class="math inline">\(f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}\)</span>
 be the PDF of a bivariate random variable, where <span class="math inline">\(x \in (0, \infty)\)</span> and
 <span class="math inline">\(y \in \mathbb{N}_0\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
@@ -505,14 +455,14 @@ nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
 rx     &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsamps, <span class="dv">1</span>, <span class="dv">1</span>)
 ryx    &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, rx)
 <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre>
-<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> px, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">beta =</span> <span class="dv">1</span>), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</code></pre>
-<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 1.7  </strong></span>Let <span class="math inline">\(f(x,y) = cx^2y\)</span> for <span class="math inline">\(x^2 \leq y \leq 1\)</span> and zero otherwise.
+<span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 1.6  </strong></span>Let <span class="math inline">\(f(x,y) = cx^2y\)</span> for <span class="math inline">\(x^2 \leq y \leq 1\)</span> and zero otherwise.
 Find such <span class="math inline">\(c\)</span> that <span class="math inline">\(f\)</span> is a PDF of a bivariate random
 variable. This exercise is borrowed from Wasserman.
 </div>
@@ -535,7 +485,7 @@ It follows <span class="math inline">\(c = \frac{21}{4}\)</span>.
 <h2><span class="header-section-number">5.3</span> Transformations</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-16" class="exercise"><strong>Exercise 2.1  </strong></span>Let <span class="math inline">\((X,Y)\)</span> be uniformly distributed on the unit ball
+<p><span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 1.7  </strong></span>Let <span class="math inline">\((X,Y)\)</span> be uniformly distributed on the unit ball
 <span class="math inline">\(\{(x,y,z) : x^2 + y^2 + z^2 \leq 1\}\)</span>. Let <span class="math inline">\(R = \sqrt{X^2 + Y^2 + Z^2}\)</span>.
 Find the CDF and PDF of <span class="math inline">\(R\)</span>.</p>
 </div>
@@ -554,67 +504,6 @@ divide it by the radius of the whole ball. We get the PDF by differentiating
 the CDF, so <span class="math inline">\(p(r) = 3r^2\)</span>.</p>
 </div>
 
-
-<div class="exercise">
-<p><span id="exr:unnamed-chunk-18" class="exercise"><strong>Exercise 2.2  </strong></span>Let <span class="math inline">\((U,V)\)</span> be a random variable with PDF <span class="math inline">\(p(u,v) = \frac{1}{8 \sqrt{u}}\)</span>,
-<span class="math inline">\(U \in [0,4]\)</span> and <span class="math inline">\(V \in [\sqrt{U}, \sqrt{U} - 1]\)</span>. Let <span class="math inline">\(X = \sqrt{U}\)</span> and
-<span class="math inline">\(Y = V - \sqrt{U}\)</span>.</p>
-<ol style="list-style-type: lower-alpha">
-<li><p>Find PDF of <span class="math inline">\((X,Y)\)</span>. What can you tell about distributions of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>?
-This exercise shows how we can simplify a probabilistic problem with a
-clever use of transformations.</p></li>
-<li><p><span style="color:blue">R: Take 1000 samples from <span class="math inline">\((X,Y)\)</span> and transform
-them with inverses of the above functions to get samples from <span class="math inline">\((U,V)\)</span>.
-Plot both sets of samples.</span></p></li>
-</ol>
-</div>
-
-
-<div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
-<ol style="list-style-type: lower-alpha">
-<li>First we need to find the inverse functions. Since <span class="math inline">\(x = \sqrt{u}\)</span> it
-follows that <span class="math inline">\(u = x^2\)</span>, and that <span class="math inline">\(x \in [-2,2]\)</span>. Similarly
-<span class="math inline">\(v = y + x\)</span> and <span class="math inline">\(y \in [0,1]\)</span>. Let us first find the Jacobian.
-<span class="math display">\[\renewcommand\arraystretch{1.6}
-J(x,y) =
-\begin{bmatrix}
-  \frac{\partial u}{\partial x} &amp;
-  \frac{\partial v}{\partial x} \\%[1ex] % &lt;-- 1ex more space between rows of matrix
-  \frac{\partial u}{\partial y} &amp;
-  \frac{\partial v}{\partial y}
-\end{bmatrix} =
-  \begin{bmatrix}
-  2x &amp;
-  1 \\%[1ex] % &lt;-- 1ex more space between rows of matrix
-  0 &amp;
-  1
-\end{bmatrix},
-\]</span>
-and the determinant is <span class="math inline">\(|J(x,y)| = 2x\)</span>. Putting everything together, we get
-<span class="math display">\[\begin{align}
-  p_{X,Y}(x,y) = p_{U,V}(x^2, y + x) |J(x,y)| = \frac{1}{8 \sqrt{x^2}} 2x = \frac{1}{4}.
-\end{align}\]</span>
-This reminds us of the Uniform distribution. Indeed we can see that
-<span class="math inline">\(p_X(x) = \frac{1}{4}\)</span> and <span class="math inline">\(p_Y(y) = 1\)</span>. So instead of dealing with an
-awkward PDF of <span class="math inline">\((U,V)\)</span> and the corresponding dynamic bounds, we are now
-looking at two independent Uniform random variables. In practice, this could
-make modeling much easier.</li>
-</ol>
-</div>
-
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
-x      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, <span class="dt">min =</span> <span class="dv">-2</span>, <span class="dt">max =</span> <span class="dv">2</span>)
-y      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps)
-orig   &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">vrs =</span> <span class="st">&quot;original&quot;</span>)
-u      &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span>
-v      &lt;-<span class="st"> </span>y <span class="op">+</span><span class="st"> </span>x
-transf &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> u, <span class="dt">y =</span> v, <span class="dt">vrs =</span> <span class="st">&quot;transformed&quot;</span>)
-df     &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(orig, transf)
-<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> vrs)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</code></pre>
-<p><img src="05-multiple_random_variables_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 
 </div>
 </div>

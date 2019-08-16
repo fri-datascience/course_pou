@@ -15,6 +15,65 @@ The students are expected to acquire the following knowledge:
 
 
 
+## Multinomial random variables
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:mnompdf"><strong>(\#exr:mnompdf) </strong></span>Let $X_i$, $i = 1,...,k$ represent $k$ events, and $p_i$ the probabilities
+of these events happening in a trial. Let $n$ be the number of trials, and
+$X$ a multivariate random variable, the collection of $X_i$. 
+Then $p(x) = \frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}$
+is the PMF of a multinomial distribution.
+
+a. Show that the marginal distribution of $X_i$ is a binomial distribution.
+
+b. Take 1000 samples from the multinomial distribution with $n=4$ and
+probabilities $p = (0.2, 0.2, 0.5, 0.1)$. Then take 1000 samples from 
+four binomial distributions with the same parameters. Inspect the results
+visually.
+
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+a. We will approach this proof from the probabilistic point of view.
+W.L.O.G. let $x_1$ be the marginal distribution we are interested in.
+The term $p^{x_1}$ denotes the probability that event 1 happened $x_1$ times.
+For this event not to happen, one of the other events needs to happen. So
+for each of the remaining trials, the probability of another event is
+$\sum_{i=2}^k p_i = 1 - p_1$, and there were $n - x_1$ such trials.
+What is left to do is to calculate the number of permutations of event 1
+happening and event 1 not happening. We choose $x_1$ trials, from $n$ trials.
+Therefore $p(x_1) = \binom{n}{x_1} p_1^{x_1} (1 - p_1)^{n - x_1}$, which is
+the binomial PMF. Interested students are encouraged to prove this 
+mathematically.</div>\EndKnitrBlock{solution}
+
+```r
+set.seed(1)
+nsamps      <- 1000
+samps_mult  <- rmultinom(nsamps, 4, prob = c(0.2, 0.2, 0.5, 0.1))
+samps_mult  <- as_tibble(t(samps_mult)) %>%
+  gather()
+samps       <- tibble(
+  V1 = rbinom(nsamps, 4, 0.2),
+  V2 = rbinom(nsamps, 4, 0.2),
+  V3 = rbinom(nsamps, 4, 0.5),
+  V4 = rbinom(nsamps, 4, 0.1)
+) %>%
+  gather() %>%
+  bind_rows(samps_mult) %>%
+  bind_cols("dist" = c(rep("binomial", 4*nsamps), rep("multinomial", 4*nsamps)))
+
+ggplot(samps, aes(x = value, fill = dist)) +
+  geom_bar(position = "dodge") +
+  facet_wrap(~ key)
+```
+
+<img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+
+
+\BeginKnitrBlock{exercise}\iffalse{-91-77-117-108-116-105-110-111-109-105-97-108-32-101-120-112-101-99-116-101-100-32-118-97-108-117-101-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:mnomev"><strong>(\#exr:mnomev)  \iffalse (Multinomial expected value) \fi{} </strong></span>Find the expected value, variance and covariance of the multinomial distribution.
+
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}The expected value... Use the differentiation trick.
+</div>\EndKnitrBlock{solution}
+
 ## Multivariate normal random variables
 \BeginKnitrBlock{exercise}\iffalse{-91-67-104-111-108-101-115-107-121-32-100-101-99-111-109-112-111-115-105-116-105-111-110-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:mvnchol"><strong>(\#exr:mvnchol)  \iffalse (Cholesky decomposition) \fi{} </strong></span>Let $X$ be a random vector of length $k$ with $X_i \sim \text{N}(0, 1)$ and $LL^*$ the Cholesky decomposition of a Hermitian positive-definite matrix $A$. Let $\mu$ be a vector of length $k$.
 
@@ -74,7 +133,7 @@ ggplot(data = plot_df, aes(x = D1, y = D2, colour = as.factor(var))) +
   geom_point()
 ```
 
-<img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 ```r
 # b
@@ -97,7 +156,7 @@ ggplot(data = plot_df, aes(x = D1,
   scale_shape_manual(values=1:10)
 ```
 
-<img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-3-2.png" width="672" />
+<img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-6-2.png" width="672" />
 
 
 \BeginKnitrBlock{exercise}\iffalse{-91-69-105-103-101-110-100-101-99-111-109-112-111-115-105-116-105-111-110-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:mvneigen"><strong>(\#exr:mvneigen)  \iffalse (Eigendecomposition) \fi{} </strong></span><span style="color:blue">R: Let $\Sigma = U \Lambda U^T$ be the eigendecomposition of covariance matrix $\sigma$. Follow the procdeure below, to sample from a multivariate normal with $\mu = [-2, 1]^T$ and $\Sigma =
@@ -167,7 +226,7 @@ ggplot(data = df, aes(x = D1, y = D2)) +
   coord_fixed()
 ```
 
-<img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 \BeginKnitrBlock{exercise}\iffalse{-91-77-97-114-103-105-110-97-108-32-97-110-100-32-99-111-110-100-105-116-105-111-110-97-108-32-100-105-115-116-114-105-98-117-116-105-111-110-115-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:mvncond"><strong>(\#exr:mvncond)  \iffalse (Marginal and conditional distributions) \fi{} </strong></span>Let $X \sim \text{N}(\mu, \Sigma)$, where $\mu = [2, 0, -1]^T and $\Sigma =
 \begin{bmatrix} 
@@ -272,3 +331,74 @@ b.
 \end{align}
 </div>\EndKnitrBlock{solution}
 
+## Transformations
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-10"><strong>(\#exr:unnamed-chunk-10) </strong></span>Let $(U,V)$ be a random variable with PDF $p(u,v) = \frac{1}{8 \sqrt{u}}$,
+$U \in [0,4]$ and $V \in [\sqrt{U}, \sqrt{U} - 1]$. Let $X = \sqrt{U}$ and
+$Y = V - \sqrt{U}$.
+
+a. Find PDF of $(X,Y)$. What can you tell about distributions of $X$ and $Y$?
+This exercise shows how we can simplify a probabilistic problem with a
+clever use of transformations.
+
+b. <span style="color:blue">R: Take 1000 samples from $(X,Y)$ and transform
+them with inverses of the above functions to get samples from $(U,V)$.
+Plot both sets of samples.</span>
+
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+a. First we need to find the inverse functions. Since $x = \sqrt{u}$ it
+follows that $u = x^2$, and that $x \in [-2,2]$. Similarly
+$v = y + x$ and $y \in [0,1]$. Let us first find the Jacobian.
+\[\renewcommand\arraystretch{1.6}
+J(x,y) =
+\begin{bmatrix}
+  \frac{\partial u}{\partial x} &
+  \frac{\partial v}{\partial x} \\%[1ex] % <-- 1ex more space between rows of matrix
+  \frac{\partial u}{\partial y} &
+  \frac{\partial v}{\partial y}
+\end{bmatrix} =
+  \begin{bmatrix}
+  2x &
+  1 \\%[1ex] % <-- 1ex more space between rows of matrix
+  0 &
+  1
+\end{bmatrix},
+\]
+and the determinant is $|J(x,y)| = 2x$. Putting everything together, we get
+\begin{align}
+  p_{X,Y}(x,y) = p_{U,V}(x^2, y + x) |J(x,y)| = \frac{1}{8 \sqrt{x^2}} 2x = \frac{1}{4}.
+\end{align}
+This reminds us of the Uniform distribution. Indeed we can see that 
+$p_X(x) = \frac{1}{4}$ and $p_Y(y) = 1$. So instead of dealing with an
+awkward PDF of $(U,V)$ and the corresponding dynamic bounds, we are now
+looking at two independent Uniform random variables. In practice, this could
+make modeling much easier.
+
+
+</div>\EndKnitrBlock{solution}
+
+```r
+set.seed(1)
+nsamps <- 1000
+x      <- runif(nsamps, min = -2, max = 2)
+y      <- runif(nsamps)
+orig   <- tibble(x = x, y = y, vrs = "original")
+u      <- x^2
+v      <- y + x
+transf <- tibble(x = u, y = v, vrs = "transformed")
+df     <- bind_rows(orig, transf)
+ggplot(df, aes(x = x, y = y, color = vrs)) +
+  geom_point(alpha = 0.3)
+```
+
+<img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-13"><strong>(\#exr:unnamed-chunk-13) </strong></span><span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare?</span> <span style="color:red">Compare?</span>
+
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}TODO: Inverse of the transformation (exists, because the inverse of Q exists). Jacobi (simplified?).</div>\EndKnitrBlock{solution}
+
+```r
+set.seed(1)
+```
