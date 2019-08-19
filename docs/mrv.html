@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-08-16">
+<meta name="date" content="2019-08-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -238,7 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 of these events happening in a trial. Let <span class="math inline">\(n\)</span> be the number of trials, and
 <span class="math inline">\(X\)</span> a multivariate random variable, the collection of <span class="math inline">\(X_i\)</span>.
 Then <span class="math inline">\(p(x) = \frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}\)</span>
-is the PMF of a multinomial distribution.</p>
+is the PMF of a multinomial distribution, where <span class="math inline">\(n = \sum_{i = 1}^k x_i\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Show that the marginal distribution of <span class="math inline">\(X_i\)</span> is a binomial distribution.</p></li>
 <li><p>Take 1000 samples from the multinomial distribution with <span class="math inline">\(n=4\)</span> and
@@ -286,12 +286,56 @@ samps       &lt;-<span class="st"> </span><span class="kw">tibble</span>(
 <p><img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 
 <div class="exercise">
-<p><span id="exr:mnomev" class="exercise"><strong>Exercise 8.2  (Multinomial expected value)  </strong></span>Find the expected value, variance and covariance of the multinomial distribution.</p>
+<p><span id="exr:mnomev" class="exercise"><strong>Exercise 8.2  (Multinomial expected value)  </strong></span>Find the expected value, variance and covariance of the multinomial distribution. Hint: First find the expected value for <span class="math inline">\(n = 1\)</span> and then use the fact that the trials are independent.</p>
 </div>
 
 
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> The expected value… Use the differentiation trick.</p>
+<p> <span class="solution"><em>Solution. </em></span> Let us first calculate the expected value of <span class="math inline">\(X_1\)</span>, when <span class="math inline">\(n = 1\)</span>.</p>
+<p><span class="math display">\[\begin{align}
+  E[X_1] &amp;= \sum_{n_1 = 0}^1 \sum_{n_2 = 0}^1 ... \sum_{n_k = 0}^1 \frac{1}{n_1!n_2!...n_k!}p_1^{n_1}p_2^{n_2}...p_k^{n_k}n_1 \\
+         &amp;= \sum_{n_1 = 0}^1 \frac{p_1^{n_1} n_1}{n_1!} \sum_{n_2 = 0}^1 ... \sum_{n_k = 0}^1 \frac{1}{n_2!...n_k!}p_2^{n_2}...p_k^{n_k}
+\end{align}\]</span>
+When <span class="math inline">\(n_1 = 0\)</span> then the whole terms is zero, so we do not need to evaluate other sums. When <span class="math inline">\(n_1 = 1\)</span>, all other <span class="math inline">\(n_i\)</span> must be zero, as we have <span class="math inline">\(1 = \sum_{i=1}^k n_i\)</span>. Therefore the other sums equal <span class="math inline">\(1\)</span>. So <span class="math inline">\(E[X_1] = p_1\)</span> and <span class="math inline">\(E[X_i] = p_i\)</span> for <span class="math inline">\(i = 1,...,k\)</span>.
+Now let <span class="math inline">\(Y_j\)</span>, <span class="math inline">\(j = 1,...,n\)</span>, have a multinomial distribution with <span class="math inline">\(n = 1\)</span>, and let <span class="math inline">\(X\)</span> have a multinomial distribution with and arbitrary <span class="math inline">\(n\)</span>. Then we can write <span class="math inline">\(X = \sum_{j=1}^n Y_j\)</span>. And due to independence
+<span class="math display">\[\begin{align}
+  E[X] &amp;= E[\sum_{j=1}^n Y_j] \\
+       &amp;= \sum_{j=1}^n E[Y_j] \\
+       &amp;= np.
+\end{align}\]</span>
+For the variance, we need <span class="math inline">\(E[X^2]\)</span>. Let us follow the same procedure as above and first calculate <span class="math inline">\(E[X_i]\)</span> for <span class="math inline">\(n = 1\)</span>. The only thing that changes is that the term <span class="math inline">\(n_i\)</span> becomes <span class="math inline">\(n_i^2\)</span>. Since we only have <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span> this does not change the outcome. So
+<span class="math display">\[\begin{align}
+  Var[X_i] &amp;= E[X_i^2] - E[X_i]^2\\
+           &amp;= p_i(1 - p_i).
+\end{align}\]</span>
+Analogous to above for arbitrary <span class="math inline">\(n\)</span>
+<span class="math display">\[\begin{align}
+  Var[X] &amp;= E[X^2] - E[X]^2 \\
+         &amp;= \sum_{j=1}^n E[Y_j^2] - \sum_{j=1}^n E[Y_j]^2 \\
+         &amp;= \sum_{j=1}^n E[Y_j^2] -  E[Y_j]^2 \\
+         &amp;= \sum_{j=1}^n p(1-p) \\
+         &amp;= np(1-p).
+\end{align}\]</span>
+To calculate the covariance, we need <span class="math inline">\(E[X_i X_j]\)</span>. Again, let us start with <span class="math inline">\(n = 1\)</span>. Without loss of generality, let us assume <span class="math inline">\(i = 1\)</span> and <span class="math inline">\(j = 2\)</span>.
+<span class="math display">\[\begin{align}
+  E[X_1 X_2] = \sum_{n_1 = 0}^1 \sum_{n_2 = 0}^1 \frac{p_1^{n_1} n_1}{n_1!} \frac{p_2^{n_2} n_2}{n_2!} \sum_{n_3 = 0}^1 ... \sum_{n_k = 0}^1 \frac{1}{n_3!...n_k!}p_3^{n_3}...p_k^{n_k}.
+\end{align}\]</span>
+In the above expression, at each iteration we multiply with <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span>. Since <span class="math inline">\(n = 1\)</span>, one of these always has to be zero. Therefore <span class="math inline">\(E[X_1 X_2] = 0\)</span> and
+<span class="math display">\[\begin{align}
+  Cov(X_i, X_j) &amp;= E[X_i X_j] - E[X_i]E[X_j] \\
+                &amp;= - p_i p_j.
+\end{align}\]</span>
+For arbitrary <span class="math inline">\(n\)</span>, let <span class="math inline">\(X_1 = \sum_{k = 1}^n X_{1k}\)</span> and <span class="math inline">\(X_2 = \sum_{l = 1}^n X_{2l}\)</span>, sums of intependent multinomial random variables with <span class="math inline">\(n=1\)</span>.
+<span class="math display">\[\begin{align}
+  Cov(X_1, X_2) &amp;= E[X_1 X_2] - E[X_1] E[X_2] \\
+                &amp;= E[\sum_{k = 1}^n X_{1k} \sum_{l = 1}^n X_{2l}] - n^2 p_1 p_2 \\
+                &amp;= \sum_{k = 1}^n \sum_{l = 1}^n E[X_{1k} X_{2l}] - n^2 p_1 p_2.
+\end{align}\]</span>
+For <span class="math inline">\(X_1k\)</span> and <span class="math inline">\(X_2l\)</span> the expected value is zero when <span class="math inline">\(k = l\)</span>. When <span class="math inline">\(k \neq l\)</span> then they are independent, so the expected value is the product <span class="math inline">\(p_1 p_2\)</span>. There are <span class="math inline">\(n^2\)</span> total terms, and for <span class="math inline">\(n\)</span> of them <span class="math inline">\(k = l\)</span> holds. So <span class="math inline">\(E[X_1 X_2] = (n^2 - n) p_1 p_2\)</span>. Inserting into the above
+<span class="math display">\[\begin{align}
+  Cov(X_1, X_2) &amp;= (n^2 - n) p_1 p_2 - n^2 p_1 p_2 \\
+                &amp;= - n p_1 p_2.
+\end{align}\]</span></p>
 </div>
 
 </div>
@@ -360,10 +404,10 @@ plot_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span c
 <span class="kw">colnames</span>(plot_df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;D1&quot;</span>, <span class="st">&quot;D2&quot;</span>, <span class="st">&quot;var&quot;</span>, <span class="st">&quot;samp&quot;</span>)
 <span class="kw">ggplot</span>(<span class="dt">data =</span> plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> D1, 
                            <span class="dt">y =</span> D2, 
-                           <span class="dt">color =</span> <span class="kw">as.factor</span>(var), 
-                           <span class="dt">shape =</span> <span class="kw">as.factor</span>(samp))) <span class="op">+</span>
+                           <span class="dt">shape =</span> <span class="kw">as.factor</span>(var), 
+                           <span class="dt">color =</span> <span class="kw">as.factor</span>(samp))) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre>
+<span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">16</span>))</code></pre>
 <p><img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
 
 <div class="exercise">
@@ -426,14 +470,13 @@ df     &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cl
 <p><img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 
 <div class="exercise">
-<p><span id="exr:mvncond" class="exercise"><strong>Exercise 8.5  (Marginal and conditional distributions)  </strong></span>Let <span class="math inline">\(X \sim \text{N}(\mu, \Sigma)\)</span>, where $= [2, 0, -1]^T and <span class="math inline">\(\Sigma = \begin{bmatrix}  1 &amp; -0.2 &amp; 0.5 \\  -0.2 &amp; 1.4 &amp; 0 \\  0.5 &amp; 0 &amp; 2 \\ \end{bmatrix}\)</span>. <span style="color:blue">R: For the calculation in the following points, you can use R.</span></p>
+<p><span id="exr:mvncond" class="exercise"><strong>Exercise 8.5  (Marginal and conditional distributions)  </strong></span>Let <span class="math inline">\(X \sim \text{N}(\mu, \Sigma)\)</span>, where <span class="math inline">\(\mu = [2, 0, -1]^T\)</span> and <span class="math inline">\(\Sigma = \begin{bmatrix}  1 &amp; -0.2 &amp; 0.5 \\  -0.2 &amp; 1.4 &amp; -1.2 \\  0.5 &amp; -1.2 &amp; 2 \\ \end{bmatrix}\)</span>. Let <span class="math inline">\(A\)</span> represent the first two random variables and <span class="math inline">\(B\)</span> the third random variable. <span style="color:blue">R: For the calculation in the following points, you can use R.</span></p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Find the distribution of <span class="math inline">\(\Sigma_A\)</span>.</p></li>
-<li><p>Find the distribution of <span class="math inline">\(\Sigma_A | Sigma_B\)</span>.</p></li>
-<li><p>Find the distribution of.</p></li>
-<li><p>Find the distribution of.</p></li>
-<li><p>Find the distribution of.</p></li>
-<li><p><span style="color:blue">R: Visually compare the distributions of a) and b), and c), d) and e) at different conditional values.</span></p>
+<li><p>Find the marginal distribution of <span class="math inline">\(B\)</span>.</p></li>
+<li><p>Find the conditional distribution of <span class="math inline">\(B | A\)</span>.</p></li>
+<li><p>Find the marginal distribution of <span class="math inline">\(A\)</span>.</p></li>
+<li><p>Find the conditional distribution of <span class="math inline">\(A | B\)</span>.</p></li>
+<li><p><span style="color:blue">R: Visually compare the distributions of a) and b), and c) and d) at three different conditional values.</span></p>
 </div></li>
 </ol>
 <pre class="sourceCode r"><code class="sourceCode r">mu    &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">-1</span>)
@@ -450,23 +493,27 @@ Sigma_AB &lt;-<span class="st"> </span>Sigma[<span class="dv">1</span><span clas
 
 
 <span class="co"># b</span>
-tmp_b   &lt;-<span class="st"> </span>Sigma_AB <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>Sigma_B)
-mu_b    &lt;-<span class="st"> </span>mu_A <span class="op">-</span><span class="st"> </span>tmp_b <span class="op">*</span><span class="st"> </span>mu_B
+tmp_b   &lt;-<span class="st"> </span><span class="kw">t</span>(Sigma_AB) <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(Sigma_A)
+mu_b    &lt;-<span class="st"> </span>mu_B <span class="op">-</span><span class="st"> </span>tmp_b <span class="op">%*%</span><span class="st"> </span>mu_A
 Sigma_b &lt;-<span class="st"> </span>Sigma_B <span class="op">-</span><span class="st"> </span><span class="kw">t</span>(Sigma_AB) <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(Sigma_A) <span class="op">%*%</span><span class="st"> </span>Sigma_AB
 
-tmp_b</code></pre>
-<pre><code>## [1]  0.25 -0.60</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">mu_b</code></pre>
-<pre><code>## [1]  2.25 -0.60</code></pre>
+mu_b</code></pre>
+<pre><code>##           [,1]
+## [1,] -1.676471</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">tmp_b</code></pre>
+<pre><code>##           [,1]       [,2]
+## [1,] 0.3382353 -0.8088235</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">Sigma_b</code></pre>
 <pre><code>##           [,1]
 ## [1,] 0.8602941</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># d</span>
+tmp_a   &lt;-<span class="st"> </span>Sigma_AB <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>Sigma_B)
+mu_a    &lt;-<span class="st"> </span>mu_A <span class="op">-</span><span class="st"> </span>tmp_a <span class="op">*</span><span class="st"> </span>mu_B
 Sigma_d &lt;-<span class="st"> </span>Sigma_A <span class="op">-</span><span class="st"> </span>(Sigma_AB <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>Sigma_B)) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(Sigma_AB)
-Sigma_d</code></pre>
-<pre><code>##       [,1] [,2]
-## [1,] 0.875 0.10
-## [2,] 0.100 0.68</code></pre>
+mu_a</code></pre>
+<pre><code>## [1]  2.25 -0.60</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">tmp_a</code></pre>
+<pre><code>## [1]  0.25 -0.60</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">Sigma_d</code></pre>
 <pre><code>##       [,1] [,2]
 ## [1,] 0.875 0.10
@@ -475,10 +522,12 @@ Sigma_d</code></pre>
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> </p>
 <ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(B \sim \text{N}(-1, 2)\)</span>.</p></li>
+<li><p><span class="math inline">\(B | A = a \sim \text{N}(-1.68 + [0.34, -0.81] a, 0.86)\)</span>.</p></li>
 <li><p><span class="math inline">\(\mu_A = [2, 0, -1]^T\)</span> and <span class="math inline">\(\Sigma_A = \begin{bmatrix}  1 &amp; -0.2 &amp; \\  -0.2 &amp; 1.4 \\ \end{bmatrix}\)</span>.</p></li>
 <li><p><span class="math display">\[\begin{align}
-  X_A | X_B &amp;= b \sim \text{N}(\mu_t, \Sigma_t), \\
-  \mu_t     &amp;= [2.25, -0.6]^T + [2.25, -0.6]^T b, \\
+  X_A | X_B = b &amp;\sim \text{N}(\mu_t, \Sigma_t), \\
+  \mu_t     &amp;= [2.25, -0.6]^T + [0.25, -0.6]^T b, \\
   \Sigma_t  &amp;= 
   \begin{bmatrix} 
   0.875 &amp; 0.1 \\
@@ -488,12 +537,51 @@ Sigma_d</code></pre>
 </ol>
 </div>
 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mvtnorm)
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
+
+<span class="co"># a</span>
+samps  &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">4</span> <span class="op">*</span><span class="st"> </span>nsamps, <span class="dt">ncol =</span> <span class="dv">2</span>))
+samps[<span class="dv">1</span><span class="op">:</span>nsamps,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, mu_B, Sigma_B)
+samps[<span class="dv">1</span><span class="op">:</span>nsamps,<span class="dv">2</span>] &lt;-<span class="st"> &quot;marginal&quot;</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {
+  a &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dv">1</span>, mu_A, Sigma_A)
+  samps[(i<span class="op">*</span>nsamps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>((i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>nsamps), <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps,
+                                                       mu_b <span class="op">+</span><span class="st"> </span>tmp_b <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(a),
+                                                       Sigma_b)
+  samps[(i<span class="op">*</span>nsamps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>((i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>nsamps), <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="co"># &quot;cond&quot;, </span>
+                                                        <span class="kw">round</span>(a, <span class="dt">digits =</span> <span class="dv">2</span>), 
+                                                        <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)
+}
+<span class="kw">colnames</span>(samps) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;dist&quot;</span>)
+<span class="kw">ggplot</span>(samps, <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>dist)</code></pre>
+<p><img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># b</span>
+samps  &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">4</span> <span class="op">*</span><span class="st"> </span>nsamps, <span class="dt">ncol =</span> <span class="dv">3</span>))
+samps[<span class="dv">1</span><span class="op">:</span>nsamps,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(nsamps, mu_A, Sigma_A)
+samps[<span class="dv">1</span><span class="op">:</span>nsamps,<span class="dv">3</span>]   &lt;-<span class="st"> &quot;marginal&quot;</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {
+  b &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>, mu_B, Sigma_B)
+  samps[(i<span class="op">*</span>nsamps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>((i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>nsamps), <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(nsamps,
+                                                           mu_a <span class="op">+</span><span class="st"> </span>tmp_a <span class="op">*</span><span class="st"> </span>b,
+                                                           Sigma_d)
+  samps[(i<span class="op">*</span>nsamps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>((i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>nsamps), <span class="dv">3</span>] &lt;-<span class="st"> </span>b
+}
+<span class="kw">colnames</span>(samps) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;dist&quot;</span>)
+<span class="kw">ggplot</span>(samps, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>dist)</code></pre>
+<p><img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
 </div>
 <div id="transformations-2" class="section level2">
 <h2><span class="header-section-number">8.3</span> Transformations</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-10" class="exercise"><strong>Exercise 1.5  </strong></span>Let <span class="math inline">\((U,V)\)</span> be a random variable with PDF <span class="math inline">\(p(u,v) = \frac{1}{8 \sqrt{u}}\)</span>,
+<p><span id="exr:unnamed-chunk-11" class="exercise"><strong>Exercise 8.6  </strong></span>Let <span class="math inline">\((U,V)\)</span> be a random variable with PDF <span class="math inline">\(p(u,v) = \frac{1}{8 \sqrt{u}}\)</span>,
 <span class="math inline">\(U \in [0,4]\)</span> and <span class="math inline">\(V \in [\sqrt{U}, \sqrt{U} - 1]\)</span>. Let <span class="math inline">\(X = \sqrt{U}\)</span> and
 <span class="math inline">\(Y = V - \sqrt{U}\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
@@ -551,18 +639,58 @@ transf &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class=
 df     &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(orig, transf)
 <span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> vrs)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</code></pre>
-<p><img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="08-multivariate_random_variables_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-13" class="exercise"><strong>Exercise 4.5  </strong></span><span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare?</span> <span style="color:red">Compare?</span></p>
+<p><span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 1.7  </strong></span><span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with <em>dmvnorm</em> from the <strong>mvtnorm</strong> package.</span></p>
 </div>
 
-
-<div class="solution">
- <span class="solution"><em>Solution. </em></span> TODO: Inverse of the transformation (exists, because the inverse of Q exists). Jacobi (simplified?).
-</div>
-
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mvtnorm)
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+mvn_dens &lt;-<span class="st"> </span><span class="cf">function</span> (y, mu, Sigma) {
+  L     &lt;-<span class="st"> </span><span class="kw">chol</span>(Sigma)
+  L_inv &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(L))
+  g_inv &lt;-<span class="st"> </span>L_inv <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(y <span class="op">-</span><span class="st"> </span>mu)
+  J     &lt;-<span class="st"> </span>L_inv
+  J_det &lt;-<span class="st"> </span><span class="kw">det</span>(J)
+  <span class="kw">return</span>(<span class="kw">prod</span>(<span class="kw">dnorm</span>(g_inv)) <span class="op">*</span><span class="st"> </span>J_det)
+}
+mu_v  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>)
+cov_m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">-0.2</span>, <span class="fl">0.5</span>,
+                  <span class="fl">-0.2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>,
+                  <span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">1.6</span>),
+                <span class="dt">ncol  =</span> <span class="dv">3</span>,
+                <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
+n_comp &lt;-<span class="st"> </span><span class="dv">20</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_comp) {
+  x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dv">1</span>, 
+             <span class="dt">mean  =</span> mu_v,
+             <span class="dt">sigma =</span> cov_m)
+  <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;My function: &quot;</span>,
+               <span class="kw">mvn_dens</span>(x, mu_v, cov_m),
+               <span class="st">&quot;, dmvnorm: &quot;</span>,
+               <span class="kw">dmvnorm</span>(x, mu_v, cov_m)))
+}</code></pre>
+<pre><code>## [1] &quot;My function: 0.0229514237156383, dmvnorm: 0.0229514237156383&quot;
+## [1] &quot;My function: 0.00763138915406231, dmvnorm: 0.00763138915406232&quot;
+## [1] &quot;My function: 0.0230688881105741, dmvnorm: 0.0230688881105741&quot;
+## [1] &quot;My function: 0.0113616213114732, dmvnorm: 0.0113616213114732&quot;
+## [1] &quot;My function: 0.00151808500121908, dmvnorm: 0.00151808500121908&quot;
+## [1] &quot;My function: 0.0257658045974509, dmvnorm: 0.0257658045974509&quot;
+## [1] &quot;My function: 0.0157963825730805, dmvnorm: 0.0157963825730805&quot;
+## [1] &quot;My function: 0.00408856287529248, dmvnorm: 0.00408856287529248&quot;
+## [1] &quot;My function: 0.0327793540101256, dmvnorm: 0.0327793540101256&quot;
+## [1] &quot;My function: 0.0111606542967978, dmvnorm: 0.0111606542967978&quot;
+## [1] &quot;My function: 0.0147636757585684, dmvnorm: 0.0147636757585684&quot;
+## [1] &quot;My function: 0.0142948300412208, dmvnorm: 0.0142948300412208&quot;
+## [1] &quot;My function: 0.0203093820657542, dmvnorm: 0.0203093820657542&quot;
+## [1] &quot;My function: 0.0287533273357481, dmvnorm: 0.0287533273357481&quot;
+## [1] &quot;My function: 0.0213402305128623, dmvnorm: 0.0213402305128623&quot;
+## [1] &quot;My function: 0.0218356957993885, dmvnorm: 0.0218356957993885&quot;
+## [1] &quot;My function: 0.0250750113961771, dmvnorm: 0.0250750113961771&quot;
+## [1] &quot;My function: 0.0166498666348048, dmvnorm: 0.0166498666348048&quot;
+## [1] &quot;My function: 0.0018972510687466, dmvnorm: 0.0018972510687466&quot;
+## [1] &quot;My function: 0.0196697814975113, dmvnorm: 0.0196697814975113&quot;</code></pre>
 
 </div>
 </div>

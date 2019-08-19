@@ -28,7 +28,7 @@ Let $X_i$, $i = 1,...,k$ represent $k$ events, and $p_i$ the probabilities
 of these events happening in a trial. Let $n$ be the number of trials, and
 $X$ a multivariate random variable, the collection of $X_i$. 
 Then $p(x) = \frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}$
-is the PMF of a multinomial distribution.
+is the PMF of a multinomial distribution, where $n = \sum_{i = 1}^k x_i$.
 
 a. Show that the marginal distribution of $X_i$ is a binomial distribution.
 
@@ -78,12 +78,56 @@ ggplot(samps, aes(x = value, fill = dist)) +
 
 
 ```{exercise, name = "Multinomial expected value", label = mnomev}
-Find the expected value, variance and covariance of the multinomial distribution.
-
+Find the expected value, variance and covariance of the multinomial distribution. Hint: First find the expected value for $n = 1$ and then use the fact that the trials are independent.
 
 ```
 ```{solution, echo = togs}
-The expected value... Use the differentiation trick.
+Let us first calculate the expected value of $X_1$, when $n = 1$.
+
+\begin{align}
+  E[X_1] &= \sum_{n_1 = 0}^1 \sum_{n_2 = 0}^1 ... \sum_{n_k = 0}^1 \frac{1}{n_1!n_2!...n_k!}p_1^{n_1}p_2^{n_2}...p_k^{n_k}n_1 \\
+         &= \sum_{n_1 = 0}^1 \frac{p_1^{n_1} n_1}{n_1!} \sum_{n_2 = 0}^1 ... \sum_{n_k = 0}^1 \frac{1}{n_2!...n_k!}p_2^{n_2}...p_k^{n_k}
+\end{align}
+When $n_1 = 0$ then the whole terms is zero, so we do not need to evaluate other sums. When $n_1 = 1$, all other $n_i$ must be zero, as we have $1 = \sum_{i=1}^k n_i$. Therefore the other sums equal $1$. So $E[X_1] = p_1$ and $E[X_i] = p_i$ for $i = 1,...,k$.
+Now let $Y_j$, $j = 1,...,n$, have a multinomial distribution with $n = 1$, and let $X$ have a multinomial distribution with and arbitrary $n$. Then we can write $X = \sum_{j=1}^n Y_j$. And due to independence
+\begin{align}
+  E[X] &= E[\sum_{j=1}^n Y_j] \\
+       &= \sum_{j=1}^n E[Y_j] \\
+       &= np.
+\end{align}
+For the variance, we need $E[X^2]$. Let us follow the same procedure as above and first calculate $E[X_i]$ for $n = 1$. The only thing that changes is that the term $n_i$ becomes $n_i^2$. Since we only have $0$ and $1$ this does not change the outcome. So
+\begin{align}
+  Var[X_i] &= E[X_i^2] - E[X_i]^2\\
+           &= p_i(1 - p_i).
+\end{align}
+Analogous to above for arbitrary $n$
+\begin{align}
+  Var[X] &= E[X^2] - E[X]^2 \\
+         &= \sum_{j=1}^n E[Y_j^2] - \sum_{j=1}^n E[Y_j]^2 \\
+         &= \sum_{j=1}^n E[Y_j^2] -  E[Y_j]^2 \\
+         &= \sum_{j=1}^n p(1-p) \\
+         &= np(1-p).
+\end{align}
+To calculate the covariance, we need $E[X_i X_j]$. Again, let us start with $n = 1$. Without loss of generality, let us assume $i = 1$ and $j = 2$.
+\begin{align}
+  E[X_1 X_2] = \sum_{n_1 = 0}^1 \sum_{n_2 = 0}^1 \frac{p_1^{n_1} n_1}{n_1!} \frac{p_2^{n_2} n_2}{n_2!} \sum_{n_3 = 0}^1 ... \sum_{n_k = 0}^1 \frac{1}{n_3!...n_k!}p_3^{n_3}...p_k^{n_k}.
+\end{align}
+In the above expression, at each iteration we multiply with $n_1$ and $n_2$. Since $n = 1$, one of these always has to be zero. Therefore $E[X_1 X_2] = 0$ and
+\begin{align}
+  Cov(X_i, X_j) &= E[X_i X_j] - E[X_i]E[X_j] \\
+                &= - p_i p_j.
+\end{align}
+For arbitrary $n$, let $X_1 = \sum_{k = 1}^n X_{1k}$ and $X_2 = \sum_{l = 1}^n X_{2l}$, sums of intependent multinomial random variables with $n=1$. 
+\begin{align}
+  Cov(X_1, X_2) &= E[X_1 X_2] - E[X_1] E[X_2] \\
+                &= E[\sum_{k = 1}^n X_{1k} \sum_{l = 1}^n X_{2l}] - n^2 p_1 p_2 \\
+                &= \sum_{k = 1}^n \sum_{l = 1}^n E[X_{1k} X_{2l}] - n^2 p_1 p_2.
+\end{align}
+For $X_1k$ and $X_2l$ the expected value is zero when $k = l$. When $k \neq l$ then they are independent, so the expected value is the product $p_1 p_2$. There are $n^2$ total terms, and for $n$ of them $k = l$ holds. So $E[X_1 X_2] = (n^2 - n) p_1 p_2$. Inserting into the above
+\begin{align}
+  Cov(X_1, X_2) &= (n^2 - n) p_1 p_2 - n^2 p_1 p_2 \\
+                &= - n p_1 p_2.
+\end{align}
 
 ```
 
@@ -162,10 +206,10 @@ plot_df <- data.frame(rbind(X, Y),
 colnames(plot_df) <- c("D1", "D2", "var", "samp")
 ggplot(data = plot_df, aes(x = D1, 
                            y = D2, 
-                           color = as.factor(var), 
-                           shape = as.factor(samp))) +
+                           shape = as.factor(var), 
+                           color = as.factor(samp))) +
   geom_point() +
-  scale_shape_manual(values=1:10)
+  scale_shape_manual(values = c(15, 16))
 
 
 ```
@@ -242,24 +286,22 @@ ggplot(data = df, aes(x = D1, y = D2)) +
 ```
 
 ```{exercise, name = "Marginal and conditional distributions", label = mvncond}
-Let $X \sim \text{N}(\mu, \Sigma)$, where $\mu = [2, 0, -1]^T and $\Sigma =
+Let $X \sim \text{N}(\mu, \Sigma)$, where $\mu = [2, 0, -1]^T$ and $\Sigma =
 \begin{bmatrix} 
   1 & -0.2 & 0.5 \\
-  -0.2 & 1.4 & 0 \\
-  0.5 & 0 & 2 \\
-\end{bmatrix}$. <span style="color:blue">R: For the calculation in the following points, you can use R.</span>
-  
-a. Find the distribution of $\Sigma_A$.
+  -0.2 & 1.4 & -1.2 \\
+  0.5 & -1.2 & 2 \\
+\end{bmatrix}$. Let $A$ represent the first two random variables and $B$ the third random variable. <span style="color:blue">R: For the calculation in the following points, you can use R.</span>
+    
+a. Find the marginal distribution of $B$.
 
-b. Find the distribution of $\Sigma_A | Sigma_B$.
+b. Find the conditional distribution of $B | A$.
 
-c. Find the distribution of.
+c. Find the marginal distribution of $A$.
 
-d. Find the distribution of.
+d. Find the conditional distribution of $A | B$.
 
-e. Find the distribution of.
-
-f.  <span style="color:blue">R: Visually compare the distributions of a) and b), and c), d) and e) at different conditional values.</span>
+e.  <span style="color:blue">R: Visually compare the distributions of a) and b), and c) and d) at three different conditional values.</span>
 ```
 ```{r, echo = togs, message = FALSE, warning=FALSE}
 mu    <- c(2, 0, -1)
@@ -276,32 +318,40 @@ Sigma_AB <- Sigma[1:2, 3]
 
 
 # b
-tmp_b   <- Sigma_AB * (1 / Sigma_B)
-mu_b    <- mu_A - tmp_b * mu_B
+tmp_b   <- t(Sigma_AB) %*% solve(Sigma_A)
+mu_b    <- mu_B - tmp_b %*% mu_A
 Sigma_b <- Sigma_B - t(Sigma_AB) %*% solve(Sigma_A) %*% Sigma_AB
 
-tmp_b
 mu_b
+tmp_b
 Sigma_b
 
 # d
+tmp_a   <- Sigma_AB * (1 / Sigma_B)
+mu_a    <- mu_A - tmp_a * mu_B
 Sigma_d <- Sigma_A - (Sigma_AB * (1 / Sigma_B)) %*% t(Sigma_AB)
+mu_a
+tmp_a
 Sigma_d
-Sigma_d
+
 ```
 ```{solution, echo = togs}
 
 
-a. $\mu_A = [2, 0, -1]^T$ and $\Sigma_A =
+a. $B \sim \text{N}(-1, 2)$.
+
+b. $B | A = a \sim \text{N}(-1.68 + [0.34, -0.81] a, 0.86)$.
+
+c. $\mu_A = [2, 0, -1]^T$ and $\Sigma_A =
 \begin{bmatrix} 
   1 & -0.2 & \\
   -0.2 & 1.4 \\
 \end{bmatrix}$. 
   
-b. 
+d. 
 \begin{align}
-  X_A | X_B &= b \sim \text{N}(\mu_t, \Sigma_t), \\
-  \mu_t     &= [2.25, -0.6]^T + [2.25, -0.6]^T b, \\
+  X_A | X_B = b &\sim \text{N}(\mu_t, \Sigma_t), \\
+  \mu_t     &= [2.25, -0.6]^T + [0.25, -0.6]^T b, \\
   \Sigma_t  &= 
   \begin{bmatrix} 
   0.875 & 0.1 \\
@@ -310,6 +360,47 @@ b.
 \end{align}
 
 ```
+```{r, echo = togs, message = FALSE, warning=FALSE}
+library(mvtnorm)
+set.seed(1)
+nsamps <- 1000
+
+# a
+samps  <- as.data.frame(matrix(data = NA, nrow = 4 * nsamps, ncol = 2))
+samps[1:nsamps,1] <- rnorm(nsamps, mu_B, Sigma_B)
+samps[1:nsamps,2] <- "marginal"
+for (i in 1:3) {
+  a <- rmvnorm(1, mu_A, Sigma_A)
+  samps[(i*nsamps + 1):((i + 1) * nsamps), 1] <- rnorm(nsamps,
+                                                       mu_b + tmp_b %*% t(a),
+                                                       Sigma_b)
+  samps[(i*nsamps + 1):((i + 1) * nsamps), 2] <- paste0(# "cond", 
+                                                        round(a, digits = 2), 
+                                                        collapse = "")
+}
+colnames(samps) <- c("x", "dist")
+ggplot(samps, aes(x = x)) +
+  geom_density() +
+  facet_wrap(~ dist)
+
+# b
+samps  <- as.data.frame(matrix(data = NA, nrow = 4 * nsamps, ncol = 3))
+samps[1:nsamps,1:2] <- rmvnorm(nsamps, mu_A, Sigma_A)
+samps[1:nsamps,3]   <- "marginal"
+for (i in 1:3) {
+  b <- rnorm(1, mu_B, Sigma_B)
+  samps[(i*nsamps + 1):((i + 1) * nsamps), 1:2] <- rmvnorm(nsamps,
+                                                           mu_a + tmp_a * b,
+                                                           Sigma_d)
+  samps[(i*nsamps + 1):((i + 1) * nsamps), 3] <- b
+}
+colnames(samps) <- c("x", "y", "dist")
+ggplot(samps, aes(x = x, y = y)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(~ dist)
+```
+
 
 ## Transformations
 ```{exercise}
@@ -376,14 +467,37 @@ ggplot(df, aes(x = x, y = y, color = vrs)) +
 ```
 
 ```{exercise}
-<span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare?</span> <span style="color:red">Compare?</span>
+<span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with _dmvnorm_ from the __mvtnorm__ package.</span>
 
 
-```
-```{solution, echo = togs}
-TODO: Inverse of the transformation (exists, because the inverse of Q exists). Jacobi (simplified?).
 ```
 ```{r, echo = togs, message = FALSE, warning=FALSE}
+library(mvtnorm)
 set.seed(1)
+mvn_dens <- function (y, mu, Sigma) {
+  L     <- chol(Sigma)
+  L_inv <- solve(t(L))
+  g_inv <- L_inv %*% t(y - mu)
+  J     <- L_inv
+  J_det <- det(J)
+  return(prod(dnorm(g_inv)) * J_det)
+}
+mu_v  <- c(-2, 0, 1)
+cov_m <- matrix(c(1, -0.2, 0.5,
+                  -0.2, 2, 0.3,
+                  0.5, 0.3, 1.6),
+                ncol  = 3,
+                byrow = TRUE)
+n_comp <- 20
+for (i in 1:n_comp) {
+  x <- rmvnorm(1, 
+             mean  = mu_v,
+             sigma = cov_m)
+  print(paste0("My function: ",
+               mvn_dens(x, mu_v, cov_m),
+               ", dmvnorm: ",
+               dmvnorm(x, mu_v, cov_m)))
+}
+
 
 ```
