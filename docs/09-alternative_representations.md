@@ -163,7 +163,7 @@ and evaluating at $t = 0$, we get $\frac{(p - 1)(p - 2)}{p^2}$. Combining we get
 \end{align}</div>\EndKnitrBlock{solution}
 
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:nsumev"><strong>(\#exr:nsumev) </strong></span>Find the distribution of sum of two normal random variables $X$ and $Y$, by comparing $M_{X+Y}(t)$ to $M_X(t)$.
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:nsumev"><strong>(\#exr:nsumev) </strong></span>Find the distribution of sum of two normal random variables $X$ and $Y$, by comparing $M_{X+Y}(t)$ to $M_X(t)$. <span style="color:blue">R: To illustrate the result draw random samples from N$(-3, 1)$ and N$(5, 1.2)$ and calculate the empirical mean and variance of $X+Y$. Plot all three histograms in one plot. </span>
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Let $X \sim \text{N}(\mu_X, 1)$ and $Y \sim \text{N}(\mu_Y, 1)$. The MGF of the sum is
 \begin{align}
@@ -185,6 +185,37 @@ The MGF of the sum is then
   M_{X+Y}(t) &= e^{2\sigma_X^2 t^2 + 2\mu_X t} e^{2\sigma_Y^2 t^2 + 2\mu_Y t} \\
              &= e^{2t^2(\sigma_X^2 + \sigma_Y^2) + 2t(\mu_X + \mu_Y)}.
 \end{align}
-By comparing $M_{X+Y}(t)$ and $M_X(t)$ we observe that both have two terms. The first is $2t^2$ multiplied by the variance, and the second is $2t$ multiplied by the mean. Since MGFs are unique, we conclude that $X + Y \sim \text{N}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)$.
+By comparing $M_{X+Y}(t)$ and $M_X(t)$ we observe that both have two terms. The first is $2t^2$ multiplied by the variance, and the second is $2t$ multiplied by the mean. Since MGFs are unique, we conclude that $Z = X + Y \sim \text{N}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)$.
 </div>\EndKnitrBlock{solution}
 
+```r
+library(tidyr)
+library(ggplot2)
+set.seed(1)
+nsamps <- 1000
+x      <- rnorm(nsamps, -3, 1)
+y      <- rnorm(nsamps, 5, 1.2)
+z      <- x + y
+mean(z)
+```
+
+```
+## [1] 1.968838
+```
+
+```r
+var(z)
+```
+
+```
+## [1] 2.645034
+```
+
+```r
+df     <- data.frame(x = x, y = y, z = z) %>%
+  gather()
+ggplot(df, aes(x = value, fill = key)) +
+         geom_histogram(position = "dodge")
+```
+
+<img src="09-alternative_representations_files/figure-html/unnamed-chunk-8-1.png" width="672" />

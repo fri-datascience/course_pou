@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-08-19">
+<meta name="date" content="2019-08-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -354,7 +354,7 @@ iw     &lt;-<span class="st"> </span>(gsamps<span class="op">$</span>value <span
 <h2><span class="header-section-number">9.2</span> Moment generating functions (MGFs)</h2>
 
 <div class="exercise">
-<p><span id="exr:geoev" class="exercise"><strong>Exercise 9.3  </strong></span>Find the variance of the geometric distribution.</p>
+<p><span id="exr:geoev" class="exercise"><strong>Exercise 7.4  </strong></span>Find the variance of the geometric distribution.</p>
 </div>
 
 
@@ -388,7 +388,7 @@ and evaluating at <span class="math inline">\(t = 0\)</span>, we get <span class
 
 
 <div class="exercise">
-<p><span id="exr:nsumev" class="exercise"><strong>Exercise 9.4  </strong></span>Find the distribution of sum of two normal random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, by comparing <span class="math inline">\(M_{X+Y}(t)\)</span> to <span class="math inline">\(M_X(t)\)</span>.</p>
+<p><span id="exr:nsumev" class="exercise"><strong>Exercise 9.3  </strong></span>Find the distribution of sum of two normal random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, by comparing <span class="math inline">\(M_{X+Y}(t)\)</span> to <span class="math inline">\(M_X(t)\)</span>. <span style="color:blue">R: To illustrate the result draw random samples from N<span class="math inline">\((-3, 1)\)</span> and N<span class="math inline">\((5, 1.2)\)</span> and calculate the empirical mean and variance of <span class="math inline">\(X+Y\)</span>. Plot all three histograms in one plot. </span></p>
 </div>
 
 
@@ -413,9 +413,25 @@ The MGF of the sum is then
   M_{X+Y}(t) &amp;= e^{2\sigma_X^2 t^2 + 2\mu_X t} e^{2\sigma_Y^2 t^2 + 2\mu_Y t} \\
              &amp;= e^{2t^2(\sigma_X^2 + \sigma_Y^2) + 2t(\mu_X + \mu_Y)}.
 \end{align}\]</span>
-By comparing <span class="math inline">\(M_{X+Y}(t)\)</span> and <span class="math inline">\(M_X(t)\)</span> we observe that both have two terms. The first is <span class="math inline">\(2t^2\)</span> multiplied by the variance, and the second is <span class="math inline">\(2t\)</span> multiplied by the mean. Since MGFs are unique, we conclude that <span class="math inline">\(X + Y \sim \text{N}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)\)</span>.</p>
+By comparing <span class="math inline">\(M_{X+Y}(t)\)</span> and <span class="math inline">\(M_X(t)\)</span> we observe that both have two terms. The first is <span class="math inline">\(2t^2\)</span> multiplied by the variance, and the second is <span class="math inline">\(2t\)</span> multiplied by the mean. Since MGFs are unique, we conclude that <span class="math inline">\(Z = X + Y \sim \text{N}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)\)</span>.</p>
 </div>
 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
+x      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dv">-3</span>, <span class="dv">1</span>)
+y      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dv">5</span>, <span class="fl">1.2</span>)
+z      &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y
+<span class="kw">mean</span>(z)</code></pre>
+<pre><code>## [1] 1.968838</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(z)</code></pre>
+<pre><code>## [1] 2.645034</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">df     &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">z =</span> z) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>()
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> key)) <span class="op">+</span>
+<span class="st">         </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</code></pre>
+<p><img src="09-alternative_representations_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 
 </div>
 </div>
