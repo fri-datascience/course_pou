@@ -353,6 +353,70 @@ iw     &lt;-<span class="st"> </span>(gsamps<span class="op">$</span>value <span
 <div id="moment-generating-functions-mgfs" class="section level2">
 <h2><span class="header-section-number">9.2</span> Moment generating functions (MGFs)</h2>
 
+<div class="exercise">
+<p><span id="exr:geoev" class="exercise"><strong>Exercise 9.3  </strong></span>Find the variance of the geometric distribution.</p>
+</div>
+
+
+<div class="solution">
+ <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(X \sim \text{Geometric}(p)\)</span>. The MGF of the geometric distribution is
+<span class="math display">\[\begin{align}
+  M_X(t) &amp;= E[e^{tX}] \\
+         &amp;= \sum_{k=0}^\infty p(1 - p)^k e^{tk} \\
+         &amp;= p \sum_{k=0}^\infty ((1 - p)e^t)^k.
+\end{align}\]</span>
+Let us assume that <span class="math inline">\((1 - p)e^t &lt; 1\)</span>. Then, by using the geometric series we get
+<span class="math display">\[\begin{align}
+  M_X(t) &amp;= \frac{p}{1 - e^t + pe^t}.
+\end{align}\]</span>
+The first derivative of the above expression is
+<span class="math display">\[\begin{align}
+  \frac{d}{dt}M_X(t) &amp;= \frac{-p(-e^t + pe^t)}{(1 - e^t + pe^t)^2},
+\end{align}\]</span>
+and evaluating at <span class="math inline">\(t = 0\)</span>, we get <span class="math inline">\(\frac{1 - p}{p}\)</span>, which we already recognize as the expected value of the geometric distribution.
+The second derivative is
+<span class="math display">\[\begin{align}
+  \frac{d^2}{dt^2}M_X(t) &amp;= \frac{(p-1)pe^t((p-1)e^t - 1)}{((p - 1)e^t + 1)^3},
+\end{align}\]</span>
+and evaluating at <span class="math inline">\(t = 0\)</span>, we get <span class="math inline">\(\frac{(p - 1)(p - 2)}{p^2}\)</span>. Combining we get the variance
+<span class="math display">\[\begin{align}
+  Var(X) &amp;= \frac{(p - 1)(p - 2)}{p^2} - \frac{(1 - p)^2}{p^2} \\
+         &amp;= \frac{(p-1)(p-2) - (1-p)^2}{p^2} \\
+         &amp;= \frac{1 - p}{p^2}.
+\end{align}\]</span>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:nsumev" class="exercise"><strong>Exercise 9.4  </strong></span>Find the distribution of sum of two normal random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, by comparing <span class="math inline">\(M_{X+Y}(t)\)</span> to <span class="math inline">\(M_X(t)\)</span>.</p>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(X \sim \text{N}(\mu_X, 1)\)</span> and <span class="math inline">\(Y \sim \text{N}(\mu_Y, 1)\)</span>. The MGF of the sum is
+<span class="math display">\[\begin{align}
+  M_{X+Y}(t) &amp;= M_X(t) M_Y(t).
+\end{align}\]</span>
+Let us calculate <span class="math inline">\(M_X(t)\)</span>, the MGF for <span class="math inline">\(Y\)</span> then follows analogously.
+<span class="math display">\[\begin{align}
+  M_X(t) &amp;= \int_{-\infty}^\infty e^{tx} \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - mu_X)^2}{2\sigma_X^2}} dx \\
+         &amp;= \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - mu_X)^2 - 2\sigma_X tx}{2\sigma_X^2}} dx \\
+         &amp;= \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{x^2 - 2\mu_X x + \mu_X^2 - 2\sigma_X tx}{2\sigma_X^2}} dx \\
+         &amp;= \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - (\mu_X + 2\sigma_X^2 t))^2 + \mu_X^2 - (\mu_X + 2\sigma_X^2 t)^2}{2\sigma_X^2}} dx &amp; \text{complete the square}\\
+         &amp;= e^{-\frac{\mu_X^2 - (\mu_X + 2\sigma_X^2 t)^2}{2\sigma_X^2}} \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - (\mu_X + 2\sigma_X^2 t))^2}{2\sigma_X^2}} dx &amp; \\
+         &amp;= e^{-\frac{\mu_X^2 - (\mu_X + 2\sigma_X^2 t)^2}{2\sigma_X^2}} &amp; \text{normal PDF} \\
+         &amp;= e^{-\frac{\mu_X^2 - \mu_X^2 - 2 \mu_X \sigma_X^2 t - 4 \sigma_X^4 t^2}{2\sigma_X^2}} \\
+         &amp;= e^{2\sigma_X^2 t^2 + 2\mu_X t}. \\
+\end{align}\]</span>
+The MGF of the sum is then
+<span class="math display">\[\begin{align}
+  M_{X+Y}(t) &amp;= e^{2\sigma_X^2 t^2 + 2\mu_X t} e^{2\sigma_Y^2 t^2 + 2\mu_Y t} \\
+             &amp;= e^{2t^2(\sigma_X^2 + \sigma_Y^2) + 2t(\mu_X + \mu_Y)}.
+\end{align}\]</span>
+By comparing <span class="math inline">\(M_{X+Y}(t)\)</span> and <span class="math inline">\(M_X(t)\)</span> we observe that both have two terms. The first is <span class="math inline">\(2t^2\)</span> multiplied by the variance, and the second is <span class="math inline">\(2t\)</span> multiplied by the mean. Since MGFs are unique, we conclude that <span class="math inline">\(X + Y \sim \text{N}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)\)</span>.</p>
+</div>
+
+
 </div>
 </div>
 

@@ -134,3 +134,57 @@ ggplot(gsamps, aes(x = value, fill = iw)) +
 <img src="09-alternative_representations_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
 ## Moment generating functions (MGFs)
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:geoev"><strong>(\#exr:geoev) </strong></span>Find the variance of the geometric distribution.
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Let $X \sim \text{Geometric}(p)$. The MGF of the geometric distribution is
+\begin{align}
+  M_X(t) &= E[e^{tX}] \\
+         &= \sum_{k=0}^\infty p(1 - p)^k e^{tk} \\
+         &= p \sum_{k=0}^\infty ((1 - p)e^t)^k.
+\end{align}
+Let us assume that $(1 - p)e^t < 1$. Then, by using the geometric series we get
+\begin{align}
+  M_X(t) &= \frac{p}{1 - e^t + pe^t}.
+\end{align}
+The first derivative of the above expression is
+\begin{align}
+  \frac{d}{dt}M_X(t) &= \frac{-p(-e^t + pe^t)}{(1 - e^t + pe^t)^2},
+\end{align}
+and evaluating at $t = 0$, we get $\frac{1 - p}{p}$, which we already recognize as the expected value of the geometric distribution.
+The second derivative is
+\begin{align}
+  \frac{d^2}{dt^2}M_X(t) &= \frac{(p-1)pe^t((p-1)e^t - 1)}{((p - 1)e^t + 1)^3},
+\end{align}
+and evaluating at $t = 0$, we get $\frac{(p - 1)(p - 2)}{p^2}$. Combining we get the variance
+\begin{align}
+  Var(X) &= \frac{(p - 1)(p - 2)}{p^2} - \frac{(1 - p)^2}{p^2} \\
+         &= \frac{(p-1)(p-2) - (1-p)^2}{p^2} \\
+         &= \frac{1 - p}{p^2}.
+\end{align}</div>\EndKnitrBlock{solution}
+
+
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:nsumev"><strong>(\#exr:nsumev) </strong></span>Find the distribution of sum of two normal random variables $X$ and $Y$, by comparing $M_{X+Y}(t)$ to $M_X(t)$.
+</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Let $X \sim \text{N}(\mu_X, 1)$ and $Y \sim \text{N}(\mu_Y, 1)$. The MGF of the sum is
+\begin{align}
+  M_{X+Y}(t) &= M_X(t) M_Y(t).
+\end{align}
+Let us calculate $M_X(t)$, the MGF for $Y$ then follows analogously.
+\begin{align}
+  M_X(t) &= \int_{-\infty}^\infty e^{tx} \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - mu_X)^2}{2\sigma_X^2}} dx \\
+         &= \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - mu_X)^2 - 2\sigma_X tx}{2\sigma_X^2}} dx \\
+         &= \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{x^2 - 2\mu_X x + \mu_X^2 - 2\sigma_X tx}{2\sigma_X^2}} dx \\
+         &= \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - (\mu_X + 2\sigma_X^2 t))^2 + \mu_X^2 - (\mu_X + 2\sigma_X^2 t)^2}{2\sigma_X^2}} dx & \text{complete the square}\\
+         &= e^{-\frac{\mu_X^2 - (\mu_X + 2\sigma_X^2 t)^2}{2\sigma_X^2}} \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - (\mu_X + 2\sigma_X^2 t))^2}{2\sigma_X^2}} dx & \\
+         &= e^{-\frac{\mu_X^2 - (\mu_X + 2\sigma_X^2 t)^2}{2\sigma_X^2}} & \text{normal PDF} \\
+         &= e^{-\frac{\mu_X^2 - \mu_X^2 - 2 \mu_X \sigma_X^2 t - 4 \sigma_X^4 t^2}{2\sigma_X^2}} \\
+         &= e^{2\sigma_X^2 t^2 + 2\mu_X t}. \\
+\end{align}
+The MGF of the sum is then
+\begin{align}
+  M_{X+Y}(t) &= e^{2\sigma_X^2 t^2 + 2\mu_X t} e^{2\sigma_Y^2 t^2 + 2\mu_Y t} \\
+             &= e^{2t^2(\sigma_X^2 + \sigma_Y^2) + 2t(\mu_X + \mu_Y)}.
+\end{align}
+By comparing $M_{X+Y}(t)$ and $M_X(t)$ we observe that both have two terms. The first is $2t^2$ multiplied by the variance, and the second is $2t$ multiplied by the mean. Since MGFs are unique, we conclude that $X + Y \sim \text{N}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)$.
+</div>\EndKnitrBlock{solution}
+
