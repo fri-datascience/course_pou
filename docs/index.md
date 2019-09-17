@@ -1,7 +1,7 @@
 --- 
 title: "Principles of Uncertainty -- exercises"
 author: "Gregor Pirš and Erik Štrumbelj"
-date: "2019-08-21"
+date: "2019-09-17"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib]

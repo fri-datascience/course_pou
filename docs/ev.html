@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-08-21">
+<meta name="date" content="2019-09-17">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -171,7 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Multivariate random variables</a><ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
@@ -574,7 +574,7 @@ x     &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="d
 <pre><code>## [1] 1.690459</code></pre>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-15" class="exercise"><strong>Exercise 7.9  (Sum of independent random variables)  </strong></span>Let <span class="math inline">\(X_1, X_2,...,X_n\)</span> be IID random variables with expected value <span class="math inline">\(E[X_i] = \mu\)</span> and variance <span class="math inline">\(Var[X_i] = \sigma^2\)</span>. Find the expected value and variance of <span class="math inline">\(\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i\)</span>. <span class="math inline">\(\bar{X}\)</span> is called a <em>statistic</em> (a function of the values in a sample). It is itself a random variable. <span style="color:blue">R: Take <span class="math inline">\(n = 5, 10, 100, 1000\)</span> samples from the N(<span class="math inline">\(2\)</span>, <span class="math inline">\(6\)</span>) distribution 10000 times. Plot the theoretical density and the densities of <span class="math inline">\(\bar{X}\)</span> statistic for each <span class="math inline">\(n\)</span>. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span></p>
+<p><span id="exr:unnamed-chunk-15" class="exercise"><strong>Exercise 7.9  (Sum of independent random variables)  </strong></span>WASSERMAN. Let <span class="math inline">\(X_1, X_2,...,X_n\)</span> be IID random variables with expected value <span class="math inline">\(E[X_i] = \mu\)</span> and variance <span class="math inline">\(Var[X_i] = \sigma^2\)</span>. Find the expected value and variance of <span class="math inline">\(\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i\)</span>. <span class="math inline">\(\bar{X}\)</span> is called a <em>statistic</em> (a function of the values in a sample). It is itself a random variable and its distribution is called a sampling distribution. <span style="color:blue">R: Take <span class="math inline">\(n = 5, 10, 100, 1000\)</span> samples from the N(<span class="math inline">\(2\)</span>, <span class="math inline">\(6\)</span>) distribution 10000 times. Plot the theoretical density and the densities of <span class="math inline">\(\bar{X}\)</span> statistic for each <span class="math inline">\(n\)</span>. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span></p>
 </div>
 
 

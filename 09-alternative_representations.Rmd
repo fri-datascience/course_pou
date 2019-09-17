@@ -1,4 +1,4 @@
-# Multivariate random variables {#ard}
+# Alternative representation of distributions {#ard}
 
 This chapter deals with multivariate random variables.
 
@@ -6,12 +6,13 @@ The students are expected to acquire the following knowledge:
 
 **Theoretical**
 
-- Multivariate normal distribution.
+- Probability generating functions.
+- Moment generating functions.
 
 
 **R**
 
-- Sampling from the multivariate normal distribution.
+- ?
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 togs <- TRUE

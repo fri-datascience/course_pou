@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>B Probability distributions | Principles of Uncertainty – exercises</title>
+  <title>Chapter 10 Concentration inequalities | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="B Probability distributions | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 10 Concentration inequalities | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="B Probability distributions | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 10 Concentration inequalities | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="r-programming-language.html">
-<link rel="next" href="references.html">
+<link rel="prev" href="ard.html">
+<link rel="next" href="r-programming-language.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -175,6 +175,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
+<li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
+<li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
 <li class="chapter" data-level="A.1" data-path="r-programming-language.html"><a href="r-programming-language.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
@@ -222,221 +226,127 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="probability-distributions" class="section level1">
-<h1><span class="header-section-number">B</span> Probability distributions</h1>
-<table style="width:100%;">
-<colgroup>
-<col width="31%" />
-<col width="31%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>pdf/pmf</th>
-<th>cdf</th>
-<th>mean</th>
-<th>variance</th>
-<th>Use in R</th>
-<th>relationships</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Bernoulli</td>
-<td><span class="math inline">\(p^k (1 - p)^{1 - k}\)</span> <br> <a href="introduction.html#exr:binomialpmf">1.11</a></td>
-<td></td>
-<td><span class="math inline">\(p\)</span> <br> <a href="ev.html#exr:Bernev">7.1</a></td>
-<td><span class="math inline">\(p(1-p)\)</span> <br> <a href="ev.html#exr:Bernev">7.1</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>binomial</td>
-<td><span class="math inline">\(\binom{n}{k} p^k (1 - p)^{n - k}\)</span> <br> <a href="introduction.html#exr:binomialpmf">1.11</a></td>
-<td></td>
-<td><span class="math inline">\(np\)</span> <br> <a href="ev.html#exr:binomev">7.2</a></td>
-<td><span class="math inline">\(np(1-p)\)</span> <br> <a href="ev.html#exr:binomev">7.2</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Poisson</td>
-<td><span class="math inline">\(\frac{\lambda^k e^{-\lambda}}{k!}\)</span> <br> <a href="introduction.html#exr:geopoispmf">1.12</a></td>
-<td></td>
-<td><span class="math inline">\(\lambda\)</span> <br> <a href="ev.html#exr:poisev">7.3</a></td>
-<td><span class="math inline">\(\lambda\)</span> <br> <a href="ev.html#exr:poisev">7.3</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>geometric</td>
-<td><span class="math inline">\(p(1-p)^k\)</span> <br> <a href="introduction.html#exr:geopoispmf">1.12</a></td>
-<td><span class="math inline">\(1 - (1-p)^{k + 1}\)</span> <br> <a href="rvs.html#exr:geocdf">4.4</a></td>
-<td><span class="math inline">\(\frac{1 - p}{p}\)</span> <br> <a href="ev.html#exr:geoev">7.4</a></td>
-<td>TODO: MGF</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Normal</td>
-<td><span class="math inline">\(\frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}\)</span> <br> <a href="rvs.html#exr:normalpdf">4.11</a></td>
-<td><span class="math inline">\(\int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(t - \mu)^2}{2 \sigma^2}} dt\)</span> <br> <a href="rvs.html#exr:normalpdf">4.11</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>MVN</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>categorical</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>dirichlet</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>beta</td>
-<td><span class="math inline">\(\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)}\)</span> <br> <a href="rvs.html#exr:betacdf">4.9</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>gamma</td>
-<td><span class="math inline">\(\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x}\)</span> <br> <a href="rvs.html#exr:gammapdf">4.10</a></td>
-<td><span class="math inline">\(\frac{\gamma(\alpha, \beta x)}{\Gamma(\alpha)}\)</span> <br> <a href="rvs.html#exr:gammapdf">4.10</a></td>
-<td><span class="math inline">\(\frac{\alpha}{\beta}\)</span> <br> <a href="ev.html#exr:gammaev">7.5</a></td>
-<td><span class="math inline">\(\frac{\alpha}{\beta^2}\)</span> <br> <a href="ev.html#exr:gammaev">7.5</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>exponential</td>
-<td><span class="math inline">\(\lambda e^{-\lambda x}\)</span> <br> <a href="rvs.html#exr:expcdf">4.7</a></td>
-<td><span class="math inline">\(1 - e^{-\lambda x}\)</span> <br> <a href="rvs.html#exr:expcdf">4.7</a></td>
-<td><span class="math inline">\(\lambda^{-1}\)</span> <br> <a href="ev.html#exr:expev">7.7</a></td>
-<td><span class="math inline">\(\lambda^{-2}\)</span> <br> <a href="ev.html#exr:expev">7.7</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>logistic</td>
-<td><span class="math inline">\(\frac{e^{-\frac{x - \mu}{s}}}{(1 + e{-\frac{x - \mu}{s}})^2}\)</span> <br> <a href="rvs.html#exr:logitpdf">4.12</a></td>
-<td><span class="math inline">\(\frac{1}{1 + e^{-\frac{x - \mu}{s}}}\)</span> <br> <a href="rvs.html#exr:logitpdf">4.12</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>rayleigh</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>t</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>F</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\chi^2\)</span></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Wishart</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Pareto</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Weibull</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>negative binomial</td>
-<td><span class="math inline">\(\binom{k + r - 1}{k}(1-p)^r p^k\)</span> <br> <a href="rvs.html#exr:negbinpdf">4.6</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>multinomial</td>
-<td><span class="math inline">\(\frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}\)</span> <br> <a href="mrv.html#exr:mnompdf">8.1</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<div id="ci" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Concentration inequalities</h1>
+<p>This chapter deals with concentration inequalities.</p>
+<p>The students are expected to acquire the following knowledge:</p>
+<p><strong>Theoretical</strong></p>
+<ul>
+<li>?</li>
+</ul>
+<p><strong>R</strong></p>
+<ul>
+<li>?</li>
+</ul>
+<div id="comparison" class="section level2">
+<h2><span class="header-section-number">10.1</span> Comparison</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 10.1  </strong></span>Let <span class="math inline">\(X \sim \text{Geometric(0.7)}\)</span>. Calculate the <span style="color:blue">R: Let <span class="math inline">\(X\)</span> be a sum of three Poisson distributions with <span class="math inline">\(\lambda_i \in {2, 5.2, 10}\)</span>. Take 1000 samples and plot the three distributions and the sum. Then take 1000 samples from the theoretical distribution of <span class="math inline">\(X\)</span> and compare them to the sum.</span></p>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> Let</p>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r">bound_chernoff &lt;-<span class="st"> </span><span class="cf">function</span> (t, p, a) {
+  <span class="kw">return</span> ((p <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(t) <span class="op">+</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(t))) <span class="op">/</span><span class="st"> </span><span class="kw">exp</span>(a <span class="op">*</span><span class="st"> </span>t))
+}
+
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+p &lt;-<span class="st"> </span><span class="fl">0.7</span>
+a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">15</span>, <span class="dt">by =</span> <span class="dv">1</span>)
+ci_markov   &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p) <span class="op">/</span><span class="st"> </span>p <span class="op">/</span><span class="st"> </span>a
+t &lt;-<span class="st"> </span><span class="kw">optimize</span>(bound_chernoff, <span class="dt">interval =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">log</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p))), <span class="dt">p =</span> p, <span class="dt">a =</span> <span class="dv">2</span>)<span class="op">$</span>minimum
+ci_chernoff &lt;-<span class="st"> </span>(p <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(t) <span class="op">+</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(t))) <span class="op">/</span><span class="st"> </span><span class="kw">exp</span>(a <span class="op">*</span><span class="st"> </span>t)
+actual      &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pgeom</span>(a, <span class="fl">0.7</span>)
+plot_df     &lt;-<span class="st"> </span><span class="kw">rbind</span>(
+  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_markov, <span class="dt">type =</span> <span class="st">&quot;Markov&quot;</span>),
+  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_chernoff, <span class="dt">type =</span> <span class="st">&quot;Chernoff&quot;</span>),
+  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> actual, <span class="dt">type =</span> <span class="st">&quot;Actual&quot;</span>)
+)
+<span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
+<p><img src="10-concentration_inequalities_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-5" class="exercise"><strong>Exercise 10.2  </strong></span>Let <span class="math inline">\(X \sim \text{Geometric(0.7)}\)</span>. Calculate the <span style="color:blue">R: Let <span class="math inline">\(X\)</span> be a sum of three Poisson distributions with <span class="math inline">\(\lambda_i \in {2, 5.2, 10}\)</span>. Take 1000 samples and plot the three distributions and the sum. Then take 1000 samples from the theoretical distribution of <span class="math inline">\(X\)</span> and compare them to the sum.</span></p>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> Let</p>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+alpha1  &lt;-<span class="st"> </span><span class="dv">1</span>
+beta1   &lt;-<span class="st"> </span><span class="dv">1</span>
+alpha2  &lt;-<span class="st"> </span><span class="dv">4</span>
+beta2   &lt;-<span class="st"> </span><span class="dv">2</span>
+X1      &lt;-<span class="st"> </span><span class="kw">rbeta</span>(<span class="dv">1000</span>, alpha1, beta1)
+X2      &lt;-<span class="st"> </span><span class="kw">rbeta</span>(<span class="dv">1000</span>, alpha2, beta2)
+Sn_mean &lt;-<span class="st"> </span>alpha1 <span class="op">/</span><span class="st"> </span>(alpha1 <span class="op">+</span><span class="st"> </span>beta1) <span class="op">+</span><span class="st"> </span>alpha2 <span class="op">/</span><span class="st"> </span>(alpha2 <span class="op">+</span><span class="st"> </span>beta2)
+Sn_var  &lt;-<span class="st"> </span>alpha1 <span class="op">*</span><span class="st"> </span>beta1 <span class="op">/</span><span class="st"> </span>((alpha1 <span class="op">+</span><span class="st"> </span>beta1)<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(alpha1 <span class="op">+</span><span class="st"> </span>beta1 <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">+</span>
+<span class="st">  </span>alpha2 <span class="op">*</span><span class="st"> </span>beta2 <span class="op">/</span><span class="st"> </span>((alpha2 <span class="op">+</span><span class="st"> </span>beta2)<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(alpha2 <span class="op">+</span><span class="st"> </span>beta2 <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))
+<span class="kw">mean</span>(X1 <span class="op">+</span><span class="st"> </span>X2)</code></pre>
+<pre><code>## [1] 1.172595</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Sn_mean</code></pre>
+<pre><code>## [1] 1.166667</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(X1 <span class="op">+</span><span class="st"> </span>X2)</code></pre>
+<pre><code>## [1] 0.1173397</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">Sn_var</code></pre>
+<pre><code>## [1] 0.1150794</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.1</span>, <span class="dv">2</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)
+b &lt;-<span class="st"> </span>a <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(Sn_var)
+
+ci_chebyshev &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>b<span class="op">^</span><span class="dv">2</span>
+<span class="co"># ci_chebyshev &lt;- 1 / a^2</span>
+ci_hoeffding &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>a<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">2</span>))
+empirical    &lt;-<span class="st"> </span><span class="ot">NULL</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(a)) {
+  empirical[i] &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">abs</span>((X1 <span class="op">+</span><span class="st"> </span>X2) <span class="op">-</span><span class="st"> </span>Sn_mean) <span class="op">&gt;=</span><span class="st"> </span>a[i])<span class="op">/</span><span class="st"> </span><span class="kw">length</span>(X1)
+}
+
+plot_df     &lt;-<span class="st"> </span><span class="kw">rbind</span>(
+  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_chebyshev, <span class="dt">type =</span> <span class="st">&quot;Chebyshev&quot;</span>),
+  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_hoeffding, <span class="dt">type =</span> <span class="st">&quot;Hoeffding&quot;</span>),
+  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> empirical, <span class="dt">type =</span> <span class="st">&quot;Empirical&quot;</span>)
+)
+
+<span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
+<p><img src="10-concentration_inequalities_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="practical" class="section level2">
+<h2><span class="header-section-number">10.2</span> Practical</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 10.3  </strong></span>FROM BINDER. Let <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i = 1,...n\)</span>, be a random sample of size <span class="math inline">\(n\)</span> of a random variable <span class="math inline">\(X\)</span>. Let <span class="math inline">\(X\)</span> have mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. Find the size of the sample <span class="math inline">\(n\)</span> required so that the probability that the difference between sample mean and true mean is smaller than <span class="math inline">\(\frac{\sigma}{10}\)</span> is at least 0.95. Hint: Derive a version of the Chebyshev inequality for <span class="math inline">\(P(|X - \mu| \geq a)\)</span> using Markov inequality.</p>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(\bar{X} = \sum_{i=1}^n X_i\)</span>. Then <span class="math inline">\(E[\bar{X}] = \mu\)</span> and <span class="math inline">\(Var[\bar{X}] = \frac{\sigma^2}{n}\)</span>. Let us first derive another representation of Chebyshev inequality.
+<span class="math display">\[\begin{align}
+  P(|X - \mu| \geq a) = P(|X - \mu|^2 \geq a^2) \leq \frac{E[|X - \mu|^2]}{a^2} = \frac{Var[X]}{a^2}.
+\end{align}\]</span>
+Let us use that on our sampling distribution:
+<span class="math display">\[\begin{align}
+  P(|\bar{X} - \mu| \geq \frac{\sigma}{10}) \leq \frac{100 Var[\bar{X}]}{\sigma^2} = \frac{100 Var[X]}{n \sigma^2} = \frac{100}{n}.
+\end{align}\]</span>
+We are interested in the difference being smaller, therefore
+<span class="math display">\[\begin{align}
+P(|\bar{X} - \mu| &lt; \frac{\sigma}{10}) = 1 - P(|\bar{X} - \mu| \geq \frac{\sigma}{10}) \geq 1 - \frac{100}{n} \geq 0.95.
+\end{align}\]</span>
+It follows that we need a sample size of <span class="math inline">\(n \geq \frac{100}{0.05} = 2000\)</span>.</p>
+</div>
+
+
+</div>
+</div>
+
+
 
 </div>
             </section>
@@ -444,8 +354,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="r-programming-language.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ard.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-programming-language.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
