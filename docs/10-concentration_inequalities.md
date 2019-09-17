@@ -6,20 +6,19 @@ The students are expected to acquire the following knowledge:
 
 **Theoretical**
 
-- ?
+- More assumptions produce closer bounds.
 
 
 **R**
 
-- ?
+- Optimization.
+- Estimating probability inequalities.
 
 
 
 ## Comparison
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-2"><strong>(\#exr:unnamed-chunk-2) </strong></span>Let $X \sim \text{Geometric(0.7)}$. Calculate the  <span style="color:blue">R: Let $X$ be a sum of three Poisson distributions with $\lambda_i \in {2, 5.2, 10}$. Take 1000 samples and plot the three distributions and the sum. Then take 1000 samples from the theoretical distribution of $X$ and compare them to the sum.</span>
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-2"><strong>(\#exr:unnamed-chunk-2) </strong></span><span style="color:blue">R: Let $X$ be geometric random variable with $p = 0.7$. Visually compare the Markov bound, Chernoff bound, and the theoretical probabilities. To get the best fitting Chernoff bound, you will need to optimize the bound depending on $t$. Use either analytical or numerical optimization.</span>
 </div>\EndKnitrBlock{exercise}
-\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Let
-</div>\EndKnitrBlock{solution}
 
 ```r
 bound_chernoff <- function (t, p, a) {
@@ -28,9 +27,21 @@ bound_chernoff <- function (t, p, a) {
 
 set.seed(1)
 p <- 0.7
-a <- seq(1, 15, by = 1)
-ci_markov   <- (1 - p) / p / a
-t <- optimize(bound_chernoff, interval = c(0, log(1 / (1 - p))), p = p, a = 2)$minimum
+a <- seq(1, 12, by = 1)
+ci_markov <- (1 - p) / p / a
+t <- vector(mode = "numeric", length = length(a))
+for (i in 1:length(t)) {
+  t[i] <- optimize(bound_chernoff, interval = c(0, log(1 / (1 - p))), p = p, a = a[i])$minimum
+}
+t
+```
+
+```
+##  [1] 0.5108267 0.7984981 0.9162927 0.9808238 1.0216635 1.0498233 1.0704327
+##  [8] 1.0861944 1.0986159 1.1086800 1.1169653 1.1239426
+```
+
+```r
 ci_chernoff <- (p / (1 - exp(t) + p * exp(t))) / exp(a * t)
 actual      <- 1 - pgeom(a, 0.7)
 plot_df     <- rbind(
@@ -42,30 +53,34 @@ ggplot(plot_df, aes(x = x, y = y, color = type)) +
   geom_line()
 ```
 
-<img src="10-concentration_inequalities_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="10-concentration_inequalities_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-5"><strong>(\#exr:unnamed-chunk-5) </strong></span>Let $X \sim \text{Geometric(0.7)}$. Calculate the  <span style="color:blue">R: Let $X$ be a sum of three Poisson distributions with $\lambda_i \in {2, 5.2, 10}$. Take 1000 samples and plot the three distributions and the sum. Then take 1000 samples from the theoretical distribution of $X$ and compare them to the sum.</span>
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-4"><strong>(\#exr:unnamed-chunk-4) </strong></span><span style="color:blue">R: Let $X$ be a sum of 100 Beta distributions with random parameters. Take 1000 samples and plot the Chebyshev bound, Hoeffding bound, and the empirical probabilities.</span>
 </div>\EndKnitrBlock{exercise}
-\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Let
-</div>\EndKnitrBlock{solution}
 
 ```r
 set.seed(1)
-alpha1  <- 1
-beta1   <- 1
-alpha2  <- 4
-beta2   <- 2
-X1      <- rbeta(1000, alpha1, beta1)
-X2      <- rbeta(1000, alpha2, beta2)
-Sn_mean <- alpha1 / (alpha1 + beta1) + alpha2 / (alpha2 + beta2)
-Sn_var  <- alpha1 * beta1 / ((alpha1 + beta1)^2 * (alpha1 + beta1 + 1)) +
-  alpha2 * beta2 / ((alpha2 + beta2)^2 * (alpha2 + beta2 + 1))
-mean(X1 + X2)
+nvars   <- 100
+nsamps  <- 1000
+samps   <- matrix(data = NA, nrow = nsamps, ncol = nvars)
+Sn_mean <- 0
+Sn_var  <- 0
+for (i in 1:nvars) {
+  alpha1  <- rgamma(1, 10, 1)
+  beta1   <- rgamma(1, 10, 1)
+  X       <- rbeta(nsamps, alpha1, beta1)
+  Sn_mean <- Sn_mean + alpha1 / (alpha1 + beta1)
+  Sn_var  <- Sn_var + 
+    alpha1 * beta1 / ((alpha1 + beta1)^2 * (alpha1 + beta1 + 1))
+  
+    samps[ ,i] <- X
+}
+mean(apply(samps, 1, sum))
 ```
 
 ```
-## [1] 1.172595
+## [1] 51.12511
 ```
 
 ```r
@@ -73,15 +88,15 @@ Sn_mean
 ```
 
 ```
-## [1] 1.166667
+## [1] 51.15723
 ```
 
 ```r
-var(X1 + X2)
+var(apply(samps, 1, sum))
 ```
 
 ```
-## [1] 0.1173397
+## [1] 1.170652
 ```
 
 ```r
@@ -89,19 +104,17 @@ Sn_var
 ```
 
 ```
-## [1] 0.1150794
+## [1] 1.166183
 ```
 
 ```r
-a <- seq(0.1, 2, by = 0.1)
-b <- a / sqrt(Sn_var)
-
+a            <- 1:30
+b            <- a / sqrt(Sn_var)
 ci_chebyshev <- 1 / b^2
-# ci_chebyshev <- 1 / a^2
-ci_hoeffding <- 2 * exp(- 2 * a^2 / (2))
+ci_hoeffding <- 2 * exp(- 2 * a^2 / nvars)
 empirical    <- NULL
 for (i in 1:length(a)) {
-  empirical[i] <- sum(abs((X1 + X2) - Sn_mean) >= a[i])/ length(X1)
+  empirical[i] <- sum(abs((apply(samps, 1, sum)) - Sn_mean) >= a[i])/ nsamps
 }
 
 plot_df     <- rbind(
@@ -114,10 +127,18 @@ ggplot(plot_df, aes(x = x, y = y, color = type)) +
   geom_line()
 ```
 
-<img src="10-concentration_inequalities_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="10-concentration_inequalities_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+
+```r
+ggplot(plot_df, aes(x = x, y = y, color = type)) +
+  geom_line() +
+  coord_cartesian(xlim = c(15, 25), ylim = c(0, 0.05))
+```
+
+<img src="10-concentration_inequalities_files/figure-html/unnamed-chunk-5-2.png" width="672" />
 
 ## Practical
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-8"><strong>(\#exr:unnamed-chunk-8) </strong></span>FROM BINDER. Let $X_i$, $i = 1,...n$, be a random sample of size $n$ of a random variable $X$. Let $X$ have mean $\mu$ and variance $\sigma^2$. Find the size of the sample $n$ required so that the probability that the difference between sample mean and true mean is smaller than $\frac{\sigma}{10}$ is at least 0.95. Hint: Derive a version of the Chebyshev inequality for $P(|X - \mu| \geq a)$ using Markov inequality.
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-6"><strong>(\#exr:unnamed-chunk-6) </strong></span>FROM BINDER. Let $X_i$, $i = 1,...n$, be a random sample of size $n$ of a random variable $X$. Let $X$ have mean $\mu$ and variance $\sigma^2$. Find the size of the sample $n$ required so that the probability that the difference between sample mean and true mean is smaller than $\frac{\sigma}{10}$ is at least 0.95. Hint: Derive a version of the Chebyshev inequality for $P(|X - \mu| \geq a)$ using Markov inequality.
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Let $\bar{X} = \sum_{i=1}^n X_i$. Then $E[\bar{X}] = \mu$ and $Var[\bar{X}] = \frac{\sigma^2}{n}$. Let us first derive another representation of Chebyshev inequality.
 \begin{align}
