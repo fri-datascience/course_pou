@@ -15,11 +15,13 @@ The students are expected to acquire the following knowledge:
 
 
 
-## Convergences
+
 \BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-2"><strong>(\#exr:unnamed-chunk-2) </strong></span>Let $X_1$, $X_2$,..., $X_n$ be a sequence of Bernoulli random variables. Let $Y_k = \frac{X_1 + X_2 + ... + X_n}{n^2}$. Show that this sequence converges point-wise to the zero random variable.
 <span style="color:blue">R: Use a simulation to check your answer.</span>
 </div>\EndKnitrBlock{exercise}
-\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Let $\epsilon$ be arbitrary. We need to find such $n_0$, that for every $n$ greater than $n_0$ $|Y_n| < \epsilon$ holds.
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+Let $\epsilon$ be arbitrary. We need to find such $n_0$, that for every $n$ greater than $n_0$ $|Y_n| < \epsilon$ holds.
 
 \begin{align}
   |Y_n| &= |\frac{X_1 + X_2 + ... + X_n}{n^2}|  \\
@@ -46,9 +48,26 @@ ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
 ```
 
 <img src="11-convergence_of_random_variables_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-5"><strong>(\#exr:unnamed-chunk-5) </strong></span>Let $\Omega = [0,1]$ and let $X_n$ be a sequence of random variables, defined as
+\begin{align}
+  X_n(\omega) = \begin{cases}
+    \omega^3, &\omega = \frac{i}{n}, &0 \leq i \leq 1 \\
+    1, & \text{otherwise.}
+  \end{cases}
+\end{align}
+Show that $X_n$ converges almost surely to $X ~ \text{Uniform}(0,1).</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
+
+We need to show $P(\{\omega: X_n(\omega) \xrightarrow{\text{a.s.}} X(\omega)\}) = 1$. 
+
+Let $\omega \neq \frac{i}{n}$. Then for any $\omega$, $X_n$ converges pointwise to $X$:
+\begin{align}
+  X_n(\omega) = 1 \implies |X_n(\omega) - X(s)| = |1 - 1| < \epsilon.
+\end{align}
+The above is independent of $n$. Since there are countably infinite number of elements in the complement ($\frac{i}{n}), the probability of this set is 1.</div>\EndKnitrBlock{solution}
 
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-5"><strong>(\#exr:unnamed-chunk-5) </strong></span>WASSERMAN. <span style="color:red">CHECK SOLUTIONS WITH ERIK!</span> Let $X_n \sim \text{N}(0, \frac{1}{n})$ and let $X$ be a random variable with CDF
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-7"><strong>(\#exr:unnamed-chunk-7) </strong></span>WASSERMAN. <span style="color:red">CHECK SOLUTIONS WITH ERIK!</span> Let $X_n \sim \text{N}(0, \frac{1}{n})$ and let $X$ be a random variable with CDF
 \begin{align}
  F_X(x) = \begin{cases}
   0, &x < 0 \\
@@ -93,10 +112,10 @@ ggplot(data = data.frame(x = seq(-5, 5, by = 0.01)), aes(x = x)) +
   stat_function(fun = pnorm, args = list(mean = 0, sd = 1/10000), aes(color = "sd = 1/10000"))
 ```
 
-<img src="11-convergence_of_random_variables_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="11-convergence_of_random_variables_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-8"><strong>(\#exr:unnamed-chunk-8) </strong></span>WASSERMAN. Let $X_i$ be i.i.d. and $\mu = E(X_1)$. Let variance of $X_1$ be finite. Show that the mean of $X_i$ converges in quadratic mean to $\mu$. 
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-10"><strong>(\#exr:unnamed-chunk-10) </strong></span>WASSERMAN. Let $X_i$ be i.i.d. and $\mu = E(X_1)$. Let variance of $X_1$ be finite. Show that the mean of $X_i$ converges in quadratic mean to $\mu$. 
 </div>\EndKnitrBlock{exercise}
 \BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}\begin{align}
   \lim_{n \rightarrow \infty} E(|\bar{X_n} - \mu|^2) &= \lim_{n \rightarrow \infty} E(\bar{X_n}^2 - 2 \bar{X_n} \mu + \mu^2) \\

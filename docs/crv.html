@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-09-23">
+<meta name="date" content="2019-09-25">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -179,9 +179,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a><ul>
-<li class="chapter" data-level="11.1" data-path="crv.html"><a href="crv.html#convergences"><i class="fa fa-check"></i><b>11.1</b> Convergences</a></li>
-</ul></li>
+<li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="r-programming-language.html"><a href="r-programming-language.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
 <li class="chapter" data-level="A.1" data-path="r-programming-language.html"><a href="r-programming-language.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
@@ -241,8 +239,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>a</li>
 </ul>
-<div id="convergences" class="section level2">
-<h2><span class="header-section-number">11.1</span> Convergences</h2>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  </strong></span>Let <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>,…, <span class="math inline">\(X_n\)</span> be a sequence of Bernoulli random variables. Let <span class="math inline">\(Y_k = \frac{X_1 + X_2 + ... + X_n}{n^2}\)</span>. Show that this sequence converges point-wise to the zero random variable.
@@ -251,7 +247,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(\epsilon\)</span> be arbitrary. We need to find such <span class="math inline">\(n_0\)</span>, that for every <span class="math inline">\(n\)</span> greater than <span class="math inline">\(n_0\)</span> <span class="math inline">\(|Y_n| &lt; \epsilon\)</span> holds.</p>
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<p>Let <span class="math inline">\(\epsilon\)</span> be arbitrary. We need to find such <span class="math inline">\(n_0\)</span>, that for every <span class="math inline">\(n\)</span> greater than <span class="math inline">\(n_0\)</span> <span class="math inline">\(|Y_n| &lt; \epsilon\)</span> holds.</p>
 <p><span class="math display">\[\begin{align}
   |Y_n| &amp;= |\frac{X_1 + X_2 + ... + X_n}{n^2}|  \\
         &amp;\leq |\frac{n}{n^2}| \\
@@ -272,10 +269,33 @@ X &lt;-<span class="st"> </span>X <span class="op">/</span><span class="st"> </s
 y &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">1</span>, mean)
 <span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
-<p><img src="11-convergence_of_random_variables_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<img src="11-convergence_of_random_variables_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-5" class="exercise"><strong>Exercise 4.1  </strong></span>WASSERMAN. <span style="color:red">CHECK SOLUTIONS WITH ERIK!</span> Let <span class="math inline">\(X_n \sim \text{N}(0, \frac{1}{n})\)</span> and let <span class="math inline">\(X\)</span> be a random variable with CDF
+<span id="exr:unnamed-chunk-5" class="exercise"><strong>Exercise 4.1  </strong></span>Let <span class="math inline">\(\Omega = [0,1]\)</span> and let <span class="math inline">\(X_n\)</span> be a sequence of random variables, defined as
+<span class="math display">\[\begin{align}
+  X_n(\omega) = \begin{cases}
+    \omega^3, &amp;\omega = \frac{i}{n}, &amp;0 \leq i \leq 1 \\
+    1, &amp; \text{otherwise.}
+  \end{cases}
+\end{align}\]</span>
+Show that <span class="math inline">\(X_n\)</span> converges almost surely to $X ~ (0,1).
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<p>We need to show <span class="math inline">\(P(\{\omega: X_n(\omega) \xrightarrow{\text{a.s.}} X(\omega)\}) = 1\)</span>.</p>
+Let <span class="math inline">\(\omega \neq \frac{i}{n}\)</span>. Then for any <span class="math inline">\(\omega\)</span>, <span class="math inline">\(X_n\)</span> converges pointwise to <span class="math inline">\(X\)</span>:
+<span class="math display">\[\begin{align}
+  X_n(\omega) = 1 \implies |X_n(\omega) - X(s)| = |1 - 1| &lt; \epsilon.
+\end{align}\]</span>
+The above is independent of <span class="math inline">\(n\)</span>. Since there are countably infinite number of elements in the complement ($), the probability of this set is 1.
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-7" class="exercise"><strong>Exercise 11.1  </strong></span>WASSERMAN. <span style="color:red">CHECK SOLUTIONS WITH ERIK!</span> Let <span class="math inline">\(X_n \sim \text{N}(0, \frac{1}{n})\)</span> and let <span class="math inline">\(X\)</span> be a random variable with CDF
 <span class="math display">\[\begin{align}
  F_X(x) = \begin{cases}
   0, &amp;x &lt; 0 \\
@@ -318,10 +338,10 @@ This is the same as <span class="math inline">\(F_X\)</span>.</p>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">100</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/100&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">1000</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/1000&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">10000</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/10000&quot;</span>))</code></pre>
-<p><img src="11-convergence_of_random_variables_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="11-convergence_of_random_variables_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 1.4  </strong></span>WASSERMAN. Let <span class="math inline">\(X_i\)</span> be i.i.d. and <span class="math inline">\(\mu = E(X_1)\)</span>. Let variance of <span class="math inline">\(X_1\)</span> be finite. Show that the mean of <span class="math inline">\(X_i\)</span> converges in quadratic mean to <span class="math inline">\(\mu\)</span>.</p>
+<p><span id="exr:unnamed-chunk-10" class="exercise"><strong>Exercise 1.5  </strong></span>WASSERMAN. Let <span class="math inline">\(X_i\)</span> be i.i.d. and <span class="math inline">\(\mu = E(X_1)\)</span>. Let variance of <span class="math inline">\(X_1\)</span> be finite. Show that the mean of <span class="math inline">\(X_i\)</span> converges in quadratic mean to <span class="math inline">\(\mu\)</span>.</p>
 </div>
 
 
@@ -337,7 +357,6 @@ This is the same as <span class="math inline">\(F_X\)</span>.</p>
 </div>
 
 
-</div>
 </div>
 
 
