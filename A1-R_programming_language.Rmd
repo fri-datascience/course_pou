@@ -1,4 +1,4 @@
-# R programming language
+# R programming language {#A1}
 
 ## Basic characteristics
 R is free software for statistical computing and graphics. It is widely used by statisticians, scientists, and other professionals for software development and data analysis. It is an interpreted language and therefore the programs do not need compilation. 
@@ -25,20 +25,22 @@ R is one of the main two languages used for statistics and machine learning (the
 
 
 ## Setting up
-https://www.r-project.org/
+https://www.r-project.org/.
 
 
 ### RStudio
-RStudio is the most widely used IDE for R. It is completely free
+RStudio is the most widely used IDE for R. It is free, you can download it from https://rstudio.com/. While console R is sufficient for the requirements of this course, we recommend the students install RStudio for its better user interface.
+
 
 ### Libraries for data science
+Listed below are some of the more useful libraries (packages) for data science. Students are also encouraged to find other useful packages.
 
-* **dplyr** efficient data manipulation
-* **ggplot2** plotting
-* **stats** several statistical models
-* **rstan** Bayesian inference.
-* **MCMCpack**
-* **rmarkdown** and **knitr** Dynamic reports.
+* **dplyr** Efficient data manipulation. Part of the wider package collection called **tidyverse**.
+* **ggplot2** Plotting based on grammar of graphics.
+* **stats** Several statistical models.
+* **rstan** Bayesian inference using Hamiltonian Monte Carlo. Very flexible model building.
+* **MCMCpack** Bayesian inference.
+* **rmarkdown**, **knitr**, and **bookdown** Dynamic reports (for example such as this one).
 * **devtools** Package development.
 
 
@@ -339,13 +341,13 @@ sum_first_n_elements(10)
 * Cheatsheets: https://www.rstudio.com/resources/cheatsheets/
 * Workshop on R, dplyr, ggplot2, and R Markdown: https://github.com/bstatcomp/Rworkshop
 
-## Learning outcomes
+<!-- ## Learning outcomes -->
 
-Data science students should work towards obtaining the knowledge and the skills that enable them to:
+<!-- Data science students should work towards obtaining the knowledge and the skills that enable them to: -->
 
-* Use the R programming language for common programming tasks, data manipulation, file I/0, etc.
-* Find suitable R packages for the task at hand and use them.
-* Recognize when R is and when it is not a suitable language to use.
+<!-- * Use the R programming language for common programming tasks, data manipulation, file I/0, etc. -->
+<!-- * Find suitable R packages for the task at hand and use them. -->
+<!-- * Recognize when R is and when it is not a suitable language to use. -->
 
 
 <!-- ## Practice problems -->

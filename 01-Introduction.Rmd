@@ -13,20 +13,21 @@ The students are expected to acquire the following knowledge:
 
 **R**
 
-- vectors
-- for loop
-- estimating probability with simulation
-- sample function
-- matrices
+- Vectors and vector operations.
+- For loop.
+- Estimating probability with simulation.
+- *sample* function.
+- Matrices and matrix operations.
+
 
 ```{r, echo = FALSE}
-togs <- TRUE
-# togs <- FALSE
+# togs <- TRUE
+togs <- FALSE
 ```
 
 ## Measure and probability spaces
 ```{exercise, name = "Completing a set to a Sigma algebra"}
-Let $\Omega = \{1,2,...,10\}$. Let $A = [\{ \}, \{1\}, \{2\}, \Omega]$.
+Let $\Omega = \{1,2,...,10\}$ and let $A = \{\emptyset, \{1\}, \{2\}, \Omega \}$.
 
 - Show that $A$ is not a sigma algebra of $\Omega$.
 - Find the minimum number of elements to complete A to a sigma algebra of
@@ -129,13 +130,11 @@ following is a measure? Which is a probability measure?
 
 
 ```{exercise}
-
-Define a probability space that could be used to model a fair 6-sided die.
+Define a probability space that could be used to model the outcome of throwing two fair 6-sided dice.
 
 ```
 ```{solution, echo = togs}
-
-
+CORRECT, because now we have 2 dice!
 - $\Omega = \{1,2,3,4,5,6\}$
 - $F = 2^{\Omega}$
 - $\forall \omega \in \Omega$, $P(\omega) = \frac{1}{6}$
@@ -148,7 +147,7 @@ Define a probability space that could be used to model a fair 6-sided die.
 
 A standard deck (52 cards) is distributed to two persons: 26 cards to each
 person. All partitions are equally likely. Find the probability that:
-  
+
 - The first person gets 4 Queens.
 - The first person gets at least 2 Queens.
 - The first person gets at least 2 Queens and at least 2 Kings.
@@ -164,7 +163,7 @@ answers. </span>
 let 1 through 4 represent Queens, and 5 through 8 represent Kings.
 
 ```
-```{r, echo = togs}
+```{r, echo = togs, eval = togs}
 set.seed(1)
 cards <- 1:52
 n     <- 10000
@@ -190,8 +189,8 @@ $P(B) = \frac{1}{2}$.
 1. Show that $\frac{1}{6} \leq P(A\cap B) \leq \frac{1}{2}$,
 and give examples to show that both extremes are possible.
 2. Find corresponding bounds for $P(A\cup B)$.
-3. R: Draw samples from the examples and show the probability bounds of 
-$P(A \cap B)$.
+3. <span style="color:blue"> R: Draw samples from the examples and show the probability bounds of 
+$P(A \cap B)$ </span>.
 
 ```
 ```{solution, echo = togs}
@@ -255,7 +254,7 @@ Therefore $\frac{2}{3} \leq P(A \cup B) \leq 1$.
 - We use _sample_ in R:
 
 ```
-```{r, echo = togs}
+```{r, echo = togs, eval = togs}
 set.seed(1)
 n      <- 10000
 samps  <- sample(1:6, n, replace = TRUE)
@@ -280,8 +279,11 @@ sum(ub) / n
 ```
 
 ```{exercise}
-A fair coin is tossed repeatedly. Show that, with probability one, a head turns
-up soonder or later. Show similarly that any given finite sequence of heads and
+A fair coin is tossed repeatedly. 
+
+1. Show that, with probability one, a head turns up sooner or later. 
+
+2. Show similarly that any given finite sequence of heads and
 tails occurs eventually with probability one.
 ```
 ```{solution, echo = togs}
@@ -317,9 +319,7 @@ P(s \text{ occurs}) &\geq \lim_{n \rightarrow \infty}
 
 
 ```{exercise}
-
-
-An Erdos-Renyi random graph $G(n,p)$ is a model with n nodes, where
+An Erdos-Renyi random graph $G(n,p)$ is a model with $n$ nodes, where
 each pair of nodes is connected with probability $p$.
 
 
@@ -360,7 +360,7 @@ P(\cup_{i<j}A_{ij}) &\leq \sum_{i<j} (1 - p)^{2(n-2) + 1} \\
 
 
 ```
-```{r, echo = togs}
+```{r, echo = togs, eval = togs}
 set.seed(1)
 n_samp <- 100000
 n      <- 4
@@ -387,10 +387,10 @@ sum(conn_samp) / n_samp
 
 ## Discrete probability spaces
 ```{exercise, label = binomialpmf}
-Show that the standard measurable space on $\Omega = \{0,1,...,n\} equipped with binomial measure is a discrete probability space.
+Show that the standard measurable space on $\Omega = \{0,1,...,n\}$ equipped with binomial measure is a discrete probability space.
 
 - Define another probability measure on this measurable space.
-- Show that for $n=1$ the binomial measure is the same as the bernoulli measure.
+- Show that for $n=1$ the binomial measure is the same as the Bernoulli measure.
 - <span style="color:blue">R: Draw 1000 samples from the binomial distribution $p=0.5$, $n=20$ (_rbinom_) and compare relative frequencies with theoretical probability measure</span>.
 
 ```
@@ -410,7 +410,7 @@ $\binom{1}{1} = \binom{1}{0} = 1$, so the measure is $p^k (1-p)^{1 - k}$,
 which is the Bernoulli measure.
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 library(ggplot2)
 library(dplyr)
@@ -430,7 +430,7 @@ plot(bin_plot)
 Show that the standard measurable space on $\Omega = \{0,1,...,\infty\}$
   
    
-- equipped with geometric measure is a discrete probability space.
+- equipped with geometric measure is a discrete probability space,
 - equipped with Poisson measure is a discrete probability space.
 - Define another probability measure on this measurable space.
 - <span style="color:blue">R: Draw 1000 samples from the Poisson distribution $\lambda = 10$ (_rpois_) and compare relative frequencies with theoretical probability measure</span>.
@@ -465,7 +465,7 @@ chapter.
 
   
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 pois_samp <- rpois(n = 1000, lambda = 10)
 pois_samp <- data.frame(x = pois_samp) %>%
@@ -485,7 +485,7 @@ Define a probability measure on $(\Omega = \mathbb{Z}, 2^{\mathbb{Z}})$.
 - Define a probability measure such that $P(\omega) > 0, \forall \omega \in \Omega$.
 - <span style="color:blue">R: Implement a random generator that will generate 
 samples with the relative frequency that corresponds to your probability
-measure. compare relative frequencies with theoretical probability 
+measure. Compare relative frequencies with theoretical probability 
 measure </span>.
 
 ```
@@ -499,7 +499,7 @@ measure </span>.
 
   
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 n          <- 1000
 geom_samps <- rgeom(n, prob = 0.5)
 sign_samps <- sample(c(FALSE, TRUE), size = n, replace = TRUE)
@@ -528,7 +528,7 @@ $m$ is half of the probability at distance $0$, at distance $2$ is half of
 the probability at distance $1$, etc. <span style="color:blue">R: 
 Implement a random generator that will generate 
 samples with the relative frequency that corresponds to your probability
-measure. compare relative frequencies with theoretical probability 
+measure. Compare relative frequencies with theoretical probability 
 measure </span>. 
 
 ```
@@ -539,7 +539,7 @@ measure </span>.
 
   
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 n          <- 10000
 m <- 4
 my_pmf <- function (k, m) {
