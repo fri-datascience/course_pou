@@ -7,9 +7,10 @@ The students are expected to acquire the following knowledge:
 
 **Theoretical**
 
-1. Use properties of probability to calculate probabilities.
-2. Combinatorics.
-3. Understanding of continuity of probability.
+- Use properties of probability to calculate probabilities.
+- Combinatorics.
+- Understanding of continuity of probability.
+
 
 **R**
 
@@ -92,10 +93,10 @@ answers. </span>
 \BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-17"><strong>(\#exr:unnamed-chunk-17) </strong></span>Let $A$ and $B$ be events with probabilities $P(A) = \frac{2}{3}$ and
 $P(B) = \frac{1}{2}$.
 
-1. Show that $\frac{1}{6} \leq P(A\cap B) \leq \frac{1}{2}$,
+- Show that $\frac{1}{6} \leq P(A\cap B) \leq \frac{1}{2}$,
 and give examples to show that both extremes are possible.
-2. Find corresponding bounds for $P(A\cup B)$.
-3. <span style="color:blue"> R: Draw samples from the examples and show the probability bounds of 
+- Find corresponding bounds for $P(A\cup B)$.
+- <span style="color:blue"> R: Draw samples from the examples and show the probability bounds of 
 $P(A \cap B)$ </span>.
 </div>\EndKnitrBlock{exercise}
 
@@ -103,9 +104,9 @@ $P(A \cap B)$ </span>.
 
 \BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-20"><strong>(\#exr:unnamed-chunk-20) </strong></span>A fair coin is tossed repeatedly. 
 
-1. Show that, with probability one, a head turns up sooner or later. 
+- Show that, with probability one, a head turns up sooner or later. 
 
-2. Show similarly that any given finite sequence of heads and
+- Show similarly that any given finite sequence of heads and
 tails occurs eventually with probability one.</div>\EndKnitrBlock{exercise}
 
 
