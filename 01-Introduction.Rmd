@@ -22,12 +22,12 @@ The students are expected to acquire the following knowledge:
 
 
 ```{r, echo = FALSE}
-# togs <- TRUE
-togs <- FALSE
+togs   <- F
+tog_ex <- T
 ```
 
 ## Measure and probability spaces
-```{exercise, name = "Completing a set to a Sigma algebra"}
+```{exercise, name = "Completing a set to a sigma algebra"}
 Let $\Omega = \{1,2,...,10\}$ and let $A = \{\emptyset, \{1\}, \{2\}, \Omega \}$.
 
 - Show that $A$ is not a sigma algebra of $\Omega$.
@@ -35,7 +35,7 @@ Let $\Omega = \{1,2,...,10\}$ and let $A = \{\emptyset, \{1\}, \{2\}, \Omega \}$
 $\Omega$.
 
 ```
-```{solution, echo = togs}
+```{solution, echo = tog_ex}
 
 
 - $1^c = \{2,3,...,10\} \notin A \implies$ $A$ is not sigma algebra.
@@ -52,7 +52,7 @@ Let $\Omega$ be a set.
 
 - Show that $2^{\Omega}$ is a sigma algebra.
 - Find the smallest sigma algebra of $\Omega$.
-- Find the largest Sigma algebra of $\Omega$.
+- Find the largest sigma algebra of $\Omega$.
 
 ```
 ```{solution, echo = togs}
@@ -118,7 +118,7 @@ following is a measure? Which is a probability measure?
 - $\mu(\emptyset)=0$, $\mu(\{1\})=0$, $\mu(\{2\})=\infty$, $\mu(\{1,2\})=\infty$
 
 ```
-```{solution, echo = togs}
+```{solution, echo = tog_ex}
 
 
   - Measure. Not probability measure since $\mu(\Omega) > 1$.
@@ -287,7 +287,7 @@ A fair coin is tossed repeatedly.
 - Show similarly that any given finite sequence of heads and
 tails occurs eventually with probability one.
 ```
-```{solution, echo = togs}
+```{solution, echo = tog_ex}
 \begin{align}
 P(\text{no heads}) &= \lim_{n \rightarrow \infty} P(\text{no heads in first }n 
                                  \text{ tosses}) \\
@@ -303,7 +303,7 @@ P(s \text{ occurs}) &= \lim_{n \rightarrow \infty} P(s \text{ occurs in first }
                                                      nk \text{ tosses})
 \end{align}
 
-The right part of the upper equation is greater than if $s$ occurs eiter in the
+The right part of the upper equation is greater than if $s$ occurs either in the
 first $k$ tosses, second $k$ tosses,..., $n$-th $k$ tosses. Therefore
 
 \begin{align}
@@ -395,7 +395,7 @@ Show that the standard measurable space on $\Omega = \{0,1,...,n\}$ equipped wit
 - <span style="color:blue">R: Draw 1000 samples from the binomial distribution $p=0.5$, $n=20$ (_rbinom_) and compare relative frequencies with theoretical probability measure</span>.
 
 ```
-```{solution, echo = togs}
+```{solution, echo = tog_ex}
 We need to show that the terms of 
 $\sum_{k=0}^n \binom{n}{k} p^k (1 - p)^{n - k}$ sum to 1. For that we use the
 binomial theorem $\sum_{k=0}^n \binom{n}{k} x^k y^{n-k} = (x + y)^n$. So
@@ -411,7 +411,7 @@ $\binom{1}{1} = \binom{1}{0} = 1$, so the measure is $p^k (1-p)^{1 - k}$,
 which is the Bernoulli measure.
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = tog_ex, message = FALSE, warning=FALSE, eval = tog_ex}
 set.seed(1)
 library(ggplot2)
 library(dplyr)
@@ -448,15 +448,15 @@ Show that the standard measurable space on $\Omega = \{0,1,...,\infty\}$
   e^{-\lambda} e^{\lambda} = 1.$ We used the Taylor expansion of
   the exponential function.
   
-- <span style="color:red">TODO</span> Since we only have to define a probability
+- Since we only have to define a probability
 measure, we could only assign probabilities that sum to one to a finite 
 number of events in $\Omega$, and probability zero to the other infinite 
 number of events. However to make this solution more educational, we will 
 try to find a measure that assigns a non-zero probability to all events in 
 $\Omega$. A good start for this would be to find a converging infinite series,
 as the probabilities will have to sum to one. One simple converging series is 
-the geometric series $\sum_{k=0}^n p^k$ for $|p| < 1$. Let us choose an 
-arbitrary $p = 0.5$. Then $\sum_{k=0}^n p^k = \frac{1}{1 - 0.5} = 2$.
+the geometric series $\sum_{k=0}^{\infty} p^k$ for $|p| < 1$. Let us choose an 
+arbitrary $p = 0.5$. Then $\sum_{k=0}^{\infty} p^k = \frac{1}{1 - 0.5} = 2$.
 To complete the measure, we have to normalize it, so it sums to one,
 therefore $P(\{k\}) = \frac{0.5^k}{2}$ is a probability measure on $\Omega$.
 

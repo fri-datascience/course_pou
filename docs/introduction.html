@@ -204,11 +204,23 @@ the chapter, we look more closely at discrete probability spaces.</p>
 <h2><span class="header-section-number">1.1</span> Measure and probability spaces</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  (Completing a set to a Sigma algebra)  </strong></span>Let <span class="math inline">\(\Omega = \{1,2,...,10\}\)</span> and let <span class="math inline">\(A = \{\emptyset, \{1\}, \{2\}, \Omega \}\)</span>.</p>
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  (Completing a set to a sigma algebra)  </strong></span>Let <span class="math inline">\(\Omega = \{1,2,...,10\}\)</span> and let <span class="math inline">\(A = \{\emptyset, \{1\}, \{2\}, \Omega \}\)</span>.</p>
 <ul>
 <li>Show that <span class="math inline">\(A\)</span> is not a sigma algebra of <span class="math inline">\(\Omega\)</span>.</li>
 <li>Find the minimum number of elements to complete A to a sigma algebra of
 <span class="math inline">\(\Omega\)</span>.</li>
+</ul>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ul>
+<li><span class="math inline">\(1^c = \{2,3,...,10\} \notin A \implies\)</span> <span class="math inline">\(A\)</span> is not sigma algebra.</li>
+<li>First we need the complements of all elements, so we need to add sets
+<span class="math inline">\(\{2,3,...,10\}\)</span> and <span class="math inline">\(\{1,3,4,...,10\}\)</span>. Next we need unions of all sets –
+we add the set <span class="math inline">\(\{1,2\}\)</span>. Again we need the complement of this set, so we add
+<span class="math inline">\(\{3,4,...,10\}\)</span>. So the minimum number of elements we need to add is 4.</li>
 </ul>
 </div>
 
@@ -218,7 +230,7 @@ the chapter, we look more closely at discrete probability spaces.</p>
 <ul>
 <li>Show that <span class="math inline">\(2^{\Omega}\)</span> is a sigma algebra.</li>
 <li>Find the smallest sigma algebra of <span class="math inline">\(\Omega\)</span>.</li>
-<li>Find the largest Sigma algebra of <span class="math inline">\(\Omega\)</span>.</li>
+<li>Find the largest sigma algebra of <span class="math inline">\(\Omega\)</span>.</li>
 </ul>
 </div>
 
@@ -245,6 +257,18 @@ following is a measure? Which is a probability measure?</p>
 <li><span class="math inline">\(\mu(\emptyset) = 0\)</span>, <span class="math inline">\(\mu(\{1\}) = 0\)</span>, <span class="math inline">\(\mu(\{2\}) = 0\)</span>, <span class="math inline">\(\mu(\{1,2\}) = 0\)</span></li>
 <li><span class="math inline">\(\mu(\emptyset) = 0\)</span>, <span class="math inline">\(\mu(\{1\}) = 0\)</span>, <span class="math inline">\(\mu(\{2\}) = 1\)</span>, <span class="math inline">\(\mu(\{1,2\}) = 1\)</span></li>
 <li><span class="math inline">\(\mu(\emptyset)=0\)</span>, <span class="math inline">\(\mu(\{1\})=0\)</span>, <span class="math inline">\(\mu(\{2\})=\infty\)</span>, <span class="math inline">\(\mu(\{1,2\})=\infty\)</span></li>
+</ul>
+</div>
+
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ul>
+<li>Measure. Not probability measure since <span class="math inline">\(\mu(\Omega) &gt; 1\)</span>.</li>
+<li>Neither due to countable additivity.</li>
+<li>Measure. Not probability measure since <span class="math inline">\(\mu(\Omega) = 0\)</span>.</li>
+<li>Probability measure.</li>
+<li>Measure. Not probability measure since <span class="math inline">\(\mu(\Omega) &gt; 1\)</span>.</li>
 </ul>
 </div>
 
@@ -290,8 +314,35 @@ and give examples to show that both extremes are possible.</li>
 <li><p>Show that, with probability one, a head turns up sooner or later.</p></li>
 <li><p>Show similarly that any given finite sequence of heads and
 tails occurs eventually with probability one.</p>
-</div></li>
+</div>
+<p></p>
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
+P(\text{no heads}) &amp;= \lim_{n \rightarrow \infty} P(\text{no heads in first }n 
+                               \text{ tosses}) \\
+                 &amp;= \lim_{n \rightarrow \infty} \frac{1}{2^n} \\
+                 &amp;= 0.
+\end{align}\]</span></p></li>
 </ul>
+<p>For the second part, let us fix the given sequence of heads and tails of length
+<span class="math inline">\(k\)</span> as <span class="math inline">\(s\)</span>. A probability that this happens in <span class="math inline">\(k\)</span> tosses is <span class="math inline">\(\frac{1}{2^k}\)</span>.</p>
+<p><span class="math display">\[\begin{align}
+P(s \text{ occurs}) &amp;= \lim_{n \rightarrow \infty} P(s \text{ occurs in first } 
+                                                     nk \text{ tosses})
+\end{align}\]</span></p>
+<p>The right part of the upper equation is greater than if <span class="math inline">\(s\)</span> occurs either in the
+first <span class="math inline">\(k\)</span> tosses, second <span class="math inline">\(k\)</span> tosses,…, <span class="math inline">\(n\)</span>-th <span class="math inline">\(k\)</span> tosses. Therefore</p>
+<p><span class="math display">\[\begin{align}
+P(s \text{ occurs}) &amp;\geq \lim_{n \rightarrow \infty} 
+                  P(s \text{ occurs in first } n \text{ disjoint sequences of length } k) \\
+                  &amp;= \lim_{n \rightarrow \infty} 
+                  (1 - P(s \text{ does not occur in first } n \text{ disjoint sequences})) \\
+                  &amp;= 1 -  \lim_{n \rightarrow \infty} P(s \text{ does not occur in first } n \text{ disjoint sequences}) \\
+                  &amp;= 1 - \lim_{n \rightarrow \infty} (1 - \frac{1}{2^k})^n \\ 
+                  &amp;= 1.
+\end{align}\]</span></p>
+</div>
+
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-22" class="exercise"><strong>Exercise 1.10  </strong></span>An Erdos-Renyi random graph <span class="math inline">\(G(n,p)\)</span> is a model with <span class="math inline">\(n\)</span> nodes, where
@@ -317,6 +368,36 @@ connected to any other node in <span class="math inline">\(G(4,0.6)\)</span>.</l
 </ul>
 </div>
 
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> We need to show that the terms of
+<span class="math inline">\(\sum_{k=0}^n \binom{n}{k} p^k (1 - p)^{n - k}\)</span> sum to 1. For that we use the
+binomial theorem <span class="math inline">\(\sum_{k=0}^n \binom{n}{k} x^k y^{n-k} = (x + y)^n\)</span>. So</p>
+<p><span class="math display">\[\begin{equation}
+  \sum_{k=0}^n \binom{n}{k} p^k (1 - p)^{n - k} = (p + 1 - p)^n = 1.
+\end{equation}\]</span></p>
+<ul>
+<li><span class="math inline">\(P(\{k\}) = \frac{1}{n + 1}\)</span>.</li>
+<li>When <span class="math inline">\(n=1\)</span> then <span class="math inline">\(k \in \{0,1\}\)</span>. Inserting <span class="math inline">\(n=1\)</span> into the binomial measure,
+we get <span class="math inline">\(\binom{1}{k}p^k (1-p)^{1 - k}\)</span>. Now
+<span class="math inline">\(\binom{1}{1} = \binom{1}{0} = 1\)</span>, so the measure is <span class="math inline">\(p^k (1-p)^{1 - k}\)</span>,
+which is the Bernoulli measure.</li>
+</ul>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+<span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(dplyr)
+bin_samp &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)
+bin_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> bin_samp) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">n =</span> <span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))
+
+bin_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> bin_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
+<span class="kw">plot</span>(bin_plot)</code></pre>
+<p><img src="01-Introduction_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 
 <div class="exercise">
 <p><span id="exr:geopoispmf" class="exercise"><strong>Exercise 1.12  </strong></span>Show that the standard measurable space on <span class="math inline">\(\Omega = \{0,1,...,\infty\}\)</span></p>

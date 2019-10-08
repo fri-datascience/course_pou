@@ -24,20 +24,27 @@ The students are expected to acquire the following knowledge:
 
 
 ## Measure and probability spaces
-\BeginKnitrBlock{exercise}\iffalse{-91-67-111-109-112-108-101-116-105-110-103-32-97-32-115-101-116-32-116-111-32-97-32-83-105-103-109-97-32-97-108-103-101-98-114-97-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-2"><strong>(\#exr:unnamed-chunk-2)  \iffalse (Completing a set to a Sigma algebra) \fi{} </strong></span>Let $\Omega = \{1,2,...,10\}$ and let $A = \{\emptyset, \{1\}, \{2\}, \Omega \}$.
+\BeginKnitrBlock{exercise}\iffalse{-91-67-111-109-112-108-101-116-105-110-103-32-97-32-115-101-116-32-116-111-32-97-32-115-105-103-109-97-32-97-108-103-101-98-114-97-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-2"><strong>(\#exr:unnamed-chunk-2)  \iffalse (Completing a set to a sigma algebra) \fi{} </strong></span>Let $\Omega = \{1,2,...,10\}$ and let $A = \{\emptyset, \{1\}, \{2\}, \Omega \}$.
 
 - Show that $A$ is not a sigma algebra of $\Omega$.
 - Find the minimum number of elements to complete A to a sigma algebra of
 $\Omega$.
 </div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
+- $1^c = \{2,3,...,10\} \notin A \implies$ $A$ is not sigma algebra.
+- First we need the complements of all elements, so we need to add sets
+$\{2,3,...,10\}$ and $\{1,3,4,...,10\}$. Next we need unions of all sets --
+we add the set $\{1,2\}$. Again we need the complement of this set, so we add
+$\{3,4,...,10\}$. So the minimum number of elements we need to add is 4.
+</div>\EndKnitrBlock{solution}
 
 
 \BeginKnitrBlock{exercise}\iffalse{-91-68-105-118-101-114-115-105-116-121-32-111-102-32-115-105-103-109-97-32-97-108-103-101-98-114-97-115-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-4"><strong>(\#exr:unnamed-chunk-4)  \iffalse (Diversity of sigma algebras) \fi{} </strong></span>Let $\Omega$ be a set.
 
 - Show that $2^{\Omega}$ is a sigma algebra.
 - Find the smallest sigma algebra of $\Omega$.
-- Find the largest Sigma algebra of $\Omega$.
+- Find the largest sigma algebra of $\Omega$.
 </div>\EndKnitrBlock{exercise}
 
 
@@ -67,7 +74,14 @@ following is a measure? Which is a probability measure?
 - $\mu(\emptyset) = 0$, $\mu(\{1\}) = 0$, $\mu(\{2\}) = 1$, $\mu(\{1,2\}) = 1$
 - $\mu(\emptyset)=0$, $\mu(\{1\})=0$, $\mu(\{2\})=\infty$, $\mu(\{1,2\})=\infty$
 </div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
+  - Measure. Not probability measure since $\mu(\Omega) > 1$.
+  - Neither due to countable additivity.
+  - Measure. Not probability measure since $\mu(\Omega) = 0$.
+  - Probability measure.
+  - Measure. Not probability measure since $\mu(\Omega) > 1$.
+</div>\EndKnitrBlock{solution}
 
 
 \BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-12"><strong>(\#exr:unnamed-chunk-12) </strong></span>Define a probability space that could be used to model the outcome of throwing two fair 6-sided dice.
@@ -108,7 +122,34 @@ $P(A \cap B)$ </span>.
 
 - Show similarly that any given finite sequence of heads and
 tails occurs eventually with probability one.</div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}\begin{align}
+P(\text{no heads}) &= \lim_{n \rightarrow \infty} P(\text{no heads in first }n 
+                                 \text{ tosses}) \\
+                   &= \lim_{n \rightarrow \infty} \frac{1}{2^n} \\
+                   &= 0.
+\end{align}
 
+For the second part, let us fix the given sequence of heads and tails of length 
+$k$ as $s$. A probability that this happens in $k$ tosses is $\frac{1}{2^k}$.
+
+\begin{align}
+P(s \text{ occurs}) &= \lim_{n \rightarrow \infty} P(s \text{ occurs in first } 
+                                                     nk \text{ tosses})
+\end{align}
+
+The right part of the upper equation is greater than if $s$ occurs either in the
+first $k$ tosses, second $k$ tosses,..., $n$-th $k$ tosses. Therefore
+
+\begin{align}
+P(s \text{ occurs}) &\geq \lim_{n \rightarrow \infty} 
+                  P(s \text{ occurs in first } n \text{ disjoint sequences of length } k) \\
+                  &= \lim_{n \rightarrow \infty} 
+                  (1 - P(s \text{ does not occur in first } n \text{ disjoint sequences})) \\
+                  &= 1 -  \lim_{n \rightarrow \infty} P(s \text{ does not occur in first } n \text{ disjoint sequences}) \\
+                  &= 1 - \lim_{n \rightarrow \infty} (1 - \frac{1}{2^k})^n \\ 
+                  &= 1.
+\end{align}
+</div>\EndKnitrBlock{solution}
 
 
 \BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-22"><strong>(\#exr:unnamed-chunk-22) </strong></span>An Erdos-Renyi random graph $G(n,p)$ is a model with $n$ nodes, where
@@ -132,8 +173,37 @@ connected to any other node in $G(4,0.6)$.
 - Show that for $n=1$ the binomial measure is the same as the Bernoulli measure.
 - <span style="color:blue">R: Draw 1000 samples from the binomial distribution $p=0.5$, $n=20$ (_rbinom_) and compare relative frequencies with theoretical probability measure</span>.
 </div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}We need to show that the terms of 
+$\sum_{k=0}^n \binom{n}{k} p^k (1 - p)^{n - k}$ sum to 1. For that we use the
+binomial theorem $\sum_{k=0}^n \binom{n}{k} x^k y^{n-k} = (x + y)^n$. So
 
+\begin{equation}
+  \sum_{k=0}^n \binom{n}{k} p^k (1 - p)^{n - k} = (p + 1 - p)^n = 1.
+\end{equation}
 
+- $P(\{k\}) = \frac{1}{n + 1}$.
+- When $n=1$ then $k \in \{0,1\}$. Inserting $n=1$ into the binomial measure, 
+we get $\binom{1}{k}p^k (1-p)^{1 - k}$. Now 
+$\binom{1}{1} = \binom{1}{0} = 1$, so the measure is $p^k (1-p)^{1 - k}$, 
+which is the Bernoulli measure.
+</div>\EndKnitrBlock{solution}
+
+```r
+set.seed(1)
+library(ggplot2)
+library(dplyr)
+bin_samp <- rbinom(n = 1000, size = 20, prob = 0.5)
+bin_samp <- data.frame(x = bin_samp) %>%
+  count(x) %>%
+  mutate(n = n / 1000, type = "empirical_frequencies") %>%
+  bind_rows(data.frame(x = 0:20, n = dbinom(0:20, size = 20, prob = 0.5), type = "theoretical_measure"))
+
+bin_plot <- ggplot(data = bin_samp, aes(x = x, y = n, fill = type)) +
+  geom_bar(stat="identity", position = "dodge")
+plot(bin_plot)
+```
+
+<img src="01-Introduction_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 
 \BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:geopoispmf"><strong>(\#exr:geopoispmf) </strong></span>Show that the standard measurable space on $\Omega = \{0,1,...,\infty\}$
