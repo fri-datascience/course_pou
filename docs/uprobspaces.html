@@ -137,7 +137,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
-<li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#borel-sets"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
+<li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -200,28 +200,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Uniform sampling.</li>
 </ul>
-<div id="borel-sets" class="section level2">
+<div id="bset" class="section level2">
 <h2><span class="header-section-number">2.1</span> Borel sets</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  </strong></span></p>
-<ol style="list-style-type: lower-alpha">
-<li><p>Prove that the intersection of two sigma algebras on <span class="math inline">\(\Omega\)</span> is a sigma
-algebra.</p></li>
-<li><p>Prove that the collection of all open subsets <span class="math inline">\((a,b)\)</span> on <span class="math inline">\((0,1]\)</span> is not a
-sigma algebra of <span class="math inline">\((0,1]\)</span>.</p></li>
+<p><span id="exr:unnamed-chunk-36" class="exercise"><strong>Exercise 2.1  </strong></span>
+a. Prove that the intersection of two sigma algebras on <span class="math inline">\(\Omega\)</span> is a sigma
+algebra.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Prove that the collection of all open subsets <span class="math inline">\((a,b)\)</span> on <span class="math inline">\((0,1]\)</span> is not a
+sigma algebra of <span class="math inline">\((0,1]\)</span>.</li>
 </ol>
 </div>
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 1.2  </strong></span>Show that <span class="math inline">\(\mathcal{C} = \sigma(\mathcal{C})\)</span> if and only if <span class="math inline">\(\mathcal{C}\)</span> is
+<p><span id="exr:unnamed-chunk-38" class="exercise"><strong>Exercise 2.2  </strong></span>Show that <span class="math inline">\(\mathcal{C} = \sigma(\mathcal{C})\)</span> if and only if <span class="math inline">\(\mathcal{C}\)</span> is
 a sigma algebra.</p>
 </div>
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 1.3  </strong></span>Let <span class="math inline">\(\mathcal{C}\)</span> and <span class="math inline">\(\mathcal{D}\)</span> be two collections of subsets on <span class="math inline">\(\Omega\)</span>
+<p><span id="exr:unnamed-chunk-40" class="exercise"><strong>Exercise 2.3  </strong></span>Let <span class="math inline">\(\mathcal{C}\)</span> and <span class="math inline">\(\mathcal{D}\)</span> be two collections of subsets on <span class="math inline">\(\Omega\)</span>
 such that <span class="math inline">\(\mathcal{C} \subset \mathcal{D}\)</span>. Prove that
 <span class="math inline">\(\sigma(\mathcal{C}) \subset \sigma(\mathcal{D})\)</span>.</p>
 </div>
@@ -264,7 +264,7 @@ such that <span class="math inline">\(\mathcal{C} \subset \mathcal{D}\)</span>. 
 <!-- ``` -->
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 1.4  </strong></span>Prove that the following subsets of <span class="math inline">\((0,1]\)</span> are Borel-measurable.</p>
+<p><span id="exr:unnamed-chunk-42" class="exercise"><strong>Exercise 2.4  </strong></span>Prove that the following subsets of <span class="math inline">\((0,1]\)</span> are Borel-measurable.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Any countable set.</p></li>
 <li><p>The set of numbers in (0,1] whose decimal expansion does not contain 7.</p></li>
@@ -273,7 +273,7 @@ such that <span class="math inline">\(\mathcal{C} \subset \mathcal{D}\)</span>. 
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-10" class="exercise"><strong>Exercise 1.5  </strong></span>Let <span class="math inline">\(\Omega = [0,1]\)</span>, and let <span class="math inline">\(\mathcal{F}_3\)</span> consist of all countable subsets
+<p><span id="exr:unnamed-chunk-44" class="exercise"><strong>Exercise 2.5  </strong></span>Let <span class="math inline">\(\Omega = [0,1]\)</span>, and let <span class="math inline">\(\mathcal{F}_3\)</span> consist of all countable subsets
 of <span class="math inline">\(\Omega\)</span>, and all subsets of <span class="math inline">\(\Omega\)</span> having a countable complement.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Show
@@ -290,7 +290,7 @@ probability space?</p></li>
 <h2><span class="header-section-number">2.2</span> Lebesgue measure</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 1.6  </strong></span>Show that the Lebesgue measure of rational numbers on <span class="math inline">\([0,1]\)</span> is 0.
+<p><span id="exr:unnamed-chunk-46" class="exercise"><strong>Exercise 2.6  </strong></span>Show that the Lebesgue measure of rational numbers on <span class="math inline">\([0,1]\)</span> is 0.
 <span style="color:blue">R: Implement a random number generator, which
 generates uniform samples of irrational numbers in <span class="math inline">\([0,1]\)</span> by uniformly sampling
 from <span class="math inline">\([0,1]\)</span> and rejecting a sample if it is rational.</span></p>
@@ -298,7 +298,7 @@ from <span class="math inline">\([0,1]\)</span> and rejecting a sample if it is 
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 1.7  </strong></span></p>
+<p><span id="exr:unnamed-chunk-48" class="exercise"><strong>Exercise 2.7  </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Prove that the Lebesgue measure of <span class="math inline">\(\mathbb{R}\)</span> is infinity.</p></li>
 <li><p><em>Paradox</em>. Show that the cardinality of <span class="math inline">\(\mathbb{R}\)</span> and <span class="math inline">\((0,1)\)</span> is the same,
@@ -308,7 +308,7 @@ while their Lebesgue measures are infinity and one respectably.</p></li>
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-16" class="exercise"><strong>Exercise 2.1  </strong></span>
+<p><span id="exr:unnamed-chunk-50" class="exercise"><strong>Exercise 2.8  </strong></span>
 Take the measure space <span class="math inline">\((\Omega_1 = (0,1], B_{(0,1], \lambda})\)</span> (we know
 that this is a probability space on <span class="math inline">\((0,1]\)</span>).</p>
 <ol style="list-style-type: lower-alpha">

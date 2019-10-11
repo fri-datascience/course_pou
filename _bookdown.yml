@@ -2,6 +2,6 @@ book_filename: "bookdown-pou"
 chapter_name: "Chapter "
 output_dir: docs
 rmd_files: ["index.Rmd","01-Introduction.Rmd", "02-uncountable_probability_spaces.Rmd", "Appendix.Rmd", "A1-R_programming_language.Rmd", "References.Rmd"]
-new_session: yes
+new_session: no
 
 

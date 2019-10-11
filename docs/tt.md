@@ -1,4 +1,4 @@
-# Uncountable probability spaces {#uprobspaces}
+# Uncountable probability spaces {#uprobspaces2}
 
 This chapter deals with uncountable probability spaces.
 
@@ -19,7 +19,7 @@ The students are expected to acquire the following knowledge:
 
 
 
-## Borel sets {#bset}
+## Borel sets
 
 \BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-2"><strong>(\#exr:unnamed-chunk-2) </strong></span>
 a. Prove that the intersection of two sigma algebras on $\Omega$ is a sigma 

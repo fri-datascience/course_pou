@@ -1,4 +1,4 @@
-# Uncountable probability spaces {#uprobspaces}
+# Uncountable probability spaces {#uprobspaces2}
 
 This chapter deals with uncountable probability spaces.
 
@@ -23,7 +23,7 @@ library(ggplot2)
 # togs <- FALSE
 ```
 
-## Borel sets {#bset}
+## Borel sets
 
 ```{exercise}
 
