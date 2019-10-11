@@ -13,14 +13,12 @@ The students are expected to acquire the following knowledge:
 
 **R**
 
-- uniform sampling
-- recursion
-- Cantor sets
-- factors
+- Uniform sampling.
+
 
 
 ```{r, echo = FALSE, warning = FALSE}
-togs <- TRUE
+togs <- F
 library(ggplot2)
 # togs <- FALSE
 ```
@@ -118,51 +116,49 @@ so that $F_j = \sigma(\mathcal{D})$. Then we can write
   
 ```
 
+<!-- ```{exercise} -->
+
+<!-- <span style="color:blue">R: Simulate from the 2nd, 3rd, and 4th Cantor sets and -->
+<!-- plot results in a meaningful way.</span> -->
+
+<!-- ``` -->
+<!-- ```{r, echo = togs} -->
+<!-- set.seed(1) -->
+<!-- nsamps <- 100 -->
+<!-- cantor_n <- function (n) { -->
+<!--   if (n <= 0) { -->
+<!--     return (c(0, 1)) -->
+<!--   } -->
+<!--   cantor_prev <- cantor_n(n - 1) -->
+<!--   return (c(cantor_prev / 3, 2/3 + cantor_prev / 3)) -->
+<!-- } -->
+
+<!-- sample_cantor <- function (n, nsamps) { -->
+<!--   samps <- vector(mode = "numeric", length = nsamps) -->
+<!--   cant  <- cantor_n(n) -->
+<!--   mat   <- matrix(cant, ncol = 2, byrow = TRUE) -->
+<!--   for(i in 1:nsamps) { -->
+<!--     ind      <- sample(1:nrow(mat), 1) -->
+<!--     bounds   <- mat[ind, ] -->
+<!--     samps[i] <- runif(1, min = bounds[1], max = bounds[2]) -->
+<!--   } -->
+<!--   return(samps) -->
+<!-- } -->
+
+<!-- depth_2     <- sample_cantor(2, nsamps) -->
+<!-- depth_3     <- sample_cantor(3, nsamps) -->
+<!-- depth_4     <- sample_cantor(4, nsamps) -->
+<!-- plot_data   <- data.frame(samps = c(depth_2, depth_3, depth_4), -->
+<!--                           depth = c(rep(2, nsamps), rep(3, nsamps), -->
+<!--                                     rep(4, nsamps))) -->
+<!-- cantor_plot <- ggplot(data = plot_data, aes(x = samps)) + -->
+<!--   geom_linerange(aes(ymin = 0, ymax = depth, col = factor(depth))) + -->
+<!--   ylab("depth") -->
+<!-- plot(cantor_plot) -->
+
+
+<!-- ``` -->
 ```{exercise}
-
-<span style="color:blue">R: Simulate from the 2nd, 3rd, and 4th Cantor sets and 
-plot results in a meaningful way.</span>
-
-```
-```{r, echo = togs}
-set.seed(1)
-nsamps <- 100
-cantor_n <- function (n) {
-  if (n <= 0) {
-    return (c(0, 1))
-  }
-  cantor_prev <- cantor_n(n - 1)
-  return (c(cantor_prev / 3, 2/3 + cantor_prev / 3))
-}
-
-sample_cantor <- function (n, nsamps) {
-  samps <- vector(mode = "numeric", length = nsamps)
-  cant  <- cantor_n(n)
-  mat   <- matrix(cant, ncol = 2, byrow = TRUE)
-  for(i in 1:nsamps) {
-    ind      <- sample(1:nrow(mat), 1)
-    bounds   <- mat[ind, ]
-    samps[i] <- runif(1, min = bounds[1], max = bounds[2])
-  }
-  return(samps)
-}
-
-depth_2     <- sample_cantor(2, nsamps)
-depth_3     <- sample_cantor(3, nsamps)
-depth_4     <- sample_cantor(4, nsamps)
-plot_data   <- data.frame(samps = c(depth_2, depth_3, depth_4), 
-                          depth = c(rep(2, nsamps), rep(3, nsamps), 
-                                    rep(4, nsamps)))
-cantor_plot <- ggplot(data = plot_data, aes(x = samps)) +
-  geom_linerange(aes(ymin = 0, ymax = depth, col = factor(depth))) +
-  ylab("depth")
-plot(cantor_plot)
-
-
-```
-```{exercise}
-
-
 Prove that the following subsets of $(0,1]$ are Borel-measurable.
 
 a. Any countable set.
@@ -377,7 +373,7 @@ where $A = \{y \in (0,1] : y < p\}$.
 
 ```
 
-```{r, echo = togs}
+```{r, echo = togs, eval = togs}
 set.seed(1)
 unif_s <- runif(1000)
 die_s  <- ceiling(6 * unif_s)
