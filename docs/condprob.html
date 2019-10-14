@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>References | Principles of Uncertainty – exercises</title>
+  <title>Chapter 3 Conditional probability | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="References | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 3 Conditional probability | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 3 Conditional probability | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="A1.html">
-
+<link rel="prev" href="uprobspaces.html">
+<link rel="next" href="A1.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -190,25 +190,199 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="condprob" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Conditional probability</h1>
+<p>This chapter deals with conditional probability.</p>
+<p>The students are expected to acquire the following knowledge:</p>
+<p><strong>Theoretical</strong></p>
+<ul>
+<li>Identify whether variables are independent.</li>
+<li>Calculation of conditional probabilities.</li>
+<li>Understanding of conditional dependence and independence.</li>
+<li>How to apply Bayes’ theorem to solve difficult probabilistic questions.</li>
+</ul>
+<p><strong>R</strong></p>
+<ul>
+<li>Simulating conditional probabilities.</li>
+<li>cumsum.</li>
+<li>apply.</li>
+</ul>
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+<div id="calculating-conditional-probabilities" class="section level2">
+<h2><span class="header-section-number">3.1</span> Calculating conditional probabilities</h2>
 
-<div id="refs" class="references">
-<div>
-<p>R Core Team. 2016. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-54" class="exercise"><strong>Exercise 3.1  </strong></span>A military officer is in charge of identifying enemy aircraft and shooting them
+down. He is able to positively identify an enemy airplane 95% of the time
+and positively identify a friendly airplane 90% of the time. Furthermore, 99%
+of the airplanes are friendly. When the officer identifies an airplane as an
+enemy airplane, what is the probability that it is not and they will shoot at
+a friendly airplane?</p>
 </div>
-<div>
-<p>Ross, Sheldon M. 1998. <em>A First Course in Probability</em>. Prentice Hall Upper Saddle River, NJ.</p>
+
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-56" class="exercise"><strong>Exercise 3.2  </strong></span><span style="color:blue">R: Consider tossing a fair die. Let <span class="math inline">\(A = \{2,4,6\}\)</span>
+and <span class="math inline">\(B = \{1,2,3,4\}\)</span>. Then <span class="math inline">\(P(A) = \frac{1}{2}\)</span>, <span class="math inline">\(P(B) = \frac{2}{3}\)</span> and
+<span class="math inline">\(P(AB) = \frac{1}{3}\)</span>. Since <span class="math inline">\(P(AB) = P(A)P(B)\)</span>, the events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are
+independent. Simulate draws from the sample space and verify that the
+proportions are the same. Then find two events <span class="math inline">\(C\)</span> and <span class="math inline">\(D\)</span> that are not
+independent and repeat the simulation.</span>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-58" class="exercise"><strong>Exercise 3.3  </strong></span>A machine reports the true value of a thrown 12-sided die 5 out of 6 times.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>If the machine reports a 1 has been tossed, what is the probability that
+it is actually a 1?</p></li>
+<li><p>Now let the machine only report whether a 1 has been
+tossed or not. Does the probability change?</p></li>
+<li><p><span style="color:blue">R: Use simulation to check your answers
+to a) and b). </span></p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-61" class="exercise"><strong>Exercise 3.4  </strong></span>A coin is tossed independently <span class="math inline">\(n\)</span> times. The probability of heads at each
+toss is <span class="math inline">\(p\)</span>. At each time <span class="math inline">\(k\)</span>, <span class="math inline">\((k = 2,3,...,n)\)</span> we get a reward at time <span class="math inline">\(k+1\)</span>
+if <span class="math inline">\(k\)</span>-th toss was a head and the previous toss was a tail. Let <span class="math inline">\(A_k\)</span> be the
+evebt that a reward is obtained at time <span class="math inline">\(k\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Are events <span class="math inline">\(A_k\)</span> and <span class="math inline">\(A_{k+1}\)</span> independent?</p></li>
+<li><p>Are events <span class="math inline">\(A_k\)</span> and <span class="math inline">\(A_{k+2}\)</span> independent?</p></li>
+<li><p><span style="color:blue">R: simulate 10 tosses 10000 times, where
+<span class="math inline">\(p = 0.7\)</span>. Check your
+answers to a) and b) by counting the frequencies of the events <span class="math inline">\(A_5\)</span>,
+<span class="math inline">\(A_6\)</span>, and <span class="math inline">\(A_7\)</span>.</span></p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-64" class="exercise"><strong>Exercise 3.5  </strong></span>A drawer contains two coins. One is an unbiased coin, the other is a biased
+coin, which will turn up heads with probability <span class="math inline">\(p\)</span> and tails with
+probability <span class="math inline">\(1-p\)</span>. One coin is selected uniformly at random.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>The selected coin is tossed <span class="math inline">\(n\)</span> times. The coin turns up heads <span class="math inline">\(k\)</span> times and
+tails <span class="math inline">\(n-k\)</span> times. What is the probability that the coin is biased?</p></li>
+<li><p>The selected coin is tossed repeatedly until it turns up heads <span class="math inline">\(k\)</span> times.
+Given that it is tossed <span class="math inline">\(n\)</span> times in total, what is the probability that the
+coin is biased?</p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-66" class="exercise"><strong>Exercise 3.6  </strong></span>Judy goes around the company for Women’s day and shares flowers. In every
+office she leaves a flower, if there is at least one woman inside.
+The probability
+that there’s a woman in the office is <span class="math inline">\(\frac{3}{5}\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>What is the probability that Judy leaves her first flower in the
+fourth office?</p></li>
+<li><p>Given that she has given away exactly three flowers in the first four
+offices,
+what is the probability that she gives her fourth flower in the eighth office?</p></li>
+<li><p>What is the probability that she leaves the second flower in the fifth
+office?</p></li>
+<li><p>What is the probability that she leaves the second flower in the fifth
+office,
+given that she did not leave the second flower in the second office?</p></li>
+<li><p>Judy needs a new supply of flowers immediately after the office, where she
+gives away her last flower. What is the probability that she visits at least
+five offices, if she starts with two flowers?</p></li>
+<li><p><span style="color:blue">R: simulate Judy’s walk 10000 times to
+check your answers a) - e).</span></p></li>
+</ol>
+</div>
+
+</div>
+<div id="conditional-independence" class="section level2">
+<h2><span class="header-section-number">3.2</span> Conditional independence</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-69" class="exercise"><strong>Exercise 3.7  </strong></span>Describe:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>A real-world example of two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> that are dependent but
+become conditionally independent if conditioned on a third event <span class="math inline">\(C\)</span>.</p></li>
+<li><p>A real-world example of two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> that are independent, but
+become dependent if conditioned on some third event <span class="math inline">\(C\)</span>.</p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-71" class="exercise"><strong>Exercise 3.8  </strong></span>We have two coins of identical appearance. We know that one is a fair coin
+and the other flips heads 80% of the time. We choose one of the two
+coins uniformly at random. We discard the coin that was not chosen. We now
+flip the chosen coin independently 10 times, producing a sequence
+<span class="math inline">\(Y_1 = y_1\)</span>, <span class="math inline">\(Y_2 = y_2\)</span>, …, <span class="math inline">\(Y_10 = y_10\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Intuitively, without doing and computation, are these random variables
+independent?</p></li>
+<li><p>Compute the probability <span class="math inline">\(P(Y_1 = 1)\)</span>.</p></li>
+<li><p>Compute the probabilities <span class="math inline">\(P(Y_2 = 1 | Y_1 = 1)\)</span> and
+P(Y_{10} = 1 | Y_1 = 1,…,Y_9 = 1)$.</p></li>
+<li><p>Given your answers to b) and c), would you now change your answer to a)?
+If so, discuss why your intuition had failed.</p></li>
+</ol>
+</div>
+
+</div>
+<div id="monty-hall-problem" class="section level2">
+<h2><span class="header-section-number">3.3</span> Monty Hall problem</h2>
+<p>The Monty Hall problem is a famous probability puzzle with non-intuitive
+outcome. Many established mathematicians and statisticians had problems
+solving it and many even disregarded the correct solution until they’ve seen
+the proof by simulation. Here we will show how it can be solved relatively
+simply with the use of Bayes’ theorem if we select the variables in a smart way.</p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-73" class="exercise"><strong>Exercise 3.9  (Monty Hall problem)  </strong></span>A prize is placed at random behind one of three doors. You pick a door. Now
+Monty Hall chooses one of the other two doors, opens it and shows you that it is
+empty. He then gives you the opportunity to keep your door or switch to the
+other unopened door. Should you stay or switch? Use Bayes’ theorem to c
+alculate the probability of winning if you switch and if you do not.
+<span style="color:blue">R: Check your answers in R.</span></p>
+</div>
+
+
 </div>
 </div>
+
+
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="A1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="uprobspaces.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="A1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

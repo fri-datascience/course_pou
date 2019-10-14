@@ -159,7 +159,7 @@ so that $F_j = \sigma(\mathcal{D})$. Then we can write
 
 <!-- ``` -->
 ```{exercise}
-Prove that the following subsets of $(0,1]$ are Borel-measurable.
+Prove that the following subsets of $(0,1]$ are Borel-measurable by finding their measure.
 
 a. Any countable set.
 
@@ -335,13 +335,13 @@ value, which in this case is $\pi$. So our bijection is
 Take the measure space $(\Omega_1 = (0,1], B_{(0,1], \lambda})$ (we know
 that this is a probability space on $(0,1]$).
 
-a. Define an injective map (function) from $\Omega_1$ to
+a. Define a map (function) from $\Omega_1$ to
 $\Omega_2 = \{1,2,3,4,5,6\}$ such that the measure space
 $(\Omega_2, 2^{\Omega_2}, \lambda(f^{-1}()))$ will be a discrete probability
 space with uniform probabilities
 ($P(\omega) = \frac{1}{6}, \forall \omega \in \Omega_2)$.
 b. Is the map that you defined in (a) the only such map?
-c. How would you in the same fashion define an injective map that would result
+c. How would you in the same fashion define a map that would result
 in a probability space that can be interpreted as a coin toss with probability
 $p$ of heads?
 d. <span style="color:blue">R: Use the map in (a) as a basis for a random

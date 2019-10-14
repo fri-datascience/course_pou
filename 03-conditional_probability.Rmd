@@ -6,26 +6,52 @@ The students are expected to acquire the following knowledge:
 
 **Theoretical**
 
-- identify whether variables are independent
-- calculation of conditional probabilities
-- understanding of conditional dependence and independence
-- how to apply Bayes' theorem to solve difficult probabilistic questions
+- Identify whether variables are independent.
+- Calculation of conditional probabilities.
+- Understanding of conditional dependence and independence.
+- How to apply Bayes' theorem to solve difficult probabilistic questions.
 
 **R**
 
-- simulating conditional probabilities
-- cumsum
-- apply
+- Simulating conditional probabilities.
+- cumsum.
+- apply.
+
+
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
 
 
 ```{r, echo = FALSE, warning = FALSE}
-togs <- TRUE
+togs <- F
 library(ggplot2)
 # togs <- FALSE
 ```
 
 
 ## Calculating conditional probabilities
+
 
 ```{exercise}
 A military officer is in charge of identifying enemy aircraft and shooting them 
@@ -36,6 +62,9 @@ enemy airplane, what is the probability that it is not and they will shoot at
 a friendly airplane?
 
 ```
+
+
+
 ```{solution, echo = togs}
 Let $E = 0$ denote that the observed plane is friendly and $E=1$ that it
 is an enemy. Let $I = 0$ denote that the officer identified it as friendly and
@@ -49,7 +78,6 @@ $I = 1$ as enemy. Then
                       0.95  \times 0.01} \\
                    &= 0.91.
 \end{align}
-
 ```
 
 
@@ -61,7 +89,7 @@ independent. Simulate draws from the sample space and verify that the
 proportions are the same. Then find two events $C$ and $D$ that are not
 independent and repeat the simulation.</span>
 ```
-```{r, echo = togs}
+```{r, echo = togs, eval = togs}
 set.seed(1)
 nsamps <- 10000
 tosses <- sample(1:6, nsamps, replace = TRUE)
@@ -113,7 +141,7 @@ b. Yes.
 \end{align}
   
 ```
-```{r, echo = togs}
+```{r, echo = togs, eval = togs}
 set.seed(1)
 nsamps   <- 10000
 report_a <- vector(mode = "numeric", length = nsamps)
@@ -174,7 +202,7 @@ And the probability of each separately is again $p(1-p)$. Therefore, they
 are independent.
   
 ```
-```{r, echo = togs}
+```{r, echo = togs, eval = togs}
 set.seed(1)
 nsamps <- 10000
 p      <- 0.7
@@ -302,7 +330,7 @@ The multiplying parts represent the possibilities of the first flower.
 
 
 ```
-```{r, echo = togs}
+```{r, echo = togs, eval = togs}
 set.seed(1)
 nsamps     <- 100000
 Judyswalks <- matrix(data = NA, nrow = nsamps, ncol = 8)
@@ -475,7 +503,7 @@ Therefore it makes sense to change the door.
 
 ```
 
-```{r, echo = togs}
+```{r, echo = togs, eval = togs}
 set.seed(1)
 nsamps <- 1000
 ifchange <- vector(mode = "logical", length = nsamps)

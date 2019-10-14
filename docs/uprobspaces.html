@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-10-11">
+<meta name="date" content="2019-10-14">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="introduction.html">
-<link rel="next" href="A1.html">
+<link rel="next" href="condprob.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -139,6 +139,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
+<li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
+<li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
@@ -264,7 +269,7 @@ such that <span class="math inline">\(\mathcal{C} \subset \mathcal{D}\)</span>. 
 <!-- ``` -->
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-42" class="exercise"><strong>Exercise 2.4  </strong></span>Prove that the following subsets of <span class="math inline">\((0,1]\)</span> are Borel-measurable.</p>
+<p><span id="exr:unnamed-chunk-42" class="exercise"><strong>Exercise 2.4  </strong></span>Prove that the following subsets of <span class="math inline">\((0,1]\)</span> are Borel-measurable by finding their measure.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Any countable set.</p></li>
 <li><p>The set of numbers in (0,1] whose decimal expansion does not contain 7.</p></li>
@@ -312,13 +317,13 @@ while their Lebesgue measures are infinity and one respectably.</p></li>
 Take the measure space <span class="math inline">\((\Omega_1 = (0,1], B_{(0,1], \lambda})\)</span> (we know
 that this is a probability space on <span class="math inline">\((0,1]\)</span>).</p>
 <ol style="list-style-type: lower-alpha">
-<li>Define an injective map (function) from <span class="math inline">\(\Omega_1\)</span> to
+<li>Define a map (function) from <span class="math inline">\(\Omega_1\)</span> to
 <span class="math inline">\(\Omega_2 = \{1,2,3,4,5,6\}\)</span> such that the measure space
 <span class="math inline">\((\Omega_2, 2^{\Omega_2}, \lambda(f^{-1}()))\)</span> will be a discrete probability
 space with uniform probabilities
 (<span class="math inline">\(P(\omega) = \frac{1}{6}, \forall \omega \in \Omega_2)\)</span>.</li>
 <li>Is the map that you defined in (a) the only such map?</li>
-<li>How would you in the same fashion define an injective map that would result
+<li>How would you in the same fashion define a map that would result
 in a probability space that can be interpreted as a coin toss with probability
 <span class="math inline">\(p\)</span> of heads?</li>
 <li><span style="color:blue">R: Use the map in (a) as a basis for a random
@@ -329,17 +334,13 @@ generator for this fair die.</span></li>
 
 </div>
 </div>
-
-
-
-</div>
             </section>
 
           </div>
         </div>
       </div>
 <a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="A1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="condprob.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
