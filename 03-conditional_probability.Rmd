@@ -14,8 +14,8 @@ The students are expected to acquire the following knowledge:
 **R**
 
 - Simulating conditional probabilities.
-- cumsum.
-- apply.
+- _cumsum_.
+- _apply_.
 
 
 <style>
@@ -390,7 +390,7 @@ We have two coins of identical appearance. We know that one is a fair coin
 and the other flips heads 80% of the time. We choose one of the two 
 coins uniformly at random. We discard the coin that was not chosen. We now
 flip the chosen coin independently 10 times, producing a sequence
-$Y_1 = y_1$, $Y_2 = y_2$, ..., $Y_10 = y_10$.
+$Y_1 = y_1$, $Y_2 = y_2$, ..., $Y_{10} = y_{10}$.
 
 a. Intuitively, without doing and computation, are these random variables
 independent?
@@ -446,8 +446,7 @@ simply with the use of Bayes' theorem if we select the variables in a smart way.
 A prize is placed at random behind one of three doors. You pick a door. Now
 Monty Hall chooses one of the other two doors, opens it and shows you that it is
 empty. He then gives you the opportunity to keep your door or switch to the 
-other unopened door. Should you stay or switch?  Use Bayes' theorem to c
-alculate the probability of winning if you switch and if you do not.
+other unopened door. Should you stay or switch?  Use Bayes' theorem to calculate the probability of winning if you switch and if you do not.
 <span style="color:blue">R: Check your answers in R.</span>
 
 
@@ -466,7 +465,7 @@ Let us first look at what happens if we do not change. Then we have
 The probability that he opened $k$ if the car is in 1 is $\frac{1}{2}$, 
 as he can choose
 between door 2 and 3 as both have a goat behind it. Let us look at the
-normalization constant. Whek $n = 1$ we get the value in the nominator. When
+normalization constant. When $n = 1$ we get the value in the nominator. When
 $n=k$, we get 0, as he will not open the door if there's a prize behind. The
 remaining option is that we select 1, the car is behind $k$ and he opens the
 only door left. Since he can't open 1 due to it being our pick and $k$ due to

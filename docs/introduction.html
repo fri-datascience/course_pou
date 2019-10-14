@@ -209,38 +209,60 @@ the chapter, we look more closely at discrete probability spaces.</p>
 <li><em>sample</em> function.</li>
 <li>Matrices and matrix operations.</li>
 </ul>
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold Solution</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold Solution" ? "Unfold Solution" : "Fold Solution");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
 <div id="measure-and-probability-spaces" class="section level2">
 <h2><span class="header-section-number">1.1</span> Measure and probability spaces</h2>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  (Completing a set to a sigma algebra)  </strong></span>Let <span class="math inline">\(\Omega = \{1,2,...,10\}\)</span> and let <span class="math inline">\(A = \{\emptyset, \{1\}, \{2\}, \Omega \}\)</span>.</p>
-<ul>
+<ol style="list-style-type: lower-alpha">
 <li>Show that <span class="math inline">\(A\)</span> is not a sigma algebra of <span class="math inline">\(\Omega\)</span>.</li>
 <li>Find the minimum number of elements to complete A to a sigma algebra of
 <span class="math inline">\(\Omega\)</span>.</li>
-</ul>
+</ol>
 </div>
 
+<div class="fold">
 
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> </p>
-<ul>
+<ol style="list-style-type: lower-alpha">
 <li><span class="math inline">\(1^c = \{2,3,...,10\} \notin A \implies\)</span> <span class="math inline">\(A\)</span> is not sigma algebra.</li>
 <li>First we need the complements of all elements, so we need to add sets
 <span class="math inline">\(\{2,3,...,10\}\)</span> and <span class="math inline">\(\{1,3,4,...,10\}\)</span>. Next we need unions of all sets –
 we add the set <span class="math inline">\(\{1,2\}\)</span>. Again we need the complement of this set, so we add
 <span class="math inline">\(\{3,4,...,10\}\)</span>. So the minimum number of elements we need to add is 4.</li>
-</ul>
+</ol>
 </div>
-
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 1.2  (Diversity of sigma algebras)  </strong></span>Let <span class="math inline">\(\Omega\)</span> be a set.</p>
-<ul>
-<li>Show that <span class="math inline">\(2^{\Omega}\)</span> is a sigma algebra.</li>
+<ol style="list-style-type: lower-alpha">
 <li>Find the smallest sigma algebra of <span class="math inline">\(\Omega\)</span>.</li>
 <li>Find the largest sigma algebra of <span class="math inline">\(\Omega\)</span>.</li>
-</ul>
+</ol>
 </div>
 
 
@@ -260,27 +282,28 @@ Let <span class="math inline">\(\Omega = \mathbb{N}\)</span> and <span class="ma
 <p><span id="exr:unnamed-chunk-10" class="exercise"><strong>Exercise 1.5  (Intro to measure)  </strong></span>
 Take the measurable space <span class="math inline">\(\Omega = \{1,2\}\)</span>, <span class="math inline">\(F = 2^{\Omega}\)</span>. Which of the
 following is a measure? Which is a probability measure?</p>
-<ul>
+<ol style="list-style-type: lower-alpha">
 <li><span class="math inline">\(\mu(\emptyset) = 0\)</span>, <span class="math inline">\(\mu(\{1\}) = 5\)</span>, <span class="math inline">\(\mu(\{2\}) = 6\)</span>, <span class="math inline">\(\mu(\{1,2\}) = 11\)</span></li>
 <li><span class="math inline">\(\mu(\emptyset) = 0\)</span>, <span class="math inline">\(\mu(\{1\}) = 0\)</span>, <span class="math inline">\(\mu(\{2\}) = 0\)</span>, <span class="math inline">\(\mu(\{1,2\}) = 1\)</span></li>
 <li><span class="math inline">\(\mu(\emptyset) = 0\)</span>, <span class="math inline">\(\mu(\{1\}) = 0\)</span>, <span class="math inline">\(\mu(\{2\}) = 0\)</span>, <span class="math inline">\(\mu(\{1,2\}) = 0\)</span></li>
 <li><span class="math inline">\(\mu(\emptyset) = 0\)</span>, <span class="math inline">\(\mu(\{1\}) = 0\)</span>, <span class="math inline">\(\mu(\{2\}) = 1\)</span>, <span class="math inline">\(\mu(\{1,2\}) = 1\)</span></li>
 <li><span class="math inline">\(\mu(\emptyset)=0\)</span>, <span class="math inline">\(\mu(\{1\})=0\)</span>, <span class="math inline">\(\mu(\{2\})=\infty\)</span>, <span class="math inline">\(\mu(\{1,2\})=\infty\)</span></li>
-</ul>
+</ol>
 </div>
 
+<div class="fold">
 
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> </p>
-<ul>
+<ol style="list-style-type: lower-alpha">
 <li>Measure. Not probability measure since <span class="math inline">\(\mu(\Omega) &gt; 1\)</span>.</li>
 <li>Neither due to countable additivity.</li>
 <li>Measure. Not probability measure since <span class="math inline">\(\mu(\Omega) = 0\)</span>.</li>
 <li>Probability measure.</li>
 <li>Measure. Not probability measure since <span class="math inline">\(\mu(\Omega) &gt; 1\)</span>.</li>
-</ul>
+</ol>
 </div>
-
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 1.6  </strong></span>Define a probability space that could be used to model the outcome of throwing two fair 6-sided dice.</p>
@@ -294,45 +317,45 @@ following is a measure? Which is a probability measure?</p>
 <p><span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 1.7  </strong></span>
 A standard deck (52 cards) is distributed to two persons: 26 cards to each
 person. All partitions are equally likely. Find the probability that:</p>
-<ul>
+<ol style="list-style-type: lower-alpha">
 <li>The first person gets 4 Queens.</li>
 <li>The first person gets at least 2 Queens.</li>
-<li>The first person gets at least 2 Queens and at least 2 Kings.</li>
 <li><span style="color:blue"> R: Use simulation (<em>sample</em>) to check the above
 answers. </span></li>
-</ul>
+</ol>
 </div>
 
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-17" class="exercise"><strong>Exercise 1.8  </strong></span>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be events with probabilities <span class="math inline">\(P(A) = \frac{2}{3}\)</span> and
 <span class="math inline">\(P(B) = \frac{1}{2}\)</span>.</p>
-<ul>
+<ol style="list-style-type: lower-alpha">
 <li>Show that <span class="math inline">\(\frac{1}{6} \leq P(A\cap B) \leq \frac{1}{2}\)</span>,
 and give examples to show that both extremes are possible.</li>
 <li>Find corresponding bounds for <span class="math inline">\(P(A\cup B)\)</span>.</li>
 <li><span style="color:blue"> R: Draw samples from the examples and show the probability bounds of
 <span class="math inline">\(P(A \cap B)\)</span> </span>.</li>
-</ul>
+</ol>
 </div>
 
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-20" class="exercise"><strong>Exercise 1.9  </strong></span>A fair coin is tossed repeatedly.</p>
-<ul>
+<ol style="list-style-type: lower-alpha">
 <li><p>Show that, with probability one, a head turns up sooner or later.</p></li>
 <li><p>Show similarly that any given finite sequence of heads and
 tails occurs eventually with probability one.</p>
 </div>
+<div class="fold">
 <p></p>
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
 P(\text{no heads}) &amp;= \lim_{n \rightarrow \infty} P(\text{no heads in first }n 
-                               \text{ tosses}) \\
-                 &amp;= \lim_{n \rightarrow \infty} \frac{1}{2^n} \\
-                 &amp;= 0.
+                              \text{ tosses}) \\
+                &amp;= \lim_{n \rightarrow \infty} \frac{1}{2^n} \\
+                &amp;= 0.
 \end{align}\]</span></p></li>
-</ul>
+</ol>
 <p>For the second part, let us fix the given sequence of heads and tails of length
 <span class="math inline">\(k\)</span> as <span class="math inline">\(s\)</span>. A probability that this happens in <span class="math inline">\(k\)</span> tosses is <span class="math inline">\(\frac{1}{2^k}\)</span>.</p>
 <p><span class="math display">\[\begin{align}
@@ -352,16 +375,17 @@ P(s \text{ occurs}) &amp;\geq \lim_{n \rightarrow \infty}
 \end{align}\]</span></p>
 </div>
 
+</div class="fold">
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-22" class="exercise"><strong>Exercise 1.10  </strong></span>An Erdos-Renyi random graph <span class="math inline">\(G(n,p)\)</span> is a model with <span class="math inline">\(n\)</span> nodes, where
 each pair of nodes is connected with probability <span class="math inline">\(p\)</span>.</p>
-<ul>
+<ol style="list-style-type: lower-alpha">
 <li>Calculate the probability that there exists a node that is not
 connected to any other node in <span class="math inline">\(G(4,0.6)\)</span>.</li>
 <li>Show that the upper bound for the probability that there exist 2 nodes that are not connected to any other node for an arbitrary <span class="math inline">\(G(n,p)\)</span> is <span class="math inline">\(\binom{n}{2} (1-p)^{2n - 3}\)</span>.</li>
 <li><span style="color:blue">R: Estimate the probability from the first point using simulation.</span></li>
-</ul>
+</ol>
 </div>
 
 </div>
@@ -370,13 +394,14 @@ connected to any other node in <span class="math inline">\(G(4,0.6)\)</span>.</l
 
 <div class="exercise">
 <p><span id="exr:binomialpmf" class="exercise"><strong>Exercise 1.11  </strong></span>Show that the standard measurable space on <span class="math inline">\(\Omega = \{0,1,...,n\}\)</span> equipped with binomial measure is a discrete probability space.</p>
-<ul>
+<ol style="list-style-type: lower-alpha">
 <li>Define another probability measure on this measurable space.</li>
 <li>Show that for <span class="math inline">\(n=1\)</span> the binomial measure is the same as the Bernoulli measure.</li>
 <li><span style="color:blue">R: Draw 1000 samples from the binomial distribution <span class="math inline">\(p=0.5\)</span>, <span class="math inline">\(n=20\)</span> (<em>rbinom</em>) and compare relative frequencies with theoretical probability measure</span>.</li>
-</ul>
+</ol>
 </div>
 
+<div class="fold">
 
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> We need to show that the terms of
@@ -393,7 +418,6 @@ we get <span class="math inline">\(\binom{1}{k}p^k (1-p)^{1 - k}\)</span>. Now
 which is the Bernoulli measure.</li>
 </ul>
 </div>
-
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
 <span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(dplyr)
@@ -407,27 +431,29 @@ bin_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span clas
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
 <span class="kw">plot</span>(bin_plot)</code></pre>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+</div>
 
 <div class="exercise">
 <p><span id="exr:geopoispmf" class="exercise"><strong>Exercise 1.12  </strong></span>Show that the standard measurable space on <span class="math inline">\(\Omega = \{0,1,...,\infty\}\)</span></p>
-<ul>
+<ol style="list-style-type: lower-alpha">
 <li>equipped with geometric measure is a discrete probability space,</li>
 <li>equipped with Poisson measure is a discrete probability space.</li>
 <li>Define another probability measure on this measurable space.</li>
 <li><span style="color:blue">R: Draw 1000 samples from the Poisson distribution <span class="math inline">\(\lambda = 10\)</span> (<em>rpois</em>) and compare relative frequencies with theoretical probability measure</span>.</li>
-</ul>
+</ol>
 </div>
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-29" class="exercise"><strong>Exercise 1.13  </strong></span>Define a probability measure on <span class="math inline">\((\Omega = \mathbb{Z}, 2^{\mathbb{Z}})\)</span>.</p>
-<ul>
-<li>Define a probability measure such that <span class="math inline">\(P(\omega) &gt; 0, \forall \omega \in \Omega\)</span>.</li>
-<li><span style="color:blue">R: Implement a random generator that will generate
+<p><span id="exr:unnamed-chunk-29" class="exercise"><strong>Exercise 1.13  </strong></span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Define a probability measure on <span class="math inline">\((\Omega = \mathbb{Z}, 2^{\mathbb{Z}})\)</span>.</p></li>
+<li><p>Define a probability measure such that <span class="math inline">\(P(\omega) &gt; 0, \forall \omega \in \Omega\)</span>.</p></li>
+<li><p><span style="color:blue">R: Implement a random generator that will generate
 samples with the relative frequency that corresponds to your probability
 measure. Compare relative frequencies with theoretical probability
-measure </span>.</li>
-</ul>
+measure </span>.</p></li>
+</ol>
 </div>
 
 

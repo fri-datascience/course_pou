@@ -27,6 +27,7 @@ library(ggplot2)
 
 ```{exercise}
 
+
 a. Prove that the intersection of two sigma algebras on $\Omega$ is a sigma 
 algebra.
 
