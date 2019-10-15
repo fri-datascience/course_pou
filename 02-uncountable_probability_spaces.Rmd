@@ -16,9 +16,33 @@ The students are expected to acquire the following knowledge:
 - Uniform sampling.
 
 
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
 
 ```{r, echo = FALSE, warning = FALSE}
-togs <- F
+togs <- T
 library(ggplot2)
 # togs <- FALSE
 ```
@@ -35,6 +59,8 @@ b. Prove that the collection of all open subsets $(a,b)$ on $(0,1]$ is not a
 sigma algebra of $(0,1]$.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -67,12 +93,15 @@ $(0,1) \in A$. But $(0,1)^c = 1 \notin A$.
 
 
 ```
+</div>
 
 ```{exercise}
 Show that $\mathcal{C} = \sigma(\mathcal{C})$ if and only if $\mathcal{C}$ is
 a sigma algebra.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -92,6 +121,7 @@ Since this is the smallest subset in the intersection it follows that
 $\sigma(\mathcal{C}) = \mathcal{F} = \mathcal{C}$.
 
 ```
+</div>
 
 
 ```{exercise}
@@ -100,6 +130,8 @@ such that $\mathcal{C} \subset \mathcal{D}$. Prove that
 $\sigma(\mathcal{C}) \subset \sigma(\mathcal{D})$.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 $\sigma(\mathcal{D})$ is a sigma algebra that contains $\mathcal{D}$. It
@@ -116,6 +148,7 @@ so that $F_j = \sigma(\mathcal{D})$. Then we can write
 
 
 ```
+</div>
 
 <!-- ```{exercise} -->
 
@@ -168,6 +201,8 @@ b. The set of numbers in (0,1] whose decimal expansion does not contain 7.
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -193,6 +228,7 @@ Since we have shown that the measure of the set is $0$, we have also shown
 that the set is measurable.
 
 ```
+</div>
 
 
 ```{exercise}
@@ -208,6 +244,8 @@ a countable complement. Is $(\Omega, \mathcal{F}_3, P)$ a legitimate
 probability space?
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -259,6 +297,7 @@ in $\mathcal{F}_3$ can not have an empty intersection. Therefore the tuple
 is a legitimate probability space.
 
 ```
+</div>
 
 
 
@@ -271,6 +310,8 @@ generates uniform samples of irrational numbers in $[0,1]$ by uniformly sampling
 from $[0,1]$ and rejecting a sample if it is rational.</span>
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -283,6 +324,7 @@ There are a countable number of rational numbers. Therefore, we can write
 \end{align}
 
 ```
+</div>
 
 
 
@@ -297,6 +339,8 @@ while their Lebesgue measures are infinity and one respectably.
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -329,6 +373,7 @@ value, which in this case is $\pi$. So our bijection is
 
 
 ```
+</div>
 
 
 ```{exercise}
@@ -350,6 +395,8 @@ generator for this fair die.</span>
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -380,4 +427,5 @@ unif_s <- runif(1000)
 die_s  <- ceiling(6 * unif_s)
 summary(as.factor(die_s))
 ```
+</div>
 

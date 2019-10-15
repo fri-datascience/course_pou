@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-10-14">
+<meta name="date" content="2019-10-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -205,6 +205,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Uniform sampling.</li>
 </ul>
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
 <div id="bset" class="section level2">
 <h2><span class="header-section-number">2.1</span> Borel sets</h2>
 
@@ -218,12 +240,61 @@ sigma algebra of <span class="math inline">\((0,1]\)</span>.</p></li>
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Empty set:
+<span class="math display">\[\begin{equation}
+  \emptyset \in \mathcal{A} \wedge \emptyset \in \mathcal{B} 
+  \Rightarrow \emptyset \in \mathcal{A} \cap \mathcal{B} 
+\end{equation}\]</span>
+Complement:
+<span class="math display">\[\begin{equation}
+  \text{Let } A \in \mathcal{A} \cap \mathcal{B} \Rightarrow
+  A \in \mathcal{A} \wedge A \in \mathcal{B} \Rightarrow
+  A^c \in \mathcal{A} \wedge A^c \in \mathcal{B} \Rightarrow
+  A^c \in \mathcal{A} \cap \mathcal{B}
+\end{equation}\]</span>
+Countable additivity: Let <span class="math inline">\(\{A_i\}\)</span> be a countable sequence of subsets in
+<span class="math inline">\(\mathcal{A} \cap \mathcal{B}\)</span>.
+<span class="math display">\[\begin{equation}
+  \forall i: A_i \in \mathcal{A} \cap \mathcal{B} \Rightarrow 
+  A_i \in \mathcal{A} \wedge A_i \in \mathcal{B} \Rightarrow
+  \cup A_i \in \mathcal{A} \wedge  \cup A_i \in \mathcal{B} \Rightarrow
+  \cup A_i \in \mathcal{A} \cap \mathcal{B}
+\end{equation}\]</span></p></li>
+<li><p>Let <span class="math inline">\(A\)</span> denote the collection of all open subsets <span class="math inline">\((a,b)\)</span> on <span class="math inline">\((0,1]\)</span>. Then
+<span class="math inline">\((0,1) \in A\)</span>. But <span class="math inline">\((0,1)^c = 1 \notin A\)</span>.</p></li>
+</ol>
+</div>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-38" class="exercise"><strong>Exercise 2.2  </strong></span>Show that <span class="math inline">\(\mathcal{C} = \sigma(\mathcal{C})\)</span> if and only if <span class="math inline">\(\mathcal{C}\)</span> is
 a sigma algebra.</p>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<p>“<span class="math inline">\(\Rightarrow\)</span>” This follows from the definition of a generated sigma algebra.</p>
+<p>“<span class="math inline">\(\Leftarrow\)</span>” Let <span class="math inline">\(\mathcal{F} = \cap_i F_i\)</span> be the intersection of all
+sigma algebras that contain <span class="math inline">\(\mathcal{C}\)</span>. Then
+<span class="math inline">\(\sigma(\mathcal{C}) = \mathcal{F}\)</span>.
+Additionally, <span class="math inline">\(\forall i: \mathcal{C} \in F_i\)</span>. So each <span class="math inline">\(F_i\)</span> can be written
+as <span class="math inline">\(F_i = \mathcal{C} \cup D\)</span>, where <span class="math inline">\(D\)</span> are the rest of the elements in the
+sigma algebra. In other words, each sigma algebra in the collection contains
+at least <span class="math inline">\(\mathcal{C}\)</span>, but can contain other elements. Now for some <span class="math inline">\(j\)</span>,
+<span class="math inline">\(F_j = \mathcal{C}\)</span> as <span class="math inline">\(\{F_i\}\)</span> contains all sigma algebras that contain
+<span class="math inline">\(\mathcal{C}\)</span>
+and <span class="math inline">\(\mathcal{C}\)</span> is such a sigma algebra.
+Since this is the smallest subset in the intersection it follows that
+<span class="math inline">\(\sigma(\mathcal{C}) = \mathcal{F} = \mathcal{C}\)</span>.</p>
+</div>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-40" class="exercise"><strong>Exercise 2.3  </strong></span>Let <span class="math inline">\(\mathcal{C}\)</span> and <span class="math inline">\(\mathcal{D}\)</span> be two collections of subsets on <span class="math inline">\(\Omega\)</span>
@@ -231,6 +302,22 @@ such that <span class="math inline">\(\mathcal{C} \subset \mathcal{D}\)</span>. 
 <span class="math inline">\(\sigma(\mathcal{C}) \subset \sigma(\mathcal{D})\)</span>.</p>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> 
+<span class="math inline">\(\sigma(\mathcal{D})\)</span> is a sigma algebra that contains <span class="math inline">\(\mathcal{D}\)</span>. It
+follows that <span class="math inline">\(\sigma(\mathcal{D})\)</span> is a sigma algebra that contains
+<span class="math inline">\(\mathcal{C}\)</span>. Let us write <span class="math inline">\(\sigma(\mathcal{C}) = \cap_i F_i\)</span>, where <span class="math inline">\(\{F_i\}\)</span>
+is the collection of all sigma algebras that contain <span class="math inline">\(\mathcal{C}\)</span>. Since
+<span class="math inline">\(\sigma(\mathcal{D})\)</span> is such a sigma algebra, there exists an index <span class="math inline">\(j\)</span>,
+so that <span class="math inline">\(F_j = \sigma(\mathcal{D})\)</span>. Then we can write</p>
+<p><span class="math display">\[\begin{align}
+  \sigma(\mathcal{C}) &amp;= (\cap_{i \neq j} F_i) \cap \sigma(\mathcal{D}) \\
+                      &amp;\subset \sigma(\mathcal{D}).
+\end{align}\]</span></p>
+</div>
+</div>
 <!-- ```{exercise} -->
 <!-- <span style="color:blue">R: Simulate from the 2nd, 3rd, and 4th Cantor sets and -->
 <!-- plot results in a meaningful way.</span> -->
@@ -276,6 +363,31 @@ such that <span class="math inline">\(\mathcal{C} \subset \mathcal{D}\)</span>. 
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p>This follows directly from the fact that every countable set is a union
+of singletons, whose measure is 0.</p></li>
+<li><p>Let us first look at numbers which have a 7 as the first decimal numbers.
+Their measure is 0.1. Then we take all the numbers with a 7 as the second
+decimal number (excluding those who already have it as the first). These have
+the measure 0.01, and there are 9 of them, so their total measure is 0.09. We
+can continue to do so infinitely many times. At each <span class="math inline">\(n\)</span>, we have the measure
+of the intervals which is <span class="math inline">\(10^n\)</span> and the number of those intervals is <span class="math inline">\(9^{n-1}\)</span>.
+Now</p></li>
+</ol>
+<p><span class="math display">\[\begin{align}
+  \lambda(A) &amp;= 1 - \sum_{n = 0}^{\infty} \frac{9^n}{10^{n+1}} \\
+             &amp;= 1 - \frac{1}{10} \sum_{n = 0}^{\infty} (\frac{9}{10})^n \\
+             &amp;= 1 - \frac{1}{10} \frac{10}{1} \\
+             &amp;= 0.
+\end{align}\]</span></p>
+<p>Since we have shown that the measure of the set is <span class="math inline">\(0\)</span>, we have also shown
+that the set is measurable.</p>
+</div>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-44" class="exercise"><strong>Exercise 2.5  </strong></span>Let <span class="math inline">\(\Omega = [0,1]\)</span>, and let <span class="math inline">\(\mathcal{F}_3\)</span> consist of all countable subsets
@@ -290,6 +402,59 @@ probability space?</p></li>
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p>The empty set is countable, therefore it is in <span class="math inline">\(\mathcal{F}_3\)</span>. For any
+<span class="math inline">\(A \in \mathcal{F}_3\)</span>. If <span class="math inline">\(A\)</span> is countable, then <span class="math inline">\(A^c\)</span> has a countable
+complement and is in <span class="math inline">\(\mathcal{F}_3\)</span>. If <span class="math inline">\(A\)</span> is uncountable, then it has a
+countable complement <span class="math inline">\(A^c\)</span> which is therefore also in <span class="math inline">\(\mathcal{F}_3\)</span>. We
+are left with showing countable additivity.
+<br> Let <span class="math inline">\(\{A_i\}\)</span> be an arbitrary collection of sets in <span class="math inline">\(\mathcal{F}_3\)</span>.
+We will look at two possibilities. First let all <span class="math inline">\(A_i\)</span> be countable.
+A countable union
+of countable sets is countable, and therefore in <span class="math inline">\(\mathcal{F}_3\)</span>. Second,
+let at least one <span class="math inline">\(A_i\)</span> be uncountable. It follows that it has a countable
+complement. We can write
+<span class="math display">\[\begin{equation}
+  (\cup_{i=1}^{\infty} A_i)^c = \cap_{i=1}^{\infty} A_i^c.
+\end{equation}\]</span>
+Since at least one <span class="math inline">\(A_i^c\)</span> on the right side is countable, the whole intersection
+is countable, and therefore the union has a countable complement. It follows
+that the union is in <span class="math inline">\(\mathcal{F}_3\)</span>.</p></li>
+<li><p>The tuple <span class="math inline">\((\Omega, \mathcal{F}_3)\)</span> is a measurable space. Therefore, we only
+need to check whether <span class="math inline">\(P\)</span> is a probability measure. The measure of the empty
+set is zero as it is countable. We have to check for countable additivity.
+Let us look at three situations. Let <span class="math inline">\(A_i\)</span> be disjoint sets. First, let
+all <span class="math inline">\(A_i\)</span> be countable.
+<span class="math display">\[\begin{equation}
+  P(\cup_{i=1}^{\infty} A_i) = \sum_{i=1}^{\infty}P( A_i)) = 0.
+\end{equation}\]</span>
+Since the union is countable, the above equation holds. Second, let exactly
+one <span class="math inline">\(A_i\)</span> be uncountable. W.L.O.G. let that be <span class="math inline">\(A_1\)</span>. Then
+<span class="math display">\[\begin{equation}
+  P(\cup_{i=1}^{\infty} A_i) = 1 + \sum_{i=2}^{\infty}P( A_i)) = 1.
+\end{equation}\]</span>
+Since the union is uncountable, the above equation holds. Third, let at least
+two <span class="math inline">\(A_i\)</span> be uncountable. We have to check whether it is possible for two
+uncountable sets in <span class="math inline">\(\mathcal{F}_3\)</span> to be disjoint. If that is possible, then
+their measures would sum to more than one and <span class="math inline">\(P\)</span> would not be a probability
+measure. W.L.O.G. let <span class="math inline">\(A_1\)</span> and <span class="math inline">\(A_2\)</span> be uncountable. Then we have
+<span class="math display">\[\begin{equation}
+  A_1 \cap A_2 = (A_1^c \cup A_2^c)^c.
+\end{equation}\]</span>
+Now <span class="math inline">\(A_1^c\)</span> and <span class="math inline">\(A_2^c\)</span> are countable and their union is therefore countable.
+Let <span class="math inline">\(B = A_1^c \cup A_2^c\)</span>. So the intersection of <span class="math inline">\(A_1\)</span> and <span class="math inline">\(A_2\)</span> equals
+the complement of <span class="math inline">\(B\)</span>, which is countable. For the intersection to be the
+empty set, <span class="math inline">\(B\)</span> would have to equal to <span class="math inline">\(\Omega\)</span>. But <span class="math inline">\(\Omega\)</span> is uncountable and
+therefore <span class="math inline">\(B\)</span> can not equal to <span class="math inline">\(\Omega\)</span>. It follows that two uncountable sets
+in <span class="math inline">\(\mathcal{F}_3\)</span> can not have an empty intersection. Therefore the tuple
+is a legitimate probability space.</p></li>
+</ol>
+</div>
+</div>
 </div>
 <div id="lebesgue-measure" class="section level2">
 <h2><span class="header-section-number">2.2</span> Lebesgue measure</h2>
@@ -301,6 +466,19 @@ generates uniform samples of irrational numbers in <span class="math inline">\([
 from <span class="math inline">\([0,1]\)</span> and rejecting a sample if it is rational.</span></p>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<p>There are a countable number of rational numbers. Therefore, we can write
+<span class="math display">\[\begin{align}
+  \lambda(\mathbb{Q}) &amp;= \lambda(\cup_{i = 1}^{\infty} q_i) &amp;\\
+                      &amp;= \sum_{i = 1}^{\infty} \lambda(q_i) &amp;\text{ (countable additivity)} \\
+                      &amp;= \sum_{i = 1}^{\infty} 0  &amp;\text{ (Lebesgue measure of a singleton)} \\
+                      &amp;= 0.
+\end{align}\]</span></p>
+</div>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-48" class="exercise"><strong>Exercise 2.7  </strong></span></p>
@@ -311,6 +489,38 @@ while their Lebesgue measures are infinity and one respectably.</p></li>
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li>Let <span class="math inline">\(a_i\)</span> be the <span class="math inline">\(i\)</span>-th integer for <span class="math inline">\(i \in \mathbb{Z}\)</span>. We can write
+<span class="math inline">\(\mathbb{R} = \cup_{-\infty}^{\infty} (a_i, a_{i + 1}]\)</span>.</li>
+</ol>
+<p><span class="math display">\[\begin{align}
+  \lambda(\mathbb{R}) &amp;= \lambda(\cup_{i = -\infty}^{\infty} (a_i, a_{i + 1}]) \\
+                      &amp;= \lambda(\lim_{n \rightarrow \infty} \cup_{i = -n}^{n} (a_i, a_{i + 1}]) \\
+                      &amp;= \lim_{n \rightarrow \infty} \lambda(\cup_{i = -n}^{n} (a_i, a_{i + 1}]) \\
+                      &amp;= \lim_{n \rightarrow \infty} \sum_{i = -n}^{n} \lambda((a_i, a_{i + 1}]) \\
+                      &amp;= \lim_{n \rightarrow \infty} \sum_{i = -n}^{n} 1 \\
+                      &amp;= \lim_{n \rightarrow \infty} 2n \\
+                      &amp;= \infty.
+
+\end{align}\]</span></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>We need to find a bijection between <span class="math inline">\(\mathbb{R}\)</span> and <span class="math inline">\((0,1)\)</span>. A well-known
+function that maps from a bounded interval to <span class="math inline">\(\mathbb{R}\)</span> is the tangent.
+To make the bijection easier to achieve, we will take the inverse, which
+maps from <span class="math inline">\(\mathbb{R}\)</span> to <span class="math inline">\((-\frac{\pi}{2}, \frac{\pi}{2})\)</span>. However, we need
+to change the function so it maps to <span class="math inline">\((0,1)\)</span>. First we add <span class="math inline">\(\frac{\pi}{2}\)</span>, so
+that we move the function above zero. Then we only have to divide by the max
+value, which in this case is <span class="math inline">\(\pi\)</span>. So our bijection is</li>
+</ol>
+<p><span class="math display">\[\begin{equation}
+ f(x) = \frac{\tan^{-1}(x) + \frac{\pi}{2}}{\pi}.
+\end{equation}\]</span></p>
+</div>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-50" class="exercise"><strong>Exercise 2.8  </strong></span>
@@ -331,6 +541,37 @@ generator for this fair die.</span></li>
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li>In other words, we have to assign disjunct intervals of the same size to
+each element of <span class="math inline">\(\Omega_2\)</span>. Therefore</li>
+</ol>
+<p><span class="math display">\[\begin{equation}
+  f(x) = \lceil 6x \rceil.
+\end{equation}\]</span></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>No, we could for example rearrange the order in which the intervals are
+mapped to integers. Additionally, we could have several disjoint intervals that
+mapped to the same integer, as long as the Lebesgue measure of their union
+would be <span class="math inline">\(\frac{1}{6}\)</span> and the function would remain injective.</li>
+<li>We have <span class="math inline">\(\Omega_3 = \{0,1\}\)</span>, where zero represents heads and one represents
+tails. Then
+<span class="math display">\[\begin{equation}
+  f(x) = 0^{I_{A}(x)},
+\end{equation}\]</span>
+where <span class="math inline">\(A = \{y \in (0,1] : y &lt; p\}\)</span>.</li>
+</ol>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+unif_s &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)
+die_s  &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>unif_s)
+<span class="kw">summary</span>(<span class="kw">as.factor</span>(die_s))</code></pre>
+<pre><code>##   1   2   3   4   5   6 
+## 166 154 200 146 166 168</code></pre>
+</div>
 
 </div>
 </div>

@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-10-14">
+<meta name="date" content="2019-10-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -265,11 +265,34 @@ we add the set <span class="math inline">\(\{1,2\}\)</span>. Again we need the c
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(A = \{\emptyset, \Omega\}\)</span></p></li>
+<li><p><span class="math inline">\(2^{\Omega}\)</span></p></li>
+</ol>
+</div>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 1.3  </strong></span>Find all sigma algebras for <span class="math inline">\(\Omega = \{0, 1, 2\}\)</span>.</p>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ul>
+<li><span class="math inline">\(A = \{\emptyset, \Omega\}\)</span></li>
+<li><span class="math inline">\(A = 2^{\Omega}\)</span></li>
+<li><span class="math inline">\(A = \{\emptyset, \{0\}, \{1,2\}, \Omega\}\)</span></li>
+<li><span class="math inline">\(A = \{\emptyset, \{1\}, \{0,2\}, \Omega\}\)</span></li>
+<li><span class="math inline">\(A = \{\emptyset, \{2\}, \{0,1\}, \Omega\}\)</span></li>
+</ul>
+</div>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 1.4  (Difference between algebra and sigma algebra)  </strong></span>
@@ -277,6 +300,23 @@ Let <span class="math inline">\(\Omega = \mathbb{N}\)</span> and <span class="ma
 <span class="math inline">\(\mathcal{A}\)</span> is an algebra but not a sigma algebra.</p>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ul>
+<li><p><span class="math inline">\(\emptyset\)</span> is finite so <span class="math inline">\(\emptyset \in \mathcal{A}\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(A \in \mathcal{A}\)</span> and <span class="math inline">\(B \in \mathcal{A}\)</span>. If both are finite, then
+their union is also finite and therefore in <span class="math inline">\(\mathcal{A}\)</span>. Let at least
+one of them not
+be finite. Then their union is not finite. But <span class="math inline">\((A \cup B)^c = A^c \cap B^c\)</span>.
+And since at least one is infinite, then its complement is finite and the
+intersection is too. So finite unions are in <span class="math inline">\(\mathcal{A}\)</span>.</p></li>
+<li><p>Let us look at numbers <span class="math inline">\(2n\)</span>. For any <span class="math inline">\(n\)</span>, <span class="math inline">\(2n \in \mathcal{A}\)</span>
+as it is finite. But <span class="math inline">\(\bigcup_{k = 1}^{\infty} 2n \notin \mathcal{A}\)</span>.</p></li>
+</ul>
+</div>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-10" class="exercise"><strong>Exercise 1.5  (Intro to measure)  </strong></span>
@@ -309,6 +349,17 @@ following is a measure? Which is a probability measure?</p>
 <p><span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 1.6  </strong></span>Define a probability space that could be used to model the outcome of throwing two fair 6-sided dice.</p>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ul>
+<li><p><span class="math inline">\(\Omega = \{\{i,j\}, i = 1,...,6, j = 1,...,6\}\)</span></p></li>
+<li><p><span class="math inline">\(F = 2^{\Omega}\)</span></p></li>
+<li><p><span class="math inline">\(\forall \omega \in \Omega\)</span>, <span class="math inline">\(P(\omega) = \frac{1}{6} \times \frac{1}{6} = \frac{1}{36}\)</span></p></li>
+</ul>
+</div>
+</div>
 </div>
 <div id="properties-of-probability-measures" class="section level2">
 <h2><span class="header-section-number">1.2</span> Properties of probability measures</h2>
@@ -325,6 +376,34 @@ answers. </span></li>
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\frac{\binom{48}{22}}{\binom{52}{26}}\)</span></p></li>
+<li><p>1 - <span class="math inline">\(\frac{\binom{48}{26} + 4 \times \binom{48}{25}}{\binom{52}{26}}\)</span></p></li>
+<li><p>For the simulation, let us represent cards with numbers from 1 to 52, and
+let 1 through 4 represent Queens.</p></li>
+</ol>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+cards &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">52</span>
+n     &lt;-<span class="st"> </span><span class="dv">10000</span>
+q4    &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)
+q2    &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)
+
+tmp &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
+  p1      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">52</span>, <span class="dv">26</span>)
+  q4[i]   &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">==</span><span class="st"> </span><span class="dv">4</span>
+  q2[i]   &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>
+}
+<span class="kw">sum</span>(q4) <span class="op">/</span><span class="st"> </span>n</code></pre>
+<pre><code>## [1] 0.0556</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(q2) <span class="op">/</span><span class="st"> </span>n</code></pre>
+<pre><code>## [1] 0.6995</code></pre>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-17" class="exercise"><strong>Exercise 1.8  </strong></span>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be events with probabilities <span class="math inline">\(P(A) = \frac{2}{3}\)</span> and
@@ -338,6 +417,76 @@ and give examples to show that both extremes are possible.</li>
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> 
+- From the properties of probability we have</p>
+<p><span class="math display">\[\begin{equation}
+  P(A \cup B) = P(A) + P(B) - P(A \cap B) \leq 1.
+\end{equation}\]</span></p>
+<p>From this follows</p>
+<p><span class="math display">\[\begin{align}
+  P(A \cap B) &amp;\geq P(A) + P(B) -  1 \\
+              &amp;= \frac{2}{3} + \frac{1}{2} - 1 \\
+              &amp;= \frac{1}{6},
+\end{align}\]</span></p>
+<p>which is the lower bound for the intersection. Conversely, we have</p>
+<p><span class="math display">\[\begin{equation}
+  P(A \cup B) = P(A) + P(B) - P(A \cap B) \geq P(A).
+\end{equation}\]</span></p>
+<p>From this follows</p>
+<p><span class="math display">\[\begin{align}
+  P(A \cap B) &amp;\leq P(B) \\
+              &amp;= \frac{1}{2},
+\end{align}\]</span></p>
+<p>which is the upper bound for the intersection.</p>
+<p>For an example take a fair die. To achieve the lower bound let <span class="math inline">\(A = \{1,2,3\}\)</span>
+and <span class="math inline">\(B = \{3,4,5,6\}\)</span>, then their intersection is <span class="math inline">\(A \cap B = \{3\}\)</span>. To
+achieve the upper bound take <span class="math inline">\(A = \{1,2,3\}\)</span> and <span class="math inline">\(B = \{1,2,3,4\}\)</span>.</p>
+<ul>
+<li>For the bounds of the union we will use the results from the first part.
+Again from the properties of probability we have</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+  P(A \cup B) &amp;= P(A) + P(B) - P(A \cap B) \\
+              &amp;\geq P(A) + P(B) - \frac{1}{2} \\
+              &amp;= \frac{2}{3}.
+\end{align}\]</span></p>
+<p>Conversely</p>
+<p><span class="math display">\[\begin{align}
+  P(A \cup B) &amp;= P(A) + P(B) - P(A \cap B) \\
+              &amp;\leq P(A) + P(B) - \frac{1}{6} \\
+              &amp;= 1.
+\end{align}\]</span></p>
+<p>Therefore <span class="math inline">\(\frac{2}{3} \leq P(A \cup B) \leq 1\)</span>.</p>
+<ul>
+<li>We use <em>sample</em> in R:</li>
+</ul>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+n      &lt;-<span class="st"> </span><span class="dv">10000</span>
+samps  &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># lower bound</span>
+lb     &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)
+A      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)
+B      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
+  lb[i] &lt;-<span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>A <span class="op">&amp;</span><span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>B
+}
+<span class="kw">sum</span>(lb) <span class="op">/</span><span class="st"> </span>n</code></pre>
+<pre><code>## [1] 0.1724</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># upper bound</span>
+ub     &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)
+A      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)
+B      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
+  ub[i] &lt;-<span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>A <span class="op">&amp;</span><span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>B
+}
+<span class="kw">sum</span>(ub) <span class="op">/</span><span class="st"> </span>n</code></pre>
+<pre><code>## [1] 0.5047</code></pre>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-20" class="exercise"><strong>Exercise 1.9  </strong></span>A fair coin is tossed repeatedly.</p>
@@ -345,17 +494,17 @@ and give examples to show that both extremes are possible.</li>
 <li><p>Show that, with probability one, a head turns up sooner or later.</p></li>
 <li><p>Show similarly that any given finite sequence of heads and
 tails occurs eventually with probability one.</p>
-</div>
+</div></li>
+</ol>
 <div class="fold">
-<p></p>
+
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
 P(\text{no heads}) &amp;= \lim_{n \rightarrow \infty} P(\text{no heads in first }n 
-                              \text{ tosses}) \\
-                &amp;= \lim_{n \rightarrow \infty} \frac{1}{2^n} \\
-                &amp;= 0.
-\end{align}\]</span></p></li>
-</ol>
+                                 \text{ tosses}) \\
+                   &amp;= \lim_{n \rightarrow \infty} \frac{1}{2^n} \\
+                   &amp;= 0.
+\end{align}\]</span></p>
 <p>For the second part, let us fix the given sequence of heads and tails of length
 <span class="math inline">\(k\)</span> as <span class="math inline">\(s\)</span>. A probability that this happens in <span class="math inline">\(k\)</span> tosses is <span class="math inline">\(\frac{1}{2^k}\)</span>.</p>
 <p><span class="math display">\[\begin{align}
@@ -374,8 +523,7 @@ P(s \text{ occurs}) &amp;\geq \lim_{n \rightarrow \infty}
                   &amp;= 1.
 \end{align}\]</span></p>
 </div>
-
-</div class="fold">
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-22" class="exercise"><strong>Exercise 1.10  </strong></span>An Erdos-Renyi random graph <span class="math inline">\(G(n,p)\)</span> is a model with <span class="math inline">\(n\)</span> nodes, where
@@ -388,6 +536,57 @@ connected to any other node in <span class="math inline">\(G(4,0.6)\)</span>.</l
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li>Let <span class="math inline">\(A_i\)</span> be the event that the <span class="math inline">\(i\)</span>-th node is not connected to
+any other node. Then our goal is to calculate <span class="math inline">\(P(\cup_{i=1}^n A_i)\)</span>.
+Using the inclusion-exclusion principle, we get</li>
+</ol>
+<p><span class="math display">\[\begin{align}
+  P(\cup_{i=1}^n A_i) &amp;= \sum_i A_i - \sum_{i&lt;j} P(A_i \cap A_j) +
+    \sum_{i&lt;j&lt;k} P(A_i \cap A_j \cap A_k) - P(A_1 \cap A_2 \cap A_3 \cap A_4) \\
+                      &amp;=4 (1 - p)^3 - \binom{4}{2} (1 - p)^5 +
+                        \binom{4}{3} (1 - p)^6 - (1 - p)^6 \\
+                      &amp;\approx 0.21.
+\end{align}\]</span></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Let <span class="math inline">\(A_{ij}\)</span> be the event that nodes <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are not connected to any other node. We are interested in <span class="math inline">\(P(\cup_{i&lt;j}A_{ij})\)</span>. By using Boole`s inequality, we get</li>
+</ol>
+<p><span class="math display">\[\begin{align}
+P(\cup_{i&lt;j}A_{ij}) \leq \sum_{i&lt;j} P(A_{ij}).
+\end{align}\]</span></p>
+<p>What is the probability of <span class="math inline">\(A_{ij}\)</span>? There need to be no connections to the <span class="math inline">\(i\)</span>-th node to the remaining nodes (excluding <span class="math inline">\(j\)</span>), the same for the <span class="math inline">\(j\)</span>-th node, and there can be no connection between them. Therefore</p>
+<p><span class="math display">\[\begin{align}
+P(\cup_{i&lt;j}A_{ij}) &amp;\leq \sum_{i&lt;j} (1 - p)^{2(n-2) + 1} \\
+                    &amp;= \binom{n}{2} (1 - p)^{2n - 3}.
+\end{align}\]</span></p>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+n_samp &lt;-<span class="st"> </span><span class="dv">100000</span>
+n      &lt;-<span class="st"> </span><span class="dv">4</span>
+p      &lt;-<span class="st"> </span><span class="fl">0.6</span>
+conn_samp &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n_samp)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_samp) {
+  tmp_mat                     &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="dv">0</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> n)
+  samp_conn                   &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), 
+                                        <span class="kw">choose</span>(<span class="dv">4</span>,<span class="dv">2</span>), 
+                                        <span class="dt">replace =</span> <span class="ot">TRUE</span>, 
+                                        <span class="dt">prob    =</span> <span class="kw">c</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p, p))
+  tmp_mat[<span class="kw">lower.tri</span>(tmp_mat)] &lt;-<span class="st"> </span>samp_conn
+  tmp_mat[<span class="kw">upper.tri</span>(tmp_mat)] &lt;-<span class="st"> </span><span class="kw">t</span>(tmp_mat)[<span class="kw">upper.tri</span>(<span class="kw">t</span>(tmp_mat))]
+  not_conn                    &lt;-<span class="st"> </span><span class="kw">apply</span>(tmp_mat, <span class="dv">1</span>, sum)
+  <span class="cf">if</span> (<span class="kw">any</span>(not_conn <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) {
+    conn_samp[i] &lt;-<span class="st"> </span><span class="ot">TRUE</span>
+  } <span class="cf">else</span> {
+    conn_samp[i] &lt;-<span class="st"> </span><span class="ot">FALSE</span>
+  }
+}
+<span class="kw">sum</span>(conn_samp) <span class="op">/</span><span class="st"> </span>n_samp</code></pre>
+<pre><code>## [1] 0.20565</code></pre>
+</div>
 </div>
 <div id="discrete-probability-spaces" class="section level2">
 <h2><span class="header-section-number">1.3</span> Discrete probability spaces</h2>
@@ -443,6 +642,42 @@ bin_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span clas
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(\sum_{k = 0}^{\infty} p(1 - p)^k = p \sum_{k = 0}^{\infty} (1 - p)^k =  p \frac{1}{1 - 1 + p} = 1\)</span>. We used the formula for geometric series.</p></li>
+<li><p><span class="math inline">\(\sum_{k = 0}^{\infty} \frac{\lambda^k e^{-\lambda}}{k!} =  e^{-\lambda} \sum_{k = 0}^{\infty} \frac{\lambda^k}{k!} =  e^{-\lambda} e^{\lambda} = 1.\)</span> We used the Taylor expansion of
+the exponential function.</p></li>
+<li><p>Since we only have to define a probability
+measure, we could only assign probabilities that sum to one to a finite
+number of events in <span class="math inline">\(\Omega\)</span>, and probability zero to the other infinite
+number of events. However to make this solution more educational, we will
+try to find a measure that assigns a non-zero probability to all events in
+<span class="math inline">\(\Omega\)</span>. A good start for this would be to find a converging infinite series,
+as the probabilities will have to sum to one. One simple converging series is
+the geometric series <span class="math inline">\(\sum_{k=0}^{\infty} p^k\)</span> for <span class="math inline">\(|p| &lt; 1\)</span>. Let us choose an
+arbitrary <span class="math inline">\(p = 0.5\)</span>. Then <span class="math inline">\(\sum_{k=0}^{\infty} p^k = \frac{1}{1 - 0.5} = 2\)</span>.
+To complete the measure, we have to normalize it, so it sums to one,
+therefore <span class="math inline">\(P(\{k\}) = \frac{0.5^k}{2}\)</span> is a probability measure on <span class="math inline">\(\Omega\)</span>.</p></li>
+</ol>
+<p>We could make it even more difficult by making this measure dependent
+on some parameter <span class="math inline">\(\alpha\)</span>, but this is out of the scope of this introductory
+chapter.</p>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+pois_samp &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">lambda =</span> <span class="dv">10</span>)
+pois_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> pois_samp) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">n =</span> <span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">lambda =</span> <span class="dv">10</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))
+
+pois_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> pois_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
+<span class="kw">plot</span>(pois_plot)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-29" class="exercise"><strong>Exercise 1.13  </strong></span></p>
@@ -456,6 +691,36 @@ measure </span>.</p></li>
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(0) = 1, P(\omega) = 0, \forall \omega \neq 0\)</span>.</li>
+<li><span class="math inline">\(P(\{k\}) = \sum_{k = -\infty}^{\infty} \frac{p(1 - p)^{|k|}}{2^{1 - 1_0(k)}}\)</span>,
+where <span class="math inline">\(1_0(k)\)</span> is the indicator function, which equals to one if <span class="math inline">\(k\)</span> is 0, and
+equals to zero in every other case.</li>
+</ol>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r">n          &lt;-<span class="st"> </span><span class="dv">1000</span>
+geom_samps &lt;-<span class="st"> </span><span class="kw">rgeom</span>(n, <span class="dt">prob =</span> <span class="fl">0.5</span>)
+sign_samps &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>), <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
+geom_samps[sign_samps] &lt;-<span class="st"> </span><span class="op">-</span>geom_samps[sign_samps]
+my_pmf &lt;-<span class="st"> </span><span class="cf">function</span> (k, p) {
+  indic         &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">length</span>(k))
+  indic[k <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span>
+  <span class="kw">return</span> ((p <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p)<span class="op">^</span>(<span class="kw">abs</span>(k))) <span class="op">/</span><span class="st"> </span><span class="dv">2</span><span class="op">^</span>indic)
+}
+geom_samps &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> geom_samps) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">-10</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">n =</span> <span class="kw">my_pmf</span>(<span class="op">-</span><span class="dv">10</span><span class="op">:</span><span class="dv">10</span>, <span class="fl">0.5</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))
+
+geom_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> geom_samps, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
+<span class="kw">plot</span>(geom_plot)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-32" class="exercise"><strong>Exercise 1.14  </strong></span>Define a probability measure on <span class="math inline">\(\Omega = \{1,2,3,4,5,6\}\)</span> with parameter <span class="math inline">\(m \in \{1,2,3,4,5,6\}\)</span>, so that the probability of outcome at distance <span class="math inline">\(1\)</span> from
@@ -467,6 +732,39 @@ measure. Compare relative frequencies with theoretical probability
 measure </span>.</p>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ul>
+<li><p><span class="math inline">\(P(\{k\}) = \frac{\frac{1}{2}^{|m - k|}}{\sum_{i=1}^6 \frac{1}{2}^{|m - i|}}\)</span></p>
+</div></li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">n          &lt;-<span class="st"> </span><span class="dv">10000</span>
+m &lt;-<span class="st"> </span><span class="dv">4</span>
+my_pmf &lt;-<span class="st"> </span><span class="cf">function</span> (k, m) {
+  denom &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="fl">0.5</span><span class="op">^</span><span class="kw">abs</span>(m <span class="op">-</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span>))
+  <span class="kw">return</span> (<span class="fl">0.5</span><span class="op">^</span><span class="kw">abs</span>(m <span class="op">-</span><span class="st"> </span>k) <span class="op">/</span><span class="st"> </span>denom)
+}
+samps &lt;-<span class="st"> </span><span class="kw">c</span>()
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
+  a &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span>)
+  a_val &lt;-<span class="st"> </span><span class="kw">my_pmf</span>(a, m)
+  prob  &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)
+  <span class="cf">if</span> (prob <span class="op">&lt;</span><span class="st"> </span>a_val) {
+    samps &lt;-<span class="st"> </span><span class="kw">c</span>(samps, a)
+  }
+}
+samps &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> samps) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(samps), <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">n =</span> <span class="kw">my_pmf</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, m), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))
+
+my_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> samps, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
+<span class="kw">plot</span>(my_plot)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+</div>
 
 </div>
 </div>

@@ -22,7 +22,7 @@ The students are expected to acquire the following knowledge:
 
 
 ```{r, echo = FALSE}
-togs   <- F
+togs   <- T
 tog_ex <- T
 ```
 
@@ -52,6 +52,7 @@ $(document).ready(function() {
 });
 </script>
 
+
 ## Measure and probability spaces
 ```{exercise, name = "Completing a set to a sigma algebra"}
 Let $\Omega = \{1,2,...,10\}$ and let $A = \{\emptyset, \{1\}, \{2\}, \Omega \}$.
@@ -61,6 +62,7 @@ b. Find the minimum number of elements to complete A to a sigma algebra of
 $\Omega$.
 
 ```
+
 <div class="fold">
 ```{solution, echo = tog_ex}
 
@@ -81,18 +83,24 @@ a. Find the smallest sigma algebra of $\Omega$.
 b. Find the largest sigma algebra of $\Omega$.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
+
 a. $A = \{\emptyset, \Omega\}$
+  
 b. $2^{\Omega}$
 
 ```
-
+</div>
 
 ```{exercise}
 Find all sigma algebras for $\Omega = \{0, 1, 2\}$.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -103,7 +111,7 @@ Find all sigma algebras for $\Omega = \{0, 1, 2\}$.
 - $A = \{\emptyset, \{2\}, \{0,1\}, \Omega\}$
 
 ```
-
+</div>
 
 ```{exercise, name = "Difference between algebra and sigma algebra"}
 
@@ -113,6 +121,8 @@ $\mathcal{A}$ is an algebra but not a sigma algebra.
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -130,7 +140,7 @@ as it is finite. But $\bigcup_{k = 1}^{\infty} 2n \notin \mathcal{A}$.
 
 
 ```
-
+</div>
 
 
 ```{exercise, name = "Intro to measure"}
@@ -145,6 +155,7 @@ d. $\mu(\emptyset) = 0$, $\mu(\{1\}) = 0$, $\mu(\{2\}) = 1$, $\mu(\{1,2\}) = 1$
 e. $\mu(\emptyset)=0$, $\mu(\{1\})=0$, $\mu(\{2\})=\infty$, $\mu(\{1,2\})=\infty$
 
 ```
+
 <div class="fold">
 ```{solution, echo = tog_ex}
 
@@ -162,6 +173,8 @@ e. $\mu(\emptyset)=0$, $\mu(\{1\})=0$, $\mu(\{2\})=\infty$, $\mu(\{1,2\})=\infty
 Define a probability space that could be used to model the outcome of throwing two fair 6-sided dice.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -172,6 +185,7 @@ Define a probability space that could be used to model the outcome of throwing t
 - $\forall \omega \in \Omega$, $P(\omega) = \frac{1}{6} \times \frac{1}{6} = \frac{1}{36}$
 
 ```
+</div>
 
 ## Properties of probability measures
 
@@ -186,6 +200,8 @@ c. <span style="color:blue"> R: Use simulation (_sample_) to check the above
 answers. </span>
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -214,7 +230,7 @@ sum(q4) / n
 sum(q2) / n
 
 ```
-
+</div>
 
 ```{exercise}
 Let $A$ and $B$ be events with probabilities $P(A) = \frac{2}{3}$ and
@@ -227,6 +243,8 @@ c. <span style="color:blue"> R: Draw samples from the examples and show the prob
 $P(A \cap B)$ </span>.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 - From the properties of probability we have
@@ -309,6 +327,7 @@ for (i in 1:n) {
 }
 sum(ub) / n
 ```
+</div>
 
 ```{exercise}
 A fair coin is tossed repeatedly. 
@@ -318,6 +337,7 @@ a. Show that, with probability one, a head turns up sooner or later.
 b. Show similarly that any given finite sequence of heads and
 tails occurs eventually with probability one.
 ```
+
 <div class="fold">
 ```{solution, echo = tog_ex}
 \begin{align}
@@ -349,7 +369,7 @@ P(s \text{ occurs}) &\geq \lim_{n \rightarrow \infty}
 \end{align}
 
 ```
-</div class="fold">
+</div>
 
 ```{exercise}
 An Erdos-Renyi random graph $G(n,p)$ is a model with $n$ nodes, where
@@ -363,6 +383,8 @@ c. <span style="color:blue">R: Estimate the probability from the first point usi
   
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -416,7 +438,7 @@ for (i in 1:n_samp) {
 }
 sum(conn_samp) / n_samp
 ```
-
+</div>
 
 ## Discrete probability spaces
 ```{exercise, label = binomialpmf}
@@ -427,6 +449,7 @@ b. Show that for $n=1$ the binomial measure is the same as the Bernoulli measure
 c. <span style="color:blue">R: Draw 1000 samples from the binomial distribution $p=0.5$, $n=20$ (_rbinom_) and compare relative frequencies with theoretical probability measure</span>.
 
 ```
+
 <div class="fold">
 ```{solution, echo = tog_ex}
 We need to show that the terms of 
@@ -471,6 +494,8 @@ c. Define another probability measure on this measurable space.
 d. <span style="color:blue">R: Draw 1000 samples from the Poisson distribution $\lambda = 10$ (_rpois_) and compare relative frequencies with theoretical probability measure</span>.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -512,7 +537,7 @@ pois_plot <- ggplot(data = pois_samp, aes(x = x, y = n, fill = type)) +
   geom_bar(stat="identity", position = "dodge")
 plot(pois_plot)
 ```
-
+</div>
 
 ```{exercise}
 
@@ -527,6 +552,8 @@ measure. Compare relative frequencies with theoretical probability
 measure </span>.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -558,6 +585,7 @@ plot(geom_plot)
 
 
 ```
+</div>
 
 ```{exercise}
 Define a probability measure on $\Omega = \{1,2,3,4,5,6\}$ with parameter $m 
@@ -570,6 +598,8 @@ measure. Compare relative frequencies with theoretical probability
 measure </span>. 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -602,4 +632,5 @@ my_plot <- ggplot(data = samps, aes(x = x, y = n, fill = type)) +
   geom_bar(stat="identity", position = "dodge")
 plot(my_plot)
 ```
+</div>
 

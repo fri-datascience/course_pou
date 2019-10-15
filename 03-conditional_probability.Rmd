@@ -44,7 +44,7 @@ $(document).ready(function() {
 
 
 ```{r, echo = FALSE, warning = FALSE}
-togs <- F
+togs <- T
 library(ggplot2)
 # togs <- FALSE
 ```
@@ -64,7 +64,7 @@ a friendly airplane?
 ```
 
 
-
+<div class="fold">
 ```{solution, echo = togs}
 Let $E = 0$ denote that the observed plane is friendly and $E=1$ that it
 is an enemy. Let $I = 0$ denote that the officer identified it as friendly and
@@ -79,7 +79,7 @@ $I = 1$ as enemy. Then
                    &= 0.91.
 \end{align}
 ```
-
+</div>
 
 ```{exercise}
 <span style="color:blue">R: Consider tossing a fair die. Let $A = \{2,4,6\}$ 
@@ -89,6 +89,8 @@ independent. Simulate draws from the sample space and verify that the
 proportions are the same. Then find two events $C$ and $D$ that are not
 independent and repeat the simulation.</span>
 ```
+
+<div class="fold">
 ```{r, echo = togs, eval = togs}
 set.seed(1)
 nsamps <- 10000
@@ -104,6 +106,7 @@ PD <- sum(tosses %in% c(2,3)) / nsamps
 PC * PD
 sum(tosses %in% c(2)) / nsamps
 ```
+</div>
 
 ```{exercise}
 A machine reports the true value of a thrown 12-sided die 5 out of 6 times.
@@ -119,6 +122,8 @@ to a) and b). </span>
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -166,7 +171,7 @@ sum(truth_a1) / length(truth_a1)
 truth_b1 <- truths[report_b]
 sum(truth_b1) / length(truth_b1)
 ```
-
+</div>
 
 ```{exercise}
 A coin is tossed independently $n$ times. The probability of heads at each
@@ -185,6 +190,8 @@ $A_6$, and $A_7$.</span>
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -225,6 +232,8 @@ sum(rewardA_7) / nsamps
 sum(rewardA_56) / nsamps
 sum(rewardA_57) / nsamps
 ```
+</div>
+
 
 ```{exercise}
 A drawer contains two coins. One is an unbiased coin, the other is a biased
@@ -240,6 +249,8 @@ coin is biased?
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -257,7 +268,7 @@ is that in b) the last throw must be heads. However, this holds for the biased
 and the unbiased coin and therefore does not affect the probability of the
 coin being biased.
 ```
-
+</div>
 
 
 ```{exercise}
@@ -288,6 +299,8 @@ f. <span style="color:blue">R: simulate Judy's walk 10000 times to
 check your answers a) - e).</span>
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 Let $X_i = k$ denote the event that ... $i$-th sample on the $k$-th run.
 
@@ -296,7 +309,7 @@ a. Since the events are independent, we can multiply their probabilities to get
   P(X_1 = 4) = 0.4^3 \times 0.6 = 0.0384.
 \end{equation}
   
-b. Since the events are independent, the results is the same as in a).
+b. Same as in a) as we have a fresh start after first four offices.
 
 c. For this to be possible, she had to leave the first flower in one of the
 first four offices. Therefore there are four possibilities, and for each
@@ -357,6 +370,8 @@ sum(csJudy[ ,5] == 2 & csJudy[ ,4] == 1) / sum(csJudy[ ,2] != 2)
 sum(csJudy[ ,4] < 2) / nsamps
 
 ```
+</div>
+
 
 ## Conditional independence
 ```{exercise}
@@ -369,11 +384,13 @@ b. A real-world example of two events $A$ and $B$ that are independent, but
 become dependent if conditioned on some third event $C$.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
 a. Let $A$ be the height of a person and let $B$ be the person's knowledge
-in the Dutch language. These events are dependent since the Dutch are known
+of the Dutch language. These events are dependent since the Dutch are known
 to be taller than average. However if $C$ is the nationality of the person,
 then $A$ and $B$ are independent given $C$.
 
@@ -384,6 +401,7 @@ conditionally dependent given $C$.
 
 
 ```
+</div>
 
 ```{exercise}
 We have two coins of identical appearance. We know that one is a fair coin
@@ -404,10 +422,12 @@ d. Given your answers to b) and c), would you now change your answer to a)?
 If so, discuss why your intuition had failed.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
-b. $P(Y_1 = 1) = 0.5 * 0.8 + 0.5 * 0.5 = 0.65.
+b. $P(Y_1 = 1) = 0.5 * 0.8 + 0.5 * 0.5 = 0.65$.
 
 c. Since we know that $Y_1 = 1$ this should change our view of the probability
 of the coin being biased or not. Let $B = 1$ denote the event that the
@@ -434,6 +454,7 @@ that first nine tosses are all heads (equivalent to $Y_1 = 1$,..., $Y_9 = 1$).
 
 
 ```
+</div>
 
 ## Monty Hall problem
 The Monty Hall problem is a famous probability puzzle with non-intuitive
@@ -451,6 +472,8 @@ other unopened door. Should you stay or switch?  Use Bayes' theorem to calculate
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 W.L.O.G. assume we always pick the first door. The host can only open door 2
 or door 3, as he can not open the door we picked. Let $k \in \{2,3\}$.
@@ -523,3 +546,4 @@ for (i in 1:nsamps) {
 sum(ifstay) / nsamps
 sum(ifchange) / nsamps
 ```
+</div>
