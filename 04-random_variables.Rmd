@@ -22,7 +22,7 @@ The students are expected to acquire the following knowledge:
 - Creating random number generators based on the Uniform distribution.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- TRUE
+togs <- F
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -100,7 +100,7 @@ c. No. The function is not right continuous as $F(\frac{1}{2}) = \frac{1}{3}$,
 but $\lim_{\epsilon \downarrow 0} F(\frac{1}{2} + \epsilon) = 1$.
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 f1 <- function (x) {
   tmp        <- 1 - exp(-x^2)
   tmp[x < 0] <- 0
@@ -158,7 +158,7 @@ varible?</span>
 b. Find the probability density/mass of $X$. 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 f1 <- function (x, p) {
   tmp          <- x
   tmp[x >= 2]  <- 0.5 + (p * 0.5) + ((1-p) * 0.5)
@@ -203,7 +203,7 @@ Find the PMF of $Z = X + Y$. Hint: Use the law of
 total probability.
 
 b. Let $X$ and $Y$ be independent continuous variables. 
-Find the PDF of $Z = X + Y$ 
+Find the PDF of $Z = X + Y$. 
 Hint: Start with the CDF.
 
 ```
@@ -290,7 +290,7 @@ c.
 \end{equation}      
             
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps        <- 10000
 binom_samp    <- rbinom(nsamps, size = 10, prob = 0.5)
@@ -339,7 +339,7 @@ a.
 \end{align}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 geo_samp <- rgeom(n = 1000, prob = 0.3)
 geo_samp <- data.frame(x = geo_samp) %>%
@@ -352,7 +352,7 @@ geo_plot <- ggplot(data = geo_samp, aes(x = x, y = n, fill = type)) +
 plot(geo_plot)
 ```
 
-```{exercise, name = "Poisson random variable"}
+```{exercise, name = "Poisson random variable", label = poisex}
 A variable with PMF 
 \begin{equation}
   P(k) = \frac{\lambda^k e^{-\lambda}}{k!}
@@ -373,11 +373,11 @@ where we also sampled from this distribution.
 The CDF of a Poisson random variable is $P(X <= x) = e^{-\lambda} \sum_{i=0}^x \frac{\lambda^{i}}{i!}$.
 
 a. <span style="color:blue">R: Draw 1000 samples from the Poisson
-distribution with $p$ = 0.3$ and compare their empirical cumulative
+distribution with $p$ = $0.3$ and compare their empirical cumulative
 distribution function with the theoretical CDF.</span>
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 pois_samp <- rpois(n = 1000, lambda = 5)
 pois_samp <- data.frame(x = pois_samp)
@@ -455,7 +455,7 @@ parameter is a negative binomial distribution.
 c. $Z \sim \text{NB}(8, 0.4)$.
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps <- 10000
 x      <- rnbinom(nsamps, size = 5, prob = 0.6)
@@ -524,7 +524,7 @@ c.
 \end{align}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps <- 1000
 samps  <- rexp(nsamps, rate = 1.5)
@@ -534,7 +534,7 @@ exp_plot <- ggplot(data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
   stat_function(fun = dexp, args = list(rate = 1.5), xlim = c(1,3), geom = "area", fill = "red")
 plot(exp_plot)
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 exp_pdf <- function(x, lambda) {
   return (lambda * exp(-lambda * x))
 }
@@ -624,7 +624,7 @@ d.
 \end{align}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 a         <- -1
 b         <- 3
@@ -678,7 +678,7 @@ This is the standard uniform distribution.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
   stat_function(fun = dbeta, args = list(shape1 = 2, shape2 = 2), aes(color = "alpha = 0.5")) +
@@ -688,7 +688,7 @@ ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
   stat_function(fun = dbeta, args = list(shape1 = 0.1, shape2 = 0.1), aes(color = "alpha = 0.1"))
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps <- 1000
 samps  <- rbeta(nsamps, 2, 5)
@@ -727,8 +727,7 @@ a. Let $X \sim \text{Gamma}(1, \beta)$. Find the PDF of $X$.
 Do you recognize this PDF?
 
 b. Let $k = \alpha$ and $\theta = \frac{1}{\beta}$. Find the PDF
-of $X | k, \theta \sim \text{Gamma}(k, \theta)$. Most (?ALL)
-random variables can be reparameterized, and sometimes a reparameterized
+of $X | k, \theta \sim \text{Gamma}(k, \theta)$. Random variables can be reparameterized, and sometimes a reparameterized
 distribution is more suitable for certain calculations. The first
 parameterization is for example usually used in Bayesian statistics, while this
 parameterization is more common in econometrics and some other applied fields.
@@ -756,7 +755,7 @@ b.
 \end{align}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 ggplot(data = data.frame(x = seq(0, 25, by = 0.01)), aes(x = x)) +
   stat_function(fun = pgamma, args = list(shape = 1, rate = 1), aes(color = "Gamma(1,1)")) +
@@ -822,7 +821,7 @@ of a normal distribution with $\mu = 0$ and $\sigma^2 = 1$.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 # b
 ggplot(data = data.frame(x = seq(-15, 15, by = 0.01)), aes(x = x)) +
@@ -879,7 +878,7 @@ a.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 # b
 set.seed(1)
 logit_pdf <- function (x, mu, s) {
@@ -958,7 +957,7 @@ a.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps   <- 10000
 mu       <- 0.5
@@ -987,7 +986,7 @@ $X \sim F$.
 c. <span style="color:blue">R: Implement a program that takes Uniform(0,1) 
 random variables
 and generates random variables from an exponential($\beta$) distribution.
-Compare your implemented function with function __rexp__ in R.</span>
+Compare your implemented function with function _rexp_ in R.</span>
 
 
 ```
@@ -1015,7 +1014,7 @@ b.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps <- 10000
 beta   <- 4
