@@ -10,7 +10,7 @@ link-citations: yes
 url: https://fri-datascience.github.io/course_pou/
 description: "Course notes"
 nocite: | 
-  @R-base, @Ross1998
+  @R-base, @Ross1998, @Jagannathan2015
 ---
 
 

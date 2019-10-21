@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-10-18">
+<meta name="date" content="2019-10-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -149,7 +149,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
-<li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.4</b> Transformations</a></li>
+<li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
+<li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
@@ -286,15 +287,15 @@ Hint: Start with the CDF.</p></li>
 
 <div class="exercise">
 <p><span id="exr:bincdf" class="exercise"><strong>Exercise 4.4  (Binomial random variable)  </strong></span>Let <span class="math inline">\(X_k\)</span>, <span class="math inline">\(k = 1,...,n\)</span>, be random variables with the Bernoulli measure as the
-PMF with <span class="math inline">\(p = 0.4\)</span>. Let <span class="math inline">\(X = \sum_{k=1}^n\)</span>.</p>
+PMF. Let <span class="math inline">\(X = \sum_{k=1}^n X_k\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>We call <span class="math inline">\(X_k\)</span> a Bernoulli random variable with parameter <span class="math inline">\(p \in (0,1)\)</span>.
 Find the CDF of <span class="math inline">\(X_k\)</span>.</p></li>
-<li><p>Find PDF of <span class="math inline">\(X\)</span>.
+<li><p>Find PMF of <span class="math inline">\(X\)</span>.
 This is a Binomial random variable with support in <span class="math inline">\(\{0,1,2,...,n\}\)</span> and
 parameters <span class="math inline">\(p \in (0,1)\)</span> and <span class="math inline">\(n \in \mathbb{N}_0\)</span>. We denote
 <span class="math display">\[\begin{equation}
-  X | n,p \sim \text{Binomial}(n,p).
+  X | n,p \sim \text{binomial}(n,p).
 \end{equation}\]</span></p></li>
 <li><p>Find CDF of <span class="math inline">\(X\)</span>.</p></li>
 <li><p><span style="color:blue">R: Simulate from the binomial distribution
@@ -315,10 +316,10 @@ distribution.</span></p></li>
 \end{equation}\]</span>
 is a geometric random
 variable with support in non-negative
-integers. It has one positive parameter
-<span class="math inline">\(p\)</span>. We denote
+integers. It has one parameter
+<span class="math inline">\(p \in (0,1]\)</span>. We denote
 <span class="math display">\[\begin{equation}
-  X | p \sim \text{Geometric}(p)
+  X | p \sim \text{geometric}(p)
 \end{equation}\]</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Derive the CDF of a geometric random variable.</p></li>
@@ -349,7 +350,7 @@ where we also sampled from this distribution.</p>
 <p>The CDF of a Poisson random variable is <span class="math inline">\(P(X &lt;= x) = e^{-\lambda} \sum_{i=0}^x \frac{\lambda^{i}}{i!}\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><span style="color:blue">R: Draw 1000 samples from the Poisson
-distribution with <span class="math inline">\(p\)</span> = <span class="math inline">\(0.3\)</span> and compare their empirical cumulative
+distribution with <span class="math inline">\(\lambda = 5\)</span> and compare their empirical cumulative
 distribution function with the theoretical CDF.</span></li>
 </ol>
 </div>
@@ -368,7 +369,7 @@ variable with support in non-negative integers. It has two parameters
 \end{equation}\]</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Let us reparameterize the negative binomial distribution with <span class="math inline">\(q = 1 - p\)</span>.
-Find the PDF of <span class="math inline">\(X \sim \text{NB}(1, q)\)</span>. Do you recognize this distribution?</p></li>
+Find the PMF of <span class="math inline">\(X \sim \text{NB}(1, q)\)</span>. Do you recognize this distribution?</p></li>
 <li><p>Show that the sum of two negative binomial random variables with the same
 <span class="math inline">\(p\)</span> is also a negative binomial random variable. Hint: Use the fact that
 the number of ways to place <span class="math inline">\(n\)</span> indistinct balls into <span class="math inline">\(k\)</span> boxes is
@@ -553,17 +554,39 @@ probability <span class="math inline">\(P(|X| &gt; 4)\)</span> and interpret the
 </div>
 
 </div>
-<div id="transformations" class="section level2">
-<h2><span class="header-section-number">4.4</span> Transformations</h2>
+<div id="singular-random-variables" class="section level2">
+<h2><span class="header-section-number">4.4</span> Singular random variables</h2>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-105" class="exercise"><strong>Exercise 4.14  </strong></span>Let <span class="math inline">\(X\)</span> be a random variable that is uniformly distributed on
+<p><span id="exr:unnamed-chunk-105" class="exercise"><strong>Exercise 4.14  (Cantor distribution)  </strong></span>The Cantor set is a subset of <span class="math inline">\([0,1]\)</span>, which we create by iteratively deleting the middle third of the interval. For example, in the first iteration, we get the sets <span class="math inline">\([0,\frac{1}{3}]\)</span> and <span class="math inline">\([\frac{2}{3},1]\)</span>. In the second iteration, we get <span class="math inline">\([0,\frac{1}{9}]\)</span>, <span class="math inline">\([\frac{2}{9},\frac{1}{3}]\)</span>, <span class="math inline">\([\frac{2}{3}, \frac{7}{9}]\)</span>, and <span class="math inline">\([\frac{8}{9}, 1]\)</span>. On the <span class="math inline">\(n\)</span>-th iteration, we have
+<span class="math display">\[\begin{equation}
+  C_n = \frac{C_{n-1}}{3} \cup \bigg(\frac{2}{3} + \frac{C_{n-1}}{3} \bigg),
+\end{equation}\]</span>
+where <span class="math inline">\(C_0 = [0,1]\)</span>. The Cantor set is then defined as the intersection of these sets
+<span class="math display">\[\begin{equation}
+  C = \cap_{n=1}^{\infty} C_n.
+\end{equation}\]</span>
+It has the same cardinality as <span class="math inline">\([0,1]\)</span>. Another way to define the Cantor set is the set of all numbers on <span class="math inline">\([0,1]\)</span>, that do not have a 1 in the ternary representation <span class="math inline">\(x = \sum_{n=1}^\infty \frac{x_i}{3^i}, x_i \in \{0,1,2\}\)</span>.</p>
+<p>A random variable follows the Cantor distribution, if its CDF is the Cantor function (below). You can find the implementations of random number generator, CDF, and quantile functions for the Cantor distributions at <a href="https://github.com/Henrygb/CantorDist.R" class="uri">https://github.com/Henrygb/CantorDist.R</a>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Show that the Lebesgue measure of the Cantor set is 0.</p></li>
+<li><p>(<strong>Jagannathan</strong>) Let us look at an infinite sequence of independent fair-coin tosses. If the outcome is heads, let <span class="math inline">\(x_i = 2\)</span> and <span class="math inline">\(x_i = 0\)</span>, when tails. Then use these to create <span class="math inline">\(x = \sum_{n=1}^\infty \frac{x_i}{3^i}\)</span>. This is a random variable with the Cantor distribution. Show that <span class="math inline">\(X\)</span> has a singular distribution.</p></li>
+</ol>
+</div>
+
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+</div>
+<div id="transformations" class="section level2">
+<h2><span class="header-section-number">4.5</span> Transformations</h2>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-108" class="exercise"><strong>Exercise 4.15  </strong></span>Let <span class="math inline">\(X\)</span> be a random variable that is uniformly distributed on
 <span class="math inline">\(\{-2, -1, 0, 1, 2\}\)</span>. Find the PMF of <span class="math inline">\(Y = X^2\)</span>.
 </div>
 
 
 <div class="exercise">
-<p><span id="exr:lognpdf" class="exercise"><strong>Exercise 4.15  (Lognormal random variable)  </strong></span>A lognormal random variable is a variable whose logarithm is normally
+<p><span id="exr:lognpdf" class="exercise"><strong>Exercise 4.16  (Lognormal random variable)  </strong></span>A lognormal random variable is a variable whose logarithm is normally
 distributed. In practice, we often encounter skewed data. Usually
 using a log transformation on such data makes it more symmetric and therefore
 more suitable for modeling with the normal distribution (more on why we wish
@@ -580,7 +603,7 @@ theoretical normal PDF.</span></p></li>
 
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-109" class="exercise"><strong>Exercise 4.16  (Probability integral transform)  </strong></span>This exercise is borrowed from Wasserman.
+<p><span id="exr:unnamed-chunk-112" class="exercise"><strong>Exercise 4.17  (Probability integral transform)  </strong></span>This exercise is borrowed from Wasserman.
 Let <span class="math inline">\(X\)</span> have a continuous, strictly increasing CDF <span class="math inline">\(F\)</span>. Let <span class="math inline">\(Y = F(X)\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Find the density of <span class="math inline">\(Y\)</span>. This is called the probability integral transform.</p></li>
