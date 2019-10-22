@@ -127,7 +127,7 @@ $\sigma(\mathcal{C}) = \mathcal{F} = \mathcal{C}$.
 ```{exercise}
 Let $\mathcal{C}$ and $\mathcal{D}$ be two collections of subsets on $\Omega$
 such that $\mathcal{C} \subset \mathcal{D}$. Prove that
-$\sigma(\mathcal{C}) \subset \sigma(\mathcal{D})$.
+$\sigma(\mathcal{C}) \subseteq \sigma(\mathcal{D})$.
 
 ```
 

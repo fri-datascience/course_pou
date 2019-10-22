@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-10-21">
+<meta name="date" content="2019-10-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -219,6 +219,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>New R functions for plotting (for example, <em>facet_wrap</em>).</li>
 <li>Creating random number generators based on the Uniform distribution.</li>
 </ul>
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
 <div id="general-properties-and-calculations" class="section level2">
 <h2><span class="header-section-number">4.1</span> General properties and calculations</h2>
 
@@ -248,6 +270,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li>Yes.</li>
+</ol>
+<ul>
+<li>First, let us check the limits.
+<span class="math inline">\(\lim_{x \rightarrow -\infty} (0) = 0\)</span>.
+<span class="math inline">\(\lim_{x \rightarrow \infty} (1 - e^{-x^2}) = 1 - \lim_{x \rightarrow \infty} e^{-x^2} = 1 - 0 = 1\)</span>.</li>
+<li>Second, let us check whether the function is increasing. Let <span class="math inline">\(x &gt; y \geq 0\)</span>.
+Then <span class="math inline">\(1 - e^{-x^2} \geq 1 - e^{-y^2}\)</span>.</li>
+<li>We only have to check right continuity for the point zero. <span class="math inline">\(F(0) = 0\)</span> and
+<span class="math inline">\(\lim_{\epsilon \downarrow 0}F (0 + \epsilon) =  \lim_{\epsilon \downarrow 0} 1 - e^{-\epsilon^2} =  1 - \lim_{\epsilon \downarrow 0} e^{-\epsilon^2} =  1 - 1 = 0\)</span>.</li>
+<li>We get the density by differentiating the CDF.
+<span class="math inline">\(p(x) = \frac{d}{dx} 1 - e^{-x^2} = 2xe^{-x^2}.\)</span> Students are encouraged to
+check that this is a proper PDF.</li>
+</ul>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Yes.</li>
+</ol>
+<ul>
+<li>First, let us check the limits.
+$_{x -} (0) = 0 and
+<span class="math inline">\(\lim_{x \rightarrow \infty} (e^{-\frac{1}{x}}) = 1\)</span>.</li>
+<li>Second, let us check whether the function is increasing. Let <span class="math inline">\(x &gt; y \geq 0\)</span>.
+Then <span class="math inline">\(e^{-\frac{1}{x}} \geq e^{-\frac{1}{y}}\)</span>.</li>
+<li>We only have to check right continuity for the point zero. <span class="math inline">\(F(0) = 0\)</span> and
+<span class="math inline">\(\lim_{\epsilon \downarrow 0}F (0 + \epsilon) =  \lim_{\epsilon \downarrow 0} e^{-\frac{1}{\epsilon}} = 0\)</span>.</li>
+<li>We get the density by differentiating the CDF.
+<span class="math inline">\(p(x) = \frac{d}{dx} e^{-\frac{1}{x}} = \frac{1}{x^2}e^{-\frac{1}{x}}.\)</span>
+Students are encouraged to
+check that this is a proper PDF.</li>
+</ul>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>No. The function is not right continuous as <span class="math inline">\(F(\frac{1}{2}) = \frac{1}{3}\)</span>,
+but <span class="math inline">\(\lim_{\epsilon \downarrow 0} F(\frac{1}{2} + \epsilon) = 1\)</span>.</li>
+</ol>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r">f1 &lt;-<span class="st"> </span><span class="cf">function</span> (x) {
+  tmp        &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>x<span class="op">^</span><span class="dv">2</span>)
+  tmp[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span>
+  <span class="kw">return</span>(tmp)
+}
+
+f2 &lt;-<span class="st"> </span><span class="cf">function</span> (x) {
+  tmp         &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>x))
+  tmp[x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span>
+  <span class="kw">return</span>(tmp)
+}
+
+f3 &lt;-<span class="st"> </span><span class="cf">function</span> (x) {
+  tmp           &lt;-<span class="st"> </span>x
+  tmp[x <span class="op">==</span><span class="st"> </span>x]   &lt;-<span class="st"> </span><span class="dv">1</span>
+  tmp[x <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.5</span>] &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span>
+  tmp[x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>]   &lt;-<span class="st"> </span><span class="dv">0</span>
+  <span class="kw">return</span>(tmp)
+}
+
+cdf_data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x  =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">0.001</span>),
+                   <span class="dt">f1 =</span> <span class="kw">f1</span>(x),
+                   <span class="dt">f2 =</span> <span class="kw">f2</span>(x),
+                   <span class="dt">f3 =</span> <span class="kw">f3</span>(x)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">melt</span>(<span class="dt">id.vars =</span> <span class="st">&quot;x&quot;</span>)
+
+
+cdf_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> cdf_data, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value, <span class="dt">color =</span> variable)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>()
+<span class="kw">plot</span>(cdf_plot)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-80" class="exercise"><strong>Exercise 4.2  </strong></span>Let <span class="math inline">\(X\)</span> be a random variable with CDF
@@ -267,6 +362,40 @@ varible?</span></p></li>
 </ol>
 </div>
 
+<div class="fold">
+
+<pre class="sourceCode r"><code class="sourceCode r">f1 &lt;-<span class="st"> </span><span class="cf">function</span> (x, p) {
+  tmp          &lt;-<span class="st"> </span>x
+  tmp[x <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>]  &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span>(p <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span>((<span class="dv">1</span><span class="op">-</span>p) <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>)
+  tmp[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>]   &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span>(p <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>) 
+  tmp[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>]   &lt;-<span class="st"> </span>(x[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>])<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
+  tmp[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>]   &lt;-<span class="st"> </span><span class="dv">0</span>
+  <span class="kw">return</span>(tmp)
+}
+
+cdf_data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.001</span>), <span class="dt">y =</span> <span class="kw">f1</span>(x, <span class="fl">0.3</span>))
+cdf_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> cdf_data, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)
+<span class="kw">plot</span>(cdf_plot)</code></pre>
+<img src="bookdown-pou_files/figure-html/unnamed-chunk-81-1.png" width="672" />
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(X\)</span> is a mixed random variable.</p></li>
+<li><p>Since <span class="math inline">\(X\)</span> is a mixed random variable, we have to find the PDF of the
+continuous part and the PMF of the discrete part. We get the continuous
+part by differentiating the corresponding CDF, <span class="math inline">\(\frac{d}{dx}\frac{x^2}{2} = x\)</span>.
+So the PDF, when <span class="math inline">\(0 \leq x &lt; 1\)</span>, is <span class="math inline">\(p(x) = x\)</span>. Let us look at the discrete
+part now. It has two steps, so this is a discrete distribution with two
+outcomes – numbers 1 and 2. The first happens with probability
+<span class="math inline">\(\frac{p}{2}\)</span>, and the second with probability <span class="math inline">\(\frac{1 - p}{2}\)</span>. This reminds
+us of the Bernoulli distribution. The PMF
+for the discrete part is <span class="math inline">\(P(X = x) = (\frac{p}{2})^{2 - x} (\frac{1 - p}{2})^{x - 1}\)</span>.</p>
+</div></li>
+</ol>
+</div>
 
 <div class="exercise">
 <p><span id="exr:conv" class="exercise"><strong>Exercise 4.3  (Convolutions)  </strong></span>Convolutions are probability distributions that correspond to sums of
@@ -281,6 +410,37 @@ Hint: Start with the CDF.</p></li>
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align}
+P(Z = z) &amp;= P(X + Y = z) &amp; \\ 
+         &amp;= \sum_{k = -\infty}^\infty P(X + Y = z | Y = k) P(Y = k) &amp; \text{ (law of total probability)} \\
+         &amp;= \sum_{k = -\infty}^\infty P(X + k = z | Y = k) P(Y = k) &amp; \\
+         &amp;= \sum_{k = -\infty}^\infty P(X + k = z) P(Y = k) &amp; \text{ (independence of $X$ and $Y$)} \\
+         &amp;= \sum_{k = -\infty}^\infty P(X = z - k) P(Y = k). &amp;
+\end{align}\]</span></p></li>
+<li><p>Let <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> be the PDFs of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> respectively.
+<span class="math display">\[\begin{align}
+  F(z)     &amp;= P(Z &lt; z) \\ 
+        &amp;= P(X + Y &lt; z) \\ 
+        &amp;= \int_{-\infty}^{\infty} P(X + Y &lt; z | Y = y)P(Y = y)dy \\
+        &amp;= \int_{-\infty}^{\infty} P(X + y &lt; z | Y = y)P(Y = y)dy \\
+        &amp;= \int_{-\infty}^{\infty} P(X + y &lt; z)P(Y = y)dy \\
+        &amp;= \int_{-\infty}^{\infty} P(X &lt; z - y)P(Y = y)dy \\
+        &amp;= \int_{-\infty}^{\infty} (\int_{-\infty}^{z - y} f(x) dx) g(y) dy
+\end{align}\]</span>
+Now
+<span class="math display">\[\begin{align}
+  p(z) &amp;= \frac{d}{dz} F(z) &amp; \\
+    &amp;= \int_{-\infty}^{\infty} (\frac{d}{dz}\int_{-\infty}^{z - y} f(x) dx) g(y) dy &amp; \\
+    &amp;= \int_{-\infty}^{\infty} f(z - y) g(y) dy &amp; \text{ (fundamental theorem of calculus)}.
+\end{align}\]</span></p>
+</div></li>
+</ol>
+</div>
 </div>
 <div id="discrete-random-variables" class="section level2">
 <h2><span class="header-section-number">4.2</span> Discrete random variables</h2>
@@ -308,6 +468,47 @@ distribution.</span></p></li>
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p>There are two outcomes – zero and one. Zero happens with probability
+<span class="math inline">\(1 - p\)</span>. Therefore
+<span class="math display">\[\begin{equation}
+  F(k) = \begin{cases}
+         0 &amp; k &lt; 0 \\
+         1 - p &amp; 0 \leq k &lt; 1 \\
+         1 &amp; k \geq 1.
+       \end{cases}
+\end{equation}\]</span></p></li>
+<li><p>For the probability of <span class="math inline">\(X\)</span> to be equal to some <span class="math inline">\(k \leq n\)</span>, exactly <span class="math inline">\(k\)</span>
+Bernoulli variables need to be one, and the others zero. So <span class="math inline">\(p^k(1-p)^{n-k}\)</span>.
+There are <span class="math inline">\(\binom{n}{k}\)</span> such possible arrangements. Therefore
+<span class="math display">\[\begin{align}
+  P(X = k) = \binom{n}{k} p^k (1 - p)^{n-k}.
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{equation}
+  F(k) = \sum_{i = 0}^{\lfloor k \rfloor} \binom{n}{i} p^i (1 - p)^{n - i}
+\end{equation}\]</span><br />
+</p>
+</div></li>
+</ol>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps        &lt;-<span class="st"> </span><span class="dv">10000</span>
+binom_samp    &lt;-<span class="st"> </span><span class="kw">rbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)
+bernoulli_mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="dv">10</span>)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {
+  bernoulli_mat[i, ] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">10</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)
+}
+bern_samp &lt;-<span class="st"> </span><span class="kw">apply</span>(bernoulli_mat, <span class="dv">1</span>, sum)
+b_data    &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x    =</span> <span class="kw">c</span>(binom_samp, bern_samp), 
+                    <span class="dt">type =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;binomial&quot;</span>, <span class="dv">10000</span>), <span class="kw">rep</span>(<span class="st">&quot;Bernoulli_sum&quot;</span>, <span class="dv">10000</span>)))
+b_plot    &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> b_data, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">fill =</span> type)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
+<span class="kw">plot</span>(b_plot)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+</div>
 
 <div class="exercise">
 <p><span id="exr:geocdf" class="exercise"><strong>Exercise 4.5  (Geometric random variable)  </strong></span>A variable with PMF
@@ -324,11 +525,36 @@ integers. It has one parameter
 <ol style="list-style-type: lower-alpha">
 <li><p>Derive the CDF of a geometric random variable.</p></li>
 <li><p><span style="color:blue">R: Draw 1000 samples from the geometric
-distribution with <span class="math inline">\(p\)</span> = 0.3$ and compare their frequencies to
+distribution with <span class="math inline">\(p = 0.3\)</span> and compare their frequencies to
 theoretical values.</span></p></li>
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math display">\[\begin{align}
+P(X \leq k) &amp;= \sum_{i = 0}^k p(1-p)^i \\
+          &amp;= p \sum_{i = 0}^k (1-p)^i \\
+          &amp;= p \frac{1 - (1-p)^{k+1}}{1 - (1 - p)} \\
+          &amp;= 1 - (1-p)^{k + 1}
+\end{align}\]</span></li>
+</ol>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+geo_samp &lt;-<span class="st"> </span><span class="kw">rgeom</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">prob =</span> <span class="fl">0.3</span>)
+geo_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> geo_samp) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">n =</span> <span class="kw">dgeom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.3</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))
+
+geo_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> geo_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
+<span class="kw">plot</span>(geo_plot)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+</div>
 
 <div class="exercise">
 <p><span id="exr:poisex" class="exercise"><strong>Exercise 4.6  (Poisson random variable)  </strong></span>A variable with PMF
@@ -355,6 +581,17 @@ distribution function with the theoretical CDF.</span></li>
 </ol>
 </div>
 
+<div class="fold">
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+pois_samp &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">lambda =</span> <span class="dv">5</span>)
+pois_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> pois_samp)
+pois_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> pois_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">colour =</span> <span class="st">&quot;ECDF&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_ecdf</span>(<span class="dt">geom =</span> <span class="st">&quot;step&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_step</span>(<span class="dt">data =</span> <span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">17</span>, <span class="dt">y =</span> <span class="kw">ppois</span>(x, <span class="dv">5</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">colour =</span> <span class="st">&quot;CDF&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="st">&quot;Lgend title&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>))
+<span class="kw">plot</span>(pois_plot)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+</div>
 
 <div class="exercise">
 <p><span id="exr:negbinpdf" class="exercise"><strong>Exercise 4.7  (Negative binomial random variable)  </strong></span>A variable with PMF
@@ -383,6 +620,58 @@ parameterization <em>size</em>=<span class="math inline">\(r\)</span> and <em>pr
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align}
+P(X = k) &amp;= \binom{k + 1 - 1}{k}q^1 (1-q)^k \\
+         &amp;= q(1-q)^k.
+\end{align}\]</span>
+This is the geometric distribution.</p></li>
+<li><p>Let <span class="math inline">\(X \sim \text{NB}(r_1, p)\)</span> and <span class="math inline">\(Y \sim \text{NB}(r_2, p)\)</span>.
+Let <span class="math inline">\(Z = X + Y\)</span>.
+<span class="math display">\[\begin{align}
+  P(Z = z) &amp;= \sum_{k = 0}^{\infty} P(X = z - k)P(Y = k),  \text{   if k &lt; 0, then the probabilities are 0} \\
+        &amp;= \sum_{k = 0}^{z} P(X = z - k)P(Y = k), \text{   if k &gt; z, then the probabilities are 0} \\
+        &amp;= \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k}(1 - p)^{r_1} p^{z - k} \binom{k + r_2 - 1}{k}(1 - p)^{r_2} p^{k} &amp; \\
+        &amp;= \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}(1 - p)^{r_1 + r_2} p^{z} &amp; \\
+        &amp;= (1 - p)^{r_1 + r_2} p^{z} \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}&amp;
+\end{align}\]</span>
+The part before the sum reminds us of the negative binomial distribution with
+parameters <span class="math inline">\(r_1 + r_2\)</span> and <span class="math inline">\(p\)</span>. To complete this term to the
+negative binomial PMF we need <span class="math inline">\(\binom{z + r_1 + r_2 -1}{z}\)</span>. So the
+only thing we need to prove is that the sum equals this term.
+Both terms in the sum can be interpreted as numbers of ways to
+place a number of balls into boxes. For the left term it is
+<span class="math inline">\(z-k\)</span> balls into <span class="math inline">\(r_1\)</span> boxes, and for the right <span class="math inline">\(k\)</span> balls into
+<span class="math inline">\(r_2\)</span> boxes. For each <span class="math inline">\(k\)</span> we are distributing <span class="math inline">\(z\)</span> balls in total.
+By summing over all <span class="math inline">\(k\)</span>, we actually get all the
+possible placements of <span class="math inline">\(z\)</span> balls into <span class="math inline">\(r_1 + r_2\)</span> boxes.
+Therefore
+<span class="math display">\[\begin{align}
+  P(Z = z) &amp;= (1 - p)^{r_1 + r_2} p^{z} \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}&amp; \\
+        &amp;= \binom{z + r_1 + r_2 -1}{z} (1 - p)^{r_1 + r_2} p^{z}.
+\end{align}\]</span>
+From this it also follows that the sum of geometric distributions with the same
+parameter is a negative binomial distribution.</p></li>
+<li><p><span class="math inline">\(Z \sim \text{NB}(8, 0.4)\)</span>.</p></li>
+</ol>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">10000</span>
+x      &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">5</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)
+y      &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)
+xpy    &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y
+z      &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)
+samps  &lt;-<span class="st"> </span><span class="kw">tibble</span>(x, y, xpy, z)
+samps  &lt;-<span class="st"> </span><span class="kw">melt</span>(samps)
+<span class="kw">ggplot</span>(<span class="dt">data =</span> samps, <span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>variable)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+</div>
 </div>
 <div id="continuous-random-variables" class="section level2">
 <h2><span class="header-section-number">4.3</span> Continuous random variables</h2>
@@ -574,7 +863,22 @@ It has the same cardinality as <span class="math inline">\([0,1]\)</span>. Anoth
 </ol>
 </div>
 
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<img src="bookdown-pou_files/figure-html/unnamed-chunk-106-1.png" width="672" />
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align}
+\lambda(C) &amp;= 1 - \lambda(C^c) \\
+        &amp;= 1 - \frac{1}{3}\sum_{k = 0}^\infty (\frac{2}{3})^k \\
+        &amp;= 1 - \frac{\frac{1}{3}}{1 - \frac{2}{3}} \\
+        &amp;= 0.
+\end{align}\]</span></p></li>
+<li><p>First, for every <span class="math inline">\(x\)</span>, the probability of observing it is <span class="math inline">\(\lim_{n \rightarrow \infty} \frac{1}{2^n} = 0\)</span>. Second, the probability that we observe one of all the possible sequences is 1. Therefore <span class="math inline">\(P(C) = 1\)</span>. So this is a singular variable. The CDF only increments on the elements of the Cantor set.</p></li>
+</ol>
+</div>
+</div>
 </div>
 <div id="transformations" class="section level2">
 <h2><span class="header-section-number">4.5</span> Transformations</h2>

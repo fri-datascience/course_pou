@@ -21,8 +21,35 @@ The students are expected to acquire the following knowledge:
 - New R functions for plotting (for example, _facet_wrap_).
 - Creating random number generators based on the Uniform distribution.
 
+
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
+
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- F
+togs2 <- F
+togs  <- T
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -62,6 +89,8 @@ c.
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -77,7 +106,7 @@ a. Yes.
       \lim_{\epsilon \downarrow 0} 1 - e^{-\epsilon^2} =
        1 - \lim_{\epsilon \downarrow 0} e^{-\epsilon^2} =
       1 - 1 = 0$.
-    - We get the density by differentiating the CDF. 
+  - We get the density by differentiating the CDF. 
   $p(x) = \frac{d}{dx} 1 - e^{-x^2} = 2xe^{-x^2}.$ Students are encouraged to
   check that this is a proper PDF.
   
@@ -127,18 +156,13 @@ cdf_data <- tibble(x  = seq(-1, 20, by = 0.001),
                    f3 = f3(x)) %>%
   melt(id.vars = "x")
 
-# geo_plot <- ggplot(data = data.frame(x = seq(-1, 10, by = 0.01)), aes(x = x)) +
-#   stat_function(aes(color = "f1"), fun = f1) +
-#   stat_function(aes(color = "f2"), fun = f2) +
-#   stat_function(aes(color = "f3"), fun = f3) +
-#   geom_hline(yintercept = 1)
-# plot(geo_plot)
 
 cdf_plot <- ggplot(data = cdf_data, aes(x = x, y = value, color = variable)) +
   geom_hline(yintercept = 1) +
   geom_line()
 plot(cdf_plot)
 ```
+</div>
 
 ```{exercise}
 Let $X$ be a random variable with CDF 
@@ -158,6 +182,7 @@ varible?</span>
 b. Find the probability density/mass of $X$. 
 
 ```
+<div class="fold">
 ```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 f1 <- function (x, p) {
   tmp          <- x
@@ -185,14 +210,13 @@ continuous part and the PMF of the discrete part. We get the continuous
 part by differentiating the corresponding CDF, $\frac{d}{dx}\frac{x^2}{2} = x$. 
 So the PDF, when $0 \leq x < 1$, is $p(x) = x$. Let us look at the discrete
 part now. It has two steps, so this is a discrete distribution with two
-outcomes -- numbers two and three. The first happens with probability 
+outcomes -- numbers 1 and 2. The first happens with probability 
 $\frac{p}{2}$, and the second with probability $\frac{1 - p}{2}$. This reminds
-us of the Bernoulli distribution, the only difference is that the probabilities
-of outcomes are halved, as they need to be suitably normalized. So the PMF
-for the discrete part is $P(X = x) = (\frac{p}{2})^{2 - \lfloor x \rfloor} 
-(\frac{1 - p}{2})^{\lfloor x \rfloor - 1}$.
+us of the Bernoulli distribution. The PMF
+for the discrete part is $P(X = x) = (\frac{p}{2})^{2 - x} 
+(\frac{1 - p}{2})^{x - 1}$.
 ```
-
+</div>
 
 ```{exercise, name = "Convolutions", label = conv}
 Convolutions are probability distributions that correspond to sums of
@@ -207,6 +231,7 @@ Find the PDF of $Z = X + Y$.
 Hint: Start with the CDF.
 
 ```
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -236,7 +261,7 @@ Now
        &= \int_{-\infty}^{\infty} f(z - y) g(y) dy & \text{ (fundamental theorem of calculus)}.
 \end{align}
 ```
-
+</div>
 
 ## Discrete random variables
 ```{exercise, name = "Binomial random variable", label = bincdf}
@@ -264,6 +289,7 @@ from a Bernoulli
 distribution.</span>
 
 ```
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -281,12 +307,12 @@ b. For the probability of $X$ to be equal to some $k \leq n$, exactly $k$
   Bernoulli variables need to be one, and the others zero. So $p^k(1-p)^{n-k}$.
 There are $\binom{n}{k}$ such possible arrangements. Therefore
 \begin{align}
-  P(X = k) = P(\sum X_k = 2) = \binom{n}{k} p^k (1 - p)^{n-k}.
+  P(X = k) = \binom{n}{k} p^k (1 - p)^{n-k}.
 \end{align}
   
 c. 
 \begin{equation}
-  F(k) = \sum_{i = 1}^{\lfloor k \rfloor} \binom{n}{i} p^i (1 - p)^{n - i}
+  F(k) = \sum_{i = 0}^{\lfloor k \rfloor} \binom{n}{i} p^i (1 - p)^{n - i}
 \end{equation}      
             
 ```
@@ -305,7 +331,7 @@ b_plot    <- ggplot(data = b_data, aes(x = x, fill = type)) +
   geom_bar(position = "dodge")
 plot(b_plot)
 ```
-
+</div>
 
 ```{exercise, name = "Geometric random variable", label = geocdf}
 A variable with PMF 
@@ -323,10 +349,11 @@ $p \in (0,1]$. We denote
 a. Derive the CDF of a geometric random variable.
 
 b. <span style="color:blue">R: Draw 1000 samples from the geometric
-distribution with $p$ = 0.3$ and compare their frequencies to
+distribution with $p = 0.3$ and compare their frequencies to
 theoretical values.</span>
 
 ```
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -351,6 +378,7 @@ geo_plot <- ggplot(data = geo_samp, aes(x = x, y = n, fill = type)) +
   geom_bar(stat="identity", position = "dodge")
 plot(geo_plot)
 ```
+</div>
 
 ```{exercise, name = "Poisson random variable", label = poisex}
 A variable with PMF 
@@ -377,6 +405,7 @@ distribution with $\lambda = 5$ and compare their empirical cumulative
 distribution function with the theoretical CDF.</span>
 
 ```
+<div class="fold">
 ```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 pois_samp <- rpois(n = 1000, lambda = 5)
@@ -387,6 +416,8 @@ pois_plot <- ggplot(data = pois_samp, aes(x = x, colour = "ECDF")) +
   scale_colour_manual("Lgend title", values = c("black", "red"))
 plot(pois_plot)
 ```
+</div>
+
 ```{exercise, name = "Negative binomial random variable", label = negbinpdf}
 A variable with PMF 
 \begin{equation}
@@ -415,6 +446,7 @@ Be careful, as R uses a different
 parameterization _size_=$r$ and _prob_=$1 - p$.</span>
 
 ```
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -428,8 +460,8 @@ This is the geometric distribution.
 b. Let $X \sim \text{NB}(r_1, p)$ and $Y \sim \text{NB}(r_2, p)$.
 Let $Z = X + Y$.
 \begin{align}
-  P(Z = z) &= \sum_{k = 0}^{\infty} P(X = z - k)P(Y = k) & \text{ if k < 0, then the probabilities are 0} \\
-           &= \sum_{k = 0}^{z} P(X = z - k)P(Y = k) & \text{ if k > z, then the probabilities are 0} \\
+  P(Z = z) &= \sum_{k = 0}^{\infty} P(X = z - k)P(Y = k),  \text{   if k < 0, then the probabilities are 0} \\
+           &= \sum_{k = 0}^{z} P(X = z - k)P(Y = k), \text{   if k > z, then the probabilities are 0} \\
            &= \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k}(1 - p)^{r_1} p^{z - k} \binom{k + r_2 - 1}{k}(1 - p)^{r_2} p^{k} & \\
            &= \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}(1 - p)^{r_1 + r_2} p^{z} & \\
            &= (1 - p)^{r_1 + r_2} p^{z} \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}&
@@ -469,6 +501,7 @@ ggplot(data = samps, aes(x = value)) +
   facet_wrap(~ variable)
 
 ```
+</div>
 
 ## Continuous random variables
 ```{exercise, name = "Exponential random variable", label = expcdf}
@@ -494,7 +527,8 @@ functions visually. Hint: use the size parameter in _geom_line_ to
 make one of the curves wider.</span>
 
 ```
-```{solution, echo = togs}
+
+```{solution, echo = togs2}
 
 
 a.
@@ -524,7 +558,7 @@ c.
 \end{align}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 nsamps <- 1000
 samps  <- rexp(nsamps, rate = 1.5)
@@ -534,7 +568,7 @@ exp_plot <- ggplot(data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
   stat_function(fun = dexp, args = list(rate = 1.5), xlim = c(1,3), geom = "area", fill = "red")
 plot(exp_plot)
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 exp_pdf <- function(x, lambda) {
   return (lambda * exp(-lambda * x))
 }
@@ -588,7 +622,8 @@ e. <span style="color:blue">R: Check your result from d) using
 simulation.</span>
   
 ```
-```{solution, echo = togs}
+
+```{solution, echo = togs2}
 
 a.
 \begin{align}
@@ -624,7 +659,7 @@ d.
 \end{align}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 a         <- -1
 b         <- 3
@@ -667,7 +702,8 @@ c. <span style="color:blue">R: Sample from $X \sim \text{Beta}(2, 5)$ and
 compare the histogram with Beta PDF.</span>
 
 ```
-```{solution, echo = togs}
+
+```{solution, echo = togs2}
 
 
 a.
@@ -678,7 +714,7 @@ This is the standard uniform distribution.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
   stat_function(fun = dbeta, args = list(shape1 = 2, shape2 = 2), aes(color = "alpha = 0.5")) +
@@ -688,7 +724,7 @@ ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
   stat_function(fun = dbeta, args = list(shape1 = 0.1, shape2 = 0.1), aes(color = "alpha = 0.1"))
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 nsamps <- 1000
 samps  <- rbeta(nsamps, 2, 5)
@@ -739,7 +775,7 @@ c. <span style="color:blue">R: Plot gamma CDF for random variables
 with shape and rate parameters (1,1), (10,1), (1,10). </span>
 
 ```
-```{solution, echo = togs}
+```{solution, echo = togs2}
 
 
 a. 
@@ -755,7 +791,7 @@ b.
 \end{align}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 ggplot(data = data.frame(x = seq(0, 25, by = 0.01)), aes(x = x)) +
   stat_function(fun = pgamma, args = list(shape = 1, rate = 1), aes(color = "Gamma(1,1)")) +
@@ -801,7 +837,7 @@ the Poisson histogram. What are the values of $\mu$ and $\sigma^2$ that
 should provide the best approximation? Note that R function _rnorm_ takes
 standard deviation ($\sigma$) as a parameter and not variance.</span>
 ```
-```{solution, echo = togs}
+```{solution, echo = togs2}
 
 
 a.
@@ -821,7 +857,7 @@ of a normal distribution with $\mu = 0$ and $\sigma^2 = 1$.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 # b
 ggplot(data = data.frame(x = seq(-15, 15, by = 0.01)), aes(x = x)) +
@@ -866,7 +902,7 @@ c. <span style="color:blue">R: For the distributions in b) find the
 probability $P(|X| > 4)$ and interpret the result.  </span>
 
 ```
-```{solution, echo = togs}
+```{solution, echo = togs2}
 
 
 a. 
@@ -878,7 +914,7 @@ a.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 # b
 set.seed(1)
 logit_pdf <- function (x, mu, s) {
@@ -949,6 +985,7 @@ cant_cdf <- pCantor(seq(0,1, by = 0.00001))
 ggplot(data.frame(x = seq(0,1, by = 0.00001), y = cant_cdf), aes(x = x, y = y)) +
   geom_line()
 ```
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -963,14 +1000,14 @@ a.
 b. First, for every $x$, the probability of observing it is $\lim_{n \rightarrow \infty} \frac{1}{2^n} = 0$. Second, the probability that we observe one of all the possible sequences is 1. Therefore $P(C) = 1$. So this is a singular variable. The CDF only increments on the elements of the Cantor set.
 
 ```
-
+</div>
 
 ## Transformations
 ```{exercise}
 Let $X$ be a random variable that is uniformly distributed on 
 $\{-2, -1, 0, 1, 2\}$. Find the PMF of $Y = X^2$.
 ```
-```{solution, echo = togs}
+```{solution, echo = togs2}
 
 \begin{align}
   P_Y(y) = \sum_{x \in \sqrt(y)} P_X(x) = \begin{cases}
@@ -1002,7 +1039,7 @@ theoretical normal PDF.</span>
 
 
 ```
-```{solution, echo = togs}
+```{solution, echo = togs2}
 
 
 a. 
@@ -1014,7 +1051,7 @@ a.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 nsamps   <- 10000
 mu       <- 0.5
@@ -1047,7 +1084,7 @@ Compare your implemented function with function _rexp_ in R.</span>
 
 
 ```
-```{solution, echo = togs}
+```{solution, echo = togs2}
 
 
 a.
@@ -1071,7 +1108,7 @@ b.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 nsamps <- 10000
 beta   <- 4
