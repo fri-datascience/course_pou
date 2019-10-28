@@ -512,9 +512,9 @@ parameter $\lambda$. We denote
   X | \lambda \sim \text{Exp}(\lambda).
 \end{equation}
 
-a. Derive the CDF of an exponential random variable.
+a. Find the CDF of an exponential random variable.
 
-b. Derive the quantile function of an exponential random variable.
+b. Find the quantile function of an exponential random variable.
 
 c. Calculate the probability $P(1 \leq X \leq 3)$, where $X \sim \text{Exp(1.5)}$.
 
@@ -523,7 +523,7 @@ simulation (_rexp_). Plot the probability in a meaningful way.</span>
   
 e. <span style="color:blue">R: Implement PDF, CDF, and the quantile
 function and compare their values with corresponding R
-functions visually. Hint: use the size parameter in _geom_line_ to
+functions visually. Hint: use the __size__ parameter to
 make one of the curves wider.</span>
 
 ```
@@ -608,11 +608,11 @@ Continuous uniform random variable with parameters $a$ and $b$ has the PDF
 \end{equation}
   
 
-a. Derive the CDF of the uniform random variable.
+a. Find the CDF of the uniform random variable.
 
-b. Derive the quantile function of the uniform random variable.
+b. Find the quantile function of the uniform random variable.
 
-c. Let $X \sim \text{Uniform}(a,b)$. Derive the CDF of the variable 
+c. Let $X \sim \text{Uniform}(a,b)$. Find the CDF of the variable 
 $Y = \frac{X - a}{b - a}$. This is the **standard uniform random variable**.
 
 d. Let $X \sim \text{Uniform}(-1, 3)$. 
@@ -817,14 +817,14 @@ and it's CDF is
   F(x) = \int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(t - \mu)^2}{2 \sigma^2}} dt,
 \end{equation}
 which is intractable and is usually approximated.
-Due to it's flexibility
+Due to its flexibility
 it is also one of the most researched distributions. For that reason 
 statisticians often use transformations of variables or approximate
 distributions with the normal distribution.
 
 a. Show that a variable $\frac{X - \mu}{\sigma} \sim \text{N}(0,1)$. This
 transformation is called standardization, and $\text{N}(0,1)$ is
-a **standardized normal distribution**.
+a **standard normal distribution**.
 
 b. <span style="color:blue">R: Plot the normal distribution with
 $\mu = 0$ and different values for the $\sigma$ parameter.</span>
