@@ -803,7 +803,7 @@ ggplot(data = data.frame(x = seq(0, 25, by = 0.01)), aes(x = x)) +
 ```{exercise, name = "Normal random variable", label = normalpdf}
 A random variable with PDF 
 \begin{equation}
- p(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}
+ p(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}}
 \end{equation}
 is a normal random variable with support on the real axis and 
 parameters $\mu$ in reals and $\sigma^2 > 0$.
@@ -814,7 +814,7 @@ Many statistical methods assume a normal distribution. We denote
 \end{equation}
 and it's CDF is
 \begin{equation}
-  F(x) = \int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(t - \mu)^2}{2 \sigma^2}} dt,
+  F(x) = \int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(t - \mu)^2}{2 \sigma^2}} dt,
 \end{equation}
 which is intractable and is usually approximated.
 Due to its flexibility

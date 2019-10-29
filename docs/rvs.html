@@ -785,7 +785,7 @@ with shape and rate parameters (1,1), (10,1), (1,10). </span></p></li>
 <div class="exercise">
 <p><span id="exr:normalpdf" class="exercise"><strong>Exercise 4.12  (Normal random variable)  </strong></span>A random variable with PDF
 <span class="math display">\[\begin{equation}
- p(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}
+ p(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}}
 \end{equation}\]</span>
 is a normal random variable with support on the real axis and
 parameters <span class="math inline">\(\mu\)</span> in reals and <span class="math inline">\(\sigma^2 &gt; 0\)</span>.
@@ -796,7 +796,7 @@ Many statistical methods assume a normal distribution. We denote
 \end{equation}\]</span>
 and it’s CDF is
 <span class="math display">\[\begin{equation}
-  F(x) = \int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(t - \mu)^2}{2 \sigma^2}} dt,
+  F(x) = \int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(t - \mu)^2}{2 \sigma^2}} dt,
 \end{equation}\]</span>
 which is intractable and is usually approximated.
 Due to its flexibility
