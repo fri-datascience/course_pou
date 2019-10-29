@@ -832,7 +832,7 @@ $\mu = 0$ and different values for the $\sigma$ parameter.</span>
 c. <span style="color:blue">R: The normal distribution provides a good 
 approximation for the Poisson distribution with a large $\lambda$. 
 Let $X \sim \text{Poisson}(50)$.
-Approximate $X$ with the normal distribution and compare it's density with
+Approximate $X$ with the normal distribution and compare its density with
 the Poisson histogram. What are the values of $\mu$ and $\sigma^2$ that
 should provide the best approximation? Note that R function _rnorm_ takes
 standard deviation ($\sigma$) as a parameter and not variance.</span>
