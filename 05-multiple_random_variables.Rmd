@@ -130,7 +130,7 @@ c. Find conditional distributions.
 d. <span style="color:blue">R: Plot a grid of points and colour them
 by value -- this can help us visualize the PDF.</span>
   
-d. <span style="color:blue">R: Plot the marginal distribution of $Y$ and
+d. <span style="color:blue">R: Plot the marginal distribution of $X$ and
 the conditional distributions of $X | Y = y$, where 
 $y \in \{0, 0.1, 0.5\}$.</span>
 ```
@@ -215,7 +215,7 @@ a. Find the marginal distribution of $X$. Do you recognize this distribution?
 b. Find the conditional distribution of $Y | X$. Do you recognize this
 distribution?
 
-c. Calculate the probability $P(Y = 2 | X < 5)$ for $(X,Y)$.
+c. Calculate the probability $P(Y = 2 | X = 2.5)$ for $(X,Y)$.
 
 d. Find the marginal distribution of $Y$. Do you recognize this distribution?
 
