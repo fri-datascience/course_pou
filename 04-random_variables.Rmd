@@ -921,8 +921,8 @@ probability $P(|X| > 4)$ and interpret the result.  </span>
 a. 
 \begin{align}
   p(x) &= \frac{d}{dx} \frac{1}{1 + e^{-\frac{x - \mu}{s}}} \\
-       &= \frac{- \frac{d}{dx} (1 + e^{-\frac{x - \mu}{s}})}{(1 + e{-\frac{x - \mu}{s}})^2} \\
-       &= \frac{e^{-\frac{x - \mu}{s}}}{(1 + e{-\frac{x - \mu}{s}})^2}.
+       &= \frac{- \frac{d}{dx} (1 + e^{-\frac{x - \mu}{s}})}{(1 + e^{-\frac{x - \mu}{s}})^2} \\
+       &= \frac{e^{-\frac{x - \mu}{s}}}{s(1 + e^{-\frac{x - \mu}{s}})^2}.
 \end{align}
 
 
@@ -934,13 +934,13 @@ logit_pdf <- function (x, mu, s) {
   return ((exp(-(x - mu)/(s))) / (s * (1 + exp(-(x - mu)/(s)))^2))
 }
 nl_plot <- ggplot(data = data.frame(x = seq(-12, 12, by = 0.01)), aes(x = x)) +
-  stat_function(fun = dnorm, args = list(mean = 0, sd = 2), aes(color = "normal")) +
-  stat_function(fun = logit_pdf, args = list(mu = 0, s = sqrt(12/pi^2)), aes(color = "logit"))
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 1), aes(color = "normal")) +
+  stat_function(fun = logit_pdf, args = list(mu = 0, s = sqrt(3/pi^2)), aes(color = "logit"))
 plot(nl_plot)
 
 nl_plot <- ggplot(data = data.frame(x = seq(5, 10, by = 0.01)), aes(x = x)) +
-  stat_function(fun = dnorm, args = list(mean = 0, sd = 2), aes(color = "normal")) +
-  stat_function(fun = logit_pdf, args = list(mu = 0, s = sqrt(12/pi^2)), aes(color = "logit"))
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 1), aes(color = "normal")) +
+  stat_function(fun = logit_pdf, args = list(mu = 0, s = sqrt(3/pi^2)), aes(color = "logit"))
 plot(nl_plot)
 
 
@@ -949,8 +949,8 @@ logit_cdf <- function (x, mu, s) {
   return (1 / (1 + exp(-(x - mu) / s)))
 }
 
-p_logistic <- 1 - logit_cdf(4, 0, sqrt(12/pi^2)) + logit_cdf(-4, 0, sqrt(12/pi^2))
-p_norm     <- 1 - pnorm(4, 0, 2) + pnorm(-4, 0, 2)
+p_logistic <- 1 - logit_cdf(4, 0, sqrt(3/pi^2)) + logit_cdf(-4, 0, sqrt(3/pi^2))
+p_norm     <- 1 - pnorm(4, 0, 1) + pnorm(-4, 0, 1)
 p_logistic
 p_norm
 # Logistic distribution has wider tails, therefore the probability of larger
@@ -1065,8 +1065,8 @@ theoretical normal PDF.</span>
 a. 
 \begin{align}
   p_Y(y) &= p_X(\log(y)) \frac{d}{dy} \log(y) \\
-         &= \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(\log(y) - \mu)^2}{2 \sigma^2}} \frac{1}{y} \\
-         &= \frac{1}{y \sqrt{2 \pi \sigma^2}} e^{\frac{(\log(y) - \mu)^2}{2 \sigma^2}}.
+         &= \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(\log(y) - \mu)^2}{2 \sigma^2}} \frac{1}{y} \\
+         &= \frac{1}{y \sqrt{2 \pi \sigma^2}} e^{-\frac{(\log(y) - \mu)^2}{2 \sigma^2}}.
 \end{align}
 
 
@@ -1074,8 +1074,8 @@ a.
 ```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 nsamps   <- 10000
-mu       <- 0.5
-sigma    <- 0.4
+mu       <- 5
+sigma    <- 2
 ln_samps <- rlnorm(nsamps, mu, sigma)
 ln_plot  <- ggplot(data = data.frame(x = ln_samps), aes(x = x)) +
   geom_histogram(color = "black")

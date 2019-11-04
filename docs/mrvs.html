@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>B Probability distributions | Principles of Uncertainty – exercises</title>
+  <title>Chapter 5 Multiple random variables | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="B Probability distributions | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 5 Multiple random variables | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="B Probability distributions | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 5 Multiple random variables | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="A1.html">
-<link rel="next" href="references.html">
+<link rel="prev" href="rvs.html">
+<link rel="next" href="integ.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -207,131 +207,111 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="probability-distributions" class="section level1">
-<h1><span class="header-section-number">B</span> Probability distributions</h1>
-<table style="width:100%;">
-<colgroup>
-<col width="31%" />
-<col width="31%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>parameters</th>
-<th>pdf/pmf</th>
-<th>cdf</th>
-<th>mean</th>
-<th>variance</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Bernoulli</td>
-<td><span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(p^k (1 - p)^{1 - k}\)</span> <br> <a href="introduction.html#exr:binomialpmf">1.11</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>binomial</td>
-<td><span class="math inline">\(n\)</span>, <span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(\binom{n}{k} p^k (1 - p)^{n - k}\)</span> <br> <a href="rvs.html#exr:bincdf">4.4</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Poisson</td>
-<td><span class="math inline">\(\lambda\)</span></td>
-<td><span class="math inline">\(\frac{\lambda^k e^{-\lambda}}{k!}\)</span> <br> <a href="rvs.html#exr:poisex">4.6</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>geometric</td>
-<td><span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(p(1-p)^k\)</span> <br> <a href="rvs.html#exr:geocdf">4.5</a></td>
-<td><span class="math inline">\(1 - (1-p)^{k + 1}\)</span> <br> <a href="rvs.html#exr:geocdf">4.5</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>normal</td>
-<td><span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma\)</span></td>
-<td><span class="math inline">\(\frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}\)</span> <br> <a href="rvs.html#exr:normalpdf">4.12</a></td>
-<td><span class="math inline">\(\int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(t - \mu)^2}{2 \sigma^2}} dt\)</span> <br> <a href="rvs.html#exr:normalpdf">4.12</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>beta</td>
-<td><span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span></td>
-<td><span class="math inline">\(\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)}\)</span> <br> <a href="rvs.html#exr:betacdf">4.10</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>gamma</td>
-<td><span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span></td>
-<td><span class="math inline">\(\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x}\)</span> <br> <a href="rvs.html#exr:gammapdf">4.11</a></td>
-<td><span class="math inline">\(\frac{\gamma(\alpha, \beta x)}{\Gamma(\alpha)}\)</span> <br> <a href="rvs.html#exr:gammapdf">4.11</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>exponential</td>
-<td><span class="math inline">\(\lambda\)</span></td>
-<td><span class="math inline">\(\lambda e^{-\lambda x}\)</span> <br> <a href="rvs.html#exr:expcdf">4.8</a></td>
-<td><span class="math inline">\(1 - e^{-\lambda x}\)</span> <br> <a href="rvs.html#exr:expcdf">4.8</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>logistic</td>
-<td><span class="math inline">\(\mu\)</span>, <span class="math inline">\(s\)</span></td>
-<td><span class="math inline">\(\frac{e^{-\frac{x - \mu}{s}}}{(1 + e{-\frac{x - \mu}{s}})^2}\)</span> <br> <a href="rvs.html#exr:logitpdf">4.13</a></td>
-<td><span class="math inline">\(\frac{1}{1 + e^{-\frac{x - \mu}{s}}}\)</span> <br> <a href="rvs.html#exr:logitpdf">4.13</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>negative binomial</td>
-<td><span class="math inline">\(r\)</span>, <span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(\binom{k + r - 1}{k}(1-p)^r p^k\)</span> <br> <a href="rvs.html#exr:negbinpdf">4.7</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<div id="mrvs" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Multiple random variables</h1>
+<p>This chapter deals with multiple random variables and their distributions.</p>
+<p>The students are expected to acquire the following knowledge:</p>
+<p><strong>Theoretical</strong></p>
+<ul>
+<li>Find CDF and PDF of multiple random variables.</li>
+<li>Find CDF and PDF of transformed multiple random variables.</li>
+<li>Find conditional and marginal distributions of multiple random variables.</li>
+</ul>
+<p><strong>R</strong></p>
+<ul>
+<li>Scatterplots of bivariate random variables.</li>
+<li>New R functions (for example, <em>expand.grid</em>).</li>
+</ul>
+<div id="general" class="section level2">
+<h2><span class="header-section-number">5.1</span> General</h2>
 
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-116" class="exercise"><strong>Exercise 5.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X \sim \text{N}(0,1)\)</span> and <span class="math inline">\(Y \sim \text{N}(0,1)\)</span>
+be independent random
+variables. Draw 1000 samples from <span class="math inline">\((X,Y)\)</span> and plot a scatterplot.
+Now let <span class="math inline">\(X \sim \text{N}(0,1)\)</span> and <span class="math inline">\(Y | X = x \sim \text{N}(ax, 1)\)</span>. Draw 1000 samples
+from <span class="math inline">\((X,Y)\)</span> for <span class="math inline">\(a = 1\)</span>, <span class="math inline">\(a=0\)</span>, and <span class="math inline">\(a=-0.5\)</span>. Plot the scatterplots.
+How would you interpret parameter <span class="math inline">\(a\)</span>?
+Plot the marginal distribution of <span class="math inline">\(Y\)</span> for cases <span class="math inline">\(a=1\)</span>, <span class="math inline">\(a=0\)</span>, and <span class="math inline">\(a=-0.5\)</span>.
+Can you guess which distribution it is?</span></p>
+</div>
+
+</div>
+<div id="bivariate-distribution-examples" class="section level2">
+<h2><span class="header-section-number">5.2</span> Bivariate distribution examples</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-118" class="exercise"><strong>Exercise 5.2  (Discrete bivariate random variable)  </strong></span>Let <span class="math inline">\(X\)</span> represent the event that a die rolls an even number and let <span class="math inline">\(Y\)</span>
+represent the event that
+a die rolls one, two, or a three.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find the marginal distributions of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Find the PMF of <span class="math inline">\((X,Y)\)</span>.</p></li>
+<li><p>Find the CDF of <span class="math inline">\((X,Y)\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(P(X = 1 | Y = 1)\)</span>.</p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-120" class="exercise"><strong>Exercise 5.3  (Continuous bivariate random variable)  </strong></span>Let <span class="math inline">\(p(x,y) = 6 (x - y)^2\)</span> be the PDF of a bivariate random
+variable <span class="math inline">\((X,Y)\)</span>, where both variables range from zero to one.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find CDF.</p></li>
+<li><p>Find marginal distributions.</p></li>
+<li><p>Find conditional distributions.</p></li>
+<li><p><span style="color:blue">R: Plot a grid of points and colour them
+by value – this can help us visualize the PDF.</span></p></li>
+<li><p><span style="color:blue">R: Plot the marginal distribution of <span class="math inline">\(Y\)</span> and
+the conditional distributions of <span class="math inline">\(X | Y = y\)</span>, where
+<span class="math inline">\(y \in \{0, 0.1, 0.5\}\)</span>.</span></p>
+</div></li>
+</ol>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-123" class="exercise"><strong>Exercise 5.4  (Mixed bivariate random variable)  </strong></span>Let <span class="math inline">\(f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}\)</span>
+be the PDF of a bivariate random variable, where <span class="math inline">\(x \in (0, \infty)\)</span> and
+<span class="math inline">\(y \in \mathbb{N}_0\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find the marginal distribution of <span class="math inline">\(X\)</span>. Do you recognize this distribution?</p></li>
+<li><p>Find the conditional distribution of <span class="math inline">\(Y | X\)</span>. Do you recognize this
+distribution?</p></li>
+<li><p>Calculate the probability <span class="math inline">\(P(Y = 2 | X &lt; 5)\)</span> for <span class="math inline">\((X,Y)\)</span>.</p></li>
+<li><p>Find the marginal distribution of <span class="math inline">\(Y\)</span>. Do you recognize this distribution?</p></li>
+<li><p><span style="color:blue">R: Take 1000 random samples from <span class="math inline">\((X,Y)\)</span> with
+parameters <span class="math inline">\(\beta = 1\)</span> and
+<span class="math inline">\(\alpha = 1\)</span>. Plot a scatterplot. Plot a bar plot of the marginal distribution
+of <span class="math inline">\(Y\)</span>, and the theoretical PMF calculated from d) on the range from 0 to 10.</span></p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-126" class="exercise"><strong>Exercise 5.5  </strong></span>Let <span class="math inline">\(f(x,y) = cx^2y\)</span> for <span class="math inline">\(x^2 \leq y \leq 1\)</span> and zero otherwise.
+Find such <span class="math inline">\(c\)</span> that <span class="math inline">\(f\)</span> is a PDF of a bivariate random
+variable. This exercise is borrowed from Wasserman.
+</div>
+
+</div>
+<div id="transformations-1" class="section level2">
+<h2><span class="header-section-number">5.3</span> Transformations</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-128" class="exercise"><strong>Exercise 5.6  </strong></span>Let <span class="math inline">\((X,Y,Z)\)</span> be uniformly distributed on the unit ball
+<span class="math inline">\(\{(x,y,z) : x^2 + y^2 + z^2 \leq 1\}\)</span>. Let <span class="math inline">\(R = \sqrt{X^2 + Y^2 + Z^2}\)</span>.
+Find the CDF and PDF of <span class="math inline">\(R\)</span>.</p>
+</div>
+
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="A1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="rvs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="integ.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

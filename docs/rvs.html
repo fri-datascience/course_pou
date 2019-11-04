@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-10-29">
+<meta name="date" content="2019-11-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="condprob.html">
-<link rel="next" href="A1.html">
+<link rel="next" href="mrvs.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -152,6 +152,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
+<li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
+<li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
+<li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
 <li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
@@ -245,7 +254,7 @@ $(document).ready(function() {
 <h2><span class="header-section-number">4.1</span> General properties and calculations</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 4.1  </strong></span>Which of the functions below are valid CDFs? Find their respective densities.
+<p><span id="exr:unnamed-chunk-77" class="exercise"><strong>Exercise 4.1  </strong></span>Which of the functions below are valid CDFs? Find their respective densities.
 <span style="color:blue">R: Plot the three functions.</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math display">\[\begin{equation}
@@ -341,11 +350,11 @@ cdf_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span clas
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">1</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()
 <span class="kw">plot</span>(cdf_plot)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-5" class="exercise"><strong>Exercise 4.2  </strong></span>Let <span class="math inline">\(X\)</span> be a random variable with CDF
+<p><span id="exr:unnamed-chunk-80" class="exercise"><strong>Exercise 4.2  </strong></span>Let <span class="math inline">\(X\)</span> be a random variable with CDF
 <span class="math display">\[\begin{equation}
   F(x) = \begin{cases}
             0 &amp; x &lt; 0 \\
@@ -378,7 +387,7 @@ cdf_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span clas
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">1</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)
 <span class="kw">plot</span>(cdf_plot)</code></pre>
-<img src="bookdown-pou_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="bookdown-pou_files/figure-html/unnamed-chunk-81-1.png" width="672" />
 
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> </p>
@@ -462,7 +471,7 @@ parameters <span class="math inline">\(p \in (0,1)\)</span> and <span class="mat
 with <span class="math inline">\(n = 10\)</span> and <span class="math inline">\(p = 0.5\)</span>, and from <span class="math inline">\(n\)</span> Bernoulli distributions with
 <span class="math inline">\(p = 0.5\)</span>. Visually compare the sum of Bernoullis and the binomial. Hint:
 there is no standard function like <em>rpois</em> for a Bernoulli random
-variable. Check exercise <a href="#exr:binomialpmf"><strong>??</strong></a> to find out how to sample
+variable. Check exercise <a href="introduction.html#exr:binomialpmf">1.11</a> to find out how to sample
 from a Bernoulli
 distribution.</span></p></li>
 </ol>
@@ -507,7 +516,7 @@ b_data    &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span cla
 b_plot    &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> b_data, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">fill =</span> type)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
 <span class="kw">plot</span>(b_plot)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
@@ -553,7 +562,7 @@ geo_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span 
 geo_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> geo_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
 <span class="kw">plot</span>(geo_plot)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
@@ -571,7 +580,7 @@ We denote
   X | \lambda \sim \text{Poisson}(\lambda).
 \end{equation}\]</span>
 This distribution is usually the default choice for modeling counts. We have
-already encountered a Poisson random variable in exercise <a href="#exr:geopoispmf"><strong>??</strong></a>,
+already encountered a Poisson random variable in exercise <a href="introduction.html#exr:geopoispmf">1.12</a>,
 where we also sampled from this distribution.</p>
 <p>The CDF of a Poisson random variable is <span class="math inline">\(P(X &lt;= x) = e^{-\lambda} \sum_{i=0}^x \frac{\lambda^{i}}{i!}\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
@@ -590,7 +599,7 @@ pois_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span cla
 <span class="st">  </span><span class="kw">geom_step</span>(<span class="dt">data =</span> <span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">17</span>, <span class="dt">y =</span> <span class="kw">ppois</span>(x, <span class="dv">5</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">colour =</span> <span class="st">&quot;CDF&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="st">&quot;Lgend title&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>))
 <span class="kw">plot</span>(pois_plot)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
@@ -670,7 +679,7 @@ samps  &lt;-<span class="st"> </span><span class="kw">melt</span>(samps)
 <span class="kw">ggplot</span>(<span class="dt">data =</span> samps, <span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>variable)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
 </div>
 </div>
 <div id="continuous-random-variables" class="section level2">
@@ -732,7 +741,7 @@ samps  &lt;-<span class="st"> </span><span class="kw">rexp</span>(nsamps, <span 
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="dt">geom =</span> <span class="st">&quot;area&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>)
 <span class="kw">plot</span>(exp_plot)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">exp_pdf &lt;-<span class="st"> </span><span class="cf">function</span>(x, lambda) {
   <span class="kw">return</span> (lambda <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>lambda <span class="op">*</span><span class="st"> </span>x))
 }
@@ -749,17 +758,17 @@ exp_quant &lt;-<span class="st"> </span><span class="cf">function</span>(q, lamb
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;R&quot;</span>), <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> exp_pdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">lambda =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Mine&quot;</span>), <span class="dt">size =</span> <span class="fl">1.2</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;R&quot;</span>), <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> exp_cdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">lambda =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Mine&quot;</span>), <span class="dt">size =</span> <span class="fl">1.2</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-93-2.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> qexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;R&quot;</span>), <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> exp_quant, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">lambda =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Mine&quot;</span>), <span class="dt">size =</span> <span class="fl">1.2</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-18-3.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-93-3.png" width="672" /></p>
 </div>
 
 <div class="exercise">
@@ -874,7 +883,7 @@ This is the standard uniform distribution.</li>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">1</span>, <span class="dt">shape2 =</span> <span class="dv">4</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;alpha = 1&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, <span class="dt">shape2 =</span> <span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;alpha = 25&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="fl">0.1</span>, <span class="dt">shape2 =</span> <span class="fl">0.1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;alpha = 0.1&quot;</span>))</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
 nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
 samps  &lt;-<span class="st"> </span><span class="kw">rbeta</span>(nsamps, <span class="dv">2</span>, <span class="dv">5</span>)
@@ -885,7 +894,7 @@ samps  &lt;-<span class="st"> </span><span class="kw">rbeta</span>(nsamps, <span
                 <span class="dt">args  =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, <span class="dt">shape2 =</span> <span class="dv">5</span>), 
                 <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, 
                 <span class="dt">size  =</span> <span class="fl">1.2</span>)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
@@ -943,7 +952,7 @@ p(x) &amp;= \frac{1}{\Gamma(k)\beta^k} x^{k - 1}e^{-\frac{x}{\theta}}.
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Gamma(1,1)&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">10</span>, <span class="dt">rate =</span> <span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Gamma(10,1)&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">10</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Gamma(1,10)&quot;</span>))</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
@@ -1009,7 +1018,7 @@ of a normal distribution with <span class="math inline">\(\mu = 0\)</span> and <
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="fl">0.4</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 0.1&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 2&quot;</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 5&quot;</span>))</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># c</span>
 mean_par   &lt;-<span class="st"> </span><span class="dv">50</span>
 nsamps     &lt;-<span class="st"> </span><span class="dv">100000</span>
@@ -1019,7 +1028,7 @@ my_plot    &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span 
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">data =</span> <span class="kw">tibble</span>(<span class="dt">x =</span> pois_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">data =</span> <span class="kw">tibble</span>(<span class="dt">x =</span> norm_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)
 <span class="kw">plot</span>(my_plot)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-27-2.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-102-2.png" width="672" /></p>
 </div>
 
 <div class="exercise">
@@ -1052,8 +1061,8 @@ probability <span class="math inline">\(P(|X| &gt; 4)\)</span> and interpret the
 <ol style="list-style-type: lower-alpha">
 <li><span class="math display">\[\begin{align}
   p(x) &amp;= \frac{d}{dx} \frac{1}{1 + e^{-\frac{x - \mu}{s}}} \\
-    &amp;= \frac{- \frac{d}{dx} (1 + e^{-\frac{x - \mu}{s}})}{(1 + e{-\frac{x - \mu}{s}})^2} \\
-    &amp;= \frac{e^{-\frac{x - \mu}{s}}}{(1 + e{-\frac{x - \mu}{s}})^2}.
+    &amp;= \frac{- \frac{d}{dx} (1 + e^{-\frac{x - \mu}{s}})}{(1 + e^{-\frac{x - \mu}{s}})^2} \\
+    &amp;= \frac{e^{-\frac{x - \mu}{s}}}{s(1 + e^{-\frac{x - \mu}{s}})^2}.
 \end{align}\]</span></li>
 </ol>
 </div>
@@ -1063,26 +1072,26 @@ logit_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, mu,
   <span class="kw">return</span> ((<span class="kw">exp</span>(<span class="op">-</span>(x <span class="op">-</span><span class="st"> </span>mu)<span class="op">/</span>(s))) <span class="op">/</span><span class="st"> </span>(s <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(x <span class="op">-</span><span class="st"> </span>mu)<span class="op">/</span>(s)))<span class="op">^</span><span class="dv">2</span>))
 }
 nl_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">12</span>, <span class="dv">12</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;normal&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> logit_pdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mu =</span> <span class="dv">0</span>, <span class="dt">s =</span> <span class="kw">sqrt</span>(<span class="dv">12</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>)), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;logit&quot;</span>))
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;normal&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> logit_pdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mu =</span> <span class="dv">0</span>, <span class="dt">s =</span> <span class="kw">sqrt</span>(<span class="dv">3</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>)), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;logit&quot;</span>))
 <span class="kw">plot</span>(nl_plot)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">nl_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;normal&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> logit_pdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mu =</span> <span class="dv">0</span>, <span class="dt">s =</span> <span class="kw">sqrt</span>(<span class="dv">12</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>)), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;logit&quot;</span>))
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;normal&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> logit_pdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mu =</span> <span class="dv">0</span>, <span class="dt">s =</span> <span class="kw">sqrt</span>(<span class="dv">3</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>)), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;logit&quot;</span>))
 <span class="kw">plot</span>(nl_plot)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-29-2.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-104-2.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># c</span>
 logit_cdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, mu, s) {
   <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(x <span class="op">-</span><span class="st"> </span>mu) <span class="op">/</span><span class="st"> </span>s)))
 }
 
-p_logistic &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">logit_cdf</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="kw">sqrt</span>(<span class="dv">12</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">logit_cdf</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">0</span>, <span class="kw">sqrt</span>(<span class="dv">12</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>))
-p_norm     &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>)
+p_logistic &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">logit_cdf</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="kw">sqrt</span>(<span class="dv">3</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">logit_cdf</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">0</span>, <span class="kw">sqrt</span>(<span class="dv">3</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>))
+p_norm     &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">1</span>)
 p_logistic</code></pre>
-<pre><code>## [1] 0.05178347</code></pre>
+<pre><code>## [1] 0.001411988</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">p_norm</code></pre>
-<pre><code>## [1] 0.04550026</code></pre>
+<pre><code>## [1] 6.334248e-05</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Logistic distribution has wider tails, therefore the probability of larger</span>
 <span class="co"># absolute values is higher.</span></code></pre>
 </div>
@@ -1091,7 +1100,7 @@ p_logistic</code></pre>
 <h2><span class="header-section-number">4.4</span> Singular random variables</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-30" class="exercise"><strong>Exercise 4.14  (Cantor distribution)  </strong></span>The Cantor set is a subset of <span class="math inline">\([0,1]\)</span>, which we create by iteratively deleting the middle third of the interval. For example, in the first iteration, we get the sets <span class="math inline">\([0,\frac{1}{3}]\)</span> and <span class="math inline">\([\frac{2}{3},1]\)</span>. In the second iteration, we get <span class="math inline">\([0,\frac{1}{9}]\)</span>, <span class="math inline">\([\frac{2}{9},\frac{1}{3}]\)</span>, <span class="math inline">\([\frac{2}{3}, \frac{7}{9}]\)</span>, and <span class="math inline">\([\frac{8}{9}, 1]\)</span>. On the <span class="math inline">\(n\)</span>-th iteration, we have
+<p><span id="exr:unnamed-chunk-105" class="exercise"><strong>Exercise 4.14  (Cantor distribution)  </strong></span>The Cantor set is a subset of <span class="math inline">\([0,1]\)</span>, which we create by iteratively deleting the middle third of the interval. For example, in the first iteration, we get the sets <span class="math inline">\([0,\frac{1}{3}]\)</span> and <span class="math inline">\([\frac{2}{3},1]\)</span>. In the second iteration, we get <span class="math inline">\([0,\frac{1}{9}]\)</span>, <span class="math inline">\([\frac{2}{9},\frac{1}{3}]\)</span>, <span class="math inline">\([\frac{2}{3}, \frac{7}{9}]\)</span>, and <span class="math inline">\([\frac{8}{9}, 1]\)</span>. On the <span class="math inline">\(n\)</span>-th iteration, we have
 <span class="math display">\[\begin{equation}
   C_n = \frac{C_{n-1}}{3} \cup \bigg(\frac{2}{3} + \frac{C_{n-1}}{3} \bigg),
 \end{equation}\]</span>
@@ -1107,7 +1116,7 @@ It has the same cardinality as <span class="math inline">\([0,1]\)</span>. Anoth
 </ol>
 </div>
 
-<img src="bookdown-pou_files/figure-html/unnamed-chunk-31-1.png" width="672" />
+<img src="bookdown-pou_files/figure-html/unnamed-chunk-106-1.png" width="672" />
 <div class="fold">
 
 <div class="solution">
@@ -1128,7 +1137,7 @@ It has the same cardinality as <span class="math inline">\([0,1]\)</span>. Anoth
 <h2><span class="header-section-number">4.5</span> Transformations</h2>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-33" class="exercise"><strong>Exercise 4.15  </strong></span>Let <span class="math inline">\(X\)</span> be a random variable that is uniformly distributed on
+<span id="exr:unnamed-chunk-108" class="exercise"><strong>Exercise 4.15  </strong></span>Let <span class="math inline">\(X\)</span> be a random variable that is uniformly distributed on
 <span class="math inline">\(\{-2, -1, 0, 1, 2\}\)</span>. Find the PMF of <span class="math inline">\(Y = X^2\)</span>.
 </div>
 
@@ -1169,30 +1178,30 @@ theoretical normal PDF.</span></p></li>
 <ol style="list-style-type: lower-alpha">
 <li><span class="math display">\[\begin{align}
   p_Y(y) &amp;= p_X(\log(y)) \frac{d}{dy} \log(y) \\
-      &amp;= \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(\log(y) - \mu)^2}{2 \sigma^2}} \frac{1}{y} \\
-      &amp;= \frac{1}{y \sqrt{2 \pi \sigma^2}} e^{\frac{(\log(y) - \mu)^2}{2 \sigma^2}}.
+      &amp;= \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(\log(y) - \mu)^2}{2 \sigma^2}} \frac{1}{y} \\
+      &amp;= \frac{1}{y \sqrt{2 \pi \sigma^2}} e^{-\frac{(\log(y) - \mu)^2}{2 \sigma^2}}.
 \end{align}\]</span></li>
 </ol>
 </div>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
 nsamps   &lt;-<span class="st"> </span><span class="dv">10000</span>
-mu       &lt;-<span class="st"> </span><span class="fl">0.5</span>
-sigma    &lt;-<span class="st"> </span><span class="fl">0.4</span>
+mu       &lt;-<span class="st"> </span><span class="dv">5</span>
+sigma    &lt;-<span class="st"> </span><span class="dv">2</span>
 ln_samps &lt;-<span class="st"> </span><span class="kw">rlnorm</span>(nsamps, mu, sigma)
 ln_plot  &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> ln_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)
 <span class="kw">plot</span>(ln_plot)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">norm_samps &lt;-<span class="st"> </span><span class="kw">log</span>(ln_samps)
 n_plot     &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> norm_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)
 <span class="kw">plot</span>(n_plot)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-36-2.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-111-2.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-37" class="exercise"><strong>Exercise 4.17  (Probability integral transform)  </strong></span>This exercise is borrowed from Wasserman.
+<p><span id="exr:unnamed-chunk-112" class="exercise"><strong>Exercise 4.17  (Probability integral transform)  </strong></span>This exercise is borrowed from Wasserman.
 Let <span class="math inline">\(X\)</span> have a continuous, strictly increasing CDF <span class="math inline">\(F\)</span>. Let <span class="math inline">\(Y = F(X)\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Find the density of <span class="math inline">\(Y\)</span>. This is called the probability integral transform.</p></li>
@@ -1240,14 +1249,10 @@ df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="st"
 <span class="st">  </span><span class="kw">gather</span>()
 <span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> key)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 </div>
 
 </div>
-</div>
-
-
-
 </div>
             </section>
 
@@ -1255,7 +1260,7 @@ df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="st"
         </div>
       </div>
 <a href="condprob.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="A1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mrvs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
