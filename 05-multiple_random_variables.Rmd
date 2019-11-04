@@ -130,7 +130,9 @@ c. Find conditional distributions.
 d. <span style="color:blue">R: Plot a grid of points and colour them
 by value -- this can help us visualize the PDF.</span>
   
-d. <span style="color:blue">R: Plot the marginal distribution of $X$ and
+e. <span style="color:blue">R: Implement a random number generator, which will generate numbers from $(X,Y)$ and visually check the results.</span>
+  
+f. <span style="color:blue">R: Plot the marginal distribution of $X$ and
 the conditional distributions of $X | Y = y$, where 
 $y \in \{0, 0.1, 0.5\}$.</span>
 ```
@@ -174,7 +176,7 @@ c.
 ```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 
-# a
+# d
 get_pdf    <- function (x, y) {
   return ((x - y)^2)
 }
@@ -186,8 +188,22 @@ df           <- cbind(df, pdf = get_pdf(df$x, df$y))
 ggplot(data = df, aes(x = x, y = y, color = pdf)) +
   geom_point()
 
+# e
+samps <- NULL
+for (i in 1:10000) {
+  xt <- runif(1, 0, 1)
+  yt <- runif(1, 0, 1)
+  pdft <- pxy(xt, yt)
+  acc  <- runif(1, 0, 6)
+  if (acc <= pdft) {
+    samps <- rbind(samps, c(xt, yt))
+  }
+}
+colnames(samps) <- c("x", "y")
+ggplot(data = as.data.frame(samps), aes(x = x, y = y)) +
+  geom_point()
 
-# b
+# f
 mar_pdf <- function (x) {
   return (6 * x^2 - 6 * x + 2)
 }
