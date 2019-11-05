@@ -42,18 +42,10 @@ $(document).ready(function() {
 </script>
 
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- T
-library(ggplot2)
-library(dplyr)
-library(reshape2)
-library(tidyr)
-# togs <- FALSE
-```
+
 
 ## General
-```{exercise}
-<span style="color:blue">Let $X \sim \text{N}(0,1)$ and $Y \sim \text{N}(0,1)$ 
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-2"><strong>(\#exr:unnamed-chunk-2) </strong></span><span style="color:blue">Let $X \sim \text{N}(0,1)$ and $Y \sim \text{N}(0,1)$ 
 be independent random
 variables. Draw 1000 samples from $(X,Y)$ and plot a scatterplot.
 Now let $X \sim \text{N}(0,1)$ and $Y | X = x \sim \text{N}(ax, 1)$. Draw 1000 samples
@@ -62,6 +54,5 @@ How would you interpret parameter $a$?
 Plot the marginal distribution of $Y$ for cases $a=1$, $a=0$, and $a=-0.5$.
 Can you guess which distribution it is?</span>
 
-
-```
+</div>\EndKnitrBlock{exercise}
 

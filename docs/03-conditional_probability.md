@@ -6,16 +6,17 @@ The students are expected to acquire the following knowledge:
 
 **Theoretical**
 
-- identify whether variables are independent
-- calculation of conditional probabilities
-- understanding of conditional dependence and independence
-- how to apply Bayes' theorem to solve difficult probabilistic questions
+- Identify whether variables are independent.
+- Calculation of conditional probabilities.
+- Understanding of conditional dependence and independence.
+- How to apply Bayes' theorem to solve difficult probabilistic questions.
 
 **R**
 
-- simulating conditional probabilities
-- cumsum
-- apply
+- Simulating conditional probabilities.
+- _cumsum_.
+- _apply_.
+
 
 <style>
 .fold-btn { 
@@ -42,31 +43,23 @@ $(document).ready(function() {
 </script>
 
 
-```{r, echo = FALSE, warning = FALSE}
-togs <- T
-library(ggplot2)
-# togs <- FALSE
-```
+
 
 
 ## Calculating conditional probabilities
 
 
-```{exercise}
-A military officer is in charge of identifying enemy aircraft and shooting them 
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-2"><strong>(\#exr:unnamed-chunk-2) </strong></span>A military officer is in charge of identifying enemy aircraft and shooting them 
 down. He is able to positively identify an enemy airplane 95% of the time 
 and positively identify a friendly airplane 90% of the time. Furthermore, 99% 
   of the airplanes are friendly. When the officer identifies an airplane as an 
 enemy airplane, what is the probability that it is not and they will shoot at 
 a friendly airplane?
-
-```
-
+</div>\EndKnitrBlock{exercise}
 
 
-```{solution, echo = togs}
 <div class="fold">
-Let $E = 0$ denote that the observed plane is friendly and $E=1$ that it
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Let $E = 0$ denote that the observed plane is friendly and $E=1$ that it
 is an enemy. Let $I = 0$ denote that the officer identified it as friendly and
 $I = 1$ as enemy. Then
 
@@ -77,37 +70,60 @@ $I = 1$ as enemy. Then
                    &= \frac{0.1 \times 0.99}{0.1 \times 0.99 + 
                       0.95  \times 0.01} \\
                    &= 0.91.
-\end{align}
+\end{align}</div>\EndKnitrBlock{solution}
 </div>
-```
 
-
-```{exercise}
-<span style="color:blue">R: Consider tossing a fair die. Let $A = \{2,4,6\}$ 
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-4"><strong>(\#exr:unnamed-chunk-4) </strong></span><span style="color:blue">R: Consider tossing a fair die. Let $A = \{2,4,6\}$ 
   and $B = \{1,2,3,4\}$. Then $P(A) = \frac{1}{2}$, $P(B) = \frac{2}{3}$ and
 $P(AB) = \frac{1}{3}$. Since $P(AB) = P(A)P(B)$, the events $A$ and $B$ are
 independent. Simulate draws from the sample space and verify that the
 proportions are the same. Then find two events $C$ and $D$ that are not
-independent and repeat the simulation.</span>
-```
-```{r, echo = togs, eval = togs}
+independent and repeat the simulation.</span></div>\EndKnitrBlock{exercise}
+
+<div class="fold">
+
+```r
 set.seed(1)
 nsamps <- 10000
 tosses <- sample(1:6, nsamps, replace = TRUE)
 PA <- sum(tosses %in% c(2,4,6)) / nsamps
 PB <- sum(tosses %in% c(1,2,3,4)) / nsamps
 PA * PB
-sum(tosses %in% c(2,4)) / nsamps
+```
 
+```
+## [1] 0.3283998
+```
+
+```r
+sum(tosses %in% c(2,4)) / nsamps
+```
+
+```
+## [1] 0.3217
+```
+
+```r
 # Let C = {1,2} and D = {2,3}
 PC <- sum(tosses %in% c(1,2)) / nsamps
 PD <- sum(tosses %in% c(2,3)) / nsamps
 PC * PD
+```
+
+```
+## [1] 0.1114867
+```
+
+```r
 sum(tosses %in% c(2)) / nsamps
 ```
 
-```{exercise}
-A machine reports the true value of a thrown 12-sided die 5 out of 6 times.
+```
+## [1] 0.1631
+```
+</div>
+
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-6"><strong>(\#exr:unnamed-chunk-6) </strong></span>A machine reports the true value of a thrown 12-sided die 5 out of 6 times.
 
 a. If the machine reports a 1 has been tossed, what is the probability that
 it is actually a 1?
@@ -118,10 +134,10 @@ tossed or not. Does the probability change?
 c. <span style="color:blue">R: Use simulation to check your answers
 to a) and b). </span>
 
+</div>\EndKnitrBlock{exercise}
 
-```
-```{solution, echo = togs}
-
+<div class="fold">
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a. Let $T = 1$ denote that the toss is 1 and $M = 1$ that the machine reports a 1.
 \begin{align}
@@ -140,9 +156,9 @@ b. Yes.
                    &= \frac{\frac{5}{6}\frac{1}{12}}{\frac{5}{6}\frac{1}{12} + 11 \frac{1}{6} \frac{1}{12}} \\
                    &= \frac{5}{16}.
 \end{align}
-  
-```
-```{r, echo = togs, eval = togs}
+  </div>\EndKnitrBlock{solution}
+
+```r
 set.seed(1)
 nsamps   <- 10000
 report_a <- vector(mode = "numeric", length = nsamps)
@@ -163,14 +179,23 @@ for (i in 1:10000) {
 }
 truth_a1 <- truths[report_a == 1]
 sum(truth_a1) / length(truth_a1)
+```
 
+```
+## [1] 0.8384075
+```
+
+```r
 truth_b1 <- truths[report_b]
 sum(truth_b1) / length(truth_b1)
 ```
 
+```
+## [1] 0.3110339
+```
+</div>
 
-```{exercise}
-A coin is tossed independently $n$ times. The probability of heads at each
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-9"><strong>(\#exr:unnamed-chunk-9) </strong></span>A coin is tossed independently $n$ times. The probability of heads at each
 toss is $p$. At each time $k$, $(k = 2,3,...,n)$ we get a reward at time $k+1$
 if $k$-th toss was a head and the previous toss was a tail. Let $A_k$ be the
 evebt that a reward is obtained at time $k$.
@@ -184,10 +209,10 @@ $p = 0.7$. Check your
 answers to a) and b) by counting the frequencies of the events $A_5$,
 $A_6$, and $A_7$.</span>
 
+</div>\EndKnitrBlock{exercise}
 
-```
-```{solution, echo = togs}
-
+<div class="fold">
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a. For $A_k$ to happen, we need the tosses $k-2$ and $k-1$ be tails and heads
 respectively. For $A_{k+1}$ to happen, we need tosses $k-1$ and $k$ be tails
@@ -201,9 +226,9 @@ respectively. For $A_{k+2}$ to happen, we need tosses $k$ and $k+1$ be tails
 and heads respectively. So the probability of intersection is $p^2(1-p)^2$.
 And the probability of each separately is again $p(1-p)$. Therefore, they
 are independent.
-  
-```
-```{r, echo = togs, eval = togs}
+  </div>\EndKnitrBlock{solution}
+
+```r
 set.seed(1)
 nsamps <- 10000
 p      <- 0.7
@@ -221,14 +246,47 @@ for (i in 1:nsamps) {
   rewardA_57[i] <- (rewardA_5[i] & rewardA_7[i])
 }
 sum(rewardA_5) / nsamps
+```
+
+```
+## [1] 0.2141
+```
+
+```r
 sum(rewardA_6) / nsamps
+```
+
+```
+## [1] 0.2122
+```
+
+```r
 sum(rewardA_7) / nsamps
+```
+
+```
+## [1] 0.2107
+```
+
+```r
 sum(rewardA_56) / nsamps
+```
+
+```
+## [1] 0
+```
+
+```r
 sum(rewardA_57) / nsamps
 ```
 
-```{exercise}
-A drawer contains two coins. One is an unbiased coin, the other is a biased
+```
+## [1] 0.0454
+```
+</div>
+
+
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-12"><strong>(\#exr:unnamed-chunk-12) </strong></span>A drawer contains two coins. One is an unbiased coin, the other is a biased
 coin, which will turn up heads with probability $p$ and tails with
 probability $1-p$. One coin is selected uniformly at random.
 
@@ -239,10 +297,10 @@ b. The selected coin is tossed repeatedly until it turns up heads $k$ times.
 Given that it is tossed $n$ times in total, what is the probability that the
 coin is biased?
 
+</div>\EndKnitrBlock{exercise}
 
-```
-```{solution, echo = togs}
-
+<div class="fold">
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a. Let $B = 1$ denote that the coin is biased and let $H = k$ denote that
 we've seen $k$ heads.
@@ -256,13 +314,11 @@ we've seen $k$ heads.
 b. The same results as in a). The only difference between these two scenarios
 is that in b) the last throw must be heads. However, this holds for the biased
 and the unbiased coin and therefore does not affect the probability of the
-coin being biased.
-```
+coin being biased.</div>\EndKnitrBlock{solution}
+</div>
 
 
-
-```{exercise}
-Judy goes around the company for Women's day and shares flowers. In every
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-14"><strong>(\#exr:unnamed-chunk-14) </strong></span>Judy goes around the company for Women's day and shares flowers. In every
 office she leaves a flower, if there is at least one woman inside. 
 The probability
 that there's a woman in the office is $\frac{3}{5}$.
@@ -287,17 +343,17 @@ five offices, if she starts with two flowers?
 
 f. <span style="color:blue">R: simulate Judy's walk 10000 times to
 check your answers a) - e).</span>
+</div>\EndKnitrBlock{exercise}
 
-```
-```{solution, echo = togs}
-Let $X_i = k$ denote the event that ... $i$-th sample on the $k$-th run.
+<div class="fold">
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Let $X_i = k$ denote the event that ... $i$-th sample on the $k$-th run.
 
 a. Since the events are independent, we can multiply their probabilities to get
 \begin{equation}
   P(X_1 = 4) = 0.4^3 \times 0.6 = 0.0384.
 \end{equation}
   
-b. Since the events are independent, the results is the same as in a).
+b. Same as in a) as we have a fresh start after first four offices.
 
 c. For this to be possible, she had to leave the first flower in one of the
 first four offices. Therefore there are four possibilities, and for each
@@ -329,9 +385,9 @@ after two, three and four offices.
 \end{equation}
 The multiplying parts represent the possibilities of the first flower.
 
+</div>\EndKnitrBlock{solution}
 
-```
-```{r, echo = togs, eval = togs}
+```r
 set.seed(1)
 nsamps     <- 100000
 Judyswalks <- matrix(data = NA, nrow = nsamps, ncol = 8)
@@ -343,38 +399,66 @@ csJudy <- t(apply(Judyswalks, 1, cumsum))
 
 # a
 sum(csJudy[ ,4] == 1 & csJudy[ ,3] == 0) / nsamps
+```
 
+```
+## [1] 0.03848
+```
+
+```r
 # b
 csJsubset <- csJudy[csJudy[ ,4] == 3 & csJudy[ ,3] == 2, ]
 sum(csJsubset[ ,8] == 4 & csJsubset[ ,7] == 3) / nrow(csJsubset)
-
-# c
-sum(csJudy[ ,5] == 2 & csJudy[ ,4] == 1) / nsamps
-
-# d
-sum(csJudy[ ,5] == 2 & csJudy[ ,4] == 1) / sum(csJudy[ ,2] != 2)
-
-# e
-sum(csJudy[ ,4] < 2) / nsamps
-
 ```
 
+```
+## [1] 0.03665893
+```
+
+```r
+# c
+sum(csJudy[ ,5] == 2 & csJudy[ ,4] == 1) / nsamps
+```
+
+```
+## [1] 0.09117
+```
+
+```r
+# d
+sum(csJudy[ ,5] == 2 & csJudy[ ,4] == 1) / sum(csJudy[ ,2] != 2)
+```
+
+```
+## [1] 0.1422398
+```
+
+```r
+# e
+sum(csJudy[ ,4] < 2) / nsamps
+```
+
+```
+## [1] 0.17818
+```
+</div>
+
+
 ## Conditional independence
-```{exercise}
-Describe:
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-17"><strong>(\#exr:unnamed-chunk-17) </strong></span>Describe:
   
 a. A real-world example of two events $A$ and $B$ that are dependent but
 become conditionally independent if conditioned on a third event $C$.
 
 b. A real-world example of two events $A$ and $B$ that are independent, but
 become dependent if conditioned on some third event $C$.
+</div>\EndKnitrBlock{exercise}
 
-```
-```{solution, echo = togs}
-
+<div class="fold">
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
 a. Let $A$ be the height of a person and let $B$ be the person's knowledge
-in the Dutch language. These events are dependent since the Dutch are known
+of the Dutch language. These events are dependent since the Dutch are known
 to be taller than average. However if $C$ is the nationality of the person,
 then $A$ and $B$ are independent given $C$.
 
@@ -383,15 +467,14 @@ that John passes the exam. These events are independent. However, if the
 event $C$ is that Mary and John studied together, then $A$ and $B$ are
 conditionally dependent given $C$.
 
+</div>\EndKnitrBlock{solution}
+</div>
 
-```
-
-```{exercise}
-We have two coins of identical appearance. We know that one is a fair coin
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-19"><strong>(\#exr:unnamed-chunk-19) </strong></span>We have two coins of identical appearance. We know that one is a fair coin
 and the other flips heads 80% of the time. We choose one of the two 
 coins uniformly at random. We discard the coin that was not chosen. We now
 flip the chosen coin independently 10 times, producing a sequence
-$Y_1 = y_1$, $Y_2 = y_2$, ..., $Y_10 = y_10$.
+$Y_1 = y_1$, $Y_2 = y_2$, ..., $Y_{10} = y_{10}$.
 
 a. Intuitively, without doing and computation, are these random variables
 independent?
@@ -403,12 +486,12 @@ P(Y_{10} = 1 | Y_1 = 1,...,Y_9 = 1)$.
 
 d. Given your answers to b) and c), would you now change your answer to a)?
 If so, discuss why your intuition had failed.
+</div>\EndKnitrBlock{exercise}
 
-```
-```{solution, echo = togs}
+<div class="fold">
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}
 
-
-b. $P(Y_1 = 1) = 0.5 * 0.8 + 0.5 * 0.5 = 0.65.
+b. $P(Y_1 = 1) = 0.5 * 0.8 + 0.5 * 0.5 = 0.65$.
 
 c. Since we know that $Y_1 = 1$ this should change our view of the probability
 of the coin being biased or not. Let $B = 1$ denote the event that the
@@ -433,8 +516,8 @@ that first nine tosses are all heads (equivalent to $Y_1 = 1$,..., $Y_9 = 1$).
                        &\approx 0.8.
 \end{align}
 
-
-```
+</div>\EndKnitrBlock{solution}
+</div>
 
 ## Monty Hall problem
 The Monty Hall problem is a famous probability puzzle with non-intuitive
@@ -443,18 +526,16 @@ solving it and many even disregarded the correct solution until they've seen
 the proof by simulation. Here we will show how it can be solved relatively
 simply with the use of Bayes' theorem if we select the variables in a smart way.
 
-```{exercise, name = "Monty Hall problem"}
-A prize is placed at random behind one of three doors. You pick a door. Now
+\BeginKnitrBlock{exercise}\iffalse{-91-77-111-110-116-121-32-72-97-108-108-32-112-114-111-98-108-101-109-93-}\fi{}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-21"><strong>(\#exr:unnamed-chunk-21)  \iffalse (Monty Hall problem) \fi{} </strong></span>A prize is placed at random behind one of three doors. You pick a door. Now
 Monty Hall chooses one of the other two doors, opens it and shows you that it is
 empty. He then gives you the opportunity to keep your door or switch to the 
-other unopened door. Should you stay or switch?  Use Bayes' theorem to c
-alculate the probability of winning if you switch and if you do not.
+other unopened door. Should you stay or switch?  Use Bayes' theorem to calculate the probability of winning if you switch and if you do not.
 <span style="color:blue">R: Check your answers in R.</span>
 
+</div>\EndKnitrBlock{exercise}
 
-```
-```{solution, echo = togs}
-W.L.O.G. assume we always pick the first door. The host can only open door 2
+<div class="fold">
+\BeginKnitrBlock{solution}<div class="solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}W.L.O.G. assume we always pick the first door. The host can only open door 2
 or door 3, as he can not open the door we picked. Let $k \in \{2,3\}$.
 
 Let us first look at what happens if we do not change. Then we have
@@ -467,7 +548,7 @@ Let us first look at what happens if we do not change. Then we have
 The probability that he opened $k$ if the car is in 1 is $\frac{1}{2}$, 
 as he can choose
 between door 2 and 3 as both have a goat behind it. Let us look at the
-normalization constant. Whek $n = 1$ we get the value in the nominator. When
+normalization constant. When $n = 1$ we get the value in the nominator. When
 $n=k$, we get 0, as he will not open the door if there's a prize behind. The
 remaining option is that we select 1, the car is behind $k$ and he opens the
 only door left. Since he can't open 1 due to it being our pick and $k$ due to
@@ -501,10 +582,10 @@ open door $k$ is then 1, as he can not pick any other door. So we have
 
 Therefore it makes sense to change the door.
 
+</div>\EndKnitrBlock{solution}
 
-```
 
-```{r, echo = togs, eval = togs}
+```r
 set.seed(1)
 nsamps <- 1000
 ifchange <- vector(mode = "logical", length = nsamps)
@@ -523,5 +604,17 @@ for (i in 1:nsamps) {
   ifchange[i]    <- where_ifchange == where_car
 }
 sum(ifstay) / nsamps
+```
+
+```
+## [1] 0.333
+```
+
+```r
 sum(ifchange) / nsamps
 ```
+
+```
+## [1] 0.667
+```
+</div>

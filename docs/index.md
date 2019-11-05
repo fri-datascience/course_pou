@@ -1,7 +1,7 @@
 --- 
 title: "Principles of Uncertainty -- exercises"
 author: "Gregor Pirš and Erik Štrumbelj"
-date: "2019-10-11"
+date: "2019-11-05"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib]
@@ -10,8 +10,10 @@ link-citations: yes
 url: https://fri-datascience.github.io/course_pou/
 description: "Course notes"
 nocite: | 
-  @R-base, @Ross1998
+  @R-base, @Ross1998, @Jagannathan2015
 ---
+
+
 
 # Preface {-}
 
