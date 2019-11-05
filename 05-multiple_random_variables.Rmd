@@ -16,8 +16,34 @@ The students are expected to acquire the following knowledge:
 - New R functions (for example, _expand.grid_).
 
 
+
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
+
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- F
+togs <- T
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -38,6 +64,7 @@ Can you guess which distribution it is?</span>
 
 
 ```
+<div class="fold">
 ```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps <- 1000
@@ -57,12 +84,13 @@ ggplot(df, aes(x = x, y = y)) +
   facet_wrap(~a) +
   coord_equal(ratio=1)
 
-# Parameter a controls the scale of linear dependency between X and Y.
+# Parameter a controls the scale and direction of linear dependence between X and Y.
 
 ggplot(df, aes(x = y)) +
   geom_density() +
   facet_wrap(~a)
 ```
+</div>
 
 
 
@@ -82,6 +110,7 @@ c. Find the CDF of $(X,Y)$.
 d. Find $P(X = 1 | Y = 1)$.
 
 ```
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -115,6 +144,7 @@ d.
 \end{align}
 
 ```
+</div>
 
 
 ```{exercise, name = "Continuous bivariate random variable"}
@@ -136,6 +166,7 @@ f. <span style="color:blue">R: Plot the marginal distribution of $X$ and
 the conditional distributions of $X | Y = y$, where 
 $y \in \{0, 0.1, 0.5\}$.</span>
 ```
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -193,7 +224,7 @@ samps <- NULL
 for (i in 1:10000) {
   xt <- runif(1, 0, 1)
   yt <- runif(1, 0, 1)
-  pdft <- pxy(xt, yt)
+  pdft <- get_pdf(xt, yt)
   acc  <- runif(1, 0, 6)
   if (acc <= pdft) {
     samps <- rbind(samps, c(xt, yt))
@@ -219,6 +250,7 @@ df <- tibble(x    = x_axis,
 ggplot(df, aes(x = x, y = value, color = dist)) +
   geom_line()
 ```
+</div>
 
 ```{exercise, name = "Mixed bivariate random variable"}
 Let $f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}$
@@ -241,6 +273,7 @@ $\alpha = 1$. Plot a scatterplot. Plot a bar plot of the marginal distribution
 of $Y$, and the theoretical PMF calculated from d) on the range from 0 to 10.</span>
 
 ```
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -270,7 +303,7 @@ d.
 \begin{align}
   p(y) &= \int_{0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y + \alpha -1} e^{-x(1 + \beta)} dx & \\
        &= \frac{1}{y!} \int_{0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx & \\
-       &= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \int_{0}^{\infty} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}} \frac{(1 + \beta)^{y + \alpha}}{\Gamma(y + \alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx & \text{we add the term so that we have Gamma PDF inside the integral} \\
+       &= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \int_{0}^{\infty} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}} \frac{(1 + \beta)^{y + \alpha}}{\Gamma(y + \alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx & \text{complete to Gamma pdf} \\
        &= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}}.
 \end{align}
 We add the terms in the third equality to get a Gamma PDF inside the integral, 
@@ -293,12 +326,14 @@ ggplot(data = data.frame(x = rx, y = ryx), aes(x = y)) +
   stat_function(fun = px, args = list(alpha = 1, beta = 1), color = "red")
 
 ```
+</div>
 
 ```{exercise}
 Let $f(x,y) = cx^2y$ for $x^2 \leq y \leq 1$ and zero otherwise. 
 Find such $c$ that $f$ is a PDF of a bivariate random
 variable. This exercise is borrowed from Wasserman.
 ```
+<div class="fold">
 ```{solution, echo = togs}
 \begin{align}
   1 &= \int_{-1}^{1} \int_{x^2}^1 cx^2y dy dx \\
@@ -310,6 +345,7 @@ variable. This exercise is borrowed from Wasserman.
 \end{align}
 It follows $c = \frac{21}{4}$.
 ```
+</div>
 
 
 ## Transformations
@@ -320,6 +356,7 @@ Find the CDF and PDF of $R$.
 
 
 ```
+<div class="fold">
 ```{solution, echo = togs}
 \begin{align}
   P(R < r) &= P(\sqrt{X^2 + Y^2 + Z^2} < r) \\
@@ -333,6 +370,7 @@ divide it by the radius of the whole ball. We get the PDF by differentiating
 the CDF, so $p(r) = 3r^2$.
 
 ```
+</div>
 
 
 
