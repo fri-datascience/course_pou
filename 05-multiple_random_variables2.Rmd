@@ -253,7 +253,6 @@ ggplot(df, aes(x = x, y = value, color = dist)) +
 ```
 </div>
 
-
 ```{exercise, name = "Mixed bivariate random variable"}
 Let $f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}$
 be the PDF of a bivariate random variable, where $x \in (0, \infty)$ and
@@ -375,4 +374,6 @@ the CDF, so $p(r) = 3r^2$.
 
 ```
 </div>
+
+
 

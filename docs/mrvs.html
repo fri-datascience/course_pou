@@ -248,7 +248,7 @@ $(document).ready(function() {
 <h2><span class="header-section-number">5.1</span> General</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 5.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X \sim \text{N}(0,1)\)</span> and <span class="math inline">\(Y \sim \text{N}(0,1)\)</span>
+<p><span id="exr:unnamed-chunk-116" class="exercise"><strong>Exercise 5.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X \sim \text{N}(0,1)\)</span> and <span class="math inline">\(Y \sim \text{N}(0,1)\)</span>
 be independent random
 variables. Draw 1000 samples from <span class="math inline">\((X,Y)\)</span> and plot a scatterplot.
 Now let <span class="math inline">\(X \sim \text{N}(0,1)\)</span> and <span class="math inline">\(Y | X = x \sim \text{N}(ax, 1)\)</span>. Draw 1000 samples
@@ -265,7 +265,7 @@ x      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)
 y      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)
 <span class="kw">ggplot</span>(<span class="kw">data.frame</span>(x, y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">y1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">1</span> <span class="op">*</span><span class="st"> </span>x)
 y2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">0</span> <span class="op">*</span><span class="st"> </span>x)
 y3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="fl">-0.5</span> <span class="op">*</span><span class="st"> </span>x)
@@ -276,20 +276,20 @@ df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt"
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a) <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_equal</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-2.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Parameter a controls the scale and direction of linear dependence between X and Y.</span>
 
 <span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-3.png" width="672" /></p>
 </div>
 </div>
 <div id="bivariate-distribution-examples" class="section level2">
 <h2><span class="header-section-number">5.2</span> Bivariate distribution examples</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 5.2  (Discrete bivariate random variable)  </strong></span>Let <span class="math inline">\(X\)</span> represent the event that a die rolls an even number and let <span class="math inline">\(Y\)</span>
+<p><span id="exr:unnamed-chunk-118" class="exercise"><strong>Exercise 5.2  (Discrete bivariate random variable)  </strong></span>Let <span class="math inline">\(X\)</span> represent the event that a die rolls an even number and let <span class="math inline">\(Y\)</span>
 represent the event that
 a die rolls one, two, or a three.</p>
 <ol style="list-style-type: lower-alpha">
@@ -330,7 +330,7 @@ P(X = 1 | Y = 1) = \frac{1}{3}
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 5.3  (Continuous bivariate random variable)  </strong></span>Let <span class="math inline">\(p(x,y) = 6 (x - y)^2\)</span> be the PDF of a bivariate random
+<p><span id="exr:unnamed-chunk-120" class="exercise"><strong>Exercise 5.3  (Continuous bivariate random variable)  </strong></span>Let <span class="math inline">\(p(x,y) = 6 (x - y)^2\)</span> be the PDF of a bivariate random
 variable <span class="math inline">\((X,Y)\)</span>, where both variables range from zero to one.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Find CDF.</p></li>
@@ -342,11 +342,13 @@ by value – this can help us visualize the PDF.</span></p></li>
 <li><p><span style="color:blue">R: Plot the marginal distribution of <span class="math inline">\(X\)</span> and
 the conditional distributions of <span class="math inline">\(X | Y = y\)</span>, where
 <span class="math inline">\(y \in \{0, 0.1, 0.5\}\)</span>.</span></p>
-</div>
+</div></li>
+</ol>
 <div class="fold">
-<p></p>
+
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p></li>
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
 <li><p><span class="math display">\[\begin{align}
   F(x,y) &amp;= \int_0^{x} \int_0^{y} 6 (t - s)^2 ds dt\\
       &amp;= 6 \int_0^{x} \int_0^{y} t^2 - 2ts + s^2 ds dt\\
@@ -376,7 +378,6 @@ the conditional distributions of <span class="math inline">\(X | Y = y\)</span>,
   \end{align}\]</span></p></li>
 </ol>
 </div>
-
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
 
 <span class="co"># d</span>
@@ -390,7 +391,7 @@ df           &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(x
 df           &lt;-<span class="st"> </span><span class="kw">cbind</span>(df, <span class="dt">pdf =</span> <span class="kw">get_pdf</span>(df<span class="op">$</span>x, df<span class="op">$</span>y))
 <span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> pdf)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># e</span>
 samps &lt;-<span class="st"> </span><span class="ot">NULL</span>
 <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>) {
@@ -405,7 +406,7 @@ samps &lt;-<span class="st"> </span><span class="ot">NULL</span>
 <span class="kw">colnames</span>(samps) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)
 <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">as.data.frame</span>(samps), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-2.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># f</span>
 mar_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x) {
   <span class="kw">return</span> (<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
@@ -421,11 +422,11 @@ df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt"
 <span class="st">  </span><span class="kw">gather</span>(dist, value, <span class="op">-</span>x)
 <span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value, <span class="dt">color =</span> dist)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
-<img src="bookdown-pou_files/figure-html/unnamed-chunk-8-3.png" width="672" />
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-3.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-9" class="exercise"><strong>Exercise 5.4  (Mixed bivariate random variable)  </strong></span>Let <span class="math inline">\(f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}\)</span>
+<p><span id="exr:unnamed-chunk-123" class="exercise"><strong>Exercise 5.4  (Mixed bivariate random variable)  </strong></span>Let <span class="math inline">\(f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}\)</span>
 be the PDF of a bivariate random variable, where <span class="math inline">\(x \in (0, \infty)\)</span> and
 <span class="math inline">\(y \in \mathbb{N}_0\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
@@ -482,15 +483,15 @@ nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
 rx     &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsamps, <span class="dv">1</span>, <span class="dv">1</span>)
 ryx    &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, rx)
 <span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> px, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">beta =</span> <span class="dv">1</span>), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</code></pre>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-125-2.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 5.5  </strong></span>Let <span class="math inline">\(f(x,y) = cx^2y\)</span> for <span class="math inline">\(x^2 \leq y \leq 1\)</span> and zero otherwise.
+<span id="exr:unnamed-chunk-126" class="exercise"><strong>Exercise 5.5  </strong></span>Let <span class="math inline">\(f(x,y) = cx^2y\)</span> for <span class="math inline">\(x^2 \leq y \leq 1\)</span> and zero otherwise.
 Find such <span class="math inline">\(c\)</span> that <span class="math inline">\(f\)</span> is a PDF of a bivariate random
 variable. This exercise is borrowed from Wasserman.
 </div>
@@ -514,7 +515,7 @@ It follows <span class="math inline">\(c = \frac{21}{4}\)</span>.
 <h2><span class="header-section-number">5.3</span> Transformations</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 5.6  </strong></span>Let <span class="math inline">\((X,Y,Z)\)</span> be uniformly distributed on the unit ball
+<p><span id="exr:unnamed-chunk-128" class="exercise"><strong>Exercise 5.6  </strong></span>Let <span class="math inline">\((X,Y,Z)\)</span> be uniformly distributed on the unit ball
 <span class="math inline">\(\{(x,y,z) : x^2 + y^2 + z^2 \leq 1\}\)</span>. Let <span class="math inline">\(R = \sqrt{X^2 + Y^2 + Z^2}\)</span>.
 Find the CDF and PDF of <span class="math inline">\(R\)</span>.</p>
 </div>

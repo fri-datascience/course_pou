@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 5 Integration | Principles of Uncertainty – exercises</title>
+  <title>Chapter 6 Integration | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 5 Integration | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 6 Integration | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Integration | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 6 Integration | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -32,7 +32,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="rvs.html">
+<link rel="prev" href="mrvs.html">
 <link rel="next" href="A1.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -149,11 +149,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
-<li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#transformations-1"><i class="fa fa-check"></i><b>4.4</b> Transformations</a></li>
+<li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
+<li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>5</b> Integration</a><ul>
-<li class="chapter" data-level="5.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>5.1</b> Monte Carlo integration</a></li>
-<li class="chapter" data-level="5.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>5.2</b> Lebesgue integrals</a></li>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
+<li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
+<li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
+<li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
@@ -202,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="integ" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Integration</h1>
+<h1><span class="header-section-number">Chapter 6</span> Integration</h1>
 <p>This chapter deals with abstract and Monte Carlo integration.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
@@ -214,18 +220,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Monte Carlo integration.</li>
 </ul>
 <div id="monte-carlo-integration" class="section level2">
-<h2><span class="header-section-number">5.1</span> Monte Carlo integration</h2>
+<h2><span class="header-section-number">6.1</span> Monte Carlo integration</h2>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-131" class="exercise"><strong>Exercise 5.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be continuous random variables on the unit interval and <span class="math inline">\(p(x,y) = 6(x - y)^2\)</span>. Use Monte Carlo integration to estimate the probability <span class="math inline">\(P(0.2 \leq X \leq 0.5, \: 0.1 \leq Y \leq 0.2)\)</span>. Can you find the exact value?</span>
+<span id="exr:unnamed-chunk-131" class="exercise"><strong>Exercise 6.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be continuous random variables on the unit interval and <span class="math inline">\(p(x,y) = 6(x - y)^2\)</span>. Use Monte Carlo integration to estimate the probability <span class="math inline">\(P(0.2 \leq X \leq 0.5, \: 0.1 \leq Y \leq 0.2)\)</span>. Can you find the exact value?</span>
 </div>
 
 </div>
 <div id="lebesgue-integrals" class="section level2">
-<h2><span class="header-section-number">5.2</span> Lebesgue integrals</h2>
+<h2><span class="header-section-number">6.2</span> Lebesgue integrals</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-133" class="exercise"><strong>Exercise 5.2  (from Jagannathan)  </strong></span>Find the Lebesgue integral of the following functions on (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>, <span class="math inline">\(\lambda\)</span>).</p>
+<p><span id="exr:unnamed-chunk-133" class="exercise"><strong>Exercise 6.2  (from Jagannathan)  </strong></span>Find the Lebesgue integral of the following functions on (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>, <span class="math inline">\(\lambda\)</span>).</p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math display">\[\begin{align}
 f(\omega) = 
@@ -252,7 +258,7 @@ f(\omega) =
 </ol>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-135" class="exercise"><strong>Exercise 5.3  (from Jagannathan)  </strong></span>Let <span class="math inline">\(c \in \mathbb{R}\)</span> be fixed and (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>) a measurable space. If for any Borel set <span class="math inline">\(A\)</span>, <span class="math inline">\(\delta_c (A) = 1\)</span> if <span class="math inline">\(c \in A\)</span>, and <span class="math inline">\(\delta_c (A) = 0\)</span> otherwise, then <span class="math inline">\(\delta_c\)</span> is called a <em>Dirac measure</em>. Let <span class="math inline">\(g\)</span> be a non-negative, measurable function. Show that <span class="math inline">\(\int g d \delta_c = g(c)\)</span>.
+<span id="exr:unnamed-chunk-135" class="exercise"><strong>Exercise 6.3  (from Jagannathan)  </strong></span>Let <span class="math inline">\(c \in \mathbb{R}\)</span> be fixed and (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>) a measurable space. If for any Borel set <span class="math inline">\(A\)</span>, <span class="math inline">\(\delta_c (A) = 1\)</span> if <span class="math inline">\(c \in A\)</span>, and <span class="math inline">\(\delta_c (A) = 0\)</span> otherwise, then <span class="math inline">\(\delta_c\)</span> is called a <em>Dirac measure</em>. Let <span class="math inline">\(g\)</span> be a non-negative, measurable function. Show that <span class="math inline">\(\int g d \delta_c = g(c)\)</span>.
 </div>
 
 
@@ -267,7 +273,7 @@ f(\omega) =
           </div>
         </div>
       </div>
-<a href="rvs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mrvs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="A1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
