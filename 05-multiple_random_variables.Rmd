@@ -20,7 +20,7 @@ The students are expected to acquire the following knowledge:
 - Transparency in ggplot.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- TRUE
+togs <- F
 library(ggplot2)
 library(dplyr)
 library(reshape2)
