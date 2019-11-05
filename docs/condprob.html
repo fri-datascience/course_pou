@@ -241,7 +241,7 @@ $(document).ready(function() {
 <h2><span class="header-section-number">3.1</span> Calculating conditional probabilities</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-54" class="exercise"><strong>Exercise 3.1  </strong></span>A military officer is in charge of identifying enemy aircraft and shooting them
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  </strong></span>A military officer is in charge of identifying enemy aircraft and shooting them
 down. He is able to positively identify an enemy airplane 95% of the time
 and positively identify a friendly airplane 90% of the time. Furthermore, 99%
 of the airplanes are friendly. When the officer identifies an airplane as an
@@ -267,7 +267,7 @@ is an enemy. Let <span class="math inline">\(I = 0\)</span> denote that the offi
 </div>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-56" class="exercise"><strong>Exercise 3.2  </strong></span><span style="color:blue">R: Consider tossing a fair die. Let <span class="math inline">\(A = \{2,4,6\}\)</span>
+<span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 1.2  </strong></span><span style="color:blue">R: Consider tossing a fair die. Let <span class="math inline">\(A = \{2,4,6\}\)</span>
 and <span class="math inline">\(B = \{1,2,3,4\}\)</span>. Then <span class="math inline">\(P(A) = \frac{1}{2}\)</span>, <span class="math inline">\(P(B) = \frac{2}{3}\)</span> and
 <span class="math inline">\(P(AB) = \frac{1}{3}\)</span>. Since <span class="math inline">\(P(AB) = P(A)P(B)\)</span>, the events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are
 independent. Simulate draws from the sample space and verify that the
@@ -295,7 +295,7 @@ PC <span class="op">*</span><span class="st"> </span>PD</code></pre>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-58" class="exercise"><strong>Exercise 3.3  </strong></span>A machine reports the true value of a thrown 12-sided die 5 out of 6 times.</p>
+<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 1.3  </strong></span>A machine reports the true value of a thrown 12-sided die 5 out of 6 times.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>If the machine reports a 1 has been tossed, what is the probability that
 it is actually a 1?</p></li>
@@ -356,7 +356,7 @@ truth_a1 &lt;-<span class="st"> </span>truths[report_a <span class="op">==</span
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-61" class="exercise"><strong>Exercise 3.4  </strong></span>A coin is tossed independently <span class="math inline">\(n\)</span> times. The probability of heads at each
+<p><span id="exr:unnamed-chunk-9" class="exercise"><strong>Exercise 3.1  </strong></span>A coin is tossed independently <span class="math inline">\(n\)</span> times. The probability of heads at each
 toss is <span class="math inline">\(p\)</span>. At each time <span class="math inline">\(k\)</span>, <span class="math inline">\((k = 2,3,...,n)\)</span> we get a reward at time <span class="math inline">\(k+1\)</span>
 if <span class="math inline">\(k\)</span>-th toss was a head and the previous toss was a tail. Let <span class="math inline">\(A_k\)</span> be the
 evebt that a reward is obtained at time <span class="math inline">\(k\)</span>.</p>
@@ -417,7 +417,7 @@ rewardA_<span class="dv">57</span> &lt;-<span class="st"> </span><span class="kw
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-64" class="exercise"><strong>Exercise 3.5  </strong></span>A drawer contains two coins. One is an unbiased coin, the other is a biased
+<p><span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 1.6  </strong></span>A drawer contains two coins. One is an unbiased coin, the other is a biased
 coin, which will turn up heads with probability <span class="math inline">\(p\)</span> and tails with
 probability <span class="math inline">\(1-p\)</span>. One coin is selected uniformly at random.</p>
 <ol style="list-style-type: lower-alpha">
@@ -451,7 +451,7 @@ coin being biased.</p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-66" class="exercise"><strong>Exercise 3.6  </strong></span>Judy goes around the company for Women’s day and shares flowers. In every
+<p><span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 1.7  </strong></span>Judy goes around the company for Women’s day and shares flowers. In every
 office she leaves a flower, if there is at least one woman inside.
 The probability
 that there’s a woman in the office is <span class="math inline">\(\frac{3}{5}\)</span>.</p>
@@ -543,7 +543,7 @@ csJsubset &lt;-<span class="st"> </span>csJudy[csJudy[ ,<span class="dv">4</span
 <h2><span class="header-section-number">3.2</span> Conditional independence</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-69" class="exercise"><strong>Exercise 3.7  </strong></span>Describe:</p>
+<p><span id="exr:unnamed-chunk-17" class="exercise"><strong>Exercise 1.8  </strong></span>Describe:</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>A real-world example of two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> that are dependent but
 become conditionally independent if conditioned on a third event <span class="math inline">\(C\)</span>.</p></li>
@@ -570,7 +570,7 @@ conditionally dependent given <span class="math inline">\(C\)</span>.</p></li>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-71" class="exercise"><strong>Exercise 3.8  </strong></span>We have two coins of identical appearance. We know that one is a fair coin
+<p><span id="exr:unnamed-chunk-19" class="exercise"><strong>Exercise 3.2  </strong></span>We have two coins of identical appearance. We know that one is a fair coin
 and the other flips heads 80% of the time. We choose one of the two
 coins uniformly at random. We discard the coin that was not chosen. We now
 flip the chosen coin independently 10 times, producing a sequence
@@ -627,7 +627,7 @@ the proof by simulation. Here we will show how it can be solved relatively
 simply with the use of Bayes’ theorem if we select the variables in a smart way.</p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-73" class="exercise"><strong>Exercise 3.9  (Monty Hall problem)  </strong></span>A prize is placed at random behind one of three doors. You pick a door. Now
+<p><span id="exr:unnamed-chunk-21" class="exercise"><strong>Exercise 3.3  (Monty Hall problem)  </strong></span>A prize is placed at random behind one of three doors. You pick a door. Now
 Monty Hall chooses one of the other two doors, opens it and shows you that it is
 empty. He then gives you the opportunity to keep your door or switch to the
 other unopened door. Should you stay or switch? Use Bayes’ theorem to calculate the probability of winning if you switch and if you do not.
