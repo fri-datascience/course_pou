@@ -154,6 +154,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
+<li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
+<li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
@@ -207,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="mrvs" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Multiple random variables</h1>
-<p>This chapter deals with multiple random variables and their distributions.</p>
+<p>This chapter ss deals with multiple random variables and their distributions.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
 <ul>
@@ -220,28 +222,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Scatterplots of bivariate random variables.</li>
 <li>New R functions (for example, <em>expand.grid</em>).</li>
 </ul>
-<style>
-.fold-btn { 
-  float: right; 
-  margin: 5px 5px 0 0;
-}
-.fold { 
-  border: 1px solid black;
-  min-height: 40px;
-}
-</style>
-<script type="text/javascript">
-$(document).ready(function() {
-  $folds = $(".fold");
-  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
-  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
-  $(".fold-blck").toggle();  // fold all blocks
-  $(".fold-btn").on("click", function() {  // add onClick event
-    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
-    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
-  })
-});
-</script>
 <div id="general" class="section level2">
 <h2><span class="header-section-number">5.1</span> General</h2>
 
@@ -254,6 +234,73 @@ from <span class="math inline">\((X,Y)\)</span> for <span class="math inline">\(
 How would you interpret parameter <span class="math inline">\(a\)</span>?
 Plot the marginal distribution of <span class="math inline">\(Y\)</span> for cases <span class="math inline">\(a=1\)</span>, <span class="math inline">\(a=0\)</span>, and <span class="math inline">\(a=-0.5\)</span>.
 Can you guess which distribution it is?</span></p>
+</div>
+
+</div>
+<div id="bivariate-distribution-examples" class="section level2">
+<h2><span class="header-section-number">5.2</span> Bivariate distribution examples</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-118" class="exercise"><strong>Exercise 5.2  (Discrete bivariate random variable)  </strong></span>Let <span class="math inline">\(X\)</span> represent the event that a die rolls an even number and let <span class="math inline">\(Y\)</span>
+represent the event that
+a die rolls one, two, or a three.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find the marginal distributions of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Find the PMF of <span class="math inline">\((X,Y)\)</span>.</p></li>
+<li><p>Find the CDF of <span class="math inline">\((X,Y)\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(P(X = 1 | Y = 1)\)</span>.</p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-120" class="exercise"><strong>Exercise 5.3  (Continuous bivariate random variable)  </strong></span>Let <span class="math inline">\(p(x,y) = 6 (x - y)^2\)</span> be the PDF of a bivariate random
+variable <span class="math inline">\((X,Y)\)</span>, where both variables range from zero to one.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find CDF.</p></li>
+<li><p>Find marginal distributions.</p></li>
+<li><p>Find conditional distributions.</p></li>
+<li><p><span style="color:blue">R: Plot a grid of points and colour them
+by value – this can help us visualize the PDF.</span></p></li>
+<li><p><span style="color:blue">R: Implement a random number generator, which will generate numbers from <span class="math inline">\((X,Y)\)</span> and visually check the results.</span></p></li>
+<li><p><span style="color:blue">R: Plot the marginal distribution of <span class="math inline">\(X\)</span> and
+the conditional distributions of <span class="math inline">\(X | Y = y\)</span>, where
+<span class="math inline">\(y \in \{0, 0.1, 0.5\}\)</span>.</span></p>
+</div></li>
+</ol>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-123" class="exercise"><strong>Exercise 5.4  (Mixed bivariate random variable)  </strong></span>Let <span class="math inline">\(f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}\)</span>
+be the PDF of a bivariate random variable, where <span class="math inline">\(x \in (0, \infty)\)</span> and
+<span class="math inline">\(y \in \mathbb{N}_0\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find the marginal distribution of <span class="math inline">\(X\)</span>. Do you recognize this distribution?</p></li>
+<li><p>Find the conditional distribution of <span class="math inline">\(Y | X\)</span>. Do you recognize this
+distribution?</p></li>
+<li><p>Calculate the probability <span class="math inline">\(P(Y = 2 | X = 2.5)\)</span> for <span class="math inline">\((X,Y)\)</span>.</p></li>
+<li><p>Find the marginal distribution of <span class="math inline">\(Y\)</span>. Do you recognize this distribution?</p></li>
+<li><p><span style="color:blue">R: Take 1000 random samples from <span class="math inline">\((X,Y)\)</span> with
+parameters <span class="math inline">\(\beta = 1\)</span> and
+<span class="math inline">\(\alpha = 1\)</span>. Plot a scatterplot. Plot a bar plot of the marginal distribution
+of <span class="math inline">\(Y\)</span>, and the theoretical PMF calculated from d) on the range from 0 to 10.</span></p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-126" class="exercise"><strong>Exercise 5.5  </strong></span>Let <span class="math inline">\(f(x,y) = cx^2y\)</span> for <span class="math inline">\(x^2 \leq y \leq 1\)</span> and zero otherwise.
+Find such <span class="math inline">\(c\)</span> that <span class="math inline">\(f\)</span> is a PDF of a bivariate random
+variable. This exercise is borrowed from Wasserman.
+</div>
+
+</div>
+<div id="transformations-1" class="section level2">
+<h2><span class="header-section-number">5.3</span> Transformations</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-128" class="exercise"><strong>Exercise 5.6  </strong></span>Let <span class="math inline">\((X,Y,Z)\)</span> be uniformly distributed on the unit ball
+<span class="math inline">\(\{(x,y,z) : x^2 + y^2 + z^2 \leq 1\}\)</span>. Let <span class="math inline">\(R = \sqrt{X^2 + Y^2 + Z^2}\)</span>.
+Find the CDF and PDF of <span class="math inline">\(R\)</span>.</p>
 </div>
 
 
