@@ -1,0 +1,549 @@
+# Conditional probability {#condprob}
+
+This chapter deals with conditional probability.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- Identify whether variables are independent.
+- Calculation of conditional probabilities.
+- Understanding of conditional dependence and independence.
+- How to apply Bayes' theorem to solve difficult probabilistic questions.
+
+**R**
+
+- Simulating conditional probabilities.
+- _cumsum_.
+- _apply_.
+
+
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
+
+```{r, echo = FALSE, warning = FALSE}
+togs <- T
+library(ggplot2)
+# togs <- FALSE
+```
+
+
+## Calculating conditional probabilities
+
+
+```{exercise}
+A military officer is in charge of identifying enemy aircraft and shooting them 
+down. He is able to positively identify an enemy airplane 95% of the time 
+and positively identify a friendly airplane 90% of the time. Furthermore, 99% 
+  of the airplanes are friendly. When the officer identifies an airplane as an 
+enemy airplane, what is the probability that it is not and they will shoot at 
+a friendly airplane?
+
+```
+
+
+<div class="fold">
+```{solution, echo = togs}
+Let $E = 0$ denote that the observed plane is friendly and $E=1$ that it
+is an enemy. Let $I = 0$ denote that the officer identified it as friendly and
+$I = 1$ as enemy. Then
+
+\begin{align}
+  P(E = 0 | I = 1) &= \frac{P(I = 1 | E = 0)P(E = 0)}{P(I = 1)} \\ 
+                   &= \frac{P(I = 1 | E = 0)P(E = 0)}{P(I = 1 | E = 0)P(E = 0) + 
+                       P(I = 1 | E = 1)P(E = 1)} \\
+                   &= \frac{0.1 \times 0.99}{0.1 \times 0.99 + 
+                      0.95  \times 0.01} \\
+                   &= 0.91.
+\end{align}
+```
+</div>
+
+```{exercise}
+<span style="color:blue">R: Consider tossing a fair die. Let $A = \{2,4,6\}$ 
+  and $B = \{1,2,3,4\}$. Then $P(A) = \frac{1}{2}$, $P(B) = \frac{2}{3}$ and
+$P(AB) = \frac{1}{3}$. Since $P(AB) = P(A)P(B)$, the events $A$ and $B$ are
+independent. Simulate draws from the sample space and verify that the
+proportions are the same. Then find two events $C$ and $D$ that are not
+independent and repeat the simulation.</span>
+```
+
+<div class="fold">
+```{r, echo = togs, eval = togs}
+set.seed(1)
+nsamps <- 10000
+tosses <- sample(1:6, nsamps, replace = TRUE)
+PA <- sum(tosses %in% c(2,4,6)) / nsamps
+PB <- sum(tosses %in% c(1,2,3,4)) / nsamps
+PA * PB
+sum(tosses %in% c(2,4)) / nsamps
+
+# Let C = {1,2} and D = {2,3}
+PC <- sum(tosses %in% c(1,2)) / nsamps
+PD <- sum(tosses %in% c(2,3)) / nsamps
+PC * PD
+sum(tosses %in% c(2)) / nsamps
+```
+</div>
+
+```{exercise}
+A machine reports the true value of a thrown 12-sided die 5 out of 6 times.
+
+a. If the machine reports a 1 has been tossed, what is the probability that
+it is actually a 1?
+  
+b. Now let the machine only report whether a 1 has been
+tossed or not. Does the probability change?
+  
+c. <span style="color:blue">R: Use simulation to check your answers
+to a) and b). </span>
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. Let $T = 1$ denote that the toss is 1 and $M = 1$ that the machine reports a 1.
+\begin{align}
+  P(T = 1 | M = 1) &= \frac{P(M = 1 | T = 1)P(T = 1)}{P(M = 1)} \\ 
+                   &= \frac{P(M = 1 | T = 1)P(T = 1)}{\sum_{k=1}^{12} 
+                     P(M = 1 | T = k)P(T = k)} \\
+                   &= \frac{\frac{5}{6}\frac{1}{12}}{\frac{5}{6}\frac{1}{12} + 11 \frac{1}{6} \frac{1}{11} \frac{1}{12}} \\
+                   &= \frac{5}{6}.
+\end{align}
+  
+b. Yes.
+\begin{align}
+  P(T = 1 | M = 1) &= \frac{P(M = 1 | T = 1)P(T = 1)}{P(M = 1)} \\ 
+                   &= \frac{P(M = 1 | T = 1)P(T = 1)}{\sum_{k=1}^{12} 
+                     P(M = 1 | T = k)P(T = k)} \\
+                   &= \frac{\frac{5}{6}\frac{1}{12}}{\frac{5}{6}\frac{1}{12} + 11 \frac{1}{6} \frac{1}{12}} \\
+                   &= \frac{5}{16}.
+\end{align}
+  
+```
+```{r, echo = togs, eval = togs}
+set.seed(1)
+nsamps   <- 10000
+report_a <- vector(mode = "numeric", length = nsamps)
+report_b <- vector(mode = "logical", length = nsamps)
+truths   <- vector(mode = "logical", length = nsamps)
+for (i in 1:10000) {
+  toss      <- sample(1:12, size = 1)
+  truth     <- sample(c(TRUE, FALSE), size = 1, prob = c(5/6, 1/6))
+  truths[i] <- truth
+  if (truth) {
+    report_a[i] <- toss
+    report_b[i] <- toss == 1
+  } else {
+    remaining   <- (1:12)[1:12 != toss]
+    report_a[i] <- sample(remaining, size = 1)
+    report_b[i] <- toss != 1
+  }
+}
+truth_a1 <- truths[report_a == 1]
+sum(truth_a1) / length(truth_a1)
+
+truth_b1 <- truths[report_b]
+sum(truth_b1) / length(truth_b1)
+```
+</div>
+
+```{exercise}
+A coin is tossed independently $n$ times. The probability of heads at each
+toss is $p$. At each time $k$, $(k = 2,3,...,n)$ we get a reward at time $k+1$
+if $k$-th toss was a head and the previous toss was a tail. Let $A_k$ be the
+evebt that a reward is obtained at time $k$.
+
+a. Are events $A_k$ and $A_{k+1}$ independent?
+  
+b. Are events $A_k$ and $A_{k+2}$ independent?
+  
+c. <span style="color:blue">R: simulate 10 tosses 10000 times, where
+$p = 0.7$. Check your
+answers to a) and b) by counting the frequencies of the events $A_5$,
+$A_6$, and $A_7$.</span>
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. For $A_k$ to happen, we need the tosses $k-2$ and $k-1$ be tails and heads
+respectively. For $A_{k+1}$ to happen, we need tosses $k-1$ and $k$ be tails
+and heads respectively. As the toss $k-1$ need to be heads for one and tails
+for the other, these two events can not happen simultaneously. Therefore the
+probability of their intersection is 0. But the probability of each of them 
+separately is $p(1-p) > 0$. Therefore, they are not independent. 
+
+b. For $A_k$ to happen, we need the tosses $k-2$ and $k-1$ be tails and heads
+respectively. For $A_{k+2}$ to happen, we need tosses $k$ and $k+1$ be tails
+and heads respectively. So the probability of intersection is $p^2(1-p)^2$.
+And the probability of each separately is again $p(1-p)$. Therefore, they
+are independent.
+  
+```
+```{r, echo = togs, eval = togs}
+set.seed(1)
+nsamps <- 10000
+p      <- 0.7
+rewardA_5  <- vector(mode = "logical", length = nsamps)
+rewardA_6  <- vector(mode = "logical", length = nsamps)
+rewardA_7  <- vector(mode = "logical", length = nsamps)
+rewardA_56 <- vector(mode = "logical", length = nsamps)
+rewardA_57 <- vector(mode = "logical", length = nsamps)
+for (i in 1:nsamps) {
+  samps <- sample(c(0,1), size = 10, replace = TRUE, prob = c(0.7, 0.3))
+  rewardA_5[i]  <- (samps[4] == 0 & samps[3] == 1)
+  rewardA_6[i]  <- (samps[5] == 0 & samps[4] == 1)
+  rewardA_7[i]  <- (samps[6] == 0 & samps[5] == 1)
+  rewardA_56[i] <- (rewardA_5[i] & rewardA_6[i])
+  rewardA_57[i] <- (rewardA_5[i] & rewardA_7[i])
+}
+sum(rewardA_5) / nsamps
+sum(rewardA_6) / nsamps
+sum(rewardA_7) / nsamps
+sum(rewardA_56) / nsamps
+sum(rewardA_57) / nsamps
+```
+</div>
+
+
+```{exercise}
+A drawer contains two coins. One is an unbiased coin, the other is a biased
+coin, which will turn up heads with probability $p$ and tails with
+probability $1-p$. One coin is selected uniformly at random.
+
+a. The selected coin is tossed $n$ times. The coin turns up heads $k$ times and
+tails $n-k$ times. What is the probability that the coin is biased?
+  
+b. The selected coin is tossed repeatedly until it turns up heads $k$ times.
+Given that it is tossed $n$ times in total, what is the probability that the
+coin is biased?
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. Let $B = 1$ denote that the coin is biased and let $H = k$ denote that
+we've seen $k$ heads.
+\begin{align}
+  P(B = 1 | H = k) &= \frac{P(H = k | B = 1)P(B = 1)}{P(H = k)} \\
+                   &= \frac{P(H = k | B = 1)P(B = 1)}{P(H = k | B = 1)P(B = 1) + P(H = k | B = 0)P(B = 0)} \\
+                   &= \frac{p^k(1-p)^{n-k} 0.5}{p^k(1-p)^{n-k} 0.5 + 0.5^{n+1}} \\
+                   &= \frac{p^k(1-p)^{n-k}}{p^k(1-p)^{n-k} + 0.5^n}.
+\end{align}
+
+b. The same results as in a). The only difference between these two scenarios
+is that in b) the last throw must be heads. However, this holds for the biased
+and the unbiased coin and therefore does not affect the probability of the
+coin being biased.
+```
+</div>
+
+
+```{exercise}
+Judy goes around the company for Women's day and shares flowers. In every
+office she leaves a flower, if there is at least one woman inside. 
+The probability
+that there's a woman in the office is $\frac{3}{5}$.
+
+a. What is the probability that Judy leaves her first flower in the 
+fourth office?
+  
+b. Given that she has given away exactly three flowers in the first four 
+offices,
+what is the probability that she gives her fourth flower in the eighth office?
+  
+c. What is the probability that she leaves the second flower in the fifth 
+office?
+  
+d. What is the probability that she leaves the second flower in the fifth 
+office,
+given that she did not leave the second flower in the second office?
+  
+e. Judy needs a new supply of flowers immediately after the office, where she 
+gives away her last flower. What is the probability that she visits at least
+five offices, if she starts with two flowers?
+
+f. <span style="color:blue">R: simulate Judy's walk 10000 times to
+check your answers a) - e).</span>
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+Let $X_i = k$ denote the event that ... $i$-th sample on the $k$-th run.
+
+a. Since the events are independent, we can multiply their probabilities to get
+\begin{equation}
+  P(X_1 = 4) = 0.4^3 \times 0.6 = 0.0384.
+\end{equation}
+  
+b. Same as in a) as we have a fresh start after first four offices.
+
+c. For this to be possible, she had to leave the first flower in one of the
+first four offices. Therefore there are four possibilities, and for each
+of those the probability is $0.4^3 \times 0.6$. Additionally, the probability
+that she leaves a flower in the fifth office is $0.6$. So
+\begin{equation}
+  P(X_2 = 5) = \binom{4}{1} \times 0.4^3 \times 0.6^2 = 0.09216. 
+\end{equation}
+
+
+d. We use Bayes' theorem.
+\begin{align}
+  P(X_2 = 5 | X_2 \neq 2) &= \frac{P(X_2 \neq 2 | X_2 = 5)P(X_2 = 5)}{P(X_2 \neq 2)} \\
+                          &= \frac{0.09216}{0.64} \\
+                          &= 0.144.
+\end{align}
+The denominator in the second equation can be calculated as follows. One of
+three things has to happen for the second not to be dealt in the second
+round. First, both are zero, so $0.4^2$. Second, first is zero, and second is 
+one, so $0.4 \times 0.6$. Third,
+the first is one and the second one zero, so $0.6 \times 0.4$. Summing these
+values we get $0.64$.
+
+e. We will look at the complement, so the events that she gave away exactly 
+two flowers
+after two, three and four offices.
+\begin{equation}
+  P(X_2 \geq 5) = 1 - 0.6^2 - 2 \times 0.4 \times 0.6^2 - 3 \times 0.4^2 \times 0.6^2 = 0.1792.
+\end{equation}
+The multiplying parts represent the possibilities of the first flower.
+
+
+```
+```{r, echo = togs, eval = togs}
+set.seed(1)
+nsamps     <- 100000
+Judyswalks <- matrix(data = NA, nrow = nsamps, ncol = 8)
+for (i in 1:nsamps) {
+  thiswalk <- sample(c(0,1), size = 8, replace = TRUE, prob = c(0.4, 0.6))
+  Judyswalks[i, ] <- thiswalk
+}
+csJudy <- t(apply(Judyswalks, 1, cumsum))
+
+# a
+sum(csJudy[ ,4] == 1 & csJudy[ ,3] == 0) / nsamps
+
+# b
+csJsubset <- csJudy[csJudy[ ,4] == 3 & csJudy[ ,3] == 2, ]
+sum(csJsubset[ ,8] == 4 & csJsubset[ ,7] == 3) / nrow(csJsubset)
+
+# c
+sum(csJudy[ ,5] == 2 & csJudy[ ,4] == 1) / nsamps
+
+# d
+sum(csJudy[ ,5] == 2 & csJudy[ ,4] == 1) / sum(csJudy[ ,2] != 2)
+
+# e
+sum(csJudy[ ,4] < 2) / nsamps
+
+```
+</div>
+
+
+## Conditional independence
+```{exercise}
+Describe:
+  
+a. A real-world example of two events $A$ and $B$ that are dependent but
+become conditionally independent if conditioned on a third event $C$.
+
+b. A real-world example of two events $A$ and $B$ that are independent, but
+become dependent if conditioned on some third event $C$.
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. Let $A$ be the height of a person and let $B$ be the person's knowledge
+of the Dutch language. These events are dependent since the Dutch are known
+to be taller than average. However if $C$ is the nationality of the person,
+then $A$ and $B$ are independent given $C$.
+
+b. Let $A$ be the event that Mary passes the exam and let $B$ be the event
+that John passes the exam. These events are independent. However, if the
+event $C$ is that Mary and John studied together, then $A$ and $B$ are
+conditionally dependent given $C$.
+
+
+```
+</div>
+
+```{exercise}
+We have two coins of identical appearance. We know that one is a fair coin
+and the other flips heads 80% of the time. We choose one of the two 
+coins uniformly at random. We discard the coin that was not chosen. We now
+flip the chosen coin independently 10 times, producing a sequence
+$Y_1 = y_1$, $Y_2 = y_2$, ..., $Y_{10} = y_{10}$.
+
+a. Intuitively, without doing and computation, are these random variables
+independent?
+
+b. Compute the probability $P(Y_1 = 1)$.
+
+c. Compute the probabilities $P(Y_2 = 1 | Y_1 = 1)$ and
+P(Y_{10} = 1 | Y_1 = 1,...,Y_9 = 1)$.
+
+d. Given your answers to b) and c), would you now change your answer to a)?
+If so, discuss why your intuition had failed.
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+b. $P(Y_1 = 1) = 0.5 * 0.8 + 0.5 * 0.5 = 0.65$.
+
+c. Since we know that $Y_1 = 1$ this should change our view of the probability
+of the coin being biased or not. Let $B = 1$ denote the event that the
+coin is biased and let $B = 0$ denote that the coin is unbiased. By using
+marginal probability, we can write
+\begin{align}
+  P(Y_2 = 1 | Y_1 = 1) &= P(Y_2 = 1, B = 1 | Y_1 = 1) + P(Y_2 = 1, B = 0 | Y_1 = 1) \\
+                       &= \sum_{k=1}^2 P(Y_2 = 1 | B = k, Y_1 = 1)P(B = k | Y_1 = 1) \\
+                       &= 0.8 \frac{P(Y_1 = 1 | B = 1)P(B = 1)}{P(Y_1 = 1)} + 
+                          0.5 \frac{P(Y_1 = 1 | B = 0)P(B = 0)}{P(Y_1 = 1)} \\
+                       &= 0.8 \frac{0.8 \times 0.5}{0.65} + 0.5 \frac{0.5 \times 0.5}{0.65} \\
+                       &\approx 0.68.
+\end{align}
+For the other calculation we follow the same procedure. Let $X = 1$ denote
+that first nine tosses are all heads (equivalent to $Y_1 = 1$,..., $Y_9 = 1$).
+\begin{align}
+  P(Y_{10} = 1 | X = 1) &= P(Y_2 = 1, B = 1 | X = 1) + P(Y_2 = 1, B = 0 | X = 1) \\
+                       &= \sum_{k=1}^2 P(Y_2 = 1 | B = k, X = 1)P(B = k | X = 1) \\
+                       &= 0.8 \frac{P(X = 1 | B = 1)P(B = 1)}{P(X = 1)} + 
+                          0.5 \frac{P(X = 1 | B = 0)P(B = 0)}{P(X = 1)} \\
+                       &= 0.8 \frac{0.8^9 \times 0.5}{0.5 \times 0.8^9 + 0.5 \times 0.5^9} + 0.5 \frac{0.5^9 \times 0.5}{0.5 \times 0.8^9 + 0.5 \times 0.5^9} \\
+                       &\approx 0.8.
+\end{align}
+
+
+```
+</div>
+
+## Monty Hall problem
+The Monty Hall problem is a famous probability puzzle with non-intuitive
+outcome. Many established mathematicians and statisticians had problems
+solving it and many even disregarded the correct solution until they've seen
+the proof by simulation. Here we will show how it can be solved relatively
+simply with the use of Bayes' theorem if we select the variables in a smart way.
+
+```{exercise, name = "Monty Hall problem"}
+A prize is placed at random behind one of three doors. You pick a door. Now
+Monty Hall chooses one of the other two doors, opens it and shows you that it is
+empty. He then gives you the opportunity to keep your door or switch to the 
+other unopened door. Should you stay or switch?  Use Bayes' theorem to calculate the probability of winning if you switch and if you do not.
+<span style="color:blue">R: Check your answers in R.</span>
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+W.L.O.G. assume we always pick the first door. The host can only open door 2
+or door 3, as he can not open the door we picked. Let $k \in \{2,3\}$.
+
+Let us first look at what happens if we do not change. Then we have
+
+\begin{align}
+  P(\text{car in 1} | \text{open $k$}) &= \frac{P(\text{open $k$} | \text{car in 1})P(\text{car in 1})}{P(\text{open $k$})} \\
+                                     &= \frac{P(\text{open $k$} | \text{car in 1})P(\text{car in 1})}{\sum_{n=1}^3 P(\text{open $k$} |  \text{car in $n$})P(\text{car in $n$)}}.
+\end{align}
+  
+The probability that he opened $k$ if the car is in 1 is $\frac{1}{2}$, 
+as he can choose
+between door 2 and 3 as both have a goat behind it. Let us look at the
+normalization constant. When $n = 1$ we get the value in the nominator. When
+$n=k$, we get 0, as he will not open the door if there's a prize behind. The
+remaining option is that we select 1, the car is behind $k$ and he opens the
+only door left. Since he can't open 1 due to it being our pick and $k$ due to
+having the prize, the probability of opening the remaining door is 1, and the
+prior probability of the car being behind this door is $\frac{1}{3}$. So
+we have
+
+\begin{align}
+  P(\text{car in 1} | \text{open $k$}) &= \frac{\frac{1}{2}\frac{1}{3}}{\frac{1}{2}\frac{1}{3} + \frac{1}{3}} \\
+                                       &= \frac{1}{3}.
+\end{align}
+
+Now let us look at what happens if we do change. Let $k' \in \{2,3\}$ be the 
+door that is not opened. If we change, we select this door, so we have
+
+\begin{align}
+  P(\text{car in $k'$} | \text{open $k$}) &= \frac{P(\text{open $k$} | \text{car in $k'$})P(\text{car in $k'$})}{P(\text{open $k$})} \\
+                                          &= \frac{P(\text{open $k$} | \text{car in $k'$})P(\text{car in $k'$})}{\sum_{n=1}^3 P(\text{open $k$} |  \text{car in $n$})P(\text{car in $n$)}}.
+\end{align}
+
+The denominator stays the same, the only thing that is different from before is
+$P(\text{open $k$} | \text{car in $k'$})$. We have a situation where we 
+initially
+selected door 1 and the car is in door $k'$. The probability that the host will
+open door $k$ is then 1, as he can not pick any other door. So we have
+
+\begin{align}
+  P(\text{car in $k'$} | \text{open $k$}) &= \frac{\frac{1}{3}}{\frac{1}{2}\frac{1}{3} + \frac{1}{3}} \\
+                                       &= \frac{2}{3}.
+\end{align}
+
+Therefore it makes sense to change the door.
+
+
+```
+
+```{r, echo = togs, eval = togs}
+set.seed(1)
+nsamps <- 1000
+ifchange <- vector(mode = "logical", length = nsamps)
+ifstay   <- vector(mode = "logical", length = nsamps)
+for (i in 1:nsamps) {
+  where_car      <- sample(c(1:3), 1)
+  where_player   <- sample(c(1:3), 1)
+  open_samp      <- (1:3)[where_car != (1:3) & where_player != (1:3)]
+  if (length(open_samp) == 1) {
+    where_open <- open_samp
+  } else {
+      where_open <- sample(open_samp, 1)
+  }
+  ifstay[i]      <- where_car == where_player
+  where_ifchange <- (1:3)[where_open != (1:3) & where_player != (1:3)]
+  ifchange[i]    <- where_ifchange == where_car
+}
+sum(ifstay) / nsamps
+sum(ifchange) / nsamps
+```
+</div>

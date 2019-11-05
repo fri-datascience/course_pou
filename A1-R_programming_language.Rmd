@@ -1,0 +1,379 @@
+# R programming language {#A1}
+
+## Basic characteristics
+R is free software for statistical computing and graphics. It is widely used by statisticians, scientists, and other professionals for software development and data analysis. It is an interpreted language and therefore the programs do not need compilation. 
+
+## Why R?
+R is one of the main two languages used for statistics and machine learning (the other being Python).
+
+**Pros**
+
+* **Libraries.** Comprehensive collection of statistical and machine learning packages.
+* Easy to code.
+* **Open source.** Anyone can access R and develop new methods. Additionally, it is relatively simple to get source code of established methods.
+* **Large community.** The use of R has been rising for some time, in industry and academia. Therefore a large collection of blogs and tutorials exists, along with people offering help on pages like StackExchange and CrossValidated.
+* Integration with other languages and LaTeX.
+* **New methods.** Many researchers develop R packages based on their research, therefore new methods are available soon after development.
+
+
+**Cons**
+
+* **Slow.** Programs run slower than in other programming languages, however this can be somewhat ammended by effective coding or integration with other languages.
+* **Memory intensive.** This can become a problem with large data sets, as they need to be stored in the memory, along with all the information the models produce.
+* Some packages are not as good as they should be, or have poor documentation.
+* Object oriented programming in R can be very confusing and complex.
+
+
+## Setting up
+https://www.r-project.org/.
+
+
+### RStudio
+RStudio is the most widely used IDE for R. It is free, you can download it from https://rstudio.com/. While console R is sufficient for the requirements of this course, we recommend the students install RStudio for its better user interface.
+
+
+### Libraries for data science
+Listed below are some of the more useful libraries (packages) for data science. Students are also encouraged to find other useful packages.
+
+* **dplyr** Efficient data manipulation. Part of the wider package collection called **tidyverse**.
+* **ggplot2** Plotting based on grammar of graphics.
+* **stats** Several statistical models.
+* **rstan** Bayesian inference using Hamiltonian Monte Carlo. Very flexible model building.
+* **MCMCpack** Bayesian inference.
+* **rmarkdown**, **knitr**, and **bookdown** Dynamic reports (for example such as this one).
+* **devtools** Package development.
+
+
+## R basics
+
+### Variables and types
+Important information and tips:
+
+* no type declaration
+* define variables with `<-` instead of `=` (although both work, there is a slight difference, additionally most of the packages use the arrow)
+* for strings use `""`
+* for comments use `#`
+* change types with `as.type()` functions
+* no special type for single character like C++ for example
+
+
+```{r, error=TRUE}
+n            <- 20
+x            <- 2.7
+m            <- n # m gets value 20
+my_flag      <- TRUE
+student_name <- "Luka"
+typeof(n)
+typeof(student_name)
+typeof(my_flag)
+typeof(as.integer(n))
+typeof(as.character(n))
+```
+
+### Basic operations
+```{r, error=TRUE}
+n + x
+n - x
+diff <- n - x # variable diff gets the difference between n and x
+diff
+n * x
+n / x
+x^2
+sqrt(x)
+n > 2 * n
+n == n
+n == 2 * n
+n != n
+paste(student_name, "is", n, "years old")
+```
+
+### Vectors
+
+* use `c()` to combine elements into vectors
+* can only contain one type of variable
+* if different types are provided, all are transformed to the most basic type in the vector
+* access elements by indexes or logical vectors of the same length
+* a scalar value is regarded as a vector of length 1
+
+
+```{r, error=TRUE}
+1:4 # creates a vector of integers from 1 to 4
+student_ages  <- c(20, 23, 21)
+student_names <- c("Luke", "Jen", "Mike")
+passed        <- c(TRUE, TRUE, FALSE)
+length(student_ages)
+
+# access by index
+student_ages[2] 
+student_ages[1:2]
+student_ages[2] <- 24 # change values
+
+# access by logical vectors
+student_ages[passed == TRUE] # same as student_ages[passed]
+student_ages[student_names %in% c("Luke", "Mike")]
+student_names[student_ages > 20]
+```
+
+#### Operations with vectors
+* most operations are element-wise
+* if we operate on vectors of different lengths, the shorter vector periodically repeats its elements until it reaches the length of the longer one
+
+```{r, error=TRUE}
+a <- c(1, 3, 5)
+b <- c(2, 2, 1)
+d <- c(6, 7)
+a + b
+a * b
+a + d
+a + 2 * b
+a > b
+b == a
+a %*% b # vector multiplication, not element-wise
+```
+
+
+
+### Factors
+
+* vectors of finite predetermined classes
+* suitable for categorical variables
+* ordinal (ordered) or nominal (unordered)
+
+```{r error = TRUE}
+car_brand <- factor(c("Audi", "BMW", "Mercedes", "BMW"), ordered = FALSE)
+car_brand
+freq      <- factor(x       = NA,
+                    levels  = c("never","rarely","sometimes","often","always"),
+                    ordered = TRUE)
+freq[1:3] <- c("rarely", "sometimes", "rarely")
+freq
+freq[4]   <- "quite_often" # non-existing level, returns NA
+freq
+```
+
+
+### Matrices
+
+* two-dimensional generalizations of vectors
+
+```{r}
+my_matrix <- matrix(c(1, 2, 1,
+                      5, 4, 2),
+                    nrow  = 2,
+                    byrow = TRUE)
+my_matrix
+my_square_matrix <- matrix(c(1, 3,
+                             2, 3),
+                           nrow  = 2)
+my_square_matrix
+my_matrix[1,2] # first row, second column
+my_matrix[2, ] # second row
+my_matrix[ ,3] # third column
+```
+
+
+
+#### Matrix functions and operations
+
+* most operation element-wise
+* mind the dimensions when using matrix multiplication `%*%`
+
+```{r}
+nrow(my_matrix) # number of matrix rows
+ncol(my_matrix) # number of matrix columns
+dim(my_matrix) # matrix dimension
+t(my_matrix) # transpose
+diag(my_matrix) # the diagonal of the matrix as vector
+diag(1, nrow = 3) # creates a diagonal matrix
+det(my_square_matrix) # matrix determinant
+my_matrix + 2 * my_matrix
+my_matrix * my_matrix # element-wise multiplication
+my_matrix %*% t(my_matrix) # matrix multiplication
+my_vec <- as.vector(my_matrix) # transform to vector
+my_vec
+```
+
+### Arrays
+
+* multi-dimensional generalizations of matrices
+
+```{r}
+my_array <- array(c(1, 2, 3, 4, 5, 6, 7, 8), dim = c(2, 2, 2))
+my_array[1, 1, 1]
+my_array[2, 2, 1]
+my_array[1, , ]
+dim(my_array)
+```
+
+
+### Data frames
+
+* basic data structure for analysis
+* differ from matrices as columns can be of different types
+
+
+```{r}
+student_data <- data.frame("Name" = student_names, 
+                           "Age"  = student_ages, 
+                           "Pass" = passed)
+student_data
+colnames(student_data) <- c("name", "age", "pass") # change column names
+student_data[1, ]
+student_data[ ,colnames(student_data) %in% c("name", "pass")]
+student_data$pass # access column by name
+student_data[student_data$pass == TRUE, ]
+```
+
+
+### Lists
+
+* useful for storing different data structures
+* access elements with double square brackets
+* elements can be named
+
+```{r}
+first_list  <- list(student_ages, my_matrix, student_data)
+second_list <- list(student_ages, my_matrix, student_data, first_list)
+first_list[[1]]
+second_list[[4]]
+second_list[[4]][[1]] # first element of the fourth element of second_list
+length(second_list)
+second_list[[length(second_list) + 1]] <- "add_me" # append an element
+names(first_list) <- c("Age", "Matrix", "Data")
+first_list$Age
+```
+
+
+### Loops
+
+* mostly for loop
+* for loop can iterate over an arbitrary vector
+
+```{r}
+# iterate over consecutive natural numbers
+my_sum <- 0
+for (i in 1:10) {
+  my_sum <- my_sum + i
+}
+my_sum
+
+# iterate over an arbirary vector
+my_sum       <- 0
+some_numbers <- c(2, 3.5, 6, 100)
+for (i in some_numbers) {
+  my_sum <- my_sum + i
+}
+my_sum
+```
+
+## Functions
+
+* for help use `?function_name`
+
+### Writing functions
+We can write our own functions with `function()`. In the brackets, we
+define the parameters the function gets, and in curly brackets we define what
+the function does. We use `return()` to return values.
+
+```{r}
+sum_first_n_elements <- function (n) {
+  my_sum <- 0
+  for (i in 1:n) {
+    my_sum <- my_sum + i
+  }
+  return (my_sum)
+}
+sum_first_n_elements(10)
+```
+
+
+
+## Other tips
+
+* Use `set.seed(arbitrary_number)` at the beginning of a script to set the seed and ensure replication.
+* To dynamically set the working directory in R Studio to the parent folder of a R script use `setwd(dirname(rstudioapi::getSourceEditorContext()$path))`.
+* To avoid slow R loops use the apply family of functions. See `?apply` and `?lapply`.
+* To make your data manipulation (and therefore your life) a whole lot easier, use the **dplyr** package.
+* Use `getAnywhere(function_name)` to get the source code of any function.
+* Use browser for debugging. See `?browser`.
+
+<!-- ### Dynamically setting working directory -->
+<!-- To set the working directory use the `setwd()` function. -->
+<!-- To dynamically set the working directory to the parent folder of a R script -->
+<!-- we can use -->
+
+<!-- ```{r, error=TRUE, eval=FALSE} -->
+<!-- setwd(dirname(rstudioapi::getSourceEditorContext()$path)) -->
+<!-- ``` -->
+
+
+<!-- ### Apply functions -->
+<!-- To avoid slow R loops, you can sometimes use one of the apply functions, -->
+<!-- which decrease the execution time considerably. For details see -->
+<!-- `?apply` and `?lapply`, or check one of the tutorials on apply function -->
+<!-- on the internet. -->
+
+
+<!-- ### Dplyr and ggplot -->
+<!-- Dplyr can make your data manipulation (and therefore your life) a whole lot  -->
+<!-- easier. Instead of several nested for loops or complex apply structures,  -->
+<!-- dpylr can do useful data -->
+<!-- filtering, transformation, grouping, summarization,... in a matter of -->
+<!-- only a few lines. -->
+
+<!-- ggplot ... -->
+
+
+<!-- ### Browser and debugging -->
+<!-- The browser function is used for debugging. By writing the line `browser()` -->
+<!-- inside a loop or a function, the function pauses and you can evaluate the -->
+<!-- variables currently stored in the environment and go through next calls  -->
+<!-- step-wise. For more information on the browser function see `?browser()`. -->
+
+
+<!-- ### Getting function code -->
+<!-- Use `getAnywhere(function_name)` to see the code of the function. -->
+
+
+## Further reading and references
+* Getting started with R Studio: https://www.youtube.com/watch?v=lVKMsaWju8w
+* Official R manuals: https://cran.r-project.org/manuals.html
+* Cheatsheets: https://www.rstudio.com/resources/cheatsheets/
+* Workshop on R, dplyr, ggplot2, and R Markdown: https://github.com/bstatcomp/Rworkshop
+
+<!-- ## Learning outcomes -->
+
+<!-- Data science students should work towards obtaining the knowledge and the skills that enable them to: -->
+
+<!-- * Use the R programming language for common programming tasks, data manipulation, file I/0, etc. -->
+<!-- * Find suitable R packages for the task at hand and use them. -->
+<!-- * Recognize when R is and when it is not a suitable language to use. -->
+
+
+<!-- ## Practice problems -->
+<!-- For each problem use a separate R script. Name the scripts as Problem#_Surname_Name.R. Make sure your results are reproducible. -->
+
+
+<!-- ### Problem 1 -- Matrices -->
+<!-- Use the normal random number generator to create: -->
+
+<!-- * 4x4 matrix $A$, -->
+<!-- * 2x5 matrix $B$, -->
+<!-- * 5x4 matrix $C$. -->
+
+<!-- Calculate: -->
+
+<!-- * the mean of values in $A$, -->
+<!-- * the variance of values in $A$, -->
+<!-- * the max value in all of the matrices, -->
+<!-- * the sum of $A$ and its transpose, -->
+<!-- * the element-wise product of $A$ and its transpose, -->
+<!-- * the scalar product of $B$ and $C$, -->
+<!-- * the determinant of $B^TB$. -->
+
+<!-- Tip: see `rnorm()`. -->
+
+
+<!-- ### Problem 2 -- Data -->
+
+<!-- ### Problem 3 -- Functions -->
