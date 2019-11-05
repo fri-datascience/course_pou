@@ -1,0 +1,6 @@
+"0","set.seed(1)"
+"0","ggplot(data = data.frame(x = seq(0, 25, by = 0.01)), aes(x = x)) +"
+"0","  stat_function(fun = pgamma, args = list(shape = 1, rate = 1), aes(color = ""Gamma(1,1)"")) +"
+"0","  stat_function(fun = pgamma, args = list(shape = 10, rate = 1), aes(color = ""Gamma(10,1)"")) +"
+"0","  stat_function(fun = pgamma, args = list(shape = 1, rate = 10), aes(color = ""Gamma(1,10)""))"
+"0",""

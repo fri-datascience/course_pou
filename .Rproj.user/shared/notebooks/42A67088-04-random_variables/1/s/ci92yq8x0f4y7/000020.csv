@@ -1,0 +1,7 @@
+"0","set.seed(1)"
+"0","# a"
+"0","ggplot(data = data.frame(x = seq(-15, 15, by = 0.01)), aes(x = x)) +"
+"0","  stat_function(fun = dnorm, args = list(mean = 0, sd = 1), aes(color = ""sd = 1"")) +"
+"0","  stat_function(fun = dnorm, args = list(mean = 0, sd = 0.4), aes(color = ""sd = 0.1"")) +"
+"0","  stat_function(fun = dnorm, args = list(mean = 0, sd = 2), aes(color = ""sd = 2"")) +"
+"0","  stat_function(fun = dnorm, args = list(mean = 0, sd = 5), aes(color = ""sd = 5""))"

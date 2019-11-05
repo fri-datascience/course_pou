@@ -1,0 +1,4 @@
+"0",""
+"0","ggplot(plot_df, aes(x = x, y = y, color = type)) +"
+"0","  geom_line() +"
+"0","  coord_cartesian(xlim = c(15,25), ylim = c(0, 0.05))"
