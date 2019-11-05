@@ -1,6 +1,6 @@
 --- 
 title: "Principles of Uncertainty -- exercises"
-author: "Gregor Pirš and Erik Štrumbelj"
+author: "Gregor Pirs and Erik Strumbelj"
 date: "2019-11-05"
 site: bookdown::bookdown_site
 documentclass: book
