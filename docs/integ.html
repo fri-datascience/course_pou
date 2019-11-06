@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>B Probability distributions | Principles of Uncertainty – exercises</title>
+  <title>Chapter 6 Integration | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="B Probability distributions | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 6 Integration | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="B Probability distributions | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 6 Integration | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="A1.html">
-<link rel="next" href="references.html">
+<link rel="prev" href="mrvs.html">
+<link rel="next" href="A1.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -207,122 +207,96 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="probability-distributions" class="section level1">
-<h1><span class="header-section-number">B</span> Probability distributions</h1>
-<table style="width:100%;">
-<colgroup>
-<col width="31%" />
-<col width="31%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>parameters</th>
-<th>pdf/pmf</th>
-<th>cdf</th>
-<th>mean</th>
-<th>variance</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Bernoulli</td>
-<td><span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(p^k (1 - p)^{1 - k}\)</span> <br> <a href="introduction.html#exr:binomialpmf">1.11</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>binomial</td>
-<td><span class="math inline">\(n\)</span>, <span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(\binom{n}{k} p^k (1 - p)^{n - k}\)</span> <br> <a href="rvs.html#exr:bincdf">4.4</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Poisson</td>
-<td><span class="math inline">\(\lambda\)</span></td>
-<td><span class="math inline">\(\frac{\lambda^k e^{-\lambda}}{k!}\)</span> <br> <a href="rvs.html#exr:poisex">4.6</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>geometric</td>
-<td><span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(p(1-p)^k\)</span> <br> <a href="rvs.html#exr:geocdf">4.5</a></td>
-<td><span class="math inline">\(1 - (1-p)^{k + 1}\)</span> <br> <a href="rvs.html#exr:geocdf">4.5</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>normal</td>
-<td><span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma\)</span></td>
-<td><span class="math inline">\(\frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}\)</span> <br> <a href="rvs.html#exr:normalpdf">4.12</a></td>
-<td><span class="math inline">\(\int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(t - \mu)^2}{2 \sigma^2}} dt\)</span> <br> <a href="rvs.html#exr:normalpdf">4.12</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>beta</td>
-<td><span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span></td>
-<td><span class="math inline">\(\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)}\)</span> <br> <a href="rvs.html#exr:betacdf">4.10</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>gamma</td>
-<td><span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span></td>
-<td><span class="math inline">\(\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x}\)</span> <br> <a href="rvs.html#exr:gammapdf">4.11</a></td>
-<td><span class="math inline">\(\frac{\gamma(\alpha, \beta x)}{\Gamma(\alpha)}\)</span> <br> <a href="rvs.html#exr:gammapdf">4.11</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>exponential</td>
-<td><span class="math inline">\(\lambda\)</span></td>
-<td><span class="math inline">\(\lambda e^{-\lambda x}\)</span> <br> <a href="rvs.html#exr:expcdf">4.8</a></td>
-<td><span class="math inline">\(1 - e^{-\lambda x}\)</span> <br> <a href="rvs.html#exr:expcdf">4.8</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>logistic</td>
-<td><span class="math inline">\(\mu\)</span>, <span class="math inline">\(s\)</span></td>
-<td><span class="math inline">\(\frac{e^{-\frac{x - \mu}{s}}}{(1 + e{-\frac{x - \mu}{s}})^2}\)</span> <br> <a href="rvs.html#exr:logitpdf">4.13</a></td>
-<td><span class="math inline">\(\frac{1}{1 + e^{-\frac{x - \mu}{s}}}\)</span> <br> <a href="rvs.html#exr:logitpdf">4.13</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>negative binomial</td>
-<td><span class="math inline">\(r\)</span>, <span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(\binom{k + r - 1}{k}(1-p)^r p^k\)</span> <br> <a href="rvs.html#exr:negbinpdf">4.7</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<div id="integ" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Integration</h1>
+<p>This chapter deals with abstract and Monte Carlo integration.</p>
+<p>The students are expected to acquire the following knowledge:</p>
+<p><strong>Theoretical</strong></p>
+<ul>
+<li>How to calculate Lebesgue integrals for non-simple functions.</li>
+</ul>
+<p><strong>R</strong></p>
+<ul>
+<li>Monte Carlo integration.</li>
+</ul>
+<div id="monte-carlo-integration" class="section level2">
+<h2><span class="header-section-number">6.1</span> Monte Carlo integration</h2>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-131" class="exercise"><strong>Exercise 6.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X \sim \text{Gamma}(3,2)\)</span> and <span class="math inline">\(Y = \log(X)\)</span>. Use Monte Carlo integration to estimate the probability <span class="math inline">\(P(-1 \leq Y \leq 1)\)</span>. Can you find the exact value?</span><span style="color:red">Is this Monte Carlo integration???</span>
+</div>
+
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
+x      &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsamps, <span class="dv">3</span>, <span class="dv">2</span>)
+y      &lt;-<span class="st"> </span><span class="kw">log</span>(x)
+<span class="kw">sum</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">-1</span> <span class="op">&amp;</span><span class="st"> </span>y <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<pre><code>## [1] 0.86</code></pre>
+</div>
+<div id="lebesgue-integrals" class="section level2">
+<h2><span class="header-section-number">6.2</span> Lebesgue integrals</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-133" class="exercise"><strong>Exercise 6.2  (borrowed from Binder)  </strong></span>Find the Lebesgue integral of the following functions on (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>, <span class="math inline">\(\lambda\)</span>).</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align}
+f(\omega) = 
+  \begin{cases}
+    \omega, &amp; \text{for } \omega = 0,1,...,n \\
+    0, &amp; \text{elsewhere}
+  \end{cases}
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+f(\omega) = 
+  \begin{cases}
+    1, &amp; \text{for } \omega = \mathbb{Q}^c \cap [0,1] \\
+    0, &amp; \text{elsewhere}
+  \end{cases}
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+f(\omega) = 
+  \begin{cases}
+    n, &amp; \text{for } \omega = \mathbb{Q}^c \cap [0,n] \\
+    0, &amp; \text{elsewhere}
+  \end{cases}
+\end{align}\]</span></p>
+</div>
+<p></p>
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p></li>
+<li><p><span class="math display">\[\begin{align}
+\int f(\omega) d\lambda = \sum_{\omega = 0}^n \omega \lambda(\omega) = 0.
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+\int f(\omega) d\lambda = 1 \times \lambda(\mathbb{Q}^c \cap [0,1]) = 1.
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+\int f(\omega) d\lambda = n \times \lambda(\mathbb{Q}^c \cap [0,n]) = n^2.
+\end{align}\]</span></p>
+</div></li>
+</ol>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-135" class="exercise"><strong>Exercise 6.3  (borrowed from Binder)  </strong></span>Let <span class="math inline">\(c \in \mathbb{R}\)</span> be fixed and (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>) a measurable space. If for any Borel set <span class="math inline">\(A\)</span>, <span class="math inline">\(\delta_c (A) = 1\)</span> if <span class="math inline">\(c \in A\)</span>, and <span class="math inline">\(\delta_c (A) = 0\)</span> otherwise, then <span class="math inline">\(\delta_c\)</span> is called a <em>Dirac measure</em>. Let <span class="math inline">\(g\)</span> be a non-negative, measurable function. Show that <span class="math inline">\(\int g d \delta_c = g(c)\)</span>.
+</div>
+
+
+<div class="solution">
+ <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
+  \int g d \delta_c &amp;= \sup_{q \in S(g)} \int q d \delta_c \\
+                    &amp;= \sup_{q \in S(g)} \sum_{i = 1}^n a_i \delta_c(A_i) \\
+                    &amp;= \sup_{q \in S(g)} \sum_{i = 1}^n a_i \text{I}_{A_i}(c) \\
+                    &amp;= \sup_{q \in S(g)} q(c) \\
+                    &amp;= g(c)
+\end{align}\]</span>
+<span style="color:red">TODO: Check with Erik.</span>
+</div>
+
+
+</div>
+</div>
+
+
 
 </div>
             </section>
@@ -330,8 +304,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="A1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mrvs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="A1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
