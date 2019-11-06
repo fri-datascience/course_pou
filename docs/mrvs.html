@@ -213,19 +213,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
 <ul>
-<li>Connection between the binomial and multinomial distribution.</li>
 <li>Calculation of PDF of transformed multiple random variables.</li>
 <li>Finding marginal and conditional distributions.</li>
 </ul>
 <p><strong>R</strong></p>
 <ul>
 <li>Scatterplots of bivariate random variables.</li>
-<li>Sampling from the multinomial distribution.</li>
-<li>Sampling from transformed bivariate random variables.</li>
 <li>New R functions (for example, <em>expand.grid</em>).</li>
-<li>New ggplot parameters (for example, <em>alpha</em> for transparency).</li>
-<li>Transparency in ggplot.</li>
 </ul>
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
 <div id="general" class="section level2">
 <h2><span class="header-section-number">5.1</span> General</h2>
 
@@ -240,7 +257,32 @@ Plot the marginal distribution of <span class="math inline">\(Y\)</span> for cas
 Can you guess which distribution it is?</span></p>
 </div>
 
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-1.png" width="672" /><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-2.png" width="672" /><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-3.png" width="672" /></p>
+<div class="fold">
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
+x      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)
+y      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)
+<span class="kw">ggplot</span>(<span class="kw">data.frame</span>(x, y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">y1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">1</span> <span class="op">*</span><span class="st"> </span>x)
+y2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">0</span> <span class="op">*</span><span class="st"> </span>x)
+y3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="fl">-0.5</span> <span class="op">*</span><span class="st"> </span>x)
+df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(x,x,x),
+             <span class="dt">y =</span> <span class="kw">c</span>(y1,y2,y3),
+             <span class="dt">a =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>, nsamps), <span class="kw">rep</span>(<span class="dv">0</span>, nsamps), <span class="kw">rep</span>(<span class="op">-</span><span class="fl">0.5</span>, nsamps)))
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_equal</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Parameter a controls the scale of linear dependency between X and Y.</span>
+
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-3.png" width="672" /></p>
+</div>
 </div>
 <div id="bivariate-distribution-examples" class="section level2">
 <h2><span class="header-section-number">5.2</span> Bivariate distribution examples</h2>
@@ -257,6 +299,34 @@ a die rolls one, two, or a three.</p>
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align}
+P(X = 1) = \frac{1}{2} \text{ and } P(X = 0) = \frac{1}{2} \\
+P(Y = 1) = \frac{1}{2} \text{ and } P(Y = 0) = \frac{1}{2} \\
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+P(X = 1, Y = 1) = \frac{1}{6} \\
+P(X = 1, Y = 0) = \frac{2}{6} \\
+P(X = 0, Y = 1) = \frac{2}{6} \\
+P(X = 0, Y = 0) = \frac{1}{6}
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+  P(X \leq x, Y \leq y) = \begin{cases}
+ \frac{1}{6} &amp; x = 0, y = 0 \\
+ \frac{3}{6} &amp; x \neq y \\
+ 1           &amp; x = 1, y = 1
+  \end{cases}
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+P(X = 1 | Y = 1) = \frac{1}{3}
+\end{align}\]</span></p></li>
+</ol>
+</div>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-120" class="exercise"><strong>Exercise 5.3  (Continuous bivariate random variable)  </strong></span>Let <span class="math inline">\(p(x,y) = 6 (x - y)^2\)</span> be the PDF of a bivariate random
@@ -267,12 +337,92 @@ variable <span class="math inline">\((X,Y)\)</span>, where both variables range 
 <li><p>Find conditional distributions.</p></li>
 <li><p><span style="color:blue">R: Plot a grid of points and colour them
 by value – this can help us visualize the PDF.</span></p></li>
+<li><p><span style="color:blue">R: Implement a random number generator, which will generate numbers from <span class="math inline">\((X,Y)\)</span> and visually check the results.</span></p></li>
 <li><p><span style="color:blue">R: Plot the marginal distribution of <span class="math inline">\(Y\)</span> and
 the conditional distributions of <span class="math inline">\(X | Y = y\)</span>, where
 <span class="math inline">\(y \in \{0, 0.1, 0.5\}\)</span>.</span></p>
 </div></li>
 </ol>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-1.png" width="672" /><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-2.png" width="672" /></p>
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align}
+  F(x,y) &amp;= \int_0^{x} \int_0^{y} 6 (t - s)^2 ds dt\\
+      &amp;= 6 \int_0^{x} \int_0^{y} t^2 - 2ts + s^2 ds dt\\
+      &amp;= 6 \int_0^{x} t^2y - ty^2 + \frac{y^3}{3} dt \\
+      &amp;= 6 (\frac{x^3 y}{3} - \frac{x^2y^2}{2} + \frac{x y^3}{3}) \\
+      &amp;= 2 x^3 y - 3 t^2y^2 + 2 x y^3
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+  p(x) &amp;= \int_0^{1} 6 (x - y)^2 dy\\
+    &amp;= 6 (x^2 - x + \frac{1}{3}) \\
+    &amp;= 6x^2 - 6x + 2
+\end{align}\]</span>
+<span class="math display">\[\begin{align}
+  p(y) &amp;= \int_0^{1} 6 (x - y)^2 dx\\
+    &amp;= 6 (y^2 - y + \frac{1}{3}) \\
+    &amp;= 6y^2 - 6y + 2
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+  p(x|y) &amp;= \frac{p(xy)}{p(y)} \\
+      &amp;= \frac{6 (x - y)^2}{6 (y^2 - y + \frac{1}{3})} \\
+      &amp;= \frac{(x - y)^2}{y^2 - y + \frac{1}{3}}
+  \end{align}\]</span>
+<span class="math display">\[\begin{align}
+  p(y|x) &amp;= \frac{p(xy)}{p(x)} \\
+      &amp;= \frac{6 (x - y)^2}{6 (x^2 - x + \frac{1}{3})} \\
+      &amp;= \frac{(x - y)^2}{x^2 - x + \frac{1}{3}}
+  \end{align}\]</span></p></li>
+</ol>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+
+<span class="co"># d</span>
+pxy    &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {
+  <span class="kw">return</span> ((x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>)
+}
+x_axis       &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)
+y_axis       &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)
+df           &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(x_axis, y_axis)
+<span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)
+df           &lt;-<span class="st"> </span><span class="kw">cbind</span>(df, <span class="dt">pdf =</span> <span class="kw">pxy</span>(df<span class="op">$</span>x, df<span class="op">$</span>y))
+<span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> pdf)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># e</span>
+samps &lt;-<span class="st"> </span><span class="ot">NULL</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>) {
+  xt &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)
+  yt &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)
+  pdft &lt;-<span class="st"> </span><span class="kw">pxy</span>(xt, yt)
+  acc  &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">6</span>)
+  <span class="cf">if</span> (acc <span class="op">&lt;=</span><span class="st"> </span>pdft) {
+    samps &lt;-<span class="st"> </span><span class="kw">rbind</span>(samps, <span class="kw">c</span>(xt, yt))
+  }
+}
+<span class="kw">colnames</span>(samps) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)
+<span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">as.data.frame</span>(samps), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># f</span>
+mar_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x) {
+  <span class="kw">return</span> (<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
+}
+cond_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {
+  <span class="kw">return</span> (((x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(y<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>y <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))
+}
+df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x    =</span> x_axis, 
+             <span class="dt">mar  =</span> <span class="kw">mar_pdf</span>(x), 
+             <span class="dt">y0   =</span> <span class="kw">cond_pdf</span>(x, <span class="dv">0</span>), 
+             <span class="dt">y0.1 =</span> <span class="kw">cond_pdf</span>(x, <span class="fl">0.1</span>), 
+             <span class="dt">y0.5 =</span> <span class="kw">cond_pdf</span>(x, <span class="fl">0.5</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(dist, value, <span class="op">-</span>x)
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value, <span class="dt">color =</span> dist)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-3.png" width="672" /></p>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-123" class="exercise"><strong>Exercise 5.4  (Mixed bivariate random variable)  </strong></span>Let <span class="math inline">\(f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}\)</span>
@@ -282,7 +432,7 @@ be the PDF of a bivariate random variable, where <span class="math inline">\(x \
 <li><p>Find the marginal distribution of <span class="math inline">\(X\)</span>. Do you recognize this distribution?</p></li>
 <li><p>Find the conditional distribution of <span class="math inline">\(Y | X\)</span>. Do you recognize this
 distribution?</p></li>
-<li><p>Calculate the probability <span class="math inline">\(P(Y = 2 | X &lt; 5)\)</span> for <span class="math inline">\((X,Y)\)</span>.</p></li>
+<li><p>Calculate the probability <span class="math inline">\(P(Y = 2 | X = 5)\)</span> for <span class="math inline">\((X,Y)\)</span>.</p></li>
 <li><p>Find the marginal distribution of <span class="math inline">\(Y\)</span>. Do you recognize this distribution?</p></li>
 <li><p><span style="color:blue">R: Take 1000 random samples from <span class="math inline">\((X,Y)\)</span> with
 parameters <span class="math inline">\(\beta = 1\)</span> and
@@ -292,7 +442,53 @@ Hint: Use the <strong>gamma</strong> function in R.?</span></p></li>
 </ol>
 </div>
 
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-125-1.png" width="672" /><img src="bookdown-pou_files/figure-html/unnamed-chunk-125-2.png" width="672" /></p>
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align}
+p(x) &amp;= \sum_{k = 0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)k!} x^{k + \alpha -1} e^{-x(1 + \beta)} &amp; \\
+     &amp;= \sum_{k = 0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)k!} x^{k} x^{\alpha -1} e^{-x} e^{-\beta x} &amp; \\
+     &amp;= \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x} \sum_{k = 0}^{\infty} \frac{1}{k!} x^{k} e^{-x} &amp; \\
+     &amp;= \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x} &amp; \text{the last term above sums to one}
+\end{align}\]</span>
+This is the Gamma PDF.</p></li>
+<li><p><span class="math display">\[\begin{align}
+p(y|x) &amp;= \frac{p(x,y)}{p(x)} \\
+       &amp;= \frac{\frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}}{\frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x}} \\
+       &amp;= \frac{x^y e^{-x}}{y!}.
+\end{align}\]</span>
+This is the Poisson PMF.</p></li>
+<li><p><span class="math display">\[\begin{align}
+P(Y = 2 | X = 2.5) = \frac{2.5^2 e^{-2.5}}{2!} \approx 0.26.
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+  p(y) &amp;= \int_{0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y + \alpha -1} e^{-x(1 + \beta)} dx &amp; \\
+    &amp;= \frac{1}{y!} \int_{0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx &amp; \\
+    &amp;= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \int_{0}^{\infty} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}} \frac{(1 + \beta)^{y + \alpha}}{\Gamma(y + \alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx &amp; \text{complete to Gamma PDF} \\
+    &amp;= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}}.
+\end{align}\]</span>
+We add the terms in the third equality to get a Gamma PDF inside the integral,
+which then integrates to one.
+We do not recognize this distribution.</p></li>
+</ol>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+px &lt;-<span class="st"> </span><span class="cf">function</span> (x, alpha, beta) {
+  <span class="kw">return</span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">factorial</span>(x)) <span class="op">*</span><span class="st"> </span>(beta<span class="op">^</span>alpha <span class="op">/</span><span class="st"> </span><span class="kw">gamma</span>(alpha)) <span class="op">*</span><span class="st"> </span>
+<span class="st">           </span>(<span class="kw">gamma</span>(x <span class="op">+</span><span class="st"> </span>alpha) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>beta)<span class="op">^</span>(x <span class="op">+</span><span class="st"> </span>alpha)))
+}
+nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
+rx     &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsamps, <span class="dv">1</span>, <span class="dv">1</span>)
+ryx    &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, rx)
+<span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> px, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">beta =</span> <span class="dv">1</span>), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-125-2.png" width="672" /></p>
+</div>
 
 <div class="exercise">
 <span id="exr:unnamed-chunk-126" class="exercise"><strong>Exercise 5.5  </strong></span>Let <span class="math inline">\(f(x,y) = cx^2y\)</span> for <span class="math inline">\(x^2 \leq y \leq 1\)</span> and zero otherwise.
@@ -300,6 +496,20 @@ Find such <span class="math inline">\(c\)</span> that <span class="math inline">
 variable. This exercise is borrowed from Wasserman.
 </div>
 
+<div class="fold">
+
+<div class="solution">
+ <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
+  1 &amp;= \int_{-1}^{1} \int_{x^2}^1 cx^2y dy dx \\
+    &amp;= \int_{-1}^{1} cx^2 (\frac{1}{2} - \frac{x^4}{2}) dx \\
+    &amp;= \frac{c}{2} \int_{-1}^{1} x^2 - x^6 dx \\
+    &amp;= \frac{c}{2} (\frac{1}{3} + \frac{1}{3} - \frac{1}{7} - \frac{1}{7}) \\
+    &amp;= \frac{c}{2} \frac{8}{21} \\
+    &amp;= \frac{4c}{21}
+\end{align}\]</span>
+It follows <span class="math inline">\(c = \frac{21}{4}\)</span>.
+</div>
+</div>
 </div>
 <div id="transformations-1" class="section level2">
 <h2><span class="header-section-number">5.3</span> Transformations</h2>
@@ -310,6 +520,21 @@ variable. This exercise is borrowed from Wasserman.
 Find the CDF and PDF of <span class="math inline">\(R\)</span>.</p>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
+  P(R &lt; r) &amp;= P(\sqrt{X^2 + Y^2 + Z^2} &lt; r) \\
+           &amp;= P(X^2 + Y^2 + Z^2 &lt; r^2) \\
+           &amp;= \frac{\frac{4}{3} \pi r^3}{\frac{4}{3}\pi} \\
+           &amp;= r^3.
+\end{align}\]</span>
+The second line shows us that we are looking at the probability which is
+represented by a smaller ball with radius <span class="math inline">\(r\)</span>. To get the probability, we
+divide it by the radius of the whole ball. We get the PDF by differentiating
+the CDF, so <span class="math inline">\(p(r) = 3r^2\)</span>.</p>
+</div>
+</div>
 
 </div>
 </div>

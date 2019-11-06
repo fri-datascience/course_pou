@@ -6,21 +6,43 @@ The students are expected to acquire the following knowledge:
 
 **Theoretical**
 
-- Connection between the binomial and multinomial distribution.
 - Calculation of PDF of transformed multiple random variables.
 - Finding marginal and conditional distributions.
 
 **R**
 
 - Scatterplots of bivariate random variables.
-- Sampling from the multinomial distribution.
-- Sampling from transformed bivariate random variables.
 - New R functions (for example, _expand.grid_).
-- New ggplot parameters (for example, _alpha_ for transparency).
-- Transparency in ggplot.
+
+
+
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- F
+togs <- T
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -41,6 +63,8 @@ Can you guess which distribution it is?</span>
 
 
 ```
+
+<div class="fold">
 ```{r, echo = togs, message = FALSE, warning=FALSE}
 set.seed(1)
 nsamps <- 1000
@@ -66,7 +90,7 @@ ggplot(df, aes(x = y)) +
   geom_density() +
   facet_wrap(~a)
 ```
-
+</div>
 
 
 
@@ -85,6 +109,8 @@ c. Find the CDF of $(X,Y)$.
 d. Find $P(X = 1 | Y = 1)$.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -118,7 +144,7 @@ d.
 \end{align}
 
 ```
-
+</div>
 
 ```{exercise, name = "Continuous bivariate random variable"}
 Let $p(x,y) = 6 (x - y)^2$ be the PDF of a bivariate random
@@ -133,10 +159,14 @@ c. Find conditional distributions.
 d. <span style="color:blue">R: Plot a grid of points and colour them
 by value -- this can help us visualize the PDF.</span>
   
-d. <span style="color:blue">R: Plot the marginal distribution of $Y$ and
+e. <span style="color:blue">R: Implement a random number generator, which will generate numbers from $(X,Y)$ and visually check the results.</span>
+  
+f. <span style="color:blue">R: Plot the marginal distribution of $Y$ and
 the conditional distributions of $X | Y = y$, where 
 $y \in \{0, 0.1, 0.5\}$.</span>
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -149,6 +179,7 @@ a.
          &= 2 x^3 y - 3 t^2y^2 + 2 x y^3
 \end{align}
 
+  
 b. 
 \begin{align}
   p(x) &= \int_0^{1} 6 (x - y)^2 dy\\
@@ -156,11 +187,12 @@ b.
        &= 6x^2 - 6x + 2
 \end{align}
 \begin{align}
-  p(x) &= \int_0^{1} 6 (x - y)^2 dx\\
+  p(y) &= \int_0^{1} 6 (x - y)^2 dx\\
        &= 6 (y^2 - y + \frac{1}{3}) \\
        &= 6y^2 - 6y + 2
 \end{align}
-  
+
+
 c. 
 \begin{align}
   p(x|y) &= \frac{p(xy)}{p(y)} \\
@@ -177,20 +209,34 @@ c.
 ```{r, echo = togs, message = FALSE, warning=FALSE}
 set.seed(1)
 
-# a
-get_pdf    <- function (x, y) {
+# d
+pxy    <- function (x, y) {
   return ((x - y)^2)
 }
 x_axis       <- seq(0, 1, length.out = 100)
 y_axis       <- seq(0, 1, length.out = 100)
 df           <- expand.grid(x_axis, y_axis)
 colnames(df) <- c("x", "y")
-df           <- cbind(df, pdf = get_pdf(df$x, df$y))
+df           <- cbind(df, pdf = pxy(df$x, df$y))
 ggplot(data = df, aes(x = x, y = y, color = pdf)) +
   geom_point()
 
+# e
+samps <- NULL
+for (i in 1:10000) {
+  xt <- runif(1, 0, 1)
+  yt <- runif(1, 0, 1)
+  pdft <- pxy(xt, yt)
+  acc  <- runif(1, 0, 6)
+  if (acc <= pdft) {
+    samps <- rbind(samps, c(xt, yt))
+  }
+}
+colnames(samps) <- c("x", "y")
+ggplot(data = as.data.frame(samps), aes(x = x, y = y)) +
+  geom_point()
 
-# b
+# f
 mar_pdf <- function (x) {
   return (6 * x^2 - 6 * x + 2)
 }
@@ -206,6 +252,8 @@ df <- tibble(x    = x_axis,
 ggplot(df, aes(x = x, y = value, color = dist)) +
   geom_line()
 ```
+</div>
+
 
 ```{exercise, name = "Mixed bivariate random variable"}
 Let $f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}$
@@ -218,7 +266,7 @@ a. Find the marginal distribution of $X$. Do you recognize this distribution?
 b. Find the conditional distribution of $Y | X$. Do you recognize this
 distribution?
 
-c. Calculate the probability $P(Y = 2 | X < 5)$ for $(X,Y)$.
+c. Calculate the probability $P(Y = 2 | X = 5)$ for $(X,Y)$.
 
 d. Find the marginal distribution of $Y$. Do you recognize this distribution?
 
@@ -229,6 +277,8 @@ of $Y$, and the theoretical PMF calculated from d) on the range from 0 to 10.
 Hint: Use the __gamma__ function in R.?</span>
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -237,14 +287,14 @@ a.
   p(x) &= \sum_{k = 0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)k!} x^{k + \alpha -1} e^{-x(1 + \beta)} & \\
        &= \sum_{k = 0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)k!} x^{k} x^{\alpha -1} e^{-x} e^{-\beta x} & \\
        &= \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x} \sum_{k = 0}^{\infty} \frac{1}{k!} x^{k} e^{-x} & \\
-       &= \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x} & \text{the last term above sums to one -- Poisson PMF}
+       &= \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x} & \text{the last term above sums to one}
 \end{align}
 This is the Gamma PDF.
 
 b.
 \begin{align}
   p(y|x) &= \frac{p(x,y)}{p(x)} \\
-         &= \frac{f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}}{\frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x}} \\
+         &= \frac{\frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}}{\frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x}} \\
          &= \frac{x^y e^{-x}}{y!}.
 \end{align}
 This is the Poisson PMF.
@@ -258,7 +308,7 @@ d.
 \begin{align}
   p(y) &= \int_{0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y + \alpha -1} e^{-x(1 + \beta)} dx & \\
        &= \frac{1}{y!} \int_{0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx & \\
-       &= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \int_{0}^{\infty} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}} \frac{(1 + \beta)^{y + \alpha}}{\Gamma(y + \alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx & \text{we add the term so that we have Gamma PDF inside the integral} \\
+       &= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \int_{0}^{\infty} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}} \frac{(1 + \beta)^{y + \alpha}}{\Gamma(y + \alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx & \text{complete to Gamma PDF} \\
        &= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}}.
 \end{align}
 We add the terms in the third equality to get a Gamma PDF inside the integral, 
@@ -281,12 +331,15 @@ ggplot(data = data.frame(x = rx, y = ryx), aes(x = y)) +
   stat_function(fun = px, args = list(alpha = 1, beta = 1), color = "red")
 
 ```
+</div>
 
 ```{exercise}
 Let $f(x,y) = cx^2y$ for $x^2 \leq y \leq 1$ and zero otherwise. 
 Find such $c$ that $f$ is a PDF of a bivariate random
 variable. This exercise is borrowed from Wasserman.
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 \begin{align}
   1 &= \int_{-1}^{1} \int_{x^2}^1 cx^2y dy dx \\
@@ -298,6 +351,7 @@ variable. This exercise is borrowed from Wasserman.
 \end{align}
 It follows $c = \frac{21}{4}$.
 ```
+</div>
 
 
 ## Transformations
@@ -308,11 +362,13 @@ Find the CDF and PDF of $R$.
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 \begin{align}
   P(R < r) &= P(\sqrt{X^2 + Y^2 + Z^2} < r) \\
            &= P(X^2 + Y^2 + Z^2 < r^2) \\
-           &= \frac{\frac{4}{3} \pi r^2}{\frac{4}{3}\pi} \\
+           &= \frac{\frac{4}{3} \pi r^3}{\frac{4}{3}\pi} \\
            &= r^3.
 \end{align}
 The second line shows us that we are looking at the probability which is
@@ -321,6 +377,6 @@ divide it by the radius of the whole ball. We get the PDF by differentiating
 the CDF, so $p(r) = 3r^2$.
 
 ```
-
+</div>
 
 
