@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 6 Integration | Principles of Uncertainty – exercises</title>
+  <title>Chapter 7 Expected value | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 6 Integration | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 7 Expected value | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Integration | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 7 Expected value | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="mrvs.html">
-<link rel="next" href="ev.html">
+<link rel="prev" href="integ.html">
+<link rel="next" href="A1.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -150,70 +150,204 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="integ" class="section level1">
-<h1><span class="header-section-number">Chapter 6</span> Integration</h1>
-<p>This chapter deals with abstract and Monte Carlo integration.</p>
+<div id="ev" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Expected value</h1>
+<p>This chapter deals with expected values of random variables.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
 <ul>
-<li>How to calculate Lebesgue integrals for non-simple functions.</li>
+<li>Calculation of the expected value.</li>
+<li>Calculation of variance and covariance.</li>
+<li>Cauchy distribution.</li>
 </ul>
 <p><strong>R</strong></p>
 <ul>
-<li>Monte Carlo integration.</li>
+<li>Estimation of expected value.</li>
+<li>Estimation of variance and covariance.</li>
 </ul>
-<div id="monte-carlo-integration" class="section level2">
-<h2><span class="header-section-number">6.1</span> Monte Carlo integration</h2>
+<div id="discrete-random-variables-1" class="section level2">
+<h2><span class="header-section-number">7.1</span> Discrete random variables</h2>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 6.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be continuous random variables on the unit interval and <span class="math inline">\(p(x,y) = 6(x - y)^2\)</span>. Use Monte Carlo integration to estimate the probability <span class="math inline">\(P(0.2 \leq X \leq 0.5, \: 0.1 \leq Y \leq 0.2)\)</span>. Can you find the exact value?</span>
-</div>
-
-</div>
-<div id="lebesgue-integrals" class="section level2">
-<h2><span class="header-section-number">6.2</span> Lebesgue integrals</h2>
-
-<div class="exercise">
-<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 6.2  (borrowed from Binder)  </strong></span>Find the Lebesgue integral of the following functions on (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>, <span class="math inline">\(\lambda\)</span>).</p>
+<p><span id="exr:Bernev" class="exercise"><strong>Exercise 7.1  (Bernoulli)  </strong></span>Let <span class="math inline">\(X \sim \text{Bernoulli}(p)\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p><span class="math display">\[\begin{align}
-f(\omega) = 
-  \begin{cases}
-    \omega, &amp; \text{for } \omega = 0,1,...,n \\
-    0, &amp; \text{elsewhere}
-  \end{cases}
-\end{align}\]</span></p></li>
-<li><p><span class="math display">\[\begin{align}
-f(\omega) = 
-  \begin{cases}
-    1, &amp; \text{for } \omega = \mathbb{Q}^c \cap [0,1] \\
-    0, &amp; \text{elsewhere}
-  \end{cases}
-\end{align}\]</span></p></li>
-<li><p><span class="math display">\[\begin{align}
-f(\omega) = 
-  \begin{cases}
-    n, &amp; \text{for } \omega = \mathbb{Q}^c \cap [0,n] \\
-    0, &amp; \text{elsewhere}
-  \end{cases}
-\end{align}\]</span></p>
+<li><p>Find <span class="math inline">\(E[X]\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(Var[X]\)</span>.</p></li>
+<li><p><span style="color:blue">R: Let <span class="math inline">\(p = 0.4\)</span>. Check your answers to a) and b) with a simulation.</span></p>
 </div></li>
 </ol>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 6.3  (borrowed from Binder)  </strong></span>Let <span class="math inline">\(c \in \mathbb{R}\)</span> be fixed and (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>) a measurable space. If for any Borel set <span class="math inline">\(A\)</span>, <span class="math inline">\(\delta_c (A) = 1\)</span> if <span class="math inline">\(c \in A\)</span>, and <span class="math inline">\(\delta_c (A) = 0\)</span> otherwise, then <span class="math inline">\(\delta_c\)</span> is called a <em>Dirac measure</em>. Let <span class="math inline">\(g\)</span> be a non-negative, measurable function. Show that <span class="math inline">\(\int g d \delta_c = g(c)\)</span>.
+<p><span id="exr:binomev" class="exercise"><strong>Exercise 7.2  (Binomial)  </strong></span>Let <span class="math inline">\(X \sim \text{Binomial}(n,p)\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find <span class="math inline">\(E[X]\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(Var[X]\)</span>.</p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:poisev" class="exercise"><strong>Exercise 7.3  (Poisson)  </strong></span>Let <span class="math inline">\(X \sim \text{Poisson}(\lambda)\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find <span class="math inline">\(E[X]\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(Var[X]\)</span>.</p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:geoev" class="exercise"><strong>Exercise 7.4  (Geometric)  </strong></span>Let <span class="math inline">\(X \sim \text{Geometric}(p)\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Find <span class="math inline">\(E[X]\)</span>. Hint: <span class="math inline">\(\frac{d}{dx} x^k = k x^{(k - 1)}\)</span>.</li>
+</ol>
+</div>
+
+</div>
+<div id="continuous-random-variables-1" class="section level2">
+<h2><span class="header-section-number">7.2</span> Continuous random variables</h2>
+
+<div class="exercise">
+<p><span id="exr:gammaev" class="exercise"><strong>Exercise 7.5  (Gamma)  </strong></span>Let <span class="math inline">\(X \sim \text{Gamma}(\alpha, \beta)\)</span>. Hint: <span class="math inline">\(\Gamma(z) = \int_0^\infty t^{z-1}e^{-t} dt\)</span> and <span class="math inline">\(\Gamma(z + 1) = z \Gamma(z)\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find <span class="math inline">\(E[X]\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(Var[X]\)</span>.</p></li>
+<li><p><span style="color:blue">R: Let <span class="math inline">\(\alpha = 10\)</span> and <span class="math inline">\(\beta = 2\)</span>. Plot the density of <span class="math inline">\(X\)</span>. Add a horizontal line at the expected value that touches the density curve (<em>geom_segment</em>). Shade the area within a standard deviation of the expected value. </span></p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:betaev" class="exercise"><strong>Exercise 7.6  (Beta)  </strong></span>Let <span class="math inline">\(X \sim \text{Beta}(\alpha, \beta)\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find <span class="math inline">\(E[X]\)</span>. Hint 1: <span class="math inline">\(\text{B}(x,y) = \int_0^1 t^{x-1} (1 - t)^{y-1} dt\)</span>. Hint 2: <span class="math inline">\(\text{B}(x + 1, y) = \text{B}(x,y)\frac{x}{x + y}\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(Var[X]\)</span>.</p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:expev" class="exercise"><strong>Exercise 7.7  (Exponential)  </strong></span>Let <span class="math inline">\(X \sim \text{Exp}(\lambda)\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find <span class="math inline">\(E[X]\)</span>. Hint: <span class="math inline">\(\Gamma(z + 1) = z\Gamma(z)\)</span> and <span class="math inline">\(\Gamma(1) = 1\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(Var[X]\)</span>.</p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:normev" class="exercise"><strong>Exercise 7.8  (Normal)  </strong></span>Let <span class="math inline">\(X \sim \text{N}(\mu, \sigma)\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Show that <span class="math inline">\(E[X] = \mu\)</span>. Hint: Use the error function <span class="math inline">\(\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt\)</span>. The statistical interpretation of this function is that if <span class="math inline">\(Y \sim \text{N}(0, 0.5)\)</span>, then the error function describes the probability of <span class="math inline">\(Y\)</span> falling between <span class="math inline">\(-x\)</span> and <span class="math inline">\(x\)</span>.</p></li>
+<li><p>Show that <span class="math inline">\(Var[X] = \sigma^2\)</span>. Hint: Start with the definition of variance.</p></li>
+</ol>
+</div>
+
+</div>
+<div id="sums-functions-conditional-expectations" class="section level2">
+<h2><span class="header-section-number">7.3</span> Sums, functions, conditional expectations</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 7.9  (Expectation of transformations)  </strong></span>Let <span class="math inline">\(X\)</span> follow a normal distribution.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find <span class="math inline">\(E[2X + 4]\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(E[X^2]\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(E[\exp(X)]\)</span>.</p></li>
+<li><p><span style="color:blue">R: Check your results numerically for <span class="math inline">\(\mu = 0.4\)</span> and <span class="math inline">\(\sigma^2 = 0.25\)</span> and plot the densities of all four distributions.</span></p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-15" class="exercise"><strong>Exercise 7.10  (Sum of independent random variables)  </strong></span>WASSERMAN. Let <span class="math inline">\(X_1, X_2,...,X_n\)</span> be IID random variables with expected value <span class="math inline">\(E[X_i] = \mu\)</span> and variance <span class="math inline">\(Var[X_i] = \sigma^2\)</span>. Find the expected value and variance of <span class="math inline">\(\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i\)</span>. <span class="math inline">\(\bar{X}\)</span> is called a <em>statistic</em> (a function of the values in a sample). It is itself a random variable and its distribution is called a sampling distribution. <span style="color:blue">R: Take <span class="math inline">\(n = 5, 10, 100, 1000\)</span> samples from the N(<span class="math inline">\(2\)</span>, <span class="math inline">\(6\)</span>) distribution 10000 times. Plot the theoretical density and the densities of <span class="math inline">\(\bar{X}\)</span> statistic for each <span class="math inline">\(n\)</span>. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span></p>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-18" class="exercise"><strong>Exercise 7.11  (Conditional expectation)  </strong></span>Let <span class="math inline">\(X \in \mathbb{R}_0^+\)</span> and <span class="math inline">\(Y \in \mathbb{N}_0\)</span> be random variables with joint distribution <span class="math inline">\(p_{XY}(X,Y) = \frac{1}{y + 1} e^{-\frac{x}{y + 1}} 0.5^{y + 1}\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find <span class="math inline">\(E[X | Y]\)</span> by first finding <span class="math inline">\(p_Y\)</span> and then <span class="math inline">\(p_{X|Y}\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(E[X]\)</span>.</p></li>
+<li><p><span style="color:blue">R: check your answers to a) and b) by drawing 10000 samples from <span class="math inline">\(p_Y\)</span> and <span class="math inline">\(p_{X|Y}\)</span>.</span></p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-21" class="exercise"><strong>Exercise 7.12  (Cauchy distribution)  </strong></span>Let <span class="math inline">\(p(x | x_0, \gamma) = \frac{1}{\pi \gamma \Big(1 + \big(\frac{x - x_0}{\gamma}\big)^2\Big)}\)</span>. A random variable with this PDF follows a Cauchy distribution. This distribution is symmetric and has wider tails than the normal distribution.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span style="color:blue">R: Draw <span class="math inline">\(n = 1,...,1000\)</span> samples from a standard normal and <span class="math inline">\(\text{Cauchy}(0, 1)\)</span>. For each <span class="math inline">\(n\)</span> plot the mean and the median of the sample using facets. Interpret the results.</span></p></li>
+<li><p>To get a mathematical explanation of the results in a), evaluate the integral <span class="math inline">\(\int_0^\infty \frac{x}{1 + x^2} dx\)</span> and consider that <span class="math inline">\(E[X] = \int_{-\infty}^\infty \frac{x}{1 + x^2}dx\)</span>.</p></li>
+</ol>
+</div>
+
+</div>
+<div id="covariance" class="section level2">
+<h2><span class="header-section-number">7.4</span> Covariance</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-24" class="exercise"><strong>Exercise 7.13  </strong></span>Below is a table of values for random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<table>
+<thead>
+<tr class="header">
+<th>X</th>
+<th>Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2.1</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>-0.5</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>-2</td>
+<td>12</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find sample covariance of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Find sample variances of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Find sample correlation of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Find sample variance of <span class="math inline">\(Z = 2X - 3Y\)</span>.</p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-26" class="exercise"><strong>Exercise 7.14  </strong></span>Let <span class="math inline">\(X \sim \text{Uniform}(0,1)\)</span> and <span class="math inline">\(Y | X = x \sim \text{Uniform(0,x)}\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find the covariance of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Find the correlation of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p></li>
+<li><p><span style="color:blue">R: check your answers to a) and b) with simulation. Plot <span class="math inline">\(X\)</span> against <span class="math inline">\(Y\)</span> on a scatterplot.</span></p></li>
+</ol>
 </div>
 
 
 </div>
+</div>
+
+
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="mrvs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ev.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="integ.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="A1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

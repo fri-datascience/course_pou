@@ -9,7 +9,6 @@ The students are expected to acquire the following knowledge:
 - Calculation of the expected value.
 - Calculation of variance and covariance.
 - Cauchy distribution.
-- <span style="color:red">Add expected value of a variable with non-Riemann integrable? ERIK?</span>
 
 **R**
 
@@ -17,7 +16,7 @@ The students are expected to acquire the following knowledge:
 - Estimation of variance and covariance.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- TRUE
+togs <- F
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -49,7 +48,7 @@ b.
 \end{align*}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps <- 1000
 x      <- rbinom(nsamps, 1, 0.4)
@@ -119,7 +118,7 @@ b.
 ```{exercise, name = "Geometric", label = geoev}
 Let $X \sim \text{Geometric}(p)$. 
 
-a. Find $E[X]$. Hint: $\frac{d}{dx} x^k = k x^(k - 1)$.
+a. Find $E[X]$. Hint: $\frac{d}{dx} x^k = k x^{(k - 1)}$.
 
 
 ```
@@ -177,7 +176,7 @@ b.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 x  <- seq(0, 25, by = 0.01)
 y  <- dgamma(x, shape = 10, rate = 2)
@@ -371,7 +370,7 @@ c.
 \end{align}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 mu    <- 0.4
 sigma <- 0.5
@@ -413,7 +412,7 @@ Now the variance
 \end{align}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps <- 10000
 mu     <- 2
@@ -485,7 +484,7 @@ b. Use the law of iterated expectation.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 y  <- rgeom(100000, 0.5)
 x  <- rexp(100000, rate = 1 / (y + 1))
@@ -508,7 +507,7 @@ a. <span style="color:blue">R: Draw $n = 1,...,1000$ samples from a standard nor
 b. To get a mathematical explanation of the results in a), evaluate the integral $\int_0^\infty \frac{x}{1 + x^2} dx$ and consider that $E[X] = \int_{-\infty}^\infty \frac{x}{1 + x^2}dx$.
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 n         <- 1000
 means_n   <- vector(mode = "numeric", length = n)
@@ -665,7 +664,7 @@ Then $Var[Y] = \frac{1}{9} - \frac{1}{16} = \frac{7}{144}$. Combining all
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps <- 10000
 x      <- runif(nsamps)

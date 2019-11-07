@@ -13,7 +13,7 @@ The students are expected to acquire the following knowledge:
 - Monte Carlo integration.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- TRUE
+togs <- F
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -23,15 +23,29 @@ library(tidyr)
 
 ## Monte Carlo integration
 ```{exercise}
-<span style="color:blue">Let $X \sim \text{Gamma}(3,2)$ and $Y = \log(X)$. Use Monte Carlo integration to estimate the probability $P(-1 \leq Y  \leq 1)$. Can you find the exact value?</span><span style="color:red">Is this Monte Carlo integration???</span>
+<span style="color:blue">Let $X$ and $Y$ be continuous random variables on the unit interval and $p(x,y) = 6(x - y)^2$. Use Monte Carlo integration to estimate the probability $P(0.2 \leq X  \leq 0.5, \: 0.1 \leq Y \leq 0.2)$. Can you find the exact value?</span>
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps <- 1000
-x      <- rgamma(nsamps, 3, 2)
-y      <- log(x)
-sum(y > -1 & y < 1) / nsamps
+V  <- (0.5 - 0.2) * (0.2 - 0.1)
+x1 <- runif(nsamps, 0.2, 0.5)
+x2 <- runif(nsamps, 0.1, 0.2)
+f_1 <- function (x, y) {
+  return (6 * (x - y)^2)
+}
+mcint  <- V * (1 / nsamps) * sum(f_1(x1, x2))
+mcint2 <- V * (1 / nsamps) * sum(f_1(x1, x2)^2)
+sdm    <- (mcint2 - mcint^2) / sqrt(nsamps)
+mcint
+sdm
+
+F_1 <- function (x, y) {
+  return (2 * x^3 * y - 3 * x^2 * y^2 + 2 * x * y^3)
+}
+F_1(0.5, 0.2) - F_1(0.2, 0.2) - F_1(0.5, 0.1) + F_1(0.2, 0.1)
 ```
+
 
 ## Lebesgue integrals
 ```{exercise, name = "borrowed from Binder"}
@@ -95,6 +109,5 @@ Let $c \in \mathbb{R}$ be fixed and ($\mathbb{R}$, $\mathcal{B}(\mathbb{R})$) a 
                     &= \sup_{q \in S(g)} q(c) \\
                     &= g(c)
 \end{align}
-<span style="color:red">TODO: Check with Erik.</span>
 ```
 
