@@ -388,7 +388,7 @@ exp((2 * mu + sigma^2) / 2)
 
 
 ```{exercise, name = "Sum of independent random variables"}
-WASSERMAN. Let $X_1, X_2,...,X_n$ be IID random variables with expected value $E[X_i] = \mu$ and variance $Var[X_i] = \sigma^2$. Find the expected value and variance of $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$. $\bar{X}$ is called a _statistic_ (a function of the values in a sample). It is itself a random variable and its distribution is called a sampling distribution. <span style="color:blue">R: Take $n = 5, 10, 100, 1000$ samples from the N($2$, $6$) distribution 10000 times. Plot the theoretical density and the densities of $\bar{X}$ statistic for each $n$. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span>
+Borrowed from Wasserman. Let $X_1, X_2,...,X_n$ be IID random variables with expected value $E[X_i] = \mu$ and variance $Var[X_i] = \sigma^2$. Find the expected value and variance of $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$. $\bar{X}$ is called a _statistic_ (a function of the values in a sample). It is itself a random variable and its distribution is called a sampling distribution. <span style="color:blue">R: Take $n = 5, 10, 100, 1000$ samples from the N($2$, $6$) distribution 10000 times. Plot the theoretical density and the densities of $\bar{X}$ statistic for each $n$. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span>
 
 ```
 ```{solution, echo = togs}
