@@ -12,8 +12,34 @@ The students are expected to acquire the following knowledge:
 
 - Monte Carlo integration.
 
+
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
+
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- F
+togs <- T
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -25,6 +51,8 @@ library(tidyr)
 ```{exercise}
 <span style="color:blue">Let $X$ and $Y$ be continuous random variables on the unit interval and $p(x,y) = 6(x - y)^2$. Use Monte Carlo integration to estimate the probability $P(0.2 \leq X  \leq 0.5, \: 0.1 \leq Y \leq 0.2)$. Can you find the exact value?</span>
 ```
+
+<div class="fold">
 ```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps <- 1000
@@ -45,10 +73,10 @@ F_1 <- function (x, y) {
 }
 F_1(0.5, 0.2) - F_1(0.2, 0.2) - F_1(0.5, 0.1) + F_1(0.2, 0.1)
 ```
-
+</div>
 
 ## Lebesgue integrals
-```{exercise, name = "borrowed from Binder"}
+```{exercise, name = "borrowed from Jagannathan"}
 Find the Lebesgue integral of the following functions on ($\mathbb{R}$, $\mathcal{B}(\mathbb{R})$, $\lambda$).
 
 a.
@@ -78,6 +106,8 @@ c.
     \end{cases}
 \end{align}
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -96,11 +126,14 @@ c.
   \int f(\omega) d\lambda = n \times \lambda(\mathbb{Q}^c \cap [0,n]) = n^2.
 \end{align}
 ```
+</div>
 
 
-```{exercise, name = "borrowed from Binder"}
+```{exercise, name = "borrowed from Jagannathan"}
 Let $c \in \mathbb{R}$ be fixed and ($\mathbb{R}$, $\mathcal{B}(\mathbb{R})$) a measurable space. If for any Borel set $A$, $\delta_c (A) = 1$ if $c \in A$, and $\delta_c (A) = 0$ otherwise, then $\delta_c$ is called a _Dirac measure_. Let $g$ be a non-negative, measurable function. Show that $\int g d \delta_c = g(c)$.
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 \begin{align}
   \int g d \delta_c &= \sup_{q \in S(g)} \int q d \delta_c \\
@@ -110,4 +143,5 @@ Let $c \in \mathbb{R}$ be fixed and ($\mathbb{R}$, $\mathcal{B}(\mathbb{R})$) a 
                     &= g(c)
 \end{align}
 ```
+</div>
 

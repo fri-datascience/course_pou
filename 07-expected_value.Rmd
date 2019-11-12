@@ -15,8 +15,35 @@ The students are expected to acquire the following knowledge:
 - Estimation of expected value.
 - Estimation of variance and covariance.
 
+
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
+
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- F
+togs <- T
+togs2 <- F
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -34,6 +61,8 @@ b. Find $Var[X]$.
 
 c. <span style="color:blue">R: Let $p = 0.4$. Check your answers to a) and b) with a simulation.</span>
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -56,6 +85,7 @@ mean(x)
 var(x)
 0.4 * (1 - 0.4)
 ```
+</div>
 
 ```{exercise, name = "Binomial", label = binomev}
 Let $X \sim \text{Binomial}(n,p)$. 
@@ -65,6 +95,8 @@ a. Find $E[X]$.
 b. Find $Var[X]$.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -79,6 +111,7 @@ b. Again let $X = \sum_{i=0}^n X_i$, where $X_i \sim \text{Bernoulli}(p)$. Since
 \end{align*}
 
 ```
+</div>
 
 ```{exercise, name = "Poisson", label = poisev}
 Let $X \sim \text{Poisson}(\lambda)$. 
@@ -88,6 +121,8 @@ a. Find $E[X]$.
 b. Find $Var[X]$.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -113,6 +148,7 @@ b.
          &= \lambda.
 \end{align*}
 ```
+</div>
 
 
 ```{exercise, name = "Geometric", label = geoev}
@@ -122,6 +158,8 @@ a. Find $E[X]$. Hint: $\frac{d}{dx} x^k = k x^{(k - 1)}$.
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -136,6 +174,7 @@ a.
 \end{align*}
 
 ```
+</div>
 
 ## Continuous random variables
 ```{exercise, name = "Gamma", label = gammaev}
@@ -149,15 +188,17 @@ b. Find $Var[X]$.
 c. <span style="color:blue">R: Let $\alpha = 10$ and $\beta = 2$. Plot the density of $X$. Add a horizontal line at the expected value that touches the density curve (_geom_segment_). Shade the area within a standard deviation of the expected value. </span>
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
 a.
 \begin{align*}
   E[X] &= \int_0^\infty \frac{\beta^\alpha}{\Gamma(\alpha)}x^\alpha e^{-\beta x} dx & \\
-       &= \frac{\beta^\alpha}{\Gamma(\alpha) \int_0^\infty }x^\alpha e^{-\beta x} dx & \text{ (let $t = \beta x$)} \\
-       &= \frac{\beta^\alpha}{\Gamma(\alpha) \int_0^\infty }\frac{t^\alpha}{\beta^\alpha} e^{-t} \frac{dt}{\beta} & \\
-       &= \frac{1}{\beta \Gamma(\alpha) \int_0^\infty }t^\alpha e^{-t} dt & \\
+       &= \frac{\beta^\alpha}{\Gamma(\alpha)} \int_0^\infty x^\alpha e^{-\beta x} dx & \text{ (let $t = \beta x$)} \\
+       &= \frac{\beta^\alpha}{\Gamma(\alpha) }\int_0^\infty \frac{t^\alpha}{\beta^\alpha} e^{-t} \frac{dt}{\beta} & \\
+       &= \frac{1}{\beta \Gamma(\alpha) }\int_0^\infty t^\alpha e^{-t} dt & \\
        &= \frac{\Gamma(\alpha + 1)}{\beta \Gamma(\alpha)} & \\
        &= \frac{\alpha \Gamma(\alpha)}{\beta \Gamma(\alpha)} & \\
        &= \frac{\alpha}{\beta}. &
@@ -190,6 +231,7 @@ ggplot(df, aes(x = x, y = y)) +
                 xlim = c(5 - sqrt(10/4), 5 + sqrt(10/4)), geom = "area", fill = "gray", alpha = 0.4)
 
 ```
+</div>
 
 ```{exercise, name = "Beta", label = betaev}
 Let $X \sim \text{Beta}(\alpha, \beta)$.
@@ -201,6 +243,8 @@ b. Find $Var[X]$.
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -227,6 +271,7 @@ b.
 
 
 ```
+</div>
 
 
 ```{exercise, name = "Exponential", label = expev}
@@ -239,6 +284,8 @@ b. Find $Var[X]$.
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -265,6 +312,7 @@ b.
 
 
 ```
+</div>
 
 
 ```{exercise, name = "Normal", label = normev}
@@ -277,7 +325,9 @@ b. Show that $Var[X] = \sigma^2$. Hint: Start with the definition of variance.
 
 
 ```
-```{solution, echo = togs}
+
+
+```{solution, echo = togs2}
 
 
 a.
@@ -327,6 +377,7 @@ b.
 
 ```
 
+
 ## Sums, functions, conditional expectations
 
 ```{exercise, name = "Expectation of transformations"}
@@ -341,7 +392,7 @@ c. Find $E[\exp(X)]$.
 d. <span style="color:blue">R: Check your results numerically for $\mu = 0.4$ and $\sigma^2 = 0.25$ and plot the densities of all four distributions.</span>
 
 ```
-```{solution, echo = togs}
+```{solution, echo = togs2}
 
 
 a.
@@ -370,7 +421,7 @@ c.
 \end{align}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 mu    <- 0.4
 sigma <- 0.5
@@ -391,7 +442,7 @@ exp((2 * mu + sigma^2) / 2)
 Borrowed from Wasserman. Let $X_1, X_2,...,X_n$ be IID random variables with expected value $E[X_i] = \mu$ and variance $Var[X_i] = \sigma^2$. Find the expected value and variance of $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$. $\bar{X}$ is called a _statistic_ (a function of the values in a sample). It is itself a random variable and its distribution is called a sampling distribution. <span style="color:blue">R: Take $n = 5, 10, 100, 1000$ samples from the N($2$, $6$) distribution 10000 times. Plot the theoretical density and the densities of $\bar{X}$ statistic for each $n$. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span>
 
 ```
-```{solution, echo = togs}
+```{solution, echo = togs2}
 Let us start with the expectation of $\bar{X}$.
 
 \begin{align}
@@ -412,7 +463,7 @@ Now the variance
 \end{align}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 nsamps <- 10000
 mu     <- 2
@@ -449,7 +500,7 @@ b. Find $E[X]$.
 c. <span style="color:blue">R: check your answers to a) and b) by drawing 10000 samples from $p_Y$ and $p_{X|Y}$.</span>
 
 ```
-```{solution, echo = togs}
+```{solution, echo = togs2}
 
 
 
@@ -484,7 +535,7 @@ b. Use the law of iterated expectation.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 y  <- rgeom(100000, 0.5)
 x  <- rexp(100000, rate = 1 / (y + 1))
@@ -507,7 +558,7 @@ a. <span style="color:blue">R: Draw $n = 1,...,1000$ samples from a standard nor
 b. To get a mathematical explanation of the results in a), evaluate the integral $\int_0^\infty \frac{x}{1 + x^2} dx$ and consider that $E[X] = \int_{-\infty}^\infty \frac{x}{1 + x^2}dx$.
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 n         <- 1000
 means_n   <- vector(mode = "numeric", length = n)
@@ -534,7 +585,7 @@ ggplot(df, aes(x = n, y = value)) +
   geom_line(alpha = 0.5) +
   facet_wrap(~ type + distribution , scales = "free")
 ```
-```{solution, echo = togs}
+```{solution, echo = togs2}
 
 a.
 \begin{align}
@@ -570,7 +621,7 @@ d. Find sample variance of $Z = 2X - 3Y$.
 
 
 ```
-```{solution, echo = togs}
+```{solution, echo = togs2}
 
 a. $\bar{X} = 0.92$ and $\bar{Y} = 10$.
 \begin{align}
@@ -617,7 +668,7 @@ b. Find the correlation of $X$ and $Y$.
 c. <span style="color:blue">R: check your answers to a) and b) with simulation. Plot $X$ against $Y$ on a scatterplot.</span>
 
 ```
-```{solution, echo = togs}
+```{solution, echo = togs2}
 
 a. The joint PDF is $p(x,y) = p(x)p(y|x) = \frac{1}{x}$.
 \begin{align}
@@ -664,7 +715,7 @@ Then $Var[Y] = \frac{1}{9} - \frac{1}{16} = \frac{7}{144}$. Combining all
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 nsamps <- 10000
 x      <- runif(nsamps)

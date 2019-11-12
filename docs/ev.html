@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-11-11">
+<meta name="date" content="2019-11-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -228,6 +228,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Estimation of expected value.</li>
 <li>Estimation of variance and covariance.</li>
 </ul>
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
 <div id="discrete-random-variables-1" class="section level2">
 <h2><span class="header-section-number">7.1</span> Discrete random variables</h2>
 
@@ -239,6 +261,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><span style="color:blue">R: Let <span class="math inline">\(p = 0.4\)</span>. Check your answers to a) and b) with a simulation.</span></p>
 </div></li>
 </ol>
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align*}
+  E[X] = \sum_{k=0}^1 p^k (1-p)^{1-k} k = p.
+\end{align*}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align*}
+Var[X] = E[X^2] - E[X]^2 = \sum_{k=0}^1 (p^k (1-p)^{1-k} k^2) - p^2 = p(1-p).
+\end{align*}\]</span></p></li>
+</ol>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
+x      &lt;-<span class="st"> </span><span class="kw">rbinom</span>(nsamps, <span class="dv">1</span>, <span class="fl">0.4</span>)
+<span class="kw">mean</span>(x)</code></pre>
+<pre><code>## [1] 0.394</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(x)</code></pre>
+<pre><code>## [1] 0.239003</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="fl">0.4</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.4</span>)</code></pre>
+<pre><code>## [1] 0.24</code></pre>
+</div>
 
 <div class="exercise">
 <p><span id="exr:binomev" class="exercise"><strong>Exercise 7.2  (Binomial)  </strong></span>Let <span class="math inline">\(X \sim \text{Binomial}(n,p)\)</span>.</p>
@@ -248,6 +293,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Let <span class="math inline">\(X = \sum_{i=0}^n X_i\)</span>, where <span class="math inline">\(X_i \sim \text{Bernoulli}(p)\)</span>. Then, due to linearity of expectation
+<span class="math display">\[\begin{align*}
+  E[X] = E[\sum_{i=0}^n X_i] = \sum_{i=0}^n E[X_i] = np.
+\end{align*}\]</span></p></li>
+<li><p>Again let <span class="math inline">\(X = \sum_{i=0}^n X_i\)</span>, where <span class="math inline">\(X_i \sim \text{Bernoulli}(p)\)</span>. Since the Bernoulli variables <span class="math inline">\(X_i\)</span> are independent we have
+<span class="math display">\[\begin{align*}
+  Var[X] = Var[\sum_{i=0}^n X_i] = \sum_{i=0}^n Var[X_i] = np(1-p).
+\end{align*}\]</span></p></li>
+</ol>
+</div>
+</div>
 
 <div class="exercise">
 <p><span id="exr:poisev" class="exercise"><strong>Exercise 7.3  (Poisson)  </strong></span>Let <span class="math inline">\(X \sim \text{Poisson}(\lambda)\)</span>.</p>
@@ -257,6 +318,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align*}
+E[X] &amp;= \sum_{k=0}^\infty \frac{\lambda^k e^{-\lambda}}{k!} k &amp; \\
+     &amp;= e^{-\lambda} \lambda \sum_{k=0}^\infty \frac{\lambda^{k-1}}{(k - 1)!} &amp; \\
+     &amp;= e^{-\lambda} \lambda \sum_{k=1}^\infty \frac{\lambda^{k-1}}{(k - 1)!} &amp; \text{term at $k=0$ is 0} \\
+     &amp;= e^{-\lambda} \lambda \sum_{k=0}^\infty \frac{\lambda^{k}}{k!} &amp; \\
+     &amp;= e^{-\lambda} \lambda e^\lambda &amp; \\
+     &amp;= \lambda.
+\end{align*}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align*}
+  Var[X] &amp;= E[X^2] - E[X]^2 &amp; \\
+      &amp;= e^{-\lambda} \lambda \sum_{k=1}^\infty k \frac{\lambda^{k-1}}{(k - 1)!} - \lambda^2 &amp; \\
+      &amp;= e^{-\lambda} \lambda \sum_{k=1}^\infty (k - 1) + 1) \frac{\lambda^{k-1}}{(k - 1)!} - \lambda^2 &amp; \\
+      &amp;= e^{-\lambda} \lambda \big(\sum_{k=1}^\infty (k - 1) \frac{\lambda^{k-1}}{(k - 1)!} + \sum_{k=1}^\infty \frac{\lambda^{k-1}}{(k - 1)!}\Big) - \lambda^2 &amp; \\
+      &amp;= e^{-\lambda} \lambda \big(\lambda\sum_{k=2}^\infty \frac{\lambda^{k-2}}{(k - 2)!} + e^\lambda\Big) - \lambda^2 &amp; \\
+      &amp;= e^{-\lambda} \lambda \big(\lambda e^\lambda + e^\lambda\Big) - \lambda^2 &amp; \\
+      &amp;= \lambda^2 + \lambda - \lambda^2 &amp; \\
+      &amp;= \lambda.
+\end{align*}\]</span></p>
+</div></li>
+</ol>
+</div>
 
 <div class="exercise">
 <p><span id="exr:geoev" class="exercise"><strong>Exercise 7.4  (Geometric)  </strong></span>Let <span class="math inline">\(X \sim \text{Geometric}(p)\)</span>.</p>
@@ -265,6 +352,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math display">\[\begin{align*}
+E[X] &amp;= \sum_{k=0}^\infty (1 - p)^k p k &amp; \\
+     &amp;= p (1 - p) \sum_{k=0}^\infty (1 - p)^{k-1} k &amp; \\
+     &amp;= p (1 - p) \sum_{k=0}^\infty -\frac{d}{dp}(1 - p)^k &amp; \\
+     &amp;= p (1 - p) \Big(-\frac{d}{dp}\Big) \sum_{k=0}^\infty (1 - p)^k &amp; \\
+     &amp;= p (1 - p) \Big(-\frac{d}{dp}\Big) \frac{1}{1 - (1 - p)} &amp; \text{geometric series} \\
+     &amp;= \frac{1 - p}{p}
+\end{align*}\]</span></li>
+</ol>
+</div>
+</div>
 </div>
 <div id="continuous-random-variables-1" class="section level2">
 <h2><span class="header-section-number">7.2</span> Continuous random variables</h2>
@@ -278,6 +381,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align*}
+E[X] &amp;= \int_0^\infty \frac{\beta^\alpha}{\Gamma(\alpha)}x^\alpha e^{-\beta x} dx &amp; \\
+     &amp;= \frac{\beta^\alpha}{\Gamma(\alpha)} \int_0^\infty x^\alpha e^{-\beta x} dx &amp; \text{ (let $t = \beta x$)} \\
+     &amp;= \frac{\beta^\alpha}{\Gamma(\alpha) }\int_0^\infty \frac{t^\alpha}{\beta^\alpha} e^{-t} \frac{dt}{\beta} &amp; \\
+     &amp;= \frac{1}{\beta \Gamma(\alpha) }\int_0^\infty t^\alpha e^{-t} dt &amp; \\
+     &amp;= \frac{\Gamma(\alpha + 1)}{\beta \Gamma(\alpha)} &amp; \\
+     &amp;= \frac{\alpha \Gamma(\alpha)}{\beta \Gamma(\alpha)} &amp; \\
+     &amp;= \frac{\alpha}{\beta}. &amp;
+\end{align*}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align*}
+ Var[X] &amp;= E[X^2] - E[X]^2 \\
+      &amp;= \int_0^\infty \frac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha+1} e^{-\beta x} dx - \frac{\alpha^2}{\beta^2} \\
+      &amp;= \frac{\Gamma(\alpha + 2)}{\beta^2 \Gamma(\alpha)} - \frac{\alpha^2}{\beta^2} \\
+      &amp;= \frac{(\alpha + 1)\alpha\Gamma(\alpha)}{\beta^2 \Gamma(\alpha)} - \frac{\alpha^2}{\beta^2} \\
+      &amp;= \frac{\alpha^2 + \alpha}{\beta^2} - \frac{\alpha^2}{\beta^2} \\
+      &amp;= \frac{\alpha}{\beta^2}.
+\end{align*}\]</span></p></li>
+</ol>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+x  &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)
+y  &lt;-<span class="st"> </span><span class="kw">dgamma</span>(x, <span class="dt">shape =</span> <span class="dv">10</span>, <span class="dt">rate =</span> <span class="dv">2</span>)
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">5</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">xend =</span> <span class="dv">5</span>,
+                   <span class="dt">yend =</span> <span class="kw">dgamma</span>(<span class="dv">5</span>, <span class="dt">shape =</span> <span class="dv">10</span>, <span class="dt">rate =</span> <span class="dv">2</span>)),
+               <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">10</span>, <span class="dt">rate =</span> <span class="dv">2</span>), 
+                <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">5</span> <span class="op">-</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10</span><span class="op">/</span><span class="dv">4</span>), <span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10</span><span class="op">/</span><span class="dv">4</span>)), <span class="dt">geom =</span> <span class="st">&quot;area&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;gray&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
+</div>
 
 <div class="exercise">
 <p><span id="exr:betaev" class="exercise"><strong>Exercise 7.6  (Beta)  </strong></span>Let <span class="math inline">\(X \sim \text{Beta}(\alpha, \beta)\)</span>.</p>
@@ -287,6 +427,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align*}
+E[X] &amp;= \int_0^1 \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)} x dx \\
+     &amp;= \frac{1}{\text{B}(\alpha, \beta)}\int_0^1 x^{\alpha} (1 - x)^{\beta - 1} dx \\
+     &amp;= \frac{1}{\text{B}(\alpha, \beta)} \text{B}(\alpha + 1, \beta) \\
+     &amp;= \frac{1}{\text{B}(\alpha, \beta)} \text{B}(\alpha, \beta) \frac{\alpha}{\alpha + \beta} \\
+     &amp;= \frac{\alpha}{\alpha + \beta}. \\
+\end{align*}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align*}
+Var[X] &amp;= E[X^2] - E[X]^2 \\
+     &amp;= \int_0^1 \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)} x^2 dx - \frac{\alpha^2}{(\alpha + \beta)^2} \\
+     &amp;= \frac{1}{\text{B}(\alpha, \beta)}\int_0^1 x^{\alpha + 1} (1 - x)^{\beta - 1} dx - \frac{\alpha^2}{(\alpha + \beta)^2} \\
+     &amp;= \frac{1}{\text{B}(\alpha, \beta)} \text{B}(\alpha + 2, \beta) - \frac{\alpha^2}{(\alpha + \beta)^2} \\
+     &amp;= \frac{1}{\text{B}(\alpha, \beta)} \text{B}(\alpha + 1, \beta) \frac{\alpha + 1}{\alpha + \beta + 1} - \frac{\alpha^2}{(\alpha + \beta)^2} \\
+     &amp;= \frac{\alpha + 1}{\alpha + \beta + 1} \frac{\alpha}{\alpha + \beta} - \frac{\alpha^2}{(\alpha + \beta)^2}\\
+     &amp;= \frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}.
+\end{align*}\]</span></p></li>
+</ol>
+</div>
+</div>
 
 <div class="exercise">
 <p><span id="exr:expev" class="exercise"><strong>Exercise 7.7  (Exponential)  </strong></span>Let <span class="math inline">\(X \sim \text{Exp}(\lambda)\)</span>.</p>
@@ -296,6 +460,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align*}
+E[X] &amp;= \int_0^\infty \lambda e^{-\lambda x} x dx &amp; \\
+     &amp;= \lambda \int_0^\infty x e^{-\lambda x} dx &amp; \\
+     &amp;= \lambda \int_0^\infty \frac{t}{\lambda} e^{-t} \frac{dt}{\lambda} &amp; \text{$t = \lambda x$}\\
+     &amp;= \lambda \lambda^{-2} \Gamma(2) &amp; \text{definition of gamma function}  \\
+     &amp;= \lambda^{-1}.
+\end{align*}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align*}
+Var[X] &amp;= E[X^2] - E[X]^2  &amp; \\
+       &amp;= \int_0^\infty \lambda e^{-\lambda x} x^2 dx - \lambda^{-2} &amp; \\
+       &amp;= \lambda \int_0^\infty \frac{t^2}{\lambda^2} e^{-t} \frac{dt}{\lambda} - \lambda^{-2} &amp;  \text{$t = \lambda x$} \\
+       &amp;= \lambda \lambda^{-3} \Gamma(3) - \lambda^{-2} &amp;  \text{definition of gamma function} &amp;  \\
+       &amp;= \lambda^{-2} 2 \Gamma(2) - \lambda^{-2} &amp; \\
+       &amp;= 2 \lambda^{-2} - \lambda^{-2} &amp; \\
+       &amp;= \lambda^{-2}. &amp; \\
+\end{align*}\]</span></p></li>
+</ol>
+</div>
+</div>
 
 <div class="exercise">
 <p><span id="exr:normev" class="exercise"><strong>Exercise 7.8  (Normal)  </strong></span>Let <span class="math inline">\(X \sim \text{N}(\mu, \sigma)\)</span>.</p>
