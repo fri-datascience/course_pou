@@ -6,15 +6,21 @@ The students are expected to acquire the following knowledge:
 
 **Theoretical**
 
+- Multinomial distribution.
 - Multivariate normal distribution.
+- Cholesky decomposition.
+- Eigendecomposition.
 
 
 **R**
 
+- Sampling from the multinomial distribution.
 - Sampling from the multivariate normal distribution.
+- Matrix decompositions.
+
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- TRUE
+togs <- F
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -54,7 +60,7 @@ Therefore $p(x_1) = \binom{n}{x_1} p_1^{x_1} (1 - p_1)^{n - x_1}$, which is
 the binomial PMF. Interested students are encouraged to prove this 
 mathematically.
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps      <- 1000
 samps_mult  <- rmultinom(nsamps, 4, prob = c(0.2, 0.2, 0.5, 0.1))
@@ -145,7 +151,7 @@ b. Find the Cholesky decomposition of $A =
 
 c. <span style="color:blue">R: Use the results from a) and b) to sample from the MVN distribution $\text{N}(\mu, A)$, where $\mu = [1.5, -1]^T$. Plot a scatterplot and compare it to direct samples from the multivariate normal distribution (_rmvnorm_). </span>
   
-d. <span style="color:blue">R: $L$ is a linear map$. Plot 10 points from $X$ and 10 points from the transformation $L X$ (Hint: use color or shapes). Compare and discuss the results.</span>
+<!-- d. <span style="color:blue">R: $L$ is a linear map$. Plot 10 points from $X$ and 10 points from the transformation $L X$ (Hint: use color or shapes). Compare and discuss the results.</span> --> 
 ```
 ```{solution, echo = togs}
 
@@ -176,7 +182,7 @@ b.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 # a
 set.seed(1)
 nsamps <- 1000
@@ -224,7 +230,7 @@ ggplot(data = plot_df, aes(x = D1,
 
 1. <span style="color:blue">Sample from two independent standardized normal distributions to get $X$.</span>
   
-2. <span style="color:blue">Find the eigen decomposition of $X$ (_eigen_).</span>
+2. <span style="color:blue">Find the eigendecomposition of $X$ (_eigen_).</span>
 
 3. <span style="color:blue">Multiply $X$ by $\Lambda^{\frac{1}{2}}$ to get $X2$. Consider how the eigendecomposition for $X2$ changes compared to $X$. </span>
     
@@ -235,7 +241,7 @@ ggplot(data = plot_df, aes(x = D1,
 6. <span style="color:blue">Plot the data and the eigenvectors (scaled with $\Lambda^{\frac{1}{2}}$) at each step. Hint: Use _geom_segment_ for the eigenvectors. </span>
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 # a
 set.seed(1)
 sigma <- matrix(data = c(0.3, -0.5,
@@ -303,7 +309,7 @@ d. Find the conditional distribution of $A | B$.
 
 e.  <span style="color:blue">R: Visually compare the distributions of a) and b), and c) and d) at three different conditional values.</span>
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 mu    <- c(2, 0, -1)
 Sigma <- matrix(c(1, -0.2, 0.5,
                   -0.2, 1.4, -1.2,
@@ -360,7 +366,7 @@ d.
 \end{align}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 library(mvtnorm)
 set.seed(1)
 nsamps <- 1000
@@ -452,7 +458,7 @@ make modeling much easier.
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nsamps <- 1000
 x      <- runif(nsamps, min = -2, max = 2)
@@ -471,7 +477,7 @@ ggplot(df, aes(x = x, y = y, color = vrs)) +
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 library(mvtnorm)
 set.seed(1)
 mvn_dens <- function (y, mu, Sigma) {

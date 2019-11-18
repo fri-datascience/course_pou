@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 6 Integration | Principles of Uncertainty – exercises</title>
+  <title>Chapter 8 Multivariate random variables | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 6 Integration | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 8 Multivariate random variables | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Integration | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 8 Multivariate random variables | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="mrvs.html">
-<link rel="next" href="ev.html">
+<link rel="prev" href="ev.html">
+<link rel="next" href="A1.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -218,143 +218,121 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="integ" class="section level1">
-<h1><span class="header-section-number">Chapter 6</span> Integration</h1>
-<p>This chapter deals with abstract and Monte Carlo integration.</p>
+<div id="mrv" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Multivariate random variables</h1>
+<p>This chapter deals with multivariate random variables.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
 <ul>
-<li>How to calculate Lebesgue integrals for non-simple functions.</li>
+<li>Multinomial distribution.</li>
+<li>Multivariate normal distribution.</li>
+<li>Cholesky decomposition.</li>
+<li>Eigendecomposition.</li>
 </ul>
 <p><strong>R</strong></p>
 <ul>
-<li>Monte Carlo integration.</li>
+<li>Sampling from the multinomial distribution.</li>
+<li>Sampling from the multivariate normal distribution.</li>
+<li>Matrix decompositions.</li>
 </ul>
-<style>
-.fold-btn { 
-  float: right; 
-  margin: 5px 5px 0 0;
-}
-.fold { 
-  border: 1px solid black;
-  min-height: 40px;
-}
-</style>
-<script type="text/javascript">
-$(document).ready(function() {
-  $folds = $(".fold");
-  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
-  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
-  $(".fold-blck").toggle();  // fold all blocks
-  $(".fold-btn").on("click", function() {  // add onClick event
-    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
-    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
-  })
-});
-</script>
-<div id="monte-carlo-integration" class="section level2">
-<h2><span class="header-section-number">6.1</span> Monte Carlo integration</h2>
+<div id="multinomial-random-variables" class="section level2">
+<h2><span class="header-section-number">8.1</span> Multinomial random variables</h2>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-131" class="exercise"><strong>Exercise 6.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be continuous random variables on the unit interval and <span class="math inline">\(p(x,y) = 6(x - y)^2\)</span>. Use Monte Carlo integration to estimate the probability <span class="math inline">\(P(0.2 \leq X \leq 0.5, \: 0.1 \leq Y \leq 0.2)\)</span>. Can you find the exact value?</span>
-</div>
-
-<div class="fold">
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
-V  &lt;-<span class="st"> </span>(<span class="fl">0.5</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.2</span>) <span class="op">*</span><span class="st"> </span>(<span class="fl">0.2</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.1</span>)
-x1 &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, <span class="fl">0.2</span>, <span class="fl">0.5</span>)
-x2 &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, <span class="fl">0.1</span>, <span class="fl">0.2</span>)
-f_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {
-  <span class="kw">return</span> (<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>(x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>)
-}
-mcint  &lt;-<span class="st"> </span>V <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>nsamps) <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">f_1</span>(x1, x2))
-mcint2 &lt;-<span class="st"> </span>V <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>nsamps) <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">f_1</span>(x1, x2)<span class="op">^</span><span class="dv">2</span>)
-sdm    &lt;-<span class="st"> </span>(mcint2 <span class="op">-</span><span class="st"> </span>mcint<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(nsamps)
-mcint</code></pre>
-<pre><code>## [1] 0.008793445</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">sdm</code></pre>
-<pre><code>## [1] 0.000129922</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">F_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {
-  <span class="kw">return</span> (<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>y <span class="op">-</span><span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>y<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">*</span><span class="st"> </span>y<span class="op">^</span><span class="dv">3</span>)
-}
-<span class="kw">F_1</span>(<span class="fl">0.5</span>, <span class="fl">0.2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">F_1</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">F_1</span>(<span class="fl">0.5</span>, <span class="fl">0.1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">F_1</span>(<span class="fl">0.2</span>, <span class="fl">0.1</span>)</code></pre>
-<pre><code>## [1] 0.0087</code></pre>
-</div>
-</div>
-<div id="lebesgue-integrals" class="section level2">
-<h2><span class="header-section-number">6.2</span> Lebesgue integrals</h2>
-
-<div class="exercise">
-<p><span id="exr:unnamed-chunk-133" class="exercise"><strong>Exercise 6.2  (borrowed from Jagannathan)  </strong></span>Find the Lebesgue integral of the following functions on (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>, <span class="math inline">\(\lambda\)</span>).</p>
+<p><span id="exr:mnompdf" class="exercise"><strong>Exercise 8.1  </strong></span>Let <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i = 1,...,k\)</span> represent <span class="math inline">\(k\)</span> events, and <span class="math inline">\(p_i\)</span> the probabilities
+of these events happening in a trial. Let <span class="math inline">\(n\)</span> be the number of trials, and
+<span class="math inline">\(X\)</span> a multivariate random variable, the collection of <span class="math inline">\(X_i\)</span>.
+Then <span class="math inline">\(p(x) = \frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}\)</span>
+is the PMF of a multinomial distribution, where <span class="math inline">\(n = \sum_{i = 1}^k x_i\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p><span class="math display">\[\begin{align}
-f(\omega) = 
-  \begin{cases}
-    \omega, &amp; \text{for } \omega = 0,1,...,n \\
-    0, &amp; \text{elsewhere}
-  \end{cases}
-\end{align}\]</span></p></li>
-<li><p><span class="math display">\[\begin{align}
-f(\omega) = 
-  \begin{cases}
-    1, &amp; \text{for } \omega = \mathbb{Q}^c \cap [0,1] \\
-    0, &amp; \text{elsewhere}
-  \end{cases}
-\end{align}\]</span></p></li>
-<li><p><span class="math display">\[\begin{align}
-f(\omega) = 
-  \begin{cases}
-    n, &amp; \text{for } \omega = \mathbb{Q}^c \cap [0,n] \\
-    0, &amp; \text{elsewhere}
-  \end{cases}
-\end{align}\]</span></p>
-</div></li>
-</ol>
-<div class="fold">
-
-<div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
-<ol style="list-style-type: lower-alpha">
-<li><p><span class="math display">\[\begin{align}
-\int f(\omega) d\lambda = \sum_{\omega = 0}^n \omega \lambda(\omega) = 0.
-\end{align}\]</span></p></li>
-<li><p><span class="math display">\[\begin{align}
-\int f(\omega) d\lambda = 1 \times \lambda(\mathbb{Q}^c \cap [0,1]) = 1.
-\end{align}\]</span></p></li>
-<li><p><span class="math display">\[\begin{align}
-\int f(\omega) d\lambda = n \times \lambda(\mathbb{Q}^c \cap [0,n]) = n^2.
-\end{align}\]</span></p>
-</div></li>
+<li><p>Show that the marginal distribution of <span class="math inline">\(X_i\)</span> is a binomial distribution.</p></li>
+<li><p>Take 1000 samples from the multinomial distribution with <span class="math inline">\(n=4\)</span> and
+probabilities <span class="math inline">\(p = (0.2, 0.2, 0.5, 0.1)\)</span>. Then take 1000 samples from
+four binomial distributions with the same parameters. Inspect the results
+visually.</p></li>
 </ol>
 </div>
 
+
 <div class="exercise">
-<span id="exr:unnamed-chunk-135" class="exercise"><strong>Exercise 6.3  (borrowed from Jagannathan)  </strong></span>Let <span class="math inline">\(c \in \mathbb{R}\)</span> be fixed and (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>) a measurable space. If for any Borel set <span class="math inline">\(A\)</span>, <span class="math inline">\(\delta_c (A) = 1\)</span> if <span class="math inline">\(c \in A\)</span>, and <span class="math inline">\(\delta_c (A) = 0\)</span> otherwise, then <span class="math inline">\(\delta_c\)</span> is called a <em>Dirac measure</em>. Let <span class="math inline">\(g\)</span> be a non-negative, measurable function. Show that <span class="math inline">\(\int g d \delta_c = g(c)\)</span>.
-</div>
-
-<div class="fold">
-
-<div class="solution">
- <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
-  \int g d \delta_c &amp;= \sup_{q \in S(g)} \int q d \delta_c \\
-                    &amp;= \sup_{q \in S(g)} \sum_{i = 1}^n a_i \delta_c(A_i) \\
-                    &amp;= \sup_{q \in S(g)} \sum_{i = 1}^n a_i \text{I}_{A_i}(c) \\
-                    &amp;= \sup_{q \in S(g)} q(c) \\
-                    &amp;= g(c)
-\end{align}\]</span>
-</div>
+<p><span id="exr:mnomev" class="exercise"><strong>Exercise 8.2  (Multinomial expected value)  </strong></span>Find the expected value, variance and covariance of the multinomial distribution. Hint: First find the expected value for <span class="math inline">\(n = 1\)</span> and then use the fact that the trials are independent.</p>
 </div>
 
 </div>
+<div id="multivariate-normal-random-variables" class="section level2">
+<h2><span class="header-section-number">8.2</span> Multivariate normal random variables</h2>
+
+<div class="exercise">
+<p><span id="exr:mvnchol" class="exercise"><strong>Exercise 8.3  (Cholesky decomposition)  </strong></span>Let <span class="math inline">\(X\)</span> be a random vector of length <span class="math inline">\(k\)</span> with <span class="math inline">\(X_i \sim \text{N}(0, 1)\)</span> and <span class="math inline">\(LL^*\)</span> the Cholesky decomposition of a Hermitian positive-definite matrix <span class="math inline">\(A\)</span>. Let <span class="math inline">\(\mu\)</span> be a vector of length <span class="math inline">\(k\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find the distribution of the random vector <span class="math inline">\(Y = \mu + L X\)</span>.</p></li>
+<li><p>Find the Cholesky decomposition of <span class="math inline">\(A = \begin{bmatrix}  2 &amp; 1.2 \\  1.2 &amp; 1 \end{bmatrix}\)</span>.</p></li>
+<li><p><span style="color:blue">R: Use the results from a) and b) to sample from the MVN distribution <span class="math inline">\(\text{N}(\mu, A)\)</span>, where <span class="math inline">\(\mu = [1.5, -1]^T\)</span>. Plot a scatterplot and compare it to direct samples from the multivariate normal distribution (<em>rmvnorm</em>). </span></p></li>
+</ol>
+<!-- d. <span style="color:blue">R: $L$ is a linear map$. Plot 10 points from $X$ and 10 points from the transformation $L X$ (Hint: use color or shapes). Compare and discuss the results.</span> -->
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:mvneigen" class="exercise"><strong>Exercise 8.4  (Eigendecomposition)  </strong></span><span style="color:blue">R: Let <span class="math inline">\(\Sigma = U \Lambda U^T\)</span> be the eigendecomposition of covariance matrix <span class="math inline">\(\sigma\)</span>. Follow the procdeure below, to sample from a multivariate normal with <span class="math inline">\(\mu = [-2, 1]^T\)</span> and <span class="math inline">\(\Sigma = \begin{bmatrix}  0.3, -0.5 \\  -0.5, 1.6 \end{bmatrix}\)</span>:</span></p>
+<ol style="list-style-type: decimal">
+<li><p><span style="color:blue">Sample from two independent standardized normal distributions to get <span class="math inline">\(X\)</span>.</span></p></li>
+<li><p><span style="color:blue">Find the eigendecomposition of <span class="math inline">\(X\)</span> (<em>eigen</em>).</span></p></li>
+<li><p><span style="color:blue">Multiply <span class="math inline">\(X\)</span> by <span class="math inline">\(\Lambda^{\frac{1}{2}}\)</span> to get <span class="math inline">\(X2\)</span>. Consider how the eigendecomposition for <span class="math inline">\(X2\)</span> changes compared to <span class="math inline">\(X\)</span>. </span></p></li>
+<li><p><span style="color:blue">Multiply <span class="math inline">\(X2\)</span> by <span class="math inline">\(U\)</span> to get <span class="math inline">\(X3\)</span>. Consider how the eigendecomposition for <span class="math inline">\(X3\)</span> changes compared to <span class="math inline">\(X2\)</span>. </span></p></li>
+<li><p><span style="color:blue">Add <span class="math inline">\(\mu\)</span> to <span class="math inline">\(X3\)</span>. Consider how the eigendecomposition for <span class="math inline">\(X4\)</span> changes compared to <span class="math inline">\(X3\)</span>. </span></p></li>
+<li><p><span style="color:blue">Plot the data and the eigenvectors (scaled with <span class="math inline">\(\Lambda^{\frac{1}{2}}\)</span>) at each step. Hint: Use <em>geom_segment</em> for the eigenvectors. </span></p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:mvncond" class="exercise"><strong>Exercise 8.5  (Marginal and conditional distributions)  </strong></span>Let <span class="math inline">\(X \sim \text{N}(\mu, \Sigma)\)</span>, where <span class="math inline">\(\mu = [2, 0, -1]^T\)</span> and <span class="math inline">\(\Sigma = \begin{bmatrix}  1 &amp; -0.2 &amp; 0.5 \\  -0.2 &amp; 1.4 &amp; -1.2 \\  0.5 &amp; -1.2 &amp; 2 \\ \end{bmatrix}\)</span>. Let <span class="math inline">\(A\)</span> represent the first two random variables and <span class="math inline">\(B\)</span> the third random variable. <span style="color:blue">R: For the calculation in the following points, you can use R.</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find the marginal distribution of <span class="math inline">\(B\)</span>.</p></li>
+<li><p>Find the conditional distribution of <span class="math inline">\(B | A\)</span>.</p></li>
+<li><p>Find the marginal distribution of <span class="math inline">\(A\)</span>.</p></li>
+<li><p>Find the conditional distribution of <span class="math inline">\(A | B\)</span>.</p></li>
+<li><p><span style="color:blue">R: Visually compare the distributions of a) and b), and c) and d) at three different conditional values.</span></p>
+</div></li>
+</ol>
+</div>
+<div id="transformations-2" class="section level2">
+<h2><span class="header-section-number">8.3</span> Transformations</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-175" class="exercise"><strong>Exercise 8.6  </strong></span>Let <span class="math inline">\((U,V)\)</span> be a random variable with PDF <span class="math inline">\(p(u,v) = \frac{1}{8 \sqrt{u}}\)</span>,
+<span class="math inline">\(U \in [0,4]\)</span> and <span class="math inline">\(V \in [\sqrt{U}, \sqrt{U} - 1]\)</span>. Let <span class="math inline">\(X = \sqrt{U}\)</span> and
+<span class="math inline">\(Y = V - \sqrt{U}\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find PDF of <span class="math inline">\((X,Y)\)</span>. What can you tell about distributions of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>?
+This exercise shows how we can simplify a probabilistic problem with a
+clever use of transformations.</p></li>
+<li><p><span style="color:blue">R: Take 1000 samples from <span class="math inline">\((X,Y)\)</span> and transform
+them with inverses of the above functions to get samples from <span class="math inline">\((U,V)\)</span>.
+Plot both sets of samples.</span></p></li>
+</ol>
+</div>
+
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-178" class="exercise"><strong>Exercise 8.7  </strong></span><span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with <em>dmvnorm</em> from the <strong>mvtnorm</strong> package.</span></p>
+</div>
+
+
+</div>
+</div>
+
+
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="mrvs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ev.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ev.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="A1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
