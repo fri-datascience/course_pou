@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-11-18">
+<meta name="date" content="2019-11-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -269,12 +269,12 @@ f_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="cf">funct
   <span class="kw">return</span> (<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>(x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>)
 }
 mcint  &lt;-<span class="st"> </span>V <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>nsamps) <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">f_1</span>(x1, x2))
-mcint2 &lt;-<span class="st"> </span>V <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>nsamps) <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">f_1</span>(x1, x2)<span class="op">^</span><span class="dv">2</span>)
+mcint2 &lt;-<span class="st"> </span>V<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>nsamps) <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">f_1</span>(x1, x2)<span class="op">^</span><span class="dv">2</span>)
 sdm    &lt;-<span class="st"> </span>(mcint2 <span class="op">-</span><span class="st"> </span>mcint<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(nsamps)
 mcint</code></pre>
 <pre><code>## [1] 0.008793445</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">sdm</code></pre>
-<pre><code>## [1] 0.000129922</code></pre>
+<pre><code>## [1] 1.525797e-06</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">F_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {
   <span class="kw">return</span> (<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>y <span class="op">-</span><span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>y<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">*</span><span class="st"> </span>y<span class="op">^</span><span class="dv">3</span>)
 }

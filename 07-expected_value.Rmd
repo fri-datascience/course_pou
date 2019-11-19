@@ -43,7 +43,7 @@ $(document).ready(function() {
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 togs <- T
-togs2 <- F
+togs2 <- T
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -326,7 +326,7 @@ b. Show that $Var[X] = \sigma^2$. Hint: Start with the definition of variance.
 
 ```
 
-
+<div class="fold">
 ```{solution, echo = togs2}
 
 
@@ -376,7 +376,7 @@ b.
 
 
 ```
-
+</div>
 
 ## Sums, functions, conditional expectations
 
@@ -392,6 +392,8 @@ c. Find $E[\exp(X)]$.
 d. <span style="color:blue">R: Check your results numerically for $\mu = 0.4$ and $\sigma^2 = 0.25$ and plot the densities of all four distributions.</span>
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs2}
 
 
@@ -416,7 +418,7 @@ c.
              &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty  e^{-\frac{x^2 - 2x(\mu + \sigma^2) + \mu^2}{2\sigma^2}} dx & \\
              &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty  e^{-\frac{(x - (\mu + \sigma^2))^2 + \mu^2 - (\mu + \sigma^2)^2}{2\sigma^2}} dx & \text{complete the square} \\
              &= \frac{1}{\sqrt{2\pi \sigma^2}} e^{\frac{- \mu^2 + (\mu + \sigma^2)^2}{2\sigma^2}} \int_{-\infty}^\infty  e^{-\frac{(x - (\mu + \sigma^2))^2}{2\sigma^2}} dx &  \\
-             &= \frac{1}{\sqrt{2\pi \sigma^2}} e^{\frac{- \mu^2 + (\mu + \sigma^2)^2}{2\sigma^2}} \sigma \sqrt{2 \pi} \text{erf}(\infty) & \text{using the same substitutions as in \@ref(exr:normev)} \\
+             &= \frac{1}{\sqrt{2\pi \sigma^2}} e^{\frac{- \mu^2 + (\mu + \sigma^2)^2}{2\sigma^2}} \sigma \sqrt{2 \pi} \text{erf}(\infty) &  \\
              &= e^{\frac{2\mu + \sigma^2}{2}}.
 \end{align}
 
@@ -436,12 +438,14 @@ mu^2 + sigma^2
 mean(exp(x))
 exp((2 * mu + sigma^2) / 2)
 ```
-
+</div>
 
 ```{exercise, name = "Sum of independent random variables"}
 Borrowed from Wasserman. Let $X_1, X_2,...,X_n$ be IID random variables with expected value $E[X_i] = \mu$ and variance $Var[X_i] = \sigma^2$. Find the expected value and variance of $\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i$. $\bar{X}$ is called a _statistic_ (a function of the values in a sample). It is itself a random variable and its distribution is called a sampling distribution. <span style="color:blue">R: Take $n = 5, 10, 100, 1000$ samples from the N($2$, $6$) distribution 10000 times. Plot the theoretical density and the densities of $\bar{X}$ statistic for each $n$. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span>
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs2}
 Let us start with the expectation of $\bar{X}$.
 
@@ -457,7 +461,7 @@ Now the variance
 \begin{align}
   Var[\bar{X}] &= Var[\frac{1}{n} \sum_{i=1}^n X_i] & \\
              &= \frac{1}{n^2} Var[\sum_{i=1}^n X_i] & \text{ (multiplication with a scalar)} \\
-             &= \frac{1}{n} \sum_{i=1}^n Var[X_i] & \text{ (independence of samples)} \\
+             &= \frac{1}{n^2} \sum_{i=1}^n Var[X_i] & \text{ (independence of samples)} \\
              &= \frac{1}{n^2} n \sigma^2 & \\
              &= \frac{1}{n} \sigma^2.
 \end{align}
@@ -489,6 +493,8 @@ ggplot(data = X, aes(x = value, colour = variable)) +
 
 
 ```
+</div>
+
 
 ```{exercise, name = "Conditional expectation"}
 Let $X \in \mathbb{R}_0^+$ and $Y \in \mathbb{N}_0$ be random variables with joint distribution $p_{XY}(X,Y) = \frac{1}{y + 1} e^{-\frac{x}{y + 1}} 0.5^{y + 1}$.
@@ -500,6 +506,8 @@ b. Find $E[X]$.
 c. <span style="color:blue">R: check your answers to a) and b) by drawing 10000 samples from $p_Y$ and $p_{X|Y}$.</span>
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs2}
 
 
@@ -548,7 +556,7 @@ mean(x)
 (1 - 0.5) / 0.5 + 1
 
 ```
-
+</div>
 
 ```{exercise, name = "Cauchy distribution"}
 Let $p(x | x_0, \gamma) = \frac{1}{\pi \gamma \Big(1 + \big(\frac{x - x_0}{\gamma}\big)^2\Big)}$. A random variable with this PDF follows a Cauchy distribution. This distribution is symmetric and has wider tails than the normal distribution. 
@@ -558,6 +566,8 @@ a. <span style="color:blue">R: Draw $n = 1,...,1000$ samples from a standard nor
 b. To get a mathematical explanation of the results in a), evaluate the integral $\int_0^\infty \frac{x}{1 + x^2} dx$ and consider that $E[X] = \int_{-\infty}^\infty \frac{x}{1 + x^2}dx$.
 
 ```
+
+<div class="fold">
 ```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
 set.seed(1)
 n         <- 1000
@@ -587,15 +597,16 @@ ggplot(df, aes(x = n, y = value)) +
 ```
 ```{solution, echo = togs2}
 
-a.
+b.
 \begin{align}
-  \int_0^\infty \frac{x}{1 + x^2} dx &= \frac{1}{2} \int_0^\infty \frac{1}{u} du & u = 1 + x^2 \\
+  \int_0^\infty \frac{x}{1 + x^2} dx &= \frac{1}{2} \int_1^\infty \frac{1}{u} du & u = 1 + x^2 \\
                                      &= \frac{1}{2} \ln(x) |_0^\infty.
 \end{align}
-This integral is not finite. The same holds for the negative part. Therefore, the expectation is undefined.
+This integral is not finite. The same holds for the negative part. Therefore, the expectation is undefined, as $E[|X|] = \infty$. See Riemann rearrangement theorem.
 
 
 ```
+</div>
 
 ## Covariance
 ```{exercise}
@@ -621,6 +632,8 @@ d. Find sample variance of $Z = 2X - 3Y$.
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs2}
 
 a. $\bar{X} = 0.92$ and $\bar{Y} = 10$.
@@ -655,7 +668,7 @@ d.
 
 
 ```
-
+</div>
 
 
 ```{exercise}
@@ -668,6 +681,8 @@ b. Find the correlation of $X$ and $Y$.
 c. <span style="color:blue">R: check your answers to a) and b) with simulation. Plot $X$ against $Y$ on a scatterplot.</span>
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs2}
 
 a. The joint PDF is $p(x,y) = p(x)p(y|x) = \frac{1}{x}$.
@@ -731,3 +746,5 @@ ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
   geom_point(alpha = 0.2) +
   geom_smooth(method = "lm")
 ```
+</div>
+

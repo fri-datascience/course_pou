@@ -25,7 +25,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj">
 
 
-<meta name="date" content="2019-11-18">
+<meta name="date" content="2019-11-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -498,6 +498,53 @@ Var[X] &amp;= E[X^2] - E[X]^2  &amp; \\
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math display">\[\begin{align*}
+E[X] &amp;= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} x dx &amp; \\
+     &amp;= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty x e^{-\frac{(x - \mu)^2}{2\sigma^2}} dx &amp; \\
+     &amp;= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty \Big(t \sqrt{2\sigma^2} + \mu\Big)e^{-t^2} \sqrt{2 \sigma^2} dt &amp; t = \frac{x - \mu}{\sqrt{2\sigma}} \\
+     &amp;= \frac{\sqrt{2\sigma^2}}{\sqrt{\pi}} \int_{-\infty}^\infty t  e^{-t^2} dt + \frac{1}{\sqrt{\pi}} \int_{-\infty}^\infty \mu e^{-t^2} dt &amp; \\
+\end{align*}\]</span></li>
+</ol>
+<p>Let us calculate these integrals separately.
+<span class="math display">\[\begin{align*}
+  \int t e^{-t^2} dt &amp;= -\frac{1}{2}\int e^{s} ds &amp; s = -t^2 \\
+                     &amp;= -\frac{e^s}{2} + C \\
+                     &amp;= -\frac{e^{-t^2}}{2} + C &amp; \text{undoing substitution}.
+\end{align*}\]</span>
+Inserting the integration limits we get
+<span class="math display">\[\begin{align*}
+  \int_{-\infty}^\infty t e^{-t^2} dt &amp;= 0,
+\end{align*}\]</span>
+due to the integrated function being symmetric.</p>
+<p>Reordering the second integral we get
+<span class="math display">\[\begin{align*}
+  \mu \frac{1}{\sqrt{\pi}} \int_{-\infty}^\infty e^{-t^2} dt &amp;= \mu \text{erf}(\infty) &amp; \text{definition of error function} \\
+                                                             &amp;= \mu &amp; \text{probability of $Y$ falling between $-\infty$ and $\infty$}.
+\end{align*}\]</span>
+Combining all of the above we get
+<span class="math display">\[\begin{align*}
+  E[X] &amp;= \frac{\sqrt{2\sigma^2}}{\sqrt{\pi}} \times 0 + \mu 
+       &amp;= \mu.\\
+\end{align*}\]</span></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><span class="math display">\[\begin{align*}
+  Var[X] &amp;= E[(X - E[X])^2] \\
+      &amp;= E[(X - \mu)^2] \\
+      &amp;= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty (x - \mu)^2 e^{-\frac{(x - \mu)^2}{2\sigma^2}} dx \\
+      &amp;= \frac{\sigma^2}{\sqrt{2\pi}} \int_{-\infty}^\infty t^2 e^{-\frac{t^2}{2}} dt \\
+      &amp;= \frac{\sigma^2}{\sqrt{2\pi}} \bigg(\Big(- t e^{-\frac{t^2}{2}} |_{-\infty}^\infty \Big) + \int_{-\infty}^\infty e^{-\frac{t^2}{2}} \bigg) dt &amp; \text{integration by parts} \\
+      &amp;= \frac{\sigma^2}{\sqrt{2\pi}} \sqrt{2 \pi} \int_{-\infty}^\infty  \frac{1}{\sqrt(\pi)}e^{-s^2} \bigg) &amp; s = \frac{t}{\sqrt{2}} \text{ and evaluating the left expression at the bounds} \\
+      &amp;= \frac{\sigma^2}{\sqrt{2\pi}} \sqrt{2 \pi} \Big(\text{erf}(\infty) &amp; \text{definition of error function} \\
+      &amp;= \sigma^2.
+\end{align*}\]</span></li>
+</ol>
+</div>
+</div>
 </div>
 <div id="sums-functions-conditional-expectations" class="section level2">
 <h2><span class="header-section-number">7.3</span> Sums, functions, conditional expectations</h2>
@@ -512,11 +559,97 @@ Var[X] &amp;= E[X^2] - E[X]^2  &amp; \\
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align}
+E[2X + 4] &amp;= 2E[X] + 4 &amp; \text{linearity of expectation} \\
+          &amp;= 2\mu + 4. \\
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+E[X^2] &amp;= E[X]^2 - Var[X] &amp; \text{definition of variance} \\
+       &amp;= \mu^2 + \sigma^2.
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+E[\exp(X)] &amp;= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} e^x dx &amp; \\
+           &amp;= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty  e^{\frac{2 \sigma^2 x}{2\sigma^2} -\frac{(x - \mu)^2}{2\sigma^2}} dx &amp; \\
+           &amp;= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty  e^{-\frac{x^2 - 2x(\mu + \sigma^2) + \mu^2}{2\sigma^2}} dx &amp; \\
+           &amp;= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty  e^{-\frac{(x - (\mu + \sigma^2))^2 + \mu^2 - (\mu + \sigma^2)^2}{2\sigma^2}} dx &amp; \text{complete the square} \\
+           &amp;= \frac{1}{\sqrt{2\pi \sigma^2}} e^{\frac{- \mu^2 + (\mu + \sigma^2)^2}{2\sigma^2}} \int_{-\infty}^\infty  e^{-\frac{(x - (\mu + \sigma^2))^2}{2\sigma^2}} dx &amp;  \\
+           &amp;= \frac{1}{\sqrt{2\pi \sigma^2}} e^{\frac{- \mu^2 + (\mu + \sigma^2)^2}{2\sigma^2}} \sigma \sqrt{2 \pi} \text{erf}(\infty) &amp;  \\
+           &amp;= e^{\frac{2\mu + \sigma^2}{2}}.
+\end{align}\]</span></p></li>
+</ol>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+mu    &lt;-<span class="st"> </span><span class="fl">0.4</span>
+sigma &lt;-<span class="st"> </span><span class="fl">0.5</span>
+x     &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100000</span>, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)
+
+<span class="kw">mean</span>(<span class="dv">2</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="dv">4</span>)</code></pre>
+<pre><code>## [1] 4.797756</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>mu <span class="op">+</span><span class="st"> </span><span class="dv">4</span></code></pre>
+<pre><code>## [1] 4.8</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x<span class="op">^</span><span class="dv">2</span>)</code></pre>
+<pre><code>## [1] 0.4108658</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">mu<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>sigma<span class="op">^</span><span class="dv">2</span></code></pre>
+<pre><code>## [1] 0.41</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">exp</span>(x))</code></pre>
+<pre><code>## [1] 1.689794</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>((<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>mu <span class="op">+</span><span class="st"> </span>sigma<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)</code></pre>
+<pre><code>## [1] 1.690459</code></pre>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-151" class="exercise"><strong>Exercise 7.10  (Sum of independent random variables)  </strong></span>Borrowed from Wasserman. Let <span class="math inline">\(X_1, X_2,...,X_n\)</span> be IID random variables with expected value <span class="math inline">\(E[X_i] = \mu\)</span> and variance <span class="math inline">\(Var[X_i] = \sigma^2\)</span>. Find the expected value and variance of <span class="math inline">\(\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i\)</span>. <span class="math inline">\(\bar{X}\)</span> is called a <em>statistic</em> (a function of the values in a sample). It is itself a random variable and its distribution is called a sampling distribution. <span style="color:blue">R: Take <span class="math inline">\(n = 5, 10, 100, 1000\)</span> samples from the N(<span class="math inline">\(2\)</span>, <span class="math inline">\(6\)</span>) distribution 10000 times. Plot the theoretical density and the densities of <span class="math inline">\(\bar{X}\)</span> statistic for each <span class="math inline">\(n\)</span>. Intuitively, are the results in correspondence with your calculations? Check them numerically.</span></p>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> Let us start with the expectation of <span class="math inline">\(\bar{X}\)</span>.</p>
+<p><span class="math display">\[\begin{align}
+  E[\bar{X}] &amp;= E[\frac{1}{n} \sum_{i=1}^n X_i] &amp; \\
+             &amp;= \frac{1}{n} E[\sum_{i=1}^n X_i] &amp; \text{ (multiplication with a scalar)} \\
+             &amp;= \frac{1}{n} \sum_{i=1}^n E[X_i] &amp; \text{ (linearity)} \\
+             &amp;= \frac{1}{n} n \mu &amp; \\
+             &amp;= \mu.
+\end{align}\]</span></p>
+<p>Now the variance
+<span class="math display">\[\begin{align}
+  Var[\bar{X}] &amp;= Var[\frac{1}{n} \sum_{i=1}^n X_i] &amp; \\
+             &amp;= \frac{1}{n^2} Var[\sum_{i=1}^n X_i] &amp; \text{ (multiplication with a scalar)} \\
+             &amp;= \frac{1}{n^2} \sum_{i=1}^n Var[X_i] &amp; \text{ (independence of samples)} \\
+             &amp;= \frac{1}{n^2} n \sigma^2 &amp; \\
+             &amp;= \frac{1}{n} \sigma^2.
+\end{align}\]</span></p>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">10000</span>
+mu     &lt;-<span class="st"> </span><span class="dv">2</span>
+sigma  &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">6</span>)
+N      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">500</span>)
+X      &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="kw">length</span>(N))
+ind    &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="cf">for</span> (n <span class="cf">in</span> N) {
+  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {
+    X[i,ind] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rnorm</span>(n, mu, sigma))
+  }
+  ind &lt;-<span class="st"> </span>ind <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+}
+<span class="kw">colnames</span>(X) &lt;-<span class="st"> </span>N
+X           &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.data.frame</span>(X))
+
+<span class="kw">ggplot</span>(<span class="dt">data =</span> X, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">colour =</span> variable)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">data  =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">6</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x), 
+                <span class="dt">fun   =</span> dnorm, 
+                <span class="dt">args  =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma), 
+                <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-154" class="exercise"><strong>Exercise 7.11  (Conditional expectation)  </strong></span>Let <span class="math inline">\(X \in \mathbb{R}_0^+\)</span> and <span class="math inline">\(Y \in \mathbb{N}_0\)</span> be random variables with joint distribution <span class="math inline">\(p_{XY}(X,Y) = \frac{1}{y + 1} e^{-\frac{x}{y + 1}} 0.5^{y + 1}\)</span>.</p>
@@ -527,6 +660,52 @@ Var[X] &amp;= E[X^2] - E[X]^2  &amp; \\
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align}
+p(y) &amp;= \int_0^\infty \frac{1}{y + 1} e^{-\frac{x}{y + 1}} 0.5^{y + 1} dx \\
+     &amp;= \frac{0.5^{y + 1}}{y + 1} \int_0^\infty e^{-\frac{x}{y + 1}} dx \\
+     &amp;= \frac{0.5^{y + 1}}{y + 1} (y + 1) \\
+     &amp;= 0.5^{y + 1} \\
+     &amp;= 0.5(1 - 0.5)^y.
+\end{align}\]</span>
+We recognize this as the geometric distribution.
+<span class="math display">\[\begin{align}
+p(x|y) &amp;= \frac{p(X,Y)}{P(Y)} \\
+       &amp;= \frac{1}{y + 1} e^{-\frac{x}{y + 1}}.
+\end{align}\]</span>
+We recognize this as the exponential distribution.
+<span class="math display">\[\begin{align}
+E[X | Y] &amp;= \int_0^\infty x \frac{1}{y + 1} e^{-\frac{x}{y + 1}} dx \\
+         &amp;= y + 1 &amp; \text{expected value of the exponential distribution}
+\end{align}\]</span></p></li>
+<li><p>Use the law of iterated expectation.
+<span class="math display">\[\begin{align}
+  E[X] &amp;= E[E[X | Y]] \\
+    &amp;= E[Y + 1] \\
+    &amp;= E[Y] + 1 \\
+    &amp;= \frac{1 - 0.5}{0.5} + 1 \\
+    &amp;= 2.
+\end{align}\]</span></p></li>
+</ol>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+y  &lt;-<span class="st"> </span><span class="kw">rgeom</span>(<span class="dv">100000</span>, <span class="fl">0.5</span>)
+x  &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">100000</span>, <span class="dt">rate =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(y <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))
+x2 &lt;-<span class="st"> </span>x[y <span class="op">==</span><span class="st"> </span><span class="dv">3</span>]
+
+<span class="kw">mean</span>(x2)</code></pre>
+<pre><code>## [1] 4.048501</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x)</code></pre>
+<pre><code>## [1] 2.007639</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">/</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></code></pre>
+<pre><code>## [1] 2</code></pre>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-157" class="exercise"><strong>Exercise 7.12  (Cauchy distribution)  </strong></span>Let <span class="math inline">\(p(x | x_0, \gamma) = \frac{1}{\pi \gamma \Big(1 + \big(\frac{x - x_0}{\gamma}\big)^2\Big)}\)</span>. A random variable with this PDF follows a Cauchy distribution. This distribution is symmetric and has wider tails than the normal distribution.</p>
@@ -536,6 +715,44 @@ Var[X] &amp;= E[X^2] - E[X]^2  &amp; \\
 </ol>
 </div>
 
+<div class="fold">
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+n         &lt;-<span class="st"> </span><span class="dv">1000</span>
+means_n   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> n)
+means_c   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> n)
+medians_n &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> n)
+medians_c &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> n)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
+  tmp_n        &lt;-<span class="st"> </span><span class="kw">rnorm</span>(i)
+  tmp_c        &lt;-<span class="st"> </span><span class="kw">rcauchy</span>(i)
+  means_n[i]   &lt;-<span class="st"> </span><span class="kw">mean</span>(tmp_n)
+  means_c[i]   &lt;-<span class="st"> </span><span class="kw">mean</span>(tmp_c)
+  medians_n[i] &lt;-<span class="st"> </span><span class="kw">median</span>(tmp_n)
+  medians_c[i] &lt;-<span class="st"> </span><span class="kw">median</span>(tmp_c)
+}
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;distribution&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;normal&quot;</span>, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n),
+                                    <span class="kw">rep</span>(<span class="st">&quot;Cauchy&quot;</span>, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n)),
+                 <span class="st">&quot;type&quot;</span>         =<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;mean&quot;</span>, n),
+                                    <span class="kw">rep</span>(<span class="st">&quot;median&quot;</span>, n),
+                                    <span class="kw">rep</span>(<span class="st">&quot;mean&quot;</span>, n),
+                                    <span class="kw">rep</span>(<span class="st">&quot;median&quot;</span>, n)),
+                 <span class="st">&quot;value&quot;</span>        =<span class="st"> </span><span class="kw">c</span>(means_n, medians_n, means_c, medians_c),
+                 <span class="st">&quot;n&quot;</span>            =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>n, <span class="dt">times =</span> <span class="dv">4</span>))
+<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> n, <span class="dt">y =</span> value)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>distribution , <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</code></pre>
+<img src="bookdown-pou_files/figure-html/unnamed-chunk-158-1.png" width="672" />
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> 
+b.
+<span class="math display">\[\begin{align}
+  \int_0^\infty \frac{x}{1 + x^2} dx &amp;= \frac{1}{2} \int_1^\infty \frac{1}{u} du &amp; u = 1 + x^2 \\
+                                     &amp;= \frac{1}{2} \ln(x) |_0^\infty.
+\end{align}\]</span>
+This integral is not finite. The same holds for the negative part. Therefore, the expectation is undefined, as <span class="math inline">\(E[|X|] = \infty\)</span>. See Riemann rearrangement theorem.</p>
+</div>
+</div>
 </div>
 <div id="covariance" class="section level2">
 <h2><span class="header-section-number">7.4</span> Covariance</h2>
@@ -580,6 +797,37 @@ Var[X] &amp;= E[X^2] - E[X]^2  &amp; \\
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> 
+a. <span class="math inline">\(\bar{X} = 0.92\)</span> and <span class="math inline">\(\bar{Y} = 10\)</span>.
+<span class="math display">\[\begin{align}
+  s(X, Y) &amp;= \frac{1}{n - 1} \sum_{i=1}^5 (X_i - 0.92) (Y_i - 10) \\
+            &amp;= -3.175.
+\end{align}\]</span></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align}
+s(X) &amp;= \frac{\sum_{i=1}^5(X_i - 0.92)^2}{5 - 1} \\
+     &amp;= 5.357.
+\end{align}\]</span>
+<span class="math display">\[\begin{align}
+s(Y) &amp;= \frac{\sum_{i=1}^5(Y_i - 10)^2}{5 - 1} \\
+     &amp;= 2.5.
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+r(X,Y) &amp;= \frac{Cov(X,Y)}{\sqrt{Var[X]Var[Y]}} \\
+          &amp;= \frac{-3.175}{\sqrt{5.357 \times 2.5}} \\
+          &amp;= -8.68.
+\end{align}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align}
+s(Z) &amp;= 2^2 s(X) + 3^2 s(Y) + 2 \times 2 \times 3 s(X, Y) \\
+     &amp;= 4 \times 5.357 + 9 \times 2.5 + 12 \times 3.175 \\
+     &amp;= 82.028.
+\end{align}\]</span></p></li>
+</ol>
+</div>
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-162" class="exercise"><strong>Exercise 7.14  </strong></span>Let <span class="math inline">\(X \sim \text{Uniform}(0,1)\)</span> and <span class="math inline">\(Y | X = x \sim \text{Uniform(0,x)}\)</span>.</p>
@@ -590,6 +838,70 @@ Var[X] &amp;= E[X^2] - E[X]^2  &amp; \\
 </ol>
 </div>
 
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> 
+a. The joint PDF is <span class="math inline">\(p(x,y) = p(x)p(y|x) = \frac{1}{x}\)</span>.
+<span class="math display">\[\begin{align}
+  Cov(X,Y) &amp;= E[XY] - E[X]E[Y] \\
+\end{align}\]</span>
+Let us first evaluate the first term:
+<span class="math display">\[\begin{align}
+  E[XY] &amp;= \int_0^1 \int_0^x x y \frac{1}{x} dy dx \\
+        &amp;= \int_0^1 \int_0^x y dy dx \\
+        &amp;= \int_0^1 \frac{x^2}{2} dx \\
+        &amp;= \frac{1}{6}.
+\end{align}\]</span>
+Now let us find <span class="math inline">\(E[Y]\)</span>, <span class="math inline">\(E[X]\)</span> is trivial.
+<span class="math display">\[\begin{align}
+  E[Y] = E[E[Y | X]] = E[\frac{X}{2}] = \frac{1}{2} \int_0^1 x dx = \frac{1}{4}.
+\end{align}\]</span>
+Combining all:
+<span class="math display">\[\begin{align}
+  Cov(X,Y) &amp;= \frac{1}{6} - \frac{1}{2} \frac{1}{4} = \frac{1}{24}.
+\end{align}\]</span></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><span class="math display">\[\begin{align}
+  \rho(X,Y) &amp;= \frac{Cov(X,Y)}{\sqrt{Var[X]Var[Y]}} \\
+\end{align}\]</span>
+Let us calculate <span class="math inline">\(Var[X]\)</span>.
+<span class="math display">\[\begin{align}
+  Var[X] &amp;= E[X^2] - \frac{1}{4} \\
+      &amp;= \int_0^1 x^2 - \frac{1}{4} \\
+      &amp;= \frac{1}{3} - \frac{1}{4} \\
+      &amp;= \frac{1}{12}.
+\end{align}\]</span>
+Let us calculate <span class="math inline">\(E[E[Y^2|X]]\)</span>.
+<span class="math display">\[\begin{align}
+  E[E[Y^2|X]] &amp;= E[\frac{x^2}{3}] \\
+           &amp;= \frac{1}{9}.
+\end{align}\]</span>
+Then <span class="math inline">\(Var[Y] = \frac{1}{9} - \frac{1}{16} = \frac{7}{144}\)</span>. Combining all
+<span class="math display">\[\begin{align}
+  \rho(X,Y) &amp;= \frac{\frac{1}{24}}{\sqrt{\frac{1}{12}\frac{5}{144}}} \\
+         &amp;= 0.65.
+\end{align}\]</span></li>
+</ol>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
+nsamps &lt;-<span class="st"> </span><span class="dv">10000</span>
+x      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps)
+y      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, <span class="dv">0</span>, x)
+
+<span class="kw">cov</span>(x, y)</code></pre>
+<pre><code>## [1] 0.04274061</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">/</span><span class="dv">24</span></code></pre>
+<pre><code>## [1] 0.04166667</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor</span>(x, y)</code></pre>
+<pre><code>## [1] 0.6629567</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">24</span>) <span class="op">/</span><span class="st"> </span>(<span class="kw">sqrt</span>(<span class="dv">7</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">12</span> <span class="op">*</span><span class="st"> </span><span class="dv">144</span>)))</code></pre>
+<pre><code>## [1] 0.6546537</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-164-1.png" width="672" /></p>
+</div>
 
 </div>
 </div>
