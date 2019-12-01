@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Multiple random variables | Principles of Uncertainty – exercises</title>
-  <meta name="description" content="Course notes">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Course notes" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Multiple random variables | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   <meta name="twitter:description" content="Course notes" />
   
 
-<meta name="author" content="Gregor Pirš and Erik Štrumbelj">
+<meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2019-11-19">
+<meta name="date" content="2019-12-01" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="rvs.html">
-<link rel="next" href="integ.html">
+<link rel="prev" href="rvs.html"/>
+<link rel="next" href="integ.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -56,7 +58,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -172,6 +173,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
+<li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
 <li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
@@ -269,29 +274,29 @@ Can you guess which distribution it is?</span></p>
 </div>
 
 <div class="fold">
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
-x      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)
-y      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)
-<span class="kw">ggplot</span>(<span class="kw">data.frame</span>(x, y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb84-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb84-3" title="3">x      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)</a>
+<a class="sourceLine" id="cb84-4" title="4">y      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)</a>
+<a class="sourceLine" id="cb84-5" title="5"><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(x, y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb84-6" title="6"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">y1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">1</span> <span class="op">*</span><span class="st"> </span>x)
-y2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">0</span> <span class="op">*</span><span class="st"> </span>x)
-y3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="fl">-0.5</span> <span class="op">*</span><span class="st"> </span>x)
-df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(x,x,x),
-             <span class="dt">y =</span> <span class="kw">c</span>(y1,y2,y3),
-             <span class="dt">a =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>, nsamps), <span class="kw">rep</span>(<span class="dv">0</span>, nsamps), <span class="kw">rep</span>(<span class="op">-</span><span class="fl">0.5</span>, nsamps)))
-<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_equal</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1">y1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">1</span> <span class="op">*</span><span class="st"> </span>x)</a>
+<a class="sourceLine" id="cb85-2" title="2">y2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">0</span> <span class="op">*</span><span class="st"> </span>x)</a>
+<a class="sourceLine" id="cb85-3" title="3">y3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="fl">-0.5</span> <span class="op">*</span><span class="st"> </span>x)</a>
+<a class="sourceLine" id="cb85-4" title="4">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(x,x,x),</a>
+<a class="sourceLine" id="cb85-5" title="5">             <span class="dt">y =</span> <span class="kw">c</span>(y1,y2,y3),</a>
+<a class="sourceLine" id="cb85-6" title="6">             <span class="dt">a =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>, nsamps), <span class="kw">rep</span>(<span class="dv">0</span>, nsamps), <span class="kw">rep</span>(<span class="op">-</span><span class="fl">0.5</span>, nsamps)))</a>
+<a class="sourceLine" id="cb85-7" title="7"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb85-8" title="8"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb85-9" title="9"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a) <span class="op">+</span></a>
+<a class="sourceLine" id="cb85-10" title="10"><span class="st">  </span><span class="kw">coord_equal</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-2.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Parameter a controls the scale of linear dependency between X and Y.</span>
-
-<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a)</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1"><span class="co"># Parameter a controls the scale of linear dependency between X and Y.</span></a>
+<a class="sourceLine" id="cb86-2" title="2"></a>
+<a class="sourceLine" id="cb86-3" title="3"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb86-4" title="4"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb86-5" title="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-3.png" width="672" /></p>
 </div>
 </div>
@@ -388,50 +393,50 @@ the conditional distributions of <span class="math inline">\(X | Y = y\)</span>,
   \end{align}\]</span></p></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-
-<span class="co"># d</span>
-pxy    &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {
-  <span class="kw">return</span> ((x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>)
-}
-x_axis       &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)
-y_axis       &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)
-df           &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(x_axis, y_axis)
-<span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)
-df           &lt;-<span class="st"> </span><span class="kw">cbind</span>(df, <span class="dt">pdf =</span> <span class="kw">pxy</span>(df<span class="op">$</span>x, df<span class="op">$</span>y))
-<span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> pdf)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb87-2" title="2"></a>
+<a class="sourceLine" id="cb87-3" title="3"><span class="co"># d</span></a>
+<a class="sourceLine" id="cb87-4" title="4">pxy    &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {</a>
+<a class="sourceLine" id="cb87-5" title="5">  <span class="kw">return</span> ((x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb87-6" title="6">}</a>
+<a class="sourceLine" id="cb87-7" title="7">x_axis       &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb87-8" title="8">y_axis       &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb87-9" title="9">df           &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(x_axis, y_axis)</a>
+<a class="sourceLine" id="cb87-10" title="10"><span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)</a>
+<a class="sourceLine" id="cb87-11" title="11">df           &lt;-<span class="st"> </span><span class="kw">cbind</span>(df, <span class="dt">pdf =</span> <span class="kw">pxy</span>(df<span class="op">$</span>x, df<span class="op">$</span>y))</a>
+<a class="sourceLine" id="cb87-12" title="12"><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> pdf)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb87-13" title="13"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># e</span>
-samps &lt;-<span class="st"> </span><span class="ot">NULL</span>
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>) {
-  xt &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)
-  yt &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)
-  pdft &lt;-<span class="st"> </span><span class="kw">pxy</span>(xt, yt)
-  acc  &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">6</span>)
-  <span class="cf">if</span> (acc <span class="op">&lt;=</span><span class="st"> </span>pdft) {
-    samps &lt;-<span class="st"> </span><span class="kw">rbind</span>(samps, <span class="kw">c</span>(xt, yt))
-  }
-}
-<span class="kw">colnames</span>(samps) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)
-<span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">as.data.frame</span>(samps), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1"><span class="co"># e</span></a>
+<a class="sourceLine" id="cb88-2" title="2">samps &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb88-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>) {</a>
+<a class="sourceLine" id="cb88-4" title="4">  xt &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb88-5" title="5">  yt &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb88-6" title="6">  pdft &lt;-<span class="st"> </span><span class="kw">pxy</span>(xt, yt)</a>
+<a class="sourceLine" id="cb88-7" title="7">  acc  &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb88-8" title="8">  <span class="cf">if</span> (acc <span class="op">&lt;=</span><span class="st"> </span>pdft) {</a>
+<a class="sourceLine" id="cb88-9" title="9">    samps &lt;-<span class="st"> </span><span class="kw">rbind</span>(samps, <span class="kw">c</span>(xt, yt))</a>
+<a class="sourceLine" id="cb88-10" title="10">  }</a>
+<a class="sourceLine" id="cb88-11" title="11">}</a>
+<a class="sourceLine" id="cb88-12" title="12"><span class="kw">colnames</span>(samps) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)</a>
+<a class="sourceLine" id="cb88-13" title="13"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">as.data.frame</span>(samps), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb88-14" title="14"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-2.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># f</span>
-mar_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x) {
-  <span class="kw">return</span> (<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)
-}
-cond_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {
-  <span class="kw">return</span> (((x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(y<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>y <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))
-}
-df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x    =</span> x_axis, 
-             <span class="dt">mar  =</span> <span class="kw">mar_pdf</span>(x), 
-             <span class="dt">y0   =</span> <span class="kw">cond_pdf</span>(x, <span class="dv">0</span>), 
-             <span class="dt">y0.1 =</span> <span class="kw">cond_pdf</span>(x, <span class="fl">0.1</span>), 
-             <span class="dt">y0.5 =</span> <span class="kw">cond_pdf</span>(x, <span class="fl">0.5</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">gather</span>(dist, value, <span class="op">-</span>x)
-<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value, <span class="dt">color =</span> dist)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="co"># f</span></a>
+<a class="sourceLine" id="cb89-2" title="2">mar_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x) {</a>
+<a class="sourceLine" id="cb89-3" title="3">  <span class="kw">return</span> (<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb89-4" title="4">}</a>
+<a class="sourceLine" id="cb89-5" title="5">cond_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {</a>
+<a class="sourceLine" id="cb89-6" title="6">  <span class="kw">return</span> (((x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(y<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>y <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb89-7" title="7">}</a>
+<a class="sourceLine" id="cb89-8" title="8">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x    =</span> x_axis, </a>
+<a class="sourceLine" id="cb89-9" title="9">             <span class="dt">mar  =</span> <span class="kw">mar_pdf</span>(x), </a>
+<a class="sourceLine" id="cb89-10" title="10">             <span class="dt">y0   =</span> <span class="kw">cond_pdf</span>(x, <span class="dv">0</span>), </a>
+<a class="sourceLine" id="cb89-11" title="11">             <span class="dt">y0.1 =</span> <span class="kw">cond_pdf</span>(x, <span class="fl">0.1</span>), </a>
+<a class="sourceLine" id="cb89-12" title="12">             <span class="dt">y0.5 =</span> <span class="kw">cond_pdf</span>(x, <span class="fl">0.5</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb89-13" title="13"><span class="st">  </span><span class="kw">gather</span>(dist, value, <span class="op">-</span>x)</a>
+<a class="sourceLine" id="cb89-14" title="14"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value, <span class="dt">color =</span> dist)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb89-15" title="15"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-3.png" width="672" /></p>
 </div>
 
@@ -485,19 +490,19 @@ which then integrates to one.
 We do not recognize this distribution.</p></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-px &lt;-<span class="st"> </span><span class="cf">function</span> (x, alpha, beta) {
-  <span class="kw">return</span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">factorial</span>(x)) <span class="op">*</span><span class="st"> </span>(beta<span class="op">^</span>alpha <span class="op">/</span><span class="st"> </span><span class="kw">gamma</span>(alpha)) <span class="op">*</span><span class="st"> </span>
-<span class="st">           </span>(<span class="kw">gamma</span>(x <span class="op">+</span><span class="st"> </span>alpha) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>beta)<span class="op">^</span>(x <span class="op">+</span><span class="st"> </span>alpha)))
-}
-nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
-rx     &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsamps, <span class="dv">1</span>, <span class="dv">1</span>)
-ryx    &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, rx)
-<span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb90-2" title="2">px &lt;-<span class="st"> </span><span class="cf">function</span> (x, alpha, beta) {</a>
+<a class="sourceLine" id="cb90-3" title="3">  <span class="kw">return</span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">factorial</span>(x)) <span class="op">*</span><span class="st"> </span>(beta<span class="op">^</span>alpha <span class="op">/</span><span class="st"> </span><span class="kw">gamma</span>(alpha)) <span class="op">*</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb90-4" title="4"><span class="st">           </span>(<span class="kw">gamma</span>(x <span class="op">+</span><span class="st"> </span>alpha) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>beta)<span class="op">^</span>(x <span class="op">+</span><span class="st"> </span>alpha)))</a>
+<a class="sourceLine" id="cb90-5" title="5">}</a>
+<a class="sourceLine" id="cb90-6" title="6">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb90-7" title="7">rx     &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsamps, <span class="dv">1</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb90-8" title="8">ryx    &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, rx)</a>
+<a class="sourceLine" id="cb90-9" title="9"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> px, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">beta =</span> <span class="dv">1</span>), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb91-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb91-3" title="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> px, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">beta =</span> <span class="dv">1</span>), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-125-2.png" width="672" /></p>
 </div>
 
@@ -560,11 +565,13 @@ the CDF, so <span class="math inline">\(p(r) = 3r^2\)</span>.</p>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -572,12 +579,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -589,6 +595,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -607,8 +617,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

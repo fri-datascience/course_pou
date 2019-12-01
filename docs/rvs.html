@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Random variables | Principles of Uncertainty – exercises</title>
-  <meta name="description" content="Course notes">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Course notes" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Random variables | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   <meta name="twitter:description" content="Course notes" />
   
 
-<meta name="author" content="Gregor Pirš and Erik Štrumbelj">
+<meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2019-11-19">
+<meta name="date" content="2019-12-01" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="condprob.html">
-<link rel="next" href="mrvs.html">
+<link rel="prev" href="condprob.html"/>
+<link rel="next" href="mrvs.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -56,7 +58,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -171,6 +172,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
+<li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
@@ -330,37 +335,37 @@ check that this is a proper PDF.</li>
 but <span class="math inline">\(\lim_{\epsilon \downarrow 0} F(\frac{1}{2} + \epsilon) = 1\)</span>.</li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r">f1 &lt;-<span class="st"> </span><span class="cf">function</span> (x) {
-  tmp        &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>x<span class="op">^</span><span class="dv">2</span>)
-  tmp[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span>
-  <span class="kw">return</span>(tmp)
-}
-
-f2 &lt;-<span class="st"> </span><span class="cf">function</span> (x) {
-  tmp         &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>x))
-  tmp[x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span>
-  <span class="kw">return</span>(tmp)
-}
-
-f3 &lt;-<span class="st"> </span><span class="cf">function</span> (x) {
-  tmp           &lt;-<span class="st"> </span>x
-  tmp[x <span class="op">==</span><span class="st"> </span>x]   &lt;-<span class="st"> </span><span class="dv">1</span>
-  tmp[x <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.5</span>] &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span>
-  tmp[x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>]   &lt;-<span class="st"> </span><span class="dv">0</span>
-  <span class="kw">return</span>(tmp)
-}
-
-cdf_data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x  =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">0.001</span>),
-                   <span class="dt">f1 =</span> <span class="kw">f1</span>(x),
-                   <span class="dt">f2 =</span> <span class="kw">f2</span>(x),
-                   <span class="dt">f3 =</span> <span class="kw">f3</span>(x)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">melt</span>(<span class="dt">id.vars =</span> <span class="st">&quot;x&quot;</span>)
-
-
-cdf_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> cdf_data, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value, <span class="dt">color =</span> variable)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>()
-<span class="kw">plot</span>(cdf_plot)</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1">f1 &lt;-<span class="st"> </span><span class="cf">function</span> (x) {</a>
+<a class="sourceLine" id="cb53-2" title="2">  tmp        &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>x<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb53-3" title="3">  tmp[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb53-4" title="4">  <span class="kw">return</span>(tmp)</a>
+<a class="sourceLine" id="cb53-5" title="5">}</a>
+<a class="sourceLine" id="cb53-6" title="6"></a>
+<a class="sourceLine" id="cb53-7" title="7">f2 &lt;-<span class="st"> </span><span class="cf">function</span> (x) {</a>
+<a class="sourceLine" id="cb53-8" title="8">  tmp         &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>x))</a>
+<a class="sourceLine" id="cb53-9" title="9">  tmp[x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb53-10" title="10">  <span class="kw">return</span>(tmp)</a>
+<a class="sourceLine" id="cb53-11" title="11">}</a>
+<a class="sourceLine" id="cb53-12" title="12"></a>
+<a class="sourceLine" id="cb53-13" title="13">f3 &lt;-<span class="st"> </span><span class="cf">function</span> (x) {</a>
+<a class="sourceLine" id="cb53-14" title="14">  tmp           &lt;-<span class="st"> </span>x</a>
+<a class="sourceLine" id="cb53-15" title="15">  tmp[x <span class="op">==</span><span class="st"> </span>x]   &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb53-16" title="16">  tmp[x <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.5</span>] &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb53-17" title="17">  tmp[x <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>]   &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb53-18" title="18">  <span class="kw">return</span>(tmp)</a>
+<a class="sourceLine" id="cb53-19" title="19">}</a>
+<a class="sourceLine" id="cb53-20" title="20"></a>
+<a class="sourceLine" id="cb53-21" title="21">cdf_data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x  =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">20</span>, <span class="dt">by =</span> <span class="fl">0.001</span>),</a>
+<a class="sourceLine" id="cb53-22" title="22">                   <span class="dt">f1 =</span> <span class="kw">f1</span>(x),</a>
+<a class="sourceLine" id="cb53-23" title="23">                   <span class="dt">f2 =</span> <span class="kw">f2</span>(x),</a>
+<a class="sourceLine" id="cb53-24" title="24">                   <span class="dt">f3 =</span> <span class="kw">f3</span>(x)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb53-25" title="25"><span class="st">  </span><span class="kw">melt</span>(<span class="dt">id.vars =</span> <span class="st">&quot;x&quot;</span>)</a>
+<a class="sourceLine" id="cb53-26" title="26"></a>
+<a class="sourceLine" id="cb53-27" title="27"></a>
+<a class="sourceLine" id="cb53-28" title="28">cdf_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> cdf_data, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value, <span class="dt">color =</span> variable)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb53-29" title="29"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb53-30" title="30"><span class="st">  </span><span class="kw">geom_line</span>()</a>
+<a class="sourceLine" id="cb53-31" title="31"><span class="kw">plot</span>(cdf_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
 </div>
 
@@ -384,20 +389,20 @@ varible?</span></p></li>
 
 <div class="fold">
 
-<pre class="sourceCode r"><code class="sourceCode r">f1 &lt;-<span class="st"> </span><span class="cf">function</span> (x, p) {
-  tmp          &lt;-<span class="st"> </span>x
-  tmp[x <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>]  &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span>(p <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span>((<span class="dv">1</span><span class="op">-</span>p) <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>)
-  tmp[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>]   &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span>(p <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>) 
-  tmp[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>]   &lt;-<span class="st"> </span>(x[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>])<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
-  tmp[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>]   &lt;-<span class="st"> </span><span class="dv">0</span>
-  <span class="kw">return</span>(tmp)
-}
-
-cdf_data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.001</span>), <span class="dt">y =</span> <span class="kw">f1</span>(x, <span class="fl">0.3</span>))
-cdf_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> cdf_data, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)
-<span class="kw">plot</span>(cdf_plot)</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1">f1 &lt;-<span class="st"> </span><span class="cf">function</span> (x, p) {</a>
+<a class="sourceLine" id="cb54-2" title="2">  tmp          &lt;-<span class="st"> </span>x</a>
+<a class="sourceLine" id="cb54-3" title="3">  tmp[x <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>]  &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span>(p <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span>((<span class="dv">1</span><span class="op">-</span>p) <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb54-4" title="4">  tmp[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>]   &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span>(p <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>) </a>
+<a class="sourceLine" id="cb54-5" title="5">  tmp[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>]   &lt;-<span class="st"> </span>(x[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>])<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb54-6" title="6">  tmp[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>]   &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb54-7" title="7">  <span class="kw">return</span>(tmp)</a>
+<a class="sourceLine" id="cb54-8" title="8">}</a>
+<a class="sourceLine" id="cb54-9" title="9"></a>
+<a class="sourceLine" id="cb54-10" title="10">cdf_data &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.001</span>), <span class="dt">y =</span> <span class="kw">f1</span>(x, <span class="fl">0.3</span>))</a>
+<a class="sourceLine" id="cb54-11" title="11">cdf_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> cdf_data, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb54-12" title="12"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb54-13" title="13"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb54-14" title="14"><span class="kw">plot</span>(cdf_plot)</a></code></pre></div>
 <img src="bookdown-pou_files/figure-html/unnamed-chunk-81-1.png" width="672" />
 
 <div class="solution">
@@ -514,19 +519,19 @@ There are <span class="math inline">\(\binom{n}{k}\)</span> such possible arrang
 </p>
 </div></li>
 </ol>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-nsamps        &lt;-<span class="st"> </span><span class="dv">10000</span>
-binom_samp    &lt;-<span class="st"> </span><span class="kw">rbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)
-bernoulli_mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="dv">10</span>)
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {
-  bernoulli_mat[i, ] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">10</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)
-}
-bern_samp &lt;-<span class="st"> </span><span class="kw">apply</span>(bernoulli_mat, <span class="dv">1</span>, sum)
-b_data    &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x    =</span> <span class="kw">c</span>(binom_samp, bern_samp), 
-                    <span class="dt">type =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;binomial&quot;</span>, <span class="dv">10000</span>), <span class="kw">rep</span>(<span class="st">&quot;Bernoulli_sum&quot;</span>, <span class="dv">10000</span>)))
-b_plot    &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> b_data, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">fill =</span> type)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
-<span class="kw">plot</span>(b_plot)</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb55-2" title="2">nsamps        &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb55-3" title="3">binom_samp    &lt;-<span class="st"> </span><span class="kw">rbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb55-4" title="4">bernoulli_mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb55-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</a>
+<a class="sourceLine" id="cb55-6" title="6">  bernoulli_mat[i, ] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">10</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb55-7" title="7">}</a>
+<a class="sourceLine" id="cb55-8" title="8">bern_samp &lt;-<span class="st"> </span><span class="kw">apply</span>(bernoulli_mat, <span class="dv">1</span>, sum)</a>
+<a class="sourceLine" id="cb55-9" title="9">b_data    &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x    =</span> <span class="kw">c</span>(binom_samp, bern_samp), </a>
+<a class="sourceLine" id="cb55-10" title="10">                    <span class="dt">type =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;binomial&quot;</span>, <span class="dv">10000</span>), <span class="kw">rep</span>(<span class="st">&quot;Bernoulli_sum&quot;</span>, <span class="dv">10000</span>)))</a>
+<a class="sourceLine" id="cb55-11" title="11">b_plot    &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> b_data, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">fill =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb55-12" title="12"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a>
+<a class="sourceLine" id="cb55-13" title="13"><span class="kw">plot</span>(b_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
 </div>
 
@@ -563,16 +568,16 @@ P(X \leq k) &amp;= \sum_{i = 0}^k p(1-p)^i \\
 \end{align}\]</span></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-geo_samp &lt;-<span class="st"> </span><span class="kw">rgeom</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">prob =</span> <span class="fl">0.3</span>)
-geo_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> geo_samp) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">n =</span> <span class="kw">dgeom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.3</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))
-
-geo_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> geo_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
-<span class="kw">plot</span>(geo_plot)</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb56-2" title="2">geo_samp &lt;-<span class="st"> </span><span class="kw">rgeom</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">prob =</span> <span class="fl">0.3</span>)</a>
+<a class="sourceLine" id="cb56-3" title="3">geo_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> geo_samp) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb56-4" title="4"><span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb56-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb56-6" title="6"><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">n =</span> <span class="kw">dgeom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.3</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))</a>
+<a class="sourceLine" id="cb56-7" title="7"></a>
+<a class="sourceLine" id="cb56-8" title="8">geo_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> geo_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb56-9" title="9"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a>
+<a class="sourceLine" id="cb56-10" title="10"><span class="kw">plot</span>(geo_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
 </div>
 
@@ -602,14 +607,14 @@ distribution function with the theoretical CDF.</span></li>
 </div>
 
 <div class="fold">
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-pois_samp &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">lambda =</span> <span class="dv">5</span>)
-pois_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> pois_samp)
-pois_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> pois_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">colour =</span> <span class="st">&quot;ECDF&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_ecdf</span>(<span class="dt">geom =</span> <span class="st">&quot;step&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_step</span>(<span class="dt">data =</span> <span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">17</span>, <span class="dt">y =</span> <span class="kw">ppois</span>(x, <span class="dv">5</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">colour =</span> <span class="st">&quot;CDF&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="st">&quot;Lgend title&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>))
-<span class="kw">plot</span>(pois_plot)</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb57-2" title="2">pois_samp &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">lambda =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb57-3" title="3">pois_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> pois_samp)</a>
+<a class="sourceLine" id="cb57-4" title="4">pois_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> pois_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">colour =</span> <span class="st">&quot;ECDF&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb57-5" title="5"><span class="st">  </span><span class="kw">stat_ecdf</span>(<span class="dt">geom =</span> <span class="st">&quot;step&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb57-6" title="6"><span class="st">  </span><span class="kw">geom_step</span>(<span class="dt">data =</span> <span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">17</span>, <span class="dt">y =</span> <span class="kw">ppois</span>(x, <span class="dv">5</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">colour =</span> <span class="st">&quot;CDF&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb57-7" title="7"><span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="st">&quot;Lgend title&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>))</a>
+<a class="sourceLine" id="cb57-8" title="8"><span class="kw">plot</span>(pois_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
 </div>
 
@@ -679,17 +684,17 @@ parameter is a negative binomial distribution.</p></li>
 <li><p><span class="math inline">\(Z \sim \text{NB}(8, 0.4)\)</span>.</p></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-nsamps &lt;-<span class="st"> </span><span class="dv">10000</span>
-x      &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">5</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)
-y      &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)
-xpy    &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y
-z      &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)
-samps  &lt;-<span class="st"> </span><span class="kw">tibble</span>(x, y, xpy, z)
-samps  &lt;-<span class="st"> </span><span class="kw">melt</span>(samps)
-<span class="kw">ggplot</span>(<span class="dt">data =</span> samps, <span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>variable)</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb58-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb58-3" title="3">x      &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">5</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)</a>
+<a class="sourceLine" id="cb58-4" title="4">y      &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)</a>
+<a class="sourceLine" id="cb58-5" title="5">xpy    &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y</a>
+<a class="sourceLine" id="cb58-6" title="6">z      &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>)</a>
+<a class="sourceLine" id="cb58-7" title="7">samps  &lt;-<span class="st"> </span><span class="kw">tibble</span>(x, y, xpy, z)</a>
+<a class="sourceLine" id="cb58-8" title="8">samps  &lt;-<span class="st"> </span><span class="kw">melt</span>(samps)</a>
+<a class="sourceLine" id="cb58-9" title="9"><span class="kw">ggplot</span>(<span class="dt">data =</span> samps, <span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb58-10" title="10"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb58-11" title="11"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>variable)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
 </div>
 </div>
@@ -743,42 +748,42 @@ F^{-1}(x)                  &amp;= - \frac{ln(1 - x)}{\lambda}.
 \end{align}\]</span></p></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
-samps  &lt;-<span class="st"> </span><span class="kw">rexp</span>(nsamps, <span class="dt">rate =</span> <span class="fl">1.5</span>)
-<span class="kw">sum</span>(samps <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>samps <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span>nsamps</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb59-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb59-3" title="3">samps  &lt;-<span class="st"> </span><span class="kw">rexp</span>(nsamps, <span class="dt">rate =</span> <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb59-4" title="4"><span class="kw">sum</span>(samps <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>samps <span class="op">&lt;=</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span>nsamps</a></code></pre></div>
 <pre><code>## [1] 0.212</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">exp_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="dt">geom =</span> <span class="st">&quot;area&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>)
-<span class="kw">plot</span>(exp_plot)</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1">exp_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb61-2" title="2"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb61-3" title="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="dt">geom =</span> <span class="st">&quot;area&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb61-4" title="4"><span class="kw">plot</span>(exp_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">exp_pdf &lt;-<span class="st"> </span><span class="cf">function</span>(x, lambda) {
-  <span class="kw">return</span> (lambda <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>lambda <span class="op">*</span><span class="st"> </span>x))
-}
-
-exp_cdf &lt;-<span class="st"> </span><span class="cf">function</span>(x, lambda) {
-  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>lambda <span class="op">*</span><span class="st"> </span>x))
-}
-
-exp_quant &lt;-<span class="st"> </span><span class="cf">function</span>(q, lambda) {
-  <span class="kw">return</span> (<span class="op">-</span>(<span class="kw">log</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>q) <span class="op">/</span><span class="st"> </span>lambda))
-}
-
-<span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;R&quot;</span>), <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> exp_pdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">lambda =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Mine&quot;</span>), <span class="dt">size =</span> <span class="fl">1.2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1">exp_pdf &lt;-<span class="st"> </span><span class="cf">function</span>(x, lambda) {</a>
+<a class="sourceLine" id="cb62-2" title="2">  <span class="kw">return</span> (lambda <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>lambda <span class="op">*</span><span class="st"> </span>x))</a>
+<a class="sourceLine" id="cb62-3" title="3">}</a>
+<a class="sourceLine" id="cb62-4" title="4"></a>
+<a class="sourceLine" id="cb62-5" title="5">exp_cdf &lt;-<span class="st"> </span><span class="cf">function</span>(x, lambda) {</a>
+<a class="sourceLine" id="cb62-6" title="6">  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>lambda <span class="op">*</span><span class="st"> </span>x))</a>
+<a class="sourceLine" id="cb62-7" title="7">}</a>
+<a class="sourceLine" id="cb62-8" title="8"></a>
+<a class="sourceLine" id="cb62-9" title="9">exp_quant &lt;-<span class="st"> </span><span class="cf">function</span>(q, lambda) {</a>
+<a class="sourceLine" id="cb62-10" title="10">  <span class="kw">return</span> (<span class="op">-</span>(<span class="kw">log</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>q) <span class="op">/</span><span class="st"> </span>lambda))</a>
+<a class="sourceLine" id="cb62-11" title="11">}</a>
+<a class="sourceLine" id="cb62-12" title="12"></a>
+<a class="sourceLine" id="cb62-13" title="13"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb62-14" title="14"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;R&quot;</span>), <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb62-15" title="15"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> exp_pdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">lambda =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Mine&quot;</span>), <span class="dt">size =</span> <span class="fl">1.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb62-16" title="16"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;R&quot;</span>), <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> exp_cdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">lambda =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Mine&quot;</span>), <span class="dt">size =</span> <span class="fl">1.2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb63-2" title="2"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;R&quot;</span>), <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb63-3" title="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> exp_cdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">lambda =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Mine&quot;</span>), <span class="dt">size =</span> <span class="fl">1.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb63-4" title="4"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-93-2.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> qexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;R&quot;</span>), <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> exp_quant, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">lambda =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Mine&quot;</span>), <span class="dt">size =</span> <span class="fl">1.2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb64-2" title="2"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> qexp, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">rate =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;R&quot;</span>), <span class="dt">size =</span> <span class="fl">2.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb64-3" title="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> exp_quant, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">lambda =</span> <span class="fl">1.5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Mine&quot;</span>), <span class="dt">size =</span> <span class="fl">1.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb64-4" title="4"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-93-3.png" width="672" /></p>
 </div>
 
@@ -834,17 +839,17 @@ z            &amp;= -1.2.
 \end{align}\]</span></p></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-a         &lt;-<span class="st"> </span><span class="dv">-1</span>
-b         &lt;-<span class="st"> </span><span class="dv">3</span>
-nsamps    &lt;-<span class="st"> </span><span class="dv">10000</span>
-unif_samp &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, a, b)
-mu_x      &lt;-<span class="st"> </span><span class="kw">mean</span>(unif_samp)
-new_samp  &lt;-<span class="st"> </span>unif_samp <span class="op">-</span><span class="st"> </span>mu_x
-<span class="kw">quantile</span>(new_samp, <span class="dt">probs =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>)</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb65-2" title="2">a         &lt;-<span class="st"> </span><span class="dv">-1</span></a>
+<a class="sourceLine" id="cb65-3" title="3">b         &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb65-4" title="4">nsamps    &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb65-5" title="5">unif_samp &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, a, b)</a>
+<a class="sourceLine" id="cb65-6" title="6">mu_x      &lt;-<span class="st"> </span><span class="kw">mean</span>(unif_samp)</a>
+<a class="sourceLine" id="cb65-7" title="7">new_samp  &lt;-<span class="st"> </span>unif_samp <span class="op">-</span><span class="st"> </span>mu_x</a>
+<a class="sourceLine" id="cb65-8" title="8"><span class="kw">quantile</span>(new_samp, <span class="dt">probs =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##       20% 
 ## -1.203192</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">punif</span>(<span class="op">-</span><span class="fl">0.2</span>, <span class="dv">-1</span>, <span class="dv">3</span>)</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="kw">punif</span>(<span class="op">-</span><span class="fl">0.2</span>, <span class="dv">-1</span>, <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## [1] 0.2</code></pre>
 </div>
 
@@ -887,24 +892,24 @@ p(x) = \frac{x^{1 - 1} (1 - x)^{1 - 1}}{\text{B}(1, 1)} = 1.
 This is the standard uniform distribution.</li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-<span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, <span class="dt">shape2 =</span> <span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;alpha = 0.5&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">4</span>, <span class="dt">shape2 =</span> <span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;alpha = 4&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">1</span>, <span class="dt">shape2 =</span> <span class="dv">4</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;alpha = 1&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, <span class="dt">shape2 =</span> <span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;alpha = 25&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="fl">0.1</span>, <span class="dt">shape2 =</span> <span class="fl">0.1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;alpha = 0.1&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb69-2" title="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb69-3" title="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, <span class="dt">shape2 =</span> <span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;alpha = 0.5&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb69-4" title="4"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">4</span>, <span class="dt">shape2 =</span> <span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;alpha = 4&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb69-5" title="5"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">1</span>, <span class="dt">shape2 =</span> <span class="dv">4</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;alpha = 1&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb69-6" title="6"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, <span class="dt">shape2 =</span> <span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;alpha = 25&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb69-7" title="7"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dbeta, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="fl">0.1</span>, <span class="dt">shape2 =</span> <span class="fl">0.1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;alpha = 0.1&quot;</span>))</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
-samps  &lt;-<span class="st"> </span><span class="kw">rbeta</span>(nsamps, <span class="dv">2</span>, <span class="dv">5</span>)
-<span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> samps), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">data  =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x), 
-                <span class="dt">fun   =</span> dbeta, 
-                <span class="dt">args  =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, <span class="dt">shape2 =</span> <span class="dv">5</span>), 
-                <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, 
-                <span class="dt">size  =</span> <span class="fl">1.2</span>)</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb70-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb70-3" title="3">samps  &lt;-<span class="st"> </span><span class="kw">rbeta</span>(nsamps, <span class="dv">2</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb70-4" title="4"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> samps), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb70-5" title="5"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb70-6" title="6"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">data  =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x), </a>
+<a class="sourceLine" id="cb70-7" title="7">                <span class="dt">fun   =</span> dbeta, </a>
+<a class="sourceLine" id="cb70-8" title="8">                <span class="dt">args  =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, <span class="dt">shape2 =</span> <span class="dv">5</span>), </a>
+<a class="sourceLine" id="cb70-9" title="9">                <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, </a>
+<a class="sourceLine" id="cb70-10" title="10">                <span class="dt">size  =</span> <span class="fl">1.2</span>)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
 </div>
 
@@ -958,11 +963,11 @@ p(x) &amp;= \frac{1}{\Gamma(k)\beta^k} x^{k - 1}e^{-\frac{x}{\theta}}.
 \end{align}\]</span></p></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-<span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Gamma(1,1)&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">10</span>, <span class="dt">rate =</span> <span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Gamma(10,1)&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">10</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Gamma(1,10)&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb71-2" title="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb71-3" title="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Gamma(1,1)&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb71-4" title="4"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">10</span>, <span class="dt">rate =</span> <span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Gamma(10,1)&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb71-5" title="5"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">10</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;Gamma(1,10)&quot;</span>))</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
 </div>
 
@@ -1022,23 +1027,23 @@ There is no need to evaluate this integral, as we recognize it as the CDF
 of a normal distribution with <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma^2 = 1\)</span>.</li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-<span class="co"># b</span>
-<span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="fl">0.4</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 0.1&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 2&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 5&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb72-2" title="2"><span class="co"># b</span></a>
+<a class="sourceLine" id="cb72-3" title="3"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb72-4" title="4"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb72-5" title="5"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="fl">0.4</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 0.1&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb72-6" title="6"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 2&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb72-7" title="7"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 5&quot;</span>))</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># c</span>
-mean_par   &lt;-<span class="st"> </span><span class="dv">50</span>
-nsamps     &lt;-<span class="st"> </span><span class="dv">100000</span>
-pois_samps &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="dt">lambda =</span> mean_par)
-norm_samps &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> mean_par, <span class="dt">sd =</span> <span class="kw">sqrt</span>(mean_par))
-my_plot    &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">data =</span> <span class="kw">tibble</span>(<span class="dt">x =</span> pois_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">data =</span> <span class="kw">tibble</span>(<span class="dt">x =</span> norm_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)
-<span class="kw">plot</span>(my_plot)</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="co"># c</span></a>
+<a class="sourceLine" id="cb73-2" title="2">mean_par   &lt;-<span class="st"> </span><span class="dv">50</span></a>
+<a class="sourceLine" id="cb73-3" title="3">nsamps     &lt;-<span class="st"> </span><span class="dv">100000</span></a>
+<a class="sourceLine" id="cb73-4" title="4">pois_samps &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="dt">lambda =</span> mean_par)</a>
+<a class="sourceLine" id="cb73-5" title="5">norm_samps &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> mean_par, <span class="dt">sd =</span> <span class="kw">sqrt</span>(mean_par))</a>
+<a class="sourceLine" id="cb73-6" title="6">my_plot    &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb73-7" title="7"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">data =</span> <span class="kw">tibble</span>(<span class="dt">x =</span> pois_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb73-8" title="8"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">data =</span> <span class="kw">tibble</span>(<span class="dt">x =</span> norm_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb73-9" title="9"><span class="kw">plot</span>(my_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-102-2.png" width="672" /></p>
 </div>
 
@@ -1077,34 +1082,34 @@ probability <span class="math inline">\(P(|X| &gt; 4)\)</span> and interpret the
 \end{align}\]</span></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># b</span>
-<span class="kw">set.seed</span>(<span class="dv">1</span>)
-logit_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, mu, s) {
-  <span class="kw">return</span> ((<span class="kw">exp</span>(<span class="op">-</span>(x <span class="op">-</span><span class="st"> </span>mu)<span class="op">/</span>(s))) <span class="op">/</span><span class="st"> </span>(s <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(x <span class="op">-</span><span class="st"> </span>mu)<span class="op">/</span>(s)))<span class="op">^</span><span class="dv">2</span>))
-}
-nl_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">12</span>, <span class="dv">12</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;normal&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> logit_pdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mu =</span> <span class="dv">0</span>, <span class="dt">s =</span> <span class="kw">sqrt</span>(<span class="dv">12</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>)), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;logit&quot;</span>))
-<span class="kw">plot</span>(nl_plot)</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1"><span class="co"># b</span></a>
+<a class="sourceLine" id="cb74-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb74-3" title="3">logit_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, mu, s) {</a>
+<a class="sourceLine" id="cb74-4" title="4">  <span class="kw">return</span> ((<span class="kw">exp</span>(<span class="op">-</span>(x <span class="op">-</span><span class="st"> </span>mu)<span class="op">/</span>(s))) <span class="op">/</span><span class="st"> </span>(s <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(x <span class="op">-</span><span class="st"> </span>mu)<span class="op">/</span>(s)))<span class="op">^</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb74-5" title="5">}</a>
+<a class="sourceLine" id="cb74-6" title="6">nl_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">12</span>, <span class="dv">12</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb74-7" title="7"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;normal&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb74-8" title="8"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> logit_pdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mu =</span> <span class="dv">0</span>, <span class="dt">s =</span> <span class="kw">sqrt</span>(<span class="dv">12</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>)), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb74-9" title="9"><span class="kw">plot</span>(nl_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">nl_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;normal&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> logit_pdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mu =</span> <span class="dv">0</span>, <span class="dt">s =</span> <span class="kw">sqrt</span>(<span class="dv">12</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>)), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;logit&quot;</span>))
-<span class="kw">plot</span>(nl_plot)</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1">nl_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb75-2" title="2"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;normal&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb75-3" title="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> logit_pdf, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mu =</span> <span class="dv">0</span>, <span class="dt">s =</span> <span class="kw">sqrt</span>(<span class="dv">12</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>)), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;logit&quot;</span>))</a>
+<a class="sourceLine" id="cb75-4" title="4"><span class="kw">plot</span>(nl_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-104-2.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># c</span>
-logit_cdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, mu, s) {
-  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(x <span class="op">-</span><span class="st"> </span>mu) <span class="op">/</span><span class="st"> </span>s)))
-}
-
-p_logistic &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">logit_cdf</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="kw">sqrt</span>(<span class="dv">12</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">logit_cdf</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">0</span>, <span class="kw">sqrt</span>(<span class="dv">12</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>))
-p_norm     &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>)
-p_logistic</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1"><span class="co"># c</span></a>
+<a class="sourceLine" id="cb76-2" title="2">logit_cdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, mu, s) {</a>
+<a class="sourceLine" id="cb76-3" title="3">  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>(x <span class="op">-</span><span class="st"> </span>mu) <span class="op">/</span><span class="st"> </span>s)))</a>
+<a class="sourceLine" id="cb76-4" title="4">}</a>
+<a class="sourceLine" id="cb76-5" title="5"></a>
+<a class="sourceLine" id="cb76-6" title="6">p_logistic &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">logit_cdf</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="kw">sqrt</span>(<span class="dv">12</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">logit_cdf</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">0</span>, <span class="kw">sqrt</span>(<span class="dv">12</span><span class="op">/</span>pi<span class="op">^</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb76-7" title="7">p_norm     &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>) <span class="op">+</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb76-8" title="8">p_logistic</a></code></pre></div>
 <pre><code>## [1] 0.05178347</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">p_norm</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1">p_norm</a></code></pre></div>
 <pre><code>## [1] 0.04550026</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Logistic distribution has wider tails, therefore the probability of larger</span>
-<span class="co"># absolute values is higher.</span></code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" title="1"><span class="co"># Logistic distribution has wider tails, therefore the probability of larger</span></a>
+<a class="sourceLine" id="cb80-2" title="2"><span class="co"># absolute values is higher.</span></a></code></pre></div>
 </div>
 </div>
 <div id="singular-random-variables" class="section level2">
@@ -1194,20 +1199,20 @@ theoretical normal PDF.</span></p></li>
 \end{align}\]</span></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-nsamps   &lt;-<span class="st"> </span><span class="dv">10000</span>
-mu       &lt;-<span class="st"> </span><span class="fl">0.5</span>
-sigma    &lt;-<span class="st"> </span><span class="fl">0.4</span>
-ln_samps &lt;-<span class="st"> </span><span class="kw">rlnorm</span>(nsamps, mu, sigma)
-ln_plot  &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> ln_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)
-<span class="kw">plot</span>(ln_plot)</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb81-2" title="2">nsamps   &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb81-3" title="3">mu       &lt;-<span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb81-4" title="4">sigma    &lt;-<span class="st"> </span><span class="fl">0.4</span></a>
+<a class="sourceLine" id="cb81-5" title="5">ln_samps &lt;-<span class="st"> </span><span class="kw">rlnorm</span>(nsamps, mu, sigma)</a>
+<a class="sourceLine" id="cb81-6" title="6">ln_plot  &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> ln_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb81-7" title="7"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</a>
+<a class="sourceLine" id="cb81-8" title="8"><span class="kw">plot</span>(ln_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">norm_samps &lt;-<span class="st"> </span><span class="kw">log</span>(ln_samps)
-n_plot     &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> norm_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)
-<span class="kw">plot</span>(n_plot)</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1">norm_samps &lt;-<span class="st"> </span><span class="kw">log</span>(ln_samps)</a>
+<a class="sourceLine" id="cb82-2" title="2">n_plot     &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> norm_samps), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb82-3" title="3"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb82-4" title="4"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb82-5" title="5"><span class="kw">plot</span>(n_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-111-2.png" width="672" /></p>
 </div>
 
@@ -1247,19 +1252,19 @@ P(X &lt; x) &amp;= P(F^{-1}(U) &lt; x) \\
 \end{align}\]</span></p></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-nsamps &lt;-<span class="st"> </span><span class="dv">10000</span>
-beta   &lt;-<span class="st"> </span><span class="dv">4</span>
-generate_exp &lt;-<span class="st"> </span><span class="cf">function</span> (n, beta) {
-  tmp &lt;-<span class="st"> </span><span class="kw">runif</span>(n)
-  X   &lt;-<span class="st"> </span><span class="kw">qexp</span>(tmp, beta)
-  <span class="kw">return</span> (X)
-}
-df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="st">&quot;R&quot;</span>           =<span class="st"> </span><span class="kw">rexp</span>(nsamps, beta), 
-             <span class="st">&quot;myGenerator&quot;</span> =<span class="st"> </span><span class="kw">generate_exp</span>(nsamps, beta)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">gather</span>()
-<span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> key)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb83-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb83-3" title="3">beta   &lt;-<span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb83-4" title="4">generate_exp &lt;-<span class="st"> </span><span class="cf">function</span> (n, beta) {</a>
+<a class="sourceLine" id="cb83-5" title="5">  tmp &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</a>
+<a class="sourceLine" id="cb83-6" title="6">  X   &lt;-<span class="st"> </span><span class="kw">qexp</span>(tmp, beta)</a>
+<a class="sourceLine" id="cb83-7" title="7">  <span class="kw">return</span> (X)</a>
+<a class="sourceLine" id="cb83-8" title="8">}</a>
+<a class="sourceLine" id="cb83-9" title="9">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="st">&quot;R&quot;</span>           =<span class="st"> </span><span class="kw">rexp</span>(nsamps, beta), </a>
+<a class="sourceLine" id="cb83-10" title="10">             <span class="st">&quot;myGenerator&quot;</span> =<span class="st"> </span><span class="kw">generate_exp</span>(nsamps, beta)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb83-11" title="11"><span class="st">  </span><span class="kw">gather</span>()</a>
+<a class="sourceLine" id="cb83-12" title="12"><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> key)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb83-13" title="13"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 </div>
 
@@ -1276,11 +1281,13 @@ df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="st"
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1288,12 +1295,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1305,6 +1311,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -1323,8 +1333,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

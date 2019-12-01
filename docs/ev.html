@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Expected value | Principles of Uncertainty – exercises</title>
-  <meta name="description" content="Course notes">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Course notes" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Expected value | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   <meta name="twitter:description" content="Course notes" />
   
 
-<meta name="author" content="Gregor Pirš and Erik Štrumbelj">
+<meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2019-11-19">
+<meta name="date" content="2019-12-01" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="integ.html">
-<link rel="next" href="mrv.html">
+<link rel="prev" href="integ.html"/>
+<link rel="next" href="mrv.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -56,7 +58,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -172,6 +173,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
+<li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
 <li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
@@ -279,14 +284,14 @@ Var[X] = E[X^2] - E[X]^2 = \sum_{k=0}^1 (p^k (1-p)^{1-k} k^2) - p^2 = p(1-p).
 \end{align*}\]</span></p></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-nsamps &lt;-<span class="st"> </span><span class="dv">1000</span>
-x      &lt;-<span class="st"> </span><span class="kw">rbinom</span>(nsamps, <span class="dv">1</span>, <span class="fl">0.4</span>)
-<span class="kw">mean</span>(x)</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb98-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb98-3" title="3">x      &lt;-<span class="st"> </span><span class="kw">rbinom</span>(nsamps, <span class="dv">1</span>, <span class="fl">0.4</span>)</a>
+<a class="sourceLine" id="cb98-4" title="4"><span class="kw">mean</span>(x)</a></code></pre></div>
 <pre><code>## [1] 0.394</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(x)</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1"><span class="kw">var</span>(x)</a></code></pre></div>
 <pre><code>## [1] 0.239003</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="fl">0.4</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.4</span>)</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1"><span class="fl">0.4</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.4</span>)</a></code></pre></div>
 <pre><code>## [1] 0.24</code></pre>
 </div>
 
@@ -410,17 +415,17 @@ E[X] &amp;= \int_0^\infty \frac{\beta^\alpha}{\Gamma(\alpha)}x^\alpha e^{-\beta 
 \end{align*}\]</span></p></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-x  &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)
-y  &lt;-<span class="st"> </span><span class="kw">dgamma</span>(x, <span class="dt">shape =</span> <span class="dv">10</span>, <span class="dt">rate =</span> <span class="dv">2</span>)
-df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)
-<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">5</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">xend =</span> <span class="dv">5</span>,
-                   <span class="dt">yend =</span> <span class="kw">dgamma</span>(<span class="dv">5</span>, <span class="dt">shape =</span> <span class="dv">10</span>, <span class="dt">rate =</span> <span class="dv">2</span>)),
-               <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">10</span>, <span class="dt">rate =</span> <span class="dv">2</span>), 
-                <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">5</span> <span class="op">-</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10</span><span class="op">/</span><span class="dv">4</span>), <span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10</span><span class="op">/</span><span class="dv">4</span>)), <span class="dt">geom =</span> <span class="st">&quot;area&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;gray&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>)</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb104-2" title="2">x  &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb104-3" title="3">y  &lt;-<span class="st"> </span><span class="kw">dgamma</span>(x, <span class="dt">shape =</span> <span class="dv">10</span>, <span class="dt">rate =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb104-4" title="4">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)</a>
+<a class="sourceLine" id="cb104-5" title="5"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb104-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb104-7" title="7"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">5</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">xend =</span> <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb104-8" title="8">                   <span class="dt">yend =</span> <span class="kw">dgamma</span>(<span class="dv">5</span>, <span class="dt">shape =</span> <span class="dv">10</span>, <span class="dt">rate =</span> <span class="dv">2</span>)),</a>
+<a class="sourceLine" id="cb104-9" title="9">               <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb104-10" title="10"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">10</span>, <span class="dt">rate =</span> <span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb104-11" title="11">                <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">5</span> <span class="op">-</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10</span><span class="op">/</span><span class="dv">4</span>), <span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10</span><span class="op">/</span><span class="dv">4</span>)), <span class="dt">geom =</span> <span class="st">&quot;area&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;gray&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
 </div>
 
@@ -583,22 +588,22 @@ E[\exp(X)] &amp;= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac
 \end{align}\]</span></p></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-mu    &lt;-<span class="st"> </span><span class="fl">0.4</span>
-sigma &lt;-<span class="st"> </span><span class="fl">0.5</span>
-x     &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100000</span>, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)
-
-<span class="kw">mean</span>(<span class="dv">2</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="dv">4</span>)</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb105-2" title="2">mu    &lt;-<span class="st"> </span><span class="fl">0.4</span></a>
+<a class="sourceLine" id="cb105-3" title="3">sigma &lt;-<span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb105-4" title="4">x     &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100000</span>, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)</a>
+<a class="sourceLine" id="cb105-5" title="5"></a>
+<a class="sourceLine" id="cb105-6" title="6"><span class="kw">mean</span>(<span class="dv">2</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="dv">4</span>)</a></code></pre></div>
 <pre><code>## [1] 4.797756</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>mu <span class="op">+</span><span class="st"> </span><span class="dv">4</span></code></pre>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>mu <span class="op">+</span><span class="st"> </span><span class="dv">4</span></a></code></pre></div>
 <pre><code>## [1] 4.8</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x<span class="op">^</span><span class="dv">2</span>)</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" title="1"><span class="kw">mean</span>(x<span class="op">^</span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 0.4108658</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">mu<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>sigma<span class="op">^</span><span class="dv">2</span></code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1">mu<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>sigma<span class="op">^</span><span class="dv">2</span></a></code></pre></div>
 <pre><code>## [1] 0.41</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">exp</span>(x))</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1"><span class="kw">mean</span>(<span class="kw">exp</span>(x))</a></code></pre></div>
 <pre><code>## [1] 1.689794</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>((<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>mu <span class="op">+</span><span class="st"> </span>sigma<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)</code></pre>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1"><span class="kw">exp</span>((<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>mu <span class="op">+</span><span class="st"> </span>sigma<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## [1] 1.690459</code></pre>
 </div>
 
@@ -626,28 +631,28 @@ x     &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="d
              &amp;= \frac{1}{n} \sigma^2.
 \end{align}\]</span></p>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-nsamps &lt;-<span class="st"> </span><span class="dv">10000</span>
-mu     &lt;-<span class="st"> </span><span class="dv">2</span>
-sigma  &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">6</span>)
-N      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">500</span>)
-X      &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="kw">length</span>(N))
-ind    &lt;-<span class="st"> </span><span class="dv">1</span>
-<span class="cf">for</span> (n <span class="cf">in</span> N) {
-  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {
-    X[i,ind] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rnorm</span>(n, mu, sigma))
-  }
-  ind &lt;-<span class="st"> </span>ind <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
-}
-<span class="kw">colnames</span>(X) &lt;-<span class="st"> </span>N
-X           &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.data.frame</span>(X))
-
-<span class="kw">ggplot</span>(<span class="dt">data =</span> X, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">colour =</span> variable)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">data  =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">6</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x), 
-                <span class="dt">fun   =</span> dnorm, 
-                <span class="dt">args  =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma), 
-                <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb117-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb117-3" title="3">mu     &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb117-4" title="4">sigma  &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb117-5" title="5">N      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb117-6" title="6">X      &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="kw">length</span>(N))</a>
+<a class="sourceLine" id="cb117-7" title="7">ind    &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb117-8" title="8"><span class="cf">for</span> (n <span class="cf">in</span> N) {</a>
+<a class="sourceLine" id="cb117-9" title="9">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</a>
+<a class="sourceLine" id="cb117-10" title="10">    X[i,ind] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">rnorm</span>(n, mu, sigma))</a>
+<a class="sourceLine" id="cb117-11" title="11">  }</a>
+<a class="sourceLine" id="cb117-12" title="12">  ind &lt;-<span class="st"> </span>ind <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb117-13" title="13">}</a>
+<a class="sourceLine" id="cb117-14" title="14"><span class="kw">colnames</span>(X) &lt;-<span class="st"> </span>N</a>
+<a class="sourceLine" id="cb117-15" title="15">X           &lt;-<span class="st"> </span><span class="kw">melt</span>(<span class="kw">as.data.frame</span>(X))</a>
+<a class="sourceLine" id="cb117-16" title="16"></a>
+<a class="sourceLine" id="cb117-17" title="17"><span class="kw">ggplot</span>(<span class="dt">data =</span> X, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">colour =</span> variable)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb117-18" title="18"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb117-19" title="19"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">data  =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">6</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x), </a>
+<a class="sourceLine" id="cb117-20" title="20">                <span class="dt">fun   =</span> dnorm, </a>
+<a class="sourceLine" id="cb117-21" title="21">                <span class="dt">args  =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma), </a>
+<a class="sourceLine" id="cb117-22" title="22">                <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
 </div>
 
@@ -692,18 +697,18 @@ E[X | Y] &amp;= \int_0^\infty x \frac{1}{y + 1} e^{-\frac{x}{y + 1}} dx \\
 \end{align}\]</span></p></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-y  &lt;-<span class="st"> </span><span class="kw">rgeom</span>(<span class="dv">100000</span>, <span class="fl">0.5</span>)
-x  &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">100000</span>, <span class="dt">rate =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(y <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))
-x2 &lt;-<span class="st"> </span>x[y <span class="op">==</span><span class="st"> </span><span class="dv">3</span>]
-
-<span class="kw">mean</span>(x2)</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb118-2" title="2">y  &lt;-<span class="st"> </span><span class="kw">rgeom</span>(<span class="dv">100000</span>, <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb118-3" title="3">x  &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">100000</span>, <span class="dt">rate =</span> <span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(y <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb118-4" title="4">x2 &lt;-<span class="st"> </span>x[y <span class="op">==</span><span class="st"> </span><span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb118-5" title="5"></a>
+<a class="sourceLine" id="cb118-6" title="6"><span class="kw">mean</span>(x2)</a></code></pre></div>
 <pre><code>## [1] 4.048501</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" title="1"><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x)</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1"><span class="kw">mean</span>(x)</a></code></pre></div>
 <pre><code>## [1] 2.007639</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">/</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></code></pre>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" title="1">(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">/</span><span class="st"> </span><span class="fl">0.5</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 </div>
 
@@ -716,31 +721,31 @@ x2 &lt;-<span class="st"> </span>x[y <span class="op">==</span><span class="st">
 </div>
 
 <div class="fold">
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-n         &lt;-<span class="st"> </span><span class="dv">1000</span>
-means_n   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> n)
-means_c   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> n)
-medians_n &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> n)
-medians_c &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> n)
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
-  tmp_n        &lt;-<span class="st"> </span><span class="kw">rnorm</span>(i)
-  tmp_c        &lt;-<span class="st"> </span><span class="kw">rcauchy</span>(i)
-  means_n[i]   &lt;-<span class="st"> </span><span class="kw">mean</span>(tmp_n)
-  means_c[i]   &lt;-<span class="st"> </span><span class="kw">mean</span>(tmp_c)
-  medians_n[i] &lt;-<span class="st"> </span><span class="kw">median</span>(tmp_n)
-  medians_c[i] &lt;-<span class="st"> </span><span class="kw">median</span>(tmp_c)
-}
-df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;distribution&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;normal&quot;</span>, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n),
-                                    <span class="kw">rep</span>(<span class="st">&quot;Cauchy&quot;</span>, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n)),
-                 <span class="st">&quot;type&quot;</span>         =<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;mean&quot;</span>, n),
-                                    <span class="kw">rep</span>(<span class="st">&quot;median&quot;</span>, n),
-                                    <span class="kw">rep</span>(<span class="st">&quot;mean&quot;</span>, n),
-                                    <span class="kw">rep</span>(<span class="st">&quot;median&quot;</span>, n)),
-                 <span class="st">&quot;value&quot;</span>        =<span class="st"> </span><span class="kw">c</span>(means_n, medians_n, means_c, medians_c),
-                 <span class="st">&quot;n&quot;</span>            =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>n, <span class="dt">times =</span> <span class="dv">4</span>))
-<span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> n, <span class="dt">y =</span> value)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>distribution , <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb126-2" title="2">n         &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb126-3" title="3">means_n   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb126-4" title="4">means_c   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb126-5" title="5">medians_n &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb126-6" title="6">medians_c &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb126-7" title="7"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
+<a class="sourceLine" id="cb126-8" title="8">  tmp_n        &lt;-<span class="st"> </span><span class="kw">rnorm</span>(i)</a>
+<a class="sourceLine" id="cb126-9" title="9">  tmp_c        &lt;-<span class="st"> </span><span class="kw">rcauchy</span>(i)</a>
+<a class="sourceLine" id="cb126-10" title="10">  means_n[i]   &lt;-<span class="st"> </span><span class="kw">mean</span>(tmp_n)</a>
+<a class="sourceLine" id="cb126-11" title="11">  means_c[i]   &lt;-<span class="st"> </span><span class="kw">mean</span>(tmp_c)</a>
+<a class="sourceLine" id="cb126-12" title="12">  medians_n[i] &lt;-<span class="st"> </span><span class="kw">median</span>(tmp_n)</a>
+<a class="sourceLine" id="cb126-13" title="13">  medians_c[i] &lt;-<span class="st"> </span><span class="kw">median</span>(tmp_c)</a>
+<a class="sourceLine" id="cb126-14" title="14">}</a>
+<a class="sourceLine" id="cb126-15" title="15">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;distribution&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;normal&quot;</span>, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n),</a>
+<a class="sourceLine" id="cb126-16" title="16">                                    <span class="kw">rep</span>(<span class="st">&quot;Cauchy&quot;</span>, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n)),</a>
+<a class="sourceLine" id="cb126-17" title="17">                 <span class="st">&quot;type&quot;</span>         =<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;mean&quot;</span>, n),</a>
+<a class="sourceLine" id="cb126-18" title="18">                                    <span class="kw">rep</span>(<span class="st">&quot;median&quot;</span>, n),</a>
+<a class="sourceLine" id="cb126-19" title="19">                                    <span class="kw">rep</span>(<span class="st">&quot;mean&quot;</span>, n),</a>
+<a class="sourceLine" id="cb126-20" title="20">                                    <span class="kw">rep</span>(<span class="st">&quot;median&quot;</span>, n)),</a>
+<a class="sourceLine" id="cb126-21" title="21">                 <span class="st">&quot;value&quot;</span>        =<span class="st"> </span><span class="kw">c</span>(means_n, medians_n, means_c, medians_c),</a>
+<a class="sourceLine" id="cb126-22" title="22">                 <span class="st">&quot;n&quot;</span>            =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>n, <span class="dt">times =</span> <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb126-23" title="23"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> n, <span class="dt">y =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb126-24" title="24"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb126-25" title="25"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>type <span class="op">+</span><span class="st"> </span>distribution , <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</a></code></pre></div>
 <img src="bookdown-pou_files/figure-html/unnamed-chunk-158-1.png" width="672" />
 
 <div class="solution">
@@ -884,22 +889,22 @@ Then <span class="math inline">\(Var[Y] = \frac{1}{9} - \frac{1}{16} = \frac{7}{
 \end{align}\]</span></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-nsamps &lt;-<span class="st"> </span><span class="dv">10000</span>
-x      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps)
-y      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, <span class="dv">0</span>, x)
-
-<span class="kw">cov</span>(x, y)</code></pre>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb127-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb127-3" title="3">x      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps)</a>
+<a class="sourceLine" id="cb127-4" title="4">y      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, <span class="dv">0</span>, x)</a>
+<a class="sourceLine" id="cb127-5" title="5"></a>
+<a class="sourceLine" id="cb127-6" title="6"><span class="kw">cov</span>(x, y)</a></code></pre></div>
 <pre><code>## [1] 0.04274061</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">/</span><span class="dv">24</span></code></pre>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" title="1"><span class="dv">1</span><span class="op">/</span><span class="dv">24</span></a></code></pre></div>
 <pre><code>## [1] 0.04166667</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor</span>(x, y)</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" title="1"><span class="kw">cor</span>(x, y)</a></code></pre></div>
 <pre><code>## [1] 0.6629567</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">24</span>) <span class="op">/</span><span class="st"> </span>(<span class="kw">sqrt</span>(<span class="dv">7</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">12</span> <span class="op">*</span><span class="st"> </span><span class="dv">144</span>)))</code></pre>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" title="1">(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">24</span>) <span class="op">/</span><span class="st"> </span>(<span class="kw">sqrt</span>(<span class="dv">7</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">12</span> <span class="op">*</span><span class="st"> </span><span class="dv">144</span>)))</a></code></pre></div>
 <pre><code>## [1] 0.6546537</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" title="1"><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb135-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb135-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-164-1.png" width="672" /></p>
 </div>
 
@@ -916,11 +921,13 @@ y      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, <span
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -928,12 +935,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -945,6 +951,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -963,8 +973,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

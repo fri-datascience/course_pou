@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 Probability spaces | Principles of Uncertainty – exercises</title>
-  <meta name="description" content="Course notes">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Course notes" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 Probability spaces | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   <meta name="twitter:description" content="Course notes" />
   
 
-<meta name="author" content="Gregor Pirš and Erik Štrumbelj">
+<meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2019-11-19">
+<meta name="date" content="2019-12-01" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="uprobspaces.html">
+<link rel="prev" href="index.html"/>
+<link rel="next" href="uprobspaces.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -56,7 +58,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -171,6 +172,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
+<li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
@@ -415,21 +420,21 @@ answers. </span></li>
 let 1 through 4 represent Queens.</p></li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-cards &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">52</span>
-n     &lt;-<span class="st"> </span><span class="dv">10000</span>
-q4    &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)
-q2    &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)
-
-tmp &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
-  p1      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">52</span>, <span class="dv">26</span>)
-  q4[i]   &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">==</span><span class="st"> </span><span class="dv">4</span>
-  q2[i]   &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span>
-}
-<span class="kw">sum</span>(q4) <span class="op">/</span><span class="st"> </span>n</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2">cards &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">52</span></a>
+<a class="sourceLine" id="cb1-3" title="3">n     &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb1-4" title="4">q4    &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb1-5" title="5">q2    &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb1-6" title="6"></a>
+<a class="sourceLine" id="cb1-7" title="7">tmp &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
+<a class="sourceLine" id="cb1-9" title="9">  p1      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">52</span>, <span class="dv">26</span>)</a>
+<a class="sourceLine" id="cb1-10" title="10">  q4[i]   &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">==</span><span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb1-11" title="11">  q2[i]   &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb1-12" title="12">}</a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="kw">sum</span>(q4) <span class="op">/</span><span class="st"> </span>n</a></code></pre></div>
 <pre><code>## [1] 0.0556</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(q2) <span class="op">/</span><span class="st"> </span>n</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">sum</span>(q2) <span class="op">/</span><span class="st"> </span>n</a></code></pre></div>
 <pre><code>## [1] 0.6995</code></pre>
 </div>
 
@@ -492,27 +497,27 @@ Again from the properties of probability we have</li>
 <li>We use <em>sample</em> in R:</li>
 </ul>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-n      &lt;-<span class="st"> </span><span class="dv">10000</span>
-samps  &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
-
-<span class="co"># lower bound</span>
-lb     &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)
-A      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)
-B      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
-  lb[i] &lt;-<span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>A <span class="op">&amp;</span><span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>B
-}
-<span class="kw">sum</span>(lb) <span class="op">/</span><span class="st"> </span>n</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2">n      &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb5-3" title="3">samps  &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb5-4" title="4"></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co"># lower bound</span></a>
+<a class="sourceLine" id="cb5-6" title="6">lb     &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb5-7" title="7">A      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb5-8" title="8">B      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
+<a class="sourceLine" id="cb5-10" title="10">  lb[i] &lt;-<span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>A <span class="op">&amp;</span><span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>B</a>
+<a class="sourceLine" id="cb5-11" title="11">}</a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="kw">sum</span>(lb) <span class="op">/</span><span class="st"> </span>n</a></code></pre></div>
 <pre><code>## [1] 0.1724</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># upper bound</span>
-ub     &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)
-A      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)
-B      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
-  ub[i] &lt;-<span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>A <span class="op">&amp;</span><span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>B
-}
-<span class="kw">sum</span>(ub) <span class="op">/</span><span class="st"> </span>n</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># upper bound</span></a>
+<a class="sourceLine" id="cb7-2" title="2">ub     &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb7-3" title="3">A      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb7-4" title="4">B      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
+<a class="sourceLine" id="cb7-6" title="6">  ub[i] &lt;-<span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>A <span class="op">&amp;</span><span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>B</a>
+<a class="sourceLine" id="cb7-7" title="7">}</a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="kw">sum</span>(ub) <span class="op">/</span><span class="st"> </span>n</a></code></pre></div>
 <pre><code>## [1] 0.5047</code></pre>
 </div>
 
@@ -592,27 +597,27 @@ P(\cup_{i&lt;j}A_{ij}) &amp;\leq \sum_{i&lt;j} (1 - p)^{2(n-2) + 1} \\
                     &amp;= \binom{n}{2} (1 - p)^{2n - 3}.
 \end{align}\]</span></p>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-n_samp &lt;-<span class="st"> </span><span class="dv">100000</span>
-n      &lt;-<span class="st"> </span><span class="dv">4</span>
-p      &lt;-<span class="st"> </span><span class="fl">0.6</span>
-conn_samp &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n_samp)
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_samp) {
-  tmp_mat                     &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="dv">0</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> n)
-  samp_conn                   &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), 
-                                        <span class="kw">choose</span>(<span class="dv">4</span>,<span class="dv">2</span>), 
-                                        <span class="dt">replace =</span> <span class="ot">TRUE</span>, 
-                                        <span class="dt">prob    =</span> <span class="kw">c</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p, p))
-  tmp_mat[<span class="kw">lower.tri</span>(tmp_mat)] &lt;-<span class="st"> </span>samp_conn
-  tmp_mat[<span class="kw">upper.tri</span>(tmp_mat)] &lt;-<span class="st"> </span><span class="kw">t</span>(tmp_mat)[<span class="kw">upper.tri</span>(<span class="kw">t</span>(tmp_mat))]
-  not_conn                    &lt;-<span class="st"> </span><span class="kw">apply</span>(tmp_mat, <span class="dv">1</span>, sum)
-  <span class="cf">if</span> (<span class="kw">any</span>(not_conn <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) {
-    conn_samp[i] &lt;-<span class="st"> </span><span class="ot">TRUE</span>
-  } <span class="cf">else</span> {
-    conn_samp[i] &lt;-<span class="st"> </span><span class="ot">FALSE</span>
-  }
-}
-<span class="kw">sum</span>(conn_samp) <span class="op">/</span><span class="st"> </span>n_samp</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb9-2" title="2">n_samp &lt;-<span class="st"> </span><span class="dv">100000</span></a>
+<a class="sourceLine" id="cb9-3" title="3">n      &lt;-<span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb9-4" title="4">p      &lt;-<span class="st"> </span><span class="fl">0.6</span></a>
+<a class="sourceLine" id="cb9-5" title="5">conn_samp &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n_samp)</a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_samp) {</a>
+<a class="sourceLine" id="cb9-7" title="7">  tmp_mat                     &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="dv">0</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> n)</a>
+<a class="sourceLine" id="cb9-8" title="8">  samp_conn                   &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), </a>
+<a class="sourceLine" id="cb9-9" title="9">                                        <span class="kw">choose</span>(<span class="dv">4</span>,<span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb9-10" title="10">                                        <span class="dt">replace =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb9-11" title="11">                                        <span class="dt">prob    =</span> <span class="kw">c</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p, p))</a>
+<a class="sourceLine" id="cb9-12" title="12">  tmp_mat[<span class="kw">lower.tri</span>(tmp_mat)] &lt;-<span class="st"> </span>samp_conn</a>
+<a class="sourceLine" id="cb9-13" title="13">  tmp_mat[<span class="kw">upper.tri</span>(tmp_mat)] &lt;-<span class="st"> </span><span class="kw">t</span>(tmp_mat)[<span class="kw">upper.tri</span>(<span class="kw">t</span>(tmp_mat))]</a>
+<a class="sourceLine" id="cb9-14" title="14">  not_conn                    &lt;-<span class="st"> </span><span class="kw">apply</span>(tmp_mat, <span class="dv">1</span>, sum)</a>
+<a class="sourceLine" id="cb9-15" title="15">  <span class="cf">if</span> (<span class="kw">any</span>(not_conn <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) {</a>
+<a class="sourceLine" id="cb9-16" title="16">    conn_samp[i] &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb9-17" title="17">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb9-18" title="18">    conn_samp[i] &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb9-19" title="19">  }</a>
+<a class="sourceLine" id="cb9-20" title="20">}</a>
+<a class="sourceLine" id="cb9-21" title="21"><span class="kw">sum</span>(conn_samp) <span class="op">/</span><span class="st"> </span>n_samp</a></code></pre></div>
 <pre><code>## [1] 0.20565</code></pre>
 </div>
 </div>
@@ -645,18 +650,18 @@ we get <span class="math inline">\(\binom{1}{k}p^k (1-p)^{1 - k}\)</span>. Now
 which is the Bernoulli measure.</li>
 </ul>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-<span class="kw">library</span>(ggplot2)
-<span class="kw">library</span>(dplyr)
-bin_samp &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)
-bin_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> bin_samp) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">n =</span> <span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))
-
-bin_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> bin_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
-<span class="kw">plot</span>(bin_plot)</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb11-4" title="4">bin_samp &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb11-5" title="5">bin_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> bin_samp) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-7" title="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">n =</span> <span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))</a>
+<a class="sourceLine" id="cb11-9" title="9"></a>
+<a class="sourceLine" id="cb11-10" title="10">bin_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> bin_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-11" title="11"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a>
+<a class="sourceLine" id="cb11-12" title="12"><span class="kw">plot</span>(bin_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 </div>
 
@@ -694,16 +699,16 @@ therefore <span class="math inline">\(P(\{k\}) = \frac{0.5^k}{2}\)</span> is a p
 on some parameter <span class="math inline">\(\alpha\)</span>, but this is out of the scope of this introductory
 chapter.</p>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
-pois_samp &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">lambda =</span> <span class="dv">10</span>)
-pois_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> pois_samp) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">n =</span> <span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">lambda =</span> <span class="dv">10</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))
-
-pois_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> pois_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
-<span class="kw">plot</span>(pois_plot)</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb12-2" title="2">pois_samp &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">lambda =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb12-3" title="3">pois_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> pois_samp) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">n =</span> <span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">lambda =</span> <span class="dv">10</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))</a>
+<a class="sourceLine" id="cb12-7" title="7"></a>
+<a class="sourceLine" id="cb12-8" title="8">pois_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> pois_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-9" title="9"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a>
+<a class="sourceLine" id="cb12-10" title="10"><span class="kw">plot</span>(pois_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 </div>
 
@@ -730,23 +735,23 @@ where <span class="math inline">\(1_0(k)\)</span> is the indicator function, whi
 equals to zero in every other case.</li>
 </ol>
 </div>
-<pre class="sourceCode r"><code class="sourceCode r">n          &lt;-<span class="st"> </span><span class="dv">1000</span>
-geom_samps &lt;-<span class="st"> </span><span class="kw">rgeom</span>(n, <span class="dt">prob =</span> <span class="fl">0.5</span>)
-sign_samps &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>), <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
-geom_samps[sign_samps] &lt;-<span class="st"> </span><span class="op">-</span>geom_samps[sign_samps]
-my_pmf &lt;-<span class="st"> </span><span class="cf">function</span> (k, p) {
-  indic         &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">length</span>(k))
-  indic[k <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span>
-  <span class="kw">return</span> ((p <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p)<span class="op">^</span>(<span class="kw">abs</span>(k))) <span class="op">/</span><span class="st"> </span><span class="dv">2</span><span class="op">^</span>indic)
-}
-geom_samps &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> geom_samps) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">-10</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">n =</span> <span class="kw">my_pmf</span>(<span class="op">-</span><span class="dv">10</span><span class="op">:</span><span class="dv">10</span>, <span class="fl">0.5</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))
-
-geom_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> geom_samps, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
-<span class="kw">plot</span>(geom_plot)</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">n          &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb13-2" title="2">geom_samps &lt;-<span class="st"> </span><span class="kw">rgeom</span>(n, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb13-3" title="3">sign_samps &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>), <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb13-4" title="4">geom_samps[sign_samps] &lt;-<span class="st"> </span><span class="op">-</span>geom_samps[sign_samps]</a>
+<a class="sourceLine" id="cb13-5" title="5">my_pmf &lt;-<span class="st"> </span><span class="cf">function</span> (k, p) {</a>
+<a class="sourceLine" id="cb13-6" title="6">  indic         &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">length</span>(k))</a>
+<a class="sourceLine" id="cb13-7" title="7">  indic[k <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb13-8" title="8">  <span class="kw">return</span> ((p <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p)<span class="op">^</span>(<span class="kw">abs</span>(k))) <span class="op">/</span><span class="st"> </span><span class="dv">2</span><span class="op">^</span>indic)</a>
+<a class="sourceLine" id="cb13-9" title="9">}</a>
+<a class="sourceLine" id="cb13-10" title="10">geom_samps &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> geom_samps) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-11" title="11"><span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-12" title="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-13" title="13"><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">-10</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">n =</span> <span class="kw">my_pmf</span>(<span class="op">-</span><span class="dv">10</span><span class="op">:</span><span class="dv">10</span>, <span class="fl">0.5</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))</a>
+<a class="sourceLine" id="cb13-14" title="14"></a>
+<a class="sourceLine" id="cb13-15" title="15">geom_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> geom_samps, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-16" title="16"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a>
+<a class="sourceLine" id="cb13-17" title="17"><span class="kw">plot</span>(geom_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 </div>
 
@@ -768,29 +773,29 @@ measure </span>.</p>
 <li><p><span class="math inline">\(P(\{k\}) = \frac{\frac{1}{2}^{|m - k|}}{\sum_{i=1}^6 \frac{1}{2}^{|m - i|}}\)</span></p>
 </div></li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r">n          &lt;-<span class="st"> </span><span class="dv">10000</span>
-m &lt;-<span class="st"> </span><span class="dv">4</span>
-my_pmf &lt;-<span class="st"> </span><span class="cf">function</span> (k, m) {
-  denom &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="fl">0.5</span><span class="op">^</span><span class="kw">abs</span>(m <span class="op">-</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span>))
-  <span class="kw">return</span> (<span class="fl">0.5</span><span class="op">^</span><span class="kw">abs</span>(m <span class="op">-</span><span class="st"> </span>k) <span class="op">/</span><span class="st"> </span>denom)
-}
-samps &lt;-<span class="st"> </span><span class="kw">c</span>()
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
-  a &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span>)
-  a_val &lt;-<span class="st"> </span><span class="kw">my_pmf</span>(a, m)
-  prob  &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)
-  <span class="cf">if</span> (prob <span class="op">&lt;</span><span class="st"> </span>a_val) {
-    samps &lt;-<span class="st"> </span><span class="kw">c</span>(samps, a)
-  }
-}
-samps &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> samps) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(samps), <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">n =</span> <span class="kw">my_pmf</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, m), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))
-
-my_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> samps, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)
-<span class="kw">plot</span>(my_plot)</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">n          &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb14-2" title="2">m &lt;-<span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb14-3" title="3">my_pmf &lt;-<span class="st"> </span><span class="cf">function</span> (k, m) {</a>
+<a class="sourceLine" id="cb14-4" title="4">  denom &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="fl">0.5</span><span class="op">^</span><span class="kw">abs</span>(m <span class="op">-</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span>))</a>
+<a class="sourceLine" id="cb14-5" title="5">  <span class="kw">return</span> (<span class="fl">0.5</span><span class="op">^</span><span class="kw">abs</span>(m <span class="op">-</span><span class="st"> </span>k) <span class="op">/</span><span class="st"> </span>denom)</a>
+<a class="sourceLine" id="cb14-6" title="6">}</a>
+<a class="sourceLine" id="cb14-7" title="7">samps &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb14-8" title="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
+<a class="sourceLine" id="cb14-9" title="9">  a &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb14-10" title="10">  a_val &lt;-<span class="st"> </span><span class="kw">my_pmf</span>(a, m)</a>
+<a class="sourceLine" id="cb14-11" title="11">  prob  &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb14-12" title="12">  <span class="cf">if</span> (prob <span class="op">&lt;</span><span class="st"> </span>a_val) {</a>
+<a class="sourceLine" id="cb14-13" title="13">    samps &lt;-<span class="st"> </span><span class="kw">c</span>(samps, a)</a>
+<a class="sourceLine" id="cb14-14" title="14">  }</a>
+<a class="sourceLine" id="cb14-15" title="15">}</a>
+<a class="sourceLine" id="cb14-16" title="16">samps &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> samps) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-17" title="17"><span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-18" title="18"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(samps), <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-19" title="19"><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">n =</span> <span class="kw">my_pmf</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, m), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))</a>
+<a class="sourceLine" id="cb14-20" title="20"></a>
+<a class="sourceLine" id="cb14-21" title="21">my_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> samps, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-22" title="22"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a>
+<a class="sourceLine" id="cb14-23" title="23"><span class="kw">plot</span>(my_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 </div>
 
@@ -807,11 +812,13 @@ my_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -819,12 +826,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -836,6 +842,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -854,8 +864,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

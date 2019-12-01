@@ -1,6 +1,6 @@
 # Alternative representation of distributions {#ard}
 
-This chapter deals with multivariate random variables.
+This chapter deals with alternative representation of distributions.
 
 The students are expected to acquire the following knowledge:
 
@@ -10,12 +10,8 @@ The students are expected to acquire the following knowledge:
 - Moment generating functions.
 
 
-**R**
-
-- ?
-
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- TRUE
+togs <- F
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -44,7 +40,7 @@ Let $X_i \sim \text{Poisson}(\lambda_i)$ for $i = 1,...,n$, and let $X = \sum_{i
 The last term is the PGF of a Poisson random variable with parameter $\sum_{i=1}^n \lambda_i$. Because the PGF is unique, $X$ is a Poisson random variable.
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 library(tidyr)
 nsamps           <- 1000
@@ -118,7 +114,7 @@ Evaluating this at 1 and inserting the first derivatives, we get:
 \end{align}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 library(tidyr)
 set.seed(1)
 nsamps <- 100000
@@ -141,7 +137,7 @@ ggplot(gsamps, aes(x = value, fill = iw)) +
 ```
 
 ## Moment generating functions (MGFs)
-```{exercise, label = geoev}
+```{exercise, label = geovar}
 Find the variance of the geometric distribution.
 
 ```
@@ -202,7 +198,7 @@ The MGF of the sum is then
 By comparing $M_{X+Y}(t)$ and $M_X(t)$ we observe that both have two terms. The first is $2t^2$ multiplied by the variance, and the second is $2t$ multiplied by the mean. Since MGFs are unique, we conclude that $Z = X + Y \sim \text{N}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)$.
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 library(tidyr)
 library(ggplot2)
 set.seed(1)
