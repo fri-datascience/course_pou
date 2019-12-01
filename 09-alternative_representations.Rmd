@@ -10,6 +10,32 @@ The students are expected to acquire the following knowledge:
 - Moment generating functions.
 
 
+
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
+
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 togs <- F
 library(ggplot2)
@@ -21,9 +47,11 @@ library(tidyr)
 
 ## Probability generating functions (PGFs)
 ```{exercise, label = poissum}
-Show that the sum of independent Poisson random variables is itself a Poisson random variable. <span style="color:blue">R: Let $X$ be a sum of three Poisson distributions with $\lambda_i \in {2, 5.2, 10}$. Take 1000 samples and plot the three distributions and the sum. Then take 1000 samples from the theoretical distribution of $X$ and compare them to the sum.</span>
+Show that the sum of independent Poisson random variables is itself a Poisson random variable. <span style="color:blue">R: Let $X$ be a sum of three Poisson distributions with $\lambda_i \in \{2, 5.2, 10\}$. Take 1000 samples and plot the three distributions and the sum. Then take 1000 samples from the theoretical distribution of $X$ and compare them to the sum.</span>
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 Let $X_i \sim \text{Poisson}(\lambda_i)$ for $i = 1,...,n$, and let $X = \sum_{i=1}^n X_i$.
 \begin{align}
@@ -63,11 +91,14 @@ ggplot(gsamps, aes(x = value, fill = dist)) +
   geom_bar(position = "dodge")
 
 ```
+</div>
 
 ```{exercise, label = nbev}
 Find the expected value and variance of the negative binomial distribution. Hint: Find the Taylor series of $(1 - y)^{-r}$ at point 0.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 Let $X \sim \text{NB}(r, p)$. 
 \begin{align}
@@ -135,12 +166,15 @@ ggplot(gsamps, aes(x = value, fill = iw)) +
   # geom_density() +
   facet_wrap(~ key)
 ```
+</div>
 
 ## Moment generating functions (MGFs)
 ```{exercise, label = geovar}
 Find the variance of the geometric distribution.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 Let $X \sim \text{Geometric}(p)$. The MGF of the geometric distribution is
 \begin{align}
@@ -168,12 +202,14 @@ and evaluating at $t = 0$, we get $\frac{(p - 1)(p - 2)}{p^2}$. Combining we get
          &= \frac{1 - p}{p^2}.
 \end{align}
 ```
-
+</div>
 
 ```{exercise, label = nsumev}
 Find the distribution of sum of two normal random variables $X$ and $Y$, by comparing $M_{X+Y}(t)$ to $M_X(t)$. <span style="color:blue">R: To illustrate the result draw random samples from N$(-3, 1)$ and N$(5, 1.2)$ and calculate the empirical mean and variance of $X+Y$. Plot all three histograms in one plot. </span>
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 Let $X \sim \text{N}(\mu_X, 1)$ and $Y \sim \text{N}(\mu_Y, 1)$. The MGF of the sum is
 \begin{align}
@@ -213,3 +249,5 @@ df     <- data.frame(x = x, y = y, z = z) %>%
 ggplot(df, aes(x = value, fill = key)) +
          geom_histogram(position = "dodge")
 ```
+</div>
+

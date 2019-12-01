@@ -240,6 +240,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Sampling from the multivariate normal distribution.</li>
 <li>Matrix decompositions.</li>
 </ul>
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
 <div id="multinomial-random-variables" class="section level2">
 <h2><span class="header-section-number">8.1</span> Multinomial random variables</h2>
 
@@ -258,11 +280,17 @@ visually.</p></li>
 </ol>
 </div>
 
+<div class="fold">
+
+</div>
 
 <div class="exercise">
 <p><span id="exr:mnomev" class="exercise"><strong>Exercise 8.2  (Multinomial expected value)  </strong></span>Find the expected value, variance and covariance of the multinomial distribution. Hint: First find the expected value for <span class="math inline">\(n = 1\)</span> and then use the fact that the trials are independent.</p>
 </div>
 
+<div class="fold">
+
+</div>
 </div>
 <div id="multivariate-normal-random-variables" class="section level2">
 <h2><span class="header-section-number">8.2</span> Multivariate normal random variables</h2>
@@ -277,9 +305,12 @@ visually.</p></li>
 <!-- d. <span style="color:blue">R: $L$ is a linear map$. Plot 10 points from $X$ and 10 points from the transformation $L X$ (Hint: use color or shapes). Compare and discuss the results.</span> -->
 </div>
 
+<div class="fold">
+
+</div>
 
 <div class="exercise">
-<p><span id="exr:mvneigen" class="exercise"><strong>Exercise 8.4  (Eigendecomposition)  </strong></span><span style="color:blue">R: Let <span class="math inline">\(\Sigma = U \Lambda U^T\)</span> be the eigendecomposition of covariance matrix <span class="math inline">\(\sigma\)</span>. Follow the procdeure below, to sample from a multivariate normal with <span class="math inline">\(\mu = [-2, 1]^T\)</span> and <span class="math inline">\(\Sigma = \begin{bmatrix}  0.3, -0.5 \\  -0.5, 1.6 \end{bmatrix}\)</span>:</span></p>
+<p><span id="exr:mvneigen" class="exercise"><strong>Exercise 8.4  (Eigendecomposition)  </strong></span><span style="color:blue">R: Let <span class="math inline">\(\Sigma = U \Lambda U^T\)</span> be the eigendecomposition of covariance matrix <span class="math inline">\(\Sigma\)</span>. Follow the procedure below, to sample from a multivariate normal with <span class="math inline">\(\mu = [-2, 1]^T\)</span> and <span class="math inline">\(\Sigma = \begin{bmatrix}  0.3, -0.5 \\  -0.5, 1.6 \end{bmatrix}\)</span>:</span></p>
 <ol style="list-style-type: decimal">
 <li><p><span style="color:blue">Sample from two independent standardized normal distributions to get <span class="math inline">\(X\)</span>.</span></p></li>
 <li><p><span style="color:blue">Find the eigendecomposition of <span class="math inline">\(X\)</span> (<em>eigen</em>).</span></p></li>
@@ -290,6 +321,9 @@ visually.</p></li>
 </ol>
 </div>
 
+<div class="fold">
+
+</div>
 
 <div class="exercise">
 <p><span id="exr:mvncond" class="exercise"><strong>Exercise 8.5  (Marginal and conditional distributions)  </strong></span>Let <span class="math inline">\(X \sim \text{N}(\mu, \Sigma)\)</span>, where <span class="math inline">\(\mu = [2, 0, -1]^T\)</span> and <span class="math inline">\(\Sigma = \begin{bmatrix}  1 &amp; -0.2 &amp; 0.5 \\  -0.2 &amp; 1.4 &amp; -1.2 \\  0.5 &amp; -1.2 &amp; 2 \\ \end{bmatrix}\)</span>. Let <span class="math inline">\(A\)</span> represent the first two random variables and <span class="math inline">\(B\)</span> the third random variable. <span style="color:blue">R: For the calculation in the following points, you can use R.</span></p>
@@ -301,13 +335,16 @@ visually.</p></li>
 <li><p><span style="color:blue">R: Visually compare the distributions of a) and b), and c) and d) at three different conditional values.</span></p>
 </div></li>
 </ol>
+<div class="fold">
+
+</div>
 </div>
 <div id="transformations-2" class="section level2">
 <h2><span class="header-section-number">8.3</span> Transformations</h2>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-175" class="exercise"><strong>Exercise 8.6  </strong></span>Let <span class="math inline">\((U,V)\)</span> be a random variable with PDF <span class="math inline">\(p(u,v) = \frac{1}{8 \sqrt{u}}\)</span>,
-<span class="math inline">\(U \in [0,4]\)</span> and <span class="math inline">\(V \in [\sqrt{U}, \sqrt{U} - 1]\)</span>. Let <span class="math inline">\(X = \sqrt{U}\)</span> and
+<span class="math inline">\(U \in [0,4]\)</span> and <span class="math inline">\(V \in [-\sqrt{U}, -\sqrt{U} + 1] \cup [\sqrt{U}, \sqrt{U} + 1]\)</span>. Let <span class="math inline">\(X = \sqrt{U}\)</span> and
 <span class="math inline">\(Y = V - \sqrt{U}\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Find PDF of <span class="math inline">\((X,Y)\)</span>. What can you tell about distributions of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>?
@@ -319,11 +356,17 @@ Plot both sets of samples.</span></p></li>
 </ol>
 </div>
 
+<div class="fold">
+
+</div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-178" class="exercise"><strong>Exercise 8.7  </strong></span><span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with <em>dmvnorm</em> from the <strong>mvtnorm</strong> package.</span></p>
 </div>
 
+<div class="fold">
+
+</div>
 
 </div>
 </div>

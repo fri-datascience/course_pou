@@ -18,6 +18,30 @@ The students are expected to acquire the following knowledge:
 - Sampling from the multivariate normal distribution.
 - Matrix decompositions.
 
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 togs <- F
@@ -45,6 +69,8 @@ visually.
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -81,12 +107,15 @@ ggplot(samps, aes(x = value, fill = dist)) +
   facet_wrap(~ key)
 
 ```
+</div>
 
 
 ```{exercise, name = "Multinomial expected value", label = mnomev}
 Find the expected value, variance and covariance of the multinomial distribution. Hint: First find the expected value for $n = 1$ and then use the fact that the trials are independent.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 Let us first calculate the expected value of $X_1$, when $n = 1$.
 
@@ -123,19 +152,21 @@ In the above expression, at each iteration we multiply with $n_1$ and $n_2$. Sin
   Cov(X_i, X_j) &= E[X_i X_j] - E[X_i]E[X_j] \\
                 &= - p_i p_j.
 \end{align}
-For arbitrary $n$, let $X_1 = \sum_{k = 1}^n X_{1k}$ and $X_2 = \sum_{l = 1}^n X_{2l}$, sums of intependent multinomial random variables with $n=1$. 
+For arbitrary $n$, let $X_1 = \sum_{t = 1}^n X_{1t}$ and $X_2 = \sum_{l = 1}^n X_{2l}$, sums of intependent multinomial random variables with $n=1$. 
 \begin{align}
   Cov(X_1, X_2) &= E[X_1 X_2] - E[X_1] E[X_2] \\
-                &= E[\sum_{k = 1}^n X_{1k} \sum_{l = 1}^n X_{2l}] - n^2 p_1 p_2 \\
-                &= \sum_{k = 1}^n \sum_{l = 1}^n E[X_{1k} X_{2l}] - n^2 p_1 p_2.
+                &= E[\sum_{t = 1}^n X_{1t} \sum_{l = 1}^n X_{2l}] - n^2 p_1 p_2 \\
+                &= \sum_{t = 1}^n \sum_{l = 1}^n E[X_{1t} X_{2l}] - n^2 p_1 p_2.
 \end{align}
-For $X_1k$ and $X_2l$ the expected value is zero when $k = l$. When $k \neq l$ then they are independent, so the expected value is the product $p_1 p_2$. There are $n^2$ total terms, and for $n$ of them $k = l$ holds. So $E[X_1 X_2] = (n^2 - n) p_1 p_2$. Inserting into the above
+For $X_{1t}$ and $X_{2l}$ the expected value is zero when $t = l$. When $t \neq l$ then they are independent, so the expected value is the product $p_1 p_2$. There are $n^2$ total terms, and for $n$ of them $t = l$ holds. So $E[X_1 X_2] = (n^2 - n) p_1 p_2$. Inserting into the above
 \begin{align}
   Cov(X_1, X_2) &= (n^2 - n) p_1 p_2 - n^2 p_1 p_2 \\
                 &= - n p_1 p_2.
 \end{align}
 
 ```
+</div>
+
 
 ## Multivariate normal random variables
 ```{exercise, name = "Cholesky decomposition", label = mvnchol}
@@ -153,6 +184,8 @@ c. <span style="color:blue">R: Use the results from a) and b) to sample from the
   
 <!-- d. <span style="color:blue">R: $L$ is a linear map$. Plot 10 points from $X$ and 10 points from the transformation $L X$ (Hint: use color or shapes). Compare and discuss the results.</span> --> 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -163,7 +196,7 @@ a. $X$ has an independent normal distribution of dimension $k$. Then
 \end{align}
   
   
-b.
+b. Solve
 \begin{align}
   \begin{bmatrix} 
     a & 0 \\
@@ -198,31 +231,13 @@ colnames(plot_df) <- c("D1", "D2", "var")
 ggplot(data = plot_df, aes(x = D1, y = D2, colour = as.factor(var))) +
   geom_point()
 
-# b
-nsamps <- 10
-X      <- matrix(data = rnorm(nsamps * 2), ncol = 2)
-L      <- matrix(data = c(sqrt(2), 0,
-                          1.2 / sqrt(2), sqrt(1 - 1.2^2/2)),
-                 ncol  = 2,
-                 byrow = TRUE)
-Y      <- t(L %*% t(X))
-plot_df <- data.frame(rbind(X, Y), 
-                      c(rep("X", nsamps), rep("Y", nsamps)), 
-                      c(1:nsamps, 1:nsamps))
-colnames(plot_df) <- c("D1", "D2", "var", "samp")
-ggplot(data = plot_df, aes(x = D1, 
-                           y = D2, 
-                           shape = as.factor(var), 
-                           color = as.factor(samp))) +
-  geom_point() +
-  scale_shape_manual(values = c(15, 16))
-
 
 ```
+</div>
 
 
 ```{exercise, name = "Eigendecomposition", label = mvneigen}
-<span style="color:blue">R: Let $\Sigma = U \Lambda U^T$ be the eigendecomposition of covariance matrix $\sigma$. Follow the procdeure below, to sample from a multivariate normal with $\mu = [-2, 1]^T$ and $\Sigma =
+<span style="color:blue">R: Let $\Sigma = U \Lambda U^T$ be the eigendecomposition of covariance matrix $\Sigma$. Follow the procedure below, to sample from a multivariate normal with $\mu = [-2, 1]^T$ and $\Sigma =
 \begin{bmatrix} 
   0.3, -0.5 \\
   -0.5, 1.6 
@@ -241,6 +256,8 @@ ggplot(data = plot_df, aes(x = D1,
 6. <span style="color:blue">Plot the data and the eigenvectors (scaled with $\Lambda^{\frac{1}{2}}$) at each step. Hint: Use _geom_segment_ for the eigenvectors. </span>
 
 ```
+
+<div class="fold">
 ```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 # a
 set.seed(1)
@@ -290,6 +307,7 @@ ggplot(data = df, aes(x = D1, y = D2)) +
 
 
 ```
+</div>
 
 ```{exercise, name = "Marginal and conditional distributions", label = mvncond}
 Let $X \sim \text{N}(\mu, \Sigma)$, where $\mu = [2, 0, -1]^T$ and $\Sigma =
@@ -309,6 +327,8 @@ d. Find the conditional distribution of $A | B$.
 
 e.  <span style="color:blue">R: Visually compare the distributions of a) and b), and c) and d) at three different conditional values.</span>
 ```
+
+<div class="fold">
 ```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 mu    <- c(2, 0, -1)
 Sigma <- matrix(c(1, -0.2, 0.5,
@@ -371,7 +391,7 @@ library(mvtnorm)
 set.seed(1)
 nsamps <- 1000
 
-# a
+# a and b
 samps  <- as.data.frame(matrix(data = NA, nrow = 4 * nsamps, ncol = 2))
 samps[1:nsamps,1] <- rnorm(nsamps, mu_B, Sigma_B)
 samps[1:nsamps,2] <- "marginal"
@@ -382,14 +402,14 @@ for (i in 1:3) {
                                                        Sigma_b)
   samps[(i*nsamps + 1):((i + 1) * nsamps), 2] <- paste0(# "cond", 
                                                         round(a, digits = 2), 
-                                                        collapse = "")
+                                                        collapse = "-")
 }
 colnames(samps) <- c("x", "dist")
 ggplot(samps, aes(x = x)) +
   geom_density() +
   facet_wrap(~ dist)
 
-# b
+# c and d
 samps  <- as.data.frame(matrix(data = NA, nrow = 4 * nsamps, ncol = 3))
 samps[1:nsamps,1:2] <- rmvnorm(nsamps, mu_A, Sigma_A)
 samps[1:nsamps,3]   <- "marginal"
@@ -406,12 +426,13 @@ ggplot(samps, aes(x = x, y = y)) +
   geom_smooth(method = "lm") +
   facet_wrap(~ dist)
 ```
+</div>
 
 
 ## Transformations
 ```{exercise}
 Let $(U,V)$ be a random variable with PDF $p(u,v) = \frac{1}{8 \sqrt{u}}$,
-$U \in [0,4]$ and $V \in [\sqrt{U}, \sqrt{U} - 1]$. Let $X = \sqrt{U}$ and
+$U \in [0,4]$ and $V \in [-\sqrt{U}, -\sqrt{U} + 1] \cup [\sqrt{U}, \sqrt{U} + 1]$. Let $X = \sqrt{U}$ and
 $Y = V - \sqrt{U}$.
 
 a. Find PDF of $(X,Y)$. What can you tell about distributions of $X$ and $Y$?
@@ -424,6 +445,8 @@ Plot both sets of samples.</span>
 
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -471,12 +494,15 @@ df     <- bind_rows(orig, transf)
 ggplot(df, aes(x = x, y = y, color = vrs)) +
   geom_point(alpha = 0.3)
 ```
+</div>
 
 ```{exercise}
 <span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with _dmvnorm_ from the __mvtnorm__ package.</span>
 
 
 ```
+
+<div class="fold">
 ```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 library(mvtnorm)
 set.seed(1)
@@ -507,3 +533,4 @@ for (i in 1:n_comp) {
 
 
 ```
+</div>

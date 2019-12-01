@@ -232,18 +232,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Probability generating functions.</li>
 <li>Moment generating functions.</li>
 </ul>
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
 <div id="probability-generating-functions-pgfs" class="section level2">
 <h2><span class="header-section-number">9.1</span> Probability generating functions (PGFs)</h2>
 
 <div class="exercise">
-<p><span id="exr:poissum" class="exercise"><strong>Exercise 9.1  </strong></span>Show that the sum of independent Poisson random variables is itself a Poisson random variable. <span style="color:blue">R: Let <span class="math inline">\(X\)</span> be a sum of three Poisson distributions with <span class="math inline">\(\lambda_i \in {2, 5.2, 10}\)</span>. Take 1000 samples and plot the three distributions and the sum. Then take 1000 samples from the theoretical distribution of <span class="math inline">\(X\)</span> and compare them to the sum.</span></p>
+<p><span id="exr:poissum" class="exercise"><strong>Exercise 9.1  </strong></span>Show that the sum of independent Poisson random variables is itself a Poisson random variable. <span style="color:blue">R: Let <span class="math inline">\(X\)</span> be a sum of three Poisson distributions with <span class="math inline">\(\lambda_i \in \{2, 5.2, 10\}\)</span>. Take 1000 samples and plot the three distributions and the sum. Then take 1000 samples from the theoretical distribution of <span class="math inline">\(X\)</span> and compare them to the sum.</span></p>
 </div>
 
+<div class="fold">
+
+</div>
 
 <div class="exercise">
 <p><span id="exr:nbev" class="exercise"><strong>Exercise 9.2  </strong></span>Find the expected value and variance of the negative binomial distribution. Hint: Find the Taylor series of <span class="math inline">\((1 - y)^{-r}\)</span> at point 0.</p>
 </div>
 
+<div class="fold">
+
+</div>
 </div>
 <div id="moment-generating-functions-mgfs" class="section level2">
 <h2><span class="header-section-number">9.2</span> Moment generating functions (MGFs)</h2>
@@ -252,11 +280,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span id="exr:geovar" class="exercise"><strong>Exercise 9.3  </strong></span>Find the variance of the geometric distribution.</p>
 </div>
 
+<div class="fold">
+
+</div>
 
 <div class="exercise">
 <p><span id="exr:nsumev" class="exercise"><strong>Exercise 9.4  </strong></span>Find the distribution of sum of two normal random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, by comparing <span class="math inline">\(M_{X+Y}(t)\)</span> to <span class="math inline">\(M_X(t)\)</span>. <span style="color:blue">R: To illustrate the result draw random samples from N<span class="math inline">\((-3, 1)\)</span> and N<span class="math inline">\((5, 1.2)\)</span> and calculate the empirical mean and variance of <span class="math inline">\(X+Y\)</span>. Plot all three histograms in one plot. </span></p>
 </div>
 
+<div class="fold">
+
+</div>
 
 </div>
 </div>
