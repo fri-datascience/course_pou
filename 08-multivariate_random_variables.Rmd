@@ -44,7 +44,7 @@ $(document).ready(function() {
 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- F
+togs <- T
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -152,7 +152,7 @@ In the above expression, at each iteration we multiply with $n_1$ and $n_2$. Sin
   Cov(X_i, X_j) &= E[X_i X_j] - E[X_i]E[X_j] \\
                 &= - p_i p_j.
 \end{align}
-For arbitrary $n$, let $X_1 = \sum_{t = 1}^n X_{1t}$ and $X_2 = \sum_{l = 1}^n X_{2l}$, sums of intependent multinomial random variables with $n=1$. 
+For arbitrary $n$, let $X = \sum_{t = 1}^n Y_t$ be the sum of independent multinomial random variables $Y_t = [X_{1t}, X_{2t},...,X_{kt}]^T$ with $n=1$. Then $X_1 = \sum_{t = 1}^n X_{1t}$ and $X_2 = \sum_{l = 1}^n X_{2l}$.
 \begin{align}
   Cov(X_1, X_2) &= E[X_1 X_2] - E[X_1] E[X_2] \\
                 &= E[\sum_{t = 1}^n X_{1t} \sum_{l = 1}^n X_{2l}] - n^2 p_1 p_2 \\
