@@ -14,8 +14,33 @@ The students are expected to acquire the following knowledge:
 - Optimization.
 - Estimating probability inequalities.
 
+
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- TRUE
+togs <- FALSE
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -28,7 +53,9 @@ library(tidyr)
 <span style="color:blue">R: Let $X$ be geometric random variable with $p = 0.7$. Visually compare the Markov bound, Chernoff bound, and the theoretical probabilities. To get the best fitting Chernoff bound, you will need to optimize the bound depending on $t$. Use either analytical or numerical optimization.</span>
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+
+<div class="fold">
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 bound_chernoff <- function (t, p, a) {
   return ((p / (1 - exp(t) + p * exp(t))) / exp(a * t))
 }
@@ -54,13 +81,16 @@ ggplot(plot_df, aes(x = x, y = y, color = type)) +
 
 
 ```
+</div>
 
 
 ```{exercise}
 <span style="color:blue">R: Let $X$ be a sum of 100 Beta distributions with random parameters. Take 1000 samples and plot the Chebyshev bound, Hoeffding bound, and the empirical probabilities.</span>
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+
+<div class="fold">
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
 set.seed(1)
 nvars   <- 100
 nsamps  <- 1000
@@ -103,12 +133,15 @@ ggplot(plot_df, aes(x = x, y = y, color = type)) +
   geom_line() +
   coord_cartesian(xlim = c(15, 25), ylim = c(0, 0.05))
 ```
+</div>
 
 ## Practical
 ```{exercise}
-FROM BINDER. Let $X_i$, $i = 1,...n$, be a random sample of size $n$ of a random variable $X$. Let $X$ have mean $\mu$ and variance $\sigma^2$. Find the size of the sample $n$ required so that the probability that the difference between sample mean and true mean is smaller than $\frac{\sigma}{10}$ is at least 0.95. Hint: Derive a version of the Chebyshev inequality for $P(|X - \mu| \geq a)$ using Markov inequality.
+From Jagannathan. Let $X_i$, $i = 1,...n$, be a random sample of size $n$ of a random variable $X$. Let $X$ have mean $\mu$ and variance $\sigma^2$. Find the size of the sample $n$ required so that the probability that the difference between sample mean and true mean is smaller than $\frac{\sigma}{10}$ is at least 0.95. Hint: Derive a version of the Chebyshev inequality for $P(|X - \mu| \geq a)$ using Markov inequality.
 
 ```
+
+<div class="fold">
 ```{solution, echo = togs}
 Let $\bar{X} = \sum_{i=1}^n X_i$. Then $E[\bar{X}] = \mu$ and $Var[\bar{X}] = \frac{\sigma^2}{n}$. Let us first derive another representation of Chebyshev inequality.
 \begin{align}
@@ -126,3 +159,4 @@ It follows that we need a sample size of $n \geq \frac{100}{0.05} = 2000$.
 
 
 ```
+</div>
