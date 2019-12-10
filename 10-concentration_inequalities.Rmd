@@ -40,7 +40,7 @@ $(document).ready(function() {
 </script>
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- FALSE
+togs <- T
 library(ggplot2)
 library(dplyr)
 library(reshape2)

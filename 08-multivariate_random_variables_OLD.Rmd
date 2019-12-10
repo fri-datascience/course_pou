@@ -431,10 +431,70 @@ ggplot(samps, aes(x = x, y = y)) +
 
 ## Transformations
 ```{exercise}
-Coming soon (making corrections).
+Let $(U,V)$ be a random variable with PDF $p(u,v) = \frac{1}{8 \sqrt{u}}$,
+$U \in [0,4]$ and $V \in [-\sqrt{U}, -\sqrt{U} + 1] \cup [\sqrt{U}, \sqrt{U} + 1]$. Let $X = \sqrt{U}$ and
+$Y = V - \sqrt{U}$.
+
+a. Find PDF of $(X,Y)$. What can you tell about distributions of $X$ and $Y$?
+This exercise shows how we can simplify a probabilistic problem with a
+clever use of transformations.
+
+b. <span style="color:blue">R: Take 1000 samples from $(X,Y)$ and transform
+them with inverses of the above functions to get samples from $(U,V)$.
+Plot both sets of samples.</span>
 
 
 ```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. First we need to find the inverse functions. Since $x = \sqrt{u}$ it
+follows that $u = x^2$, and that $x \in [-2,2]$. Similarly
+$v = y + x$ and $y \in [0,1]$. Let us first find the Jacobian.
+\[\renewcommand\arraystretch{1.6}
+J(x,y) =
+\begin{bmatrix}
+  \frac{\partial u}{\partial x} &
+  \frac{\partial v}{\partial x} \\%[1ex] % <-- 1ex more space between rows of matrix
+  \frac{\partial u}{\partial y} &
+  \frac{\partial v}{\partial y}
+\end{bmatrix} =
+  \begin{bmatrix}
+  2x &
+  1 \\%[1ex] % <-- 1ex more space between rows of matrix
+  0 &
+  1
+\end{bmatrix},
+\]
+and the determinant is $|J(x,y)| = 2x$. Putting everything together, we get
+\begin{align}
+  p_{X,Y}(x,y) = p_{U,V}(x^2, y + x) |J(x,y)| = \frac{1}{8 \sqrt{x^2}} 2x = \frac{1}{4}.
+\end{align}
+This reminds us of the Uniform distribution. Indeed we can see that 
+$p_X(x) = \frac{1}{4}$ and $p_Y(y) = 1$. So instead of dealing with an
+awkward PDF of $(U,V)$ and the corresponding dynamic bounds, we are now
+looking at two independent Uniform random variables. In practice, this could
+make modeling much easier.
+
+
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+set.seed(1)
+nsamps <- 2000
+x      <- runif(nsamps, min = -2, max = 2)
+y      <- runif(nsamps)
+orig   <- tibble(x = x, y = y, vrs = "original")
+u      <- x^2
+v      <- y + x
+transf <- tibble(x = u, y = v, vrs = "transformed")
+df     <- bind_rows(orig, transf)
+ggplot(df, aes(x = x, y = y, color = vrs)) +
+  geom_point(alpha = 0.3)
+```
+</div>
 
 ```{exercise}
 <span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with _dmvnorm_ from the __mvtnorm__ package.</span>

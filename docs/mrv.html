@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2019-12-09" />
+<meta name="date" content="2019-12-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -609,98 +609,41 @@ For <span class="math inline">\(X_{1t}\)</span> and <span class="math inline">\(
 <h2><span class="header-section-number">8.3</span> Transformations</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-175" class="exercise"><strong>Exercise 8.6  </strong></span>Let <span class="math inline">\((U,V)\)</span> be a random variable with PDF <span class="math inline">\(p(u,v) = \frac{1}{8 \sqrt{u}}\)</span>,
-<span class="math inline">\(U \in [0,4]\)</span> and <span class="math inline">\(V \in [-\sqrt{U}, -\sqrt{U} + 1] \cup [\sqrt{U}, \sqrt{U} + 1]\)</span>. Let <span class="math inline">\(X = \sqrt{U}\)</span> and
-<span class="math inline">\(Y = V - \sqrt{U}\)</span>.</p>
-<ol style="list-style-type: lower-alpha">
-<li><p>Find PDF of <span class="math inline">\((X,Y)\)</span>. What can you tell about distributions of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>?
-This exercise shows how we can simplify a probabilistic problem with a
-clever use of transformations.</p></li>
-<li><p><span style="color:blue">R: Take 1000 samples from <span class="math inline">\((X,Y)\)</span> and transform
-them with inverses of the above functions to get samples from <span class="math inline">\((U,V)\)</span>.
-Plot both sets of samples.</span></p></li>
-</ol>
+<p><span id="exr:unnamed-chunk-175" class="exercise"><strong>Exercise 8.6  </strong></span>Coming soon (making corrections).</p>
 </div>
 
-<div class="fold">
-
-<div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
-<ol style="list-style-type: lower-alpha">
-<li>First we need to find the inverse functions. Since <span class="math inline">\(x = \sqrt{u}\)</span> it
-follows that <span class="math inline">\(u = x^2\)</span>, and that <span class="math inline">\(x \in [-2,2]\)</span>. Similarly
-<span class="math inline">\(v = y + x\)</span> and <span class="math inline">\(y \in [0,1]\)</span>. Let us first find the Jacobian.
-<span class="math display">\[\renewcommand\arraystretch{1.6}
-J(x,y) =
-\begin{bmatrix}
-  \frac{\partial u}{\partial x} &amp;
-  \frac{\partial v}{\partial x} \\%[1ex] % &lt;-- 1ex more space between rows of matrix
-  \frac{\partial u}{\partial y} &amp;
-  \frac{\partial v}{\partial y}
-\end{bmatrix} =
-  \begin{bmatrix}
-  2x &amp;
-  1 \\%[1ex] % &lt;-- 1ex more space between rows of matrix
-  0 &amp;
-  1
-\end{bmatrix},
-\]</span>
-and the determinant is <span class="math inline">\(|J(x,y)| = 2x\)</span>. Putting everything together, we get
-<span class="math display">\[\begin{align}
-  p_{X,Y}(x,y) = p_{U,V}(x^2, y + x) |J(x,y)| = \frac{1}{8 \sqrt{x^2}} 2x = \frac{1}{4}.
-\end{align}\]</span>
-This reminds us of the Uniform distribution. Indeed we can see that
-<span class="math inline">\(p_X(x) = \frac{1}{4}\)</span> and <span class="math inline">\(p_Y(y) = 1\)</span>. So instead of dealing with an
-awkward PDF of <span class="math inline">\((U,V)\)</span> and the corresponding dynamic bounds, we are now
-looking at two independent Uniform random variables. In practice, this could
-make modeling much easier.</li>
-</ol>
-</div>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb153-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb153-3" title="3">x      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, <span class="dt">min =</span> <span class="dv">-2</span>, <span class="dt">max =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb153-4" title="4">y      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps)</a>
-<a class="sourceLine" id="cb153-5" title="5">orig   &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">vrs =</span> <span class="st">&quot;original&quot;</span>)</a>
-<a class="sourceLine" id="cb153-6" title="6">u      &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb153-7" title="7">v      &lt;-<span class="st"> </span>y <span class="op">+</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb153-8" title="8">transf &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> u, <span class="dt">y =</span> v, <span class="dt">vrs =</span> <span class="st">&quot;transformed&quot;</span>)</a>
-<a class="sourceLine" id="cb153-9" title="9">df     &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(orig, transf)</a>
-<a class="sourceLine" id="cb153-10" title="10"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> vrs)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb153-11" title="11"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-177-1.png" width="672" /></p>
-</div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-178" class="exercise"><strong>Exercise 8.7  </strong></span><span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with <em>dmvnorm</em> from the <strong>mvtnorm</strong> package.</span></p>
+<p><span id="exr:unnamed-chunk-176" class="exercise"><strong>Exercise 8.7  </strong></span><span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with <em>dmvnorm</em> from the <strong>mvtnorm</strong> package.</span></p>
 </div>
 
 <div class="fold">
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" title="1"><span class="kw">library</span>(mvtnorm)</a>
-<a class="sourceLine" id="cb154-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb154-3" title="3">mvn_dens &lt;-<span class="st"> </span><span class="cf">function</span> (y, mu, Sigma) {</a>
-<a class="sourceLine" id="cb154-4" title="4">  L     &lt;-<span class="st"> </span><span class="kw">chol</span>(Sigma)</a>
-<a class="sourceLine" id="cb154-5" title="5">  L_inv &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(L))</a>
-<a class="sourceLine" id="cb154-6" title="6">  g_inv &lt;-<span class="st"> </span>L_inv <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(y <span class="op">-</span><span class="st"> </span>mu)</a>
-<a class="sourceLine" id="cb154-7" title="7">  J     &lt;-<span class="st"> </span>L_inv</a>
-<a class="sourceLine" id="cb154-8" title="8">  J_det &lt;-<span class="st"> </span><span class="kw">det</span>(J)</a>
-<a class="sourceLine" id="cb154-9" title="9">  <span class="kw">return</span>(<span class="kw">prod</span>(<span class="kw">dnorm</span>(g_inv)) <span class="op">*</span><span class="st"> </span>J_det)</a>
-<a class="sourceLine" id="cb154-10" title="10">}</a>
-<a class="sourceLine" id="cb154-11" title="11">mu_v  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb154-12" title="12">cov_m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">-0.2</span>, <span class="fl">0.5</span>,</a>
-<a class="sourceLine" id="cb154-13" title="13">                  <span class="fl">-0.2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>,</a>
-<a class="sourceLine" id="cb154-14" title="14">                  <span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">1.6</span>),</a>
-<a class="sourceLine" id="cb154-15" title="15">                <span class="dt">ncol  =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb154-16" title="16">                <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb154-17" title="17">n_comp &lt;-<span class="st"> </span><span class="dv">20</span></a>
-<a class="sourceLine" id="cb154-18" title="18"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_comp) {</a>
-<a class="sourceLine" id="cb154-19" title="19">  x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb154-20" title="20">             <span class="dt">mean  =</span> mu_v,</a>
-<a class="sourceLine" id="cb154-21" title="21">             <span class="dt">sigma =</span> cov_m)</a>
-<a class="sourceLine" id="cb154-22" title="22">  <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;My function: &quot;</span>,</a>
-<a class="sourceLine" id="cb154-23" title="23">               <span class="kw">mvn_dens</span>(x, mu_v, cov_m),</a>
-<a class="sourceLine" id="cb154-24" title="24">               <span class="st">&quot;, dmvnorm: &quot;</span>,</a>
-<a class="sourceLine" id="cb154-25" title="25">               <span class="kw">dmvnorm</span>(x, mu_v, cov_m)))</a>
-<a class="sourceLine" id="cb154-26" title="26">}</a></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1"><span class="kw">library</span>(mvtnorm)</a>
+<a class="sourceLine" id="cb153-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb153-3" title="3">mvn_dens &lt;-<span class="st"> </span><span class="cf">function</span> (y, mu, Sigma) {</a>
+<a class="sourceLine" id="cb153-4" title="4">  L     &lt;-<span class="st"> </span><span class="kw">chol</span>(Sigma)</a>
+<a class="sourceLine" id="cb153-5" title="5">  L_inv &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(L))</a>
+<a class="sourceLine" id="cb153-6" title="6">  g_inv &lt;-<span class="st"> </span>L_inv <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(y <span class="op">-</span><span class="st"> </span>mu)</a>
+<a class="sourceLine" id="cb153-7" title="7">  J     &lt;-<span class="st"> </span>L_inv</a>
+<a class="sourceLine" id="cb153-8" title="8">  J_det &lt;-<span class="st"> </span><span class="kw">det</span>(J)</a>
+<a class="sourceLine" id="cb153-9" title="9">  <span class="kw">return</span>(<span class="kw">prod</span>(<span class="kw">dnorm</span>(g_inv)) <span class="op">*</span><span class="st"> </span>J_det)</a>
+<a class="sourceLine" id="cb153-10" title="10">}</a>
+<a class="sourceLine" id="cb153-11" title="11">mu_v  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb153-12" title="12">cov_m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">-0.2</span>, <span class="fl">0.5</span>,</a>
+<a class="sourceLine" id="cb153-13" title="13">                  <span class="fl">-0.2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>,</a>
+<a class="sourceLine" id="cb153-14" title="14">                  <span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">1.6</span>),</a>
+<a class="sourceLine" id="cb153-15" title="15">                <span class="dt">ncol  =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb153-16" title="16">                <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb153-17" title="17">n_comp &lt;-<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb153-18" title="18"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_comp) {</a>
+<a class="sourceLine" id="cb153-19" title="19">  x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb153-20" title="20">             <span class="dt">mean  =</span> mu_v,</a>
+<a class="sourceLine" id="cb153-21" title="21">             <span class="dt">sigma =</span> cov_m)</a>
+<a class="sourceLine" id="cb153-22" title="22">  <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;My function: &quot;</span>,</a>
+<a class="sourceLine" id="cb153-23" title="23">               <span class="kw">mvn_dens</span>(x, mu_v, cov_m),</a>
+<a class="sourceLine" id="cb153-24" title="24">               <span class="st">&quot;, dmvnorm: &quot;</span>,</a>
+<a class="sourceLine" id="cb153-25" title="25">               <span class="kw">dmvnorm</span>(x, mu_v, cov_m)))</a>
+<a class="sourceLine" id="cb153-26" title="26">}</a></code></pre></div>
 <pre><code>## [1] &quot;My function: 0.0229514237156383, dmvnorm: 0.0229514237156383&quot;
 ## [1] &quot;My function: 0.00763138915406231, dmvnorm: 0.00763138915406232&quot;
 ## [1] &quot;My function: 0.0230688881105741, dmvnorm: 0.0230688881105741&quot;

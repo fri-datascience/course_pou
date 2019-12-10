@@ -37,7 +37,7 @@ $(document).ready(function() {
 
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- F
+togs <- T
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -220,16 +220,16 @@ Let us calculate $M_X(t)$, the MGF for $Y$ then follows analogously.
   M_X(t) &= \int_{-\infty}^\infty e^{tx} \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - mu_X)^2}{2\sigma_X^2}} dx \\
          &= \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - mu_X)^2 - 2\sigma_X tx}{2\sigma_X^2}} dx \\
          &= \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{x^2 - 2\mu_X x + \mu_X^2 - 2\sigma_X tx}{2\sigma_X^2}} dx \\
-         &= \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - (\mu_X + 2\sigma_X^2 t))^2 + \mu_X^2 - (\mu_X + 2\sigma_X^2 t)^2}{2\sigma_X^2}} dx & \text{complete the square}\\
-         &= e^{-\frac{\mu_X^2 - (\mu_X + 2\sigma_X^2 t)^2}{2\sigma_X^2}} \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - (\mu_X + 2\sigma_X^2 t))^2}{2\sigma_X^2}} dx & \\
-         &= e^{-\frac{\mu_X^2 - (\mu_X + 2\sigma_X^2 t)^2}{2\sigma_X^2}} & \text{normal PDF} \\
-         &= e^{-\frac{\mu_X^2 - \mu_X^2 - 2 \mu_X \sigma_X^2 t - 4 \sigma_X^4 t^2}{2\sigma_X^2}} \\
-         &= e^{2\sigma_X^2 t^2 + 2\mu_X t}. \\
+         &= \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - (\mu_X + \sigma_X^2 t))^2 + \mu_X^2 - (\mu_X + \sigma_X^2 t)^2}{2\sigma_X^2}} dx & \text{complete the square}\\
+         &= e^{-\frac{\mu_X^2 - (\mu_X + \sigma_X^2 t)^2}{2\sigma_X^2}} \int_{-\infty}^\infty \frac{1}{\sqrt{2 \pi \sigma_X^2}} e^{-\frac{(x - (\mu_X + \sigma_X^2 t))^2}{2\sigma_X^2}} dx & \\
+         &= e^{-\frac{\mu_X^2 - (\mu_X + \sigma_X^2 t)^2}{2\sigma_X^2}} & \text{normal PDF} \\
+         &= e^{-\frac{\mu_X^2 - \mu_X^2 -  \mu_X \sigma_X^2 t - 2 \sigma_X^4 t^2}{2\sigma_X^2}} \\
+         &= e^{\sigma_X^2 t^2 + \frac{\mu_X t}{2}}. \\
 \end{align}
 The MGF of the sum is then
 \begin{align}
-  M_{X+Y}(t) &= e^{2\sigma_X^2 t^2 + 2\mu_X t} e^{2\sigma_Y^2 t^2 + 2\mu_Y t} \\
-             &= e^{2t^2(\sigma_X^2 + \sigma_Y^2) + 2t(\mu_X + \mu_Y)}.
+  M_{X+Y}(t) &= e^{\sigma_X^2 t^2 + 0.5\mu_X t} e^{\sigma_Y^2 t^2 + 0.5\mu_Y t} \\
+             &= e^{t^2(\sigma_X^2 + \sigma_Y^2) + 0.5 t(\mu_X + \mu_Y)}.
 \end{align}
 By comparing $M_{X+Y}(t)$ and $M_X(t)$ we observe that both have two terms. The first is $2t^2$ multiplied by the variance, and the second is $2t$ multiplied by the mean. Since MGFs are unique, we conclude that $Z = X + Y \sim \text{N}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)$.
 

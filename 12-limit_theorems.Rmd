@@ -1,0 +1,46 @@
+# Convergence of random variables {#lt}
+
+This chapter deals with limit theorems.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- Monte Carlo integration.
+- Difference between weak and strong law of large numbers.
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+togs <- TRUE
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+library(tidyr)
+# togs <- FALSE
+```
+
+
+```{exercise}
+Let $X$ be a geometric random variable with probability 0.5 and support in positive integers. Let $Y = 2^X (-1)^X X^{-1}$. Find the expected value of $Y$ by using conditional convergence (this variable does not have an expected value in the conventional sense -- the series is not absolutely convergent).
+<span style="color:blue">R: Draw $10000$ samples from a geometric distribution with probability 0.5 and support in positive integers to get $X$. Then calculate $Y$ and plot the means at each iteration (sample). Additionally, plot the expected value calculated in a. Try it with different seeds. What do you notice?</span>
+
+```
+```{solution, echo = togs}
+
+\begin{align*}
+  E[Y] &= \sum_{i=1}^n \frac{2^x (-1)^x}{x} 0.5^x \\
+       &= \sum_{i=1}^n \frac{(-1)^x}{x} \\
+       &= - \sum_{i=1}^n \frac{(-1)^{x+1}}{x} \\
+       &= - \ln(2)
+\end{align*}
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE}
+set.seed(3)
+x       <- rgeom(100000, prob = 0.5) + 1
+y       <- 2^x * (-1)^x * x^{-1}
+y_means <- cumsum(y) / seq_along(y)
+df      <- data.frame(x = 1:length(y_means), y = y_means)
+ggplot(data = df, aes(x = x, y = y)) +
+  geom_line() +
+  geom_hline(yintercept = -log(2))
+```
