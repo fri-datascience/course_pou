@@ -282,27 +282,27 @@ $(document).ready(function() {
 \end{align}\]</span>
 The last term is the PGF of a Poisson random variable with parameter <span class="math inline">\(\sum_{i=1}^n \lambda_i\)</span>. Because the PGF is unique, <span class="math inline">\(X\)</span> is a Poisson random variable.</p>
 </div>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb155-2" title="2"><span class="kw">library</span>(tidyr)</a>
-<a class="sourceLine" id="cb155-3" title="3">nsamps           &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb155-4" title="4">samps            &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb155-5" title="5">samps[ ,<span class="dv">1</span>]       &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb155-6" title="6">samps[ ,<span class="dv">2</span>]       &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="fl">5.2</span>)</a>
-<a class="sourceLine" id="cb155-7" title="7">samps[ ,<span class="dv">3</span>]       &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb155-8" title="8">samps[ ,<span class="dv">4</span>]       &lt;-<span class="st"> </span>samps[ ,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>samps[ ,<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>samps[ ,<span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb155-9" title="9"><span class="kw">colnames</span>(samps)  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">2.5</span>, <span class="dv">10</span>, <span class="st">&quot;sum&quot;</span>)</a>
-<a class="sourceLine" id="cb155-10" title="10">gsamps           &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(samps)</a>
-<a class="sourceLine" id="cb155-11" title="11">gsamps           &lt;-<span class="st"> </span><span class="kw">gather</span>(gsamps, <span class="dt">key =</span> <span class="st">&quot;dist&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>)</a>
-<a class="sourceLine" id="cb155-12" title="12"><span class="kw">ggplot</span>(gsamps, <span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb155-13" title="13"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb155-14" title="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>dist)</a></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-180-1.png" width="672" /></p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1">samps              &lt;-<span class="st"> </span><span class="kw">cbind</span>(samps, <span class="st">&quot;theoretical&quot;</span> =<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="fl">5.2</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span>))</a>
-<a class="sourceLine" id="cb156-2" title="2">gsamps             &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(samps[ ,<span class="dv">4</span><span class="op">:</span><span class="dv">5</span>])</a>
-<a class="sourceLine" id="cb156-3" title="3">gsamps             &lt;-<span class="st"> </span><span class="kw">gather</span>(gsamps, <span class="dt">key =</span> <span class="st">&quot;dist&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>)</a>
-<a class="sourceLine" id="cb156-4" title="4"><span class="kw">ggplot</span>(gsamps, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> dist)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb156-5" title="5"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-180-2.png" width="672" /></p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb156-2" title="2"><span class="kw">library</span>(tidyr)</a>
+<a class="sourceLine" id="cb156-3" title="3">nsamps           &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb156-4" title="4">samps            &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb156-5" title="5">samps[ ,<span class="dv">1</span>]       &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb156-6" title="6">samps[ ,<span class="dv">2</span>]       &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="fl">5.2</span>)</a>
+<a class="sourceLine" id="cb156-7" title="7">samps[ ,<span class="dv">3</span>]       &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb156-8" title="8">samps[ ,<span class="dv">4</span>]       &lt;-<span class="st"> </span>samps[ ,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>samps[ ,<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>samps[ ,<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb156-9" title="9"><span class="kw">colnames</span>(samps)  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">2.5</span>, <span class="dv">10</span>, <span class="st">&quot;sum&quot;</span>)</a>
+<a class="sourceLine" id="cb156-10" title="10">gsamps           &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(samps)</a>
+<a class="sourceLine" id="cb156-11" title="11">gsamps           &lt;-<span class="st"> </span><span class="kw">gather</span>(gsamps, <span class="dt">key =</span> <span class="st">&quot;dist&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>)</a>
+<a class="sourceLine" id="cb156-12" title="12"><span class="kw">ggplot</span>(gsamps, <span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb156-13" title="13"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb156-14" title="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>dist)</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-182-1.png" width="672" /></p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1">samps              &lt;-<span class="st"> </span><span class="kw">cbind</span>(samps, <span class="st">&quot;theoretical&quot;</span> =<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="fl">5.2</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span>))</a>
+<a class="sourceLine" id="cb157-2" title="2">gsamps             &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(samps[ ,<span class="dv">4</span><span class="op">:</span><span class="dv">5</span>])</a>
+<a class="sourceLine" id="cb157-3" title="3">gsamps             &lt;-<span class="st"> </span><span class="kw">gather</span>(gsamps, <span class="dt">key =</span> <span class="st">&quot;dist&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>)</a>
+<a class="sourceLine" id="cb157-4" title="4"><span class="kw">ggplot</span>(gsamps, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> dist)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb157-5" title="5"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-182-2.png" width="672" /></p>
 </div>
 
 <div class="exercise">
@@ -354,26 +354,26 @@ Evaluating this at 1, we get:
          &amp;= \frac{rp}{(1 - p)^2}.
 \end{align}\]</span></p>
 </div>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1"><span class="kw">library</span>(tidyr)</a>
-<a class="sourceLine" id="cb157-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb157-3" title="3">nsamps &lt;-<span class="st"> </span><span class="dv">100000</span></a>
-<a class="sourceLine" id="cb157-4" title="4">find_p &lt;-<span class="st"> </span><span class="cf">function</span> (mu, r) {</a>
-<a class="sourceLine" id="cb157-5" title="5">  <span class="kw">return</span> (<span class="dv">10</span> <span class="op">/</span><span class="st"> </span>(r <span class="op">+</span><span class="st"> </span><span class="dv">10</span>))</a>
-<a class="sourceLine" id="cb157-6" title="6">}</a>
-<a class="sourceLine" id="cb157-7" title="7">r &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">10</span>,<span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb157-8" title="8">p &lt;-<span class="st"> </span><span class="kw">find_p</span>(<span class="dv">10</span>, r)</a>
-<a class="sourceLine" id="cb157-9" title="9">sigma &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">sqrt</span>(p<span class="op">*</span>r <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p)<span class="op">^</span><span class="dv">2</span>), <span class="dt">each =</span> nsamps)</a>
-<a class="sourceLine" id="cb157-10" title="10">samps &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="st">&quot;r=1&quot;</span>  =<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> r[<span class="dv">1</span>], <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p[<span class="dv">1</span>]),</a>
-<a class="sourceLine" id="cb157-11" title="11">               <span class="st">&quot;r=2&quot;</span>  =<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> r[<span class="dv">2</span>], <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p[<span class="dv">2</span>]),</a>
-<a class="sourceLine" id="cb157-12" title="12">               <span class="st">&quot;r=4&quot;</span>  =<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> r[<span class="dv">3</span>], <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p[<span class="dv">3</span>]),</a>
-<a class="sourceLine" id="cb157-13" title="13">               <span class="st">&quot;r=20&quot;</span> =<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> r[<span class="dv">4</span>], <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p[<span class="dv">4</span>]))</a>
-<a class="sourceLine" id="cb157-14" title="14">gsamps &lt;-<span class="st"> </span><span class="kw">gather</span>(<span class="kw">as.data.frame</span>(samps))</a>
-<a class="sourceLine" id="cb157-15" title="15">iw     &lt;-<span class="st"> </span>(gsamps<span class="op">$</span>value <span class="op">&gt;</span><span class="st"> </span>sigma <span class="op">+</span><span class="st"> </span><span class="dv">10</span>) <span class="op">|</span><span class="st"> </span>(gsamps<span class="op">$</span>value <span class="op">&lt;</span><span class="st"> </span>sigma <span class="op">-</span><span class="st"> </span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb157-16" title="16"><span class="kw">ggplot</span>(gsamps, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> iw)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb157-17" title="17"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb157-18" title="18"><span class="st">  </span><span class="co"># geom_density() +</span></a>
-<a class="sourceLine" id="cb157-19" title="19"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>key)</a></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-182-1.png" width="672" /></p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1"><span class="kw">library</span>(tidyr)</a>
+<a class="sourceLine" id="cb158-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb158-3" title="3">nsamps &lt;-<span class="st"> </span><span class="dv">100000</span></a>
+<a class="sourceLine" id="cb158-4" title="4">find_p &lt;-<span class="st"> </span><span class="cf">function</span> (mu, r) {</a>
+<a class="sourceLine" id="cb158-5" title="5">  <span class="kw">return</span> (<span class="dv">10</span> <span class="op">/</span><span class="st"> </span>(r <span class="op">+</span><span class="st"> </span><span class="dv">10</span>))</a>
+<a class="sourceLine" id="cb158-6" title="6">}</a>
+<a class="sourceLine" id="cb158-7" title="7">r &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">10</span>,<span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb158-8" title="8">p &lt;-<span class="st"> </span><span class="kw">find_p</span>(<span class="dv">10</span>, r)</a>
+<a class="sourceLine" id="cb158-9" title="9">sigma &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">sqrt</span>(p<span class="op">*</span>r <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p)<span class="op">^</span><span class="dv">2</span>), <span class="dt">each =</span> nsamps)</a>
+<a class="sourceLine" id="cb158-10" title="10">samps &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="st">&quot;r=1&quot;</span>  =<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> r[<span class="dv">1</span>], <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p[<span class="dv">1</span>]),</a>
+<a class="sourceLine" id="cb158-11" title="11">               <span class="st">&quot;r=2&quot;</span>  =<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> r[<span class="dv">2</span>], <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p[<span class="dv">2</span>]),</a>
+<a class="sourceLine" id="cb158-12" title="12">               <span class="st">&quot;r=4&quot;</span>  =<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> r[<span class="dv">3</span>], <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p[<span class="dv">3</span>]),</a>
+<a class="sourceLine" id="cb158-13" title="13">               <span class="st">&quot;r=20&quot;</span> =<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> r[<span class="dv">4</span>], <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p[<span class="dv">4</span>]))</a>
+<a class="sourceLine" id="cb158-14" title="14">gsamps &lt;-<span class="st"> </span><span class="kw">gather</span>(<span class="kw">as.data.frame</span>(samps))</a>
+<a class="sourceLine" id="cb158-15" title="15">iw     &lt;-<span class="st"> </span>(gsamps<span class="op">$</span>value <span class="op">&gt;</span><span class="st"> </span>sigma <span class="op">+</span><span class="st"> </span><span class="dv">10</span>) <span class="op">|</span><span class="st"> </span>(gsamps<span class="op">$</span>value <span class="op">&lt;</span><span class="st"> </span>sigma <span class="op">-</span><span class="st"> </span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb158-16" title="16"><span class="kw">ggplot</span>(gsamps, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> iw)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb158-17" title="17"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb158-18" title="18"><span class="st">  </span><span class="co"># geom_density() +</span></a>
+<a class="sourceLine" id="cb158-19" title="19"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>key)</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-184-1.png" width="672" /></p>
 </div>
 </div>
 <div id="moment-generating-functions-mgfs" class="section level2">
@@ -443,22 +443,22 @@ The MGF of the sum is then
 \end{align}\]</span>
 By comparing <span class="math inline">\(M_{X+Y}(t)\)</span> and <span class="math inline">\(M_X(t)\)</span> we observe that both have two terms. The first is <span class="math inline">\(2t^2\)</span> multiplied by the variance, and the second is <span class="math inline">\(2t\)</span> multiplied by the mean. Since MGFs are unique, we conclude that <span class="math inline">\(Z = X + Y \sim \text{N}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)\)</span>.</p>
 </div>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1"><span class="kw">library</span>(tidyr)</a>
-<a class="sourceLine" id="cb158-2" title="2"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb158-3" title="3"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb158-4" title="4">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb158-5" title="5">x      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dv">-3</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb158-6" title="6">y      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dv">5</span>, <span class="fl">1.2</span>)</a>
-<a class="sourceLine" id="cb158-7" title="7">z      &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y</a>
-<a class="sourceLine" id="cb158-8" title="8"><span class="kw">mean</span>(z)</a></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="kw">library</span>(tidyr)</a>
+<a class="sourceLine" id="cb159-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb159-3" title="3"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb159-4" title="4">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb159-5" title="5">x      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dv">-3</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb159-6" title="6">y      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dv">5</span>, <span class="fl">1.2</span>)</a>
+<a class="sourceLine" id="cb159-7" title="7">z      &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y</a>
+<a class="sourceLine" id="cb159-8" title="8"><span class="kw">mean</span>(z)</a></code></pre></div>
 <pre><code>## [1] 1.968838</code></pre>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1"><span class="kw">var</span>(z)</a></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1"><span class="kw">var</span>(z)</a></code></pre></div>
 <pre><code>## [1] 2.645034</code></pre>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" title="1">df     &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">z =</span> z) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb162-2" title="2"><span class="st">  </span><span class="kw">gather</span>()</a>
-<a class="sourceLine" id="cb162-3" title="3"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> key)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb162-4" title="4"><span class="st">         </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-185-1.png" width="672" /></p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1">df     &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">z =</span> z) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb163-2" title="2"><span class="st">  </span><span class="kw">gather</span>()</a>
+<a class="sourceLine" id="cb163-3" title="3"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> key)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb163-4" title="4"><span class="st">         </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-187-1.png" width="672" /></p>
 </div>
 
 </div>
