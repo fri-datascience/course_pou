@@ -325,7 +325,7 @@ Let <span class="math inline">\(\omega \neq \frac{i}{n}\)</span>. Then for any <
 <span class="math display">\[\begin{align}
   X_n(\omega) = 1 \implies |X_n(\omega) - X(s)| = |1 - 1| &lt; \epsilon.
 \end{align}\]</span>
-The above is independent of <span class="math inline">\(n\)</span>. Since there are countably infinite number of elements in the complement ($), the probability of this set is 1.
+The above is independent of <span class="math inline">\(n\)</span>. Since there are countably infinite number of elements in the complement (<span class="math inline">\(\frac{i}{n}\)</span>), the probability of this set is 1.
 </div>
 </div>
 
@@ -384,9 +384,9 @@ This is the same as <span class="math inline">\(F_X\)</span>.</p>
 <p> <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
   \lim_{n \rightarrow \infty} E(|\bar{X_n} - \mu|^2) &amp;= \lim_{n \rightarrow \infty} E(\bar{X_n}^2 - 2 \bar{X_n} \mu + \mu^2) \\
   &amp;= \lim_{n \rightarrow \infty} (E(\bar{X_n}^2) - 2 \mu E(\frac{\sum_{i=1}^n X_i}{n}) + \mu^2) \\
-  &amp;= \lim_{n \rightarrow \infty} E(\bar{X_n})^2 - \lim_{n \rightarrow \infty} Var(\bar{X_n}) - 2 \mu^2 + \mu^2 \\
-  &amp;= \lim_{n \rightarrow \infty} \frac{n^2 \mu^2}{n^2} - \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} - \mu^2 \\
-  &amp;= \mu^2 - \mu^2 - \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} \\
+  &amp;= \lim_{n \rightarrow \infty} E(\bar{X_n})^2 + \lim_{n \rightarrow \infty} Var(\bar{X_n}) - 2 \mu^2 + \mu^2 \\
+  &amp;= \lim_{n \rightarrow \infty} \frac{n^2 \mu^2}{n^2} + \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} - \mu^2 \\
+  &amp;= \mu^2 - \mu^2 + \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} \\
   &amp;= 0.
 \end{align}\]</span></p>
 </div>
