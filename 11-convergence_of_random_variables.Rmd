@@ -95,7 +95,7 @@ Show that $X_n$ converges almost surely to $X \sim \text{Uniform}(0,1)$.
 ```{solution, echo = togs}
 
 
-We need to show $P(\{\omega: X_n(\omega) \xrightarrow{\text{a.s.}} X(\omega)\}) = 1$. 
+We need to show $P(\{\omega: X_n(\omega) \rightarrow X(\omega)\}) = 1$. 
 
 Let $\omega \neq \frac{i}{n}$. Then for any $\omega$, $X_n$ converges pointwise to $X$:
 \begin{align}

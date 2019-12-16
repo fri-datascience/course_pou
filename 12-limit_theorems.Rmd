@@ -6,7 +6,7 @@ The students are expected to acquire the following knowledge:
 
 **Theoretical**
 
-- Monte Carlo integration.
+- Monte Carlo integration convergence.
 - Difference between weak and strong law of large numbers.
 
 
@@ -44,14 +44,18 @@ library(tidyr)
 ```
 
 ```{exercise}
-Show that Monte Carlo integration converges almost surely to the true expected value of a bounded random variable.
+Show that Monte Carlo integration converges almost surely to the true integral of a bounded function.
 
 ```
 <div class="fold">
 ```{solution, echo = togs}
-Let $g$ be a PDF defined on $\Omega$. Let $X_i$, $i = 1,...,n$ be i.i.d. (multivariate) uniform random variables with bounds defined on $\Omega$. Let $Y_i$ = $g(X_i)$. Then it follows that $Y_i$ are also i.i.d. random variables and their expected value is $E[g(X)] = \int_{\Omega} g(x) f(x) dx = \frac{1}{V_{\Omega}} \int_{\Omega} g(x) dx$. By the strong law of large numbers, we have
+Let $g$ be a function defined on $\Omega$. Let $X_i$, $i = 1,...,n$ be i.i.d. (multivariate) uniform random variables with bounds defined on $\Omega$. Let $Y_i$ = $g(X_i)$. Then it follows that $Y_i$ are also i.i.d. random variables and their expected value is $E[g(X)] = \int_{\Omega} g(x) f_X(x) dx = \frac{1}{V_{\Omega}} \int_{\Omega} g(x) dx$. By the strong law of large numbers, we have
 \begin{equation}
-  \frac{1}{n}\sum_{i=1}^n Y_i \rightarrow E[g(X)].
+  \frac{1}{n}\sum_{i=1}^n Y_i \xrightarrow{\text{a.s.}} E[g(X)].
+\end{equation}
+It follows that
+\begin{equation}
+  V_{\Omega} \frac{1}{n}\sum_{i=1}^n Y_i \xrightarrow{\text{a.s.}} \int_{\Omega} g(x) dx.
 \end{equation}
 
 ```
@@ -66,9 +70,9 @@ Let $X$ be a geometric random variable with probability 0.5 and support in posit
 ```{solution, echo = togs}
 
 \begin{align*}
-  E[Y] &= \sum_{i=1}^n \frac{2^x (-1)^x}{x} 0.5^x \\
-       &= \sum_{i=1}^n \frac{(-1)^x}{x} \\
-       &= - \sum_{i=1}^n \frac{(-1)^{x+1}}{x} \\
+  E[Y] &= \sum_{x=1}^{\infty} \frac{2^x (-1)^x}{x} 0.5^x \\
+       &= \sum_{x=1}^{\infty} \frac{(-1)^x}{x} \\
+       &= - \sum_{x=1}^{\infty} \frac{(-1)^{x+1}}{x} \\
        &= - \ln(2)
 \end{align*}
 

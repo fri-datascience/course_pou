@@ -250,7 +250,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
 <ul>
-<li>Monte Carlo integration.</li>
+<li>Monte Carlo integration convergence.</li>
 <li>Difference between weak and strong law of large numbers.</li>
 </ul>
 <style>
@@ -277,20 +277,24 @@ $(document).ready(function() {
 </script>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-207" class="exercise"><strong>Exercise 90  </strong></span>Show that Monte Carlo integration converges almost surely to the true expected value of a bounded random variable.</p>
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1  </strong></span>Show that Monte Carlo integration converges almost surely to the true integral of a bounded function.</p>
 </div>
 <div class="fold">
 
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(g\)</span> be a PDF defined on <span class="math inline">\(\Omega\)</span>. Let <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i = 1,...,n\)</span> be i.i.d. (multivariate) uniform random variables with bounds defined on <span class="math inline">\(\Omega\)</span>. Let <span class="math inline">\(Y_i\)</span> = <span class="math inline">\(g(X_i)\)</span>. Then it follows that <span class="math inline">\(Y_i\)</span> are also i.i.d. random variables and their expected value is <span class="math inline">\(E[g(X)] = \int_{\Omega} g(x) f(x) dx = \frac{1}{V_{\Omega}} \int_{\Omega} g(x) dx\)</span>. By the strong law of large numbers, we have
+<p> <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(g\)</span> be a function defined on <span class="math inline">\(\Omega\)</span>. Let <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i = 1,...,n\)</span> be i.i.d. (multivariate) uniform random variables with bounds defined on <span class="math inline">\(\Omega\)</span>. Let <span class="math inline">\(Y_i\)</span> = <span class="math inline">\(g(X_i)\)</span>. Then it follows that <span class="math inline">\(Y_i\)</span> are also i.i.d. random variables and their expected value is <span class="math inline">\(E[g(X)] = \int_{\Omega} g(x) f_X(x) dx = \frac{1}{V_{\Omega}} \int_{\Omega} g(x) dx\)</span>. By the strong law of large numbers, we have
 <span class="math display">\[\begin{equation}
-  \frac{1}{n}\sum_{i=1}^n Y_i \rightarrow E[g(X)].
+  \frac{1}{n}\sum_{i=1}^n Y_i \xrightarrow{\text{a.s.}} E[g(X)].
+\end{equation}\]</span>
+It follows that
+<span class="math display">\[\begin{equation}
+  V_{\Omega} \frac{1}{n}\sum_{i=1}^n Y_i \xrightarrow{\text{a.s.}} \int_{\Omega} g(x) dx.
 \end{equation}\]</span></p>
 </div>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-209" class="exercise"><strong>Exercise 91  </strong></span>Let <span class="math inline">\(X\)</span> be a geometric random variable with probability 0.5 and support in positive integers. Let <span class="math inline">\(Y = 2^X (-1)^X X^{-1}\)</span>. Find the expected value of <span class="math inline">\(Y\)</span> by using conditional convergence (this variable does not have an expected value in the conventional sense – the series is not absolutely convergent).
+<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 2  </strong></span>Let <span class="math inline">\(X\)</span> be a geometric random variable with probability 0.5 and support in positive integers. Let <span class="math inline">\(Y = 2^X (-1)^X X^{-1}\)</span>. Find the expected value of <span class="math inline">\(Y\)</span> by using conditional convergence (this variable does not have an expected value in the conventional sense – the series is not absolutely convergent).
 <span style="color:blue">R: Draw <span class="math inline">\(10000\)</span> samples from a geometric distribution with probability 0.5 and support in positive integers to get <span class="math inline">\(X\)</span>. Then calculate <span class="math inline">\(Y\)</span> and plot the means at each iteration (sample). Additionally, plot the expected value calculated in a. Try it with different seeds. What do you notice?</span></p>
 </div>
 <div class="fold">
@@ -298,21 +302,21 @@ $(document).ready(function() {
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> 
 <span class="math display">\[\begin{align*}
-  E[Y] &amp;= \sum_{i=1}^n \frac{2^x (-1)^x}{x} 0.5^x \\
-       &amp;= \sum_{i=1}^n \frac{(-1)^x}{x} \\
-       &amp;= - \sum_{i=1}^n \frac{(-1)^{x+1}}{x} \\
+  E[Y] &amp;= \sum_{x=1}^{\infty} \frac{2^x (-1)^x}{x} 0.5^x \\
+       &amp;= \sum_{x=1}^{\infty} \frac{(-1)^x}{x} \\
+       &amp;= - \sum_{x=1}^{\infty} \frac{(-1)^{x+1}}{x} \\
        &amp;= - \ln(2)
 \end{align*}\]</span></p>
 </div>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="lt.html#cb179-1"></a><span class="kw">set.seed</span>(<span class="dv">3</span>)</span>
-<span id="cb179-2"><a href="lt.html#cb179-2"></a>x       &lt;-<span class="st"> </span><span class="kw">rgeom</span>(<span class="dv">100000</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb179-3"><a href="lt.html#cb179-3"></a>y       &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">^</span>x <span class="op">*</span><span class="st"> </span>(<span class="op">-</span><span class="dv">1</span>)<span class="op">^</span>x <span class="op">*</span><span class="st"> </span>x<span class="op">^</span>{<span class="op">-</span><span class="dv">1</span>}</span>
-<span id="cb179-4"><a href="lt.html#cb179-4"></a>y_means &lt;-<span class="st"> </span><span class="kw">cumsum</span>(y) <span class="op">/</span><span class="st"> </span><span class="kw">seq_along</span>(y)</span>
-<span id="cb179-5"><a href="lt.html#cb179-5"></a>df      &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(y_means), <span class="dt">y =</span> y_means)</span>
-<span id="cb179-6"><a href="lt.html#cb179-6"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></span>
-<span id="cb179-7"><a href="lt.html#cb179-7"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb179-8"><a href="lt.html#cb179-8"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="op">-</span><span class="kw">log</span>(<span class="dv">2</span>))</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-211-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="lt.html#cb1-1"></a><span class="kw">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb1-2"><a href="lt.html#cb1-2"></a>x       &lt;-<span class="st"> </span><span class="kw">rgeom</span>(<span class="dv">100000</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb1-3"><a href="lt.html#cb1-3"></a>y       &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">^</span>x <span class="op">*</span><span class="st"> </span>(<span class="op">-</span><span class="dv">1</span>)<span class="op">^</span>x <span class="op">*</span><span class="st"> </span>x<span class="op">^</span>{<span class="op">-</span><span class="dv">1</span>}</span>
+<span id="cb1-4"><a href="lt.html#cb1-4"></a>y_means &lt;-<span class="st"> </span><span class="kw">cumsum</span>(y) <span class="op">/</span><span class="st"> </span><span class="kw">seq_along</span>(y)</span>
+<span id="cb1-5"><a href="lt.html#cb1-5"></a>df      &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(y_means), <span class="dt">y =</span> y_means)</span>
+<span id="cb1-6"><a href="lt.html#cb1-6"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></span>
+<span id="cb1-7"><a href="lt.html#cb1-7"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb1-8"><a href="lt.html#cb1-8"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="op">-</span><span class="kw">log</span>(<span class="dv">2</span>))</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 
 </div>

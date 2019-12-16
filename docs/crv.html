@@ -276,7 +276,7 @@ $(document).ready(function() {
 </script>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-196" class="exercise"><strong>Exercise 86  </strong></span>Let <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>,…, <span class="math inline">\(X_n\)</span> be a sequence of Bernoulli random variables. Let <span class="math inline">\(Y_k = \frac{X_1 + X_2 + ... + X_n}{n^2}\)</span>. Show that this sequence converges point-wise to the zero random variable.
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1  </strong></span>Let <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>,…, <span class="math inline">\(X_n\)</span> be a sequence of Bernoulli random variables. Let <span class="math inline">\(Y_k = \frac{X_1 + X_2 + ... + X_n}{n^2}\)</span>. Show that this sequence converges point-wise to the zero random variable.
 <span style="color:blue">R: Use a simulation to check your answer.</span></p>
 </div>
 <div class="fold">
@@ -291,23 +291,23 @@ $(document).ready(function() {
 \end{align}\]</span>
 So we need to find such <span class="math inline">\(n_0\)</span>, that for every <span class="math inline">\(n &gt; n_0\)</span> we will have <span class="math inline">\(\frac{1}{n} &lt; \epsilon\)</span>. So <span class="math inline">\(n_0 &gt; \frac{1}{\epsilon}\)</span>.</p>
 </div>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="crv.html#cb177-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span></span>
-<span id="cb177-2"><a href="crv.html#cb177-2"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="kw">length</span>(x), <span class="dt">ncol =</span> <span class="dv">100</span>)</span>
-<span id="cb177-3"><a href="crv.html#cb177-3"></a>y &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> <span class="kw">length</span>(x))</span>
-<span id="cb177-4"><a href="crv.html#cb177-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)) {</span>
-<span id="cb177-5"><a href="crv.html#cb177-5"></a>  X[i, ] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</span>
-<span id="cb177-6"><a href="crv.html#cb177-6"></a>}</span>
-<span id="cb177-7"><a href="crv.html#cb177-7"></a>X &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, cumsum)</span>
-<span id="cb177-8"><a href="crv.html#cb177-8"></a>tmp_mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>)<span class="op">^</span><span class="dv">2</span>, <span class="dt">nrow =</span> <span class="dv">1000</span>, <span class="dt">ncol =</span> <span class="dv">100</span>)</span>
-<span id="cb177-9"><a href="crv.html#cb177-9"></a>X &lt;-<span class="st"> </span>X <span class="op">/</span><span class="st"> </span>tmp_mat</span>
-<span id="cb177-10"><a href="crv.html#cb177-10"></a>y &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">1</span>, mean)</span>
-<span id="cb177-11"><a href="crv.html#cb177-11"></a><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></span>
-<span id="cb177-12"><a href="crv.html#cb177-12"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-198-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="crv.html#cb1-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span></span>
+<span id="cb1-2"><a href="crv.html#cb1-2"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="kw">length</span>(x), <span class="dt">ncol =</span> <span class="dv">100</span>)</span>
+<span id="cb1-3"><a href="crv.html#cb1-3"></a>y &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> <span class="kw">length</span>(x))</span>
+<span id="cb1-4"><a href="crv.html#cb1-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)) {</span>
+<span id="cb1-5"><a href="crv.html#cb1-5"></a>  X[i, ] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</span>
+<span id="cb1-6"><a href="crv.html#cb1-6"></a>}</span>
+<span id="cb1-7"><a href="crv.html#cb1-7"></a>X &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, cumsum)</span>
+<span id="cb1-8"><a href="crv.html#cb1-8"></a>tmp_mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>)<span class="op">^</span><span class="dv">2</span>, <span class="dt">nrow =</span> <span class="dv">1000</span>, <span class="dt">ncol =</span> <span class="dv">100</span>)</span>
+<span id="cb1-9"><a href="crv.html#cb1-9"></a>X &lt;-<span class="st"> </span>X <span class="op">/</span><span class="st"> </span>tmp_mat</span>
+<span id="cb1-10"><a href="crv.html#cb1-10"></a>y &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">1</span>, mean)</span>
+<span id="cb1-11"><a href="crv.html#cb1-11"></a><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></span>
+<span id="cb1-12"><a href="crv.html#cb1-12"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-199" class="exercise"><strong>Exercise 87  </strong></span>Let <span class="math inline">\(\Omega = [0,1]\)</span> and let <span class="math inline">\(X_n\)</span> be a sequence of random variables, defined as
+<span id="exr:unnamed-chunk-5" class="exercise"><strong>Exercise 2  </strong></span>Let <span class="math inline">\(\Omega = [0,1]\)</span> and let <span class="math inline">\(X_n\)</span> be a sequence of random variables, defined as
 <span class="math display">\[\begin{align}
   X_n(\omega) = \begin{cases}
     \omega^3, &amp;\omega = \frac{i}{n}, &amp;0 \leq i \leq 1 \\
@@ -320,7 +320,7 @@ Show that <span class="math inline">\(X_n\)</span> converges almost surely to <s
 
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> </p>
-<p>We need to show <span class="math inline">\(P(\{\omega: X_n(\omega) \xrightarrow{\text{a.s.}} X(\omega)\}) = 1\)</span>.</p>
+<p>We need to show <span class="math inline">\(P(\{\omega: X_n(\omega) \rightarrow X(\omega)\}) = 1\)</span>.</p>
 Let <span class="math inline">\(\omega \neq \frac{i}{n}\)</span>. Then for any <span class="math inline">\(\omega\)</span>, <span class="math inline">\(X_n\)</span> converges pointwise to <span class="math inline">\(X\)</span>:
 <span class="math display">\[\begin{align}
   X_n(\omega) = 1 \implies |X_n(\omega) - X(s)| = |1 - 1| &lt; \epsilon.
@@ -330,7 +330,7 @@ The above is independent of <span class="math inline">\(n\)</span>. Since there 
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-201" class="exercise"><strong>Exercise 88  </strong></span>Borrowed from Wasserman. Let <span class="math inline">\(X_n \sim \text{N}(0, \frac{1}{n})\)</span> and let <span class="math inline">\(X\)</span> be a random variable with CDF
+<p><span id="exr:unnamed-chunk-7" class="exercise"><strong>Exercise 3  </strong></span>Borrowed from Wasserman. Let <span class="math inline">\(X_n \sim \text{N}(0, \frac{1}{n})\)</span> and let <span class="math inline">\(X\)</span> be a random variable with CDF
 <span class="math display">\[\begin{align}
  F_X(x) = \begin{cases}
   0, &amp;x &lt; 0 \\
@@ -363,20 +363,20 @@ This is the same as <span class="math inline">\(F_X\)</span>.</p>
 &amp;= 0.
 \end{align}\]</span></p>
 </div>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="crv.html#cb178-1"></a>n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">1000</span>)</span>
-<span id="cb178-2"><a href="crv.html#cb178-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
-<span id="cb178-3"><a href="crv.html#cb178-3"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/1&quot;</span>)) <span class="op">+</span></span>
-<span id="cb178-4"><a href="crv.html#cb178-4"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/2&quot;</span>)) <span class="op">+</span></span>
-<span id="cb178-5"><a href="crv.html#cb178-5"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/5&quot;</span>)) <span class="op">+</span></span>
-<span id="cb178-6"><a href="crv.html#cb178-6"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">10</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/10&quot;</span>)) <span class="op">+</span></span>
-<span id="cb178-7"><a href="crv.html#cb178-7"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">100</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/100&quot;</span>)) <span class="op">+</span></span>
-<span id="cb178-8"><a href="crv.html#cb178-8"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">1000</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/1000&quot;</span>)) <span class="op">+</span></span>
-<span id="cb178-9"><a href="crv.html#cb178-9"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">10000</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/10000&quot;</span>))</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-203-1.png" width="672" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="crv.html#cb2-1"></a>n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">1000</span>)</span>
+<span id="cb2-2"><a href="crv.html#cb2-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
+<span id="cb2-3"><a href="crv.html#cb2-3"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/1&quot;</span>)) <span class="op">+</span></span>
+<span id="cb2-4"><a href="crv.html#cb2-4"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/2&quot;</span>)) <span class="op">+</span></span>
+<span id="cb2-5"><a href="crv.html#cb2-5"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/5&quot;</span>)) <span class="op">+</span></span>
+<span id="cb2-6"><a href="crv.html#cb2-6"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">10</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/10&quot;</span>)) <span class="op">+</span></span>
+<span id="cb2-7"><a href="crv.html#cb2-7"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">100</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/100&quot;</span>)) <span class="op">+</span></span>
+<span id="cb2-8"><a href="crv.html#cb2-8"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">1000</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/1000&quot;</span>)) <span class="op">+</span></span>
+<span id="cb2-9"><a href="crv.html#cb2-9"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">10000</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/10000&quot;</span>))</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-204" class="exercise"><strong>Exercise 89  </strong></span>Let <span class="math inline">\(X_i\)</span> be i.i.d. and <span class="math inline">\(\mu = E(X_1)\)</span>. Let variance of <span class="math inline">\(X_1\)</span> be finite. Show that the mean of <span class="math inline">\(X_i\)</span> converges in quadratic mean to <span class="math inline">\(\mu\)</span>.</p>
+<p><span id="exr:unnamed-chunk-10" class="exercise"><strong>Exercise 4  </strong></span>Let <span class="math inline">\(X_i\)</span> be i.i.d. and <span class="math inline">\(\mu = E(X_1)\)</span>. Let variance of <span class="math inline">\(X_1\)</span> be finite. Show that the mean of <span class="math inline">\(X_i\)</span> converges in quadratic mean to <span class="math inline">\(\mu\)</span>.</p>
 </div>
 <div class="fold">
 
