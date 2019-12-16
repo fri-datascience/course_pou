@@ -44,7 +44,7 @@ library(tidyr)
 ```
 
 ```{exercise}
-Show that Monte Carlo integration converges almost surely to the true integral $\int_{\Omega} f(x) dx$, where $\Omega$ is a bounded space.
+Show that Monte Carlo integration converges almost surely to the true expected value of a bounded random variable.
 
 ```
 <div class="fold">
