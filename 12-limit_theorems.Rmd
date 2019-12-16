@@ -1,4 +1,4 @@
-# Convergence of random variables {#lt}
+# Limit theorems {#lt}
 
 This chapter deals with limit theorems.
 
@@ -9,6 +9,31 @@ The students are expected to acquire the following knowledge:
 - Monte Carlo integration.
 - Difference between weak and strong law of large numbers.
 
+
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 togs <- TRUE
 library(ggplot2)
@@ -18,12 +43,26 @@ library(tidyr)
 # togs <- FALSE
 ```
 
+```{exercise}
+Show that Monte Carlo integration converges almost surely to the true integral $\int_{\Omega} f(x) dx$, where $\Omega$ is a bounded space.
+
+```
+<div class="fold">
+```{solution, echo = togs}
+Let $g$ be a PDF defined on $\Omega$. Let $X_i$, $i = 1,...,n$ be i.i.d. (multivariate) uniform random variables with bounds defined on $\Omega$. Let $Y_i$ = $g(X_i)$. Then it follows that $Y_i$ are also i.i.d. random variables and their expected value is $E[g(X)] = \int_{\Omega} g(x) f(x) dx = \frac{1}{V_{\Omega}} \int_{\Omega} g(x) dx$. By the strong law of large numbers, we have
+\begin{equation}
+  \frac{1}{n}\sum_{i=1}^n Y_i \rightarrow E[g(X)].
+\end{equation}
+
+```
+</div>
 
 ```{exercise}
 Let $X$ be a geometric random variable with probability 0.5 and support in positive integers. Let $Y = 2^X (-1)^X X^{-1}$. Find the expected value of $Y$ by using conditional convergence (this variable does not have an expected value in the conventional sense -- the series is not absolutely convergent).
 <span style="color:blue">R: Draw $10000$ samples from a geometric distribution with probability 0.5 and support in positive integers to get $X$. Then calculate $Y$ and plot the means at each iteration (sample). Additionally, plot the expected value calculated in a. Try it with different seeds. What do you notice?</span>
 
 ```
+<div class="fold">
 ```{solution, echo = togs}
 
 \begin{align*}
@@ -44,3 +83,4 @@ ggplot(data = df, aes(x = x, y = y)) +
   geom_line() +
   geom_hline(yintercept = -log(2))
 ```
+</div>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>14 Probability distributions | Principles of Uncertainty – exercises</title>
+  <title>12 Limit theorems | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
   <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="14 Probability distributions | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="12 Limit theorems | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="14 Probability distributions | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="12 Limit theorems | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="A1.html"/>
-<link rel="next" href="references.html"/>
+<link rel="prev" href="crv.html"/>
+<link rel="next" href="appendix-appendix.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -244,132 +244,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="probability-distributions" class="section level1" number="14">
-<h1 number="14"><span class="header-section-number">14</span> Probability distributions</h1>
-<table style="width:100%;">
-<colgroup>
-<col width="31%" />
-<col width="31%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>parameters</th>
-<th>pdf/pmf</th>
-<th>cdf</th>
-<th>mean</th>
-<th>variance</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Bernoulli</td>
-<td><span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(p^k (1 - p)^{1 - k}\)</span> <br> <a href="introduction.html#exr:binomialpmf">11</a></td>
-<td></td>
-<td><span class="math inline">\(p\)</span> <br> <a href="ev.html#exr:Bernev">58</a></td>
-<td><span class="math inline">\(p(1-p)\)</span> <br> <a href="ev.html#exr:Bernev">58</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>binomial</td>
-<td><span class="math inline">\(n\)</span>, <span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(\binom{n}{k} p^k (1 - p)^{n - k}\)</span> <br> <a href="rvs.html#exr:bincdf">35</a></td>
-<td></td>
-<td><span class="math inline">\(np\)</span> <br> <a href="ev.html#exr:binomev">59</a></td>
-<td><span class="math inline">\(np(1-p)\)</span> <br> <a href="ev.html#exr:binomev">59</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Poisson</td>
-<td><span class="math inline">\(\lambda\)</span></td>
-<td><span class="math inline">\(\frac{\lambda^k e^{-\lambda}}{k!}\)</span> <br> <a href="rvs.html#exr:poisex">37</a></td>
-<td></td>
-<td><span class="math inline">\(\lambda\)</span> <br> <a href="ev.html#exr:poisev">60</a></td>
-<td><span class="math inline">\(\lambda\)</span> <br> <a href="ev.html#exr:poisev">60</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>geometric</td>
-<td><span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(p(1-p)^k\)</span> <br> <a href="rvs.html#exr:geocdf">36</a></td>
-<td><span class="math inline">\(1 - (1-p)^{k + 1}\)</span> <br> <a href="rvs.html#exr:geocdf">36</a></td>
-<td><span class="math inline">\(\frac{1 - p}{p}\)</span> <br> <a href="ev.html#exr:geoev">61</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>normal</td>
-<td><span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma\)</span></td>
-<td><span class="math inline">\(\frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}\)</span> <br> <a href="rvs.html#exr:normalpdf">43</a></td>
-<td><span class="math inline">\(\int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(t - \mu)^2}{2 \sigma^2}} dt\)</span> <br> <a href="rvs.html#exr:normalpdf">43</a></td>
-<td><span class="math inline">\(\mu\)</span> <a href="ev.html#exr:normev">65</a></td>
-<td><span class="math inline">\(\sigma\)</span> <a href="ev.html#exr:normev">65</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>beta</td>
-<td><span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span></td>
-<td><span class="math inline">\(\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)}\)</span> <br> <a href="rvs.html#exr:betacdf">41</a></td>
-<td></td>
-<td><span class="math inline">\(\frac{\alpha}{\alpha + \beta}\)</span> <a href="ev.html#exr:betaev">63</a></td>
-<td><span class="math inline">\(\frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}\)</span> <a href="ev.html#exr:betaev">63</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>gamma</td>
-<td><span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span></td>
-<td><span class="math inline">\(\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x}\)</span> <br> <a href="rvs.html#exr:gammapdf">42</a></td>
-<td><span class="math inline">\(\frac{\gamma(\alpha, \beta x)}{\Gamma(\alpha)}\)</span> <br> <a href="rvs.html#exr:gammapdf">42</a></td>
-<td><span class="math inline">\(\frac{\alpha}{\beta}\)</span> <br> <a href="ev.html#exr:gammaev">62</a></td>
-<td><span class="math inline">\(\frac{\alpha}{\beta^2}\)</span> <br> <a href="ev.html#exr:gammaev">62</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>exponential</td>
-<td><span class="math inline">\(\lambda\)</span></td>
-<td><span class="math inline">\(\lambda e^{-\lambda x}\)</span> <br> <a href="rvs.html#exr:expcdf">39</a></td>
-<td><span class="math inline">\(1 - e^{-\lambda x}\)</span> <br> <a href="rvs.html#exr:expcdf">39</a></td>
-<td><span class="math inline">\(\lambda^{-1}\)</span> <br> <a href="ev.html#exr:expev">64</a></td>
-<td><span class="math inline">\(\lambda^{-2}\)</span> <br> <a href="ev.html#exr:expev">64</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>logistic</td>
-<td><span class="math inline">\(\mu\)</span>, <span class="math inline">\(s\)</span></td>
-<td><span class="math inline">\(\frac{e^{-\frac{x - \mu}{s}}}{(1 + e{-\frac{x - \mu}{s}})^2}\)</span> <br> <a href="rvs.html#exr:logitpdf">44</a></td>
-<td><span class="math inline">\(\frac{1}{1 + e^{-\frac{x - \mu}{s}}}\)</span> <br> <a href="rvs.html#exr:logitpdf">44</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>negative binomial</td>
-<td><span class="math inline">\(r\)</span>, <span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(\binom{k + r - 1}{k}(1-p)^r p^k\)</span> <br> <a href="rvs.html#exr:negbinpdf">38</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>multinomial</td>
-<td><span class="math inline">\(n\)</span>, <span class="math inline">\(p \in [0,1]^k\)</span>, <span class="math inline">\(\sum p = 1\)</span></td>
-<td><span class="math inline">\(\frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}\)</span> <br> <a href="mrv.html#exr:mnompdf">72</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<!-- multivariate normal |$\frac{1}{(2 \pi)^{-\frac{k}{2}}} \text{det}(\Sigma)^{-\frac{1}{2}} \exp(-\frac{1}{2}(x - \mu)^T \Sigma^{-1} (x - \mu))$ | | |  -->
+<div id="lt" class="section level1" number="12">
+<h1 number="12"><span class="header-section-number">12</span> Limit theorems</h1>
+<p>This chapter deals with limit theorems.</p>
+<p>The students are expected to acquire the following knowledge:</p>
+<p><strong>Theoretical</strong></p>
+<ul>
+<li>Monte Carlo integration.</li>
+<li>Difference between weak and strong law of large numbers.</li>
+</ul>
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-207" class="exercise"><strong>Exercise 90  </strong></span>Show that Monte Carlo integration converges almost surely to the true integral <span class="math inline">\(\int_{\Omega} f(x) dx\)</span>, where <span class="math inline">\(\Omega\)</span> is a bounded space.</p>
+</div>
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(g\)</span> be a PDF defined on <span class="math inline">\(\Omega\)</span>. Let <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i = 1,...,n\)</span> be i.i.d. (multivariate) uniform random variables with bounds defined on <span class="math inline">\(\Omega\)</span>. Let <span class="math inline">\(Y_i\)</span> = <span class="math inline">\(g(X_i)\)</span>. Then it follows that <span class="math inline">\(Y_i\)</span> are also i.i.d. random variables and their expected value is <span class="math inline">\(E[g(X)] = \int_{\Omega} g(x) f(x) dx = \frac{1}{V_{\Omega}} \int_{\Omega} g(x) dx\)</span>. By the strong law of large numbers, we have
+<span class="math display">\[\begin{equation}
+  \frac{1}{n}\sum_{i=1}^n Y_i \rightarrow E[g(X)].
+\end{equation}\]</span></p>
+</div>
+</div>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-209" class="exercise"><strong>Exercise 91  </strong></span>Let <span class="math inline">\(X\)</span> be a geometric random variable with probability 0.5 and support in positive integers. Let <span class="math inline">\(Y = 2^X (-1)^X X^{-1}\)</span>. Find the expected value of <span class="math inline">\(Y\)</span> by using conditional convergence (this variable does not have an expected value in the conventional sense – the series is not absolutely convergent).
+<span style="color:blue">R: Draw <span class="math inline">\(10000\)</span> samples from a geometric distribution with probability 0.5 and support in positive integers to get <span class="math inline">\(X\)</span>. Then calculate <span class="math inline">\(Y\)</span> and plot the means at each iteration (sample). Additionally, plot the expected value calculated in a. Try it with different seeds. What do you notice?</span></p>
+</div>
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> 
+<span class="math display">\[\begin{align*}
+  E[Y] &amp;= \sum_{i=1}^n \frac{2^x (-1)^x}{x} 0.5^x \\
+       &amp;= \sum_{i=1}^n \frac{(-1)^x}{x} \\
+       &amp;= - \sum_{i=1}^n \frac{(-1)^{x+1}}{x} \\
+       &amp;= - \ln(2)
+\end{align*}\]</span></p>
+</div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="lt.html#cb179-1"></a><span class="kw">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb179-2"><a href="lt.html#cb179-2"></a>x       &lt;-<span class="st"> </span><span class="kw">rgeom</span>(<span class="dv">100000</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb179-3"><a href="lt.html#cb179-3"></a>y       &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">^</span>x <span class="op">*</span><span class="st"> </span>(<span class="op">-</span><span class="dv">1</span>)<span class="op">^</span>x <span class="op">*</span><span class="st"> </span>x<span class="op">^</span>{<span class="op">-</span><span class="dv">1</span>}</span>
+<span id="cb179-4"><a href="lt.html#cb179-4"></a>y_means &lt;-<span class="st"> </span><span class="kw">cumsum</span>(y) <span class="op">/</span><span class="st"> </span><span class="kw">seq_along</span>(y)</span>
+<span id="cb179-5"><a href="lt.html#cb179-5"></a>df      &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(y_means), <span class="dt">y =</span> y_means)</span>
+<span id="cb179-6"><a href="lt.html#cb179-6"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></span>
+<span id="cb179-7"><a href="lt.html#cb179-7"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb179-8"><a href="lt.html#cb179-8"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="op">-</span><span class="kw">log</span>(<span class="dv">2</span>))</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-211-1.png" width="672" /></p>
+</div>
 
 </div>
             </section>
@@ -377,8 +321,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="A1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="crv.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendix-appendix.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
