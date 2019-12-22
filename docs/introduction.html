@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Probability spaces | Principles of Uncertainty – exercises</title>
+  <title>Chapter 1 Probability spaces | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 Probability spaces | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 1 Probability spaces | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Probability spaces | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 1 Probability spaces | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2019-12-16" />
+<meta name="date" content="2019-12-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,26 +53,25 @@
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -81,9 +80,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -133,97 +132,83 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
-<ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
-<ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
-<ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
-<ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
-<ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
-<ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
-<ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
-<ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
-<ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
-<ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="" data-path="appendix-appendix.html"><a href="appendix-appendix.html"><i class="fa fa-check"></i>(APPENDIX) Appendix</a></li>
-<li class="chapter" data-level="13" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>13</b> R programming language</a>
-<ul>
-<li class="chapter" data-level="13.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>13.1</b> Basic characteristics</a></li>
-<li class="chapter" data-level="13.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>13.2</b> Why R?</a></li>
-<li class="chapter" data-level="13.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>13.3</b> Setting up</a>
-<ul>
-<li class="chapter" data-level="13.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>13.3.1</b> RStudio</a></li>
-<li class="chapter" data-level="13.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>13.3.2</b> Libraries for data science</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
+<li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
+<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
+<li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="13.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>13.4</b> R basics</a>
-<ul>
-<li class="chapter" data-level="13.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>13.4.1</b> Variables and types</a></li>
-<li class="chapter" data-level="13.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>13.4.2</b> Basic operations</a></li>
-<li class="chapter" data-level="13.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>13.4.3</b> Vectors</a></li>
-<li class="chapter" data-level="13.4.4" data-path="A1.html"><a href="A1.html#factors"><i class="fa fa-check"></i><b>13.4.4</b> Factors</a></li>
-<li class="chapter" data-level="13.4.5" data-path="A1.html"><a href="A1.html#matrices"><i class="fa fa-check"></i><b>13.4.5</b> Matrices</a></li>
-<li class="chapter" data-level="13.4.6" data-path="A1.html"><a href="A1.html#arrays"><i class="fa fa-check"></i><b>13.4.6</b> Arrays</a></li>
-<li class="chapter" data-level="13.4.7" data-path="A1.html"><a href="A1.html#data-frames"><i class="fa fa-check"></i><b>13.4.7</b> Data frames</a></li>
-<li class="chapter" data-level="13.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>13.4.8</b> Lists</a></li>
-<li class="chapter" data-level="13.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>13.4.9</b> Loops</a></li>
+<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
+<li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
+<li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
+<li class="chapter" data-level="A.4.4" data-path="A1.html"><a href="A1.html#factors"><i class="fa fa-check"></i><b>A.4.4</b> Factors</a></li>
+<li class="chapter" data-level="A.4.5" data-path="A1.html"><a href="A1.html#matrices"><i class="fa fa-check"></i><b>A.4.5</b> Matrices</a></li>
+<li class="chapter" data-level="A.4.6" data-path="A1.html"><a href="A1.html#arrays"><i class="fa fa-check"></i><b>A.4.6</b> Arrays</a></li>
+<li class="chapter" data-level="A.4.7" data-path="A1.html"><a href="A1.html#data-frames"><i class="fa fa-check"></i><b>A.4.7</b> Data frames</a></li>
+<li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
+<li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="13.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>13.5</b> Functions</a>
-<ul>
-<li class="chapter" data-level="13.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>13.5.1</b> Writing functions</a></li>
+<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
 </ul></li>
-<li class="chapter" data-level="13.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>13.6</b> Other tips</a></li>
-<li class="chapter" data-level="13.7" data-path="A1.html"><a href="A1.html#further-reading-and-references"><i class="fa fa-check"></i><b>13.7</b> Further reading and references</a></li>
+<li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
+<li class="chapter" data-level="A.7" data-path="A1.html"><a href="A1.html#further-reading-and-references"><i class="fa fa-check"></i><b>A.7</b> Further reading and references</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>14</b> Probability distributions</a></li>
+<li class="chapter" data-level="B" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>B</b> Probability distributions</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>      
@@ -244,8 +229,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction" class="section level1" number="1">
-<h1 number="1"><span class="header-section-number">1</span> Probability spaces</h1>
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Probability spaces</h1>
 <p>This chapter deals with measures and probability spaces. At the end of
 the chapter, we look more closely at discrete probability spaces.</p>
 <p>The students are expected to acquire the following knowledge:</p>
@@ -285,17 +270,18 @@ $(document).ready(function() {
   })
 });
 </script>
-<div id="measure-and-probability-spaces" class="section level2" number="1.1">
-<h2 number="1.1"><span class="header-section-number">1.1</span> Measure and probability spaces</h2>
+<div id="measure-and-probability-spaces" class="section level2">
+<h2><span class="header-section-number">1.1</span> Measure and probability spaces</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1  (Completing a set to a sigma algebra)  </strong></span>Let <span class="math inline">\(\Omega = \{1,2,...,10\}\)</span> and let <span class="math inline">\(A = \{\emptyset, \{1\}, \{2\}, \Omega \}\)</span>.</p>
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 1.1  (Completing a set to a sigma algebra)  </strong></span>Let <span class="math inline">\(\Omega = \{1,2,...,10\}\)</span> and let <span class="math inline">\(A = \{\emptyset, \{1\}, \{2\}, \Omega \}\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Show that <span class="math inline">\(A\)</span> is not a sigma algebra of <span class="math inline">\(\Omega\)</span>.</li>
 <li>Find the minimum number of elements to complete A to a sigma algebra of
 <span class="math inline">\(\Omega\)</span>.</li>
 </ol>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -311,12 +297,13 @@ we add the set <span class="math inline">\(\{1,2\}\)</span>. Again we need the c
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 2  (Diversity of sigma algebras)  </strong></span>Let <span class="math inline">\(\Omega\)</span> be a set.</p>
+<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 1.2  (Diversity of sigma algebras)  </strong></span>Let <span class="math inline">\(\Omega\)</span> be a set.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Find the smallest sigma algebra of <span class="math inline">\(\Omega\)</span>.</li>
 <li>Find the largest sigma algebra of <span class="math inline">\(\Omega\)</span>.</li>
 </ol>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -329,8 +316,9 @@ we add the set <span class="math inline">\(\{1,2\}\)</span>. Again we need the c
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 3  </strong></span>Find all sigma algebras for <span class="math inline">\(\Omega = \{0, 1, 2\}\)</span>.</p>
+<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 1.3  </strong></span>Find all sigma algebras for <span class="math inline">\(\Omega = \{0, 1, 2\}\)</span>.</p>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -346,10 +334,11 @@ we add the set <span class="math inline">\(\{1,2\}\)</span>. Again we need the c
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 4  (Difference between algebra and sigma algebra)  </strong></span>
+<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 1.4  (Difference between algebra and sigma algebra)  </strong></span>
 Let <span class="math inline">\(\Omega = \mathbb{N}\)</span> and <span class="math inline">\(\mathcal{A} = \{A \subseteq \mathbb{N}: A \text{ is finite or } A^c \text{ is finite.} \}\)</span>. Show that
 <span class="math inline">\(\mathcal{A}\)</span> is an algebra but not a sigma algebra.</p>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -369,7 +358,7 @@ as it is finite. But <span class="math inline">\(\bigcup_{k = 1}^{\infty} 2n \no
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-10" class="exercise"><strong>Exercise 5  (Intro to measure)  </strong></span>
+<p><span id="exr:unnamed-chunk-10" class="exercise"><strong>Exercise 1.5  (Intro to measure)  </strong></span>
 Take the measurable space <span class="math inline">\(\Omega = \{1,2\}\)</span>, <span class="math inline">\(F = 2^{\Omega}\)</span>. Which of the
 following is a measure? Which is a probability measure?</p>
 <ol style="list-style-type: lower-alpha">
@@ -380,6 +369,7 @@ following is a measure? Which is a probability measure?</p>
 <li><span class="math inline">\(\mu(\emptyset)=0\)</span>, <span class="math inline">\(\mu(\{1\})=0\)</span>, <span class="math inline">\(\mu(\{2\})=\infty\)</span>, <span class="math inline">\(\mu(\{1,2\})=\infty\)</span></li>
 </ol>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -395,8 +385,9 @@ following is a measure? Which is a probability measure?</p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 6  </strong></span>Define a probability space that could be used to model the outcome of throwing two fair 6-sided dice.</p>
+<p><span id="exr:unnamed-chunk-12" class="exercise"><strong>Exercise 1.6  </strong></span>Define a probability space that could be used to model the outcome of throwing two fair 6-sided dice.</p>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -409,11 +400,11 @@ following is a measure? Which is a probability measure?</p>
 </div>
 </div>
 </div>
-<div id="properties-of-probability-measures" class="section level2" number="1.2">
-<h2 number="1.2"><span class="header-section-number">1.2</span> Properties of probability measures</h2>
+<div id="properties-of-probability-measures" class="section level2">
+<h2><span class="header-section-number">1.2</span> Properties of probability measures</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 7  </strong></span>
+<p><span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 1.7  </strong></span>
 A standard deck (52 cards) is distributed to two persons: 26 cards to each
 person. All partitions are equally likely. Find the probability that:</p>
 <ol style="list-style-type: lower-alpha">
@@ -423,6 +414,7 @@ person. All partitions are equally likely. Find the probability that:</p>
 answers. </span></li>
 </ol>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -434,26 +426,26 @@ answers. </span></li>
 let 1 through 4 represent Queens.</p></li>
 </ol>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction.html#cb1-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb1-2"><a href="introduction.html#cb1-2"></a>cards &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">52</span></span>
-<span id="cb1-3"><a href="introduction.html#cb1-3"></a>n     &lt;-<span class="st"> </span><span class="dv">10000</span></span>
-<span id="cb1-4"><a href="introduction.html#cb1-4"></a>q4    &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</span>
-<span id="cb1-5"><a href="introduction.html#cb1-5"></a>q2    &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</span>
-<span id="cb1-6"><a href="introduction.html#cb1-6"></a></span>
-<span id="cb1-7"><a href="introduction.html#cb1-7"></a>tmp &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</span>
-<span id="cb1-8"><a href="introduction.html#cb1-8"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</span>
-<span id="cb1-9"><a href="introduction.html#cb1-9"></a>  p1      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">52</span>, <span class="dv">26</span>)</span>
-<span id="cb1-10"><a href="introduction.html#cb1-10"></a>  q4[i]   &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">==</span><span class="st"> </span><span class="dv">4</span></span>
-<span id="cb1-11"><a href="introduction.html#cb1-11"></a>  q2[i]   &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span></span>
-<span id="cb1-12"><a href="introduction.html#cb1-12"></a>}</span>
-<span id="cb1-13"><a href="introduction.html#cb1-13"></a><span class="kw">sum</span>(q4) <span class="op">/</span><span class="st"> </span>n</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2">cards &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">52</span></a>
+<a class="sourceLine" id="cb1-3" title="3">n     &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb1-4" title="4">q4    &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb1-5" title="5">q2    &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb1-6" title="6"></a>
+<a class="sourceLine" id="cb1-7" title="7">tmp &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
+<a class="sourceLine" id="cb1-9" title="9">  p1      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">52</span>, <span class="dv">26</span>)</a>
+<a class="sourceLine" id="cb1-10" title="10">  q4[i]   &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">==</span><span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb1-11" title="11">  q2[i]   &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb1-12" title="12">}</a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="kw">sum</span>(q4) <span class="op">/</span><span class="st"> </span>n</a></code></pre></div>
 <pre><code>## [1] 0.0556</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introduction.html#cb3-1"></a><span class="kw">sum</span>(q2) <span class="op">/</span><span class="st"> </span>n</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">sum</span>(q2) <span class="op">/</span><span class="st"> </span>n</a></code></pre></div>
 <pre><code>## [1] 0.6995</code></pre>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-17" class="exercise"><strong>Exercise 8  </strong></span>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be events with probabilities <span class="math inline">\(P(A) = \frac{2}{3}\)</span> and
+<p><span id="exr:unnamed-chunk-17" class="exercise"><strong>Exercise 1.8  </strong></span>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be events with probabilities <span class="math inline">\(P(A) = \frac{2}{3}\)</span> and
 <span class="math inline">\(P(B) = \frac{1}{2}\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Show that <span class="math inline">\(\frac{1}{6} \leq P(A\cap B) \leq \frac{1}{2}\)</span>,
@@ -463,6 +455,7 @@ and give examples to show that both extremes are possible.</li>
 <span class="math inline">\(P(A \cap B)\)</span> </span>.</li>
 </ol>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -510,32 +503,32 @@ Again from the properties of probability we have</li>
 <li>We use <em>sample</em> in R:</li>
 </ul>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction.html#cb5-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb5-2"><a href="introduction.html#cb5-2"></a>n      &lt;-<span class="st"> </span><span class="dv">10000</span></span>
-<span id="cb5-3"><a href="introduction.html#cb5-3"></a>samps  &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb5-4"><a href="introduction.html#cb5-4"></a></span>
-<span id="cb5-5"><a href="introduction.html#cb5-5"></a><span class="co"># lower bound</span></span>
-<span id="cb5-6"><a href="introduction.html#cb5-6"></a>lb     &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</span>
-<span id="cb5-7"><a href="introduction.html#cb5-7"></a>A      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
-<span id="cb5-8"><a href="introduction.html#cb5-8"></a>B      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
-<span id="cb5-9"><a href="introduction.html#cb5-9"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</span>
-<span id="cb5-10"><a href="introduction.html#cb5-10"></a>  lb[i] &lt;-<span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>A <span class="op">&amp;</span><span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>B</span>
-<span id="cb5-11"><a href="introduction.html#cb5-11"></a>}</span>
-<span id="cb5-12"><a href="introduction.html#cb5-12"></a><span class="kw">sum</span>(lb) <span class="op">/</span><span class="st"> </span>n</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2">n      &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb5-3" title="3">samps  &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb5-4" title="4"></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co"># lower bound</span></a>
+<a class="sourceLine" id="cb5-6" title="6">lb     &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb5-7" title="7">A      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb5-8" title="8">B      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
+<a class="sourceLine" id="cb5-10" title="10">  lb[i] &lt;-<span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>A <span class="op">&amp;</span><span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>B</a>
+<a class="sourceLine" id="cb5-11" title="11">}</a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="kw">sum</span>(lb) <span class="op">/</span><span class="st"> </span>n</a></code></pre></div>
 <pre><code>## [1] 0.1724</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="introduction.html#cb7-1"></a><span class="co"># upper bound</span></span>
-<span id="cb7-2"><a href="introduction.html#cb7-2"></a>ub     &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</span>
-<span id="cb7-3"><a href="introduction.html#cb7-3"></a>A      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
-<span id="cb7-4"><a href="introduction.html#cb7-4"></a>B      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
-<span id="cb7-5"><a href="introduction.html#cb7-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</span>
-<span id="cb7-6"><a href="introduction.html#cb7-6"></a>  ub[i] &lt;-<span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>A <span class="op">&amp;</span><span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>B</span>
-<span id="cb7-7"><a href="introduction.html#cb7-7"></a>}</span>
-<span id="cb7-8"><a href="introduction.html#cb7-8"></a><span class="kw">sum</span>(ub) <span class="op">/</span><span class="st"> </span>n</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># upper bound</span></a>
+<a class="sourceLine" id="cb7-2" title="2">ub     &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</a>
+<a class="sourceLine" id="cb7-3" title="3">A      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb7-4" title="4">B      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
+<a class="sourceLine" id="cb7-6" title="6">  ub[i] &lt;-<span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>A <span class="op">&amp;</span><span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>B</a>
+<a class="sourceLine" id="cb7-7" title="7">}</a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="kw">sum</span>(ub) <span class="op">/</span><span class="st"> </span>n</a></code></pre></div>
 <pre><code>## [1] 0.5047</code></pre>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-20" class="exercise"><strong>Exercise 9  </strong></span>A fair coin is tossed repeatedly.</p>
+<p><span id="exr:unnamed-chunk-20" class="exercise"><strong>Exercise 1.9  </strong></span>A fair coin is tossed repeatedly.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Show that, with probability one, a head turns up sooner or later.</p></li>
 <li><p>Show similarly that any given finite sequence of heads and
@@ -572,7 +565,7 @@ P(s \text{ occurs}) &amp;\geq \lim_{n \rightarrow \infty}
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-22" class="exercise"><strong>Exercise 10  </strong></span>An Erdos-Renyi random graph <span class="math inline">\(G(n,p)\)</span> is a model with <span class="math inline">\(n\)</span> nodes, where
+<p><span id="exr:unnamed-chunk-22" class="exercise"><strong>Exercise 1.10  </strong></span>An Erdos-Renyi random graph <span class="math inline">\(G(n,p)\)</span> is a model with <span class="math inline">\(n\)</span> nodes, where
 each pair of nodes is connected with probability <span class="math inline">\(p\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Calculate the probability that there exists a node that is not
@@ -581,6 +574,7 @@ connected to any other node in <span class="math inline">\(G(4,0.6)\)</span>.</l
 <li><span style="color:blue">R: Estimate the probability from the first point using simulation.</span></li>
 </ol>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -609,41 +603,42 @@ P(\cup_{i&lt;j}A_{ij}) &amp;\leq \sum_{i&lt;j} (1 - p)^{2(n-2) + 1} \\
                     &amp;= \binom{n}{2} (1 - p)^{2n - 3}.
 \end{align}\]</span></p>
 </div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="introduction.html#cb9-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb9-2"><a href="introduction.html#cb9-2"></a>n_samp &lt;-<span class="st"> </span><span class="dv">100000</span></span>
-<span id="cb9-3"><a href="introduction.html#cb9-3"></a>n      &lt;-<span class="st"> </span><span class="dv">4</span></span>
-<span id="cb9-4"><a href="introduction.html#cb9-4"></a>p      &lt;-<span class="st"> </span><span class="fl">0.6</span></span>
-<span id="cb9-5"><a href="introduction.html#cb9-5"></a>conn_samp &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n_samp)</span>
-<span id="cb9-6"><a href="introduction.html#cb9-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_samp) {</span>
-<span id="cb9-7"><a href="introduction.html#cb9-7"></a>  tmp_mat                     &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="dv">0</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> n)</span>
-<span id="cb9-8"><a href="introduction.html#cb9-8"></a>  samp_conn                   &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), </span>
-<span id="cb9-9"><a href="introduction.html#cb9-9"></a>                                        <span class="kw">choose</span>(<span class="dv">4</span>,<span class="dv">2</span>), </span>
-<span id="cb9-10"><a href="introduction.html#cb9-10"></a>                                        <span class="dt">replace =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb9-11"><a href="introduction.html#cb9-11"></a>                                        <span class="dt">prob    =</span> <span class="kw">c</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p, p))</span>
-<span id="cb9-12"><a href="introduction.html#cb9-12"></a>  tmp_mat[<span class="kw">lower.tri</span>(tmp_mat)] &lt;-<span class="st"> </span>samp_conn</span>
-<span id="cb9-13"><a href="introduction.html#cb9-13"></a>  tmp_mat[<span class="kw">upper.tri</span>(tmp_mat)] &lt;-<span class="st"> </span><span class="kw">t</span>(tmp_mat)[<span class="kw">upper.tri</span>(<span class="kw">t</span>(tmp_mat))]</span>
-<span id="cb9-14"><a href="introduction.html#cb9-14"></a>  not_conn                    &lt;-<span class="st"> </span><span class="kw">apply</span>(tmp_mat, <span class="dv">1</span>, sum)</span>
-<span id="cb9-15"><a href="introduction.html#cb9-15"></a>  <span class="cf">if</span> (<span class="kw">any</span>(not_conn <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) {</span>
-<span id="cb9-16"><a href="introduction.html#cb9-16"></a>    conn_samp[i] &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
-<span id="cb9-17"><a href="introduction.html#cb9-17"></a>  } <span class="cf">else</span> {</span>
-<span id="cb9-18"><a href="introduction.html#cb9-18"></a>    conn_samp[i] &lt;-<span class="st"> </span><span class="ot">FALSE</span></span>
-<span id="cb9-19"><a href="introduction.html#cb9-19"></a>  }</span>
-<span id="cb9-20"><a href="introduction.html#cb9-20"></a>}</span>
-<span id="cb9-21"><a href="introduction.html#cb9-21"></a><span class="kw">sum</span>(conn_samp) <span class="op">/</span><span class="st"> </span>n_samp</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb9-2" title="2">n_samp &lt;-<span class="st"> </span><span class="dv">100000</span></a>
+<a class="sourceLine" id="cb9-3" title="3">n      &lt;-<span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb9-4" title="4">p      &lt;-<span class="st"> </span><span class="fl">0.6</span></a>
+<a class="sourceLine" id="cb9-5" title="5">conn_samp &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n_samp)</a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_samp) {</a>
+<a class="sourceLine" id="cb9-7" title="7">  tmp_mat                     &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="dv">0</span>, <span class="dt">nrow =</span> n, <span class="dt">ncol =</span> n)</a>
+<a class="sourceLine" id="cb9-8" title="8">  samp_conn                   &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), </a>
+<a class="sourceLine" id="cb9-9" title="9">                                        <span class="kw">choose</span>(<span class="dv">4</span>,<span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb9-10" title="10">                                        <span class="dt">replace =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb9-11" title="11">                                        <span class="dt">prob    =</span> <span class="kw">c</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p, p))</a>
+<a class="sourceLine" id="cb9-12" title="12">  tmp_mat[<span class="kw">lower.tri</span>(tmp_mat)] &lt;-<span class="st"> </span>samp_conn</a>
+<a class="sourceLine" id="cb9-13" title="13">  tmp_mat[<span class="kw">upper.tri</span>(tmp_mat)] &lt;-<span class="st"> </span><span class="kw">t</span>(tmp_mat)[<span class="kw">upper.tri</span>(<span class="kw">t</span>(tmp_mat))]</a>
+<a class="sourceLine" id="cb9-14" title="14">  not_conn                    &lt;-<span class="st"> </span><span class="kw">apply</span>(tmp_mat, <span class="dv">1</span>, sum)</a>
+<a class="sourceLine" id="cb9-15" title="15">  <span class="cf">if</span> (<span class="kw">any</span>(not_conn <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)) {</a>
+<a class="sourceLine" id="cb9-16" title="16">    conn_samp[i] &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb9-17" title="17">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb9-18" title="18">    conn_samp[i] &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb9-19" title="19">  }</a>
+<a class="sourceLine" id="cb9-20" title="20">}</a>
+<a class="sourceLine" id="cb9-21" title="21"><span class="kw">sum</span>(conn_samp) <span class="op">/</span><span class="st"> </span>n_samp</a></code></pre></div>
 <pre><code>## [1] 0.20565</code></pre>
 </div>
 </div>
-<div id="discrete-probability-spaces" class="section level2" number="1.3">
-<h2 number="1.3"><span class="header-section-number">1.3</span> Discrete probability spaces</h2>
+<div id="discrete-probability-spaces" class="section level2">
+<h2><span class="header-section-number">1.3</span> Discrete probability spaces</h2>
 
 <div class="exercise">
-<p><span id="exr:binomialpmf" class="exercise"><strong>Exercise 11  </strong></span>Show that the standard measurable space on <span class="math inline">\(\Omega = \{0,1,...,n\}\)</span> equipped with binomial measure is a discrete probability space.</p>
+<p><span id="exr:binomialpmf" class="exercise"><strong>Exercise 1.11  </strong></span>Show that the standard measurable space on <span class="math inline">\(\Omega = \{0,1,...,n\}\)</span> equipped with binomial measure is a discrete probability space.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Define another probability measure on this measurable space.</li>
 <li>Show that for <span class="math inline">\(n=1\)</span> the binomial measure is the same as the Bernoulli measure.</li>
 <li><span style="color:blue">R: Draw 1000 samples from the binomial distribution <span class="math inline">\(p=0.5\)</span>, <span class="math inline">\(n=20\)</span> (<em>rbinom</em>) and compare relative frequencies with theoretical probability measure</span>.</li>
 </ol>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -661,23 +656,23 @@ we get <span class="math inline">\(\binom{1}{k}p^k (1-p)^{1 - k}\)</span>. Now
 which is the Bernoulli measure.</li>
 </ul>
 </div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="introduction.html#cb11-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb11-2"><a href="introduction.html#cb11-2"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb11-3"><a href="introduction.html#cb11-3"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb11-4"><a href="introduction.html#cb11-4"></a>bin_samp &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</span>
-<span id="cb11-5"><a href="introduction.html#cb11-5"></a>bin_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> bin_samp) <span class="op">%&gt;%</span></span>
-<span id="cb11-6"><a href="introduction.html#cb11-6"></a><span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span></span>
-<span id="cb11-7"><a href="introduction.html#cb11-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb11-8"><a href="introduction.html#cb11-8"></a><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">n =</span> <span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))</span>
-<span id="cb11-9"><a href="introduction.html#cb11-9"></a></span>
-<span id="cb11-10"><a href="introduction.html#cb11-10"></a>bin_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> bin_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span></span>
-<span id="cb11-11"><a href="introduction.html#cb11-11"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</span>
-<span id="cb11-12"><a href="introduction.html#cb11-12"></a><span class="kw">plot</span>(bin_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb11-4" title="4">bin_samp &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb11-5" title="5">bin_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> bin_samp) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-7" title="7"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">n =</span> <span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))</a>
+<a class="sourceLine" id="cb11-9" title="9"></a>
+<a class="sourceLine" id="cb11-10" title="10">bin_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> bin_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-11" title="11"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a>
+<a class="sourceLine" id="cb11-12" title="12"><span class="kw">plot</span>(bin_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:geopoispmf" class="exercise"><strong>Exercise 12  </strong></span>Show that the standard measurable space on <span class="math inline">\(\Omega = \{0,1,...,\infty\}\)</span></p>
+<p><span id="exr:geopoispmf" class="exercise"><strong>Exercise 1.12  </strong></span>Show that the standard measurable space on <span class="math inline">\(\Omega = \{0,1,...,\infty\}\)</span></p>
 <ol style="list-style-type: lower-alpha">
 <li>equipped with geometric measure is a discrete probability space,</li>
 <li>equipped with Poisson measure is a discrete probability space.</li>
@@ -685,6 +680,7 @@ which is the Bernoulli measure.</li>
 <li><span style="color:blue">R: Draw 1000 samples from the Poisson distribution <span class="math inline">\(\lambda = 10\)</span> (<em>rpois</em>) and compare relative frequencies with theoretical probability measure</span>.</li>
 </ol>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -709,21 +705,21 @@ therefore <span class="math inline">\(P(\{k\}) = \frac{0.5^k}{2}\)</span> is a p
 on some parameter <span class="math inline">\(\alpha\)</span>, but this is out of the scope of this introductory
 chapter.</p>
 </div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="introduction.html#cb12-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb12-2"><a href="introduction.html#cb12-2"></a>pois_samp &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">lambda =</span> <span class="dv">10</span>)</span>
-<span id="cb12-3"><a href="introduction.html#cb12-3"></a>pois_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> pois_samp) <span class="op">%&gt;%</span></span>
-<span id="cb12-4"><a href="introduction.html#cb12-4"></a><span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span></span>
-<span id="cb12-5"><a href="introduction.html#cb12-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb12-6"><a href="introduction.html#cb12-6"></a><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">n =</span> <span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">lambda =</span> <span class="dv">10</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))</span>
-<span id="cb12-7"><a href="introduction.html#cb12-7"></a></span>
-<span id="cb12-8"><a href="introduction.html#cb12-8"></a>pois_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> pois_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span></span>
-<span id="cb12-9"><a href="introduction.html#cb12-9"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</span>
-<span id="cb12-10"><a href="introduction.html#cb12-10"></a><span class="kw">plot</span>(pois_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb12-2" title="2">pois_samp &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dt">n =</span> <span class="dv">1000</span>, <span class="dt">lambda =</span> <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb12-3" title="3">pois_samp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> pois_samp) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">n =</span> <span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">lambda =</span> <span class="dv">10</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))</a>
+<a class="sourceLine" id="cb12-7" title="7"></a>
+<a class="sourceLine" id="cb12-8" title="8">pois_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> pois_samp, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-9" title="9"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a>
+<a class="sourceLine" id="cb12-10" title="10"><span class="kw">plot</span>(pois_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-29" class="exercise"><strong>Exercise 13  </strong></span></p>
+<p><span id="exr:unnamed-chunk-29" class="exercise"><strong>Exercise 1.13  </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Define a probability measure on <span class="math inline">\((\Omega = \mathbb{Z}, 2^{\mathbb{Z}})\)</span>.</p></li>
 <li><p>Define a probability measure such that <span class="math inline">\(P(\omega) &gt; 0, \forall \omega \in \Omega\)</span>.</p></li>
@@ -733,6 +729,7 @@ measure. Compare relative frequencies with theoretical probability
 measure </span>.</p></li>
 </ol>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -744,28 +741,28 @@ where <span class="math inline">\(1_0(k)\)</span> is the indicator function, whi
 equals to zero in every other case.</li>
 </ol>
 </div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="introduction.html#cb13-1"></a>n          &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb13-2"><a href="introduction.html#cb13-2"></a>geom_samps &lt;-<span class="st"> </span><span class="kw">rgeom</span>(n, <span class="dt">prob =</span> <span class="fl">0.5</span>)</span>
-<span id="cb13-3"><a href="introduction.html#cb13-3"></a>sign_samps &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>), <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb13-4"><a href="introduction.html#cb13-4"></a>geom_samps[sign_samps] &lt;-<span class="st"> </span><span class="op">-</span>geom_samps[sign_samps]</span>
-<span id="cb13-5"><a href="introduction.html#cb13-5"></a>my_pmf &lt;-<span class="st"> </span><span class="cf">function</span> (k, p) {</span>
-<span id="cb13-6"><a href="introduction.html#cb13-6"></a>  indic         &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">length</span>(k))</span>
-<span id="cb13-7"><a href="introduction.html#cb13-7"></a>  indic[k <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb13-8"><a href="introduction.html#cb13-8"></a>  <span class="kw">return</span> ((p <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p)<span class="op">^</span>(<span class="kw">abs</span>(k))) <span class="op">/</span><span class="st"> </span><span class="dv">2</span><span class="op">^</span>indic)</span>
-<span id="cb13-9"><a href="introduction.html#cb13-9"></a>}</span>
-<span id="cb13-10"><a href="introduction.html#cb13-10"></a>geom_samps &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> geom_samps) <span class="op">%&gt;%</span></span>
-<span id="cb13-11"><a href="introduction.html#cb13-11"></a><span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span></span>
-<span id="cb13-12"><a href="introduction.html#cb13-12"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb13-13"><a href="introduction.html#cb13-13"></a><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">-10</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">n =</span> <span class="kw">my_pmf</span>(<span class="op">-</span><span class="dv">10</span><span class="op">:</span><span class="dv">10</span>, <span class="fl">0.5</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))</span>
-<span id="cb13-14"><a href="introduction.html#cb13-14"></a></span>
-<span id="cb13-15"><a href="introduction.html#cb13-15"></a>geom_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> geom_samps, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span></span>
-<span id="cb13-16"><a href="introduction.html#cb13-16"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</span>
-<span id="cb13-17"><a href="introduction.html#cb13-17"></a><span class="kw">plot</span>(geom_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">n          &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb13-2" title="2">geom_samps &lt;-<span class="st"> </span><span class="kw">rgeom</span>(n, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb13-3" title="3">sign_samps &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>), <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb13-4" title="4">geom_samps[sign_samps] &lt;-<span class="st"> </span><span class="op">-</span>geom_samps[sign_samps]</a>
+<a class="sourceLine" id="cb13-5" title="5">my_pmf &lt;-<span class="st"> </span><span class="cf">function</span> (k, p) {</a>
+<a class="sourceLine" id="cb13-6" title="6">  indic         &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">length</span>(k))</a>
+<a class="sourceLine" id="cb13-7" title="7">  indic[k <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb13-8" title="8">  <span class="kw">return</span> ((p <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p)<span class="op">^</span>(<span class="kw">abs</span>(k))) <span class="op">/</span><span class="st"> </span><span class="dv">2</span><span class="op">^</span>indic)</a>
+<a class="sourceLine" id="cb13-9" title="9">}</a>
+<a class="sourceLine" id="cb13-10" title="10">geom_samps &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> geom_samps) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-11" title="11"><span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-12" title="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>, <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-13" title="13"><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">-10</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">n =</span> <span class="kw">my_pmf</span>(<span class="op">-</span><span class="dv">10</span><span class="op">:</span><span class="dv">10</span>, <span class="fl">0.5</span>), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))</a>
+<a class="sourceLine" id="cb13-14" title="14"></a>
+<a class="sourceLine" id="cb13-15" title="15">geom_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> geom_samps, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-16" title="16"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a>
+<a class="sourceLine" id="cb13-17" title="17"><span class="kw">plot</span>(geom_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-32" class="exercise"><strong>Exercise 14  </strong></span>Define a probability measure on <span class="math inline">\(\Omega = \{1,2,3,4,5,6\}\)</span> with parameter <span class="math inline">\(m \in \{1,2,3,4,5,6\}\)</span>, so that the probability of outcome at distance <span class="math inline">\(1\)</span> from
+<p><span id="exr:unnamed-chunk-32" class="exercise"><strong>Exercise 1.14  </strong></span>Define a probability measure on <span class="math inline">\(\Omega = \{1,2,3,4,5,6\}\)</span> with parameter <span class="math inline">\(m \in \{1,2,3,4,5,6\}\)</span>, so that the probability of outcome at distance <span class="math inline">\(1\)</span> from
 <span class="math inline">\(m\)</span> is half of the probability at distance <span class="math inline">\(0\)</span>, at distance <span class="math inline">\(2\)</span> is half of
 the probability at distance <span class="math inline">\(1\)</span>, etc. <span style="color:blue">R:
 Implement a random generator that will generate
@@ -773,6 +770,7 @@ samples with the relative frequency that corresponds to your probability
 measure. Compare relative frequencies with theoretical probability
 measure </span>.</p>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -781,29 +779,29 @@ measure </span>.</p>
 <li><p><span class="math inline">\(P(\{k\}) = \frac{\frac{1}{2}^{|m - k|}}{\sum_{i=1}^6 \frac{1}{2}^{|m - i|}}\)</span></p>
 </div></li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="introduction.html#cb14-1"></a>n          &lt;-<span class="st"> </span><span class="dv">10000</span></span>
-<span id="cb14-2"><a href="introduction.html#cb14-2"></a>m &lt;-<span class="st"> </span><span class="dv">4</span></span>
-<span id="cb14-3"><a href="introduction.html#cb14-3"></a>my_pmf &lt;-<span class="st"> </span><span class="cf">function</span> (k, m) {</span>
-<span id="cb14-4"><a href="introduction.html#cb14-4"></a>  denom &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="fl">0.5</span><span class="op">^</span><span class="kw">abs</span>(m <span class="op">-</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span>))</span>
-<span id="cb14-5"><a href="introduction.html#cb14-5"></a>  <span class="kw">return</span> (<span class="fl">0.5</span><span class="op">^</span><span class="kw">abs</span>(m <span class="op">-</span><span class="st"> </span>k) <span class="op">/</span><span class="st"> </span>denom)</span>
-<span id="cb14-6"><a href="introduction.html#cb14-6"></a>}</span>
-<span id="cb14-7"><a href="introduction.html#cb14-7"></a>samps &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb14-8"><a href="introduction.html#cb14-8"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</span>
-<span id="cb14-9"><a href="introduction.html#cb14-9"></a>  a &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span>)</span>
-<span id="cb14-10"><a href="introduction.html#cb14-10"></a>  a_val &lt;-<span class="st"> </span><span class="kw">my_pmf</span>(a, m)</span>
-<span id="cb14-11"><a href="introduction.html#cb14-11"></a>  prob  &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)</span>
-<span id="cb14-12"><a href="introduction.html#cb14-12"></a>  <span class="cf">if</span> (prob <span class="op">&lt;</span><span class="st"> </span>a_val) {</span>
-<span id="cb14-13"><a href="introduction.html#cb14-13"></a>    samps &lt;-<span class="st"> </span><span class="kw">c</span>(samps, a)</span>
-<span id="cb14-14"><a href="introduction.html#cb14-14"></a>  }</span>
-<span id="cb14-15"><a href="introduction.html#cb14-15"></a>}</span>
-<span id="cb14-16"><a href="introduction.html#cb14-16"></a>samps &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> samps) <span class="op">%&gt;%</span></span>
-<span id="cb14-17"><a href="introduction.html#cb14-17"></a><span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span></span>
-<span id="cb14-18"><a href="introduction.html#cb14-18"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(samps), <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb14-19"><a href="introduction.html#cb14-19"></a><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">n =</span> <span class="kw">my_pmf</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, m), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))</span>
-<span id="cb14-20"><a href="introduction.html#cb14-20"></a></span>
-<span id="cb14-21"><a href="introduction.html#cb14-21"></a>my_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> samps, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span></span>
-<span id="cb14-22"><a href="introduction.html#cb14-22"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</span>
-<span id="cb14-23"><a href="introduction.html#cb14-23"></a><span class="kw">plot</span>(my_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">n          &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb14-2" title="2">m &lt;-<span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb14-3" title="3">my_pmf &lt;-<span class="st"> </span><span class="cf">function</span> (k, m) {</a>
+<a class="sourceLine" id="cb14-4" title="4">  denom &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="fl">0.5</span><span class="op">^</span><span class="kw">abs</span>(m <span class="op">-</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span>))</a>
+<a class="sourceLine" id="cb14-5" title="5">  <span class="kw">return</span> (<span class="fl">0.5</span><span class="op">^</span><span class="kw">abs</span>(m <span class="op">-</span><span class="st"> </span>k) <span class="op">/</span><span class="st"> </span>denom)</a>
+<a class="sourceLine" id="cb14-6" title="6">}</a>
+<a class="sourceLine" id="cb14-7" title="7">samps &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb14-8" title="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
+<a class="sourceLine" id="cb14-9" title="9">  a &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb14-10" title="10">  a_val &lt;-<span class="st"> </span><span class="kw">my_pmf</span>(a, m)</a>
+<a class="sourceLine" id="cb14-11" title="11">  prob  &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb14-12" title="12">  <span class="cf">if</span> (prob <span class="op">&lt;</span><span class="st"> </span>a_val) {</a>
+<a class="sourceLine" id="cb14-13" title="13">    samps &lt;-<span class="st"> </span><span class="kw">c</span>(samps, a)</a>
+<a class="sourceLine" id="cb14-14" title="14">  }</a>
+<a class="sourceLine" id="cb14-15" title="15">}</a>
+<a class="sourceLine" id="cb14-16" title="16">samps &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> samps) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-17" title="17"><span class="st">  </span><span class="kw">count</span>(x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-18" title="18"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">n =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(samps), <span class="dt">type =</span> <span class="st">&quot;empirical_frequencies&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-19" title="19"><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">n =</span> <span class="kw">my_pmf</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, m), <span class="dt">type =</span> <span class="st">&quot;theoretical_measure&quot;</span>))</a>
+<a class="sourceLine" id="cb14-20" title="20"></a>
+<a class="sourceLine" id="cb14-21" title="21">my_plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> samps, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> n, <span class="dt">fill =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-22" title="22"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a>
+<a class="sourceLine" id="cb14-23" title="23"><span class="kw">plot</span>(my_plot)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 </div>
 
@@ -831,6 +829,7 @@ measure </span>.</p>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": true,
 "twitter": true,
 "linkedin": false,
@@ -849,6 +848,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
