@@ -6,12 +6,34 @@ The students are expected to acquire the following knowledge:
 
 **Theoretical**
 
-- a
+- Finding convergences of random variables.
 
 
-**R**
 
-- a
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 togs <- TRUE
@@ -28,6 +50,7 @@ Let $X_1$, $X_2$,..., $X_n$ be a sequence of Bernoulli random variables. Let $Y_
 <span style="color:blue">R: Use a simulation to check your answer.</span>
 
 ```
+<div class="fold">
 ```{solution, echo = togs}
 
 
@@ -56,6 +79,8 @@ y <- apply(X, 1, mean)
 ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
   geom_line()
 ```
+</div>
+
 ```{exercise}
 Let $\Omega = [0,1]$ and let $X_n$ be a sequence of random variables, defined as
 \begin{align}
@@ -64,23 +89,25 @@ Let $\Omega = [0,1]$ and let $X_n$ be a sequence of random variables, defined as
     1, & \text{otherwise.}
   \end{cases}
 \end{align}
-Show that $X_n$ converges almost surely to $X ~ \text{Uniform}(0,1).
+Show that $X_n$ converges almost surely to $X \sim \text{Uniform}(0,1)$.
 ```
+<div class="fold">
 ```{solution, echo = togs}
 
 
-We need to show $P(\{\omega: X_n(\omega) \xrightarrow{\text{a.s.}} X(\omega)\}) = 1$. 
+We need to show $P(\{\omega: X_n(\omega) \rightarrow X(\omega)\}) = 1$. 
 
 Let $\omega \neq \frac{i}{n}$. Then for any $\omega$, $X_n$ converges pointwise to $X$:
 \begin{align}
   X_n(\omega) = 1 \implies |X_n(\omega) - X(s)| = |1 - 1| < \epsilon.
 \end{align}
-The above is independent of $n$. Since there are countably infinite number of elements in the complement ($\frac{i}{n}), the probability of this set is 1.
+The above is independent of $n$. Since there are countably infinite number of elements in the complement ($\frac{i}{n}$), the probability of this set is 1.
 ```
+</div>
 
 
 ```{exercise}
-WASSERMAN. <span style="color:red">CHECK SOLUTIONS WITH ERIK!</span> Let $X_n \sim \text{N}(0, \frac{1}{n})$ and let $X$ be a random variable with CDF
+Borrowed from Wasserman. Let $X_n \sim \text{N}(0, \frac{1}{n})$ and let $X$ be a random variable with CDF
 \begin{align}
  F_X(x) = \begin{cases}
   0, &x < 0 \\
@@ -91,14 +118,15 @@ Does $X_n$ converge to $X$ in distribution? How about in probability? Prove or d
 <span style="color:blue">R: Plot the CDF of $X_n$ for $n = 1, 2, 5, 10, 100, 1000$.</span>
 
 ```
+<div class="fold">
 ```{solution, echo = togs}
 Let us first check convergence in distribution.
 \begin{align}
- \lim_{n \rightarrow \infty} F_{X_n}(x) &= \lim_{n \rightarrow \infty} \phi (\frac{x}{n^{-1}}).
+ \lim_{n \rightarrow \infty} F_{X_n}(x) &= \lim_{n \rightarrow \infty} \phi (\sqrt(n) x).
 \end{align}
 We have two cases, for $x < 0$ and $x > 0$. We do not need to check for $x = 0$, since $F_X$ is not continuous in that point.
 \begin{align}
-  \lim_{n \rightarrow \infty} \phi (\frac{x}{n^{-1}}) = \begin{cases}
+  \lim_{n \rightarrow \infty} \phi (\sqrt(n) x) = \begin{cases}
   0, & x < 0 \\
   1, & x > 0.
 \end{cases}
@@ -126,22 +154,25 @@ ggplot(data = data.frame(x = seq(-5, 5, by = 0.01)), aes(x = x)) +
   stat_function(fun = pnorm, args = list(mean = 0, sd = 1/1000), aes(color = "sd = 1/1000")) +
   stat_function(fun = pnorm, args = list(mean = 0, sd = 1/10000), aes(color = "sd = 1/10000"))
 ```
+</div>
 
 
 ```{exercise}
-WASSERMAN. Let $X_i$ be i.i.d. and $\mu = E(X_1)$. Let variance of $X_1$ be finite. Show that the mean of $X_i$ converges in quadratic mean to $\mu$. 
+Let $X_i$ be i.i.d. and $\mu = E(X_1)$. Let variance of $X_1$ be finite. Show that the mean of $X_i$ converges in quadratic mean to $\mu$. 
 
 ```
+<div class="fold">
 ```{solution, echo = togs}
 \begin{align}
   \lim_{n \rightarrow \infty} E(|\bar{X_n} - \mu|^2) &= \lim_{n \rightarrow \infty} E(\bar{X_n}^2 - 2 \bar{X_n} \mu + \mu^2) \\
   &= \lim_{n \rightarrow \infty} (E(\bar{X_n}^2) - 2 \mu E(\frac{\sum_{i=1}^n X_i}{n}) + \mu^2) \\
-  &= \lim_{n \rightarrow \infty} E(\bar{X_n})^2 - \lim_{n \rightarrow \infty} Var(\bar{X_n}) - 2 \mu^2 + \mu^2 \\
-  &= \lim_{n \rightarrow \infty} \frac{n^2 \mu^2}{n^2} - \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} - \mu^2 \\
-  &= \mu^2 - \mu^2 - \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} \\
+  &= \lim_{n \rightarrow \infty} E(\bar{X_n})^2 + \lim_{n \rightarrow \infty} Var(\bar{X_n}) - 2 \mu^2 + \mu^2 \\
+  &= \lim_{n \rightarrow \infty} \frac{n^2 \mu^2}{n^2} + \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} - \mu^2 \\
+  &= \mu^2 - \mu^2 + \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} \\
   &= 0.
 \end{align}
 
 
 
 ```
+</div>

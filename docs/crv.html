@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>14 Probability distributions | Principles of Uncertainty – exercises</title>
+  <title>11 Convergence of random variables | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
   <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="14 Probability distributions | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="11 Convergence of random variables | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="14 Probability distributions | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="11 Convergence of random variables | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="A1.html"/>
-<link rel="next" href="references.html"/>
+<link rel="prev" href="ci.html"/>
+<link rel="next" href="lt.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -244,132 +244,153 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="probability-distributions" class="section level1" number="14">
-<h1 number="14"><span class="header-section-number">14</span> Probability distributions</h1>
-<table style="width:100%;">
-<colgroup>
-<col width="31%" />
-<col width="31%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-<col width="7%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>parameters</th>
-<th>pdf/pmf</th>
-<th>cdf</th>
-<th>mean</th>
-<th>variance</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Bernoulli</td>
-<td><span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(p^k (1 - p)^{1 - k}\)</span> <br> <a href="introduction.html#exr:binomialpmf">11</a></td>
-<td></td>
-<td><span class="math inline">\(p\)</span> <br> <a href="ev.html#exr:Bernev">58</a></td>
-<td><span class="math inline">\(p(1-p)\)</span> <br> <a href="ev.html#exr:Bernev">58</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>binomial</td>
-<td><span class="math inline">\(n\)</span>, <span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(\binom{n}{k} p^k (1 - p)^{n - k}\)</span> <br> <a href="rvs.html#exr:bincdf">35</a></td>
-<td></td>
-<td><span class="math inline">\(np\)</span> <br> <a href="ev.html#exr:binomev">59</a></td>
-<td><span class="math inline">\(np(1-p)\)</span> <br> <a href="ev.html#exr:binomev">59</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Poisson</td>
-<td><span class="math inline">\(\lambda\)</span></td>
-<td><span class="math inline">\(\frac{\lambda^k e^{-\lambda}}{k!}\)</span> <br> <a href="rvs.html#exr:poisex">37</a></td>
-<td></td>
-<td><span class="math inline">\(\lambda\)</span> <br> <a href="ev.html#exr:poisev">60</a></td>
-<td><span class="math inline">\(\lambda\)</span> <br> <a href="ev.html#exr:poisev">60</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>geometric</td>
-<td><span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(p(1-p)^k\)</span> <br> <a href="rvs.html#exr:geocdf">36</a></td>
-<td><span class="math inline">\(1 - (1-p)^{k + 1}\)</span> <br> <a href="rvs.html#exr:geocdf">36</a></td>
-<td><span class="math inline">\(\frac{1 - p}{p}\)</span> <br> <a href="ev.html#exr:geoev">61</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>normal</td>
-<td><span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma\)</span></td>
-<td><span class="math inline">\(\frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}\)</span> <br> <a href="rvs.html#exr:normalpdf">43</a></td>
-<td><span class="math inline">\(\int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(t - \mu)^2}{2 \sigma^2}} dt\)</span> <br> <a href="rvs.html#exr:normalpdf">43</a></td>
-<td><span class="math inline">\(\mu\)</span> <a href="ev.html#exr:normev">65</a></td>
-<td><span class="math inline">\(\sigma\)</span> <a href="ev.html#exr:normev">65</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>beta</td>
-<td><span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span></td>
-<td><span class="math inline">\(\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)}\)</span> <br> <a href="rvs.html#exr:betacdf">41</a></td>
-<td></td>
-<td><span class="math inline">\(\frac{\alpha}{\alpha + \beta}\)</span> <a href="ev.html#exr:betaev">63</a></td>
-<td><span class="math inline">\(\frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}\)</span> <a href="ev.html#exr:betaev">63</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>gamma</td>
-<td><span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span></td>
-<td><span class="math inline">\(\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x}\)</span> <br> <a href="rvs.html#exr:gammapdf">42</a></td>
-<td><span class="math inline">\(\frac{\gamma(\alpha, \beta x)}{\Gamma(\alpha)}\)</span> <br> <a href="rvs.html#exr:gammapdf">42</a></td>
-<td><span class="math inline">\(\frac{\alpha}{\beta}\)</span> <br> <a href="ev.html#exr:gammaev">62</a></td>
-<td><span class="math inline">\(\frac{\alpha}{\beta^2}\)</span> <br> <a href="ev.html#exr:gammaev">62</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>exponential</td>
-<td><span class="math inline">\(\lambda\)</span></td>
-<td><span class="math inline">\(\lambda e^{-\lambda x}\)</span> <br> <a href="rvs.html#exr:expcdf">39</a></td>
-<td><span class="math inline">\(1 - e^{-\lambda x}\)</span> <br> <a href="rvs.html#exr:expcdf">39</a></td>
-<td><span class="math inline">\(\lambda^{-1}\)</span> <br> <a href="ev.html#exr:expev">64</a></td>
-<td><span class="math inline">\(\lambda^{-2}\)</span> <br> <a href="ev.html#exr:expev">64</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>logistic</td>
-<td><span class="math inline">\(\mu\)</span>, <span class="math inline">\(s\)</span></td>
-<td><span class="math inline">\(\frac{e^{-\frac{x - \mu}{s}}}{(1 + e{-\frac{x - \mu}{s}})^2}\)</span> <br> <a href="rvs.html#exr:logitpdf">44</a></td>
-<td><span class="math inline">\(\frac{1}{1 + e^{-\frac{x - \mu}{s}}}\)</span> <br> <a href="rvs.html#exr:logitpdf">44</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>negative binomial</td>
-<td><span class="math inline">\(r\)</span>, <span class="math inline">\(p\)</span></td>
-<td><span class="math inline">\(\binom{k + r - 1}{k}(1-p)^r p^k\)</span> <br> <a href="rvs.html#exr:negbinpdf">38</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>multinomial</td>
-<td><span class="math inline">\(n\)</span>, <span class="math inline">\(p \in [0,1]^k\)</span>, <span class="math inline">\(\sum p = 1\)</span></td>
-<td><span class="math inline">\(\frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}\)</span> <br> <a href="mrv.html#exr:mnompdf">72</a></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<!-- multivariate normal |$\frac{1}{(2 \pi)^{-\frac{k}{2}}} \text{det}(\Sigma)^{-\frac{1}{2}} \exp(-\frac{1}{2}(x - \mu)^T \Sigma^{-1} (x - \mu))$ | | |  -->
+<div id="crv" class="section level1" number="11">
+<h1 number="11"><span class="header-section-number">11</span> Convergence of random variables</h1>
+<p>This chapter deals with convergence of random variables.</p>
+<p>The students are expected to acquire the following knowledge:</p>
+<p><strong>Theoretical</strong></p>
+<ul>
+<li>Finding convergences of random variables.</li>
+</ul>
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-196" class="exercise"><strong>Exercise 86  </strong></span>Let <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>,…, <span class="math inline">\(X_n\)</span> be a sequence of Bernoulli random variables. Let <span class="math inline">\(Y_k = \frac{X_1 + X_2 + ... + X_n}{n^2}\)</span>. Show that this sequence converges point-wise to the zero random variable.
+<span style="color:blue">R: Use a simulation to check your answer.</span></p>
+</div>
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<p>Let <span class="math inline">\(\epsilon\)</span> be arbitrary. We need to find such <span class="math inline">\(n_0\)</span>, that for every <span class="math inline">\(n\)</span> greater than <span class="math inline">\(n_0\)</span> <span class="math inline">\(|Y_n| &lt; \epsilon\)</span> holds.</p>
+<p><span class="math display">\[\begin{align}
+  |Y_n| &amp;= |\frac{X_1 + X_2 + ... + X_n}{n^2}|  \\
+        &amp;\leq |\frac{n}{n^2}| \\
+        &amp;= \frac{1}{n}.
+\end{align}\]</span>
+So we need to find such <span class="math inline">\(n_0\)</span>, that for every <span class="math inline">\(n &gt; n_0\)</span> we will have <span class="math inline">\(\frac{1}{n} &lt; \epsilon\)</span>. So <span class="math inline">\(n_0 &gt; \frac{1}{\epsilon}\)</span>.</p>
+</div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="crv.html#cb177-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span></span>
+<span id="cb177-2"><a href="crv.html#cb177-2"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="kw">length</span>(x), <span class="dt">ncol =</span> <span class="dv">100</span>)</span>
+<span id="cb177-3"><a href="crv.html#cb177-3"></a>y &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> <span class="kw">length</span>(x))</span>
+<span id="cb177-4"><a href="crv.html#cb177-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)) {</span>
+<span id="cb177-5"><a href="crv.html#cb177-5"></a>  X[i, ] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</span>
+<span id="cb177-6"><a href="crv.html#cb177-6"></a>}</span>
+<span id="cb177-7"><a href="crv.html#cb177-7"></a>X &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, cumsum)</span>
+<span id="cb177-8"><a href="crv.html#cb177-8"></a>tmp_mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>)<span class="op">^</span><span class="dv">2</span>, <span class="dt">nrow =</span> <span class="dv">1000</span>, <span class="dt">ncol =</span> <span class="dv">100</span>)</span>
+<span id="cb177-9"><a href="crv.html#cb177-9"></a>X &lt;-<span class="st"> </span>X <span class="op">/</span><span class="st"> </span>tmp_mat</span>
+<span id="cb177-10"><a href="crv.html#cb177-10"></a>y &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">1</span>, mean)</span>
+<span id="cb177-11"><a href="crv.html#cb177-11"></a><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></span>
+<span id="cb177-12"><a href="crv.html#cb177-12"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-198-1.png" width="672" /></p>
+</div>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-199" class="exercise"><strong>Exercise 87  </strong></span>Let <span class="math inline">\(\Omega = [0,1]\)</span> and let <span class="math inline">\(X_n\)</span> be a sequence of random variables, defined as
+<span class="math display">\[\begin{align}
+  X_n(\omega) = \begin{cases}
+    \omega^3, &amp;\omega = \frac{i}{n}, &amp;0 \leq i \leq 1 \\
+    1, &amp; \text{otherwise.}
+  \end{cases}
+\end{align}\]</span>
+Show that <span class="math inline">\(X_n\)</span> converges almost surely to <span class="math inline">\(X \sim \text{Uniform}(0,1)\)</span>.
+</div>
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<p>We need to show <span class="math inline">\(P(\{\omega: X_n(\omega) \rightarrow X(\omega)\}) = 1\)</span>.</p>
+Let <span class="math inline">\(\omega \neq \frac{i}{n}\)</span>. Then for any <span class="math inline">\(\omega\)</span>, <span class="math inline">\(X_n\)</span> converges pointwise to <span class="math inline">\(X\)</span>:
+<span class="math display">\[\begin{align}
+  X_n(\omega) = 1 \implies |X_n(\omega) - X(s)| = |1 - 1| &lt; \epsilon.
+\end{align}\]</span>
+The above is independent of <span class="math inline">\(n\)</span>. Since there are countably infinite number of elements in the complement (<span class="math inline">\(\frac{i}{n}\)</span>), the probability of this set is 1.
+</div>
+</div>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-201" class="exercise"><strong>Exercise 88  </strong></span>Borrowed from Wasserman. Let <span class="math inline">\(X_n \sim \text{N}(0, \frac{1}{n})\)</span> and let <span class="math inline">\(X\)</span> be a random variable with CDF
+<span class="math display">\[\begin{align}
+ F_X(x) = \begin{cases}
+  0, &amp;x &lt; 0 \\
+  1, &amp;x \geq 0.
+ \end{cases}
+\end{align}\]</span>
+Does <span class="math inline">\(X_n\)</span> converge to <span class="math inline">\(X\)</span> in distribution? How about in probability? Prove or disprove these statement.
+<span style="color:blue">R: Plot the CDF of <span class="math inline">\(X_n\)</span> for <span class="math inline">\(n = 1, 2, 5, 10, 100, 1000\)</span>.</span></p>
+</div>
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> Let us first check convergence in distribution.
+<span class="math display">\[\begin{align}
+ \lim_{n \rightarrow \infty} F_{X_n}(x) &amp;= \lim_{n \rightarrow \infty} \phi (\sqrt(n) x).
+\end{align}\]</span>
+We have two cases, for <span class="math inline">\(x &lt; 0\)</span> and <span class="math inline">\(x &gt; 0\)</span>. We do not need to check for <span class="math inline">\(x = 0\)</span>, since <span class="math inline">\(F_X\)</span> is not continuous in that point.
+<span class="math display">\[\begin{align}
+  \lim_{n \rightarrow \infty} \phi (\sqrt(n) x) = \begin{cases}
+  0, &amp; x &lt; 0 \\
+  1, &amp; x &gt; 0.
+\end{cases}
+\end{align}\]</span>
+This is the same as <span class="math inline">\(F_X\)</span>.</p>
+<p>Let us now check convergence in probability. Since <span class="math inline">\(X\)</span> is a point-mass distribution at zero, we have
+<span class="math display">\[\begin{align}
+ \lim_{n \rightarrow \infty} P(|X_n| &gt; \epsilon) &amp;= \lim_{n \rightarrow \infty} (P(X_n &gt; \epsilon) + P(X_n &lt; -\epsilon)) \\
+&amp;= \lim_{n \rightarrow \infty} (1 - P(X_n &lt; \epsilon) + P(X_n &lt; -\epsilon)) \\
+&amp;= \lim_{n \rightarrow \infty} (1 - \phi(\sqrt{n} \epsilon) + \phi(- \sqrt{n} \epsilon)) \\
+&amp;= 0.
+\end{align}\]</span></p>
+</div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="crv.html#cb178-1"></a>n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">1000</span>)</span>
+<span id="cb178-2"><a href="crv.html#cb178-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
+<span id="cb178-3"><a href="crv.html#cb178-3"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/1&quot;</span>)) <span class="op">+</span></span>
+<span id="cb178-4"><a href="crv.html#cb178-4"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">2</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/2&quot;</span>)) <span class="op">+</span></span>
+<span id="cb178-5"><a href="crv.html#cb178-5"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">5</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/5&quot;</span>)) <span class="op">+</span></span>
+<span id="cb178-6"><a href="crv.html#cb178-6"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">10</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/10&quot;</span>)) <span class="op">+</span></span>
+<span id="cb178-7"><a href="crv.html#cb178-7"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">100</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/100&quot;</span>)) <span class="op">+</span></span>
+<span id="cb178-8"><a href="crv.html#cb178-8"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">1000</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/1000&quot;</span>)) <span class="op">+</span></span>
+<span id="cb178-9"><a href="crv.html#cb178-9"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">10000</span>), <span class="kw">aes</span>(<span class="dt">color =</span> <span class="st">&quot;sd = 1/10000&quot;</span>))</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-203-1.png" width="672" /></p>
+</div>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-204" class="exercise"><strong>Exercise 89  </strong></span>Let <span class="math inline">\(X_i\)</span> be i.i.d. and <span class="math inline">\(\mu = E(X_1)\)</span>. Let variance of <span class="math inline">\(X_1\)</span> be finite. Show that the mean of <span class="math inline">\(X_i\)</span> converges in quadratic mean to <span class="math inline">\(\mu\)</span>.</p>
+</div>
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
+  \lim_{n \rightarrow \infty} E(|\bar{X_n} - \mu|^2) &amp;= \lim_{n \rightarrow \infty} E(\bar{X_n}^2 - 2 \bar{X_n} \mu + \mu^2) \\
+  &amp;= \lim_{n \rightarrow \infty} (E(\bar{X_n}^2) - 2 \mu E(\frac{\sum_{i=1}^n X_i}{n}) + \mu^2) \\
+  &amp;= \lim_{n \rightarrow \infty} E(\bar{X_n})^2 + \lim_{n \rightarrow \infty} Var(\bar{X_n}) - 2 \mu^2 + \mu^2 \\
+  &amp;= \lim_{n \rightarrow \infty} \frac{n^2 \mu^2}{n^2} + \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} - \mu^2 \\
+  &amp;= \mu^2 - \mu^2 + \lim_{n \rightarrow \infty} \frac{\sigma^2}{n} \\
+  &amp;= 0.
+\end{align}\]</span></p>
+</div>
+</div>
 
 </div>
             </section>
@@ -377,8 +398,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="A1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ci.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lt.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
