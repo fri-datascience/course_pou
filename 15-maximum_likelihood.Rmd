@@ -1,0 +1,110 @@
+# Maximum likelihood {#ml}
+
+This chapter deals with maximum likelihood estimation.
+
+The students are expected to acquire the following knowledge:
+
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+togs <- FALSE
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+library(tidyr)
+# togs <- FALSE
+```
+
+
+
+```{exercise, name = "The German tank problem"}
+During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).
+
+
+a. What assumptions were made by using the above model? Do you think they are reasonable assumptions in practice?
+b. Show that the plug-in estimate for the maximum (i.e. the maximum of the sample) is a biased estimator.
+c. Derive the maximum likelihood estimate of the maximum.
+d. Check that the following estimator is not biased: $\hat{n} = \frac{k + 1}{k}m - 1$.
+
+
+
+
+
+```
+<div class="fold">
+```{solution, echo = togs}
+The data are the serial numbers of the tanks. The parameter is $n$, the total production of the tank. The distribution of the serial numbers is a discrete uniform distribution over all serial numbers.
+
+a. One of the assumptions is that we have i.i.d samples, however in practice this might not be true, as some tanks produced later could be sent to the field later, therefore already in theory we would not be able to recover some values from the population.
+
+c. The probability that we observed our sample $Y = {Y_1, Y_2,...,,Y_k}$ given $n$ is $\frac{1}{{n}\choose{k}}$. We need to find such $n^*$ that this function is maximized. Additionally, we have a constraint that $n^* \geq m = \max{(Y)}$. Let us plot this function for $m = 10$ and $k = 4$. 
+```
+```{r, echo = togs, message = FALSE, warning=FALSE}
+library(ggplot2)
+my_fun <- function (x, m, k) {
+  tmp        <-  1 / (choose(x, k))
+  tmp[x < m] <- 0
+  return (tmp)
+}
+x  <- 1:20
+y  <- my_fun(x, 10, 4)
+df <- data.frame(x = x, y = y)
+ggplot(data = df, aes(x = x, y = y)) +
+  geom_line()
+```
+```{solution, echo = togs}
+
+
+c. (continued) We observe that the maximum of this function lies at the maximum value of the sample. Therefore $n^* = m$ and ML estimate equals the plug-in estimate.
+
+b. To find the expected value we first need to find the distribution of $m$. Let us start with the CDF.
+\begin{align*}
+  F_m(x) = P(Y_1 < x,...,Y_k < x).
+\end{align*}
+If $x < k$ then $F_m(x) = 0$ and if $x \geq 1$ then $F_m(x) = 1$. What about between those values. So the probability that the maximum value is less than or equal to $m$ is just the number of possible draws from $Y$ that are all smaller than $m$, divided by all possible draws. This is $\frac{{x}\choose{k}}{{n}\choose{k}}$. The PDF on the suitable bounds is then
+\begin{align*}
+  P(m = x) = F_m(x) - F_m(x - 1) = \frac{\binom{x}{k} - \binom{x - 1}{k}}{\binom{n}{k}} = \frac{\binom{x - 1}{k - 1}}{\binom{n}{k}}.
+\end{align*}
+Now we can calculate the expected value of $m$ using some combinatorial identities.
+\begin{align*}
+  E[m] &= \sum_{i = k}^n i \frac{{i - 1}\choose{k - 1}}{{n}\choose{k}} \\
+       &= \sum_{i = k}^n i \frac{\frac{(i - 1)!}{(k - 1)!(i - k)!}}{{n}\choose{k}} \\
+       &= \frac{k}{\binom{n}{k}}\sum_{i = k}^n \binom{i}{k} \\
+       &= \frac{k}{\binom{n}{k}} \binom{n + 1}{k + 1} \\
+       &= \frac{k(n + 1)}{k + 1}.
+\end{align*}
+The bias of this estimator is then
+\begin{align*}
+  E[m] - n = \frac{k(n + 1)}{k + 1} - n = \frac{k - n}{k + 1}.
+\end{align*}
+  
+d. 
+\begin{align*}
+  E[\hat{n}] &= \frac{k + 1}{k} E[m] - 1 \\
+  &= \frac{k + 1}{k} \frac{k(n + 1)}{k + 1} - 1 \\
+  &= n.
+\end{align*}
+```
+</div>

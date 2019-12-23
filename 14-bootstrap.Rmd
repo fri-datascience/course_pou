@@ -1,0 +1,104 @@
+# Bootstrap {#boot}
+
+This chapter deals with bootstrap.
+
+The students are expected to acquire the following knowledge:
+
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+togs <- FALSE
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+library(tidyr)
+# togs <- FALSE
+```
+
+
+```{exercise}
+
+Ideally, a $1-\alpha$ CI would have $1-\alpha$ coverage. That is, say a 95% CI should, in the long run, contain the true value of the parameter 95% of the time. In practice, it is impossible to assess the coverage of our CI method, because we rarely know the true parameter. In simulation, however, we can. Let's assess the coverage of bootstrap percentile intervals.
+a. Pick a univariate distribution with readly available mean and one that you can easuly sample from.
+b. Draw $n = 30$ random samples from the chosen distribution and use the bootstrap (with large enough m) and percentile CI method to construct 95% CI. Repeat the process many times and count how many times the CI contains the true mean. That is, compute the actual coverage probability (don't forget to include the standard error of the coverage probability!). What can you observe?
+c. Try one or two different distributions. What can you observe?
+d. Repeat (b) and (c) using BCa intervals (R package boot). How does the coverage compare to percentile intervals?
+
+
+```
+<div class = "fold">
+```{r, echo = togs, message = FALSE, warning=FALSE}
+library(boot)
+set.seed(1)
+nit   <- 1000
+alpha <- 0.05
+nboot <- 100
+covers     <- matrix(nrow = nit, ncol = 3)
+covers_BCa <- matrix(nrow = nit, ncol = 3)
+for (j in 1:nit) {
+  x1 <- rnorm(30)
+  x2 <- rbeta(30, 1, 2)
+  x3 <- rpois(30, 5)
+  
+  X1 <- matrix(data = NA, nrow = 30, ncol = nboot)
+  X2 <- matrix(data = NA, nrow = 30, ncol = nboot)
+  X3 <- matrix(data = NA, nrow = 30, ncol = nboot)
+  for (i in 1:nboot) {
+    X1[ ,i] <- sample(x1, 30, replace = T)
+    X2[ ,i] <- sample(x2, 30, T)
+    X3[ ,i] <- sample(x3, 30, T)
+  }
+  X1_func <- apply(X1, 2, mean)
+  X2_func <- apply(X2, 2, mean)
+  X3_func <- apply(X3, 2, mean)
+  X1_quant <- quantile(X1_func, probs = c(alpha / 2, 1 - alpha / 2))
+  X2_quant <- quantile(X2_func, probs = c(alpha / 2, 1 - alpha / 2))
+  X3_quant <- quantile(X3_func, probs = c(alpha / 2, 1 - alpha / 2))
+  covers[j,1] <- (0 > X1_quant[1]) & (0 < X1_quant[2])
+  covers[j,2] <- ((1 / 3) > X2_quant[1]) & ((1 / 3) < X2_quant[2])
+  covers[j,3] <- (5 > X3_quant[1]) & (5 < X3_quant[2])
+
+  mf     <- function (x, i) return(mean(x[i]))
+  bootX1 <- boot(x1, statistic = mf, R = nboot)
+  bootX2 <- boot(x2, statistic = mf, R = nboot)
+  bootX3 <- boot(x3, statistic = mf, R = nboot)
+
+  X1_quant_BCa <- boot.ci(bootX1, type = "bca")$bca
+  X2_quant_BCa <- boot.ci(bootX2, type = "bca")$bca
+  X3_quant_BCa <- boot.ci(bootX3, type = "bca")$bca
+  
+  covers_BCa[j,1] <- (0 > X1_quant_BCa[4]) & (0 < X1_quant_BCa[5])
+  covers_BCa[j,2] <- ((1 / 3) > X2_quant_BCa[4]) & ((1 / 3) < X2_quant_BCa[5])
+  covers_BCa[j,3] <- (5 > X3_quant_BCa[4]) & (5 < X3_quant_BCa[5])
+
+}
+apply(covers, 2, mean)
+apply(covers, 2, sd) / sqrt(nit)
+
+apply(covers_BCa, 2, mean)
+apply(covers_BCa, 2, sd) / sqrt(nit)
+
+```
+</div>

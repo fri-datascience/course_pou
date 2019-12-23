@@ -162,7 +162,7 @@ Let $X_i$ be i.i.d. and $\mu = E(X_1)$. Let variance of $X_1$ be finite. Show th
 
 ```
 <div class="fold">
-```{solution, echo = togs}
+```{solution, echo = togs, label = "vardecomp"}
 \begin{align}
   \lim_{n \rightarrow \infty} E(|\bar{X_n} - \mu|^2) &= \lim_{n \rightarrow \infty} E(\bar{X_n}^2 - 2 \bar{X_n} \mu + \mu^2) \\
   &= \lim_{n \rightarrow \infty} (E(\bar{X_n}^2) - 2 \mu E(\frac{\sum_{i=1}^n X_i}{n}) + \mu^2) \\
