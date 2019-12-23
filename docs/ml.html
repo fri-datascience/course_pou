@@ -52,6 +52,68 @@
 
 
 
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -121,9 +183,15 @@
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a></li>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
+<li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
+<li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
+</ul></li>
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
-<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a></li>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
+<li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
+<li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.2</b> The German tank problem</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
 <li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
@@ -196,9 +264,54 @@ $(document).ready(function() {
   })
 });
 </script>
+<div id="deriving-mle" class="section level2">
+<h2><span class="header-section-number">15.1</span> Deriving MLE</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 15.1  (The German tank problem)  </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 15.1  </strong></span></p>
+<ol style="list-style-type: lower-alpha">
+<li>Derive the maximum likelihood estimator of variance for N<span class="math inline">\((\mu, \sigma^2)\)</span>.</li>
+<li>Compare with results from <a href="#exr:cbest"><strong>??</strong></a>. What does that say about the MLE estimator?</li>
+</ol>
+</div>
+
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p>The mean is assumed constant, so we have the likelihood
+<span class="math display">\[\begin{align}
+  L(\sigma^2; y) &amp;= \prod_{i=1}^n \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(y_i - \mu)^2}{2 \sigma^2}} \\
+ &amp;= \frac{1}{\sqrt{2 \pi \sigma^2}^n} e^{\frac{-\sum_{i=1}^n (y_i - \mu)^2}{2 \sigma^2}}
+\end{align}\]</span>
+We need to find the maximum of this function. We first observe that we can replace <span class="math inline">\(\frac{-\sum_{i=1}^n (y_i - \mu)^2}{2}\)</span> with a constant <span class="math inline">\(c\)</span>, since none of the terms are dependent on <span class="math inline">\(\sigma^2\)</span>. Additionally, the term <span class="math inline">\(\frac{1}{\sqrt{2 \pi}^n}\)</span> does not affect the calculation of the maximum. So now we have
+<span class="math display">\[\begin{align}
+  L(\sigma^2; y) &amp;= (\sigma^2)^{-\frac{n}{2}} e^{\frac{c}{\sigma^2}}.
+\end{align}\]</span>
+Differentiating we get
+<span class="math display">\[\begin{align}
+ \frac{d}{d \sigma^2} L(\sigma^2; y) &amp;= (\sigma^2)^{-\frac{n}{2}} \frac{d}{d \sigma^2} e^{\frac{c}{\sigma^2}} +  e^{\frac{c}{\sigma^2}} \frac{d}{d \sigma^2} (\sigma^2)^{-\frac{n}{2}} \\
+  &amp;= - (\sigma^2)^{-\frac{n}{2}} e^{\frac{c}{\sigma^2}} \frac{c}{(\sigma^2)^2} - e^{\frac{c}{\sigma^2}} \frac{n}{2} (\sigma^2)^{\frac{n + 2}{2}} \\
+  &amp;= - (\sigma^2)^{-\frac{n + 4}{2}} e^{\frac{c}{\sigma^2}} c - e^{\frac{c}{\sigma^2}} \frac{n}{2} (\sigma^2)^{\frac{n + 2}{2}} \\
+  &amp;= - e^{\frac{c}{\sigma^2}} (\sigma^2)^{-\frac{n + 4}{2}} \Big(c + \frac{n}{2}\sigma^2 \Big).
+\end{align}\]</span>
+To get the maximum, this has to equal to 0, so
+<span class="math display">\[\begin{align}
+  c + \frac{n}{2}\sigma^2 &amp;= 0 \\
+  \sigma^2 &amp;= -\frac{2c}{n} \\
+  \sigma^2 &amp;= \frac{\sum_{i=1}^n (Y_i - \mu)^2}{n}.
+\end{align}\]</span></p></li>
+<li><p>The MLE estimator is biased.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="the-german-tank-problem" class="section level2">
+<h2><span class="header-section-number">15.2</span> The German tank problem</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 15.2  (The German tank problem)  </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
 <ol style="list-style-type: lower-alpha">
 <li>What assumptions were made by using the above model? Do you think they are reasonable assumptions in practice?</li>
 <li>Show that the plug-in estimate for the maximum (i.e. the maximum of the sample) is a biased estimator.</li>
@@ -208,9 +321,61 @@ $(document).ready(function() {
 </div>
 
 <div class="fold">
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> The data are the serial numbers of the tanks. The parameter is <span class="math inline">\(n\)</span>, the total production of the tank. The distribution of the serial numbers is a discrete uniform distribution over all serial numbers.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>One of the assumptions is that we have i.i.d samples, however in practice this might not be true, as some tanks produced later could be sent to the field later, therefore already in theory we would not be able to recover some values from the population.</p></li>
+<li><p>The probability that we observed our sample <span class="math inline">\(Y = {Y_1, Y_2,...,,Y_k}\)</span> given <span class="math inline">\(n\)</span> is <span class="math inline">\(\frac{1}{{n}\choose{k}}\)</span>. We need to find such <span class="math inline">\(n^*\)</span> that this function is maximized. Additionally, we have a constraint that <span class="math inline">\(n^* \geq m = \max{(Y)}\)</span>. Let us plot this function for <span class="math inline">\(m = 10\)</span> and <span class="math inline">\(k = 4\)</span>.</p>
+</div></li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-2" title="2">my_fun &lt;-<span class="st"> </span><span class="cf">function</span> (x, m, k) {</a>
+<a class="sourceLine" id="cb1-3" title="3">  tmp        &lt;-<span class="st">  </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="kw">choose</span>(x, k))</a>
+<a class="sourceLine" id="cb1-4" title="4">  tmp[x <span class="op">&lt;</span><span class="st"> </span>m] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="kw">return</span> (tmp)</a>
+<a class="sourceLine" id="cb1-6" title="6">}</a>
+<a class="sourceLine" id="cb1-7" title="7">x  &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb1-8" title="8">y  &lt;-<span class="st"> </span><span class="kw">my_fun</span>(x, <span class="dv">10</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb1-9" title="9">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)</a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<img src="bookdown-pou_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li><p>(continued) We observe that the maximum of this function lies at the maximum value of the sample. Therefore <span class="math inline">\(n^* = m\)</span> and ML estimate equals the plug-in estimate.</p></li>
+<li><p>To find the expected value we first need to find the distribution of <span class="math inline">\(m\)</span>. Let us start with the CDF.
+<span class="math display">\[\begin{align*}
+  F_m(x) = P(Y_1 &lt; x,...,Y_k &lt; x).
+\end{align*}\]</span>
+If <span class="math inline">\(x &lt; k\)</span> then <span class="math inline">\(F_m(x) = 0\)</span> and if <span class="math inline">\(x \geq 1\)</span> then <span class="math inline">\(F_m(x) = 1\)</span>. What about between those values. So the probability that the maximum value is less than or equal to <span class="math inline">\(m\)</span> is just the number of possible draws from <span class="math inline">\(Y\)</span> that are all smaller than <span class="math inline">\(m\)</span>, divided by all possible draws. This is <span class="math inline">\(\frac{{x}\choose{k}}{{n}\choose{k}}\)</span>. The PDF on the suitable bounds is then
+<span class="math display">\[\begin{align*}
+  P(m = x) = F_m(x) - F_m(x - 1) = \frac{\binom{x}{k} - \binom{x - 1}{k}}{\binom{n}{k}} = \frac{\binom{x - 1}{k - 1}}{\binom{n}{k}}.
+\end{align*}\]</span>
+Now we can calculate the expected value of <span class="math inline">\(m\)</span> using some combinatorial identities.
+<span class="math display">\[\begin{align*}
+  E[m] &amp;= \sum_{i = k}^n i \frac{{i - 1}\choose{k - 1}}{{n}\choose{k}} \\
+    &amp;= \sum_{i = k}^n i \frac{\frac{(i - 1)!}{(k - 1)!(i - k)!}}{{n}\choose{k}} \\
+    &amp;= \frac{k}{\binom{n}{k}}\sum_{i = k}^n \binom{i}{k} \\
+    &amp;= \frac{k}{\binom{n}{k}} \binom{n + 1}{k + 1} \\
+    &amp;= \frac{k(n + 1)}{k + 1}.
+\end{align*}\]</span>
+The bias of this estimator is then
+<span class="math display">\[\begin{align*}
+  E[m] - n = \frac{k(n + 1)}{k + 1} - n = \frac{k - n}{k + 1}.
+\end{align*}\]</span></p></li>
+<li><p><span class="math display">\[\begin{align*}
+  E[\hat{n}] &amp;= \frac{k + 1}{k} E[m] - 1 \\
+  &amp;= \frac{k + 1}{k} \frac{k(n + 1)}{k + 1} - 1 \\
+  &amp;= n.
+\end{align*}\]</span></p>
+</div></li>
+</ol>
 </div>
 
+</div>
 </div>
 
 

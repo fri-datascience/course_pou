@@ -29,7 +29,7 @@ $(document).ready(function() {
 </script>
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- FALSE
+togs <- T
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -37,8 +37,48 @@ library(tidyr)
 # togs <- FALSE
 ```
 
+## Deriving MLE
+```{exercise}
 
 
+a. Derive the maximum likelihood estimator of variance for N$(\mu, \sigma^2)$.
+b. Compare with results from \@ref(exr:cbest). What does that say about the MLE estimator?
+
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. The mean is assumed constant, so we have the likelihood
+\begin{align}
+  L(\sigma^2; y) &= \prod_{i=1}^n \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(y_i - \mu)^2}{2 \sigma^2}} \\
+    &= \frac{1}{\sqrt{2 \pi \sigma^2}^n} e^{\frac{-\sum_{i=1}^n (y_i - \mu)^2}{2 \sigma^2}}
+\end{align}
+We need to find the maximum of this function. We first observe that we can replace $\frac{-\sum_{i=1}^n (y_i - \mu)^2}{2}$ with a constant $c$, since none of the terms are dependent on $\sigma^2$. Additionally, the term $\frac{1}{\sqrt{2 \pi}^n}$ does not affect the calculation of the maximum. So now we have
+\begin{align}
+  L(\sigma^2; y) &= (\sigma^2)^{-\frac{n}{2}} e^{\frac{c}{\sigma^2}}.
+\end{align}
+Differentiating we get
+\begin{align}
+ \frac{d}{d \sigma^2} L(\sigma^2; y) &= (\sigma^2)^{-\frac{n}{2}} \frac{d}{d \sigma^2} e^{\frac{c}{\sigma^2}} +  e^{\frac{c}{\sigma^2}} \frac{d}{d \sigma^2} (\sigma^2)^{-\frac{n}{2}} \\
+  &= - (\sigma^2)^{-\frac{n}{2}} e^{\frac{c}{\sigma^2}} \frac{c}{(\sigma^2)^2} - e^{\frac{c}{\sigma^2}} \frac{n}{2} (\sigma^2)^{\frac{n + 2}{2}} \\
+  &= - (\sigma^2)^{-\frac{n + 4}{2}} e^{\frac{c}{\sigma^2}} c - e^{\frac{c}{\sigma^2}} \frac{n}{2} (\sigma^2)^{\frac{n + 2}{2}} \\
+  &= - e^{\frac{c}{\sigma^2}} (\sigma^2)^{-\frac{n + 4}{2}} \Big(c + \frac{n}{2}\sigma^2 \Big).
+\end{align}
+To get the maximum, this has to equal to 0, so
+\begin{align}
+  c + \frac{n}{2}\sigma^2 &= 0 \\
+  \sigma^2 &= -\frac{2c}{n} \\
+  \sigma^2 &= \frac{\sum_{i=1}^n (Y_i - \mu)^2}{n}.
+\end{align}
+
+b. The MLE estimator is biased.
+
+```
+</div>
+
+
+## The German tank problem
 ```{exercise, name = "The German tank problem"}
 During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).
 
