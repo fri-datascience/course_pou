@@ -141,12 +141,51 @@ a.
   &= \frac{n-1}{n}\sigma^2 \\
   < \sigma^2.
 \end{align*}
-b. 
+b. Let $S_n$ denote the sample variance. Then we can write it as
 \begin{align*}
-  \lim_{n \rightarrow \infty} P(|\frac{1}{n} \sum_{i=1}^n (Y_i - \bar{Y})^2 - \sigma^2| > \epsilon) &\leq \lim_{n \rightarrow \infty} \frac{E[(\frac{1}{n} \sum_{i=1}^n (Y_i - \bar{Y})^2 - \sigma^2)^2]}{\epsilon^2} \\
-  &= \lim_{n \rightarrow \infty} \frac{E[((\frac{1}{n} \sum_{i=1}^n (Y_i - \bar{Y})^2)^2 - 2 \frac{1}{n} \sum_{i=1}^n (Y_i - \bar{Y})^2 \sigma^2 + \sigma^4]}{\epsilon^2}
+  S_n &= \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2 + 2(X_i - \mu)(\mu - \bar{X}) + (\mu - \bar{X})^2 \\
+  &= \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2 - (\bar{X} - \mu)^2.
 \end{align*}
+Now $\bar{X}$ converges in probability (by WLLN) to $\mu$ therefore the right term converges in probability to zero. The left term converges in probability to $\sigma^2$, also by WLLN. Therefore the sample variance is a consistent estimatior of the variance.
+
 c. The denominator changes in the second-to-last line of a., therefore the last line is now equality.
+
+```
+</div>
+
+
+```{exercise, name = "Estimating the median"}
+
+
+a. Show that the sample median is an unbiased estimator of the median for N$(\mu, \sigma^2)$.
+b. Show that the sample median is an unbiased estimator of the mean for any distribution with symmetric density.
+
+
+
+
+
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+b. Let $Z_i$, $i = 1,...,n$ be i.i.d. variables with a symmetric distribution and let $Z_{k:n}$ denote the $k$-th order statistic. We will distinguish two cases, when $n$ is odd and when $n$ is even. Let first $n = 2m + 1$ be odd. Then the sample median is $M = Z_{m+1:2m+1}$. Its PDF is
+\begin{align*}
+  f_M(x) = (m+1)\binom{2m + 1}{m}f_Z(x)\Big(F_Z(x)^m (1 - F_Z(x)^m) \Big).
+\end{align*}
+For every symmetric distribution, it holds that $F_X(x) = 1 - F(2a - x)$ (CHECK THIS). Let $a = \mu$, the population mean. Plugging this into the PDF, we get that $f_M(x) = f_M(2\mu -x)$. It follows that
+\begin{align*}
+  E[M] &= E[2\mu - M] \\
+  2E[M] &= 2\mu \\
+  E[M] &= \mu.
+\end{align*}
+Now let $n = 2m$ be even. Then the sample median is $M = \frac{Z_{m:2m} + Z_{m+1:2m}}{2}$. It can be shown, that the joint PDF of these terms is also symmetric. Therefore, similar to the above
+\begin{align*}
+  E[M] &= E[\frac{Z_{m:2m} + Z_{m+1:2m}}{2}] \\
+       &= E[\frac{2\mu - Z_{m:2m} + 2\mu - Z_{m+1:2m}}{2}] \\
+       &= E[2\mu - M].
+\end{align*}
+The above also proves point a. as the median and the mean are the same in normal distribution.
 
 ```
 </div>

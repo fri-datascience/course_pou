@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2019-12-23" />
+<meta name="date" content="2019-12-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -354,7 +354,7 @@ For the last equality see the solution to <a href="#exr:vardecomp"><strong>??</s
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> </p>
 <ol style="list-style-type: lower-alpha">
-<li><span class="math display">\[\begin{align*}
+<li><p><span class="math display">\[\begin{align*}
 E[\frac{1}{n} \sum_{i=1}^n (Y_i - \bar{Y})^2] &amp;= \frac{1}{n} \sum_{i=1}^n E[(Y_i - \bar{Y})^2] \\
 &amp;= \frac{1}{n} \sum_{i=1}^n E[Y_i^2] - 2 E[Y_i \bar{Y}] + \bar{Y}^2)] \\
 &amp;= \frac{1}{n} \sum_{i=1}^n E[Y_i^2 - 2 Y_i \bar{Y} + \bar{Y}^2] \\
@@ -362,12 +362,48 @@ E[\frac{1}{n} \sum_{i=1}^n (Y_i - \bar{Y})^2] &amp;= \frac{1}{n} \sum_{i=1}^n E[
 &amp;= \frac{1}{n} \sum_{i=1}^n \frac{n - 2}{n} (\sigma^2 - \mu^2) - \frac{2}{n} (n - 1) \mu^2 + \frac{1}{n^2}n(n-1)\mu^2 + \frac{1}{n^2}(\sigma^2 + \mu^2) \\
 &amp;= \frac{n-1}{n}\sigma^2 \\
 &lt; \sigma^2.
-\end{align*}\]</span></li>
-<li><span class="math display">\[\begin{align*}
-  \lim_{n \rightarrow \infty} P(|\frac{1}{n} \sum_{i=1}^n (Y_i - \bar{Y})^2 - \sigma^2| &gt; \epsilon) &amp;\leq \lim_{n \rightarrow \infty} \frac{E[(\frac{1}{n} \sum_{i=1}^n (Y_i - \bar{Y})^2 - \sigma^2)^2]}{\epsilon^2} \\
-  &amp;= \lim_{n \rightarrow \infty} \frac{E[((\frac{1}{n} \sum_{i=1}^n (Y_i - \bar{Y})^2)^2 - 2 \frac{1}{n} \sum_{i=1}^n (Y_i - \bar{Y})^2 \sigma^2 + \sigma^4]}{\epsilon^2}
-\end{align*}\]</span></li>
-<li>The denominator changes in the second-to-last line of a., therefore the last line is now equality.</li>
+\end{align*}\]</span></p></li>
+<li><p>Let <span class="math inline">\(S_n\)</span> denote the sample variance. Then we can write it as
+<span class="math display">\[\begin{align*}
+  S_n &amp;= \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2 + 2(X_i - \mu)(\mu - \bar{X}) + (\mu - \bar{X})^2 \\
+  &amp;= \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2 - (\bar{X} - \mu)^2.
+\end{align*}\]</span>
+Now <span class="math inline">\(\bar{X}\)</span> converges in probability (by WLLN) to <span class="math inline">\(\mu\)</span> therefore the right term converges in probability to zero. The left term converges in probability to <span class="math inline">\(\sigma^2\)</span>, also by WLLN. Therefore the sample variance is a consistent estimatior of the variance.</p></li>
+<li><p>The denominator changes in the second-to-last line of a., therefore the last line is now equality.</p></li>
+</ol>
+</div>
+</div>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-7" class="exercise"><strong>Exercise 13.4  (Estimating the median)  </strong></span></p>
+<ol style="list-style-type: lower-alpha">
+<li>Show that the sample median is an unbiased estimator of the median for N<span class="math inline">\((\mu, \sigma^2)\)</span>.</li>
+<li>Show that the sample median is an unbiased estimator of the mean for any distribution with symmetric density.</li>
+</ol>
+</div>
+
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Let <span class="math inline">\(Z_i\)</span>, <span class="math inline">\(i = 1,...,n\)</span> be i.i.d. variables with a symmetric distribution and let <span class="math inline">\(Z_{k:n}\)</span> denote the <span class="math inline">\(k\)</span>-th order statistic. We will distinguish two cases, when <span class="math inline">\(n\)</span> is odd and when <span class="math inline">\(n\)</span> is even. Let first <span class="math inline">\(n = 2m + 1\)</span> be odd. Then the sample median is <span class="math inline">\(M = Z_{m+1:2m+1}\)</span>. Its PDF is
+<span class="math display">\[\begin{align*}
+  f_M(x) = (m+1)\binom{2m + 1}{m}f_Z(x)\Big(F_Z(x)^m (1 - F_Z(x)^m) \Big).
+\end{align*}\]</span>
+For every symmetric distribution, it holds that <span class="math inline">\(F_X(x) = 1 - F(2a - x)\)</span> (CHECK THIS). Let <span class="math inline">\(a = \mu\)</span>, the population mean. Plugging this into the PDF, we get that <span class="math inline">\(f_M(x) = f_M(2\mu -x)\)</span>. It follows that
+<span class="math display">\[\begin{align*}
+  E[M] &amp;= E[2\mu - M] \\
+  2E[M] &amp;= 2\mu \\
+  E[M] &amp;= \mu.
+\end{align*}\]</span>
+Now let <span class="math inline">\(n = 2m\)</span> be even. Then the sample median is <span class="math inline">\(M = \frac{Z_{m:2m} + Z_{m+1:2m}}{2}\)</span>. It can be shown, that the joint PDF of these terms is also symmetric. Therefore, similar to the above
+<span class="math display">\[\begin{align*}
+  E[M] &amp;= E[\frac{Z_{m:2m} + Z_{m+1:2m}}{2}] \\
+    &amp;= E[\frac{2\mu - Z_{m:2m} + 2\mu - Z_{m+1:2m}}{2}] \\
+    &amp;= E[2\mu - M].
+\end{align*}\]</span>
+The above also proves point a. as the median and the mean are the same in normal distribution.</li>
 </ol>
 </div>
 </div>
