@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2019-12-23" />
+<meta name="date" content="2019-12-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -306,12 +306,311 @@ To get the maximum, this has to equal to 0, so
 </ol>
 </div>
 </div>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 15.2  (Multivariate normal distribution)  </strong></span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Derive the maximum likelihood estimate for the mean and covariance matrix of the multivariate normal.</p></li>
+<li><p>Simulate <span class="math inline">\(n = 40\)</span> samples from a bivariate normal distribution (choose non-trivial parameters, that is, mean <span class="math inline">\(\neq 0\)</span> and covariance <span class="math inline">\(\neq 0\)</span>). Compute the MLE for the sample. Overlay the data with an ellipse that is determined by the MLE and an ellipse that is determined by the chosen true parameters.</p></li>
+<li><p>Repeat b. several times and observe how the estimates (ellipses) vary around the true value.</p></li>
+</ol>
+<p>Hint: For the derivation of MLE, these identities will be helpful: <span class="math inline">\(\frac{\partial b^T a}{\partial a} = b\)</span>, <span class="math inline">\(\frac{\partial a^T A a}{\partial a} = (A + A^T)a\)</span>, <span class="math inline">\(\frac{\partial \text{tr}(BA)}{\partial A} = B^T\)</span>, <span class="math inline">\(\frac{\partial \ln |A|}{\partial A} = (A^{-1})^T\)</span>, <span class="math inline">\(a^T A a = \text{tr}(a^T A a) = \text{tr}(a a^T A) = \text{tr}(Aaa^T)\)</span>.</p>
+</div>
+
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> The log likelihood of the MVN distribution is
+<span class="math display">\[\begin{align*}
+  l(\mu, \Sigma ; x) &amp;= -\frac{1}{2}\Big(\sum_{i=1}^n k\ln(2\pi) + |\Sigma| + (x_i - \mu)^T \Sigma^{-1} (x_i - \mu)\Big) \\
+    &amp;= -\frac{n}{2}|\Sigma| + -\frac{1}{2}\Big(\sum_{i=1}^n(x_i - \mu)^T \Sigma^{-1} (x_i - \mu)\Big) + c,
+\end{align*}\]</span>
+where <span class="math inline">\(c\)</span> is a constant with respect to <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\Sigma\)</span>.
+To find the MLE we first need to find partial derivatives. Let us start with <span class="math inline">\(\mu\)</span>.
+<span class="math display">\[\begin{align*}
+  \frac{\partial}{\partial \mu}l(\mu, \Sigma ; x) &amp;= \frac{\partial}{\partial \mu} -\frac{1}{2}\Big(\sum_{i=1}^n x_i^T \Sigma^{-1} x_i - x_i^T \Sigma^{-1} \mu - \mu^T \Sigma^{-1} x_i + \mu^T \Sigma^{-1} \mu \Big) \\
+  &amp;= -\frac{1}{2}\Big(\sum_{i=1}^n - \Sigma^{-1} x_i - \Sigma^{-1} x_i + 2 \Sigma^{-1} \mu \Big) \\
+  &amp;= -\Sigma^{-1}\Big(\sum_{i=1}^n - x_i + \mu \Big).
+\end{align*}\]</span>
+Equating above with zero, we get
+<span class="math display">\[\begin{align*}
+  \sum_{i=1}^n - x_i + \mu &amp;= 0 \\
+  \hat{\mu} = \frac{1}{n} \sum_{i=1}^n x_i,
+\end{align*}\]</span>
+which is the dimension-wise empirical mean. Now for the covariance matrix
+<span class="math display">\[\begin{align*}
+  \frac{\partial}{\partial \Sigma^{-1}}l(\mu, \Sigma ; x) &amp;= \frac{\partial}{\partial \Sigma^{-1}} -\frac{n}{2}\ln|\Sigma| + -\frac{1}{2}\Big(\sum_{i=1}^n(x_i - \mu)^T \Sigma^{-1} (x_i - \mu)\Big) \\
+  &amp;= \frac{\partial}{\partial \Sigma^{-1}} -\frac{n}{2}\ln|\Sigma| + -\frac{1}{2}\Big(\sum_{i=1}^n \text{tr}((x_i - \mu)^T \Sigma^{-1} (x_i - \mu))\Big) \\
+  &amp;= \frac{\partial}{\partial \Sigma^{-1}} -\frac{n}{2}\ln|\Sigma| + -\frac{1}{2}\Big(\sum_{i=1}^n \text{tr}((\Sigma^{-1} (x_i - \mu) (x_i - \mu)^T )\Big) \\
+  &amp;= \frac{n}{2}\Sigma + -\frac{1}{2}\Big(\sum_{i=1}^n (x_i - \mu) (x_i - \mu)^T \Big).
+\end{align*}\]</span>
+Equating above with zero, we get
+<span class="math display">\[\begin{align*}
+  \hat{\Sigma} = \frac{1}{n}\sum_{i=1}^n (x_i - \mu) (x_i - \mu)^T.
+\end{align*}\]</span></p>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2">n     &lt;-<span class="st"> </span><span class="dv">40</span></a>
+<a class="sourceLine" id="cb1-3" title="3">mu    &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">-2</span>)</a>
+<a class="sourceLine" id="cb1-4" title="4">Sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">-1.6</span>, <span class="fl">-1.6</span>, <span class="fl">1.8</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5">X     &lt;-<span class="st"> </span><span class="kw">mvrnorm</span>(<span class="dt">n =</span> n, <span class="dt">mu =</span> mu, <span class="dt">Sigma =</span> Sigma)</a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="kw">colnames</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>)</a>
+<a class="sourceLine" id="cb1-7" title="7">X     &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(X)</a>
+<a class="sourceLine" id="cb1-8" title="8"></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="co"># plot.new()</span></a>
+<a class="sourceLine" id="cb1-10" title="10">tru_ellip &lt;-<span class="st"> </span><span class="kw">ellipse</span>(mu, Sigma, <span class="dt">draw =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="kw">colnames</span>(tru_ellip) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>)</a>
+<a class="sourceLine" id="cb1-12" title="12">tru_ellip &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(tru_ellip)</a>
+<a class="sourceLine" id="cb1-13" title="13"></a>
+<a class="sourceLine" id="cb1-14" title="14">mu_est    &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, mean)</a>
+<a class="sourceLine" id="cb1-15" title="15">tmp       &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">sweep</span>(X, <span class="dv">2</span>, mu_est))</a>
+<a class="sourceLine" id="cb1-16" title="16">Sigma_est &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n) <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(tmp) <span class="op">%*%</span><span class="st"> </span>tmp</a>
+<a class="sourceLine" id="cb1-17" title="17"></a>
+<a class="sourceLine" id="cb1-18" title="18">est_ellip &lt;-<span class="st"> </span><span class="kw">ellipse</span>(mu_est, Sigma_est, <span class="dt">draw =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb1-19" title="19"><span class="kw">colnames</span>(est_ellip) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>)</a>
+<a class="sourceLine" id="cb1-20" title="20">est_ellip &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(est_ellip)</a>
+<a class="sourceLine" id="cb1-21" title="21"></a>
+<a class="sourceLine" id="cb1-22" title="22"><span class="kw">ggplot</span>(<span class="dt">data =</span> X, <span class="kw">aes</span>(<span class="dt">x =</span> X1, <span class="dt">y =</span> X2)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-23" title="23"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-24" title="24"><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> tru_ellip, <span class="kw">aes</span>(<span class="dt">x =</span> X1, <span class="dt">y =</span> X2, <span class="dt">color =</span> <span class="st">&quot;truth&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-25" title="25"><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> est_ellip, <span class="kw">aes</span>(<span class="dt">x =</span> X1, <span class="dt">y =</span> X2, <span class="dt">color =</span> <span class="st">&quot;estimated&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb1-26" title="26"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="st">&quot;type&quot;</span>)</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-7" class="exercise"><strong>Exercise 15.3  (Logistic regression)  </strong></span>Logistic regression is a popular discriminative model when our target variable is binary (categorical with 2 values). One of the ways of looking at logistic regression is that it is linear regression but instead of using the linear term as the mean of a normal RV, we use it as the mean of a Bernoulli RV. Of course, the mean of a Bernoulli is bounded on <span class="math inline">\([0,1]\)</span>, so, to avoid non-sensical values, we squeeze the linear between 0 and 1 with the inverse logistic function inv_logit<span class="math inline">\((z) = 1 / 1 + e^{-z}\)</span>. This leads to the following model: <span class="math inline">\(y_i | \beta, x \sim \text{Bernoulli}(\text{inv_logit}(\beta x))\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Explicitly write the likelihood function of beta.</p></li>
+<li><p>Implement the likelihood function in R. Use black-box box-constraint optimization (for example, <em>optim()</em> with L-BFGS) to find the maximum likelihood estimate for beta for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> defined below.</p></li>
+<li><p>Plot the estimated probability as a function of the independent variable. Compare with the truth (truth poznamo, ker smo generirali dataset).</p></li>
+<li><p>Let <span class="math inline">\(y2\)</span> be a response defined below. Will logistic regression work well on this dataset? Why not? How can we still use the model, without changing it?.</p></li>
+</ol>
+</div>
+
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">inv_log &lt;-<span class="st"> </span><span class="cf">function</span> (z) {</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>z)))</a>
+<a class="sourceLine" id="cb2-3" title="3">}</a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb2-5" title="5">x  &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb2-6" title="6">y  &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x))</a>
+<a class="sourceLine" id="cb2-7" title="7">y2 &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="fl">1.4</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align*}
+  l(\beta; x, y) &amp;= p(y | x, \beta) \\
+    &amp;= \ln(\prod_{i=1}^n \text{inv_logit}(\beta x_i)^{y_i} (1 - \text{inv_logit}(\beta x_i))^{1 - y_i}) \\
+    &amp;= \sum_{i=1}^n y_i \ln(\text{inv_logit}(\beta x_i)) + (1 - y_i) \ln(1 - \text{inv_logit}(\beta x_i)).
+\end{align*}\]</span></p>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb3-2" title="2">inv_log &lt;-<span class="st"> </span><span class="cf">function</span> (z) {</a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>z)))</a>
+<a class="sourceLine" id="cb3-4" title="4">}</a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb3-7" title="7">y &lt;-<span class="st"> </span>x</a>
+<a class="sourceLine" id="cb3-8" title="8">y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x))</a>
+<a class="sourceLine" id="cb3-9" title="9"></a>
+<a class="sourceLine" id="cb3-10" title="10">l_logistic &lt;-<span class="st"> </span><span class="cf">function</span> (beta, X, y) {</a>
+<a class="sourceLine" id="cb3-11" title="11">  logl &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">sum</span>(y <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(<span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X))) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>y) <span class="op">*</span><span class="st"> </span><span class="kw">log</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X)))))</a>
+<a class="sourceLine" id="cb3-12" title="12">  <span class="kw">return</span>(logl)</a>
+<a class="sourceLine" id="cb3-13" title="13">}</a>
+<a class="sourceLine" id="cb3-14" title="14"></a>
+<a class="sourceLine" id="cb3-15" title="15">my_optim &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="fl">0.5</span>, <span class="dt">fn =</span> l_logistic, <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</a>
+<a class="sourceLine" id="cb3-16" title="16">                  <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>, <span class="dt">X =</span> x, <span class="dt">y =</span> y)</a>
+<a class="sourceLine" id="cb3-17" title="17">my_optim<span class="op">$</span>par</a></code></pre></div>
+<pre><code>## [1] 1.166558</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">truth_p &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x), <span class="dt">type =</span> <span class="st">&quot;truth&quot;</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2">est_p   &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">prob =</span> <span class="kw">inv_log</span>(my_optim<span class="op">$</span>par <span class="op">*</span><span class="st"> </span>x), <span class="dt">type =</span> <span class="st">&quot;estimated&quot;</span>)</a>
+<a class="sourceLine" id="cb5-3" title="3">plot_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(truth_p, est_p)</a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="kw">ggplot</span>(<span class="dt">data =</span> plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> prob, <span class="dt">color =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">y2 &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">2000</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="fl">1.4</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb6-2" title="2">X2 &lt;-<span class="st"> </span><span class="kw">cbind</span>(x, x<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb6-3" title="3">my_optim2 &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">fn =</span> l_logistic, <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</a>
+<a class="sourceLine" id="cb6-4" title="4">                   <span class="dt">lower =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">upper =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">X =</span> <span class="kw">t</span>(X2), <span class="dt">y =</span> y2)</a>
+<a class="sourceLine" id="cb6-5" title="5">my_optim2<span class="op">$</span>par</a></code></pre></div>
+<pre><code>## [1] 1.153656 1.257649</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">tmp     &lt;-<span class="st"> </span><span class="kw">sweep</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">x2 =</span> x<span class="op">^</span><span class="dv">2</span>), <span class="dv">2</span>, my_optim2<span class="op">$</span>par, <span class="dt">FUN =</span> <span class="st">&quot;*&quot;</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2">tmp     &lt;-<span class="st"> </span>tmp[ ,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>tmp[ ,<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb8-3" title="3">truth_p &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="fl">1.4</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span>), <span class="dt">type =</span> <span class="st">&quot;truth&quot;</span>)</a>
+<a class="sourceLine" id="cb8-4" title="4">est_p   &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">prob =</span> <span class="kw">inv_log</span>(tmp), <span class="dt">type =</span> <span class="st">&quot;estimated&quot;</span>)</a>
+<a class="sourceLine" id="cb8-5" title="5">plot_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(truth_p, est_p)</a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="kw">ggplot</span>(<span class="dt">data =</span> plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> prob, <span class="dt">color =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+</div>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-11" class="exercise"><strong>Exercise 15.4  (Linear regression)  </strong></span>For the data generated below, do the following:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Compute the least squares (MLE) estimate of coefficients beta using the matrix exact solution.</li>
+<li>Compute the MLE by minimizing the sum of squared residuals using black-box optimization (<em>optim()</em>).</li>
+<li>Compute the MLE by using the output built-in linear regression (lm() ). Compare (a-c and the true coefficients).</li>
+<li>Compute 95% CI on the beta coefficients using the output of built-in linear regression.</li>
+<li>Compute 95% CI on the beta coefficients by using (a or b) and the bootstrap with percentile method for CI. Compare with d.</li>
+</ol>
+</div>
+
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb9-2" title="2">n &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb9-3" title="3">x1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb9-4" title="4">x2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb9-5" title="5">x3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb9-6" title="6"></a>
+<a class="sourceLine" id="cb9-7" title="7">X &lt;-<span class="st"> </span><span class="kw">cbind</span>(x1, x2, x3)</a>
+<a class="sourceLine" id="cb9-8" title="8">beta &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.6</span>, <span class="fl">-1.2</span>)</a>
+<a class="sourceLine" id="cb9-9" title="9"></a>
+<a class="sourceLine" id="cb9-10" title="10">y &lt;-<span class="st"> </span><span class="kw">as.vector</span>(<span class="kw">t</span>(beta <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X))) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">sd =</span> <span class="fl">0.2</span>)</a></code></pre></div>
+<div class="fold">
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb10-2" title="2">n &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb10-3" title="3">x1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb10-4" title="4">x2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb10-5" title="5">x3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</a>
+<a class="sourceLine" id="cb10-6" title="6"></a>
+<a class="sourceLine" id="cb10-7" title="7">X &lt;-<span class="st"> </span><span class="kw">cbind</span>(x1, x2, x3)</a>
+<a class="sourceLine" id="cb10-8" title="8">beta &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.6</span>, <span class="fl">-1.2</span>)</a>
+<a class="sourceLine" id="cb10-9" title="9"></a>
+<a class="sourceLine" id="cb10-10" title="10">y &lt;-<span class="st"> </span><span class="kw">as.vector</span>(<span class="kw">t</span>(beta <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X))) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">sd =</span> <span class="fl">0.2</span>)</a>
+<a class="sourceLine" id="cb10-11" title="11">LS_fun &lt;-<span class="st"> </span><span class="cf">function</span> (beta, X, y) {</a>
+<a class="sourceLine" id="cb10-12" title="12">  <span class="kw">return</span>(<span class="kw">sum</span>((y <span class="op">-</span><span class="st"> </span>beta <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X))<span class="op">^</span><span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb10-13" title="13">}</a>
+<a class="sourceLine" id="cb10-14" title="14">my_optim &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">fn =</span> LS_fun, <span class="dt">lower =</span> <span class="dv">-5</span>, <span class="dt">upper =</span> <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb10-15" title="15">                  <span class="dt">X =</span> X, <span class="dt">y =</span> y, <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>)</a>
+<a class="sourceLine" id="cb10-16" title="16">my_optim<span class="op">$</span>par</a></code></pre></div>
+<pre><code>## [1]  0.1898162  0.5885946 -1.1788264</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y =</span> y, <span class="dt">x1 =</span> x1, <span class="dt">x2 =</span> x2, <span class="dt">x3 =</span> x3)</a>
+<a class="sourceLine" id="cb12-2" title="2">my_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>x3 <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> df)</a>
+<a class="sourceLine" id="cb12-3" title="3">my_lm</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x1 + x2 + x3 - 1, data = df)
+## 
+## Coefficients:
+##      x1       x2       x3  
+##  0.1898   0.5886  -1.1788</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co"># matrix solution</span></a>
+<a class="sourceLine" id="cb14-2" title="2">beta_hat &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y</a>
+<a class="sourceLine" id="cb14-3" title="3">beta_hat</a></code></pre></div>
+<pre><code>##          [,1]
+## x1  0.1898162
+## x2  0.5885946
+## x3 -1.1788264</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">out &lt;-<span class="st"> </span><span class="kw">summary</span>(my_lm)</a>
+<a class="sourceLine" id="cb16-2" title="2">out<span class="op">$</span>coefficients[ ,<span class="dv">2</span>]</a></code></pre></div>
+<pre><code>##         x1         x2         x3 
+## 0.02209328 0.02087542 0.01934506</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="co"># bootstrap CI</span></a>
+<a class="sourceLine" id="cb18-2" title="2">nboot &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb18-3" title="3">beta_boot &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">ncol =</span> <span class="kw">length</span>(beta), <span class="dt">nrow =</span> nboot)</a>
+<a class="sourceLine" id="cb18-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nboot) {</a>
+<a class="sourceLine" id="cb18-5" title="5">  inds     &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>n, n, <span class="dt">replace =</span> T)</a>
+<a class="sourceLine" id="cb18-6" title="6">  new_df   &lt;-<span class="st"> </span>df[inds, ]</a>
+<a class="sourceLine" id="cb18-7" title="7">  X_tmp    &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(new_df[ ,<span class="op">-</span><span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb18-8" title="8">  y_tmp    &lt;-<span class="st"> </span>new_df[ ,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb18-9" title="9">  <span class="co"># print(nrow(new_df))</span></a>
+<a class="sourceLine" id="cb18-10" title="10">  tmp_beta &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X_tmp) <span class="op">%*%</span><span class="st"> </span>X_tmp) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X_tmp) <span class="op">%*%</span><span class="st"> </span>y_tmp</a>
+<a class="sourceLine" id="cb18-11" title="11">  beta_boot[i, ] &lt;-<span class="st"> </span>tmp_beta</a>
+<a class="sourceLine" id="cb18-12" title="12">}</a>
+<a class="sourceLine" id="cb18-13" title="13"><span class="kw">apply</span>(beta_boot, <span class="dv">2</span>, mean)</a></code></pre></div>
+<pre><code>## [1]  0.1905547  0.5878864 -1.1795650</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">apply</span>(beta_boot, <span class="dv">2</span>, quantile, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</a></code></pre></div>
+<pre><code>##            [,1]      [,2]      [,3]
+## 2.5%  0.1401955 0.5457401 -1.216954
+## 97.5% 0.2398938 0.6286394 -1.141253</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">out<span class="op">$</span>coefficients[ ,<span class="dv">2</span>]</a></code></pre></div>
+<pre><code>##         x1         x2         x3 
+## 0.02209328 0.02087542 0.01934506</code></pre>
+</div>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-14" class="exercise"><strong>Exercise 15.5  (Principal component analysis)  </strong></span>Load the <em>olympic</em> data set from package <em>ade4</em>. The data show decathlon results for 33 men in 1988 Olympic Games. This data set serves as a great example of finding the latent structure in the data, as there are certain characteristics of the athletes that make them excel at different events. For example an explosive athlete will do particulary well in sprints and long jumps.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Perform PCA (<em>prcomp</em>) on the data set and interpret the first 2 latent dimensions. Hint: Standardize the data first to get meaningful results.</p></li>
+<li><p>Use MLE to estimate the covariance of the standardized multivariate distribution.</p></li>
+<li><p>Decompose the estimated covariance matrix with the eigendecomposition. Compare the eigenvectors to the output of PCA.</p></li>
+</ol>
+</div>
+
+<div class="fold">
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw">data</span>(olympic)</a>
+<a class="sourceLine" id="cb24-2" title="2"></a>
+<a class="sourceLine" id="cb24-3" title="3">X        &lt;-<span class="st"> </span>olympic<span class="op">$</span>tab</a>
+<a class="sourceLine" id="cb24-4" title="4">X_scaled &lt;-<span class="st"> </span><span class="kw">scale</span>(X)</a>
+<a class="sourceLine" id="cb24-5" title="5">my_pca   &lt;-<span class="st"> </span><span class="kw">prcomp</span>(X_scaled)</a>
+<a class="sourceLine" id="cb24-6" title="6"><span class="kw">summary</span>(my_pca)</a></code></pre></div>
+<pre><code>## Importance of components:
+##                           PC1    PC2     PC3    PC4     PC5     PC6     PC7
+## Standard deviation     1.8488 1.6144 0.97123 0.9370 0.74607 0.70088 0.65620
+## Proportion of Variance 0.3418 0.2606 0.09433 0.0878 0.05566 0.04912 0.04306
+## Cumulative Proportion  0.3418 0.6025 0.69679 0.7846 0.84026 0.88938 0.93244
+##                            PC8     PC9    PC10
+## Standard deviation     0.55389 0.51667 0.31915
+## Proportion of Variance 0.03068 0.02669 0.01019
+## Cumulative Proportion  0.96312 0.98981 1.00000</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">autoplot</span>(my_pca, <span class="dt">data =</span> X, <span class="dt">loadings =</span> <span class="ot">TRUE</span>, <span class="dt">loadings.colour =</span> <span class="st">&#39;blue&#39;</span>,</a>
+<a class="sourceLine" id="cb26-2" title="2">         <span class="dt">loadings.label =</span> <span class="ot">TRUE</span>, <span class="dt">loadings.label.size =</span> <span class="dv">3</span>)</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">Sigma_est &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(X_scaled)) <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(X_scaled) <span class="op">%*%</span><span class="st"> </span>X_scaled</a>
+<a class="sourceLine" id="cb27-2" title="2">Sigma_dec &lt;-<span class="st"> </span><span class="kw">eigen</span>(Sigma_est)</a>
+<a class="sourceLine" id="cb27-3" title="3"></a>
+<a class="sourceLine" id="cb27-4" title="4">Sigma_dec<span class="op">$</span>vectors</a></code></pre></div>
+<pre><code>##             [,1]       [,2]        [,3]        [,4]         [,5]        [,6]
+##  [1,]  0.4158823  0.1488081 -0.26747198  0.08833244 -0.442314456  0.03071237
+##  [2,] -0.3940515 -0.1520815 -0.16894945  0.24424963  0.368913901 -0.09378242
+##  [3,] -0.2691057  0.4835374  0.09853273  0.10776276 -0.009754680  0.23002054
+##  [4,] -0.2122818  0.0278985 -0.85498656 -0.38794393 -0.001876311  0.07454380
+##  [5,]  0.3558474  0.3521598 -0.18949642 -0.08057457  0.146965351 -0.32692886
+##  [6,]  0.4334816  0.0695682 -0.12616012  0.38229029 -0.088802794  0.21049130
+##  [7,] -0.1757923  0.5033347  0.04609969 -0.02558404  0.019358607  0.61491241
+##  [8,] -0.3840821  0.1495820  0.13687235 -0.14396548 -0.716743474 -0.34776037
+##  [9,] -0.1799436  0.3719570 -0.19232803  0.60046566  0.095582043 -0.43744387
+## [10,]  0.1701426  0.4209653  0.22255233 -0.48564231  0.339772188 -0.30032419
+##             [,7]         [,8]        [,9]       [,10]
+##  [1,]  0.2543985  0.663712826 -0.10839531 -0.10948045
+##  [2,]  0.7505343  0.141264141  0.04613910 -0.05580431
+##  [3,] -0.1106637  0.072505560  0.42247611 -0.65073655
+##  [4,] -0.1351242 -0.155435871 -0.10206505 -0.11941181
+##  [5,]  0.1413388 -0.146839303  0.65076229  0.33681395
+##  [6,]  0.2725296 -0.639003579 -0.20723854 -0.25971800
+##  [7,]  0.1439726  0.009400445 -0.16724055  0.53450315
+##  [8,]  0.2732665 -0.276873049 -0.01766443  0.06589572
+##  [9,] -0.3419099  0.058519366 -0.30619617  0.13093187
+## [10,]  0.1868704  0.007310045 -0.45688227 -0.24311846</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">my_pca<span class="op">$</span>rotation</a></code></pre></div>
+<pre><code>##             PC1        PC2         PC3         PC4          PC5         PC6
+## 100  -0.4158823  0.1488081 -0.26747198  0.08833244 -0.442314456  0.03071237
+## long  0.3940515 -0.1520815 -0.16894945  0.24424963  0.368913901 -0.09378242
+## poid  0.2691057  0.4835374  0.09853273  0.10776276 -0.009754680  0.23002054
+## haut  0.2122818  0.0278985 -0.85498656 -0.38794393 -0.001876311  0.07454380
+## 400  -0.3558474  0.3521598 -0.18949642 -0.08057457  0.146965351 -0.32692886
+## 110  -0.4334816  0.0695682 -0.12616012  0.38229029 -0.088802794  0.21049130
+## disq  0.1757923  0.5033347  0.04609969 -0.02558404  0.019358607  0.61491241
+## perc  0.3840821  0.1495820  0.13687235 -0.14396548 -0.716743474 -0.34776037
+## jave  0.1799436  0.3719570 -0.19232803  0.60046566  0.095582043 -0.43744387
+## 1500 -0.1701426  0.4209653  0.22255233 -0.48564231  0.339772188 -0.30032419
+##             PC7          PC8         PC9        PC10
+## 100   0.2543985 -0.663712826  0.10839531 -0.10948045
+## long  0.7505343 -0.141264141 -0.04613910 -0.05580431
+## poid -0.1106637 -0.072505560 -0.42247611 -0.65073655
+## haut -0.1351242  0.155435871  0.10206505 -0.11941181
+## 400   0.1413388  0.146839303 -0.65076229  0.33681395
+## 110   0.2725296  0.639003579  0.20723854 -0.25971800
+## disq  0.1439726 -0.009400445  0.16724055  0.53450315
+## perc  0.2732665  0.276873049  0.01766443  0.06589572
+## jave -0.3419099 -0.058519366  0.30619617  0.13093187
+## 1500  0.1868704 -0.007310045  0.45688227 -0.24311846</code></pre>
+</div>
 </div>
 <div id="the-german-tank-problem" class="section level2">
 <h2><span class="header-section-number">15.2</span> The German tank problem</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 15.2  (The German tank problem)  </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
+<p><span id="exr:unnamed-chunk-16" class="exercise"><strong>Exercise 15.6  (The German tank problem)  </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
 <ol style="list-style-type: lower-alpha">
 <li>What assumptions were made by using the above model? Do you think they are reasonable assumptions in practice?</li>
 <li>Show that the plug-in estimate for the maximum (i.e. the maximum of the sample) is a biased estimator.</li>
@@ -329,18 +628,18 @@ To get the maximum, this has to equal to 0, so
 <li><p>The probability that we observed our sample <span class="math inline">\(Y = {Y_1, Y_2,...,,Y_k}\)</span> given <span class="math inline">\(n\)</span> is <span class="math inline">\(\frac{1}{{n}\choose{k}}\)</span>. We need to find such <span class="math inline">\(n^*\)</span> that this function is maximized. Additionally, we have a constraint that <span class="math inline">\(n^* \geq m = \max{(Y)}\)</span>. Let us plot this function for <span class="math inline">\(m = 10\)</span> and <span class="math inline">\(k = 4\)</span>.</p>
 </div></li>
 </ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb1-2" title="2">my_fun &lt;-<span class="st"> </span><span class="cf">function</span> (x, m, k) {</a>
-<a class="sourceLine" id="cb1-3" title="3">  tmp        &lt;-<span class="st">  </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="kw">choose</span>(x, k))</a>
-<a class="sourceLine" id="cb1-4" title="4">  tmp[x <span class="op">&lt;</span><span class="st"> </span>m] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb1-5" title="5">  <span class="kw">return</span> (tmp)</a>
-<a class="sourceLine" id="cb1-6" title="6">}</a>
-<a class="sourceLine" id="cb1-7" title="7">x  &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span></a>
-<a class="sourceLine" id="cb1-8" title="8">y  &lt;-<span class="st"> </span><span class="kw">my_fun</span>(x, <span class="dv">10</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb1-9" title="9">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)</a>
-<a class="sourceLine" id="cb1-10" title="10"><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-11" title="11"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<img src="bookdown-pou_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb31-2" title="2">my_fun &lt;-<span class="st"> </span><span class="cf">function</span> (x, m, k) {</a>
+<a class="sourceLine" id="cb31-3" title="3">  tmp        &lt;-<span class="st">  </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="kw">choose</span>(x, k))</a>
+<a class="sourceLine" id="cb31-4" title="4">  tmp[x <span class="op">&lt;</span><span class="st"> </span>m] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb31-5" title="5">  <span class="kw">return</span> (tmp)</a>
+<a class="sourceLine" id="cb31-6" title="6">}</a>
+<a class="sourceLine" id="cb31-7" title="7">x  &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb31-8" title="8">y  &lt;-<span class="st"> </span><span class="kw">my_fun</span>(x, <span class="dv">10</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb31-9" title="9">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)</a>
+<a class="sourceLine" id="cb31-10" title="10"><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb31-11" title="11"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<img src="bookdown-pou_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> </p>
