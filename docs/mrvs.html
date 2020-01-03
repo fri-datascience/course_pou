@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 Multiple random variables | Principles of Uncertainty – exercises</title>
+  <title>Chapter 5 Multiple random variables | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 Multiple random variables | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 5 Multiple random variables | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 Multiple random variables | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 5 Multiple random variables | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2019-12-16" />
+<meta name="date" content="2019-12-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,26 +53,25 @@
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -81,9 +80,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -133,97 +132,83 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
-<ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
-<ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
-<ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
-<ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
-<ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
-<ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
-<ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
-<ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
-<ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
-<ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="" data-path="appendix-appendix.html"><a href="appendix-appendix.html"><i class="fa fa-check"></i>(APPENDIX) Appendix</a></li>
-<li class="chapter" data-level="13" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>13</b> R programming language</a>
-<ul>
-<li class="chapter" data-level="13.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>13.1</b> Basic characteristics</a></li>
-<li class="chapter" data-level="13.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>13.2</b> Why R?</a></li>
-<li class="chapter" data-level="13.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>13.3</b> Setting up</a>
-<ul>
-<li class="chapter" data-level="13.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>13.3.1</b> RStudio</a></li>
-<li class="chapter" data-level="13.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>13.3.2</b> Libraries for data science</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
+<li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
+<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
+<li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="13.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>13.4</b> R basics</a>
-<ul>
-<li class="chapter" data-level="13.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>13.4.1</b> Variables and types</a></li>
-<li class="chapter" data-level="13.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>13.4.2</b> Basic operations</a></li>
-<li class="chapter" data-level="13.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>13.4.3</b> Vectors</a></li>
-<li class="chapter" data-level="13.4.4" data-path="A1.html"><a href="A1.html#factors"><i class="fa fa-check"></i><b>13.4.4</b> Factors</a></li>
-<li class="chapter" data-level="13.4.5" data-path="A1.html"><a href="A1.html#matrices"><i class="fa fa-check"></i><b>13.4.5</b> Matrices</a></li>
-<li class="chapter" data-level="13.4.6" data-path="A1.html"><a href="A1.html#arrays"><i class="fa fa-check"></i><b>13.4.6</b> Arrays</a></li>
-<li class="chapter" data-level="13.4.7" data-path="A1.html"><a href="A1.html#data-frames"><i class="fa fa-check"></i><b>13.4.7</b> Data frames</a></li>
-<li class="chapter" data-level="13.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>13.4.8</b> Lists</a></li>
-<li class="chapter" data-level="13.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>13.4.9</b> Loops</a></li>
+<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
+<li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
+<li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
+<li class="chapter" data-level="A.4.4" data-path="A1.html"><a href="A1.html#factors"><i class="fa fa-check"></i><b>A.4.4</b> Factors</a></li>
+<li class="chapter" data-level="A.4.5" data-path="A1.html"><a href="A1.html#matrices"><i class="fa fa-check"></i><b>A.4.5</b> Matrices</a></li>
+<li class="chapter" data-level="A.4.6" data-path="A1.html"><a href="A1.html#arrays"><i class="fa fa-check"></i><b>A.4.6</b> Arrays</a></li>
+<li class="chapter" data-level="A.4.7" data-path="A1.html"><a href="A1.html#data-frames"><i class="fa fa-check"></i><b>A.4.7</b> Data frames</a></li>
+<li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
+<li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="13.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>13.5</b> Functions</a>
-<ul>
-<li class="chapter" data-level="13.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>13.5.1</b> Writing functions</a></li>
+<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
 </ul></li>
-<li class="chapter" data-level="13.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>13.6</b> Other tips</a></li>
-<li class="chapter" data-level="13.7" data-path="A1.html"><a href="A1.html#further-reading-and-references"><i class="fa fa-check"></i><b>13.7</b> Further reading and references</a></li>
+<li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
+<li class="chapter" data-level="A.7" data-path="A1.html"><a href="A1.html#further-reading-and-references"><i class="fa fa-check"></i><b>A.7</b> Further reading and references</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>14</b> Probability distributions</a></li>
+<li class="chapter" data-level="B" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>B</b> Probability distributions</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>      
@@ -244,8 +229,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mrvs" class="section level1" number="5">
-<h1 number="5"><span class="header-section-number">5</span> Multiple random variables</h1>
+<div id="mrvs" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Multiple random variables</h1>
 <p>This chapter deals with multiple random variables and their distributions.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
@@ -280,11 +265,11 @@ $(document).ready(function() {
   })
 });
 </script>
-<div id="general" class="section level2" number="5.1">
-<h2 number="5.1"><span class="header-section-number">5.1</span> General</h2>
+<div id="general" class="section level2">
+<h2><span class="header-section-number">5.1</span> General</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-116" class="exercise"><strong>Exercise 49  </strong></span><span style="color:blue">Let <span class="math inline">\(X \sim \text{N}(0,1)\)</span> and <span class="math inline">\(Y \sim \text{N}(0,1)\)</span>
+<p><span id="exr:unnamed-chunk-116" class="exercise"><strong>Exercise 5.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X \sim \text{N}(0,1)\)</span> and <span class="math inline">\(Y \sim \text{N}(0,1)\)</span>
 be independent random
 variables. Draw 1000 samples from <span class="math inline">\((X,Y)\)</span> and plot a scatterplot.
 Now let <span class="math inline">\(X \sim \text{N}(0,1)\)</span> and $Y | X = x N(ax, 1). Draw 1000 samples
@@ -293,38 +278,39 @@ How would you interpret parameter <span class="math inline">\(a\)</span>?
 Plot the marginal distribution of <span class="math inline">\(Y\)</span> for cases <span class="math inline">\(a=1\)</span>, <span class="math inline">\(a=0\)</span>, and <span class="math inline">\(a=-0.5\)</span>.
 Can you guess which distribution it is?</span></p>
 </div>
+
 <div class="fold">
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="mrvs.html#cb84-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb84-2"><a href="mrvs.html#cb84-2"></a>nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb84-3"><a href="mrvs.html#cb84-3"></a>x      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)</span>
-<span id="cb84-4"><a href="mrvs.html#cb84-4"></a>y      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)</span>
-<span id="cb84-5"><a href="mrvs.html#cb84-5"></a><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(x, y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></span>
-<span id="cb84-6"><a href="mrvs.html#cb84-6"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb84-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb84-3" title="3">x      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)</a>
+<a class="sourceLine" id="cb84-4" title="4">y      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps)</a>
+<a class="sourceLine" id="cb84-5" title="5"><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(x, y), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb84-6" title="6"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="mrvs.html#cb85-1"></a>y1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">1</span> <span class="op">*</span><span class="st"> </span>x)</span>
-<span id="cb85-2"><a href="mrvs.html#cb85-2"></a>y2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">0</span> <span class="op">*</span><span class="st"> </span>x)</span>
-<span id="cb85-3"><a href="mrvs.html#cb85-3"></a>y3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="fl">-0.5</span> <span class="op">*</span><span class="st"> </span>x)</span>
-<span id="cb85-4"><a href="mrvs.html#cb85-4"></a>df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(x,x,x),</span>
-<span id="cb85-5"><a href="mrvs.html#cb85-5"></a>             <span class="dt">y =</span> <span class="kw">c</span>(y1,y2,y3),</span>
-<span id="cb85-6"><a href="mrvs.html#cb85-6"></a>             <span class="dt">a =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>, nsamps), <span class="kw">rep</span>(<span class="dv">0</span>, nsamps), <span class="kw">rep</span>(<span class="op">-</span><span class="fl">0.5</span>, nsamps)))</span>
-<span id="cb85-7"><a href="mrvs.html#cb85-7"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></span>
-<span id="cb85-8"><a href="mrvs.html#cb85-8"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb85-9"><a href="mrvs.html#cb85-9"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a) <span class="op">+</span></span>
-<span id="cb85-10"><a href="mrvs.html#cb85-10"></a><span class="st">  </span><span class="kw">coord_equal</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1">y1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">1</span> <span class="op">*</span><span class="st"> </span>x)</a>
+<a class="sourceLine" id="cb85-2" title="2">y2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="dv">0</span> <span class="op">*</span><span class="st"> </span>x)</a>
+<a class="sourceLine" id="cb85-3" title="3">y3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dt">mean =</span> <span class="fl">-0.5</span> <span class="op">*</span><span class="st"> </span>x)</a>
+<a class="sourceLine" id="cb85-4" title="4">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(x,x,x),</a>
+<a class="sourceLine" id="cb85-5" title="5">             <span class="dt">y =</span> <span class="kw">c</span>(y1,y2,y3),</a>
+<a class="sourceLine" id="cb85-6" title="6">             <span class="dt">a =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>, nsamps), <span class="kw">rep</span>(<span class="dv">0</span>, nsamps), <span class="kw">rep</span>(<span class="op">-</span><span class="fl">0.5</span>, nsamps)))</a>
+<a class="sourceLine" id="cb85-7" title="7"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb85-8" title="8"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb85-9" title="9"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a) <span class="op">+</span></a>
+<a class="sourceLine" id="cb85-10" title="10"><span class="st">  </span><span class="kw">coord_equal</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-2.png" width="672" /></p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="mrvs.html#cb86-1"></a><span class="co"># Parameter a controls the scale of linear dependency between X and Y.</span></span>
-<span id="cb86-2"><a href="mrvs.html#cb86-2"></a></span>
-<span id="cb86-3"><a href="mrvs.html#cb86-3"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span></span>
-<span id="cb86-4"><a href="mrvs.html#cb86-4"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></span>
-<span id="cb86-5"><a href="mrvs.html#cb86-5"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1"><span class="co"># Parameter a controls the scale of linear dependency between X and Y.</span></a>
+<a class="sourceLine" id="cb86-2" title="2"></a>
+<a class="sourceLine" id="cb86-3" title="3"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb86-4" title="4"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb86-5" title="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>a)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-117-3.png" width="672" /></p>
 </div>
 </div>
-<div id="bivariate-distribution-examples" class="section level2" number="5.2">
-<h2 number="5.2"><span class="header-section-number">5.2</span> Bivariate distribution examples</h2>
+<div id="bivariate-distribution-examples" class="section level2">
+<h2><span class="header-section-number">5.2</span> Bivariate distribution examples</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-118" class="exercise"><strong>Exercise 50  (Discrete bivariate random variable)  </strong></span>Let <span class="math inline">\(X\)</span> represent the event that a die rolls an even number and let <span class="math inline">\(Y\)</span>
+<p><span id="exr:unnamed-chunk-118" class="exercise"><strong>Exercise 5.2  (Discrete bivariate random variable)  </strong></span>Let <span class="math inline">\(X\)</span> represent the event that a die rolls an even number and let <span class="math inline">\(Y\)</span>
 represent the event that
 a die rolls one, two, or a three.</p>
 <ol style="list-style-type: lower-alpha">
@@ -334,6 +320,7 @@ a die rolls one, two, or a three.</p>
 <li><p>Find <span class="math inline">\(P(X = 1 | Y = 1)\)</span>.</p></li>
 </ol>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -364,7 +351,7 @@ P(X = 1 | Y = 1) = \frac{1}{3}
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-120" class="exercise"><strong>Exercise 51  (Continuous bivariate random variable)  </strong></span>Let <span class="math inline">\(p(x,y) = 6 (x - y)^2\)</span> be the PDF of a bivariate random
+<p><span id="exr:unnamed-chunk-120" class="exercise"><strong>Exercise 5.3  (Continuous bivariate random variable)  </strong></span>Let <span class="math inline">\(p(x,y) = 6 (x - y)^2\)</span> be the PDF of a bivariate random
 variable <span class="math inline">\((X,Y)\)</span>, where both variables range from zero to one.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Find CDF.</p></li>
@@ -412,55 +399,55 @@ the conditional distributions of <span class="math inline">\(X | Y = y\)</span>,
   \end{align}\]</span></p></li>
 </ol>
 </div>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="mrvs.html#cb87-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb87-2"><a href="mrvs.html#cb87-2"></a></span>
-<span id="cb87-3"><a href="mrvs.html#cb87-3"></a><span class="co"># d</span></span>
-<span id="cb87-4"><a href="mrvs.html#cb87-4"></a>pxy    &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {</span>
-<span id="cb87-5"><a href="mrvs.html#cb87-5"></a>  <span class="kw">return</span> ((x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb87-6"><a href="mrvs.html#cb87-6"></a>}</span>
-<span id="cb87-7"><a href="mrvs.html#cb87-7"></a>x_axis       &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)</span>
-<span id="cb87-8"><a href="mrvs.html#cb87-8"></a>y_axis       &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)</span>
-<span id="cb87-9"><a href="mrvs.html#cb87-9"></a>df           &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(x_axis, y_axis)</span>
-<span id="cb87-10"><a href="mrvs.html#cb87-10"></a><span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)</span>
-<span id="cb87-11"><a href="mrvs.html#cb87-11"></a>df           &lt;-<span class="st"> </span><span class="kw">cbind</span>(df, <span class="dt">pdf =</span> <span class="kw">pxy</span>(df<span class="op">$</span>x, df<span class="op">$</span>y))</span>
-<span id="cb87-12"><a href="mrvs.html#cb87-12"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> pdf)) <span class="op">+</span></span>
-<span id="cb87-13"><a href="mrvs.html#cb87-13"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb87-2" title="2"></a>
+<a class="sourceLine" id="cb87-3" title="3"><span class="co"># d</span></a>
+<a class="sourceLine" id="cb87-4" title="4">pxy    &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {</a>
+<a class="sourceLine" id="cb87-5" title="5">  <span class="kw">return</span> ((x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb87-6" title="6">}</a>
+<a class="sourceLine" id="cb87-7" title="7">x_axis       &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb87-8" title="8">y_axis       &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb87-9" title="9">df           &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(x_axis, y_axis)</a>
+<a class="sourceLine" id="cb87-10" title="10"><span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)</a>
+<a class="sourceLine" id="cb87-11" title="11">df           &lt;-<span class="st"> </span><span class="kw">cbind</span>(df, <span class="dt">pdf =</span> <span class="kw">pxy</span>(df<span class="op">$</span>x, df<span class="op">$</span>y))</a>
+<a class="sourceLine" id="cb87-12" title="12"><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> pdf)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb87-13" title="13"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="mrvs.html#cb88-1"></a><span class="co"># e</span></span>
-<span id="cb88-2"><a href="mrvs.html#cb88-2"></a>samps &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb88-3"><a href="mrvs.html#cb88-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>) {</span>
-<span id="cb88-4"><a href="mrvs.html#cb88-4"></a>  xt &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb88-5"><a href="mrvs.html#cb88-5"></a>  yt &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb88-6"><a href="mrvs.html#cb88-6"></a>  pdft &lt;-<span class="st"> </span><span class="kw">pxy</span>(xt, yt)</span>
-<span id="cb88-7"><a href="mrvs.html#cb88-7"></a>  acc  &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">6</span>)</span>
-<span id="cb88-8"><a href="mrvs.html#cb88-8"></a>  <span class="cf">if</span> (acc <span class="op">&lt;=</span><span class="st"> </span>pdft) {</span>
-<span id="cb88-9"><a href="mrvs.html#cb88-9"></a>    samps &lt;-<span class="st"> </span><span class="kw">rbind</span>(samps, <span class="kw">c</span>(xt, yt))</span>
-<span id="cb88-10"><a href="mrvs.html#cb88-10"></a>  }</span>
-<span id="cb88-11"><a href="mrvs.html#cb88-11"></a>}</span>
-<span id="cb88-12"><a href="mrvs.html#cb88-12"></a><span class="kw">colnames</span>(samps) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)</span>
-<span id="cb88-13"><a href="mrvs.html#cb88-13"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">as.data.frame</span>(samps), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></span>
-<span id="cb88-14"><a href="mrvs.html#cb88-14"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1"><span class="co"># e</span></a>
+<a class="sourceLine" id="cb88-2" title="2">samps &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb88-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>) {</a>
+<a class="sourceLine" id="cb88-4" title="4">  xt &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb88-5" title="5">  yt &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb88-6" title="6">  pdft &lt;-<span class="st"> </span><span class="kw">pxy</span>(xt, yt)</a>
+<a class="sourceLine" id="cb88-7" title="7">  acc  &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb88-8" title="8">  <span class="cf">if</span> (acc <span class="op">&lt;=</span><span class="st"> </span>pdft) {</a>
+<a class="sourceLine" id="cb88-9" title="9">    samps &lt;-<span class="st"> </span><span class="kw">rbind</span>(samps, <span class="kw">c</span>(xt, yt))</a>
+<a class="sourceLine" id="cb88-10" title="10">  }</a>
+<a class="sourceLine" id="cb88-11" title="11">}</a>
+<a class="sourceLine" id="cb88-12" title="12"><span class="kw">colnames</span>(samps) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)</a>
+<a class="sourceLine" id="cb88-13" title="13"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">as.data.frame</span>(samps), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb88-14" title="14"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-2.png" width="672" /></p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="mrvs.html#cb89-1"></a><span class="co"># f</span></span>
-<span id="cb89-2"><a href="mrvs.html#cb89-2"></a>mar_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x) {</span>
-<span id="cb89-3"><a href="mrvs.html#cb89-3"></a>  <span class="kw">return</span> (<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)</span>
-<span id="cb89-4"><a href="mrvs.html#cb89-4"></a>}</span>
-<span id="cb89-5"><a href="mrvs.html#cb89-5"></a>cond_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {</span>
-<span id="cb89-6"><a href="mrvs.html#cb89-6"></a>  <span class="kw">return</span> (((x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(y<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>y <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))</span>
-<span id="cb89-7"><a href="mrvs.html#cb89-7"></a>}</span>
-<span id="cb89-8"><a href="mrvs.html#cb89-8"></a>df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x    =</span> x_axis, </span>
-<span id="cb89-9"><a href="mrvs.html#cb89-9"></a>             <span class="dt">mar  =</span> <span class="kw">mar_pdf</span>(x), </span>
-<span id="cb89-10"><a href="mrvs.html#cb89-10"></a>             <span class="dt">y0   =</span> <span class="kw">cond_pdf</span>(x, <span class="dv">0</span>), </span>
-<span id="cb89-11"><a href="mrvs.html#cb89-11"></a>             <span class="dt">y0.1 =</span> <span class="kw">cond_pdf</span>(x, <span class="fl">0.1</span>), </span>
-<span id="cb89-12"><a href="mrvs.html#cb89-12"></a>             <span class="dt">y0.5 =</span> <span class="kw">cond_pdf</span>(x, <span class="fl">0.5</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb89-13"><a href="mrvs.html#cb89-13"></a><span class="st">  </span><span class="kw">gather</span>(dist, value, <span class="op">-</span>x)</span>
-<span id="cb89-14"><a href="mrvs.html#cb89-14"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value, <span class="dt">color =</span> dist)) <span class="op">+</span></span>
-<span id="cb89-15"><a href="mrvs.html#cb89-15"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="co"># f</span></a>
+<a class="sourceLine" id="cb89-2" title="2">mar_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x) {</a>
+<a class="sourceLine" id="cb89-3" title="3">  <span class="kw">return</span> (<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb89-4" title="4">}</a>
+<a class="sourceLine" id="cb89-5" title="5">cond_pdf &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {</a>
+<a class="sourceLine" id="cb89-6" title="6">  <span class="kw">return</span> (((x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(y<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span>y <span class="op">+</span><span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb89-7" title="7">}</a>
+<a class="sourceLine" id="cb89-8" title="8">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x    =</span> x_axis, </a>
+<a class="sourceLine" id="cb89-9" title="9">             <span class="dt">mar  =</span> <span class="kw">mar_pdf</span>(x), </a>
+<a class="sourceLine" id="cb89-10" title="10">             <span class="dt">y0   =</span> <span class="kw">cond_pdf</span>(x, <span class="dv">0</span>), </a>
+<a class="sourceLine" id="cb89-11" title="11">             <span class="dt">y0.1 =</span> <span class="kw">cond_pdf</span>(x, <span class="fl">0.1</span>), </a>
+<a class="sourceLine" id="cb89-12" title="12">             <span class="dt">y0.5 =</span> <span class="kw">cond_pdf</span>(x, <span class="fl">0.5</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb89-13" title="13"><span class="st">  </span><span class="kw">gather</span>(dist, value, <span class="op">-</span>x)</a>
+<a class="sourceLine" id="cb89-14" title="14"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value, <span class="dt">color =</span> dist)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb89-15" title="15"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-122-3.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-123" class="exercise"><strong>Exercise 52  (Mixed bivariate random variable)  </strong></span>Let <span class="math inline">\(f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}\)</span>
+<p><span id="exr:unnamed-chunk-123" class="exercise"><strong>Exercise 5.4  (Mixed bivariate random variable)  </strong></span>Let <span class="math inline">\(f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}\)</span>
 be the PDF of a bivariate random variable, where <span class="math inline">\(x \in (0, \infty)\)</span> and
 <span class="math inline">\(y \in \mathbb{N}_0\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
@@ -476,6 +463,7 @@ of <span class="math inline">\(Y\)</span>, and the theoretical PMF calculated fr
 Hint: Use the <strong>gamma</strong> function in R.?</span></p></li>
 </ol>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -508,27 +496,28 @@ which then integrates to one.
 We do not recognize this distribution.</p></li>
 </ol>
 </div>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="mrvs.html#cb90-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb90-2"><a href="mrvs.html#cb90-2"></a>px &lt;-<span class="st"> </span><span class="cf">function</span> (x, alpha, beta) {</span>
-<span id="cb90-3"><a href="mrvs.html#cb90-3"></a>  <span class="kw">return</span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">factorial</span>(x)) <span class="op">*</span><span class="st"> </span>(beta<span class="op">^</span>alpha <span class="op">/</span><span class="st"> </span><span class="kw">gamma</span>(alpha)) <span class="op">*</span><span class="st"> </span></span>
-<span id="cb90-4"><a href="mrvs.html#cb90-4"></a><span class="st">           </span>(<span class="kw">gamma</span>(x <span class="op">+</span><span class="st"> </span>alpha) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>beta)<span class="op">^</span>(x <span class="op">+</span><span class="st"> </span>alpha)))</span>
-<span id="cb90-5"><a href="mrvs.html#cb90-5"></a>}</span>
-<span id="cb90-6"><a href="mrvs.html#cb90-6"></a>nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb90-7"><a href="mrvs.html#cb90-7"></a>rx     &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsamps, <span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb90-8"><a href="mrvs.html#cb90-8"></a>ryx    &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, rx)</span>
-<span id="cb90-9"><a href="mrvs.html#cb90-9"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb90-2" title="2">px &lt;-<span class="st"> </span><span class="cf">function</span> (x, alpha, beta) {</a>
+<a class="sourceLine" id="cb90-3" title="3">  <span class="kw">return</span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">factorial</span>(x)) <span class="op">*</span><span class="st"> </span>(beta<span class="op">^</span>alpha <span class="op">/</span><span class="st"> </span><span class="kw">gamma</span>(alpha)) <span class="op">*</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb90-4" title="4"><span class="st">           </span>(<span class="kw">gamma</span>(x <span class="op">+</span><span class="st"> </span>alpha) <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>beta)<span class="op">^</span>(x <span class="op">+</span><span class="st"> </span>alpha)))</a>
+<a class="sourceLine" id="cb90-5" title="5">}</a>
+<a class="sourceLine" id="cb90-6" title="6">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb90-7" title="7">rx     &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nsamps, <span class="dv">1</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb90-8" title="8">ryx    &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, rx)</a>
+<a class="sourceLine" id="cb90-9" title="9"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="mrvs.html#cb91-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb91-2"><a href="mrvs.html#cb91-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span></span>
-<span id="cb91-3"><a href="mrvs.html#cb91-3"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> px, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">beta =</span> <span class="dv">1</span>), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> rx, <span class="dt">y =</span> ryx), <span class="kw">aes</span>(<span class="dt">x =</span> y)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb91-2" title="2"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">y =</span> (..count..)<span class="op">/</span><span class="kw">sum</span>(..count..))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb91-3" title="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> px, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">beta =</span> <span class="dv">1</span>), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-125-2.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-126" class="exercise"><strong>Exercise 53  </strong></span>Let <span class="math inline">\(f(x,y) = cx^2y\)</span> for <span class="math inline">\(x^2 \leq y \leq 1\)</span> and zero otherwise.
+<span id="exr:unnamed-chunk-126" class="exercise"><strong>Exercise 5.5  </strong></span>Let <span class="math inline">\(f(x,y) = cx^2y\)</span> for <span class="math inline">\(x^2 \leq y \leq 1\)</span> and zero otherwise.
 Find such <span class="math inline">\(c\)</span> that <span class="math inline">\(f\)</span> is a PDF of a bivariate random
 variable. This exercise is borrowed from Wasserman.
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -544,14 +533,15 @@ It follows <span class="math inline">\(c = \frac{21}{4}\)</span>.
 </div>
 </div>
 </div>
-<div id="transformations-1" class="section level2" number="5.3">
-<h2 number="5.3"><span class="header-section-number">5.3</span> Transformations</h2>
+<div id="transformations-1" class="section level2">
+<h2><span class="header-section-number">5.3</span> Transformations</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-128" class="exercise"><strong>Exercise 54  </strong></span>Let <span class="math inline">\((X,Y)\)</span> be uniformly distributed on the unit ball
+<p><span id="exr:unnamed-chunk-128" class="exercise"><strong>Exercise 5.6  </strong></span>Let <span class="math inline">\((X,Y)\)</span> be uniformly distributed on the unit ball
 <span class="math inline">\(\{(x,y,z) : x^2 + y^2 + z^2 \leq 1\}\)</span>. Let <span class="math inline">\(R = \sqrt{X^2 + Y^2 + Z^2}\)</span>.
 Find the CDF and PDF of <span class="math inline">\(R\)</span>.</p>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -592,6 +582,7 @@ the CDF, so <span class="math inline">\(p(r) = 3r^2\)</span>.</p>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": true,
 "twitter": true,
 "linkedin": false,
@@ -610,6 +601,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
