@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2019-12-29" />
+<meta name="date" content="2020-01-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -190,7 +190,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
 <li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
 <li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
-<li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.2</b> The German tank problem</a></li>
+<li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fischer-information"><i class="fa fa-check"></i><b>15.2</b> Fischer information</a></li>
+<li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
@@ -606,11 +607,73 @@ Equating above with zero, we get
 ## 1500  0.1868704 -0.007310045  0.45688227 -0.24311846</code></pre>
 </div>
 </div>
-<div id="the-german-tank-problem" class="section level2">
-<h2><span class="header-section-number">15.2</span> The German tank problem</h2>
+<div id="fischer-information" class="section level2">
+<h2><span class="header-section-number">15.2</span> Fischer information</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-16" class="exercise"><strong>Exercise 15.6  (The German tank problem)  </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
+<p><span id="exr:unnamed-chunk-16" class="exercise"><strong>Exercise 15.6  </strong></span>Let us assume a Poisson likelihood.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Derive the MLE estimate of the mean.</p></li>
+<li><p>Derive the Fischer information.</p></li>
+<li><p>For the data below compute the MLE and construct confidence intervals.</p></li>
+<li><p>Use bootstrap to construct the CI for the mean. Compare with c) and discuss.</p>
+</div></li>
+</ol>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)</a></code></pre></div>
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> 
+a. The log likelihood of the Poisson is
+<span class="math display">\[\begin{align*}
+  l(\lambda; x) = \sum_{i=1}^n x_i \ln \lambda - n \lambda - \sum_{i=1}^n \ln x_i!
+\end{align*}\]</span>
+Taking the derivative and equating with 0 we get
+<span class="math display">\[\begin{align*}
+  \frac{1}{\lambda}\sum_{i=1}^n x_i - n &amp;= 0 \\
+  \lambda &amp;= \frac{1}{n} \sum_{i=1}^n x_i.
+\end{align*}\]</span>
+Since <span class="math inline">\(\lambda\)</span> is the mean parameter, this was expected.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>For the Fischer information, we first need the second derivative, which is
+\begin{align*}</li>
+</ol>
+<ul>
+<li>^{-2} _{i=1}^n x_i. \
+\end{align*}
+Now taking the expectation of the negative of the above, we get
+<span class="math display">\[\begin{align*}
+  E[\lambda^{-2} \sum_{i=1}^n x_i] &amp;= \lambda^{-2} E[\sum_{i=1}^n x_i] \\
+  &amp;= \lambda^{-2} n \lambda \\
+  &amp;= \frac{n}{\lambda}.
+\end{align*}\]</span></li>
+</ul>
+</div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1">x          &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb32-2" title="2">lambda_hat &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</a>
+<a class="sourceLine" id="cb32-3" title="3">finfo      &lt;-<span class="st"> </span><span class="kw">length</span>(x) <span class="op">/</span><span class="st"> </span>lambda_hat</a>
+<a class="sourceLine" id="cb32-4" title="4">mle_CI     &lt;-<span class="st"> </span><span class="kw">c</span>(lambda_hat <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>finfo),</a>
+<a class="sourceLine" id="cb32-5" title="5">                lambda_hat <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>finfo))</a>
+<a class="sourceLine" id="cb32-6" title="6">boot_lambda &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb32-7" title="7">nboot       &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb32-8" title="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nboot) {</a>
+<a class="sourceLine" id="cb32-9" title="9">  tmp_x          &lt;-<span class="st"> </span><span class="kw">sample</span>(x, <span class="kw">length</span>(x), <span class="dt">replace =</span> T)</a>
+<a class="sourceLine" id="cb32-10" title="10">  boot_lambda[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(tmp_x)</a>
+<a class="sourceLine" id="cb32-11" title="11">}</a>
+<a class="sourceLine" id="cb32-12" title="12">boot_CI &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">quantile</span>(boot_lambda, <span class="fl">0.025</span>),</a>
+<a class="sourceLine" id="cb32-13" title="13">             <span class="kw">quantile</span>(boot_lambda, <span class="fl">0.975</span>))</a>
+<a class="sourceLine" id="cb32-14" title="14">mle_CI</a></code></pre></div>
+<pre><code>## [1] 1.045656 2.754344</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1">boot_CI</a></code></pre></div>
+<pre><code>##   2.5%  97.5% 
+## 0.9000 2.7525</code></pre>
+</div>
+</div>
+<div id="the-german-tank-problem" class="section level2">
+<h2><span class="header-section-number">15.3</span> The German tank problem</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-20" class="exercise"><strong>Exercise 15.7  (The German tank problem)  </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
 <ol style="list-style-type: lower-alpha">
 <li>What assumptions were made by using the above model? Do you think they are reasonable assumptions in practice?</li>
 <li>Show that the plug-in estimate for the maximum (i.e. the maximum of the sample) is a biased estimator.</li>
@@ -628,18 +691,18 @@ Equating above with zero, we get
 <li><p>The probability that we observed our sample <span class="math inline">\(Y = {Y_1, Y_2,...,,Y_k}\)</span> given <span class="math inline">\(n\)</span> is <span class="math inline">\(\frac{1}{{n}\choose{k}}\)</span>. We need to find such <span class="math inline">\(n^*\)</span> that this function is maximized. Additionally, we have a constraint that <span class="math inline">\(n^* \geq m = \max{(Y)}\)</span>. Let us plot this function for <span class="math inline">\(m = 10\)</span> and <span class="math inline">\(k = 4\)</span>.</p>
 </div></li>
 </ol>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb31-2" title="2">my_fun &lt;-<span class="st"> </span><span class="cf">function</span> (x, m, k) {</a>
-<a class="sourceLine" id="cb31-3" title="3">  tmp        &lt;-<span class="st">  </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="kw">choose</span>(x, k))</a>
-<a class="sourceLine" id="cb31-4" title="4">  tmp[x <span class="op">&lt;</span><span class="st"> </span>m] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb31-5" title="5">  <span class="kw">return</span> (tmp)</a>
-<a class="sourceLine" id="cb31-6" title="6">}</a>
-<a class="sourceLine" id="cb31-7" title="7">x  &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span></a>
-<a class="sourceLine" id="cb31-8" title="8">y  &lt;-<span class="st"> </span><span class="kw">my_fun</span>(x, <span class="dv">10</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb31-9" title="9">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)</a>
-<a class="sourceLine" id="cb31-10" title="10"><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb31-11" title="11"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
-<img src="bookdown-pou_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb36-2" title="2">my_fun &lt;-<span class="st"> </span><span class="cf">function</span> (x, m, k) {</a>
+<a class="sourceLine" id="cb36-3" title="3">  tmp        &lt;-<span class="st">  </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="kw">choose</span>(x, k))</a>
+<a class="sourceLine" id="cb36-4" title="4">  tmp[x <span class="op">&lt;</span><span class="st"> </span>m] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb36-5" title="5">  <span class="kw">return</span> (tmp)</a>
+<a class="sourceLine" id="cb36-6" title="6">}</a>
+<a class="sourceLine" id="cb36-7" title="7">x  &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb36-8" title="8">y  &lt;-<span class="st"> </span><span class="kw">my_fun</span>(x, <span class="dv">10</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb36-9" title="9">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)</a>
+<a class="sourceLine" id="cb36-10" title="10"><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb36-11" title="11"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<img src="bookdown-pou_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 <div class="solution">
 <p> <span class="solution"><em>Solution. </em></span> </p>

@@ -344,6 +344,69 @@ my_pca$rotation
 ```
 </div>
 
+
+## Fischer information
+```{exercise}
+Let us assume a Poisson likelihood.
+
+a. Derive the MLE estimate of the mean.
+
+b. Derive the Fischer information.
+
+c. For the data below compute the MLE and construct confidence intervals.
+
+d. Use bootstrap to construct the CI for the mean. Compare with c) and discuss.
+```
+```{r, message = FALSE, warning=FALSE}
+x <- c(2, 5, 3, 1, 2, 1, 0, 3, 0, 2)
+
+```
+<div class="fold">
+```{solution, echo = togs}
+
+a. The log likelihood of the Poisson is
+\begin{align*}
+  l(\lambda; x) = \sum_{i=1}^n x_i \ln \lambda - n \lambda - \sum_{i=1}^n \ln x_i!
+\end{align*}
+Taking the derivative and equating with 0 we get
+\begin{align*}
+  \frac{1}{\lambda}\sum_{i=1}^n x_i - n &= 0 \\
+  \lambda &= \frac{1}{n} \sum_{i=1}^n x_i.
+\end{align*}
+Since $\lambda$ is the mean parameter, this was expected.
+
+b. For the Fischer information, we first need the second derivative, which is
+\begin{align*}
+  - \lambda^{-2} \sum_{i=1}^n x_i. \\
+\end{align*}
+Now taking the expectation of the negative of the above, we get
+\begin{align*}
+  E[\lambda^{-2} \sum_{i=1}^n x_i] &= \lambda^{-2} E[\sum_{i=1}^n x_i] \\
+  &= \lambda^{-2} n \lambda \\
+  &= \frac{n}{\lambda}.
+\end{align*}
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE}
+set.seed(1)
+x          <- c(2, 5, 3, 1, 2, 1, 0, 3, 0, 2)
+lambda_hat <- mean(x)
+finfo      <- length(x) / lambda_hat
+mle_CI     <- c(lambda_hat - 1.96 * sqrt(1 / finfo),
+                lambda_hat + 1.96 * sqrt(1 / finfo))
+boot_lambda <- c()
+nboot       <- 1000
+for (i in 1:nboot) {
+  tmp_x          <- sample(x, length(x), replace = T)
+  boot_lambda[i] <- mean(tmp_x)
+}
+boot_CI <- c(quantile(boot_lambda, 0.025),
+             quantile(boot_lambda, 0.975))
+mle_CI
+boot_CI
+```
+</div>
+
 ## The German tank problem
 ```{exercise, name = "The German tank problem"}
 During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).
