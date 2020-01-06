@@ -53,7 +53,7 @@ d. For $n = 100$ repeat the process $m = 20$ times and plot every $F_n^{(m)}$. T
 
 ```
 <div class = "fold">
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, eval = togs, message = FALSE, warning=FALSE}
 library(ggplot2)
 set.seed(1)
 ggplot(data = data.frame(x = seq(-5, 5, by = 0.01))) +

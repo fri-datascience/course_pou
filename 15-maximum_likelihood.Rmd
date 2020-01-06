@@ -137,7 +137,7 @@ Equating above with zero, we get
 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
 set.seed(1)
 n     <- 40
 mu    <- c(1, -2)
@@ -201,7 +201,7 @@ y2 <- rbinom(100, size = 1, prob = inv_log(1.2 * x + 1.4 * x^2))
 \end{align*}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
 set.seed(1)
 inv_log <- function (z) {
   return (1 / (1 + exp(-z)))
@@ -269,7 +269,7 @@ y <- as.vector(t(beta %*% t(X))) + rnorm(n, sd = 0.2)
 
 ```
 <div class="fold">
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
 
 set.seed(1)
 n <- 100
@@ -331,7 +331,7 @@ c. Decompose the estimated covariance matrix with the eigendecomposition. Compar
 
 ```
 <div class="fold">
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
 data(olympic)
 
 X        <- olympic$tab
@@ -394,7 +394,7 @@ Now taking the expectation of the negative of the above, we get
 \end{align*}
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
 set.seed(1)
 x          <- c(2, 5, 3, 1, 2, 1, 0, 3, 0, 2)
 lambda_hat <- mean(x)
@@ -462,7 +462,7 @@ I(\alpha, \beta) =
 c. A non-diagonal Fisher matrix implies that the parameter estimates are linearly dependent. 
 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
 set.seed(1)
 n  <- 20
 mu <- c(5, 2)
@@ -510,7 +510,7 @@ a. One of the assumptions is that we have i.i.d samples, however in practice thi
 
 c. The probability that we observed our sample $Y = {Y_1, Y_2,...,,Y_k}$ given $n$ is $\frac{1}{{n}\choose{k}}$. We need to find such $n^*$ that this function is maximized. Additionally, we have a constraint that $n^* \geq m = \max{(Y)}$. Let us plot this function for $m = 10$ and $k = 4$. 
 ```
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
 library(ggplot2)
 my_fun <- function (x, m, k) {
   tmp        <-  1 / (choose(x, k))

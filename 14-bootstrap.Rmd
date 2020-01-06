@@ -51,7 +51,7 @@ d. Repeat (b) and (c) using BCa intervals (R package boot). How does the coverag
 
 ```
 <div class = "fold">
-```{r, echo = togs, message = FALSE, warning=FALSE}
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
 library(boot)
 set.seed(1)
 nit   <- 1000

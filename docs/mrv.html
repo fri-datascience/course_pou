@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Multivariate random variables | Principles of Uncertainty – exercises</title>
+  <title>8 Multivariate random variables | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Multivariate random variables | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="8 Multivariate random variables | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Multivariate random variables | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="8 Multivariate random variables | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-01-05" />
+<meta name="date" content="2020-01-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,25 +53,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -132,93 +133,109 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
 <li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
-<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
 <li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fisher-information"><i class="fa fa-check"></i><b>15.2</b> Fisher information</a></li>
 <li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
 </ul></li>
-<li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
-<li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
-<li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
-<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
-<li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
-<li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
+<li class="chapter" data-level="" data-path="appendix-appendix.html"><a href="appendix-appendix.html"><i class="fa fa-check"></i>(APPENDIX) Appendix</a></li>
+<li class="chapter" data-level="16" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>16</b> R programming language</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>16.1</b> Basic characteristics</a></li>
+<li class="chapter" data-level="16.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>16.2</b> Why R?</a></li>
+<li class="chapter" data-level="16.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>16.3</b> Setting up</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>16.3.1</b> RStudio</a></li>
+<li class="chapter" data-level="16.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>16.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
-<li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
-<li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
-<li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
-<li class="chapter" data-level="A.4.4" data-path="A1.html"><a href="A1.html#factors"><i class="fa fa-check"></i><b>A.4.4</b> Factors</a></li>
-<li class="chapter" data-level="A.4.5" data-path="A1.html"><a href="A1.html#matrices"><i class="fa fa-check"></i><b>A.4.5</b> Matrices</a></li>
-<li class="chapter" data-level="A.4.6" data-path="A1.html"><a href="A1.html#arrays"><i class="fa fa-check"></i><b>A.4.6</b> Arrays</a></li>
-<li class="chapter" data-level="A.4.7" data-path="A1.html"><a href="A1.html#data-frames"><i class="fa fa-check"></i><b>A.4.7</b> Data frames</a></li>
-<li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
-<li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
+<li class="chapter" data-level="16.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>16.4</b> R basics</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>16.4.1</b> Variables and types</a></li>
+<li class="chapter" data-level="16.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>16.4.2</b> Basic operations</a></li>
+<li class="chapter" data-level="16.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>16.4.3</b> Vectors</a></li>
+<li class="chapter" data-level="16.4.4" data-path="A1.html"><a href="A1.html#factors"><i class="fa fa-check"></i><b>16.4.4</b> Factors</a></li>
+<li class="chapter" data-level="16.4.5" data-path="A1.html"><a href="A1.html#matrices"><i class="fa fa-check"></i><b>16.4.5</b> Matrices</a></li>
+<li class="chapter" data-level="16.4.6" data-path="A1.html"><a href="A1.html#arrays"><i class="fa fa-check"></i><b>16.4.6</b> Arrays</a></li>
+<li class="chapter" data-level="16.4.7" data-path="A1.html"><a href="A1.html#data-frames"><i class="fa fa-check"></i><b>16.4.7</b> Data frames</a></li>
+<li class="chapter" data-level="16.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>16.4.8</b> Lists</a></li>
+<li class="chapter" data-level="16.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>16.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
-<li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
+<li class="chapter" data-level="16.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>16.5</b> Functions</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>16.5.1</b> Writing functions</a></li>
 </ul></li>
-<li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
-<li class="chapter" data-level="A.7" data-path="A1.html"><a href="A1.html#further-reading-and-references"><i class="fa fa-check"></i><b>A.7</b> Further reading and references</a></li>
+<li class="chapter" data-level="16.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>16.6</b> Other tips</a></li>
+<li class="chapter" data-level="16.7" data-path="A1.html"><a href="A1.html#further-reading-and-references"><i class="fa fa-check"></i><b>16.7</b> Further reading and references</a></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>B</b> Probability distributions</a></li>
+<li class="chapter" data-level="17" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>17</b> Probability distributions</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>      
@@ -239,8 +256,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mrv" class="section level1">
-<h1><span class="header-section-number">Chapter 8</span> Multivariate random variables</h1>
+<div id="mrv" class="section level1" number="8">
+<h1 number="8"><span class="header-section-number">8</span> Multivariate random variables</h1>
 <p>This chapter deals with multivariate random variables.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
@@ -278,11 +295,11 @@ $(document).ready(function() {
   })
 });
 </script>
-<div id="multinomial-random-variables" class="section level2">
-<h2><span class="header-section-number">8.1</span> Multinomial random variables</h2>
+<div id="multinomial-random-variables" class="section level2" number="8.1">
+<h2 number="8.1"><span class="header-section-number">8.1</span> Multinomial random variables</h2>
 
 <div class="exercise">
-<p><span id="exr:mnompdf" class="exercise"><strong>Exercise 8.1  </strong></span>Let <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i = 1,...,k\)</span> represent <span class="math inline">\(k\)</span> events, and <span class="math inline">\(p_i\)</span> the probabilities
+<p><span id="exr:mnompdf" class="exercise"><strong>Exercise 72  </strong></span>Let <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i = 1,...,k\)</span> represent <span class="math inline">\(k\)</span> events, and <span class="math inline">\(p_i\)</span> the probabilities
 of these events happening in a trial. Let <span class="math inline">\(n\)</span> be the number of trials, and
 <span class="math inline">\(X\)</span> a multivariate random variable, the collection of <span class="math inline">\(X_i\)</span>.
 Then <span class="math inline">\(p(x) = \frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}\)</span>
@@ -295,7 +312,6 @@ four binomial distributions with the same parameters. Inspect the results
 visually.</p></li>
 </ol>
 </div>
-
 <div class="fold">
 
 <div class="solution">
@@ -314,31 +330,30 @@ the binomial PMF. Interested students are encouraged to prove this
 mathematically.
 </div></li>
 </ol>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb136-2" title="2">nsamps      &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb136-3" title="3">samps_mult  &lt;-<span class="st"> </span><span class="kw">rmultinom</span>(nsamps, <span class="dv">4</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>))</a>
-<a class="sourceLine" id="cb136-4" title="4">samps_mult  &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(<span class="kw">t</span>(samps_mult)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb136-5" title="5"><span class="st">  </span><span class="kw">gather</span>()</a>
-<a class="sourceLine" id="cb136-6" title="6">samps       &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb136-7" title="7">  <span class="dt">V1 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.2</span>),</a>
-<a class="sourceLine" id="cb136-8" title="8">  <span class="dt">V2 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.2</span>),</a>
-<a class="sourceLine" id="cb136-9" title="9">  <span class="dt">V3 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.5</span>),</a>
-<a class="sourceLine" id="cb136-10" title="10">  <span class="dt">V4 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb136-11" title="11">) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb136-12" title="12"><span class="st">  </span><span class="kw">gather</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb136-13" title="13"><span class="st">  </span><span class="kw">bind_rows</span>(samps_mult) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb136-14" title="14"><span class="st">  </span><span class="kw">bind_cols</span>(<span class="st">&quot;dist&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;binomial&quot;</span>, <span class="dv">4</span><span class="op">*</span>nsamps), <span class="kw">rep</span>(<span class="st">&quot;multinomial&quot;</span>, <span class="dv">4</span><span class="op">*</span>nsamps)))</a>
-<a class="sourceLine" id="cb136-15" title="15"></a>
-<a class="sourceLine" id="cb136-16" title="16"><span class="kw">ggplot</span>(samps, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> dist)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb136-17" title="17"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb136-18" title="18"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>key)</a></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="mrv.html#cb136-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb136-2"><a href="mrv.html#cb136-2"></a>nsamps      &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb136-3"><a href="mrv.html#cb136-3"></a>samps_mult  &lt;-<span class="st"> </span><span class="kw">rmultinom</span>(nsamps, <span class="dv">4</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>))</span>
+<span id="cb136-4"><a href="mrv.html#cb136-4"></a>samps_mult  &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(<span class="kw">t</span>(samps_mult)) <span class="op">%&gt;%</span></span>
+<span id="cb136-5"><a href="mrv.html#cb136-5"></a><span class="st">  </span><span class="kw">gather</span>()</span>
+<span id="cb136-6"><a href="mrv.html#cb136-6"></a>samps       &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
+<span id="cb136-7"><a href="mrv.html#cb136-7"></a>  <span class="dt">V1 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.2</span>),</span>
+<span id="cb136-8"><a href="mrv.html#cb136-8"></a>  <span class="dt">V2 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.2</span>),</span>
+<span id="cb136-9"><a href="mrv.html#cb136-9"></a>  <span class="dt">V3 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.5</span>),</span>
+<span id="cb136-10"><a href="mrv.html#cb136-10"></a>  <span class="dt">V4 =</span> <span class="kw">rbinom</span>(nsamps, <span class="dv">4</span>, <span class="fl">0.1</span>)</span>
+<span id="cb136-11"><a href="mrv.html#cb136-11"></a>) <span class="op">%&gt;%</span></span>
+<span id="cb136-12"><a href="mrv.html#cb136-12"></a><span class="st">  </span><span class="kw">gather</span>() <span class="op">%&gt;%</span></span>
+<span id="cb136-13"><a href="mrv.html#cb136-13"></a><span class="st">  </span><span class="kw">bind_rows</span>(samps_mult) <span class="op">%&gt;%</span></span>
+<span id="cb136-14"><a href="mrv.html#cb136-14"></a><span class="st">  </span><span class="kw">bind_cols</span>(<span class="st">&quot;dist&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;binomial&quot;</span>, <span class="dv">4</span><span class="op">*</span>nsamps), <span class="kw">rep</span>(<span class="st">&quot;multinomial&quot;</span>, <span class="dv">4</span><span class="op">*</span>nsamps)))</span>
+<span id="cb136-15"><a href="mrv.html#cb136-15"></a></span>
+<span id="cb136-16"><a href="mrv.html#cb136-16"></a><span class="kw">ggplot</span>(samps, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> dist)) <span class="op">+</span></span>
+<span id="cb136-17"><a href="mrv.html#cb136-17"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="op">+</span></span>
+<span id="cb136-18"><a href="mrv.html#cb136-18"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>key)</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:mnomev" class="exercise"><strong>Exercise 8.2  (Multinomial expected value)  </strong></span>Find the expected value, variance and covariance of the multinomial distribution. Hint: First find the expected value for <span class="math inline">\(n = 1\)</span> and then use the fact that the trials are independent.</p>
+<p><span id="exr:mnomev" class="exercise"><strong>Exercise 73  (Multinomial expected value)  </strong></span>Find the expected value, variance and covariance of the multinomial distribution. Hint: First find the expected value for <span class="math inline">\(n = 1\)</span> and then use the fact that the trials are independent.</p>
 </div>
-
 <div class="fold">
 
 <div class="solution">
@@ -390,11 +405,11 @@ For <span class="math inline">\(X_{1t}\)</span> and <span class="math inline">\(
 </div>
 </div>
 </div>
-<div id="multivariate-normal-random-variables" class="section level2">
-<h2><span class="header-section-number">8.2</span> Multivariate normal random variables</h2>
+<div id="multivariate-normal-random-variables" class="section level2" number="8.2">
+<h2 number="8.2"><span class="header-section-number">8.2</span> Multivariate normal random variables</h2>
 
 <div class="exercise">
-<p><span id="exr:mvnchol" class="exercise"><strong>Exercise 8.3  (Cholesky decomposition)  </strong></span>Let <span class="math inline">\(X\)</span> be a random vector of length <span class="math inline">\(k\)</span> with <span class="math inline">\(X_i \sim \text{N}(0, 1)\)</span> and <span class="math inline">\(LL^*\)</span> the Cholesky decomposition of a Hermitian positive-definite matrix <span class="math inline">\(A\)</span>. Let <span class="math inline">\(\mu\)</span> be a vector of length <span class="math inline">\(k\)</span>.</p>
+<p><span id="exr:mvnchol" class="exercise"><strong>Exercise 74  (Cholesky decomposition)  </strong></span>Let <span class="math inline">\(X\)</span> be a random vector of length <span class="math inline">\(k\)</span> with <span class="math inline">\(X_i \sim \text{N}(0, 1)\)</span> and <span class="math inline">\(LL^*\)</span> the Cholesky decomposition of a Hermitian positive-definite matrix <span class="math inline">\(A\)</span>. Let <span class="math inline">\(\mu\)</span> be a vector of length <span class="math inline">\(k\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Find the distribution of the random vector <span class="math inline">\(Y = \mu + L X\)</span>.</p></li>
 <li><p>Find the Cholesky decomposition of <span class="math inline">\(A = \begin{bmatrix}  2 &amp; 1.2 \\  1.2 &amp; 1 \end{bmatrix}\)</span>.</p></li>
@@ -402,7 +417,6 @@ For <span class="math inline">\(X_{1t}\)</span> and <span class="math inline">\(
 </ol>
 <!-- d. <span style="color:blue">R: $L$ is a linear map$. Plot 10 points from $X$ and 10 points from the transformation $L X$ (Hint: use color or shapes). Compare and discuss the results.</span> -->
 </div>
-
 <div class="fold">
 
 <div class="solution">
@@ -430,25 +444,25 @@ For <span class="math inline">\(X_{1t}\)</span> and <span class="math inline">\(
 \end{align}\]</span></p></li>
 </ol>
 </div>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" title="1"><span class="co"># a</span></a>
-<a class="sourceLine" id="cb137-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb137-3" title="3">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb137-4" title="4">X      &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">rnorm</span>(nsamps <span class="op">*</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb137-5" title="5">mu     &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.5</span>, <span class="dv">-1</span>)</a>
-<a class="sourceLine" id="cb137-6" title="6">L      &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="kw">sqrt</span>(<span class="dv">2</span>), <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb137-7" title="7">                          <span class="fl">1.2</span> <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span>), <span class="kw">sqrt</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.2</span><span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="dv">2</span>)),</a>
-<a class="sourceLine" id="cb137-8" title="8">                 <span class="dt">ncol  =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb137-9" title="9">                 <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb137-10" title="10">Y      &lt;-<span class="st"> </span><span class="kw">t</span>(mu <span class="op">+</span><span class="st"> </span>L <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X))</a>
-<a class="sourceLine" id="cb137-11" title="11">plot_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">rbind</span>(X, Y), <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;X&quot;</span>, nsamps), <span class="kw">rep</span>(<span class="st">&quot;Y&quot;</span>, nsamps)))</a>
-<a class="sourceLine" id="cb137-12" title="12"><span class="kw">colnames</span>(plot_df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;D1&quot;</span>, <span class="st">&quot;D2&quot;</span>, <span class="st">&quot;var&quot;</span>)</a>
-<a class="sourceLine" id="cb137-13" title="13"><span class="kw">ggplot</span>(<span class="dt">data =</span> plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> D1, <span class="dt">y =</span> D2, <span class="dt">colour =</span> <span class="kw">as.factor</span>(var))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb137-14" title="14"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="mrv.html#cb137-1"></a><span class="co"># a</span></span>
+<span id="cb137-2"><a href="mrv.html#cb137-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb137-3"><a href="mrv.html#cb137-3"></a>nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb137-4"><a href="mrv.html#cb137-4"></a>X      &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">rnorm</span>(nsamps <span class="op">*</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb137-5"><a href="mrv.html#cb137-5"></a>mu     &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.5</span>, <span class="dv">-1</span>)</span>
+<span id="cb137-6"><a href="mrv.html#cb137-6"></a>L      &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="kw">sqrt</span>(<span class="dv">2</span>), <span class="dv">0</span>,</span>
+<span id="cb137-7"><a href="mrv.html#cb137-7"></a>                          <span class="fl">1.2</span> <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">2</span>), <span class="kw">sqrt</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.2</span><span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="dv">2</span>)),</span>
+<span id="cb137-8"><a href="mrv.html#cb137-8"></a>                 <span class="dt">ncol  =</span> <span class="dv">2</span>,</span>
+<span id="cb137-9"><a href="mrv.html#cb137-9"></a>                 <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb137-10"><a href="mrv.html#cb137-10"></a>Y      &lt;-<span class="st"> </span><span class="kw">t</span>(mu <span class="op">+</span><span class="st"> </span>L <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X))</span>
+<span id="cb137-11"><a href="mrv.html#cb137-11"></a>plot_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">rbind</span>(X, Y), <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;X&quot;</span>, nsamps), <span class="kw">rep</span>(<span class="st">&quot;Y&quot;</span>, nsamps)))</span>
+<span id="cb137-12"><a href="mrv.html#cb137-12"></a><span class="kw">colnames</span>(plot_df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;D1&quot;</span>, <span class="st">&quot;D2&quot;</span>, <span class="st">&quot;var&quot;</span>)</span>
+<span id="cb137-13"><a href="mrv.html#cb137-13"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> D1, <span class="dt">y =</span> D2, <span class="dt">colour =</span> <span class="kw">as.factor</span>(var))) <span class="op">+</span></span>
+<span id="cb137-14"><a href="mrv.html#cb137-14"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-170-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:mvneigen" class="exercise"><strong>Exercise 8.4  (Eigendecomposition)  </strong></span><span style="color:blue">R: Let <span class="math inline">\(\Sigma = U \Lambda U^T\)</span> be the eigendecomposition of covariance matrix <span class="math inline">\(\Sigma\)</span>. Follow the procedure below, to sample from a multivariate normal with <span class="math inline">\(\mu = [-2, 1]^T\)</span> and <span class="math inline">\(\Sigma = \begin{bmatrix}  0.3, -0.5 \\  -0.5, 1.6 \end{bmatrix}\)</span>:</span></p>
+<p><span id="exr:mvneigen" class="exercise"><strong>Exercise 75  (Eigendecomposition)  </strong></span><span style="color:blue">R: Let <span class="math inline">\(\Sigma = U \Lambda U^T\)</span> be the eigendecomposition of covariance matrix <span class="math inline">\(\Sigma\)</span>. Follow the procedure below, to sample from a multivariate normal with <span class="math inline">\(\mu = [-2, 1]^T\)</span> and <span class="math inline">\(\Sigma = \begin{bmatrix}  0.3, -0.5 \\  -0.5, 1.6 \end{bmatrix}\)</span>:</span></p>
 <ol style="list-style-type: decimal">
 <li><p><span style="color:blue">Sample from two independent standardized normal distributions to get <span class="math inline">\(X\)</span>.</span></p></li>
 <li><p><span style="color:blue">Find the eigendecomposition of <span class="math inline">\(X\)</span> (<em>eigen</em>).</span></p></li>
@@ -458,58 +472,57 @@ For <span class="math inline">\(X_{1t}\)</span> and <span class="math inline">\(
 <li><p><span style="color:blue">Plot the data and the eigenvectors (scaled with <span class="math inline">\(\Lambda^{\frac{1}{2}}\)</span>) at each step. Hint: Use <em>geom_segment</em> for the eigenvectors. </span></p></li>
 </ol>
 </div>
-
 <div class="fold">
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" title="1"><span class="co"># a</span></a>
-<a class="sourceLine" id="cb138-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb138-3" title="3">sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">-0.5</span>,</a>
-<a class="sourceLine" id="cb138-4" title="4">                         <span class="fl">-0.5</span>, <span class="fl">1.6</span>),</a>
-<a class="sourceLine" id="cb138-5" title="5">                <span class="dt">nrow  =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb138-6" title="6">                <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb138-7" title="7">ed    &lt;-<span class="st"> </span><span class="kw">eigen</span>(sigma)</a>
-<a class="sourceLine" id="cb138-8" title="8">e_val  &lt;-<span class="st"> </span>ed<span class="op">$</span>values</a>
-<a class="sourceLine" id="cb138-9" title="9">e_vec  &lt;-<span class="st"> </span>ed<span class="op">$</span>vectors</a>
-<a class="sourceLine" id="cb138-10" title="10"></a>
-<a class="sourceLine" id="cb138-11" title="11"></a>
-<a class="sourceLine" id="cb138-12" title="12"></a>
-<a class="sourceLine" id="cb138-13" title="13"><span class="co"># b</span></a>
-<a class="sourceLine" id="cb138-14" title="14"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb138-15" title="15">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb138-16" title="16">X      &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">rnorm</span>(nsamps <span class="op">*</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb138-17" title="17">vec1   &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">nrow =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb138-18" title="18"></a>
-<a class="sourceLine" id="cb138-19" title="19">X2     &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sqrt</span>(<span class="kw">diag</span>(e_val)) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X))</a>
-<a class="sourceLine" id="cb138-20" title="20">vec2   &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">diag</span>(e_val)) <span class="op">%*%</span><span class="st"> </span>vec1</a>
-<a class="sourceLine" id="cb138-21" title="21"></a>
-<a class="sourceLine" id="cb138-22" title="22">X3     &lt;-<span class="st"> </span><span class="kw">t</span>(e_vec <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X2))</a>
-<a class="sourceLine" id="cb138-23" title="23">vec3   &lt;-<span class="st"> </span>e_vec <span class="op">%*%</span><span class="st"> </span>vec2</a>
-<a class="sourceLine" id="cb138-24" title="24"></a>
-<a class="sourceLine" id="cb138-25" title="25">X4     &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">t</span>(X3))</a>
-<a class="sourceLine" id="cb138-26" title="26">vec4   &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>vec3</a>
-<a class="sourceLine" id="cb138-27" title="27"></a>
-<a class="sourceLine" id="cb138-28" title="28">vec_mat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb138-29" title="29">                      <span class="kw">t</span>(<span class="kw">cbind</span>(vec1, vec2, vec3, vec4)),</a>
-<a class="sourceLine" id="cb138-30" title="30">                      <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>))</a>
-<a class="sourceLine" id="cb138-31" title="31"></a>
-<a class="sourceLine" id="cb138-32" title="32"></a>
-<a class="sourceLine" id="cb138-33" title="33">df     &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">rbind</span>(X, X2, X3, X4), <span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>, nsamps),</a>
-<a class="sourceLine" id="cb138-34" title="34">                                             <span class="kw">rep</span>(<span class="dv">2</span>, nsamps),</a>
-<a class="sourceLine" id="cb138-35" title="35">                                             <span class="kw">rep</span>(<span class="dv">3</span>, nsamps),</a>
-<a class="sourceLine" id="cb138-36" title="36">                                             <span class="kw">rep</span>(<span class="dv">4</span>, nsamps)))</a>
-<a class="sourceLine" id="cb138-37" title="37"></a>
-<a class="sourceLine" id="cb138-38" title="38"></a>
-<a class="sourceLine" id="cb138-39" title="39"><span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;D1&quot;</span>, <span class="st">&quot;D2&quot;</span>, <span class="st">&quot;wh&quot;</span>)</a>
-<a class="sourceLine" id="cb138-40" title="40"><span class="kw">colnames</span>(vec_mat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;D1&quot;</span>, <span class="st">&quot;D2&quot;</span>, <span class="st">&quot;E1&quot;</span>, <span class="st">&quot;E2&quot;</span>, <span class="st">&quot;wh&quot;</span>)</a>
-<a class="sourceLine" id="cb138-41" title="41"><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> D1, <span class="dt">y =</span> D2)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb138-42" title="42"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb138-43" title="43"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> vec_mat, <span class="kw">aes</span>(<span class="dt">xend =</span> E1, <span class="dt">yend =</span> E2), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb138-44" title="44"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>wh) <span class="op">+</span></a>
-<a class="sourceLine" id="cb138-45" title="45"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="mrv.html#cb138-1"></a><span class="co"># a</span></span>
+<span id="cb138-2"><a href="mrv.html#cb138-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb138-3"><a href="mrv.html#cb138-3"></a>sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">-0.5</span>,</span>
+<span id="cb138-4"><a href="mrv.html#cb138-4"></a>                         <span class="fl">-0.5</span>, <span class="fl">1.6</span>),</span>
+<span id="cb138-5"><a href="mrv.html#cb138-5"></a>                <span class="dt">nrow  =</span> <span class="dv">2</span>,</span>
+<span id="cb138-6"><a href="mrv.html#cb138-6"></a>                <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb138-7"><a href="mrv.html#cb138-7"></a>ed    &lt;-<span class="st"> </span><span class="kw">eigen</span>(sigma)</span>
+<span id="cb138-8"><a href="mrv.html#cb138-8"></a>e_val  &lt;-<span class="st"> </span>ed<span class="op">$</span>values</span>
+<span id="cb138-9"><a href="mrv.html#cb138-9"></a>e_vec  &lt;-<span class="st"> </span>ed<span class="op">$</span>vectors</span>
+<span id="cb138-10"><a href="mrv.html#cb138-10"></a></span>
+<span id="cb138-11"><a href="mrv.html#cb138-11"></a></span>
+<span id="cb138-12"><a href="mrv.html#cb138-12"></a></span>
+<span id="cb138-13"><a href="mrv.html#cb138-13"></a><span class="co"># b</span></span>
+<span id="cb138-14"><a href="mrv.html#cb138-14"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb138-15"><a href="mrv.html#cb138-15"></a>nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb138-16"><a href="mrv.html#cb138-16"></a>X      &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">rnorm</span>(nsamps <span class="op">*</span><span class="st"> </span><span class="dv">2</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb138-17"><a href="mrv.html#cb138-17"></a>vec1   &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb138-18"><a href="mrv.html#cb138-18"></a></span>
+<span id="cb138-19"><a href="mrv.html#cb138-19"></a>X2     &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sqrt</span>(<span class="kw">diag</span>(e_val)) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X))</span>
+<span id="cb138-20"><a href="mrv.html#cb138-20"></a>vec2   &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">diag</span>(e_val)) <span class="op">%*%</span><span class="st"> </span>vec1</span>
+<span id="cb138-21"><a href="mrv.html#cb138-21"></a></span>
+<span id="cb138-22"><a href="mrv.html#cb138-22"></a>X3     &lt;-<span class="st"> </span><span class="kw">t</span>(e_vec <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X2))</span>
+<span id="cb138-23"><a href="mrv.html#cb138-23"></a>vec3   &lt;-<span class="st"> </span>e_vec <span class="op">%*%</span><span class="st"> </span>vec2</span>
+<span id="cb138-24"><a href="mrv.html#cb138-24"></a></span>
+<span id="cb138-25"><a href="mrv.html#cb138-25"></a>X4     &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">t</span>(X3))</span>
+<span id="cb138-26"><a href="mrv.html#cb138-26"></a>vec4   &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>vec3</span>
+<span id="cb138-27"><a href="mrv.html#cb138-27"></a></span>
+<span id="cb138-28"><a href="mrv.html#cb138-28"></a>vec_mat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>),</span>
+<span id="cb138-29"><a href="mrv.html#cb138-29"></a>                      <span class="kw">t</span>(<span class="kw">cbind</span>(vec1, vec2, vec3, vec4)),</span>
+<span id="cb138-30"><a href="mrv.html#cb138-30"></a>                      <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">4</span>))</span>
+<span id="cb138-31"><a href="mrv.html#cb138-31"></a></span>
+<span id="cb138-32"><a href="mrv.html#cb138-32"></a></span>
+<span id="cb138-33"><a href="mrv.html#cb138-33"></a>df     &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">rbind</span>(X, X2, X3, X4), <span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span>, nsamps),</span>
+<span id="cb138-34"><a href="mrv.html#cb138-34"></a>                                             <span class="kw">rep</span>(<span class="dv">2</span>, nsamps),</span>
+<span id="cb138-35"><a href="mrv.html#cb138-35"></a>                                             <span class="kw">rep</span>(<span class="dv">3</span>, nsamps),</span>
+<span id="cb138-36"><a href="mrv.html#cb138-36"></a>                                             <span class="kw">rep</span>(<span class="dv">4</span>, nsamps)))</span>
+<span id="cb138-37"><a href="mrv.html#cb138-37"></a></span>
+<span id="cb138-38"><a href="mrv.html#cb138-38"></a></span>
+<span id="cb138-39"><a href="mrv.html#cb138-39"></a><span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;D1&quot;</span>, <span class="st">&quot;D2&quot;</span>, <span class="st">&quot;wh&quot;</span>)</span>
+<span id="cb138-40"><a href="mrv.html#cb138-40"></a><span class="kw">colnames</span>(vec_mat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;D1&quot;</span>, <span class="st">&quot;D2&quot;</span>, <span class="st">&quot;E1&quot;</span>, <span class="st">&quot;E2&quot;</span>, <span class="st">&quot;wh&quot;</span>)</span>
+<span id="cb138-41"><a href="mrv.html#cb138-41"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> D1, <span class="dt">y =</span> D2)) <span class="op">+</span></span>
+<span id="cb138-42"><a href="mrv.html#cb138-42"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb138-43"><a href="mrv.html#cb138-43"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> vec_mat, <span class="kw">aes</span>(<span class="dt">xend =</span> E1, <span class="dt">yend =</span> E2), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb138-44"><a href="mrv.html#cb138-44"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>wh) <span class="op">+</span></span>
+<span id="cb138-45"><a href="mrv.html#cb138-45"></a><span class="st">  </span><span class="kw">coord_fixed</span>()</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-171-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:mvncond" class="exercise"><strong>Exercise 8.5  (Marginal and conditional distributions)  </strong></span>Let <span class="math inline">\(X \sim \text{N}(\mu, \Sigma)\)</span>, where <span class="math inline">\(\mu = [2, 0, -1]^T\)</span> and <span class="math inline">\(\Sigma = \begin{bmatrix}  1 &amp; -0.2 &amp; 0.5 \\  -0.2 &amp; 1.4 &amp; -1.2 \\  0.5 &amp; -1.2 &amp; 2 \\ \end{bmatrix}\)</span>. Let <span class="math inline">\(A\)</span> represent the first two random variables and <span class="math inline">\(B\)</span> the third random variable. <span style="color:blue">R: For the calculation in the following points, you can use R.</span></p>
+<p><span id="exr:mvncond" class="exercise"><strong>Exercise 76  (Marginal and conditional distributions)  </strong></span>Let <span class="math inline">\(X \sim \text{N}(\mu, \Sigma)\)</span>, where <span class="math inline">\(\mu = [2, 0, -1]^T\)</span> and <span class="math inline">\(\Sigma = \begin{bmatrix}  1 &amp; -0.2 &amp; 0.5 \\  -0.2 &amp; 1.4 &amp; -1.2 \\  0.5 &amp; -1.2 &amp; 2 \\ \end{bmatrix}\)</span>. Let <span class="math inline">\(A\)</span> represent the first two random variables and <span class="math inline">\(B\)</span> the third random variable. <span style="color:blue">R: For the calculation in the following points, you can use R.</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Find the marginal distribution of <span class="math inline">\(B\)</span>.</p></li>
 <li><p>Find the conditional distribution of <span class="math inline">\(B | A\)</span>.</p></li>
@@ -519,42 +532,42 @@ For <span class="math inline">\(X_{1t}\)</span> and <span class="math inline">\(
 </div></li>
 </ol>
 <div class="fold">
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" title="1">mu    &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">-1</span>)</a>
-<a class="sourceLine" id="cb139-2" title="2">Sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">-0.2</span>, <span class="fl">0.5</span>,</a>
-<a class="sourceLine" id="cb139-3" title="3">                  <span class="fl">-0.2</span>, <span class="fl">1.4</span>, <span class="fl">-1.2</span>,</a>
-<a class="sourceLine" id="cb139-4" title="4">                  <span class="fl">0.5</span>, <span class="fl">-1.2</span>, <span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb139-5" title="5">                <span class="dt">nrow =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb139-6" title="6">                <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb139-7" title="7">mu_A     &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb139-8" title="8">mu_B     &lt;-<span class="st"> </span><span class="dv">-1</span></a>
-<a class="sourceLine" id="cb139-9" title="9">Sigma_A  &lt;-<span class="st"> </span>Sigma[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb139-10" title="10">Sigma_B  &lt;-<span class="st"> </span>Sigma[<span class="dv">3</span>, <span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb139-11" title="11">Sigma_AB &lt;-<span class="st"> </span>Sigma[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb139-12" title="12"></a>
-<a class="sourceLine" id="cb139-13" title="13"></a>
-<a class="sourceLine" id="cb139-14" title="14"><span class="co"># b</span></a>
-<a class="sourceLine" id="cb139-15" title="15">tmp_b   &lt;-<span class="st"> </span><span class="kw">t</span>(Sigma_AB) <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(Sigma_A)</a>
-<a class="sourceLine" id="cb139-16" title="16">mu_b    &lt;-<span class="st"> </span>mu_B <span class="op">-</span><span class="st"> </span>tmp_b <span class="op">%*%</span><span class="st"> </span>mu_A</a>
-<a class="sourceLine" id="cb139-17" title="17">Sigma_b &lt;-<span class="st"> </span>Sigma_B <span class="op">-</span><span class="st"> </span><span class="kw">t</span>(Sigma_AB) <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(Sigma_A) <span class="op">%*%</span><span class="st"> </span>Sigma_AB</a>
-<a class="sourceLine" id="cb139-18" title="18"></a>
-<a class="sourceLine" id="cb139-19" title="19">mu_b</a></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="mrv.html#cb139-1"></a>mu    &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">-1</span>)</span>
+<span id="cb139-2"><a href="mrv.html#cb139-2"></a>Sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">-0.2</span>, <span class="fl">0.5</span>,</span>
+<span id="cb139-3"><a href="mrv.html#cb139-3"></a>                  <span class="fl">-0.2</span>, <span class="fl">1.4</span>, <span class="fl">-1.2</span>,</span>
+<span id="cb139-4"><a href="mrv.html#cb139-4"></a>                  <span class="fl">0.5</span>, <span class="fl">-1.2</span>, <span class="dv">2</span>),</span>
+<span id="cb139-5"><a href="mrv.html#cb139-5"></a>                <span class="dt">nrow =</span> <span class="dv">3</span>,</span>
+<span id="cb139-6"><a href="mrv.html#cb139-6"></a>                <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb139-7"><a href="mrv.html#cb139-7"></a>mu_A     &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)</span>
+<span id="cb139-8"><a href="mrv.html#cb139-8"></a>mu_B     &lt;-<span class="st"> </span><span class="dv">-1</span></span>
+<span id="cb139-9"><a href="mrv.html#cb139-9"></a>Sigma_A  &lt;-<span class="st"> </span>Sigma[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</span>
+<span id="cb139-10"><a href="mrv.html#cb139-10"></a>Sigma_B  &lt;-<span class="st"> </span>Sigma[<span class="dv">3</span>, <span class="dv">3</span>]</span>
+<span id="cb139-11"><a href="mrv.html#cb139-11"></a>Sigma_AB &lt;-<span class="st"> </span>Sigma[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb139-12"><a href="mrv.html#cb139-12"></a></span>
+<span id="cb139-13"><a href="mrv.html#cb139-13"></a></span>
+<span id="cb139-14"><a href="mrv.html#cb139-14"></a><span class="co"># b</span></span>
+<span id="cb139-15"><a href="mrv.html#cb139-15"></a>tmp_b   &lt;-<span class="st"> </span><span class="kw">t</span>(Sigma_AB) <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(Sigma_A)</span>
+<span id="cb139-16"><a href="mrv.html#cb139-16"></a>mu_b    &lt;-<span class="st"> </span>mu_B <span class="op">-</span><span class="st"> </span>tmp_b <span class="op">%*%</span><span class="st"> </span>mu_A</span>
+<span id="cb139-17"><a href="mrv.html#cb139-17"></a>Sigma_b &lt;-<span class="st"> </span>Sigma_B <span class="op">-</span><span class="st"> </span><span class="kw">t</span>(Sigma_AB) <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(Sigma_A) <span class="op">%*%</span><span class="st"> </span>Sigma_AB</span>
+<span id="cb139-18"><a href="mrv.html#cb139-18"></a></span>
+<span id="cb139-19"><a href="mrv.html#cb139-19"></a>mu_b</span></code></pre></div>
 <pre><code>##           [,1]
 ## [1,] -1.676471</code></pre>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1">tmp_b</a></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="mrv.html#cb141-1"></a>tmp_b</span></code></pre></div>
 <pre><code>##           [,1]       [,2]
 ## [1,] 0.3382353 -0.8088235</code></pre>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" title="1">Sigma_b</a></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="mrv.html#cb143-1"></a>Sigma_b</span></code></pre></div>
 <pre><code>##           [,1]
 ## [1,] 0.8602941</code></pre>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" title="1"><span class="co"># d</span></a>
-<a class="sourceLine" id="cb145-2" title="2">tmp_a   &lt;-<span class="st"> </span>Sigma_AB <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>Sigma_B)</a>
-<a class="sourceLine" id="cb145-3" title="3">mu_a    &lt;-<span class="st"> </span>mu_A <span class="op">-</span><span class="st"> </span>tmp_a <span class="op">*</span><span class="st"> </span>mu_B</a>
-<a class="sourceLine" id="cb145-4" title="4">Sigma_d &lt;-<span class="st"> </span>Sigma_A <span class="op">-</span><span class="st"> </span>(Sigma_AB <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>Sigma_B)) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(Sigma_AB)</a>
-<a class="sourceLine" id="cb145-5" title="5">mu_a</a></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="mrv.html#cb145-1"></a><span class="co"># d</span></span>
+<span id="cb145-2"><a href="mrv.html#cb145-2"></a>tmp_a   &lt;-<span class="st"> </span>Sigma_AB <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>Sigma_B)</span>
+<span id="cb145-3"><a href="mrv.html#cb145-3"></a>mu_a    &lt;-<span class="st"> </span>mu_A <span class="op">-</span><span class="st"> </span>tmp_a <span class="op">*</span><span class="st"> </span>mu_B</span>
+<span id="cb145-4"><a href="mrv.html#cb145-4"></a>Sigma_d &lt;-<span class="st"> </span>Sigma_A <span class="op">-</span><span class="st"> </span>(Sigma_AB <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>Sigma_B)) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(Sigma_AB)</span>
+<span id="cb145-5"><a href="mrv.html#cb145-5"></a>mu_a</span></code></pre></div>
 <pre><code>## [1]  2.25 -0.60</code></pre>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1">tmp_a</a></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="mrv.html#cb147-1"></a>tmp_a</span></code></pre></div>
 <pre><code>## [1]  0.25 -0.60</code></pre>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" title="1">Sigma_d</a></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="mrv.html#cb149-1"></a>Sigma_d</span></code></pre></div>
 <pre><code>##       [,1] [,2]
 ## [1,] 0.875 0.10
 ## [2,] 0.100 0.68</code></pre>
@@ -576,52 +589,52 @@ For <span class="math inline">\(X_{1t}\)</span> and <span class="math inline">\(
 \end{align}\]</span></p></li>
 </ol>
 </div>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" title="1"><span class="kw">library</span>(mvtnorm)</a>
-<a class="sourceLine" id="cb151-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb151-3" title="3">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb151-4" title="4"></a>
-<a class="sourceLine" id="cb151-5" title="5"><span class="co"># a and b</span></a>
-<a class="sourceLine" id="cb151-6" title="6">samps  &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">4</span> <span class="op">*</span><span class="st"> </span>nsamps, <span class="dt">ncol =</span> <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb151-7" title="7">samps[<span class="dv">1</span><span class="op">:</span>nsamps,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, mu_B, Sigma_B)</a>
-<a class="sourceLine" id="cb151-8" title="8">samps[<span class="dv">1</span><span class="op">:</span>nsamps,<span class="dv">2</span>] &lt;-<span class="st"> &quot;marginal&quot;</span></a>
-<a class="sourceLine" id="cb151-9" title="9"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
-<a class="sourceLine" id="cb151-10" title="10">  a &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dv">1</span>, mu_A, Sigma_A)</a>
-<a class="sourceLine" id="cb151-11" title="11">  samps[(i<span class="op">*</span>nsamps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>((i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>nsamps), <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps,</a>
-<a class="sourceLine" id="cb151-12" title="12">                                                       mu_b <span class="op">+</span><span class="st"> </span>tmp_b <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(a),</a>
-<a class="sourceLine" id="cb151-13" title="13">                                                       Sigma_b)</a>
-<a class="sourceLine" id="cb151-14" title="14">  samps[(i<span class="op">*</span>nsamps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>((i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>nsamps), <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="co"># &quot;cond&quot;, </span></a>
-<a class="sourceLine" id="cb151-15" title="15">                                                        <span class="kw">round</span>(a, <span class="dt">digits =</span> <span class="dv">2</span>), </a>
-<a class="sourceLine" id="cb151-16" title="16">                                                        <span class="dt">collapse =</span> <span class="st">&quot;-&quot;</span>)</a>
-<a class="sourceLine" id="cb151-17" title="17">}</a>
-<a class="sourceLine" id="cb151-18" title="18"><span class="kw">colnames</span>(samps) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;dist&quot;</span>)</a>
-<a class="sourceLine" id="cb151-19" title="19"><span class="kw">ggplot</span>(samps, <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb151-20" title="20"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb151-21" title="21"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>dist)</a></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="mrv.html#cb151-1"></a><span class="kw">library</span>(mvtnorm)</span>
+<span id="cb151-2"><a href="mrv.html#cb151-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb151-3"><a href="mrv.html#cb151-3"></a>nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb151-4"><a href="mrv.html#cb151-4"></a></span>
+<span id="cb151-5"><a href="mrv.html#cb151-5"></a><span class="co"># a and b</span></span>
+<span id="cb151-6"><a href="mrv.html#cb151-6"></a>samps  &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">4</span> <span class="op">*</span><span class="st"> </span>nsamps, <span class="dt">ncol =</span> <span class="dv">2</span>))</span>
+<span id="cb151-7"><a href="mrv.html#cb151-7"></a>samps[<span class="dv">1</span><span class="op">:</span>nsamps,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, mu_B, Sigma_B)</span>
+<span id="cb151-8"><a href="mrv.html#cb151-8"></a>samps[<span class="dv">1</span><span class="op">:</span>nsamps,<span class="dv">2</span>] &lt;-<span class="st"> &quot;marginal&quot;</span></span>
+<span id="cb151-9"><a href="mrv.html#cb151-9"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</span>
+<span id="cb151-10"><a href="mrv.html#cb151-10"></a>  a &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dv">1</span>, mu_A, Sigma_A)</span>
+<span id="cb151-11"><a href="mrv.html#cb151-11"></a>  samps[(i<span class="op">*</span>nsamps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>((i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>nsamps), <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps,</span>
+<span id="cb151-12"><a href="mrv.html#cb151-12"></a>                                                       mu_b <span class="op">+</span><span class="st"> </span>tmp_b <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(a),</span>
+<span id="cb151-13"><a href="mrv.html#cb151-13"></a>                                                       Sigma_b)</span>
+<span id="cb151-14"><a href="mrv.html#cb151-14"></a>  samps[(i<span class="op">*</span>nsamps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>((i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>nsamps), <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="co"># &quot;cond&quot;, </span></span>
+<span id="cb151-15"><a href="mrv.html#cb151-15"></a>                                                        <span class="kw">round</span>(a, <span class="dt">digits =</span> <span class="dv">2</span>), </span>
+<span id="cb151-16"><a href="mrv.html#cb151-16"></a>                                                        <span class="dt">collapse =</span> <span class="st">&quot;-&quot;</span>)</span>
+<span id="cb151-17"><a href="mrv.html#cb151-17"></a>}</span>
+<span id="cb151-18"><a href="mrv.html#cb151-18"></a><span class="kw">colnames</span>(samps) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;dist&quot;</span>)</span>
+<span id="cb151-19"><a href="mrv.html#cb151-19"></a><span class="kw">ggplot</span>(samps, <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
+<span id="cb151-20"><a href="mrv.html#cb151-20"></a><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></span>
+<span id="cb151-21"><a href="mrv.html#cb151-21"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>dist)</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-174-1.png" width="672" /></p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" title="1"><span class="co"># c and d</span></a>
-<a class="sourceLine" id="cb152-2" title="2">samps  &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">4</span> <span class="op">*</span><span class="st"> </span>nsamps, <span class="dt">ncol =</span> <span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb152-3" title="3">samps[<span class="dv">1</span><span class="op">:</span>nsamps,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(nsamps, mu_A, Sigma_A)</a>
-<a class="sourceLine" id="cb152-4" title="4">samps[<span class="dv">1</span><span class="op">:</span>nsamps,<span class="dv">3</span>]   &lt;-<span class="st"> &quot;marginal&quot;</span></a>
-<a class="sourceLine" id="cb152-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
-<a class="sourceLine" id="cb152-6" title="6">  b &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>, mu_B, Sigma_B)</a>
-<a class="sourceLine" id="cb152-7" title="7">  samps[(i<span class="op">*</span>nsamps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>((i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>nsamps), <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(nsamps,</a>
-<a class="sourceLine" id="cb152-8" title="8">                                                           mu_a <span class="op">+</span><span class="st"> </span>tmp_a <span class="op">*</span><span class="st"> </span>b,</a>
-<a class="sourceLine" id="cb152-9" title="9">                                                           Sigma_d)</a>
-<a class="sourceLine" id="cb152-10" title="10">  samps[(i<span class="op">*</span>nsamps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>((i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>nsamps), <span class="dv">3</span>] &lt;-<span class="st"> </span>b</a>
-<a class="sourceLine" id="cb152-11" title="11">}</a>
-<a class="sourceLine" id="cb152-12" title="12"><span class="kw">colnames</span>(samps) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;dist&quot;</span>)</a>
-<a class="sourceLine" id="cb152-13" title="13"><span class="kw">ggplot</span>(samps, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb152-14" title="14"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb152-15" title="15"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb152-16" title="16"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>dist)</a></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="mrv.html#cb152-1"></a><span class="co"># c and d</span></span>
+<span id="cb152-2"><a href="mrv.html#cb152-2"></a>samps  &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">4</span> <span class="op">*</span><span class="st"> </span>nsamps, <span class="dt">ncol =</span> <span class="dv">3</span>))</span>
+<span id="cb152-3"><a href="mrv.html#cb152-3"></a>samps[<span class="dv">1</span><span class="op">:</span>nsamps,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(nsamps, mu_A, Sigma_A)</span>
+<span id="cb152-4"><a href="mrv.html#cb152-4"></a>samps[<span class="dv">1</span><span class="op">:</span>nsamps,<span class="dv">3</span>]   &lt;-<span class="st"> &quot;marginal&quot;</span></span>
+<span id="cb152-5"><a href="mrv.html#cb152-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</span>
+<span id="cb152-6"><a href="mrv.html#cb152-6"></a>  b &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>, mu_B, Sigma_B)</span>
+<span id="cb152-7"><a href="mrv.html#cb152-7"></a>  samps[(i<span class="op">*</span>nsamps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>((i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>nsamps), <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(nsamps,</span>
+<span id="cb152-8"><a href="mrv.html#cb152-8"></a>                                                           mu_a <span class="op">+</span><span class="st"> </span>tmp_a <span class="op">*</span><span class="st"> </span>b,</span>
+<span id="cb152-9"><a href="mrv.html#cb152-9"></a>                                                           Sigma_d)</span>
+<span id="cb152-10"><a href="mrv.html#cb152-10"></a>  samps[(i<span class="op">*</span>nsamps <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">:</span>((i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>nsamps), <span class="dv">3</span>] &lt;-<span class="st"> </span>b</span>
+<span id="cb152-11"><a href="mrv.html#cb152-11"></a>}</span>
+<span id="cb152-12"><a href="mrv.html#cb152-12"></a><span class="kw">colnames</span>(samps) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;dist&quot;</span>)</span>
+<span id="cb152-13"><a href="mrv.html#cb152-13"></a><span class="kw">ggplot</span>(samps, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></span>
+<span id="cb152-14"><a href="mrv.html#cb152-14"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb152-15"><a href="mrv.html#cb152-15"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span></span>
+<span id="cb152-16"><a href="mrv.html#cb152-16"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>dist)</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-174-2.png" width="672" /></p>
 </div>
 </div>
-<div id="transformations-2" class="section level2">
-<h2><span class="header-section-number">8.3</span> Transformations</h2>
+<div id="transformations-2" class="section level2" number="8.3">
+<h2 number="8.3"><span class="header-section-number">8.3</span> Transformations</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-175" class="exercise"><strong>Exercise 8.6  </strong></span>Let <span class="math inline">\((U,V)\)</span> be a random variable with PDF <span class="math inline">\(p(u,v) = \frac{1}{4 \sqrt{u}}\)</span>,
+<p><span id="exr:unnamed-chunk-175" class="exercise"><strong>Exercise 77  </strong></span>Let <span class="math inline">\((U,V)\)</span> be a random variable with PDF <span class="math inline">\(p(u,v) = \frac{1}{4 \sqrt{u}}\)</span>,
 <span class="math inline">\(U \in [0,4]\)</span> and <span class="math inline">\(V \in [\sqrt{U}, \sqrt{U} + 1]\)</span>. Let <span class="math inline">\(X = \sqrt{U}\)</span> and
 <span class="math inline">\(Y = V - \sqrt{U}\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
@@ -633,7 +646,6 @@ them with inverses of the above functions to get samples from <span class="math 
 Plot both sets of samples.</span></p></li>
 </ol>
 </div>
-
 <div class="fold">
 
 <div class="solution">
@@ -668,51 +680,50 @@ looking at two independent Uniform random variables. In practice, this could
 make modeling much easier.</li>
 </ol>
 </div>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb153-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">2000</span></a>
-<a class="sourceLine" id="cb153-3" title="3">x      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb153-4" title="4">y      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps)</a>
-<a class="sourceLine" id="cb153-5" title="5">orig   &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">vrs =</span> <span class="st">&quot;original&quot;</span>)</a>
-<a class="sourceLine" id="cb153-6" title="6">u      &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb153-7" title="7">v      &lt;-<span class="st"> </span>y <span class="op">+</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb153-8" title="8">transf &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> u, <span class="dt">y =</span> v, <span class="dt">vrs =</span> <span class="st">&quot;transformed&quot;</span>)</a>
-<a class="sourceLine" id="cb153-9" title="9">df     &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(orig, transf)</a>
-<a class="sourceLine" id="cb153-10" title="10"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> vrs)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb153-11" title="11"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="mrv.html#cb153-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb153-2"><a href="mrv.html#cb153-2"></a>nsamps &lt;-<span class="st"> </span><span class="dv">2000</span></span>
+<span id="cb153-3"><a href="mrv.html#cb153-3"></a>x      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">2</span>)</span>
+<span id="cb153-4"><a href="mrv.html#cb153-4"></a>y      &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps)</span>
+<span id="cb153-5"><a href="mrv.html#cb153-5"></a>orig   &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">vrs =</span> <span class="st">&quot;original&quot;</span>)</span>
+<span id="cb153-6"><a href="mrv.html#cb153-6"></a>u      &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb153-7"><a href="mrv.html#cb153-7"></a>v      &lt;-<span class="st"> </span>y <span class="op">+</span><span class="st"> </span>x</span>
+<span id="cb153-8"><a href="mrv.html#cb153-8"></a>transf &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> u, <span class="dt">y =</span> v, <span class="dt">vrs =</span> <span class="st">&quot;transformed&quot;</span>)</span>
+<span id="cb153-9"><a href="mrv.html#cb153-9"></a>df     &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(orig, transf)</span>
+<span id="cb153-10"><a href="mrv.html#cb153-10"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> vrs)) <span class="op">+</span></span>
+<span id="cb153-11"><a href="mrv.html#cb153-11"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-177-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-178" class="exercise"><strong>Exercise 8.7  </strong></span><span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with <em>dmvnorm</em> from the <strong>mvtnorm</strong> package.</span></p>
+<p><span id="exr:unnamed-chunk-178" class="exercise"><strong>Exercise 78  </strong></span><span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with <em>dmvnorm</em> from the <strong>mvtnorm</strong> package.</span></p>
 </div>
-
 <div class="fold">
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" title="1"><span class="kw">library</span>(mvtnorm)</a>
-<a class="sourceLine" id="cb154-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb154-3" title="3">mvn_dens &lt;-<span class="st"> </span><span class="cf">function</span> (y, mu, Sigma) {</a>
-<a class="sourceLine" id="cb154-4" title="4">  L     &lt;-<span class="st"> </span><span class="kw">chol</span>(Sigma)</a>
-<a class="sourceLine" id="cb154-5" title="5">  L_inv &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(L))</a>
-<a class="sourceLine" id="cb154-6" title="6">  g_inv &lt;-<span class="st"> </span>L_inv <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(y <span class="op">-</span><span class="st"> </span>mu)</a>
-<a class="sourceLine" id="cb154-7" title="7">  J     &lt;-<span class="st"> </span>L_inv</a>
-<a class="sourceLine" id="cb154-8" title="8">  J_det &lt;-<span class="st"> </span><span class="kw">det</span>(J)</a>
-<a class="sourceLine" id="cb154-9" title="9">  <span class="kw">return</span>(<span class="kw">prod</span>(<span class="kw">dnorm</span>(g_inv)) <span class="op">*</span><span class="st"> </span>J_det)</a>
-<a class="sourceLine" id="cb154-10" title="10">}</a>
-<a class="sourceLine" id="cb154-11" title="11">mu_v  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb154-12" title="12">cov_m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">-0.2</span>, <span class="fl">0.5</span>,</a>
-<a class="sourceLine" id="cb154-13" title="13">                  <span class="fl">-0.2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>,</a>
-<a class="sourceLine" id="cb154-14" title="14">                  <span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">1.6</span>),</a>
-<a class="sourceLine" id="cb154-15" title="15">                <span class="dt">ncol  =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb154-16" title="16">                <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb154-17" title="17">n_comp &lt;-<span class="st"> </span><span class="dv">20</span></a>
-<a class="sourceLine" id="cb154-18" title="18"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_comp) {</a>
-<a class="sourceLine" id="cb154-19" title="19">  x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb154-20" title="20">             <span class="dt">mean  =</span> mu_v,</a>
-<a class="sourceLine" id="cb154-21" title="21">             <span class="dt">sigma =</span> cov_m)</a>
-<a class="sourceLine" id="cb154-22" title="22">  <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;My function: &quot;</span>,</a>
-<a class="sourceLine" id="cb154-23" title="23">               <span class="kw">mvn_dens</span>(x, mu_v, cov_m),</a>
-<a class="sourceLine" id="cb154-24" title="24">               <span class="st">&quot;, dmvnorm: &quot;</span>,</a>
-<a class="sourceLine" id="cb154-25" title="25">               <span class="kw">dmvnorm</span>(x, mu_v, cov_m)))</a>
-<a class="sourceLine" id="cb154-26" title="26">}</a></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="mrv.html#cb154-1"></a><span class="kw">library</span>(mvtnorm)</span>
+<span id="cb154-2"><a href="mrv.html#cb154-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb154-3"><a href="mrv.html#cb154-3"></a>mvn_dens &lt;-<span class="st"> </span><span class="cf">function</span> (y, mu, Sigma) {</span>
+<span id="cb154-4"><a href="mrv.html#cb154-4"></a>  L     &lt;-<span class="st"> </span><span class="kw">chol</span>(Sigma)</span>
+<span id="cb154-5"><a href="mrv.html#cb154-5"></a>  L_inv &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(L))</span>
+<span id="cb154-6"><a href="mrv.html#cb154-6"></a>  g_inv &lt;-<span class="st"> </span>L_inv <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(y <span class="op">-</span><span class="st"> </span>mu)</span>
+<span id="cb154-7"><a href="mrv.html#cb154-7"></a>  J     &lt;-<span class="st"> </span>L_inv</span>
+<span id="cb154-8"><a href="mrv.html#cb154-8"></a>  J_det &lt;-<span class="st"> </span><span class="kw">det</span>(J)</span>
+<span id="cb154-9"><a href="mrv.html#cb154-9"></a>  <span class="kw">return</span>(<span class="kw">prod</span>(<span class="kw">dnorm</span>(g_inv)) <span class="op">*</span><span class="st"> </span>J_det)</span>
+<span id="cb154-10"><a href="mrv.html#cb154-10"></a>}</span>
+<span id="cb154-11"><a href="mrv.html#cb154-11"></a>mu_v  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb154-12"><a href="mrv.html#cb154-12"></a>cov_m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">-0.2</span>, <span class="fl">0.5</span>,</span>
+<span id="cb154-13"><a href="mrv.html#cb154-13"></a>                  <span class="fl">-0.2</span>, <span class="dv">2</span>, <span class="fl">0.3</span>,</span>
+<span id="cb154-14"><a href="mrv.html#cb154-14"></a>                  <span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">1.6</span>),</span>
+<span id="cb154-15"><a href="mrv.html#cb154-15"></a>                <span class="dt">ncol  =</span> <span class="dv">3</span>,</span>
+<span id="cb154-16"><a href="mrv.html#cb154-16"></a>                <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb154-17"><a href="mrv.html#cb154-17"></a>n_comp &lt;-<span class="st"> </span><span class="dv">20</span></span>
+<span id="cb154-18"><a href="mrv.html#cb154-18"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_comp) {</span>
+<span id="cb154-19"><a href="mrv.html#cb154-19"></a>  x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dv">1</span>, </span>
+<span id="cb154-20"><a href="mrv.html#cb154-20"></a>             <span class="dt">mean  =</span> mu_v,</span>
+<span id="cb154-21"><a href="mrv.html#cb154-21"></a>             <span class="dt">sigma =</span> cov_m)</span>
+<span id="cb154-22"><a href="mrv.html#cb154-22"></a>  <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;My function: &quot;</span>,</span>
+<span id="cb154-23"><a href="mrv.html#cb154-23"></a>               <span class="kw">mvn_dens</span>(x, mu_v, cov_m),</span>
+<span id="cb154-24"><a href="mrv.html#cb154-24"></a>               <span class="st">&quot;, dmvnorm: &quot;</span>,</span>
+<span id="cb154-25"><a href="mrv.html#cb154-25"></a>               <span class="kw">dmvnorm</span>(x, mu_v, cov_m)))</span>
+<span id="cb154-26"><a href="mrv.html#cb154-26"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;My function: 0.0229514237156383, dmvnorm: 0.0229514237156383&quot;
 ## [1] &quot;My function: 0.00763138915406231, dmvnorm: 0.00763138915406232&quot;
 ## [1] &quot;My function: 0.0230688881105741, dmvnorm: 0.0230688881105741&quot;
@@ -759,7 +770,6 @@ make modeling much easier.</li>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
 "facebook": true,
 "twitter": true,
 "linkedin": false,
@@ -778,10 +788,6 @@ gitbook.start({
 "text": null
 },
 "history": {
-"link": null,
-"text": null
-},
-"view": {
 "link": null,
 "text": null
 },
