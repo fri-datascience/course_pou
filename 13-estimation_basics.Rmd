@@ -141,16 +141,15 @@ a.
   &= \frac{1}{n} \sum_{i=1}^n E[Y_i^2] - 2 E[Y_i \bar{Y}] + \bar{Y}^2)] \\
   &= \frac{1}{n} \sum_{i=1}^n E[Y_i^2 - 2 Y_i \bar{Y} + \bar{Y}^2] \\
   &= \frac{1}{n} \sum_{i=1}^n E[Y_i^2 - \frac{2}{n} Y_i^2 - \frac{2}{n} \sum_{i \neq j} Y_i Y_j  + \frac{1}{n^2}\sum_j \sum_{k \neq j} Y_j Y_k + \frac{1}{n^2} \sum_j Y_j^2] \\
-  &= \frac{1}{n} \sum_{i=1}^n \frac{n - 2}{n} (\sigma^2 - \mu^2) - \frac{2}{n} (n - 1) \mu^2 + \frac{1}{n^2}n(n-1)\mu^2 + \frac{1}{n^2}(\sigma^2 + \mu^2) \\
+  &= \frac{1}{n} \sum_{i=1}^n \frac{n - 2}{n} (\sigma^2 + \mu^2) - \frac{2}{n} (n - 1) \mu^2 + \frac{1}{n^2}n(n-1)\mu^2 + \frac{1}{n^2}n(\sigma^2 + \mu^2) \\
   &= \frac{n-1}{n}\sigma^2 \\
   < \sigma^2.
 \end{align*}
 b. Let $S_n$ denote the sample variance. Then we can write it as
 \begin{align*}
-  S_n &= \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2 + 2(X_i - \mu)(\mu - \bar{X}) + (\mu - \bar{X})^2 \\
-  &= \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2 - (\bar{X} - \mu)^2.
+  S_n &= \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2 + 2(X_i - \mu)(\mu - \bar{X}) + (\mu - \bar{X})^2.
 \end{align*}
-Now $\bar{X}$ converges in probability (by WLLN) to $\mu$ therefore the right term converges in probability to zero. The left term converges in probability to $\sigma^2$, also by WLLN. Therefore the sample variance is a consistent estimatior of the variance.
+Now $\bar{X}$ converges in probability (by WLLN) to $\mu$ therefore the right terms converge in probability to zero. The left term converges in probability to $\sigma^2$, also by WLLN. Therefore the sample variance is a consistent estimatior of the variance.
 
 c. The denominator changes in the second-to-last line of a., therefore the last line is now equality.
 
@@ -164,8 +163,9 @@ c. The denominator changes in the second-to-last line of a., therefore the last 
 a. Show that the sample median is an unbiased estimator of the median for N$(\mu, \sigma^2)$.
 b. Show that the sample median is an unbiased estimator of the mean for any distribution with symmetric density.
 
+Hint 1: The pdf of an order statistic is $f_{X_{(k)}}(x) = \frac{n!}{(n - k)!(k - 1)!}f_X(x)\Big(F_X(x)^{k-1} (1 - F_X(x)^{n - k}) \Big)$. 
 
-
+Hint 2: A distribution is symmetric when $X$ and $2a - X$ have the same distribution for some $a$.
 
 
 ```
@@ -177,7 +177,7 @@ b. Let $Z_i$, $i = 1,...,n$ be i.i.d. variables with a symmetric distribution an
 \begin{align*}
   f_M(x) = (m+1)\binom{2m + 1}{m}f_Z(x)\Big(F_Z(x)^m (1 - F_Z(x)^m) \Big).
 \end{align*}
-For every symmetric distribution, it holds that $F_X(x) = 1 - F(2a - x)$ (CHECK THIS). Let $a = \mu$, the population mean. Plugging this into the PDF, we get that $f_M(x) = f_M(2\mu -x)$. It follows that
+For every symmetric distribution, it holds that $F_X(x) = 1 - F(2a - x)$. Let $a = \mu$, the population mean. Plugging this into the PDF, we get that $f_M(x) = f_M(2\mu -x)$. It follows that
 \begin{align*}
   E[M] &= E[2\mu - M] \\
   2E[M] &= 2\mu \\
@@ -186,7 +186,7 @@ For every symmetric distribution, it holds that $F_X(x) = 1 - F(2a - x)$ (CHECK 
 Now let $n = 2m$ be even. Then the sample median is $M = \frac{Z_{m:2m} + Z_{m+1:2m}}{2}$. It can be shown, that the joint PDF of these terms is also symmetric. Therefore, similar to the above
 \begin{align*}
   E[M] &= E[\frac{Z_{m:2m} + Z_{m+1:2m}}{2}] \\
-       &= E[\frac{2\mu - Z_{m:2m} + 2\mu - Z_{m+1:2m}}{2}] \\
+       &= E[\frac{2\mu - M + 2\mu - M}{2}] \\
        &= E[2\mu - M].
 \end{align*}
 The above also proves point a. as the median and the mean are the same in normal distribution.

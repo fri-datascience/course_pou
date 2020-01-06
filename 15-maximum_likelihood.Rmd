@@ -169,7 +169,7 @@ ggplot(data = X, aes(x = X1, y = X2)) +
 
 
 ```{exercise, name = "Logistic regression"}
-Logistic regression is a popular discriminative model when our target variable is binary (categorical with 2 values). One of the ways of looking at logistic regression is that it is linear regression but instead of using the linear term as the mean of a normal RV, we use it as the mean of a Bernoulli RV. Of course, the mean of a Bernoulli is bounded on $[0,1]$, so, to avoid non-sensical values, we squeeze the linear between 0 and 1 with the inverse logistic function inv_logit$(z) =  1 / 1 + e^{-z}$. This leads to the following model: $y_i | \beta, x \sim \text{Bernoulli}(\text{inv_logit}(\beta x))$.
+Logistic regression is a popular discriminative model when our target variable is binary (categorical with 2 values). One of the ways of looking at logistic regression is that it is linear regression but instead of using the linear term as the mean of a normal RV, we use it as the mean of a Bernoulli RV. Of course, the mean of a Bernoulli is bounded on $[0,1]$, so, to avoid non-sensical values, we squeeze the linear between 0 and 1 with the inverse logit function inv_logit$(z) =  1 / 1 + e^{-z}$. This leads to the following model: $y_i | \beta, x \sim \text{Bernoulli}(\text{inv_logit}(\beta x))$.
 
 
 a. Explicitly write the likelihood function of beta.
@@ -371,6 +371,7 @@ x <- c(2, 5, 3, 1, 2, 1, 0, 3, 0, 2)
 <div class="fold">
 ```{solution, echo = togs}
 
+
 a. The log likelihood of the Poisson is
 \begin{align*}
   l(\lambda; x) = \sum_{i=1}^n x_i \ln \lambda - n \lambda - \sum_{i=1}^n \ln x_i!
@@ -382,7 +383,9 @@ Taking the derivative and equating with 0 we get
 \end{align*}
 Since $\lambda$ is the mean parameter, this was expected.
 
+
 b. For the Fischer information, we first need the second derivative, which is
+
 \begin{align*}
   - \lambda^{-2} \sum_{i=1}^n x_i. \\
 \end{align*}
@@ -420,7 +423,7 @@ boot_CI
 
 a. Find the Fisher information matrix for the Gamma distribution.
 
-b. Generate 20 samples from a Gamma distribution and plot a confidence ellipse of the inverse of Fisher information matrix.
+b. Generate 20 samples from a Gamma distribution and plot a confidence ellipse of the inverse of Fisher information matrix around the ML estimates of the parameters. Also plot the theoretical values. Repeat the sampling several times. What do you observe?
 
 c. Discuss what a non-diagonal Fisher matrix implies.
 
@@ -432,7 +435,7 @@ Hint: The digamma function is defined as $\psi(x) = \frac{\frac{d}{dx} \Gamma(x)
 
 a. The log likelihood of the Gamma is
 \begin{equation*}
-  l(\alpha, \beta; x) = n \alpha \beta - n \ln \Gamma(\alpha) + (\alpha - 1) \sum_{i=1}^n \ln x_i - \beta \sum_{i=1}^n x_i.
+  l(\alpha, \beta; x) = n \alpha \ln \beta - n \ln \Gamma(\alpha) + (\alpha - 1) \sum_{i=1}^n \ln x_i - \beta \sum_{i=1}^n x_i.
 \end{equation*}
 Let us calculate the derivatives.
 \begin{align*}
@@ -465,7 +468,7 @@ c. A non-diagonal Fisher matrix implies that the parameter estimates are linearl
 ```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
 set.seed(1)
 n  <- 20
-mu <- c(5, 2)
+pars_theor <- c(5, 2)
 x  <- rgamma(n, 5, 2)
 
 fish_mat <- matrix(data = NA, nrow = 2, ncol = 2)
@@ -476,13 +479,31 @@ fish_mat[1,1] <- n * grad(digamma, mu[1])
 
 fish_mat_inv <- solve(fish_mat)
 
-est_ellip <- ellipse(mu, fish_mat_inv, draw = FALSE)
+
+
+# MLE for alpha and beta
+log_lik <- function (pars, x) {
+  n <- length(x)
+  return (- (n * pars[1] * log(pars[2]) -
+             n * log(gamma(pars[1])) +
+             (pars[1] - 1) * sum(log(x)) -
+             pars[2] * sum(x)))
+}
+my_optim <- optim(par = c(1,1), fn = log_lik, method = "L-BFGS-B",
+                  lower = c(0.001, 0.001), upper = c(8, 8), x = x)
+pars_mle <- my_optim$par
+
+est_ellip <- ellipse(pars_mle, fish_mat_inv, draw = FALSE)
 colnames(est_ellip) <- c("X1", "X2")
 est_ellip <- as.data.frame(est_ellip)
 
 ggplot() +
-  geom_point(data = data.frame(x = mu[1], y = mu[2]), aes(x = x, y = y)) +
-  geom_path(data = est_ellip, aes(x = X1, y = X2))
+  geom_point(data = data.frame(x = pars_mle[1], y = pars_mle[2]), aes(x = x, y = y)) +
+  geom_path(data = est_ellip, aes(x = X1, y = X2)) +
+  geom_point(aes(x = pars_theor[1], y = pars_theor[2]), color = "red") +
+  geom_text(aes(x = pars_theor[1], y = pars_theor[2], label = "Theoretical parameters"), 
+            color = "red",
+            nudge_y = -0.2)
 
 ```
 </div>
