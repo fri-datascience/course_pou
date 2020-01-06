@@ -43,9 +43,14 @@ library(tidyr)
 ```{exercise}
 
 Ideally, a $1-\alpha$ CI would have $1-\alpha$ coverage. That is, say a 95% CI should, in the long run, contain the true value of the parameter 95% of the time. In practice, it is impossible to assess the coverage of our CI method, because we rarely know the true parameter. In simulation, however, we can. Let's assess the coverage of bootstrap percentile intervals.
+
+
 a. Pick a univariate distribution with readly available mean and one that you can easuly sample from.
+
 b. Draw $n = 30$ random samples from the chosen distribution and use the bootstrap (with large enough m) and percentile CI method to construct 95% CI. Repeat the process many times and count how many times the CI contains the true mean. That is, compute the actual coverage probability (don't forget to include the standard error of the coverage probability!). What can you observe?
+
 c. Try one or two different distributions. What can you observe?
+
 d. Repeat (b) and (c) using BCa intervals (R package boot). How does the coverage compare to percentile intervals?
 
 
