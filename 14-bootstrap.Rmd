@@ -4,6 +4,8 @@ This chapter deals with bootstrap.
 
 The students are expected to acquire the following knowledge:
 
+- How to use bootstrap to generate coverage intervals.
+
 <style>
 .fold-btn { 
   float: right; 

@@ -4,6 +4,10 @@ This chapter deals with estimation basics.
 
 The students are expected to acquire the following knowledge:
 
+- Biased and unbiased estimators.
+- Consistent estimators.
+- Empirical cumulative distribution function.
+
 <style>
 .fold-btn { 
   float: right; 
@@ -29,7 +33,7 @@ $(document).ready(function() {
 </script>
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- T
+togs <- F
 library(ggplot2)
 library(dplyr)
 library(reshape2)
