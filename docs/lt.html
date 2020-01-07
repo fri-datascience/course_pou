@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 12 Limit theorems | Principles of Uncertainty – exercises</title>
+  <title>12 Limit theorems | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 12 Limit theorems | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="12 Limit theorems | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 12 Limit theorems | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="12 Limit theorems | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-01-06" />
+<meta name="date" content="2020-01-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,25 +53,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -132,93 +133,109 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
 <li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
-<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
 <li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fisher-information"><i class="fa fa-check"></i><b>15.2</b> Fisher information</a></li>
 <li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
 </ul></li>
-<li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
-<li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
-<li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
-<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
-<li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
-<li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
+<li class="chapter" data-level="" data-path="appendix-appendix.html"><a href="appendix-appendix.html"><i class="fa fa-check"></i>(APPENDIX) Appendix</a></li>
+<li class="chapter" data-level="16" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>16</b> R programming language</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>16.1</b> Basic characteristics</a></li>
+<li class="chapter" data-level="16.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>16.2</b> Why R?</a></li>
+<li class="chapter" data-level="16.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>16.3</b> Setting up</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>16.3.1</b> RStudio</a></li>
+<li class="chapter" data-level="16.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>16.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
-<li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
-<li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
-<li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
-<li class="chapter" data-level="A.4.4" data-path="A1.html"><a href="A1.html#factors"><i class="fa fa-check"></i><b>A.4.4</b> Factors</a></li>
-<li class="chapter" data-level="A.4.5" data-path="A1.html"><a href="A1.html#matrices"><i class="fa fa-check"></i><b>A.4.5</b> Matrices</a></li>
-<li class="chapter" data-level="A.4.6" data-path="A1.html"><a href="A1.html#arrays"><i class="fa fa-check"></i><b>A.4.6</b> Arrays</a></li>
-<li class="chapter" data-level="A.4.7" data-path="A1.html"><a href="A1.html#data-frames"><i class="fa fa-check"></i><b>A.4.7</b> Data frames</a></li>
-<li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
-<li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
+<li class="chapter" data-level="16.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>16.4</b> R basics</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>16.4.1</b> Variables and types</a></li>
+<li class="chapter" data-level="16.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>16.4.2</b> Basic operations</a></li>
+<li class="chapter" data-level="16.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>16.4.3</b> Vectors</a></li>
+<li class="chapter" data-level="16.4.4" data-path="A1.html"><a href="A1.html#factors"><i class="fa fa-check"></i><b>16.4.4</b> Factors</a></li>
+<li class="chapter" data-level="16.4.5" data-path="A1.html"><a href="A1.html#matrices"><i class="fa fa-check"></i><b>16.4.5</b> Matrices</a></li>
+<li class="chapter" data-level="16.4.6" data-path="A1.html"><a href="A1.html#arrays"><i class="fa fa-check"></i><b>16.4.6</b> Arrays</a></li>
+<li class="chapter" data-level="16.4.7" data-path="A1.html"><a href="A1.html#data-frames"><i class="fa fa-check"></i><b>16.4.7</b> Data frames</a></li>
+<li class="chapter" data-level="16.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>16.4.8</b> Lists</a></li>
+<li class="chapter" data-level="16.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>16.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
-<li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
+<li class="chapter" data-level="16.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>16.5</b> Functions</a>
+<ul>
+<li class="chapter" data-level="16.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>16.5.1</b> Writing functions</a></li>
 </ul></li>
-<li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
-<li class="chapter" data-level="A.7" data-path="A1.html"><a href="A1.html#further-reading-and-references"><i class="fa fa-check"></i><b>A.7</b> Further reading and references</a></li>
+<li class="chapter" data-level="16.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>16.6</b> Other tips</a></li>
+<li class="chapter" data-level="16.7" data-path="A1.html"><a href="A1.html#further-reading-and-references"><i class="fa fa-check"></i><b>16.7</b> Further reading and references</a></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>B</b> Probability distributions</a></li>
+<li class="chapter" data-level="17" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>17</b> Probability distributions</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>      
@@ -239,8 +256,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lt" class="section level1">
-<h1><span class="header-section-number">Chapter 12</span> Limit theorems</h1>
+<div id="lt" class="section level1" number="12">
+<h1 number="12"><span class="header-section-number">12</span> Limit theorems</h1>
 <p>This chapter deals with limit theorems.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
@@ -272,9 +289,8 @@ $(document).ready(function() {
 </script>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-206" class="exercise"><strong>Exercise 12.1  </strong></span>Show that Monte Carlo integration converges almost surely to the true integral of a bounded function.</p>
+<p><span id="exr:unnamed-chunk-206" class="exercise"><strong>Exercise 90  </strong></span>Show that Monte Carlo integration converges almost surely to the true integral of a bounded function.</p>
 </div>
-
 <div class="fold">
 
 <div class="solution">
@@ -290,10 +306,9 @@ It follows that
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-208" class="exercise"><strong>Exercise 12.2  </strong></span>Let <span class="math inline">\(X\)</span> be a geometric random variable with probability 0.5 and support in positive integers. Let <span class="math inline">\(Y = 2^X (-1)^X X^{-1}\)</span>. Find the expected value of <span class="math inline">\(Y\)</span> by using conditional convergence (this variable does not have an expected value in the conventional sense – the series is not absolutely convergent).
+<p><span id="exr:unnamed-chunk-208" class="exercise"><strong>Exercise 91  </strong></span>Let <span class="math inline">\(X\)</span> be a geometric random variable with probability 0.5 and support in positive integers. Let <span class="math inline">\(Y = 2^X (-1)^X X^{-1}\)</span>. Find the expected value of <span class="math inline">\(Y\)</span> by using conditional convergence (this variable does not have an expected value in the conventional sense – the series is not absolutely convergent).
 <span style="color:blue">R: Draw <span class="math inline">\(10000\)</span> samples from a geometric distribution with probability 0.5 and support in positive integers to get <span class="math inline">\(X\)</span>. Then calculate <span class="math inline">\(Y\)</span> and plot the means at each iteration (sample). Additionally, plot the expected value calculated in a. Try it with different seeds. What do you notice?</span></p>
 </div>
-
 <div class="fold">
 
 <div class="solution">
@@ -305,14 +320,14 @@ It follows that
        &amp;= - \ln(2)
 \end{align*}\]</span></p>
 </div>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1"><span class="kw">set.seed</span>(<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb179-2" title="2">x       &lt;-<span class="st"> </span><span class="kw">rgeom</span>(<span class="dv">100000</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb179-3" title="3">y       &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">^</span>x <span class="op">*</span><span class="st"> </span>(<span class="op">-</span><span class="dv">1</span>)<span class="op">^</span>x <span class="op">*</span><span class="st"> </span>x<span class="op">^</span>{<span class="op">-</span><span class="dv">1</span>}</a>
-<a class="sourceLine" id="cb179-4" title="4">y_means &lt;-<span class="st"> </span><span class="kw">cumsum</span>(y) <span class="op">/</span><span class="st"> </span><span class="kw">seq_along</span>(y)</a>
-<a class="sourceLine" id="cb179-5" title="5">df      &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(y_means), <span class="dt">y =</span> y_means)</a>
-<a class="sourceLine" id="cb179-6" title="6"><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb179-8" title="8"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="op">-</span><span class="kw">log</span>(<span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="lt.html#cb179-1"></a><span class="kw">set.seed</span>(<span class="dv">3</span>)</span>
+<span id="cb179-2"><a href="lt.html#cb179-2"></a>x       &lt;-<span class="st"> </span><span class="kw">rgeom</span>(<span class="dv">100000</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb179-3"><a href="lt.html#cb179-3"></a>y       &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">^</span>x <span class="op">*</span><span class="st"> </span>(<span class="op">-</span><span class="dv">1</span>)<span class="op">^</span>x <span class="op">*</span><span class="st"> </span>x<span class="op">^</span>{<span class="op">-</span><span class="dv">1</span>}</span>
+<span id="cb179-4"><a href="lt.html#cb179-4"></a>y_means &lt;-<span class="st"> </span><span class="kw">cumsum</span>(y) <span class="op">/</span><span class="st"> </span><span class="kw">seq_along</span>(y)</span>
+<span id="cb179-5"><a href="lt.html#cb179-5"></a>df      &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(y_means), <span class="dt">y =</span> y_means)</span>
+<span id="cb179-6"><a href="lt.html#cb179-6"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></span>
+<span id="cb179-7"><a href="lt.html#cb179-7"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb179-8"><a href="lt.html#cb179-8"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="op">-</span><span class="kw">log</span>(<span class="dv">2</span>))</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-210-1.png" width="672" /></p>
 </div>
 
@@ -339,7 +354,6 @@ It follows that
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
 "facebook": true,
 "twitter": true,
 "linkedin": false,
@@ -358,10 +372,6 @@ gitbook.start({
 "text": null
 },
 "history": {
-"link": null,
-"text": null
-},
-"view": {
 "link": null,
 "text": null
 },

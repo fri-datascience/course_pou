@@ -471,15 +471,6 @@ n  <- 20
 pars_theor <- c(5, 2)
 x  <- rgamma(n, 5, 2)
 
-fish_mat <- matrix(data = NA, nrow = 2, ncol = 2)
-fish_mat[1,2] <- - n / mu[2]
-fish_mat[2,1] <- - n / mu[2]
-fish_mat[2,2] <- (n * mu[1]) / (mu[2]^2)
-fish_mat[1,1] <- n * grad(digamma, mu[1])
-
-fish_mat_inv <- solve(fish_mat)
-
-
 
 # MLE for alpha and beta
 log_lik <- function (pars, x) {
@@ -492,6 +483,14 @@ log_lik <- function (pars, x) {
 my_optim <- optim(par = c(1,1), fn = log_lik, method = "L-BFGS-B",
                   lower = c(0.001, 0.001), upper = c(8, 8), x = x)
 pars_mle <- my_optim$par
+
+fish_mat <- matrix(data = NA, nrow = 2, ncol = 2)
+fish_mat[1,2] <- - n / pars_mle[2]
+fish_mat[2,1] <- - n / pars_mle[2]
+fish_mat[2,2] <- (n * pars_mle[1]) / (pars_mle[2]^2)
+fish_mat[1,1] <- n * grad(digamma, pars_mle[1])
+
+fish_mat_inv <- solve(fish_mat)
 
 est_ellip <- ellipse(pars_mle, fish_mat_inv, draw = FALSE)
 colnames(est_ellip) <- c("X1", "X2")
