@@ -35,7 +35,7 @@ $(document).ready(function() {
 </script>
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
-togs <- F
+togs <- T
 library(ggplot2)
 library(dplyr)
 library(reshape2)
@@ -508,25 +508,6 @@ The data are the serial numbers of the tanks. The parameter is $n$, the total pr
 
 a. One of the assumptions is that we have i.i.d samples, however in practice this might not be true, as some tanks produced later could be sent to the field later, therefore already in theory we would not be able to recover some values from the population.
 
-c. The probability that we observed our sample $Y = {Y_1, Y_2,...,,Y_k}$ given $n$ is $\frac{1}{{n}\choose{k}}$. We need to find such $n^*$ that this function is maximized. Additionally, we have a constraint that $n^* \geq m = \max{(Y)}$. Let us plot this function for $m = 10$ and $k = 4$. 
-```
-```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
-library(ggplot2)
-my_fun <- function (x, m, k) {
-  tmp        <-  1 / (choose(x, k))
-  tmp[x < m] <- 0
-  return (tmp)
-}
-x  <- 1:20
-y  <- my_fun(x, 10, 4)
-df <- data.frame(x = x, y = y)
-ggplot(data = df, aes(x = x, y = y)) +
-  geom_line()
-```
-```{solution, echo = togs}
-
-
-c. (continued) We observe that the maximum of this function lies at the maximum value of the sample. Therefore $n^* = m$ and ML estimate equals the plug-in estimate.
 
 b. To find the expected value we first need to find the distribution of $m$. Let us start with the CDF.
 \begin{align*}
@@ -548,6 +529,27 @@ The bias of this estimator is then
 \begin{align*}
   E[m] - n = \frac{k(n + 1)}{k + 1} - n = \frac{k - n}{k + 1}.
 \end{align*}
+
+c. The probability that we observed our sample $Y = {Y_1, Y_2,...,,Y_k}$ given $n$ is $\frac{1}{{n}\choose{k}}$. We need to find such $n^*$ that this function is maximized. Additionally, we have a constraint that $n^* \geq m = \max{(Y)}$. Let us plot this function for $m = 10$ and $k = 4$. 
+```
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+library(ggplot2)
+my_fun <- function (x, m, k) {
+  tmp        <-  1 / (choose(x, k))
+  tmp[x < m] <- 0
+  return (tmp)
+}
+x  <- 1:20
+y  <- my_fun(x, 10, 4)
+df <- data.frame(x = x, y = y)
+ggplot(data = df, aes(x = x, y = y)) +
+  geom_line()
+```
+```{solution, echo = togs}
+
+
+c. (continued) We observe that the maximum of this function lies at the maximum value of the sample. Therefore $n^* = m$ and ML estimate equals the plug-in estimate.
+
   
 d. 
 \begin{align*}

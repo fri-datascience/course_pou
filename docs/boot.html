@@ -297,7 +297,58 @@ Ideally, a <span class="math inline">\(1-\alpha\)</span> CI would have <span cla
 </ol>
 </div>
 <div class="fold">
-
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="boot.html#cb183-1"></a><span class="kw">library</span>(boot)</span>
+<span id="cb183-2"><a href="boot.html#cb183-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb183-3"><a href="boot.html#cb183-3"></a>nit   &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb183-4"><a href="boot.html#cb183-4"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
+<span id="cb183-5"><a href="boot.html#cb183-5"></a>nboot &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb183-6"><a href="boot.html#cb183-6"></a>covers     &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> nit, <span class="dt">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb183-7"><a href="boot.html#cb183-7"></a>covers_BCa &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> nit, <span class="dt">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb183-8"><a href="boot.html#cb183-8"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nit) {</span>
+<span id="cb183-9"><a href="boot.html#cb183-9"></a>  x1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">30</span>)</span>
+<span id="cb183-10"><a href="boot.html#cb183-10"></a>  x2 &lt;-<span class="st"> </span><span class="kw">rbeta</span>(<span class="dv">30</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb183-11"><a href="boot.html#cb183-11"></a>  x3 &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">30</span>, <span class="dv">5</span>)</span>
+<span id="cb183-12"><a href="boot.html#cb183-12"></a>  </span>
+<span id="cb183-13"><a href="boot.html#cb183-13"></a>  X1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">30</span>, <span class="dt">ncol =</span> nboot)</span>
+<span id="cb183-14"><a href="boot.html#cb183-14"></a>  X2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">30</span>, <span class="dt">ncol =</span> nboot)</span>
+<span id="cb183-15"><a href="boot.html#cb183-15"></a>  X3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">30</span>, <span class="dt">ncol =</span> nboot)</span>
+<span id="cb183-16"><a href="boot.html#cb183-16"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nboot) {</span>
+<span id="cb183-17"><a href="boot.html#cb183-17"></a>    X1[ ,i] &lt;-<span class="st"> </span><span class="kw">sample</span>(x1, <span class="dv">30</span>, <span class="dt">replace =</span> T)</span>
+<span id="cb183-18"><a href="boot.html#cb183-18"></a>    X2[ ,i] &lt;-<span class="st"> </span><span class="kw">sample</span>(x2, <span class="dv">30</span>, T)</span>
+<span id="cb183-19"><a href="boot.html#cb183-19"></a>    X3[ ,i] &lt;-<span class="st"> </span><span class="kw">sample</span>(x3, <span class="dv">30</span>, T)</span>
+<span id="cb183-20"><a href="boot.html#cb183-20"></a>  }</span>
+<span id="cb183-21"><a href="boot.html#cb183-21"></a>  X1_func &lt;-<span class="st"> </span><span class="kw">apply</span>(X1, <span class="dv">2</span>, mean)</span>
+<span id="cb183-22"><a href="boot.html#cb183-22"></a>  X2_func &lt;-<span class="st"> </span><span class="kw">apply</span>(X2, <span class="dv">2</span>, mean)</span>
+<span id="cb183-23"><a href="boot.html#cb183-23"></a>  X3_func &lt;-<span class="st"> </span><span class="kw">apply</span>(X3, <span class="dv">2</span>, mean)</span>
+<span id="cb183-24"><a href="boot.html#cb183-24"></a>  X1_quant &lt;-<span class="st"> </span><span class="kw">quantile</span>(X1_func, <span class="dt">probs =</span> <span class="kw">c</span>(alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>))</span>
+<span id="cb183-25"><a href="boot.html#cb183-25"></a>  X2_quant &lt;-<span class="st"> </span><span class="kw">quantile</span>(X2_func, <span class="dt">probs =</span> <span class="kw">c</span>(alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>))</span>
+<span id="cb183-26"><a href="boot.html#cb183-26"></a>  X3_quant &lt;-<span class="st"> </span><span class="kw">quantile</span>(X3_func, <span class="dt">probs =</span> <span class="kw">c</span>(alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>))</span>
+<span id="cb183-27"><a href="boot.html#cb183-27"></a>  covers[j,<span class="dv">1</span>] &lt;-<span class="st"> </span>(<span class="dv">0</span> <span class="op">&gt;</span><span class="st"> </span>X1_quant[<span class="dv">1</span>]) <span class="op">&amp;</span><span class="st"> </span>(<span class="dv">0</span> <span class="op">&lt;</span><span class="st"> </span>X1_quant[<span class="dv">2</span>])</span>
+<span id="cb183-28"><a href="boot.html#cb183-28"></a>  covers[j,<span class="dv">2</span>] &lt;-<span class="st"> </span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">3</span>) <span class="op">&gt;</span><span class="st"> </span>X2_quant[<span class="dv">1</span>]) <span class="op">&amp;</span><span class="st"> </span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">3</span>) <span class="op">&lt;</span><span class="st"> </span>X2_quant[<span class="dv">2</span>])</span>
+<span id="cb183-29"><a href="boot.html#cb183-29"></a>  covers[j,<span class="dv">3</span>] &lt;-<span class="st"> </span>(<span class="dv">5</span> <span class="op">&gt;</span><span class="st"> </span>X3_quant[<span class="dv">1</span>]) <span class="op">&amp;</span><span class="st"> </span>(<span class="dv">5</span> <span class="op">&lt;</span><span class="st"> </span>X3_quant[<span class="dv">2</span>])</span>
+<span id="cb183-30"><a href="boot.html#cb183-30"></a></span>
+<span id="cb183-31"><a href="boot.html#cb183-31"></a>  mf     &lt;-<span class="st"> </span><span class="cf">function</span> (x, i) <span class="kw">return</span>(<span class="kw">mean</span>(x[i]))</span>
+<span id="cb183-32"><a href="boot.html#cb183-32"></a>  bootX1 &lt;-<span class="st"> </span><span class="kw">boot</span>(x1, <span class="dt">statistic =</span> mf, <span class="dt">R =</span> nboot)</span>
+<span id="cb183-33"><a href="boot.html#cb183-33"></a>  bootX2 &lt;-<span class="st"> </span><span class="kw">boot</span>(x2, <span class="dt">statistic =</span> mf, <span class="dt">R =</span> nboot)</span>
+<span id="cb183-34"><a href="boot.html#cb183-34"></a>  bootX3 &lt;-<span class="st"> </span><span class="kw">boot</span>(x3, <span class="dt">statistic =</span> mf, <span class="dt">R =</span> nboot)</span>
+<span id="cb183-35"><a href="boot.html#cb183-35"></a></span>
+<span id="cb183-36"><a href="boot.html#cb183-36"></a>  X1_quant_BCa &lt;-<span class="st"> </span><span class="kw">boot.ci</span>(bootX1, <span class="dt">type =</span> <span class="st">&quot;bca&quot;</span>)<span class="op">$</span>bca</span>
+<span id="cb183-37"><a href="boot.html#cb183-37"></a>  X2_quant_BCa &lt;-<span class="st"> </span><span class="kw">boot.ci</span>(bootX2, <span class="dt">type =</span> <span class="st">&quot;bca&quot;</span>)<span class="op">$</span>bca</span>
+<span id="cb183-38"><a href="boot.html#cb183-38"></a>  X3_quant_BCa &lt;-<span class="st"> </span><span class="kw">boot.ci</span>(bootX3, <span class="dt">type =</span> <span class="st">&quot;bca&quot;</span>)<span class="op">$</span>bca</span>
+<span id="cb183-39"><a href="boot.html#cb183-39"></a>  </span>
+<span id="cb183-40"><a href="boot.html#cb183-40"></a>  covers_BCa[j,<span class="dv">1</span>] &lt;-<span class="st"> </span>(<span class="dv">0</span> <span class="op">&gt;</span><span class="st"> </span>X1_quant_BCa[<span class="dv">4</span>]) <span class="op">&amp;</span><span class="st"> </span>(<span class="dv">0</span> <span class="op">&lt;</span><span class="st"> </span>X1_quant_BCa[<span class="dv">5</span>])</span>
+<span id="cb183-41"><a href="boot.html#cb183-41"></a>  covers_BCa[j,<span class="dv">2</span>] &lt;-<span class="st"> </span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">3</span>) <span class="op">&gt;</span><span class="st"> </span>X2_quant_BCa[<span class="dv">4</span>]) <span class="op">&amp;</span><span class="st"> </span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">3</span>) <span class="op">&lt;</span><span class="st"> </span>X2_quant_BCa[<span class="dv">5</span>])</span>
+<span id="cb183-42"><a href="boot.html#cb183-42"></a>  covers_BCa[j,<span class="dv">3</span>] &lt;-<span class="st"> </span>(<span class="dv">5</span> <span class="op">&gt;</span><span class="st"> </span>X3_quant_BCa[<span class="dv">4</span>]) <span class="op">&amp;</span><span class="st"> </span>(<span class="dv">5</span> <span class="op">&lt;</span><span class="st"> </span>X3_quant_BCa[<span class="dv">5</span>])</span>
+<span id="cb183-43"><a href="boot.html#cb183-43"></a></span>
+<span id="cb183-44"><a href="boot.html#cb183-44"></a>}</span>
+<span id="cb183-45"><a href="boot.html#cb183-45"></a><span class="kw">apply</span>(covers, <span class="dv">2</span>, mean)</span></code></pre></div>
+<pre><code>## [1] 0.921 0.927 0.904</code></pre>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="boot.html#cb185-1"></a><span class="kw">apply</span>(covers, <span class="dv">2</span>, sd) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(nit)</span></code></pre></div>
+<pre><code>## [1] 0.008534157 0.008230355 0.009320454</code></pre>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="boot.html#cb187-1"></a><span class="kw">apply</span>(covers_BCa, <span class="dv">2</span>, mean)</span></code></pre></div>
+<pre><code>## [1] 0.928 0.946 0.917</code></pre>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="boot.html#cb189-1"></a><span class="kw">apply</span>(covers_BCa, <span class="dv">2</span>, sd) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(nit)</span></code></pre></div>
+<pre><code>## [1] 0.008178196 0.007150884 0.008728527</code></pre>
 </div>
 
 </div>
