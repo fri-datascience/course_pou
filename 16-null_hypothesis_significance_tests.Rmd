@@ -48,6 +48,40 @@ library(numDeriv)
 
 # togs <- FALSE
 ```
+
+```{exercise, name = "Binomial test"}
+We assume $y_i \in {0,1}$, $i = 1..n$ and $y_i | \theta ~ i.i.d.$ Bernoulli$(\theta)$. The test statistic is  X = heads - tails (heads = 1, tails = 0) and the rejection region R is defined as the region where the probability of obtaining such or more extreme X given $\theta$ is less than 0.05.
+
+
+a. Derive and plot the power function of the test for $n=100$.
+b. What is the significance level of this test if $H0: \theta = 0.5$? At which values of X will we reject the null hypothesis?
+
+
+```
+<div class="fold">
+
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+# a
+# First we need the rejection region, so we need to find X_min and X_max
+n <- 100
+qbinom(0.025, n, 0.5)
+qbinom(0.975, n, 0.5)
+pbinom(40, n, 0.5)
+pbinom(60, n, 0.5)
+X_min <- 39
+X_max <- 60
+thetas <- seq(0, 1, by = 0.01)
+beta_t <- 1 - pbinom(X_max, size = n, prob = thetas) + pbinom(X_min, size = n, prob = thetas)
+plot(beta_t)
+
+# b
+# The significance level is
+beta_t[51]
+# We will reject the null hypothesis at X values below X_min and above X_max.
+```
+</div>
+
+
 ```{exercise, name = "Long-run guarantees of the t-test"}
 
 
@@ -64,7 +98,119 @@ e. <span style="color:blue">Similar to (a-c) but now we generate data from N($\m
 <div class="fold">
 
 ```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
-n <- 10
+set.seed(2)
+
+# a
+x       <- rnorm(10)
+my_test <- t.test(x, alternative = "two.sided", mu = 0)
+my_test
+# we can not reject the null hypothesis
+
+
+# b
+# The expected value of false positives would be 0.05. The expected value of 
+# true negatives would be 0, as there are no negatives (the null hypothesis is 
+# always the truth).
+nit       <- 1000
+typeIerr  <- vector(mode = "logical", length = nit)
+typeIIerr <- vector(mode = "logical", length = nit)
+for (i in 1:nit) {
+  x       <- rnorm(10)
+  my_test <- t.test(x, alternative = "two.sided", mu = 0)
+  if (my_test$p.value < 0.05) {
+    typeIerr[i] <- T
+  } else {
+    typeIerr[i] <- F
+
+  }
+}
+mean(typeIerr)
+sd(typeIerr) / sqrt(nit)
+
+
+# d
+# We can not estimate the percentage of true negatives, but it will probably be 
+# higher than 0.05. There will be no false positives as the null hypothesis is
+# always false.
+typeIIerr <- vector(mode = "logical", length = nit)
+for (i in 1:nit) {
+  x       <- rnorm(10, -0.5)
+  my_test <- t.test(x, alternative = "two.sided", mu = 0)
+  if (my_test$p.value < 0.05) {
+    typeIIerr[i] <- F
+  } else {
+    typeIIerr[i] <- T
+
+  }
+}
+mean(typeIIerr)
+sd(typeIIerr) / sqrt(nit)
+
+
+# e
+# The expected value of false positives would be lower than 0.05. The expected 
+# value of true negatives would be 0, as there are no negatives (the null 
+# hypothesis is always the truth).
+typeIerr <- vector(mode = "logical", length = nit)
+for (i in 1:nit) {
+  u       <- runif(1, -1, 0)
+  x       <- rnorm(10, u)
+  my_test <- t.test(x, alternative = "greater", mu = 0)
+  if (my_test$p.value < 0.05) {
+    typeIerr[i] <- T
+  } else {
+    typeIerr[i] <- F
+
+  }
+}
+mean(typeIerr)
+sd(typeIerr) / sqrt(nit)
+
+```
+</div>
+
+```{exercise, name = "T-test, confidence intervals, and bootstrap"}
+<span style="color:blue">Sample $n=20$ from a standard normal distribution and calculate the p-value using t-test, confidence intervals based on normal distribution, and bootstrap. Repeat this several times and check how many times we rejected the null hypothesis (made a type I error). Hint: For the confidence intervals you can use function *CI* from the *Rmisc* package.</span>
+
+
+```
+<div class="fold">
+
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+set.seed(1)
+library(Rmisc)
+nit    <- 1000
+n_boot <- 100
+
+t_logic    <- rep(F, nit)
+boot_logic <- rep(F, nit)
+norm_logic <- rep(F, nit)
+for (i in 1:nit) {
+  x       <- rnorm(20)
+  my_test <- t.test(x)
+  my_CI   <- CI(x)
+  if (my_test$p.value <= 0.05) t_logic[i] <- T
+  boot_tmp <- vector(mode = "numeric", length = n_boot)
+  for (j in 1:n_boot) {
+    tmp_samp    <- sample(x, size = 20, replace = T)
+    boot_tmp[j] <- mean(tmp_samp)
+  }
+  if ((quantile(boot_tmp, 0.025) >= 0) | (quantile(boot_tmp, 0.975) <= 0)) {
+    boot_logic[i] <- T
+  }
+  if ((my_CI[3] >= 0) | (my_CI[1] <= 0)) {
+    norm_logic[i] <- T
+  }
+}
+mean(t_logic)
+sd(t_logic) / sqrt(nit)
+
+mean(boot_logic)
+sd(boot_logic) / sqrt(nit)
+
+mean(norm_logic)
+sd(norm_logic) / sqrt(nit)
+
 
 ```
 </div>
@@ -74,7 +220,7 @@ n <- 10
 
 
 a. Show that the $\chi^2 = \sum_{i=1}^k \frac{(O_i - E_i)^2}{E_i}$ test statistic is approximately $\chi^2$ distributed when we have two categories.
-b. <span style="color:blue">Compare the number of voters who voted for Trump or Hillary depending on their income (less or more than 100.000 dollars per year). Manually calculate the chi-squared statistic, compare to the chisq.test in R, and discuss the results.</span>
+b. <span style="color:blue">Let us look at the US voting data [here](https://edition.cnn.com/election/2016/results/exit-polls). Compare the number of voters who voted for Trump or Hillary depending on their income (less or more than 100.000 dollars per year). Manually calculate the chi-squared statistic, compare to the chisq.test in R, and discuss the results.</span>
 c. <span style="color:blue">Visualize the test.</span>
 
 
