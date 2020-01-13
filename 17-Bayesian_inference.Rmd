@@ -101,12 +101,16 @@ There are two sources of uncertainty in the predictive distribution. First is th
 x <- c(3, 2, 1, 1, 5, 4, 0, 0, 4, 3)
 
 # b
-plot(density(rgamma(1000, 1, 1)))
+# quick visual check of the prior
+ggplot(data = data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dgamma, args = list(shape = 1, rate = 1))
 palpha <- 1
 pbeta  <- 1
 alpha_post <- palpha + sum(x)
 beta_post  <- pbeta + length(x)
-plot(density(rgamma(1000, alpha_post, beta_post)))
+ggplot(data = data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dgamma, args = list(shape = alpha_post, rate = beta_post))
+
 
 # probability of being higher than 2.5
 1 - pgamma(2.5, alpha_post, beta_post)
@@ -222,8 +226,7 @@ envlp <- 10^(-25.8) * dunif(a, -5, 5) # found by trial and error
 tmp <- data.frame(envel = envlp, l = my_l, t = a)
 tmp <- gather(tmp, key = "key", value = "value", - t)
 ggplot(tmp, aes(x = t, y = value, color = key)) +
-  geom_line() +
-  geom_vline(xintercept = 1.16) # envelope OK
+  geom_line() # envelope OK
 
 
 set.seed(1)
