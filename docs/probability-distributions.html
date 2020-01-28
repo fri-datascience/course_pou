@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-01-13" />
+<meta name="date" content="2020-01-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -301,16 +301,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td><span class="math inline">\(p(1-p)^k\)</span> <br> <a href="rvs.html#exr:geocdf">4.5</a></td>
 <td><span class="math inline">\(1 - (1-p)^{k + 1}\)</span> <br> <a href="rvs.html#exr:geocdf">4.5</a></td>
 <td><span class="math inline">\(\frac{1 - p}{p}\)</span> <br> <a href="ev.html#exr:geoev">7.4</a></td>
-<td></td>
+<td><span class="math inline">\(\frac{1 - p}{p^2}\)</span> <br> <a href="ard.html#exr:geovar">9.3</a></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>normal</td>
 <td><span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma\)</span></td>
-<td><span class="math inline">\(\frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}\)</span> <br> <a href="rvs.html#exr:normalpdf">4.12</a></td>
-<td><span class="math inline">\(\int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(t - \mu)^2}{2 \sigma^2}} dt\)</span> <br> <a href="rvs.html#exr:normalpdf">4.12</a></td>
+<td><span class="math inline">\(\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}}\)</span> <br> <a href="rvs.html#exr:normalpdf">4.12</a></td>
+<td><span class="math inline">\(\int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(t - \mu)^2}{2 \sigma^2}} dt\)</span> <br> <a href="rvs.html#exr:normalpdf">4.12</a></td>
 <td><span class="math inline">\(\mu\)</span> <a href="ev.html#exr:normev">7.8</a></td>
-<td><span class="math inline">\(\sigma\)</span> <a href="ev.html#exr:normev">7.8</a></td>
+<td><span class="math inline">\(\sigma^2\)</span> <a href="ev.html#exr:normev">7.8</a></td>
 <td></td>
 </tr>
 <tr class="even">
@@ -354,8 +354,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td><span class="math inline">\(r\)</span>, <span class="math inline">\(p\)</span></td>
 <td><span class="math inline">\(\binom{k + r - 1}{k}(1-p)^r p^k\)</span> <br> <a href="rvs.html#exr:negbinpdf">4.7</a></td>
 <td></td>
-<td></td>
-<td></td>
+<td><span class="math inline">\(\frac{rp}{1 - p}\)</span> <br> <a href="ard.html#exr:nbev">9.2</a></td>
+<td><span class="math inline">\(\frac{rp}{(1 - p)^2}\)</span> <br> <a href="ard.html#exr:nbev">9.2</a></td>
 <td></td>
 </tr>
 <tr class="odd">

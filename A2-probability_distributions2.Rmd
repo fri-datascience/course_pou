@@ -5,13 +5,13 @@ Name | parameters | pdf/pmf | cdf | mean | variance
 Bernoulli | $p$ | $p^k (1 - p)^{1 - k}$ <br> \@ref(exr:binomialpmf) | | $p$ <br> \@ref(exr:Bernev) |  $p(1-p)$ <br> \@ref(exr:Bernev)
 binomial |$n$, $p$| $\binom{n}{k} p^k (1 - p)^{n - k}$ <br> \@ref(exr:bincdf) | |$np$ <br> \@ref(exr:binomev) |  $np(1-p)$ <br> \@ref(exr:binomev)
 Poisson |$\lambda$| $\frac{\lambda^k e^{-\lambda}}{k!}$ <br> \@ref(exr:poisex) | |  $\lambda$ <br> \@ref(exr:poisev) | $\lambda$ <br> \@ref(exr:poisev)
-geometric | $p$ | $p(1-p)^k$ <br> \@ref(exr:geocdf) | $1 - (1-p)^{k + 1}$ <br> \@ref(exr:geocdf)| $\frac{1 - p}{p}$ <br> \@ref(exr:geoev)|
-normal |$\mu$, $\sigma$ |$\frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(x - \mu)^2}{2 \sigma^2}}$ <br> \@ref(exr:normalpdf)| $\int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(t - \mu)^2}{2 \sigma^2}} dt$ <br> \@ref(exr:normalpdf)| $\mu$ \@ref(exr:normev) | $\sigma$ \@ref(exr:normev)
+geometric | $p$ | $p(1-p)^k$ <br> \@ref(exr:geocdf) | $1 - (1-p)^{k + 1}$ <br> \@ref(exr:geocdf)| $\frac{1 - p}{p}$ <br> \@ref(exr:geoev)| $\frac{1 - p}{p^2}$ <br> \@ref(exr:geovar)
+normal |$\mu$, $\sigma$ |$\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}}$ <br> \@ref(exr:normalpdf)| $\int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(t - \mu)^2}{2 \sigma^2}} dt$ <br> \@ref(exr:normalpdf)| $\mu$ \@ref(exr:normev) | $\sigma^2$ \@ref(exr:normev)
 beta |$\alpha$, $\beta$| $\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)}$ <br> \@ref(exr:betacdf) | | $\frac{\alpha}{\alpha + \beta}$ \@ref(exr:betaev)| $\frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}$ \@ref(exr:betaev)
 gamma |$\alpha$, $\beta$| $\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x}$  <br> \@ref(exr:gammapdf) | $\frac{\gamma(\alpha, \beta x)}{\Gamma(\alpha)}$ <br> \@ref(exr:gammapdf)|$\frac{\alpha}{\beta}$ <br> \@ref(exr:gammaev) | $\frac{\alpha}{\beta^2}$ <br> \@ref(exr:gammaev)
 exponential |$\lambda$| $\lambda e^{-\lambda x}$ <br> \@ref(exr:expcdf)| $1 - e^{-\lambda x}$ <br> \@ref(exr:expcdf) |$\lambda^{-1}$ <br> \@ref(exr:expev)   |$\lambda^{-2}$ <br> \@ref(exr:expev)
 logistic |$\mu$, $s$| $\frac{e^{-\frac{x - \mu}{s}}}{(1 + e{-\frac{x - \mu}{s}})^2}$ <br> \@ref(exr:logitpdf) | $\frac{1}{1 + e^{-\frac{x - \mu}{s}}}$ <br> \@ref(exr:logitpdf) | | 
-negative binomial |$r$, $p$| $\binom{k + r - 1}{k}(1-p)^r p^k$ <br> \@ref(exr:negbinpdf) | | | 
+negative binomial |$r$, $p$| $\binom{k + r - 1}{k}(1-p)^r p^k$ <br> \@ref(exr:negbinpdf) | | $\frac{rp}{1 - p}$ <br> \@ref(exr:nbev)| $\frac{rp}{(1 - p)^2}$ <br> \@ref(exr:nbev)
 multinomial |$n$, $p \in [0,1]^k$, $\sum p = 1$  | $\frac{n!}{x_1!x_2!...x_k!} p_1^{x_1} p_2^{x_2}...p_k^{x_k}$ <br> \@ref(exr:mnompdf) | | |
 <!-- multivariate normal |$\frac{1}{(2 \pi)^{-\frac{k}{2}}} \text{det}(\Sigma)^{-\frac{1}{2}} \exp(-\frac{1}{2}(x - \mu)^T \Sigma^{-1} (x - \mu))$ | | |  -->
 
