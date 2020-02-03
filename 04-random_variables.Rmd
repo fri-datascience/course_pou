@@ -922,7 +922,7 @@ a.
 \begin{align}
   p(x) &= \frac{d}{dx} \frac{1}{1 + e^{-\frac{x - \mu}{s}}} \\
        &= \frac{- \frac{d}{dx} (1 + e^{-\frac{x - \mu}{s}})}{(1 + e{-\frac{x - \mu}{s}})^2} \\
-       &= \frac{e^{-\frac{x - \mu}{s}}}{(1 + e{-\frac{x - \mu}{s}})^2}.
+       &= \frac{e^{-\frac{x - \mu}{s}}}{s(1 + e{-\frac{x - \mu}{s}})^2}.
 \end{align}
 
 
