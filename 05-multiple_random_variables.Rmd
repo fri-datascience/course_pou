@@ -266,7 +266,7 @@ a. Find the marginal distribution of $X$. Do you recognize this distribution?
 b. Find the conditional distribution of $Y | X$. Do you recognize this
 distribution?
 
-c. Calculate the probability $P(Y = 2 | X = 5)$ for $(X,Y)$.
+c. Calculate the probability $P(Y = 2 | X = 2.5)$ for $(X,Y)$.
 
 d. Find the marginal distribution of $Y$. Do you recognize this distribution?
 

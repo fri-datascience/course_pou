@@ -1,0 +1,274 @@
+
+# Null hypothesis significance testing {#nhst}
+
+This chapter deals with null hypothesis significance testing.
+
+The students are expected to acquire the following knowledge:
+
+- Binomial test.
+- t-test.
+- Chi-squared test.
+
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+togs <- T
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+library(tidyr)
+library(MASS)
+library(ggforce)
+library(mixtools)
+library(ade4)
+library(ggfortify)
+library(numDeriv)
+
+# togs <- FALSE
+```
+
+```{exercise, name = "Binomial test"}
+We assume $y_i \in \{0,1\}$, $i = 1,...,n$ and $y_i | \theta \sim i.i.d.$ Bernoulli$(\theta)$. The test statistic is  X = heads - tails (heads = 1, tails = 0) and the rejection region R is defined as the region where the probability of obtaining such or more extreme X given $\theta$ is less than 0.05.
+
+
+a. Derive and plot the power function of the test for $n=100$.
+b. What is the significance level of this test if $H0: \theta = 0.5$? At which values of X will we reject the null hypothesis?
+
+
+```
+<div class="fold">
+
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+# a
+# First we need the rejection region, so we need to find X_min and X_max
+n <- 100
+qbinom(0.025, n, 0.5)
+qbinom(0.975, n, 0.5)
+pbinom(40, n, 0.5)
+pbinom(60, n, 0.5)
+X_min <- 39
+X_max <- 60
+thetas <- seq(0, 1, by = 0.01)
+beta_t <- 1 - pbinom(X_max, size = n, prob = thetas) + pbinom(X_min, size = n, prob = thetas)
+plot(beta_t)
+
+# b
+# The significance level is
+beta_t[51]
+# We will reject the null hypothesis at X values below X_min and above X_max.
+```
+</div>
+
+
+```{exercise, name = "Long-run guarantees of the t-test"}
+
+
+
+a. <span style="color:blue">Generate a sample of size $n = 10$ from the standard normal. Use the two-sided t-test with $H0: \mu = 0$ and record the p-value. Can you reject H0 at 0.05 significance level?</span>
+b. <span style="color:blue">(before simulating) If we repeated (b) many times, what would be the relative frequency of false positives/Type I errors (rejecting the null that is true)? What would be the relative frequency of false negatives /Type II errors (retaining the null when the null is false)?</span>
+c. <span style="color:blue">(now simulate b and check if the simulation results match your answer in b)</span>
+d. <span style="color:blue">Similar to (a-c) but now we generate data from N(-0.5, 1).</span>
+e. <span style="color:blue">Similar to (a-c) but now we generate data from N($\mu$, 1) where we every time pick a different $\mu < 0$ and use a one-sided test $H0: \mu <= 0$.</span>
+
+
+
+```
+<div class="fold">
+
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+set.seed(2)
+
+# a
+x       <- rnorm(10)
+my_test <- t.test(x, alternative = "two.sided", mu = 0)
+my_test
+# we can not reject the null hypothesis
+
+
+# b
+# The expected value of false positives would be 0.05. The expected value of 
+# true negatives would be 0, as there are no negatives (the null hypothesis is 
+# always the truth).
+nit       <- 1000
+typeIerr  <- vector(mode = "logical", length = nit)
+typeIIerr <- vector(mode = "logical", length = nit)
+for (i in 1:nit) {
+  x       <- rnorm(10)
+  my_test <- t.test(x, alternative = "two.sided", mu = 0)
+  if (my_test$p.value < 0.05) {
+    typeIerr[i] <- T
+  } else {
+    typeIerr[i] <- F
+
+  }
+}
+mean(typeIerr)
+sd(typeIerr) / sqrt(nit)
+
+
+# d
+# We can not estimate the percentage of true negatives, but it will probably be 
+# higher than 0.05. There will be no false positives as the null hypothesis is
+# always false.
+typeIIerr <- vector(mode = "logical", length = nit)
+for (i in 1:nit) {
+  x       <- rnorm(10, -0.5)
+  my_test <- t.test(x, alternative = "two.sided", mu = 0)
+  if (my_test$p.value < 0.05) {
+    typeIIerr[i] <- F
+  } else {
+    typeIIerr[i] <- T
+
+  }
+}
+mean(typeIIerr)
+sd(typeIIerr) / sqrt(nit)
+
+
+# e
+# The expected value of false positives would be lower than 0.05. The expected 
+# value of true negatives would be 0, as there are no negatives (the null 
+# hypothesis is always the truth).
+typeIerr <- vector(mode = "logical", length = nit)
+for (i in 1:nit) {
+  u       <- runif(1, -1, 0)
+  x       <- rnorm(10, u)
+  my_test <- t.test(x, alternative = "greater", mu = 0)
+  if (my_test$p.value < 0.05) {
+    typeIerr[i] <- T
+  } else {
+    typeIerr[i] <- F
+
+  }
+}
+mean(typeIerr)
+sd(typeIerr) / sqrt(nit)
+
+```
+</div>
+
+```{exercise, name = "T-test, confidence intervals, and bootstrap"}
+<span style="color:blue">Sample $n=20$ from a standard normal distribution and calculate the p-value using t-test, confidence intervals based on normal distribution, and bootstrap. Repeat this several times and check how many times we rejected the null hypothesis (made a type I error). Hint: For the confidence intervals you can use function *CI* from the *Rmisc* package.</span>
+
+
+```
+<div class="fold">
+
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+set.seed(1)
+library(Rmisc)
+nit    <- 1000
+n_boot <- 100
+
+t_logic    <- rep(F, nit)
+boot_logic <- rep(F, nit)
+norm_logic <- rep(F, nit)
+for (i in 1:nit) {
+  x       <- rnorm(20)
+  my_test <- t.test(x)
+  my_CI   <- CI(x)
+  if (my_test$p.value <= 0.05) t_logic[i] <- T
+  boot_tmp <- vector(mode = "numeric", length = n_boot)
+  for (j in 1:n_boot) {
+    tmp_samp    <- sample(x, size = 20, replace = T)
+    boot_tmp[j] <- mean(tmp_samp)
+  }
+  if ((quantile(boot_tmp, 0.025) >= 0) | (quantile(boot_tmp, 0.975) <= 0)) {
+    boot_logic[i] <- T
+  }
+  if ((my_CI[3] >= 0) | (my_CI[1] <= 0)) {
+    norm_logic[i] <- T
+  }
+}
+mean(t_logic)
+sd(t_logic) / sqrt(nit)
+
+mean(boot_logic)
+sd(boot_logic) / sqrt(nit)
+
+mean(norm_logic)
+sd(norm_logic) / sqrt(nit)
+
+
+```
+</div>
+
+
+```{exercise, name = "Chi-squared test"}
+
+
+a. Show that the $\chi^2 = \sum_{i=1}^k \frac{(O_i - E_i)^2}{E_i}$ test statistic is approximately $\chi^2$ distributed when we have two categories.
+b. <span style="color:blue">Let us look at the US voting data [here](https://edition.cnn.com/election/2016/results/exit-polls). Compare the number of voters who voted for Trump or Hillary depending on their income (less or more than 100.000 dollars per year). Manually calculate the chi-squared statistic, compare to the chisq.test in R, and discuss the results.</span>
+c. <span style="color:blue">Visualize the test.</span>
+
+
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. Let $X_i$ be binary variables, $i = 1,...,n$. We can then express the test statistic as
+\begin{align}
+  \chi^2 = &\frac{(O_i - np)^2}{np} + \frac{(n - O_i - n(1 - p))^2}{n(1 - p)} \\
+  &= \frac{(O_i - np)^2}{np(1 - p)} \\
+  &= (\frac{O_i - np}{\sqrt{np(1 - p)}})^2.
+\end{align}
+When $n$ is large, this distrbution is approximately normal with $\mu = np$ and $\sigma^2 = np(1 - p)$ (binomial converges in distribution to standard normal). By definition, the chi-squared distribution with $k$ degrees of freedom is a sum of squares of $k$ independent standard normal random variables.
+
+```
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+n <- 24588
+less100     <- round(0.66 * n * c(0.49, 0.45, 0.06)) # some rounding, but it should not affect results
+more100     <- round(0.34 * n * c(0.47, 0.47, 0.06))
+x           <- rbind(less100, more100)
+colnames(x) <- c("Clinton", "Trump", "other/no answer")
+print(x)
+
+chisq.test(x)
+
+x
+
+csum <- apply(x, 2, sum)
+rsum <- apply(x, 1, sum)
+
+chi2 <- (x[1,1] - csum[1] * rsum[1] / sum(x))^2 / (csum[1] * rsum[1] / sum(x)) +
+  (x[1,2] - csum[2] * rsum[1] / sum(x))^2 / (csum[2] * rsum[1] / sum(x)) +
+  (x[1,3] - csum[3] * rsum[1] / sum(x))^2 / (csum[3] * rsum[1] / sum(x)) +
+  (x[2,1] - csum[1] * rsum[2] / sum(x))^2 / (csum[1] * rsum[2] / sum(x)) +
+  (x[2,2] - csum[2] * rsum[2] / sum(x))^2 / (csum[2] * rsum[2] / sum(x)) +
+  (x[2,3] - csum[3] * rsum[2] / sum(x))^2 / (csum[3] * rsum[2] / sum(x))
+chi2
+1 - pchisq(chi2, df = 2)
+
+
+x  <- seq(0, 15, by = 0.01)
+df <- data.frame(x = x)
+ggplot(data = df, aes(x = x)) +
+  stat_function(fun = dchisq, args = list(df = 2)) +
+  geom_segment(aes(x = chi2, y = 0, xend = chi2, yend = dchisq(chi2, df = 2))) +
+  stat_function(fun = dchisq, args = list(df = 2), xlim = c(chi2, 15), geom = "area", fill = "red")
+
+```
+</div>

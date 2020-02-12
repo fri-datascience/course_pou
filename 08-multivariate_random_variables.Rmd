@@ -124,7 +124,7 @@ Let us first calculate the expected value of $X_1$, when $n = 1$.
          &= \sum_{n_1 = 0}^1 \frac{p_1^{n_1} n_1}{n_1!} \sum_{n_2 = 0}^1 ... \sum_{n_k = 0}^1 \frac{1}{n_2!...n_k!}p_2^{n_2}...p_k^{n_k}
 \end{align}
 When $n_1 = 0$ then the whole terms is zero, so we do not need to evaluate other sums. When $n_1 = 1$, all other $n_i$ must be zero, as we have $1 = \sum_{i=1}^k n_i$. Therefore the other sums equal $1$. So $E[X_1] = p_1$ and $E[X_i] = p_i$ for $i = 1,...,k$.
-Now let $Y_j$, $j = 1,...,n$, have a multinomial distribution with $n = 1$, and let $X$ have a multinomial distribution with and arbitrary $n$. Then we can write $X = \sum_{j=1}^n Y_j$. And due to independence
+Now let $Y_j$, $j = 1,...,n$, have a multinomial distribution with $n = 1$, and let $X$ have a multinomial distribution with an arbitrary $n$. Then we can write $X = \sum_{j=1}^n Y_j$. And due to independence
 \begin{align}
   E[X] &= E[\sum_{j=1}^n Y_j] \\
        &= \sum_{j=1}^n E[Y_j] \\
@@ -368,7 +368,7 @@ a. $B \sim \text{N}(-1, 2)$.
 
 b. $B | A = a \sim \text{N}(-1.68 + [0.34, -0.81] a, 0.86)$.
 
-c. $\mu_A = [2, 0, -1]^T$ and $\Sigma_A =
+c. $\mu_A = [2, 0]^T$ and $\Sigma_A =
 \begin{bmatrix} 
   1 & -0.2 & \\
   -0.2 & 1.4 \\

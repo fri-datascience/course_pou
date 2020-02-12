@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 Concentration inequalities | Principles of Uncertainty – exercises</title>
+  <title>Chapter 10 Concentration inequalities | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10 Concentration inequalities | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 10 Concentration inequalities | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 Concentration inequalities | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 10 Concentration inequalities | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-01-07" />
+<meta name="date" content="2020-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,26 +53,25 @@
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -81,9 +80,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -133,109 +132,98 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
-<ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
-<ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
-<ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
-<ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
-<ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
-<ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
-<ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
-<ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
-<ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
-<ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a>
-<ul>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
 <li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
 <li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
-<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a>
-<ul>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
 <li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
 <li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fisher-information"><i class="fa fa-check"></i><b>15.2</b> Fisher information</a></li>
 <li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="appendix-appendix.html"><a href="appendix-appendix.html"><i class="fa fa-check"></i>(APPENDIX) Appendix</a></li>
-<li class="chapter" data-level="16" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>16</b> R programming language</a>
-<ul>
-<li class="chapter" data-level="16.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>16.1</b> Basic characteristics</a></li>
-<li class="chapter" data-level="16.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>16.2</b> Why R?</a></li>
-<li class="chapter" data-level="16.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>16.3</b> Setting up</a>
-<ul>
-<li class="chapter" data-level="16.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>16.3.1</b> RStudio</a></li>
-<li class="chapter" data-level="16.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>16.3.2</b> Libraries for data science</a></li>
+<li class="chapter" data-level="16" data-path="nhst.html"><a href="nhst.html"><i class="fa fa-check"></i><b>16</b> Null hypothesis significance testing</a></li>
+<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a><ul>
+<li class="chapter" data-level="17.1" data-path="bi.html"><a href="bi.html#conjugate-priors"><i class="fa fa-check"></i><b>17.1</b> Conjugate priors</a></li>
+<li class="chapter" data-level="17.2" data-path="bi.html"><a href="bi.html#posterior-sampling"><i class="fa fa-check"></i><b>17.2</b> Posterior sampling</a></li>
 </ul></li>
-<li class="chapter" data-level="16.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>16.4</b> R basics</a>
-<ul>
-<li class="chapter" data-level="16.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>16.4.1</b> Variables and types</a></li>
-<li class="chapter" data-level="16.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>16.4.2</b> Basic operations</a></li>
-<li class="chapter" data-level="16.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>16.4.3</b> Vectors</a></li>
-<li class="chapter" data-level="16.4.4" data-path="A1.html"><a href="A1.html#factors"><i class="fa fa-check"></i><b>16.4.4</b> Factors</a></li>
-<li class="chapter" data-level="16.4.5" data-path="A1.html"><a href="A1.html#matrices"><i class="fa fa-check"></i><b>16.4.5</b> Matrices</a></li>
-<li class="chapter" data-level="16.4.6" data-path="A1.html"><a href="A1.html#arrays"><i class="fa fa-check"></i><b>16.4.6</b> Arrays</a></li>
-<li class="chapter" data-level="16.4.7" data-path="A1.html"><a href="A1.html#data-frames"><i class="fa fa-check"></i><b>16.4.7</b> Data frames</a></li>
-<li class="chapter" data-level="16.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>16.4.8</b> Lists</a></li>
-<li class="chapter" data-level="16.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>16.4.9</b> Loops</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
+<li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
+<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
+<li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="16.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>16.5</b> Functions</a>
-<ul>
-<li class="chapter" data-level="16.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>16.5.1</b> Writing functions</a></li>
+<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
+<li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
+<li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
+<li class="chapter" data-level="A.4.4" data-path="A1.html"><a href="A1.html#factors"><i class="fa fa-check"></i><b>A.4.4</b> Factors</a></li>
+<li class="chapter" data-level="A.4.5" data-path="A1.html"><a href="A1.html#matrices"><i class="fa fa-check"></i><b>A.4.5</b> Matrices</a></li>
+<li class="chapter" data-level="A.4.6" data-path="A1.html"><a href="A1.html#arrays"><i class="fa fa-check"></i><b>A.4.6</b> Arrays</a></li>
+<li class="chapter" data-level="A.4.7" data-path="A1.html"><a href="A1.html#data-frames"><i class="fa fa-check"></i><b>A.4.7</b> Data frames</a></li>
+<li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
+<li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="16.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>16.6</b> Other tips</a></li>
-<li class="chapter" data-level="16.7" data-path="A1.html"><a href="A1.html#further-reading-and-references"><i class="fa fa-check"></i><b>16.7</b> Further reading and references</a></li>
+<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>17</b> Probability distributions</a></li>
+<li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
+<li class="chapter" data-level="A.7" data-path="A1.html"><a href="A1.html#further-reading-and-references"><i class="fa fa-check"></i><b>A.7</b> Further reading and references</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>B</b> Probability distributions</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>      
@@ -256,8 +244,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ci" class="section level1" number="10">
-<h1 number="10"><span class="header-section-number">10</span> Concentration inequalities</h1>
+<div id="ci" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Concentration inequalities</h1>
 <p>This chapter deals with concentration inequalities.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
@@ -291,98 +279,101 @@ $(document).ready(function() {
   })
 });
 </script>
-<div id="comparison" class="section level2" number="10.1">
-<h2 number="10.1"><span class="header-section-number">10.1</span> Comparison</h2>
+<div id="comparison" class="section level2">
+<h2><span class="header-section-number">10.1</span> Comparison</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-189" class="exercise"><strong>Exercise 83  </strong></span><span style="color:blue">R: Let <span class="math inline">\(X\)</span> be geometric random variable with <span class="math inline">\(p = 0.7\)</span>. Visually compare the Markov bound, Chernoff bound, and the theoretical probabilities. To get the best fitting Chernoff bound, you will need to optimize the bound depending on <span class="math inline">\(t\)</span>. Use either analytical or numerical optimization.</span></p>
+<p><span id="exr:unnamed-chunk-189" class="exercise"><strong>Exercise 10.1  </strong></span><span style="color:blue">R: Let <span class="math inline">\(X\)</span> be geometric random variable with <span class="math inline">\(p = 0.7\)</span>. Visually compare the Markov bound, Chernoff bound, and the theoretical probabilities. To get the best fitting Chernoff bound, you will need to optimize the bound depending on <span class="math inline">\(t\)</span>. Use either analytical or numerical optimization.</span></p>
 </div>
+
 <div class="fold">
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="ci.html#cb164-1"></a>bound_chernoff &lt;-<span class="st"> </span><span class="cf">function</span> (t, p, a) {</span>
-<span id="cb164-2"><a href="ci.html#cb164-2"></a>  <span class="kw">return</span> ((p <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(t) <span class="op">+</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(t))) <span class="op">/</span><span class="st"> </span><span class="kw">exp</span>(a <span class="op">*</span><span class="st"> </span>t))</span>
-<span id="cb164-3"><a href="ci.html#cb164-3"></a>}</span>
-<span id="cb164-4"><a href="ci.html#cb164-4"></a></span>
-<span id="cb164-5"><a href="ci.html#cb164-5"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb164-6"><a href="ci.html#cb164-6"></a>p &lt;-<span class="st"> </span><span class="fl">0.7</span></span>
-<span id="cb164-7"><a href="ci.html#cb164-7"></a>a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dt">by =</span> <span class="dv">1</span>)</span>
-<span id="cb164-8"><a href="ci.html#cb164-8"></a>ci_markov &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p) <span class="op">/</span><span class="st"> </span>p <span class="op">/</span><span class="st"> </span>a</span>
-<span id="cb164-9"><a href="ci.html#cb164-9"></a>t &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> <span class="kw">length</span>(a))</span>
-<span id="cb164-10"><a href="ci.html#cb164-10"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(t)) {</span>
-<span id="cb164-11"><a href="ci.html#cb164-11"></a>  t[i] &lt;-<span class="st"> </span><span class="kw">optimize</span>(bound_chernoff, <span class="dt">interval =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">log</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p))), <span class="dt">p =</span> p, <span class="dt">a =</span> a[i])<span class="op">$</span>minimum</span>
-<span id="cb164-12"><a href="ci.html#cb164-12"></a>}</span>
-<span id="cb164-13"><a href="ci.html#cb164-13"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1">bound_chernoff &lt;-<span class="st"> </span><span class="cf">function</span> (t, p, a) {</a>
+<a class="sourceLine" id="cb164-2" title="2">  <span class="kw">return</span> ((p <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(t) <span class="op">+</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(t))) <span class="op">/</span><span class="st"> </span><span class="kw">exp</span>(a <span class="op">*</span><span class="st"> </span>t))</a>
+<a class="sourceLine" id="cb164-3" title="3">}</a>
+<a class="sourceLine" id="cb164-4" title="4"></a>
+<a class="sourceLine" id="cb164-5" title="5"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb164-6" title="6">p &lt;-<span class="st"> </span><span class="fl">0.7</span></a>
+<a class="sourceLine" id="cb164-7" title="7">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dt">by =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb164-8" title="8">ci_markov &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p) <span class="op">/</span><span class="st"> </span>p <span class="op">/</span><span class="st"> </span>a</a>
+<a class="sourceLine" id="cb164-9" title="9">t &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> <span class="kw">length</span>(a))</a>
+<a class="sourceLine" id="cb164-10" title="10"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(t)) {</a>
+<a class="sourceLine" id="cb164-11" title="11">  t[i] &lt;-<span class="st"> </span><span class="kw">optimize</span>(bound_chernoff, <span class="dt">interval =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">log</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p))), <span class="dt">p =</span> p, <span class="dt">a =</span> a[i])<span class="op">$</span>minimum</a>
+<a class="sourceLine" id="cb164-12" title="12">}</a>
+<a class="sourceLine" id="cb164-13" title="13">t</a></code></pre></div>
 <pre><code>##  [1] 0.5108267 0.7984981 0.9162927 0.9808238 1.0216635 1.0498233 1.0704327
 ##  [8] 1.0861944 1.0986159 1.1086800 1.1169653 1.1239426</code></pre>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="ci.html#cb166-1"></a>ci_chernoff &lt;-<span class="st"> </span>(p <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(t) <span class="op">+</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(t))) <span class="op">/</span><span class="st"> </span><span class="kw">exp</span>(a <span class="op">*</span><span class="st"> </span>t)</span>
-<span id="cb166-2"><a href="ci.html#cb166-2"></a>actual      &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pgeom</span>(a, <span class="fl">0.7</span>)</span>
-<span id="cb166-3"><a href="ci.html#cb166-3"></a>plot_df     &lt;-<span class="st"> </span><span class="kw">rbind</span>(</span>
-<span id="cb166-4"><a href="ci.html#cb166-4"></a>  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_markov, <span class="dt">type =</span> <span class="st">&quot;Markov&quot;</span>),</span>
-<span id="cb166-5"><a href="ci.html#cb166-5"></a>  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_chernoff, <span class="dt">type =</span> <span class="st">&quot;Chernoff&quot;</span>),</span>
-<span id="cb166-6"><a href="ci.html#cb166-6"></a>  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> actual, <span class="dt">type =</span> <span class="st">&quot;Actual&quot;</span>)</span>
-<span id="cb166-7"><a href="ci.html#cb166-7"></a>)</span>
-<span id="cb166-8"><a href="ci.html#cb166-8"></a><span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span></span>
-<span id="cb166-9"><a href="ci.html#cb166-9"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" title="1">ci_chernoff &lt;-<span class="st"> </span>(p <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(t) <span class="op">+</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(t))) <span class="op">/</span><span class="st"> </span><span class="kw">exp</span>(a <span class="op">*</span><span class="st"> </span>t)</a>
+<a class="sourceLine" id="cb166-2" title="2">actual      &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pgeom</span>(a, <span class="fl">0.7</span>)</a>
+<a class="sourceLine" id="cb166-3" title="3">plot_df     &lt;-<span class="st"> </span><span class="kw">rbind</span>(</a>
+<a class="sourceLine" id="cb166-4" title="4">  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_markov, <span class="dt">type =</span> <span class="st">&quot;Markov&quot;</span>),</a>
+<a class="sourceLine" id="cb166-5" title="5">  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_chernoff, <span class="dt">type =</span> <span class="st">&quot;Chernoff&quot;</span>),</a>
+<a class="sourceLine" id="cb166-6" title="6">  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> actual, <span class="dt">type =</span> <span class="st">&quot;Actual&quot;</span>)</a>
+<a class="sourceLine" id="cb166-7" title="7">)</a>
+<a class="sourceLine" id="cb166-8" title="8"><span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb166-9" title="9"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-190-1.png" width="672" /></p>
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-191" class="exercise"><strong>Exercise 84  </strong></span><span style="color:blue">R: Let <span class="math inline">\(X\)</span> be a sum of 100 Beta distributions with random parameters. Take 1000 samples and plot the Chebyshev bound, Hoeffding bound, and the empirical probabilities.</span></p>
+<p><span id="exr:unnamed-chunk-191" class="exercise"><strong>Exercise 10.2  </strong></span><span style="color:blue">R: Let <span class="math inline">\(X\)</span> be a sum of 100 Beta distributions with random parameters. Take 1000 samples and plot the Chebyshev bound, Hoeffding bound, and the empirical probabilities.</span></p>
 </div>
+
 <div class="fold">
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="ci.html#cb167-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb167-2"><a href="ci.html#cb167-2"></a>nvars   &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb167-3"><a href="ci.html#cb167-3"></a>nsamps  &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb167-4"><a href="ci.html#cb167-4"></a>samps   &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> nvars)</span>
-<span id="cb167-5"><a href="ci.html#cb167-5"></a>Sn_mean &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb167-6"><a href="ci.html#cb167-6"></a>Sn_var  &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb167-7"><a href="ci.html#cb167-7"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nvars) {</span>
-<span id="cb167-8"><a href="ci.html#cb167-8"></a>  alpha1  &lt;-<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>)</span>
-<span id="cb167-9"><a href="ci.html#cb167-9"></a>  beta1   &lt;-<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>)</span>
-<span id="cb167-10"><a href="ci.html#cb167-10"></a>  X       &lt;-<span class="st"> </span><span class="kw">rbeta</span>(nsamps, alpha1, beta1)</span>
-<span id="cb167-11"><a href="ci.html#cb167-11"></a>  Sn_mean &lt;-<span class="st"> </span>Sn_mean <span class="op">+</span><span class="st"> </span>alpha1 <span class="op">/</span><span class="st"> </span>(alpha1 <span class="op">+</span><span class="st"> </span>beta1)</span>
-<span id="cb167-12"><a href="ci.html#cb167-12"></a>  Sn_var  &lt;-<span class="st"> </span>Sn_var <span class="op">+</span><span class="st"> </span></span>
-<span id="cb167-13"><a href="ci.html#cb167-13"></a><span class="st">    </span>alpha1 <span class="op">*</span><span class="st"> </span>beta1 <span class="op">/</span><span class="st"> </span>((alpha1 <span class="op">+</span><span class="st"> </span>beta1)<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(alpha1 <span class="op">+</span><span class="st"> </span>beta1 <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))</span>
-<span id="cb167-14"><a href="ci.html#cb167-14"></a>  </span>
-<span id="cb167-15"><a href="ci.html#cb167-15"></a>    samps[ ,i] &lt;-<span class="st"> </span>X</span>
-<span id="cb167-16"><a href="ci.html#cb167-16"></a>}</span>
-<span id="cb167-17"><a href="ci.html#cb167-17"></a><span class="kw">mean</span>(<span class="kw">apply</span>(samps, <span class="dv">1</span>, sum))</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb167-2" title="2">nvars   &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb167-3" title="3">nsamps  &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb167-4" title="4">samps   &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> nvars)</a>
+<a class="sourceLine" id="cb167-5" title="5">Sn_mean &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb167-6" title="6">Sn_var  &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb167-7" title="7"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nvars) {</a>
+<a class="sourceLine" id="cb167-8" title="8">  alpha1  &lt;-<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb167-9" title="9">  beta1   &lt;-<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb167-10" title="10">  X       &lt;-<span class="st"> </span><span class="kw">rbeta</span>(nsamps, alpha1, beta1)</a>
+<a class="sourceLine" id="cb167-11" title="11">  Sn_mean &lt;-<span class="st"> </span>Sn_mean <span class="op">+</span><span class="st"> </span>alpha1 <span class="op">/</span><span class="st"> </span>(alpha1 <span class="op">+</span><span class="st"> </span>beta1)</a>
+<a class="sourceLine" id="cb167-12" title="12">  Sn_var  &lt;-<span class="st"> </span>Sn_var <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb167-13" title="13"><span class="st">    </span>alpha1 <span class="op">*</span><span class="st"> </span>beta1 <span class="op">/</span><span class="st"> </span>((alpha1 <span class="op">+</span><span class="st"> </span>beta1)<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(alpha1 <span class="op">+</span><span class="st"> </span>beta1 <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb167-14" title="14">  </a>
+<a class="sourceLine" id="cb167-15" title="15">    samps[ ,i] &lt;-<span class="st"> </span>X</a>
+<a class="sourceLine" id="cb167-16" title="16">}</a>
+<a class="sourceLine" id="cb167-17" title="17"><span class="kw">mean</span>(<span class="kw">apply</span>(samps, <span class="dv">1</span>, sum))</a></code></pre></div>
 <pre><code>## [1] 51.12511</code></pre>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="ci.html#cb169-1"></a>Sn_mean</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1">Sn_mean</a></code></pre></div>
 <pre><code>## [1] 51.15723</code></pre>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="ci.html#cb171-1"></a><span class="kw">var</span>(<span class="kw">apply</span>(samps, <span class="dv">1</span>, sum))</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1"><span class="kw">var</span>(<span class="kw">apply</span>(samps, <span class="dv">1</span>, sum))</a></code></pre></div>
 <pre><code>## [1] 1.170652</code></pre>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="ci.html#cb173-1"></a>Sn_var</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1">Sn_var</a></code></pre></div>
 <pre><code>## [1] 1.166183</code></pre>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="ci.html#cb175-1"></a>a            &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">30</span></span>
-<span id="cb175-2"><a href="ci.html#cb175-2"></a>b            &lt;-<span class="st"> </span>a <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(Sn_var)</span>
-<span id="cb175-3"><a href="ci.html#cb175-3"></a>ci_chebyshev &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>b<span class="op">^</span><span class="dv">2</span></span>
-<span id="cb175-4"><a href="ci.html#cb175-4"></a>ci_hoeffding &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>a<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>nvars)</span>
-<span id="cb175-5"><a href="ci.html#cb175-5"></a>empirical    &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb175-6"><a href="ci.html#cb175-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(a)) {</span>
-<span id="cb175-7"><a href="ci.html#cb175-7"></a>  empirical[i] &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">abs</span>((<span class="kw">apply</span>(samps, <span class="dv">1</span>, sum)) <span class="op">-</span><span class="st"> </span>Sn_mean) <span class="op">&gt;=</span><span class="st"> </span>a[i])<span class="op">/</span><span class="st"> </span>nsamps</span>
-<span id="cb175-8"><a href="ci.html#cb175-8"></a>}</span>
-<span id="cb175-9"><a href="ci.html#cb175-9"></a></span>
-<span id="cb175-10"><a href="ci.html#cb175-10"></a>plot_df     &lt;-<span class="st"> </span><span class="kw">rbind</span>(</span>
-<span id="cb175-11"><a href="ci.html#cb175-11"></a>  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_chebyshev, <span class="dt">type =</span> <span class="st">&quot;Chebyshev&quot;</span>),</span>
-<span id="cb175-12"><a href="ci.html#cb175-12"></a>  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_hoeffding, <span class="dt">type =</span> <span class="st">&quot;Hoeffding&quot;</span>),</span>
-<span id="cb175-13"><a href="ci.html#cb175-13"></a>  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> empirical, <span class="dt">type =</span> <span class="st">&quot;Empirical&quot;</span>)</span>
-<span id="cb175-14"><a href="ci.html#cb175-14"></a>)</span>
-<span id="cb175-15"><a href="ci.html#cb175-15"></a></span>
-<span id="cb175-16"><a href="ci.html#cb175-16"></a><span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span></span>
-<span id="cb175-17"><a href="ci.html#cb175-17"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" title="1">a            &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">30</span></a>
+<a class="sourceLine" id="cb175-2" title="2">b            &lt;-<span class="st"> </span>a <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(Sn_var)</a>
+<a class="sourceLine" id="cb175-3" title="3">ci_chebyshev &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>b<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb175-4" title="4">ci_hoeffding &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>a<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>nvars)</a>
+<a class="sourceLine" id="cb175-5" title="5">empirical    &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb175-6" title="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(a)) {</a>
+<a class="sourceLine" id="cb175-7" title="7">  empirical[i] &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">abs</span>((<span class="kw">apply</span>(samps, <span class="dv">1</span>, sum)) <span class="op">-</span><span class="st"> </span>Sn_mean) <span class="op">&gt;=</span><span class="st"> </span>a[i])<span class="op">/</span><span class="st"> </span>nsamps</a>
+<a class="sourceLine" id="cb175-8" title="8">}</a>
+<a class="sourceLine" id="cb175-9" title="9"></a>
+<a class="sourceLine" id="cb175-10" title="10">plot_df     &lt;-<span class="st"> </span><span class="kw">rbind</span>(</a>
+<a class="sourceLine" id="cb175-11" title="11">  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_chebyshev, <span class="dt">type =</span> <span class="st">&quot;Chebyshev&quot;</span>),</a>
+<a class="sourceLine" id="cb175-12" title="12">  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_hoeffding, <span class="dt">type =</span> <span class="st">&quot;Hoeffding&quot;</span>),</a>
+<a class="sourceLine" id="cb175-13" title="13">  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> empirical, <span class="dt">type =</span> <span class="st">&quot;Empirical&quot;</span>)</a>
+<a class="sourceLine" id="cb175-14" title="14">)</a>
+<a class="sourceLine" id="cb175-15" title="15"></a>
+<a class="sourceLine" id="cb175-16" title="16"><span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb175-17" title="17"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-192-1.png" width="672" /></p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="ci.html#cb176-1"></a><span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span></span>
-<span id="cb176-2"><a href="ci.html#cb176-2"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
-<span id="cb176-3"><a href="ci.html#cb176-3"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">25</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1"><span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb176-2" title="2"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb176-3" title="3"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">25</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))</a></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-192-2.png" width="672" /></p>
 </div>
 </div>
-<div id="practical" class="section level2" number="10.2">
-<h2 number="10.2"><span class="header-section-number">10.2</span> Practical</h2>
+<div id="practical" class="section level2">
+<h2><span class="header-section-number">10.2</span> Practical</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-193" class="exercise"><strong>Exercise 85  </strong></span>From Jagannathan. Let <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i = 1,...n\)</span>, be a random sample of size <span class="math inline">\(n\)</span> of a random variable <span class="math inline">\(X\)</span>. Let <span class="math inline">\(X\)</span> have mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. Find the size of the sample <span class="math inline">\(n\)</span> required so that the probability that the difference between sample mean and true mean is smaller than <span class="math inline">\(\frac{\sigma}{10}\)</span> is at least 0.95. Hint: Derive a version of the Chebyshev inequality for <span class="math inline">\(P(|X - \mu| \geq a)\)</span> using Markov inequality.</p>
+<p><span id="exr:unnamed-chunk-193" class="exercise"><strong>Exercise 10.3  </strong></span>From Jagannathan. Let <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i = 1,...n\)</span>, be a random sample of size <span class="math inline">\(n\)</span> of a random variable <span class="math inline">\(X\)</span>. Let <span class="math inline">\(X\)</span> have mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. Find the size of the sample <span class="math inline">\(n\)</span> required so that the probability that the difference between sample mean and true mean is smaller than <span class="math inline">\(\frac{\sigma}{10}\)</span> is at least 0.95. Hint: Derive a version of the Chebyshev inequality for <span class="math inline">\(P(|X - \mu| \geq a)\)</span> using Markov inequality.</p>
 </div>
+
 <div class="fold">
 
 <div class="solution">
@@ -426,6 +417,7 @@ It follows that we need a sample size of <span class="math inline">\(n \geq \fra
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": true,
 "twitter": true,
 "linkedin": false,
@@ -444,6 +436,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

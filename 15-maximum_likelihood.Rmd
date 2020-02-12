@@ -168,7 +168,7 @@ ggplot(data = X, aes(x = X1, y = X2)) +
 </div>
 
 
-```{exercise, name = "Logistic regression"}
+```{exercise, name = "Logistic regression", label = logisticmle}
 Logistic regression is a popular discriminative model when our target variable is binary (categorical with 2 values). One of the ways of looking at logistic regression is that it is linear regression but instead of using the linear term as the mean of a normal RV, we use it as the mean of a Bernoulli RV. Of course, the mean of a Bernoulli is bounded on $[0,1]$, so, to avoid non-sensical values, we squeeze the linear between 0 and 1 with the inverse logit function inv_logit$(z) =  1 / 1 + e^{-z}$. This leads to the following model: $y_i | \beta, x \sim \text{Bernoulli}(\text{inv_logit}(\beta x))$.
 
 
@@ -176,9 +176,9 @@ a. Explicitly write the likelihood function of beta.
 
 b. Implement the likelihood function in R. Use black-box box-constraint optimization (for example, _optim()_ with L-BFGS) to find the maximum likelihood estimate for beta for $x$ and $y$ defined below.
 
-c. Plot the estimated probability as a function of the independent variable. Compare with the truth (truth poznamo, ker smo generirali dataset).
+c. Plot the estimated probability as a function of the independent variable. Compare with the truth.
 
-d. Let $y2$ be a response defined below. Will logistic regression work well on this dataset? Why not? How can we still use the model, without changing it?.
+d. Let $y2$ be a response defined below. Will logistic regression work well on this dataset? Why not? How can we still use the model, without changing it?
 
 ```
 ```{r, message = FALSE, warning=FALSE}

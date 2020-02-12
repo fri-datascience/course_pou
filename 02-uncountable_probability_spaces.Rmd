@@ -143,7 +143,7 @@ so that $F_j = \sigma(\mathcal{D})$. Then we can write
 
 \begin{align}
   \sigma(\mathcal{C}) &= (\cap_{i \neq j} F_i) \cap \sigma(\mathcal{D}) \\
-                      &\subset \sigma(\mathcal{D}).
+                      &\subseteq \sigma(\mathcal{D}).
 \end{align}
 
 
@@ -378,7 +378,7 @@ value, which in this case is $\pi$. So our bijection is
 
 ```{exercise}
 
-Take the measure space $(\Omega_1 = (0,1], B_{(0,1], \lambda})$ (we know
+Take the measure space $(\Omega_1 = (0,1], B_{(0,1]}, \lambda)$ (we know
 that this is a probability space on $(0,1]$).
 
 a. Define a map (function) from $\Omega_1$ to

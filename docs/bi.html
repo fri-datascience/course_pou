@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 17 Bayesian inference | Principles of Uncertainty – exercises</title>
+  <meta name="description" content="Course notes" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 17 Bayesian inference | Principles of Uncertainty – exercises" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
+  
+  <meta property="og:description" content="Course notes" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 17 Bayesian inference | Principles of Uncertainty – exercises" />
+  
+  <meta name="twitter:description" content="Course notes" />
+  
+
+<meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
+
+
+<meta name="date" content="2020-02-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="nhst.html"/>
+<link rel="next" href="A1.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Principles of uncertainty</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
+<li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
+<li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
+<li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
+<li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
+<li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
+<li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
+<li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
+<li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
+<li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
+<li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
+<li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
+<li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
+<li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
+<li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
+<li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
+<li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
+<li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
+<li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
+<li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
+<li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
+<li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
+<li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
+<li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
+<li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
+<li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
+<li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
+<li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fisher-information"><i class="fa fa-check"></i><b>15.2</b> Fisher information</a></li>
+<li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="nhst.html"><a href="nhst.html"><i class="fa fa-check"></i><b>16</b> Null hypothesis significance testing</a></li>
+<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a><ul>
+<li class="chapter" data-level="17.1" data-path="bi.html"><a href="bi.html#conjugate-priors"><i class="fa fa-check"></i><b>17.1</b> Conjugate priors</a></li>
+<li class="chapter" data-level="17.2" data-path="bi.html"><a href="bi.html#posterior-sampling"><i class="fa fa-check"></i><b>17.2</b> Posterior sampling</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
+<li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
+<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
+<li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
+</ul></li>
+<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
+<li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
+<li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
+<li class="chapter" data-level="A.4.4" data-path="A1.html"><a href="A1.html#factors"><i class="fa fa-check"></i><b>A.4.4</b> Factors</a></li>
+<li class="chapter" data-level="A.4.5" data-path="A1.html"><a href="A1.html#matrices"><i class="fa fa-check"></i><b>A.4.5</b> Matrices</a></li>
+<li class="chapter" data-level="A.4.6" data-path="A1.html"><a href="A1.html#arrays"><i class="fa fa-check"></i><b>A.4.6</b> Arrays</a></li>
+<li class="chapter" data-level="A.4.7" data-path="A1.html"><a href="A1.html#data-frames"><i class="fa fa-check"></i><b>A.4.7</b> Data frames</a></li>
+<li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
+<li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
+</ul></li>
+<li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
+<li class="chapter" data-level="A.7" data-path="A1.html"><a href="A1.html#further-reading-and-references"><i class="fa fa-check"></i><b>A.7</b> Further reading and references</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>B</b> Probability distributions</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>      
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Principles of Uncertainty – exercises</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bi" class="section level1">
+<h1><span class="header-section-number">Chapter 17</span> Bayesian inference</h1>
+<p>This chapter deals with Bayesian inference.</p>
+<p>The students are expected to acquire the following knowledge:</p>
+<ul>
+<li>How to set prior distribution.</li>
+<li>Compute posterior distribution.</li>
+<li>Compute posterior predictive distribution.</li>
+<li>Use sampling for inference.</li>
+</ul>
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+<div id="conjugate-priors" class="section level2">
+<h2><span class="header-section-number">17.1</span> Conjugate priors</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-258" class="exercise"><strong>Exercise 17.1  (Poisson-gamma model)  </strong></span>Let us assume a Poisson likelihood and a gamma prior on the Poisson mean parameter (this is a <a href="https://en.wikipedia.org/wiki/Conjugate_prior">conjugate prior</a>).</p>
+<ol style="list-style-type: lower-alpha">
+<li>Derive posterior</li>
+<li>Below we have some data, which represents number of goals in a football match. Choose sensible prior for this data (draw the gamma density if necessary), justify it. Compute the posterior. <span style="color:blue">Compute an interval such that the probability that the true mean is in there is 95%. What is the probability that the true mean is greater than 2.5?</span></li>
+<li>Back to theory: Compute prior predictive and posterior predictive. Discuss why the posterior predictive is overdispersed and not Poisson?</li>
+<li><span style="color:blue">Draw a histogram of the prior preditive and posterior predctive for the data from (b). Discuss.</span></li>
+<li><span style="color:blue">Generate 10 and 100 random samples from a Poisson distribution and compare the posteriors with a flat prior, and a prior concentrated away from the truth.</span></li>
+</ol>
+</div>
+
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>)</a></code></pre></div>
+<div class="fold">
+
+<div class="solution">
+<p> <span class="solution"><em>Solution. </em></span> </p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math display">\[\begin{align*}
+  p(\lambda | X) &amp;= \frac{p(X | \lambda) p(\lambda)}{\int_0^\infty p(X | \lambda) p(\lambda) d\lambda} \\
+  &amp;\propto p(X | \lambda) p(\lambda) \\
+  &amp;= \Big(\prod_{i=1}^n \frac{1}{x_i!} \lambda^{x_i} e^{-\lambda}\Big) \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha - 1} e^{-\beta \lambda} \\
+  &amp;\propto \lambda^{\sum_{i=1}^n x_i + \alpha - 1} e^{- \lambda (n + \beta)} \\
+\end{align*}\]</span>
+We recognize this as the shape of a gamma distribution, therefore
+<span class="math display">\[\begin{align*}
+  \lambda | X \sim \text{gamma}(a + \sum_{i=1}^n x_i, \beta + n)
+\end{align*}\]</span></p></li>
+<li><p>For the prior predictive, we have
+<span class="math display">\[\begin{align*}
+  p(x^*) &amp;= \int_0^\infty p(x^*, \lambda) d\lambda \\
+  &amp;= \int_0^\infty p(x^* | \lambda) p(\lambda) d\lambda \\
+  &amp;= \int_0^\infty \frac{1}{x^*!} \lambda^{x^*} e^{-\lambda} \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha - 1} e^{-\beta \lambda} d\lambda \\
+  &amp;= \frac{\beta^\alpha}{\Gamma(x^*)\Gamma(\alpha)} \int_0^\infty \lambda^{x^* + \alpha - 1} e^{-\lambda (1 + \beta)} d\lambda \\
+  &amp;= \frac{\beta^\alpha}{\Gamma(x^*)\Gamma(\alpha)}  \frac{\Gamma(x^* + \alpha)}{(1 + \beta)^{x^* + \alpha}} \int_0^\infty \frac{(1 + \beta)^{x^* + \alpha}}{\Gamma(x^* + \alpha)} \lambda^{x^* + \alpha - 1} e^{-\lambda (1 + \beta)} d\lambda \\
+  &amp;= \frac{\beta^\alpha}{\Gamma(x^*)\Gamma(\alpha)}  \frac{\Gamma(x^* + \alpha)}{(1 + \beta)^{x^* + \alpha}} \\
+  &amp;= \frac{\Gamma(x^* + \alpha)}{\Gamma(x^*)\Gamma(\alpha)} (\frac{\beta}{1 + \beta})^\alpha (\frac{1}{1 + \beta})^{x^*},
+\end{align*}\]</span>
+which we recognize as the negative binomial distribution with <span class="math inline">\(r = \alpha\)</span> and <span class="math inline">\(p = \frac{1}{\beta + 1}\)</span>. For the posterior predictive, the calculation is the same, only now the parameters are <span class="math inline">\(r = \alpha + \sum_{i=1}^n x_i\)</span> and <span class="math inline">\(p = \frac{1}{\beta + n + 1}\)</span>.
+There are two sources of uncertainty in the predictive distribution. First is the uncertainty about the population. Second is the variability in sampling from the population. When <span class="math inline">\(n\)</span> is large, the latter is going to be very small. But when <span class="math inline">\(n\)</span> is small, the latter is going to be higher, resulting in an overdispersed predictive distribution.</p>
+</div></li>
+</ol>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb278-2" title="2"></a>
+<a class="sourceLine" id="cb278-3" title="3"><span class="co"># b</span></a>
+<a class="sourceLine" id="cb278-4" title="4"><span class="co"># quick visual check of the prior</span></a>
+<a class="sourceLine" id="cb278-5" title="5"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb278-6" title="6"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">1</span>))</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-261-1.png" width="672" /></p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" title="1">palpha &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb279-2" title="2">pbeta  &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb279-3" title="3">alpha_post &lt;-<span class="st"> </span>palpha <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x)</a>
+<a class="sourceLine" id="cb279-4" title="4">beta_post  &lt;-<span class="st"> </span>pbeta <span class="op">+</span><span class="st"> </span><span class="kw">length</span>(x)</a>
+<a class="sourceLine" id="cb279-5" title="5"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb279-6" title="6"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> alpha_post, <span class="dt">rate =</span> beta_post))</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-261-2.png" width="672" /></p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" title="1"><span class="co"># probability of being higher than 2.5</span></a>
+<a class="sourceLine" id="cb280-2" title="2"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pgamma</span>(<span class="fl">2.5</span>, alpha_post, beta_post)</a></code></pre></div>
+<pre><code>## [1] 0.2267148</code></pre>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" title="1"><span class="co"># interval</span></a>
+<a class="sourceLine" id="cb282-2" title="2"><span class="kw">qgamma</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), alpha_post, beta_post)</a></code></pre></div>
+<pre><code>## [1] 1.397932 3.137390</code></pre>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" title="1"><span class="co"># d</span></a>
+<a class="sourceLine" id="cb284-2" title="2">prior_pred &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(<span class="dv">1000</span>, <span class="dt">size =</span> palpha, <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(pbeta <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb284-3" title="3">post_pred  &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(<span class="dv">1000</span>, <span class="dt">size =</span> palpha <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x), <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(pbeta <span class="op">+</span><span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb284-4" title="4">df         &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">prior =</span> prior_pred, <span class="dt">posterior =</span> post_pred)</a>
+<a class="sourceLine" id="cb284-5" title="5">df         &lt;-<span class="st"> </span><span class="kw">gather</span>(df)</a>
+<a class="sourceLine" id="cb284-6" title="6"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> key)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb284-7" title="7"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-261-3.png" width="672" /></p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" title="1"><span class="co"># e</span></a>
+<a class="sourceLine" id="cb285-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb285-3" title="3">x1 &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">10</span>, <span class="fl">2.5</span>)</a>
+<a class="sourceLine" id="cb285-4" title="4">x2 &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">100</span>, <span class="fl">2.5</span>)</a>
+<a class="sourceLine" id="cb285-5" title="5">alpha_flat &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb285-6" title="6">beta_flat  &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
+<a class="sourceLine" id="cb285-7" title="7">alpha_conc &lt;-<span class="st"> </span><span class="dv">50</span></a>
+<a class="sourceLine" id="cb285-8" title="8">beta_conc  &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb285-9" title="9">n          &lt;-<span class="st"> </span><span class="dv">10000</span></a>
+<a class="sourceLine" id="cb285-10" title="10">df_flat    &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1 =</span> <span class="kw">rgamma</span>(n, alpha_flat <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x1), beta_flat <span class="op">+</span><span class="st"> </span><span class="dv">10</span>), </a>
+<a class="sourceLine" id="cb285-11" title="11">                         <span class="dt">x2 =</span> <span class="kw">rgamma</span>(n, alpha_flat <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x2), beta_flat <span class="op">+</span><span class="st"> </span><span class="dv">100</span>), </a>
+<a class="sourceLine" id="cb285-12" title="12">                         <span class="dt">type =</span> <span class="st">&quot;flat&quot;</span>)</a>
+<a class="sourceLine" id="cb285-13" title="13">df_flat    &lt;-<span class="st"> </span>tidyr<span class="op">::</span><span class="kw">gather</span>(df_flat, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>, <span class="op">-</span><span class="st"> </span>type)</a>
+<a class="sourceLine" id="cb285-14" title="14">df_conc    &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1 =</span> <span class="kw">rgamma</span>(n, alpha_conc <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x1), beta_conc <span class="op">+</span><span class="st"> </span><span class="dv">10</span>), </a>
+<a class="sourceLine" id="cb285-15" title="15">                         <span class="dt">x2 =</span> <span class="kw">rgamma</span>(n, alpha_conc <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x2), beta_conc <span class="op">+</span><span class="st"> </span><span class="dv">100</span>), </a>
+<a class="sourceLine" id="cb285-16" title="16">                         <span class="dt">type =</span> <span class="st">&quot;conc&quot;</span>)</a>
+<a class="sourceLine" id="cb285-17" title="17">df_conc    &lt;-<span class="st"> </span>tidyr<span class="op">::</span><span class="kw">gather</span>(df_conc, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>, <span class="op">-</span><span class="st"> </span>type)</a>
+<a class="sourceLine" id="cb285-18" title="18">df         &lt;-<span class="st"> </span><span class="kw">rbind</span>(df_flat, df_conc)</a>
+<a class="sourceLine" id="cb285-19" title="19"><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">color =</span> type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb285-20" title="20"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>key) <span class="op">+</span></a>
+<a class="sourceLine" id="cb285-21" title="21"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-261-4.png" width="672" /></p>
+</div>
+</div>
+<div id="posterior-sampling" class="section level2">
+<h2><span class="header-section-number">17.2</span> Posterior sampling</h2>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-262" class="exercise"><strong>Exercise 17.2  (Bayesian logistic regression)  </strong></span>In Chapter 15 we implemented a MLE for a logistic regression (see the code below). For this model, conjugate priors do not exist, which complicated the calculation of the posterior. However, we can use sampling from the numerator of the posterior, using rejection sampling.</p>
+<ol style="list-style-type: lower-alpha">
+<li><span style="color:blue">Set a sensible prior distribution on <span class="math inline">\(\beta\)</span> and use rejection sampling to find the posterior distribution.</span></li>
+<li><span style="color:blue">In a) you will get a distribution of parameter <span class="math inline">\(\beta\)</span>. Plot the probabilities (as in exercise <a href="ml.html#exr:logisticmle">15.3</a>) for each sample of <span class="math inline">\(\beta\)</span> and compare to the truth.</span></li>
+</ol>
+<p>Hint: We can use rejection sampling even for functions which are not PDFs – they do not have to sum/integrate to 1. We just need to use a suitable envelope that we know how to sample from. For example, here we could use a uniform distribution and scale it suitably.</p>
+</div>
+
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb286-2" title="2">inv_log &lt;-<span class="st"> </span><span class="cf">function</span> (z) {</a>
+<a class="sourceLine" id="cb286-3" title="3">  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>z)))</a>
+<a class="sourceLine" id="cb286-4" title="4">}</a>
+<a class="sourceLine" id="cb286-5" title="5">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb286-6" title="6">y &lt;-<span class="st"> </span>x</a>
+<a class="sourceLine" id="cb286-7" title="7">y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x))</a>
+<a class="sourceLine" id="cb286-8" title="8"></a>
+<a class="sourceLine" id="cb286-9" title="9">l_logistic &lt;-<span class="st"> </span><span class="cf">function</span> (beta, X, y) {</a>
+<a class="sourceLine" id="cb286-10" title="10">  logl &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">sum</span>(y <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(<span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X))) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>y) <span class="op">*</span><span class="st"> </span><span class="kw">log</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X)))))</a>
+<a class="sourceLine" id="cb286-11" title="11">  <span class="kw">return</span>(logl)</a>
+<a class="sourceLine" id="cb286-12" title="12">}</a>
+<a class="sourceLine" id="cb286-13" title="13">my_optim &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="fl">0.5</span>, <span class="dt">fn =</span> l_logistic, <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</a>
+<a class="sourceLine" id="cb286-14" title="14">                  <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>, <span class="dt">X =</span> x, <span class="dt">y =</span> y)</a>
+<a class="sourceLine" id="cb286-15" title="15">my_optim<span class="op">$</span>par</a></code></pre></div>
+<div class="fold">
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" title="1"><span class="co"># Let&#39;s say we believe that the mean of beta is 0.5. Since we are not very sure </span></a>
+<a class="sourceLine" id="cb287-2" title="2"><span class="co"># about this, we will give it a relatively high variance. So a normal prior with </span></a>
+<a class="sourceLine" id="cb287-3" title="3"><span class="co"># mean 0.5 and standard deviation 5. But there is no right solution to this,</span></a>
+<a class="sourceLine" id="cb287-4" title="4"><span class="co"># this is basically us expressing our prior belief in the parameter values.</span></a>
+<a class="sourceLine" id="cb287-5" title="5"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb287-6" title="6">inv_log &lt;-<span class="st"> </span><span class="cf">function</span> (z) {</a>
+<a class="sourceLine" id="cb287-7" title="7">  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>z)))</a>
+<a class="sourceLine" id="cb287-8" title="8">}</a>
+<a class="sourceLine" id="cb287-9" title="9"></a>
+<a class="sourceLine" id="cb287-10" title="10">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb287-11" title="11">y &lt;-<span class="st"> </span>x</a>
+<a class="sourceLine" id="cb287-12" title="12">y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x))</a>
+<a class="sourceLine" id="cb287-13" title="13"></a>
+<a class="sourceLine" id="cb287-14" title="14">l_logistic &lt;-<span class="st"> </span><span class="cf">function</span> (beta, X, y) {</a>
+<a class="sourceLine" id="cb287-15" title="15">  logl &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">sum</span>(y <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(<span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X))) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>y) <span class="op">*</span><span class="st"> </span><span class="kw">log</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X)))))</a>
+<a class="sourceLine" id="cb287-16" title="16">  <span class="cf">if</span> (<span class="kw">is.nan</span>(logl)) logl &lt;-<span class="st"> </span><span class="ot">Inf</span></a>
+<a class="sourceLine" id="cb287-17" title="17">  <span class="kw">return</span>(logl)</a>
+<a class="sourceLine" id="cb287-18" title="18">}</a>
+<a class="sourceLine" id="cb287-19" title="19"></a>
+<a class="sourceLine" id="cb287-20" title="20">my_optim &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="fl">0.5</span>, <span class="dt">fn =</span> l_logistic, <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</a>
+<a class="sourceLine" id="cb287-21" title="21">                  <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>, <span class="dt">X =</span> x, <span class="dt">y =</span> y)</a>
+<a class="sourceLine" id="cb287-22" title="22">my_optim<span class="op">$</span>par</a></code></pre></div>
+<pre><code>## [1] 1.166558</code></pre>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1">f_logistic &lt;-<span class="st"> </span><span class="cf">function</span> (beta, X, y) {</a>
+<a class="sourceLine" id="cb289-2" title="2">  logl &lt;-<span class="st"> </span><span class="kw">prod</span>(<span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X))<span class="op">^</span>y <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X)))<span class="op">^</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>y))</a>
+<a class="sourceLine" id="cb289-3" title="3">  <span class="kw">return</span>(logl)</a>
+<a class="sourceLine" id="cb289-4" title="4">}</a>
+<a class="sourceLine" id="cb289-5" title="5"></a>
+<a class="sourceLine" id="cb289-6" title="6">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb289-7" title="7">my_l &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb289-8" title="8"><span class="cf">for</span> (i <span class="cf">in</span> a) {</a>
+<a class="sourceLine" id="cb289-9" title="9">  my_l &lt;-<span class="st"> </span><span class="kw">c</span>(my_l, <span class="kw">f_logistic</span>(i, x, y) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(i, <span class="fl">0.5</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb289-10" title="10">}</a>
+<a class="sourceLine" id="cb289-11" title="11"><span class="kw">plot</span>(my_l)</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-264-1.png" width="672" /></p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1">envlp &lt;-<span class="st"> </span><span class="dv">10</span><span class="op">^</span>(<span class="op">-</span><span class="fl">25.8</span>) <span class="op">*</span><span class="st"> </span><span class="kw">dunif</span>(a, <span class="dv">-5</span>, <span class="dv">5</span>) <span class="co"># found by trial and error</span></a>
+<a class="sourceLine" id="cb290-2" title="2"></a>
+<a class="sourceLine" id="cb290-3" title="3">tmp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">envel =</span> envlp, <span class="dt">l =</span> my_l, <span class="dt">t =</span> a)</a>
+<a class="sourceLine" id="cb290-4" title="4">tmp &lt;-<span class="st"> </span><span class="kw">gather</span>(tmp, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>, <span class="op">-</span><span class="st"> </span>t)</a>
+<a class="sourceLine" id="cb290-5" title="5"><span class="kw">ggplot</span>(tmp, <span class="kw">aes</span>(<span class="dt">x =</span> t, <span class="dt">y =</span> value, <span class="dt">color =</span> key)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb290-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>() <span class="co"># envelope OK</span></a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-264-2.png" width="672" /></p>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb291-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb291-3" title="3">samps  &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb291-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</a>
+<a class="sourceLine" id="cb291-5" title="5">  tmp &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">-5</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb291-6" title="6">  u   &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb291-7" title="7">  <span class="cf">if</span> (u <span class="op">&lt;</span><span class="st"> </span>(<span class="kw">f_logistic</span>(tmp, x, y) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(tmp, <span class="fl">0.5</span>, <span class="dv">5</span>)) <span class="op">/</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb291-8" title="8"><span class="st">      </span>(<span class="dv">10</span><span class="op">^</span>(<span class="op">-</span><span class="fl">25.8</span>) <span class="op">*</span><span class="st"> </span><span class="kw">dunif</span>(tmp, <span class="dv">-5</span>, <span class="dv">5</span>))) {</a>
+<a class="sourceLine" id="cb291-9" title="9">    samps &lt;-<span class="st"> </span><span class="kw">c</span>(samps, tmp)</a>
+<a class="sourceLine" id="cb291-10" title="10">  }</a>
+<a class="sourceLine" id="cb291-11" title="11">}</a>
+<a class="sourceLine" id="cb291-12" title="12"><span class="kw">plot</span>(<span class="kw">density</span>(samps))</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-264-3.png" width="672" /></p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" title="1"><span class="kw">mean</span>(samps)</a></code></pre></div>
+<pre><code>## [1] 1.211578</code></pre>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" title="1"><span class="kw">median</span>(samps)</a></code></pre></div>
+<pre><code>## [1] 1.204279</code></pre>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1">truth_p &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x), <span class="dt">type =</span> <span class="st">&quot;truth&quot;</span>)</a>
+<a class="sourceLine" id="cb296-2" title="2">preds   &lt;-<span class="st"> </span><span class="kw">inv_log</span>(x <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(samps))</a>
+<a class="sourceLine" id="cb296-3" title="3">preds   &lt;-<span class="st"> </span><span class="kw">gather</span>(<span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(preds), <span class="dt">x =</span> x), <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, </a>
+<a class="sourceLine" id="cb296-4" title="4">                  <span class="st">&quot;value&quot;</span> =<span class="st"> </span>value, <span class="op">-</span><span class="st"> </span>x)</a>
+<a class="sourceLine" id="cb296-5" title="5"></a>
+<a class="sourceLine" id="cb296-6" title="6"><span class="kw">ggplot</span>(preds, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb296-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> key), <span class="dt">color =</span> <span class="st">&quot;gray&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb296-8" title="8"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> truth_p, <span class="kw">aes</span>(<span class="dt">y =</span> prob), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb296-9" title="9"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-264-4.png" width="672" /></p>
+</div>
+
+</div>
+</div>
+
+
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="nhst.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="A1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
