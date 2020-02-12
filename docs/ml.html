@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-02-03" />
+<meta name="date" content="2020-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -391,12 +391,12 @@ Equating above with zero, we get
 </div>
 
 <div class="exercise">
-<p><span id="exr:exr:logisticmle" class="exercise"><strong>(#exr:exr:logisticmle) (Logistic regression)  </strong></span>Logistic regression is a popular discriminative model when our target variable is binary (categorical with 2 values). One of the ways of looking at logistic regression is that it is linear regression but instead of using the linear term as the mean of a normal RV, we use it as the mean of a Bernoulli RV. Of course, the mean of a Bernoulli is bounded on <span class="math inline">\([0,1]\)</span>, so, to avoid non-sensical values, we squeeze the linear between 0 and 1 with the inverse logit function inv_logit<span class="math inline">\((z) = 1 / 1 + e^{-z}\)</span>. This leads to the following model: <span class="math inline">\(y_i | \beta, x \sim \text{Bernoulli}(\text{inv_logit}(\beta x))\)</span>.</p>
+<p><span id="exr:logisticmle" class="exercise"><strong>Exercise 15.3  (Logistic regression)  </strong></span>Logistic regression is a popular discriminative model when our target variable is binary (categorical with 2 values). One of the ways of looking at logistic regression is that it is linear regression but instead of using the linear term as the mean of a normal RV, we use it as the mean of a Bernoulli RV. Of course, the mean of a Bernoulli is bounded on <span class="math inline">\([0,1]\)</span>, so, to avoid non-sensical values, we squeeze the linear between 0 and 1 with the inverse logit function inv_logit<span class="math inline">\((z) = 1 / 1 + e^{-z}\)</span>. This leads to the following model: <span class="math inline">\(y_i | \beta, x \sim \text{Bernoulli}(\text{inv_logit}(\beta x))\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Explicitly write the likelihood function of beta.</p></li>
 <li><p>Implement the likelihood function in R. Use black-box box-constraint optimization (for example, <em>optim()</em> with L-BFGS) to find the maximum likelihood estimate for beta for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> defined below.</p></li>
-<li><p>Plot the estimated probability as a function of the independent variable. Compare with the truth (truth poznamo, ker smo generirali dataset).</p></li>
-<li><p>Let <span class="math inline">\(y2\)</span> be a response defined below. Will logistic regression work well on this dataset? Why not? How can we still use the model, without changing it?.</p></li>
+<li><p>Plot the estimated probability as a function of the independent variable. Compare with the truth.</p></li>
+<li><p>Let <span class="math inline">\(y2\)</span> be a response defined below. Will logistic regression work well on this dataset? Why not? How can we still use the model, without changing it?</p></li>
 </ol>
 </div>
 
@@ -457,7 +457,7 @@ Equating above with zero, we get
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-231" class="exercise"><strong>Exercise 15.3  (Linear regression)  </strong></span>For the data generated below, do the following:</p>
+<p><span id="exr:unnamed-chunk-231" class="exercise"><strong>Exercise 15.4  (Linear regression)  </strong></span>For the data generated below, do the following:</p>
 <ol style="list-style-type: lower-alpha">
 <li>Compute the least squares (MLE) estimate of coefficients beta using the matrix exact solution.</li>
 <li>Compute the MLE by minimizing the sum of squared residuals using black-box optimization (<em>optim()</em>).</li>
@@ -540,7 +540,7 @@ Equating above with zero, we get
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-234" class="exercise"><strong>Exercise 15.4  (Principal component analysis)  </strong></span>Load the <em>olympic</em> data set from package <em>ade4</em>. The data show decathlon results for 33 men in 1988 Olympic Games. This data set serves as a great example of finding the latent structure in the data, as there are certain characteristics of the athletes that make them excel at different events. For example an explosive athlete will do particulary well in sprints and long jumps.</p>
+<p><span id="exr:unnamed-chunk-234" class="exercise"><strong>Exercise 15.5  (Principal component analysis)  </strong></span>Load the <em>olympic</em> data set from package <em>ade4</em>. The data show decathlon results for 33 men in 1988 Olympic Games. This data set serves as a great example of finding the latent structure in the data, as there are certain characteristics of the athletes that make them excel at different events. For example an explosive athlete will do particulary well in sprints and long jumps.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Perform PCA (<em>prcomp</em>) on the data set and interpret the first 2 latent dimensions. Hint: Standardize the data first to get meaningful results.</p></li>
 <li><p>Use MLE to estimate the covariance of the standardized multivariate distribution.</p></li>
@@ -622,7 +622,7 @@ Equating above with zero, we get
 <h2><span class="header-section-number">15.2</span> Fisher information</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-236" class="exercise"><strong>Exercise 15.5  </strong></span>Let us assume a Poisson likelihood.</p>
+<p><span id="exr:unnamed-chunk-236" class="exercise"><strong>Exercise 15.6  </strong></span>Let us assume a Poisson likelihood.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Derive the MLE estimate of the mean.</p></li>
 <li><p>Derive the Fischer information.</p></li>
@@ -680,7 +680,7 @@ Now taking the expectation of the negative of the above, we get
 </div>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-240" class="exercise"><strong>Exercise 15.6  </strong></span></p>
+<p><span id="exr:unnamed-chunk-240" class="exercise"><strong>Exercise 15.7  </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Find the Fisher information matrix for the Gamma distribution.</p></li>
 <li><p>Generate 20 samples from a Gamma distribution and plot a confidence ellipse of the inverse of Fisher information matrix around the ML estimates of the parameters. Also plot the theoretical values. Repeat the sampling several times. What do you observe?</p></li>
@@ -770,7 +770,7 @@ I(\alpha, \beta) =
 <h2><span class="header-section-number">15.3</span> The German tank problem</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-243" class="exercise"><strong>Exercise 15.7  (The German tank problem)  </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
+<p><span id="exr:unnamed-chunk-243" class="exercise"><strong>Exercise 15.8  (The German tank problem)  </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
 <ol style="list-style-type: lower-alpha">
 <li>What assumptions were made by using the above model? Do you think they are reasonable assumptions in practice?</li>
 <li>Show that the plug-in estimate for the maximum (i.e. the maximum of the sample) is a biased estimator.</li>

@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-02-03" />
+<meta name="date" content="2020-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -379,7 +379,7 @@ There are two sources of uncertainty in the predictive distribution. First is th
 <p><span id="exr:unnamed-chunk-262" class="exercise"><strong>Exercise 17.2  (Bayesian logistic regression)  </strong></span>In Chapter 15 we implemented a MLE for a logistic regression (see the code below). For this model, conjugate priors do not exist, which complicated the calculation of the posterior. However, we can use sampling from the numerator of the posterior, using rejection sampling.</p>
 <ol style="list-style-type: lower-alpha">
 <li><span style="color:blue">Set a sensible prior distribution on <span class="math inline">\(\beta\)</span> and use rejection sampling to find the posterior distribution.</span></li>
-<li><span style="color:blue">In a) you will get a distribution of parameter <span class="math inline">\(\beta\)</span>. Plot the probabilities (as in exercise <a href="#exr:logisticmle"><strong>??</strong></a>) for each sample of <span class="math inline">\(\beta\)</span> and compare to the truth.</span></li>
+<li><span style="color:blue">In a) you will get a distribution of parameter <span class="math inline">\(\beta\)</span>. Plot the probabilities (as in exercise <a href="ml.html#exr:logisticmle">15.3</a>) for each sample of <span class="math inline">\(\beta\)</span> and compare to the truth.</span></li>
 </ol>
 <p>Hint: We can use rejection sampling even for functions which are not PDFs – they do not have to sum/integrate to 1. We just need to use a suitable envelope that we know how to sample from. For example, here we could use a uniform distribution and scale it suitably.</p>
 </div>

@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-02-03" />
+<meta name="date" content="2020-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -353,7 +353,7 @@ mathematically.
          &amp;= \sum_{n_1 = 0}^1 \frac{p_1^{n_1} n_1}{n_1!} \sum_{n_2 = 0}^1 ... \sum_{n_k = 0}^1 \frac{1}{n_2!...n_k!}p_2^{n_2}...p_k^{n_k}
 \end{align}\]</span>
 When <span class="math inline">\(n_1 = 0\)</span> then the whole terms is zero, so we do not need to evaluate other sums. When <span class="math inline">\(n_1 = 1\)</span>, all other <span class="math inline">\(n_i\)</span> must be zero, as we have <span class="math inline">\(1 = \sum_{i=1}^k n_i\)</span>. Therefore the other sums equal <span class="math inline">\(1\)</span>. So <span class="math inline">\(E[X_1] = p_1\)</span> and <span class="math inline">\(E[X_i] = p_i\)</span> for <span class="math inline">\(i = 1,...,k\)</span>.
-Now let <span class="math inline">\(Y_j\)</span>, <span class="math inline">\(j = 1,...,n\)</span>, have a multinomial distribution with <span class="math inline">\(n = 1\)</span>, and let <span class="math inline">\(X\)</span> have a multinomial distribution with and arbitrary <span class="math inline">\(n\)</span>. Then we can write <span class="math inline">\(X = \sum_{j=1}^n Y_j\)</span>. And due to independence
+Now let <span class="math inline">\(Y_j\)</span>, <span class="math inline">\(j = 1,...,n\)</span>, have a multinomial distribution with <span class="math inline">\(n = 1\)</span>, and let <span class="math inline">\(X\)</span> have a multinomial distribution with an arbitrary <span class="math inline">\(n\)</span>. Then we can write <span class="math inline">\(X = \sum_{j=1}^n Y_j\)</span>. And due to independence
 <span class="math display">\[\begin{align}
   E[X] &amp;= E[\sum_{j=1}^n Y_j] \\
        &amp;= \sum_{j=1}^n E[Y_j] \\
@@ -569,7 +569,7 @@ For <span class="math inline">\(X_{1t}\)</span> and <span class="math inline">\(
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math inline">\(B \sim \text{N}(-1, 2)\)</span>.</p></li>
 <li><p><span class="math inline">\(B | A = a \sim \text{N}(-1.68 + [0.34, -0.81] a, 0.86)\)</span>.</p></li>
-<li><p><span class="math inline">\(\mu_A = [2, 0, -1]^T\)</span> and <span class="math inline">\(\Sigma_A = \begin{bmatrix}  1 &amp; -0.2 &amp; \\  -0.2 &amp; 1.4 \\ \end{bmatrix}\)</span>.</p></li>
+<li><p><span class="math inline">\(\mu_A = [2, 0]^T\)</span> and <span class="math inline">\(\Sigma_A = \begin{bmatrix}  1 &amp; -0.2 &amp; \\  -0.2 &amp; 1.4 \\ \end{bmatrix}\)</span>.</p></li>
 <li><p><span class="math display">\[\begin{align}
   X_A | X_B = b &amp;\sim \text{N}(\mu_t, \Sigma_t), \\
   \mu_t     &amp;= [2.25, -0.6]^T + [0.25, -0.6]^T b, \\

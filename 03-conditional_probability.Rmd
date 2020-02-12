@@ -177,7 +177,7 @@ sum(truth_b1) / length(truth_b1)
 A coin is tossed independently $n$ times. The probability of heads at each
 toss is $p$. At each time $k$, $(k = 2,3,...,n)$ we get a reward at time $k+1$
 if $k$-th toss was a head and the previous toss was a tail. Let $A_k$ be the
-evebt that a reward is obtained at time $k$.
+event that a reward is obtained at time $k$.
 
 a. Are events $A_k$ and $A_{k+1}$ independent?
   
