@@ -335,7 +335,7 @@ There are a countable number of rational numbers. Therefore, we can write
 a. Prove that the Lebesgue measure of $\mathbb{R}$ is infinity.
 
 b. _Paradox_. Show that the cardinality of $\mathbb{R}$ and $(0,1)$ is the same,
-while their Lebesgue measures are infinity and one respectably.
+while their Lebesgue measures are infinity and one respectively.
 
 
 ```
