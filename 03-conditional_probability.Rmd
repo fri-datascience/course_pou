@@ -416,7 +416,7 @@ independent?
 b. Compute the probability $P(Y_1 = 1)$.
 
 c. Compute the probabilities $P(Y_2 = 1 | Y_1 = 1)$ and
-P(Y_{10} = 1 | Y_1 = 1,...,Y_9 = 1)$.
+$P(Y_{10} = 1 | Y_1 = 1,...,Y_9 = 1)$.
 
 d. Given your answers to b) and c), would you now change your answer to a)?
 If so, discuss why your intuition had failed.
