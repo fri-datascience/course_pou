@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Integration | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Integration | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-10-22" />
+<meta name="date" content="2020-11-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,6 +50,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -295,12 +297,12 @@ $(document).ready(function() {
 <a class="sourceLine" id="cb92-7" title="7">  <span class="kw">return</span> (<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>(x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb92-8" title="8">}</a>
 <a class="sourceLine" id="cb92-9" title="9">mcint  &lt;-<span class="st"> </span>V <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>nsamps) <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">f_1</span>(x1, x2))</a>
-<a class="sourceLine" id="cb92-10" title="10">mcint2 &lt;-<span class="st"> </span>V<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>nsamps) <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">f_1</span>(x1, x2)<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb92-11" title="11">sdm    &lt;-<span class="st"> </span>(mcint2 <span class="op">-</span><span class="st"> </span>mcint<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(nsamps)</a>
+<a class="sourceLine" id="cb92-10" title="10">sdm    &lt;-<span class="st"> </span><span class="kw">sqrt</span>((V<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>nsamps) <span class="op">*</span><span class="st"> </span><span class="kw">var</span>(<span class="kw">f_1</span>(x1, x2)))</a>
+<a class="sourceLine" id="cb92-11" title="11"></a>
 <a class="sourceLine" id="cb92-12" title="12">mcint</a></code></pre></div>
 <pre><code>## [1] 0.008793445</code></pre>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1">sdm</a></code></pre></div>
-<pre><code>## [1] 1.525797e-06</code></pre>
+<pre><code>## [1] 0.0002197686</code></pre>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1">F_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {</a>
 <a class="sourceLine" id="cb96-2" title="2">  <span class="kw">return</span> (<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>y <span class="op">-</span><span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>y<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">*</span><span class="st"> </span>y<span class="op">^</span><span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb96-3" title="3">}</a>

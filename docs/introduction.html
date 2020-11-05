@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 Probability spaces | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 Probability spaces | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-10-22" />
+<meta name="date" content="2020-11-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,6 +50,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -454,9 +456,9 @@ let 1 through 4 represent Queens.</p></li>
 <a class="sourceLine" id="cb1-11" title="11">  q2[i]   &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="op">%in%</span><span class="st"> </span>p1) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2</span></a>
 <a class="sourceLine" id="cb1-12" title="12">}</a>
 <a class="sourceLine" id="cb1-13" title="13"><span class="kw">sum</span>(q4) <span class="op">/</span><span class="st"> </span>n</a></code></pre></div>
-<pre><code>## [1] 0.0556</code></pre>
+<pre><code>## [1] 0.0572</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">sum</span>(q2) <span class="op">/</span><span class="st"> </span>n</a></code></pre></div>
-<pre><code>## [1] 0.6995</code></pre>
+<pre><code>## [1] 0.6894</code></pre>
 </div>
 
 <div class="exercise">
@@ -530,7 +532,7 @@ Again from the properties of probability we have</li>
 <a class="sourceLine" id="cb5-10" title="10">  lb[i] &lt;-<span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>A <span class="op">&amp;</span><span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>B</a>
 <a class="sourceLine" id="cb5-11" title="11">}</a>
 <a class="sourceLine" id="cb5-12" title="12"><span class="kw">sum</span>(lb) <span class="op">/</span><span class="st"> </span>n</a></code></pre></div>
-<pre><code>## [1] 0.1724</code></pre>
+<pre><code>## [1] 0.1605</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># upper bound</span></a>
 <a class="sourceLine" id="cb7-2" title="2">ub     &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> n)</a>
 <a class="sourceLine" id="cb7-3" title="3">A      &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</a>
@@ -539,7 +541,7 @@ Again from the properties of probability we have</li>
 <a class="sourceLine" id="cb7-6" title="6">  ub[i] &lt;-<span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>A <span class="op">&amp;</span><span class="st"> </span>samps[i] <span class="op">%in%</span><span class="st"> </span>B</a>
 <a class="sourceLine" id="cb7-7" title="7">}</a>
 <a class="sourceLine" id="cb7-8" title="8"><span class="kw">sum</span>(ub) <span class="op">/</span><span class="st"> </span>n</a></code></pre></div>
-<pre><code>## [1] 0.5047</code></pre>
+<pre><code>## [1] 0.4913</code></pre>
 </div>
 
 <div class="exercise">

@@ -55,7 +55,7 @@ library(tidyr)
 <span style="color:blue">Let $X \sim \text{N}(0,1)$ and $Y \sim \text{N}(0,1)$ 
 be independent random
 variables. Draw 1000 samples from $(X,Y)$ and plot a scatterplot.
-Now let $X \sim \text{N}(0,1)$ and $Y | X = x \sim N(ax, 1). Draw 1000 samples
+Now let $X \sim \text{N}(0,1)$ and $Y | X = x \sim N(ax, 1)$. Draw 1000 samples
 from $(X,Y)$ for $a = 1$, $a=0$, and $a=-0.5$. Plot the scatterplots.
 How would you interpret parameter $a$?
 Plot the marginal distribution of $Y$ for cases $a=1$, $a=0$, and $a=-0.5$.
