@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-11-05" />
+<meta name="date" content="2020-11-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,14 +50,15 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -66,14 +67,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -306,48 +309,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>change types with <code>as.type()</code> functions</li>
 <li>no special type for single character like C++ for example</li>
 </ul>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" title="1">n            &lt;-<span class="st"> </span><span class="dv">20</span></a>
-<a class="sourceLine" id="cb297-2" title="2">x            &lt;-<span class="st"> </span><span class="fl">2.7</span></a>
-<a class="sourceLine" id="cb297-3" title="3">m            &lt;-<span class="st"> </span>n <span class="co"># m gets value 20</span></a>
-<a class="sourceLine" id="cb297-4" title="4">my_flag      &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb297-5" title="5">student_name &lt;-<span class="st"> &quot;Luka&quot;</span></a>
-<a class="sourceLine" id="cb297-6" title="6"><span class="kw">typeof</span>(n)</a></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="A1.html#cb297-1"></a>n            &lt;-<span class="st"> </span><span class="dv">20</span></span>
+<span id="cb297-2"><a href="A1.html#cb297-2"></a>x            &lt;-<span class="st"> </span><span class="fl">2.7</span></span>
+<span id="cb297-3"><a href="A1.html#cb297-3"></a>m            &lt;-<span class="st"> </span>n <span class="co"># m gets value 20</span></span>
+<span id="cb297-4"><a href="A1.html#cb297-4"></a>my_flag      &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb297-5"><a href="A1.html#cb297-5"></a>student_name &lt;-<span class="st"> &quot;Luka&quot;</span></span>
+<span id="cb297-6"><a href="A1.html#cb297-6"></a><span class="kw">typeof</span>(n)</span></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" title="1"><span class="kw">typeof</span>(student_name)</a></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="A1.html#cb299-1"></a><span class="kw">typeof</span>(student_name)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" title="1"><span class="kw">typeof</span>(my_flag)</a></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="A1.html#cb301-1"></a><span class="kw">typeof</span>(my_flag)</span></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" title="1"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(n))</a></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="A1.html#cb303-1"></a><span class="kw">typeof</span>(<span class="kw">as.integer</span>(n))</span></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" title="1"><span class="kw">typeof</span>(<span class="kw">as.character</span>(n))</a></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="A1.html#cb305-1"></a><span class="kw">typeof</span>(<span class="kw">as.character</span>(n))</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </div>
 <div id="basic-operations" class="section level3">
 <h3><span class="header-section-number">A.4.2</span> Basic operations</h3>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" title="1">n <span class="op">+</span><span class="st"> </span>x</a></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="A1.html#cb307-1"></a>n <span class="op">+</span><span class="st"> </span>x</span></code></pre></div>
 <pre><code>## [1] 22.7</code></pre>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" title="1">n <span class="op">-</span><span class="st"> </span>x</a></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="A1.html#cb309-1"></a>n <span class="op">-</span><span class="st"> </span>x</span></code></pre></div>
 <pre><code>## [1] 17.3</code></pre>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" title="1">diff &lt;-<span class="st"> </span>n <span class="op">-</span><span class="st"> </span>x <span class="co"># variable diff gets the difference between n and x</span></a>
-<a class="sourceLine" id="cb311-2" title="2">diff</a></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="A1.html#cb311-1"></a>diff &lt;-<span class="st"> </span>n <span class="op">-</span><span class="st"> </span>x <span class="co"># variable diff gets the difference between n and x</span></span>
+<span id="cb311-2"><a href="A1.html#cb311-2"></a>diff</span></code></pre></div>
 <pre><code>## [1] 17.3</code></pre>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" title="1">n <span class="op">*</span><span class="st"> </span>x</a></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="A1.html#cb313-1"></a>n <span class="op">*</span><span class="st"> </span>x</span></code></pre></div>
 <pre><code>## [1] 54</code></pre>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb315-1" title="1">n <span class="op">/</span><span class="st"> </span>x</a></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="A1.html#cb315-1"></a>n <span class="op">/</span><span class="st"> </span>x</span></code></pre></div>
 <pre><code>## [1] 7.407407</code></pre>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" title="1">x<span class="op">^</span><span class="dv">2</span></a></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="A1.html#cb317-1"></a>x<span class="op">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 7.29</code></pre>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" title="1"><span class="kw">sqrt</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="A1.html#cb319-1"></a><span class="kw">sqrt</span>(x)</span></code></pre></div>
 <pre><code>## [1] 1.643168</code></pre>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" title="1">n <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n</a></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="A1.html#cb321-1"></a>n <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" title="1">n <span class="op">==</span><span class="st"> </span>n</a></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="A1.html#cb323-1"></a>n <span class="op">==</span><span class="st"> </span>n</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" title="1">n <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n</a></code></pre></div>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="A1.html#cb325-1"></a>n <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" title="1">n <span class="op">!=</span><span class="st"> </span>n</a></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="A1.html#cb327-1"></a>n <span class="op">!=</span><span class="st"> </span>n</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" title="1"><span class="kw">paste</span>(student_name, <span class="st">&quot;is&quot;</span>, n, <span class="st">&quot;years old&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="A1.html#cb329-1"></a><span class="kw">paste</span>(student_name, <span class="st">&quot;is&quot;</span>, n, <span class="st">&quot;years old&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Luka is 20 years old&quot;</code></pre>
 </div>
 <div id="vectors" class="section level3">
@@ -359,26 +362,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>access elements by indexes or logical vectors of the same length</li>
 <li>a scalar value is regarded as a vector of length 1</li>
 </ul>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="co"># creates a vector of integers from 1 to 4</span></a></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="A1.html#cb331-1"></a><span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="co"># creates a vector of integers from 1 to 4</span></span></code></pre></div>
 <pre><code>## [1] 1 2 3 4</code></pre>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" title="1">student_ages  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">23</span>, <span class="dv">21</span>)</a>
-<a class="sourceLine" id="cb333-2" title="2">student_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luke&quot;</span>, <span class="st">&quot;Jen&quot;</span>, <span class="st">&quot;Mike&quot;</span>)</a>
-<a class="sourceLine" id="cb333-3" title="3">passed        &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb333-4" title="4"><span class="kw">length</span>(student_ages)</a></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="A1.html#cb333-1"></a>student_ages  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">23</span>, <span class="dv">21</span>)</span>
+<span id="cb333-2"><a href="A1.html#cb333-2"></a>student_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luke&quot;</span>, <span class="st">&quot;Jen&quot;</span>, <span class="st">&quot;Mike&quot;</span>)</span>
+<span id="cb333-3"><a href="A1.html#cb333-3"></a>passed        &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</span>
+<span id="cb333-4"><a href="A1.html#cb333-4"></a><span class="kw">length</span>(student_ages)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" title="1"><span class="co"># access by index</span></a>
-<a class="sourceLine" id="cb335-2" title="2">student_ages[<span class="dv">2</span>] </a></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="A1.html#cb335-1"></a><span class="co"># access by index</span></span>
+<span id="cb335-2"><a href="A1.html#cb335-2"></a>student_ages[<span class="dv">2</span>] </span></code></pre></div>
 <pre><code>## [1] 23</code></pre>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" title="1">student_ages[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="A1.html#cb337-1"></a>student_ages[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</span></code></pre></div>
 <pre><code>## [1] 20 23</code></pre>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" title="1">student_ages[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">24</span> <span class="co"># change values</span></a>
-<a class="sourceLine" id="cb339-2" title="2"></a>
-<a class="sourceLine" id="cb339-3" title="3"><span class="co"># access by logical vectors</span></a>
-<a class="sourceLine" id="cb339-4" title="4">student_ages[passed <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>] <span class="co"># same as student_ages[passed]</span></a></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="A1.html#cb339-1"></a>student_ages[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">24</span> <span class="co"># change values</span></span>
+<span id="cb339-2"><a href="A1.html#cb339-2"></a></span>
+<span id="cb339-3"><a href="A1.html#cb339-3"></a><span class="co"># access by logical vectors</span></span>
+<span id="cb339-4"><a href="A1.html#cb339-4"></a>student_ages[passed <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>] <span class="co"># same as student_ages[passed]</span></span></code></pre></div>
 <pre><code>## [1] 20 24</code></pre>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" title="1">student_ages[student_names <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luke&quot;</span>, <span class="st">&quot;Mike&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="A1.html#cb341-1"></a>student_ages[student_names <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luke&quot;</span>, <span class="st">&quot;Mike&quot;</span>)]</span></code></pre></div>
 <pre><code>## [1] 20 21</code></pre>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" title="1">student_names[student_ages <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="A1.html#cb343-1"></a>student_names[student_ages <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;Jen&quot;  &quot;Mike&quot;</code></pre>
 <div id="operations-with-vectors" class="section level4">
 <h4><span class="header-section-number">A.4.3.1</span> Operations with vectors</h4>
@@ -386,24 +389,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>most operations are element-wise</li>
 <li>if we operate on vectors of different lengths, the shorter vector periodically repeats its elements until it reaches the length of the longer one</li>
 </ul>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" title="1">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb345-2" title="2">b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb345-3" title="3">d &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb345-4" title="4">a <span class="op">+</span><span class="st"> </span>b</a></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="A1.html#cb345-1"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
+<span id="cb345-2"><a href="A1.html#cb345-2"></a>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb345-3"><a href="A1.html#cb345-3"></a>d &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">7</span>)</span>
+<span id="cb345-4"><a href="A1.html#cb345-4"></a>a <span class="op">+</span><span class="st"> </span>b</span></code></pre></div>
 <pre><code>## [1] 3 5 6</code></pre>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" title="1">a <span class="op">*</span><span class="st"> </span>b</a></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="A1.html#cb347-1"></a>a <span class="op">*</span><span class="st"> </span>b</span></code></pre></div>
 <pre><code>## [1] 2 6 5</code></pre>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" title="1">a <span class="op">+</span><span class="st"> </span>d</a></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="A1.html#cb349-1"></a>a <span class="op">+</span><span class="st"> </span>d</span></code></pre></div>
 <pre><code>## Warning in a + d: longer object length is not a multiple of shorter object
 ## length</code></pre>
 <pre><code>## [1]  7 10 11</code></pre>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" title="1">a <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>b</a></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="A1.html#cb352-1"></a>a <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>b</span></code></pre></div>
 <pre><code>## [1] 5 7 7</code></pre>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" title="1">a <span class="op">&gt;</span><span class="st"> </span>b</a></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="A1.html#cb354-1"></a>a <span class="op">&gt;</span><span class="st"> </span>b</span></code></pre></div>
 <pre><code>## [1] FALSE  TRUE  TRUE</code></pre>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" title="1">b <span class="op">==</span><span class="st"> </span>a</a></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="A1.html#cb356-1"></a>b <span class="op">==</span><span class="st"> </span>a</span></code></pre></div>
 <pre><code>## [1] FALSE FALSE FALSE</code></pre>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" title="1">a <span class="op">%*%</span><span class="st"> </span>b <span class="co"># vector multiplication, not element-wise</span></a></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="A1.html#cb358-1"></a>a <span class="op">%*%</span><span class="st"> </span>b <span class="co"># vector multiplication, not element-wise</span></span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]   13</code></pre>
 </div>
@@ -415,21 +418,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>suitable for categorical variables</li>
 <li>ordinal (ordered) or nominal (unordered)</li>
 </ul>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" title="1">car_brand &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;Audi&quot;</span>, <span class="st">&quot;BMW&quot;</span>, <span class="st">&quot;Mercedes&quot;</span>, <span class="st">&quot;BMW&quot;</span>), <span class="dt">ordered =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb360-2" title="2">car_brand</a></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="A1.html#cb360-1"></a>car_brand &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;Audi&quot;</span>, <span class="st">&quot;BMW&quot;</span>, <span class="st">&quot;Mercedes&quot;</span>, <span class="st">&quot;BMW&quot;</span>), <span class="dt">ordered =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb360-2"><a href="A1.html#cb360-2"></a>car_brand</span></code></pre></div>
 <pre><code>## [1] Audi     BMW      Mercedes BMW     
 ## Levels: Audi BMW Mercedes</code></pre>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb362-1" title="1">freq      &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="dt">x       =</span> <span class="ot">NA</span>,</a>
-<a class="sourceLine" id="cb362-2" title="2">                    <span class="dt">levels  =</span> <span class="kw">c</span>(<span class="st">&quot;never&quot;</span>,<span class="st">&quot;rarely&quot;</span>,<span class="st">&quot;sometimes&quot;</span>,<span class="st">&quot;often&quot;</span>,<span class="st">&quot;always&quot;</span>),</a>
-<a class="sourceLine" id="cb362-3" title="3">                    <span class="dt">ordered =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb362-4" title="4">freq[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;rarely&quot;</span>, <span class="st">&quot;sometimes&quot;</span>, <span class="st">&quot;rarely&quot;</span>)</a>
-<a class="sourceLine" id="cb362-5" title="5">freq</a></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="A1.html#cb362-1"></a>freq      &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="dt">x       =</span> <span class="ot">NA</span>,</span>
+<span id="cb362-2"><a href="A1.html#cb362-2"></a>                    <span class="dt">levels  =</span> <span class="kw">c</span>(<span class="st">&quot;never&quot;</span>,<span class="st">&quot;rarely&quot;</span>,<span class="st">&quot;sometimes&quot;</span>,<span class="st">&quot;often&quot;</span>,<span class="st">&quot;always&quot;</span>),</span>
+<span id="cb362-3"><a href="A1.html#cb362-3"></a>                    <span class="dt">ordered =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb362-4"><a href="A1.html#cb362-4"></a>freq[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;rarely&quot;</span>, <span class="st">&quot;sometimes&quot;</span>, <span class="st">&quot;rarely&quot;</span>)</span>
+<span id="cb362-5"><a href="A1.html#cb362-5"></a>freq</span></code></pre></div>
 <pre><code>## [1] rarely    sometimes rarely   
 ## Levels: never &lt; rarely &lt; sometimes &lt; often &lt; always</code></pre>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" title="1">freq[<span class="dv">4</span>]   &lt;-<span class="st"> &quot;quite_often&quot;</span> <span class="co"># non-existing level, returns NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="A1.html#cb364-1"></a>freq[<span class="dv">4</span>]   &lt;-<span class="st"> &quot;quite_often&quot;</span> <span class="co"># non-existing level, returns NA</span></span></code></pre></div>
 <pre><code>## Warning in `[&lt;-.factor`(`*tmp*`, 4, value = &quot;quite_often&quot;): invalid factor
 ## level, NA generated</code></pre>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" title="1">freq</a></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="A1.html#cb366-1"></a>freq</span></code></pre></div>
 <pre><code>## [1] rarely    sometimes rarely    &lt;NA&gt;     
 ## Levels: never &lt; rarely &lt; sometimes &lt; often &lt; always</code></pre>
 </div>
@@ -438,26 +441,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>two-dimensional generalizations of vectors</li>
 </ul>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" title="1">my_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb368-2" title="2">                      <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb368-3" title="3">                    <span class="dt">nrow  =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb368-4" title="4">                    <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb368-5" title="5">my_matrix</a></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="A1.html#cb368-1"></a>my_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb368-2"><a href="A1.html#cb368-2"></a>                      <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">2</span>),</span>
+<span id="cb368-3"><a href="A1.html#cb368-3"></a>                    <span class="dt">nrow  =</span> <span class="dv">2</span>,</span>
+<span id="cb368-4"><a href="A1.html#cb368-4"></a>                    <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb368-5"><a href="A1.html#cb368-5"></a>my_matrix</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    1
 ## [2,]    5    4    2</code></pre>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" title="1">my_square_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb370-2" title="2">                             <span class="dv">2</span>, <span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb370-3" title="3">                           <span class="dt">nrow  =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb370-4" title="4">my_square_matrix</a></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="A1.html#cb370-1"></a>my_square_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>,</span>
+<span id="cb370-2"><a href="A1.html#cb370-2"></a>                             <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb370-3"><a href="A1.html#cb370-3"></a>                           <span class="dt">nrow  =</span> <span class="dv">2</span>)</span>
+<span id="cb370-4"><a href="A1.html#cb370-4"></a>my_square_matrix</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    2
 ## [2,]    3    3</code></pre>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" title="1">my_matrix[<span class="dv">1</span>,<span class="dv">2</span>] <span class="co"># first row, second column</span></a></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="A1.html#cb372-1"></a>my_matrix[<span class="dv">1</span>,<span class="dv">2</span>] <span class="co"># first row, second column</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb374-1" title="1">my_matrix[<span class="dv">2</span>, ] <span class="co"># second row</span></a></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="A1.html#cb374-1"></a>my_matrix[<span class="dv">2</span>, ] <span class="co"># second row</span></span></code></pre></div>
 <pre><code>## [1] 5 4 2</code></pre>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb376-1" title="1">my_matrix[ ,<span class="dv">3</span>] <span class="co"># third column</span></a></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="A1.html#cb376-1"></a>my_matrix[ ,<span class="dv">3</span>] <span class="co"># third column</span></span></code></pre></div>
 <pre><code>## [1] 1 2</code></pre>
 <div id="matrix-functions-and-operations" class="section level4">
 <h4><span class="header-section-number">A.4.5.1</span> Matrix functions and operations</h4>
@@ -465,40 +468,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>most operation element-wise</li>
 <li>mind the dimensions when using matrix multiplication <code>%*%</code></li>
 </ul>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" title="1"><span class="kw">nrow</span>(my_matrix) <span class="co"># number of matrix rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="A1.html#cb378-1"></a><span class="kw">nrow</span>(my_matrix) <span class="co"># number of matrix rows</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb380-1" title="1"><span class="kw">ncol</span>(my_matrix) <span class="co"># number of matrix columns</span></a></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="A1.html#cb380-1"></a><span class="kw">ncol</span>(my_matrix) <span class="co"># number of matrix columns</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb382-1" title="1"><span class="kw">dim</span>(my_matrix) <span class="co"># matrix dimension</span></a></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="A1.html#cb382-1"></a><span class="kw">dim</span>(my_matrix) <span class="co"># matrix dimension</span></span></code></pre></div>
 <pre><code>## [1] 2 3</code></pre>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" title="1"><span class="kw">t</span>(my_matrix) <span class="co"># transpose</span></a></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="A1.html#cb384-1"></a><span class="kw">t</span>(my_matrix) <span class="co"># transpose</span></span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    5
 ## [2,]    2    4
 ## [3,]    1    2</code></pre>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" title="1"><span class="kw">diag</span>(my_matrix) <span class="co"># the diagonal of the matrix as vector</span></a></code></pre></div>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="A1.html#cb386-1"></a><span class="kw">diag</span>(my_matrix) <span class="co"># the diagonal of the matrix as vector</span></span></code></pre></div>
 <pre><code>## [1] 1 4</code></pre>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" title="1"><span class="kw">diag</span>(<span class="dv">1</span>, <span class="dt">nrow =</span> <span class="dv">3</span>) <span class="co"># creates a diagonal matrix</span></a></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="A1.html#cb388-1"></a><span class="kw">diag</span>(<span class="dv">1</span>, <span class="dt">nrow =</span> <span class="dv">3</span>) <span class="co"># creates a diagonal matrix</span></span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    0    0
 ## [2,]    0    1    0
 ## [3,]    0    0    1</code></pre>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" title="1"><span class="kw">det</span>(my_square_matrix) <span class="co"># matrix determinant</span></a></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="A1.html#cb390-1"></a><span class="kw">det</span>(my_square_matrix) <span class="co"># matrix determinant</span></span></code></pre></div>
 <pre><code>## [1] -3</code></pre>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" title="1">my_matrix <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>my_matrix</a></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="A1.html#cb392-1"></a>my_matrix <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>my_matrix</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    3    6    3
 ## [2,]   15   12    6</code></pre>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" title="1">my_matrix <span class="op">*</span><span class="st"> </span>my_matrix <span class="co"># element-wise multiplication</span></a></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="A1.html#cb394-1"></a>my_matrix <span class="op">*</span><span class="st"> </span>my_matrix <span class="co"># element-wise multiplication</span></span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    4    1
 ## [2,]   25   16    4</code></pre>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" title="1">my_matrix <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(my_matrix) <span class="co"># matrix multiplication</span></a></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="A1.html#cb396-1"></a>my_matrix <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(my_matrix) <span class="co"># matrix multiplication</span></span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    6   15
 ## [2,]   15   45</code></pre>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" title="1">my_vec &lt;-<span class="st"> </span><span class="kw">as.vector</span>(my_matrix) <span class="co"># transform to vector</span></a>
-<a class="sourceLine" id="cb398-2" title="2">my_vec</a></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="A1.html#cb398-1"></a>my_vec &lt;-<span class="st"> </span><span class="kw">as.vector</span>(my_matrix) <span class="co"># transform to vector</span></span>
+<span id="cb398-2"><a href="A1.html#cb398-2"></a>my_vec</span></code></pre></div>
 <pre><code>## [1] 1 5 2 4 1 2</code></pre>
 </div>
 </div>
@@ -507,16 +510,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>multi-dimensional generalizations of matrices</li>
 </ul>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" title="1">my_array &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb400-2" title="2">my_array[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="A1.html#cb400-1"></a>my_array &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb400-2"><a href="A1.html#cb400-2"></a>my_array[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" title="1">my_array[<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="A1.html#cb402-1"></a>my_array[<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" title="1">my_array[<span class="dv">1</span>, , ]</a></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="A1.html#cb404-1"></a>my_array[<span class="dv">1</span>, , ]</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    5
 ## [2,]    3    7</code></pre>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb406-1" title="1"><span class="kw">dim</span>(my_array)</a></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="A1.html#cb406-1"></a><span class="kw">dim</span>(my_array)</span></code></pre></div>
 <pre><code>## [1] 2 2 2</code></pre>
 </div>
 <div id="data-frames" class="section level3">
@@ -525,26 +528,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>basic data structure for analysis</li>
 <li>differ from matrices as columns can be of different types</li>
 </ul>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" title="1">student_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;Name&quot;</span> =<span class="st"> </span>student_names, </a>
-<a class="sourceLine" id="cb408-2" title="2">                           <span class="st">&quot;Age&quot;</span>  =<span class="st"> </span>student_ages, </a>
-<a class="sourceLine" id="cb408-3" title="3">                           <span class="st">&quot;Pass&quot;</span> =<span class="st"> </span>passed)</a>
-<a class="sourceLine" id="cb408-4" title="4">student_data</a></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="A1.html#cb408-1"></a>student_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;Name&quot;</span> =<span class="st"> </span>student_names, </span>
+<span id="cb408-2"><a href="A1.html#cb408-2"></a>                           <span class="st">&quot;Age&quot;</span>  =<span class="st"> </span>student_ages, </span>
+<span id="cb408-3"><a href="A1.html#cb408-3"></a>                           <span class="st">&quot;Pass&quot;</span> =<span class="st"> </span>passed)</span>
+<span id="cb408-4"><a href="A1.html#cb408-4"></a>student_data</span></code></pre></div>
 <pre><code>##   Name Age  Pass
 ## 1 Luke  20  TRUE
 ## 2  Jen  24  TRUE
 ## 3 Mike  21 FALSE</code></pre>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1"><span class="kw">colnames</span>(student_data) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;pass&quot;</span>) <span class="co"># change column names</span></a>
-<a class="sourceLine" id="cb410-2" title="2">student_data[<span class="dv">1</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="A1.html#cb410-1"></a><span class="kw">colnames</span>(student_data) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;pass&quot;</span>) <span class="co"># change column names</span></span>
+<span id="cb410-2"><a href="A1.html#cb410-2"></a>student_data[<span class="dv">1</span>, ]</span></code></pre></div>
 <pre><code>##   name age pass
 ## 1 Luke  20 TRUE</code></pre>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" title="1">student_data[ ,<span class="kw">colnames</span>(student_data) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;pass&quot;</span>)]</a></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="A1.html#cb412-1"></a>student_data[ ,<span class="kw">colnames</span>(student_data) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;pass&quot;</span>)]</span></code></pre></div>
 <pre><code>##   name  pass
 ## 1 Luke  TRUE
 ## 2  Jen  TRUE
 ## 3 Mike FALSE</code></pre>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1">student_data<span class="op">$</span>pass <span class="co"># access column by name</span></a></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="A1.html#cb414-1"></a>student_data<span class="op">$</span>pass <span class="co"># access column by name</span></span></code></pre></div>
 <pre><code>## [1]  TRUE  TRUE FALSE</code></pre>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1">student_data[student_data<span class="op">$</span>pass <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="A1.html#cb416-1"></a>student_data[student_data<span class="op">$</span>pass <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, ]</span></code></pre></div>
 <pre><code>##   name age pass
 ## 1 Luke  20 TRUE
 ## 2  Jen  24 TRUE</code></pre>
@@ -556,11 +559,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>access elements with double square brackets</li>
 <li>elements can be named</li>
 </ul>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1">first_list  &lt;-<span class="st"> </span><span class="kw">list</span>(student_ages, my_matrix, student_data)</a>
-<a class="sourceLine" id="cb418-2" title="2">second_list &lt;-<span class="st"> </span><span class="kw">list</span>(student_ages, my_matrix, student_data, first_list)</a>
-<a class="sourceLine" id="cb418-3" title="3">first_list[[<span class="dv">1</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="A1.html#cb418-1"></a>first_list  &lt;-<span class="st"> </span><span class="kw">list</span>(student_ages, my_matrix, student_data)</span>
+<span id="cb418-2"><a href="A1.html#cb418-2"></a>second_list &lt;-<span class="st"> </span><span class="kw">list</span>(student_ages, my_matrix, student_data, first_list)</span>
+<span id="cb418-3"><a href="A1.html#cb418-3"></a>first_list[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## [1] 20 24 21</code></pre>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" title="1">second_list[[<span class="dv">4</span>]]</a></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="A1.html#cb420-1"></a>second_list[[<span class="dv">4</span>]]</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 20 24 21
 ## 
@@ -574,13 +577,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 Luke  20  TRUE
 ## 2  Jen  24  TRUE
 ## 3 Mike  21 FALSE</code></pre>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1">second_list[[<span class="dv">4</span>]][[<span class="dv">1</span>]] <span class="co"># first element of the fourth element of second_list</span></a></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="A1.html#cb422-1"></a>second_list[[<span class="dv">4</span>]][[<span class="dv">1</span>]] <span class="co"># first element of the fourth element of second_list</span></span></code></pre></div>
 <pre><code>## [1] 20 24 21</code></pre>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" title="1"><span class="kw">length</span>(second_list)</a></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="A1.html#cb424-1"></a><span class="kw">length</span>(second_list)</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1">second_list[[<span class="kw">length</span>(second_list) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]] &lt;-<span class="st"> &quot;add_me&quot;</span> <span class="co"># append an element</span></a>
-<a class="sourceLine" id="cb426-2" title="2"><span class="kw">names</span>(first_list) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Matrix&quot;</span>, <span class="st">&quot;Data&quot;</span>)</a>
-<a class="sourceLine" id="cb426-3" title="3">first_list<span class="op">$</span>Age</a></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="A1.html#cb426-1"></a>second_list[[<span class="kw">length</span>(second_list) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]] &lt;-<span class="st"> &quot;add_me&quot;</span> <span class="co"># append an element</span></span>
+<span id="cb426-2"><a href="A1.html#cb426-2"></a><span class="kw">names</span>(first_list) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Matrix&quot;</span>, <span class="st">&quot;Data&quot;</span>)</span>
+<span id="cb426-3"><a href="A1.html#cb426-3"></a>first_list<span class="op">$</span>Age</span></code></pre></div>
 <pre><code>## [1] 20 24 21</code></pre>
 </div>
 <div id="loops" class="section level3">
@@ -589,20 +592,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>mostly for loop</li>
 <li>for loop can iterate over an arbitrary vector</li>
 </ul>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1"><span class="co"># iterate over consecutive natural numbers</span></a>
-<a class="sourceLine" id="cb428-2" title="2">my_sum &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb428-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</a>
-<a class="sourceLine" id="cb428-4" title="4">  my_sum &lt;-<span class="st"> </span>my_sum <span class="op">+</span><span class="st"> </span>i</a>
-<a class="sourceLine" id="cb428-5" title="5">}</a>
-<a class="sourceLine" id="cb428-6" title="6">my_sum</a></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="A1.html#cb428-1"></a><span class="co"># iterate over consecutive natural numbers</span></span>
+<span id="cb428-2"><a href="A1.html#cb428-2"></a>my_sum &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb428-3"><a href="A1.html#cb428-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</span>
+<span id="cb428-4"><a href="A1.html#cb428-4"></a>  my_sum &lt;-<span class="st"> </span>my_sum <span class="op">+</span><span class="st"> </span>i</span>
+<span id="cb428-5"><a href="A1.html#cb428-5"></a>}</span>
+<span id="cb428-6"><a href="A1.html#cb428-6"></a>my_sum</span></code></pre></div>
 <pre><code>## [1] 55</code></pre>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" title="1"><span class="co"># iterate over an arbirary vector</span></a>
-<a class="sourceLine" id="cb430-2" title="2">my_sum       &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb430-3" title="3">some_numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">3.5</span>, <span class="dv">6</span>, <span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb430-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> some_numbers) {</a>
-<a class="sourceLine" id="cb430-5" title="5">  my_sum &lt;-<span class="st"> </span>my_sum <span class="op">+</span><span class="st"> </span>i</a>
-<a class="sourceLine" id="cb430-6" title="6">}</a>
-<a class="sourceLine" id="cb430-7" title="7">my_sum</a></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="A1.html#cb430-1"></a><span class="co"># iterate over an arbirary vector</span></span>
+<span id="cb430-2"><a href="A1.html#cb430-2"></a>my_sum       &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb430-3"><a href="A1.html#cb430-3"></a>some_numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">3.5</span>, <span class="dv">6</span>, <span class="dv">100</span>)</span>
+<span id="cb430-4"><a href="A1.html#cb430-4"></a><span class="cf">for</span> (i <span class="cf">in</span> some_numbers) {</span>
+<span id="cb430-5"><a href="A1.html#cb430-5"></a>  my_sum &lt;-<span class="st"> </span>my_sum <span class="op">+</span><span class="st"> </span>i</span>
+<span id="cb430-6"><a href="A1.html#cb430-6"></a>}</span>
+<span id="cb430-7"><a href="A1.html#cb430-7"></a>my_sum</span></code></pre></div>
 <pre><code>## [1] 111.5</code></pre>
 </div>
 </div>
@@ -616,14 +619,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can write our own functions with <code>function()</code>. In the brackets, we
 define the parameters the function gets, and in curly brackets we define what
 the function does. We use <code>return()</code> to return values.</p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" title="1">sum_first_n_elements &lt;-<span class="st"> </span><span class="cf">function</span> (n) {</a>
-<a class="sourceLine" id="cb432-2" title="2">  my_sum &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb432-3" title="3">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
-<a class="sourceLine" id="cb432-4" title="4">    my_sum &lt;-<span class="st"> </span>my_sum <span class="op">+</span><span class="st"> </span>i</a>
-<a class="sourceLine" id="cb432-5" title="5">  }</a>
-<a class="sourceLine" id="cb432-6" title="6">  <span class="kw">return</span> (my_sum)</a>
-<a class="sourceLine" id="cb432-7" title="7">}</a>
-<a class="sourceLine" id="cb432-8" title="8"><span class="kw">sum_first_n_elements</span>(<span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="A1.html#cb432-1"></a>sum_first_n_elements &lt;-<span class="st"> </span><span class="cf">function</span> (n) {</span>
+<span id="cb432-2"><a href="A1.html#cb432-2"></a>  my_sum &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb432-3"><a href="A1.html#cb432-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</span>
+<span id="cb432-4"><a href="A1.html#cb432-4"></a>    my_sum &lt;-<span class="st"> </span>my_sum <span class="op">+</span><span class="st"> </span>i</span>
+<span id="cb432-5"><a href="A1.html#cb432-5"></a>  }</span>
+<span id="cb432-6"><a href="A1.html#cb432-6"></a>  <span class="kw">return</span> (my_sum)</span>
+<span id="cb432-7"><a href="A1.html#cb432-7"></a>}</span>
+<span id="cb432-8"><a href="A1.html#cb432-8"></a><span class="kw">sum_first_n_elements</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## [1] 55</code></pre>
 </div>
 </div>

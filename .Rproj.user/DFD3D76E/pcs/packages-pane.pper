@@ -1,7 +1,7 @@
 {
-    "installOptions" : {
-        "installDependencies" : true,
-        "installFromRepository" : true,
-        "libraryPath" : "C:/Users/Gregor/Documents/R/win-library/3.5"
+    "installOptions": {
+        "installDependencies": true,
+        "installFromRepository": true,
+        "libraryPath": "C:/Users/Gregor/Documents/R/win-library/4.0"
     }
 }

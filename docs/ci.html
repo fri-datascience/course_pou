@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-11-05" />
+<meta name="date" content="2020-11-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,14 +50,15 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -66,14 +67,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -289,30 +292,30 @@ $(document).ready(function() {
 </div>
 
 <div class="fold">
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1">bound_chernoff &lt;-<span class="st"> </span><span class="cf">function</span> (t, p, a) {</a>
-<a class="sourceLine" id="cb164-2" title="2">  <span class="kw">return</span> ((p <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(t) <span class="op">+</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(t))) <span class="op">/</span><span class="st"> </span><span class="kw">exp</span>(a <span class="op">*</span><span class="st"> </span>t))</a>
-<a class="sourceLine" id="cb164-3" title="3">}</a>
-<a class="sourceLine" id="cb164-4" title="4"></a>
-<a class="sourceLine" id="cb164-5" title="5"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb164-6" title="6">p &lt;-<span class="st"> </span><span class="fl">0.7</span></a>
-<a class="sourceLine" id="cb164-7" title="7">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dt">by =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb164-8" title="8">ci_markov &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p) <span class="op">/</span><span class="st"> </span>p <span class="op">/</span><span class="st"> </span>a</a>
-<a class="sourceLine" id="cb164-9" title="9">t &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> <span class="kw">length</span>(a))</a>
-<a class="sourceLine" id="cb164-10" title="10"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(t)) {</a>
-<a class="sourceLine" id="cb164-11" title="11">  t[i] &lt;-<span class="st"> </span><span class="kw">optimize</span>(bound_chernoff, <span class="dt">interval =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">log</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p))), <span class="dt">p =</span> p, <span class="dt">a =</span> a[i])<span class="op">$</span>minimum</a>
-<a class="sourceLine" id="cb164-12" title="12">}</a>
-<a class="sourceLine" id="cb164-13" title="13">t</a></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="ci.html#cb164-1"></a>bound_chernoff &lt;-<span class="st"> </span><span class="cf">function</span> (t, p, a) {</span>
+<span id="cb164-2"><a href="ci.html#cb164-2"></a>  <span class="kw">return</span> ((p <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(t) <span class="op">+</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(t))) <span class="op">/</span><span class="st"> </span><span class="kw">exp</span>(a <span class="op">*</span><span class="st"> </span>t))</span>
+<span id="cb164-3"><a href="ci.html#cb164-3"></a>}</span>
+<span id="cb164-4"><a href="ci.html#cb164-4"></a></span>
+<span id="cb164-5"><a href="ci.html#cb164-5"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb164-6"><a href="ci.html#cb164-6"></a>p &lt;-<span class="st"> </span><span class="fl">0.7</span></span>
+<span id="cb164-7"><a href="ci.html#cb164-7"></a>a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dt">by =</span> <span class="dv">1</span>)</span>
+<span id="cb164-8"><a href="ci.html#cb164-8"></a>ci_markov &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p) <span class="op">/</span><span class="st"> </span>p <span class="op">/</span><span class="st"> </span>a</span>
+<span id="cb164-9"><a href="ci.html#cb164-9"></a>t &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> <span class="kw">length</span>(a))</span>
+<span id="cb164-10"><a href="ci.html#cb164-10"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(t)) {</span>
+<span id="cb164-11"><a href="ci.html#cb164-11"></a>  t[i] &lt;-<span class="st"> </span><span class="kw">optimize</span>(bound_chernoff, <span class="dt">interval =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">log</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p))), <span class="dt">p =</span> p, <span class="dt">a =</span> a[i])<span class="op">$</span>minimum</span>
+<span id="cb164-12"><a href="ci.html#cb164-12"></a>}</span>
+<span id="cb164-13"><a href="ci.html#cb164-13"></a>t</span></code></pre></div>
 <pre><code>##  [1] 0.5108267 0.7984981 0.9162927 0.9808238 1.0216635 1.0498233 1.0704327
 ##  [8] 1.0861944 1.0986159 1.1086800 1.1169653 1.1239426</code></pre>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" title="1">ci_chernoff &lt;-<span class="st"> </span>(p <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(t) <span class="op">+</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(t))) <span class="op">/</span><span class="st"> </span><span class="kw">exp</span>(a <span class="op">*</span><span class="st"> </span>t)</a>
-<a class="sourceLine" id="cb166-2" title="2">actual      &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pgeom</span>(a, <span class="fl">0.7</span>)</a>
-<a class="sourceLine" id="cb166-3" title="3">plot_df     &lt;-<span class="st"> </span><span class="kw">rbind</span>(</a>
-<a class="sourceLine" id="cb166-4" title="4">  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_markov, <span class="dt">type =</span> <span class="st">&quot;Markov&quot;</span>),</a>
-<a class="sourceLine" id="cb166-5" title="5">  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_chernoff, <span class="dt">type =</span> <span class="st">&quot;Chernoff&quot;</span>),</a>
-<a class="sourceLine" id="cb166-6" title="6">  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> actual, <span class="dt">type =</span> <span class="st">&quot;Actual&quot;</span>)</a>
-<a class="sourceLine" id="cb166-7" title="7">)</a>
-<a class="sourceLine" id="cb166-8" title="8"><span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb166-9" title="9"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="ci.html#cb166-1"></a>ci_chernoff &lt;-<span class="st"> </span>(p <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(t) <span class="op">+</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(t))) <span class="op">/</span><span class="st"> </span><span class="kw">exp</span>(a <span class="op">*</span><span class="st"> </span>t)</span>
+<span id="cb166-2"><a href="ci.html#cb166-2"></a>actual      &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pgeom</span>(a, <span class="fl">0.7</span>)</span>
+<span id="cb166-3"><a href="ci.html#cb166-3"></a>plot_df     &lt;-<span class="st"> </span><span class="kw">rbind</span>(</span>
+<span id="cb166-4"><a href="ci.html#cb166-4"></a>  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_markov, <span class="dt">type =</span> <span class="st">&quot;Markov&quot;</span>),</span>
+<span id="cb166-5"><a href="ci.html#cb166-5"></a>  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_chernoff, <span class="dt">type =</span> <span class="st">&quot;Chernoff&quot;</span>),</span>
+<span id="cb166-6"><a href="ci.html#cb166-6"></a>  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> actual, <span class="dt">type =</span> <span class="st">&quot;Actual&quot;</span>)</span>
+<span id="cb166-7"><a href="ci.html#cb166-7"></a>)</span>
+<span id="cb166-8"><a href="ci.html#cb166-8"></a><span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span></span>
+<span id="cb166-9"><a href="ci.html#cb166-9"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-190-1.png" width="672" /></p>
 </div>
 
@@ -321,51 +324,51 @@ $(document).ready(function() {
 </div>
 
 <div class="fold">
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb167-2" title="2">nvars   &lt;-<span class="st"> </span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb167-3" title="3">nsamps  &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb167-4" title="4">samps   &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> nvars)</a>
-<a class="sourceLine" id="cb167-5" title="5">Sn_mean &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb167-6" title="6">Sn_var  &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb167-7" title="7"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nvars) {</a>
-<a class="sourceLine" id="cb167-8" title="8">  alpha1  &lt;-<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb167-9" title="9">  beta1   &lt;-<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb167-10" title="10">  X       &lt;-<span class="st"> </span><span class="kw">rbeta</span>(nsamps, alpha1, beta1)</a>
-<a class="sourceLine" id="cb167-11" title="11">  Sn_mean &lt;-<span class="st"> </span>Sn_mean <span class="op">+</span><span class="st"> </span>alpha1 <span class="op">/</span><span class="st"> </span>(alpha1 <span class="op">+</span><span class="st"> </span>beta1)</a>
-<a class="sourceLine" id="cb167-12" title="12">  Sn_var  &lt;-<span class="st"> </span>Sn_var <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb167-13" title="13"><span class="st">    </span>alpha1 <span class="op">*</span><span class="st"> </span>beta1 <span class="op">/</span><span class="st"> </span>((alpha1 <span class="op">+</span><span class="st"> </span>beta1)<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(alpha1 <span class="op">+</span><span class="st"> </span>beta1 <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb167-14" title="14">  </a>
-<a class="sourceLine" id="cb167-15" title="15">    samps[ ,i] &lt;-<span class="st"> </span>X</a>
-<a class="sourceLine" id="cb167-16" title="16">}</a>
-<a class="sourceLine" id="cb167-17" title="17"><span class="kw">mean</span>(<span class="kw">apply</span>(samps, <span class="dv">1</span>, sum))</a></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="ci.html#cb167-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb167-2"><a href="ci.html#cb167-2"></a>nvars   &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb167-3"><a href="ci.html#cb167-3"></a>nsamps  &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb167-4"><a href="ci.html#cb167-4"></a>samps   &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> nvars)</span>
+<span id="cb167-5"><a href="ci.html#cb167-5"></a>Sn_mean &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb167-6"><a href="ci.html#cb167-6"></a>Sn_var  &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb167-7"><a href="ci.html#cb167-7"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nvars) {</span>
+<span id="cb167-8"><a href="ci.html#cb167-8"></a>  alpha1  &lt;-<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>)</span>
+<span id="cb167-9"><a href="ci.html#cb167-9"></a>  beta1   &lt;-<span class="st"> </span><span class="kw">rgamma</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>)</span>
+<span id="cb167-10"><a href="ci.html#cb167-10"></a>  X       &lt;-<span class="st"> </span><span class="kw">rbeta</span>(nsamps, alpha1, beta1)</span>
+<span id="cb167-11"><a href="ci.html#cb167-11"></a>  Sn_mean &lt;-<span class="st"> </span>Sn_mean <span class="op">+</span><span class="st"> </span>alpha1 <span class="op">/</span><span class="st"> </span>(alpha1 <span class="op">+</span><span class="st"> </span>beta1)</span>
+<span id="cb167-12"><a href="ci.html#cb167-12"></a>  Sn_var  &lt;-<span class="st"> </span>Sn_var <span class="op">+</span><span class="st"> </span></span>
+<span id="cb167-13"><a href="ci.html#cb167-13"></a><span class="st">    </span>alpha1 <span class="op">*</span><span class="st"> </span>beta1 <span class="op">/</span><span class="st"> </span>((alpha1 <span class="op">+</span><span class="st"> </span>beta1)<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(alpha1 <span class="op">+</span><span class="st"> </span>beta1 <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))</span>
+<span id="cb167-14"><a href="ci.html#cb167-14"></a>  </span>
+<span id="cb167-15"><a href="ci.html#cb167-15"></a>    samps[ ,i] &lt;-<span class="st"> </span>X</span>
+<span id="cb167-16"><a href="ci.html#cb167-16"></a>}</span>
+<span id="cb167-17"><a href="ci.html#cb167-17"></a><span class="kw">mean</span>(<span class="kw">apply</span>(samps, <span class="dv">1</span>, sum))</span></code></pre></div>
 <pre><code>## [1] 51.12511</code></pre>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1">Sn_mean</a></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="ci.html#cb169-1"></a>Sn_mean</span></code></pre></div>
 <pre><code>## [1] 51.15723</code></pre>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1"><span class="kw">var</span>(<span class="kw">apply</span>(samps, <span class="dv">1</span>, sum))</a></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="ci.html#cb171-1"></a><span class="kw">var</span>(<span class="kw">apply</span>(samps, <span class="dv">1</span>, sum))</span></code></pre></div>
 <pre><code>## [1] 1.170652</code></pre>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1">Sn_var</a></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="ci.html#cb173-1"></a>Sn_var</span></code></pre></div>
 <pre><code>## [1] 1.166183</code></pre>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" title="1">a            &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">30</span></a>
-<a class="sourceLine" id="cb175-2" title="2">b            &lt;-<span class="st"> </span>a <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(Sn_var)</a>
-<a class="sourceLine" id="cb175-3" title="3">ci_chebyshev &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>b<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb175-4" title="4">ci_hoeffding &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>a<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>nvars)</a>
-<a class="sourceLine" id="cb175-5" title="5">empirical    &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb175-6" title="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(a)) {</a>
-<a class="sourceLine" id="cb175-7" title="7">  empirical[i] &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">abs</span>((<span class="kw">apply</span>(samps, <span class="dv">1</span>, sum)) <span class="op">-</span><span class="st"> </span>Sn_mean) <span class="op">&gt;=</span><span class="st"> </span>a[i])<span class="op">/</span><span class="st"> </span>nsamps</a>
-<a class="sourceLine" id="cb175-8" title="8">}</a>
-<a class="sourceLine" id="cb175-9" title="9"></a>
-<a class="sourceLine" id="cb175-10" title="10">plot_df     &lt;-<span class="st"> </span><span class="kw">rbind</span>(</a>
-<a class="sourceLine" id="cb175-11" title="11">  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_chebyshev, <span class="dt">type =</span> <span class="st">&quot;Chebyshev&quot;</span>),</a>
-<a class="sourceLine" id="cb175-12" title="12">  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_hoeffding, <span class="dt">type =</span> <span class="st">&quot;Hoeffding&quot;</span>),</a>
-<a class="sourceLine" id="cb175-13" title="13">  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> empirical, <span class="dt">type =</span> <span class="st">&quot;Empirical&quot;</span>)</a>
-<a class="sourceLine" id="cb175-14" title="14">)</a>
-<a class="sourceLine" id="cb175-15" title="15"></a>
-<a class="sourceLine" id="cb175-16" title="16"><span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb175-17" title="17"><span class="st">  </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="ci.html#cb175-1"></a>a            &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">30</span></span>
+<span id="cb175-2"><a href="ci.html#cb175-2"></a>b            &lt;-<span class="st"> </span>a <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(Sn_var)</span>
+<span id="cb175-3"><a href="ci.html#cb175-3"></a>ci_chebyshev &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>b<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb175-4"><a href="ci.html#cb175-4"></a>ci_hoeffding &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>a<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>nvars)</span>
+<span id="cb175-5"><a href="ci.html#cb175-5"></a>empirical    &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb175-6"><a href="ci.html#cb175-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(a)) {</span>
+<span id="cb175-7"><a href="ci.html#cb175-7"></a>  empirical[i] &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">abs</span>((<span class="kw">apply</span>(samps, <span class="dv">1</span>, sum)) <span class="op">-</span><span class="st"> </span>Sn_mean) <span class="op">&gt;=</span><span class="st"> </span>a[i])<span class="op">/</span><span class="st"> </span>nsamps</span>
+<span id="cb175-8"><a href="ci.html#cb175-8"></a>}</span>
+<span id="cb175-9"><a href="ci.html#cb175-9"></a></span>
+<span id="cb175-10"><a href="ci.html#cb175-10"></a>plot_df     &lt;-<span class="st"> </span><span class="kw">rbind</span>(</span>
+<span id="cb175-11"><a href="ci.html#cb175-11"></a>  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_chebyshev, <span class="dt">type =</span> <span class="st">&quot;Chebyshev&quot;</span>),</span>
+<span id="cb175-12"><a href="ci.html#cb175-12"></a>  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> ci_hoeffding, <span class="dt">type =</span> <span class="st">&quot;Hoeffding&quot;</span>),</span>
+<span id="cb175-13"><a href="ci.html#cb175-13"></a>  <span class="kw">data.frame</span>(<span class="dt">x =</span> a, <span class="dt">y =</span> empirical, <span class="dt">type =</span> <span class="st">&quot;Empirical&quot;</span>)</span>
+<span id="cb175-14"><a href="ci.html#cb175-14"></a>)</span>
+<span id="cb175-15"><a href="ci.html#cb175-15"></a></span>
+<span id="cb175-16"><a href="ci.html#cb175-16"></a><span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span></span>
+<span id="cb175-17"><a href="ci.html#cb175-17"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-192-1.png" width="672" /></p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1"><span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb176-2" title="2"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb176-3" title="3"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">25</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="ci.html#cb176-1"></a><span class="kw">ggplot</span>(plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> type)) <span class="op">+</span></span>
+<span id="cb176-2"><a href="ci.html#cb176-2"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb176-3"><a href="ci.html#cb176-3"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">25</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-192-2.png" width="672" /></p>
 </div>
 </div>

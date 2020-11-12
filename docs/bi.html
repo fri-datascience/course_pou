@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-11-05" />
+<meta name="date" content="2020-11-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,14 +50,15 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -66,14 +67,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -292,7 +295,7 @@ $(document).ready(function() {
 </ol>
 </div>
 
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="bi.html#cb277-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span></code></pre></div>
 <div class="fold">
 
 <div class="solution">
@@ -322,55 +325,55 @@ which we recognize as the negative binomial distribution with <span class="math 
 There are two sources of uncertainty in the predictive distribution. First is the uncertainty about the population. Second is the variability in sampling from the population. When <span class="math inline">\(n\)</span> is large, the latter is going to be very small. But when <span class="math inline">\(n\)</span> is small, the latter is going to be higher, resulting in an overdispersed predictive distribution.</p>
 </div></li>
 </ol>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb278-2" title="2"></a>
-<a class="sourceLine" id="cb278-3" title="3"><span class="co"># b</span></a>
-<a class="sourceLine" id="cb278-4" title="4"><span class="co"># quick visual check of the prior</span></a>
-<a class="sourceLine" id="cb278-5" title="5"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb278-6" title="6"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">1</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="bi.html#cb278-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb278-2"><a href="bi.html#cb278-2"></a></span>
+<span id="cb278-3"><a href="bi.html#cb278-3"></a><span class="co"># b</span></span>
+<span id="cb278-4"><a href="bi.html#cb278-4"></a><span class="co"># quick visual check of the prior</span></span>
+<span id="cb278-5"><a href="bi.html#cb278-5"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
+<span id="cb278-6"><a href="bi.html#cb278-6"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">rate =</span> <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-261-1.png" width="672" /></p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" title="1">palpha &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb279-2" title="2">pbeta  &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb279-3" title="3">alpha_post &lt;-<span class="st"> </span>palpha <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x)</a>
-<a class="sourceLine" id="cb279-4" title="4">beta_post  &lt;-<span class="st"> </span>pbeta <span class="op">+</span><span class="st"> </span><span class="kw">length</span>(x)</a>
-<a class="sourceLine" id="cb279-5" title="5"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb279-6" title="6"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> alpha_post, <span class="dt">rate =</span> beta_post))</a></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="bi.html#cb279-1"></a>palpha &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb279-2"><a href="bi.html#cb279-2"></a>pbeta  &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb279-3"><a href="bi.html#cb279-3"></a>alpha_post &lt;-<span class="st"> </span>palpha <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x)</span>
+<span id="cb279-4"><a href="bi.html#cb279-4"></a>beta_post  &lt;-<span class="st"> </span>pbeta <span class="op">+</span><span class="st"> </span><span class="kw">length</span>(x)</span>
+<span id="cb279-5"><a href="bi.html#cb279-5"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)), <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
+<span id="cb279-6"><a href="bi.html#cb279-6"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dgamma, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">shape =</span> alpha_post, <span class="dt">rate =</span> beta_post))</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-261-2.png" width="672" /></p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" title="1"><span class="co"># probability of being higher than 2.5</span></a>
-<a class="sourceLine" id="cb280-2" title="2"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pgamma</span>(<span class="fl">2.5</span>, alpha_post, beta_post)</a></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="bi.html#cb280-1"></a><span class="co"># probability of being higher than 2.5</span></span>
+<span id="cb280-2"><a href="bi.html#cb280-2"></a><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pgamma</span>(<span class="fl">2.5</span>, alpha_post, beta_post)</span></code></pre></div>
 <pre><code>## [1] 0.2267148</code></pre>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" title="1"><span class="co"># interval</span></a>
-<a class="sourceLine" id="cb282-2" title="2"><span class="kw">qgamma</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), alpha_post, beta_post)</a></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="bi.html#cb282-1"></a><span class="co"># interval</span></span>
+<span id="cb282-2"><a href="bi.html#cb282-2"></a><span class="kw">qgamma</span>(<span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>), alpha_post, beta_post)</span></code></pre></div>
 <pre><code>## [1] 1.397932 3.137390</code></pre>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" title="1"><span class="co"># d</span></a>
-<a class="sourceLine" id="cb284-2" title="2">prior_pred &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(<span class="dv">1000</span>, <span class="dt">size =</span> palpha, <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(pbeta <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb284-3" title="3">post_pred  &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(<span class="dv">1000</span>, <span class="dt">size =</span> palpha <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x), <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(pbeta <span class="op">+</span><span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb284-4" title="4">df         &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">prior =</span> prior_pred, <span class="dt">posterior =</span> post_pred)</a>
-<a class="sourceLine" id="cb284-5" title="5">df         &lt;-<span class="st"> </span><span class="kw">gather</span>(df)</a>
-<a class="sourceLine" id="cb284-6" title="6"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> key)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb284-7" title="7"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="bi.html#cb284-1"></a><span class="co"># d</span></span>
+<span id="cb284-2"><a href="bi.html#cb284-2"></a>prior_pred &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(<span class="dv">1000</span>, <span class="dt">size =</span> palpha, <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(pbeta <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))</span>
+<span id="cb284-3"><a href="bi.html#cb284-3"></a>post_pred  &lt;-<span class="st"> </span><span class="kw">rnbinom</span>(<span class="dv">1000</span>, <span class="dt">size =</span> palpha <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x), <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(pbeta <span class="op">+</span><span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>))</span>
+<span id="cb284-4"><a href="bi.html#cb284-4"></a>df         &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">prior =</span> prior_pred, <span class="dt">posterior =</span> post_pred)</span>
+<span id="cb284-5"><a href="bi.html#cb284-5"></a>df         &lt;-<span class="st"> </span><span class="kw">gather</span>(df)</span>
+<span id="cb284-6"><a href="bi.html#cb284-6"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> key)) <span class="op">+</span></span>
+<span id="cb284-7"><a href="bi.html#cb284-7"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-261-3.png" width="672" /></p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" title="1"><span class="co"># e</span></a>
-<a class="sourceLine" id="cb285-2" title="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb285-3" title="3">x1 &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">10</span>, <span class="fl">2.5</span>)</a>
-<a class="sourceLine" id="cb285-4" title="4">x2 &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">100</span>, <span class="fl">2.5</span>)</a>
-<a class="sourceLine" id="cb285-5" title="5">alpha_flat &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb285-6" title="6">beta_flat  &lt;-<span class="st"> </span><span class="fl">0.1</span></a>
-<a class="sourceLine" id="cb285-7" title="7">alpha_conc &lt;-<span class="st"> </span><span class="dv">50</span></a>
-<a class="sourceLine" id="cb285-8" title="8">beta_conc  &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb285-9" title="9">n          &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb285-10" title="10">df_flat    &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1 =</span> <span class="kw">rgamma</span>(n, alpha_flat <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x1), beta_flat <span class="op">+</span><span class="st"> </span><span class="dv">10</span>), </a>
-<a class="sourceLine" id="cb285-11" title="11">                         <span class="dt">x2 =</span> <span class="kw">rgamma</span>(n, alpha_flat <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x2), beta_flat <span class="op">+</span><span class="st"> </span><span class="dv">100</span>), </a>
-<a class="sourceLine" id="cb285-12" title="12">                         <span class="dt">type =</span> <span class="st">&quot;flat&quot;</span>)</a>
-<a class="sourceLine" id="cb285-13" title="13">df_flat    &lt;-<span class="st"> </span>tidyr<span class="op">::</span><span class="kw">gather</span>(df_flat, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>, <span class="op">-</span><span class="st"> </span>type)</a>
-<a class="sourceLine" id="cb285-14" title="14">df_conc    &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1 =</span> <span class="kw">rgamma</span>(n, alpha_conc <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x1), beta_conc <span class="op">+</span><span class="st"> </span><span class="dv">10</span>), </a>
-<a class="sourceLine" id="cb285-15" title="15">                         <span class="dt">x2 =</span> <span class="kw">rgamma</span>(n, alpha_conc <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x2), beta_conc <span class="op">+</span><span class="st"> </span><span class="dv">100</span>), </a>
-<a class="sourceLine" id="cb285-16" title="16">                         <span class="dt">type =</span> <span class="st">&quot;conc&quot;</span>)</a>
-<a class="sourceLine" id="cb285-17" title="17">df_conc    &lt;-<span class="st"> </span>tidyr<span class="op">::</span><span class="kw">gather</span>(df_conc, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>, <span class="op">-</span><span class="st"> </span>type)</a>
-<a class="sourceLine" id="cb285-18" title="18">df         &lt;-<span class="st"> </span><span class="kw">rbind</span>(df_flat, df_conc)</a>
-<a class="sourceLine" id="cb285-19" title="19"><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">color =</span> type)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb285-20" title="20"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>key) <span class="op">+</span></a>
-<a class="sourceLine" id="cb285-21" title="21"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="bi.html#cb285-1"></a><span class="co"># e</span></span>
+<span id="cb285-2"><a href="bi.html#cb285-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb285-3"><a href="bi.html#cb285-3"></a>x1 &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">10</span>, <span class="fl">2.5</span>)</span>
+<span id="cb285-4"><a href="bi.html#cb285-4"></a>x2 &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">100</span>, <span class="fl">2.5</span>)</span>
+<span id="cb285-5"><a href="bi.html#cb285-5"></a>alpha_flat &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb285-6"><a href="bi.html#cb285-6"></a>beta_flat  &lt;-<span class="st"> </span><span class="fl">0.1</span></span>
+<span id="cb285-7"><a href="bi.html#cb285-7"></a>alpha_conc &lt;-<span class="st"> </span><span class="dv">50</span></span>
+<span id="cb285-8"><a href="bi.html#cb285-8"></a>beta_conc  &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb285-9"><a href="bi.html#cb285-9"></a>n          &lt;-<span class="st"> </span><span class="dv">10000</span></span>
+<span id="cb285-10"><a href="bi.html#cb285-10"></a>df_flat    &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1 =</span> <span class="kw">rgamma</span>(n, alpha_flat <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x1), beta_flat <span class="op">+</span><span class="st"> </span><span class="dv">10</span>), </span>
+<span id="cb285-11"><a href="bi.html#cb285-11"></a>                         <span class="dt">x2 =</span> <span class="kw">rgamma</span>(n, alpha_flat <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x2), beta_flat <span class="op">+</span><span class="st"> </span><span class="dv">100</span>), </span>
+<span id="cb285-12"><a href="bi.html#cb285-12"></a>                         <span class="dt">type =</span> <span class="st">&quot;flat&quot;</span>)</span>
+<span id="cb285-13"><a href="bi.html#cb285-13"></a>df_flat    &lt;-<span class="st"> </span>tidyr<span class="op">::</span><span class="kw">gather</span>(df_flat, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>, <span class="op">-</span><span class="st"> </span>type)</span>
+<span id="cb285-14"><a href="bi.html#cb285-14"></a>df_conc    &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1 =</span> <span class="kw">rgamma</span>(n, alpha_conc <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x1), beta_conc <span class="op">+</span><span class="st"> </span><span class="dv">10</span>), </span>
+<span id="cb285-15"><a href="bi.html#cb285-15"></a>                         <span class="dt">x2 =</span> <span class="kw">rgamma</span>(n, alpha_conc <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(x2), beta_conc <span class="op">+</span><span class="st"> </span><span class="dv">100</span>), </span>
+<span id="cb285-16"><a href="bi.html#cb285-16"></a>                         <span class="dt">type =</span> <span class="st">&quot;conc&quot;</span>)</span>
+<span id="cb285-17"><a href="bi.html#cb285-17"></a>df_conc    &lt;-<span class="st"> </span>tidyr<span class="op">::</span><span class="kw">gather</span>(df_conc, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>, <span class="op">-</span><span class="st"> </span>type)</span>
+<span id="cb285-18"><a href="bi.html#cb285-18"></a>df         &lt;-<span class="st"> </span><span class="kw">rbind</span>(df_flat, df_conc)</span>
+<span id="cb285-19"><a href="bi.html#cb285-19"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">color =</span> type)) <span class="op">+</span></span>
+<span id="cb285-20"><a href="bi.html#cb285-20"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>key) <span class="op">+</span></span>
+<span id="cb285-21"><a href="bi.html#cb285-21"></a><span class="st">  </span><span class="kw">geom_density</span>()</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-261-4.png" width="672" /></p>
 </div>
 </div>
@@ -386,90 +389,90 @@ There are two sources of uncertainty in the predictive distribution. First is th
 <p>Hint: We can use rejection sampling even for functions which are not PDFs – they do not have to sum/integrate to 1. We just need to use a suitable envelope that we know how to sample from. For example, here we could use a uniform distribution and scale it suitably.</p>
 </div>
 
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb286-2" title="2">inv_log &lt;-<span class="st"> </span><span class="cf">function</span> (z) {</a>
-<a class="sourceLine" id="cb286-3" title="3">  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>z)))</a>
-<a class="sourceLine" id="cb286-4" title="4">}</a>
-<a class="sourceLine" id="cb286-5" title="5">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb286-6" title="6">y &lt;-<span class="st"> </span>x</a>
-<a class="sourceLine" id="cb286-7" title="7">y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x))</a>
-<a class="sourceLine" id="cb286-8" title="8"></a>
-<a class="sourceLine" id="cb286-9" title="9">l_logistic &lt;-<span class="st"> </span><span class="cf">function</span> (beta, X, y) {</a>
-<a class="sourceLine" id="cb286-10" title="10">  logl &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">sum</span>(y <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(<span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X))) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>y) <span class="op">*</span><span class="st"> </span><span class="kw">log</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X)))))</a>
-<a class="sourceLine" id="cb286-11" title="11">  <span class="kw">return</span>(logl)</a>
-<a class="sourceLine" id="cb286-12" title="12">}</a>
-<a class="sourceLine" id="cb286-13" title="13">my_optim &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="fl">0.5</span>, <span class="dt">fn =</span> l_logistic, <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</a>
-<a class="sourceLine" id="cb286-14" title="14">                  <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>, <span class="dt">X =</span> x, <span class="dt">y =</span> y)</a>
-<a class="sourceLine" id="cb286-15" title="15">my_optim<span class="op">$</span>par</a></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="bi.html#cb286-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb286-2"><a href="bi.html#cb286-2"></a>inv_log &lt;-<span class="st"> </span><span class="cf">function</span> (z) {</span>
+<span id="cb286-3"><a href="bi.html#cb286-3"></a>  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>z)))</span>
+<span id="cb286-4"><a href="bi.html#cb286-4"></a>}</span>
+<span id="cb286-5"><a href="bi.html#cb286-5"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb286-6"><a href="bi.html#cb286-6"></a>y &lt;-<span class="st"> </span>x</span>
+<span id="cb286-7"><a href="bi.html#cb286-7"></a>y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x))</span>
+<span id="cb286-8"><a href="bi.html#cb286-8"></a></span>
+<span id="cb286-9"><a href="bi.html#cb286-9"></a>l_logistic &lt;-<span class="st"> </span><span class="cf">function</span> (beta, X, y) {</span>
+<span id="cb286-10"><a href="bi.html#cb286-10"></a>  logl &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">sum</span>(y <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(<span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X))) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>y) <span class="op">*</span><span class="st"> </span><span class="kw">log</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X)))))</span>
+<span id="cb286-11"><a href="bi.html#cb286-11"></a>  <span class="kw">return</span>(logl)</span>
+<span id="cb286-12"><a href="bi.html#cb286-12"></a>}</span>
+<span id="cb286-13"><a href="bi.html#cb286-13"></a>my_optim &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="fl">0.5</span>, <span class="dt">fn =</span> l_logistic, <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</span>
+<span id="cb286-14"><a href="bi.html#cb286-14"></a>                  <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>, <span class="dt">X =</span> x, <span class="dt">y =</span> y)</span>
+<span id="cb286-15"><a href="bi.html#cb286-15"></a>my_optim<span class="op">$</span>par</span></code></pre></div>
 <div class="fold">
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" title="1"><span class="co"># Let&#39;s say we believe that the mean of beta is 0.5. Since we are not very sure </span></a>
-<a class="sourceLine" id="cb287-2" title="2"><span class="co"># about this, we will give it a relatively high variance. So a normal prior with </span></a>
-<a class="sourceLine" id="cb287-3" title="3"><span class="co"># mean 0.5 and standard deviation 5. But there is no right solution to this,</span></a>
-<a class="sourceLine" id="cb287-4" title="4"><span class="co"># this is basically us expressing our prior belief in the parameter values.</span></a>
-<a class="sourceLine" id="cb287-5" title="5"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb287-6" title="6">inv_log &lt;-<span class="st"> </span><span class="cf">function</span> (z) {</a>
-<a class="sourceLine" id="cb287-7" title="7">  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>z)))</a>
-<a class="sourceLine" id="cb287-8" title="8">}</a>
-<a class="sourceLine" id="cb287-9" title="9"></a>
-<a class="sourceLine" id="cb287-10" title="10">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb287-11" title="11">y &lt;-<span class="st"> </span>x</a>
-<a class="sourceLine" id="cb287-12" title="12">y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x))</a>
-<a class="sourceLine" id="cb287-13" title="13"></a>
-<a class="sourceLine" id="cb287-14" title="14">l_logistic &lt;-<span class="st"> </span><span class="cf">function</span> (beta, X, y) {</a>
-<a class="sourceLine" id="cb287-15" title="15">  logl &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">sum</span>(y <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(<span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X))) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>y) <span class="op">*</span><span class="st"> </span><span class="kw">log</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X)))))</a>
-<a class="sourceLine" id="cb287-16" title="16">  <span class="cf">if</span> (<span class="kw">is.nan</span>(logl)) logl &lt;-<span class="st"> </span><span class="ot">Inf</span></a>
-<a class="sourceLine" id="cb287-17" title="17">  <span class="kw">return</span>(logl)</a>
-<a class="sourceLine" id="cb287-18" title="18">}</a>
-<a class="sourceLine" id="cb287-19" title="19"></a>
-<a class="sourceLine" id="cb287-20" title="20">my_optim &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="fl">0.5</span>, <span class="dt">fn =</span> l_logistic, <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</a>
-<a class="sourceLine" id="cb287-21" title="21">                  <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>, <span class="dt">X =</span> x, <span class="dt">y =</span> y)</a>
-<a class="sourceLine" id="cb287-22" title="22">my_optim<span class="op">$</span>par</a></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="bi.html#cb287-1"></a><span class="co"># Let&#39;s say we believe that the mean of beta is 0.5. Since we are not very sure </span></span>
+<span id="cb287-2"><a href="bi.html#cb287-2"></a><span class="co"># about this, we will give it a relatively high variance. So a normal prior with </span></span>
+<span id="cb287-3"><a href="bi.html#cb287-3"></a><span class="co"># mean 0.5 and standard deviation 5. But there is no right solution to this,</span></span>
+<span id="cb287-4"><a href="bi.html#cb287-4"></a><span class="co"># this is basically us expressing our prior belief in the parameter values.</span></span>
+<span id="cb287-5"><a href="bi.html#cb287-5"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb287-6"><a href="bi.html#cb287-6"></a>inv_log &lt;-<span class="st"> </span><span class="cf">function</span> (z) {</span>
+<span id="cb287-7"><a href="bi.html#cb287-7"></a>  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>z)))</span>
+<span id="cb287-8"><a href="bi.html#cb287-8"></a>}</span>
+<span id="cb287-9"><a href="bi.html#cb287-9"></a></span>
+<span id="cb287-10"><a href="bi.html#cb287-10"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb287-11"><a href="bi.html#cb287-11"></a>y &lt;-<span class="st"> </span>x</span>
+<span id="cb287-12"><a href="bi.html#cb287-12"></a>y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x))</span>
+<span id="cb287-13"><a href="bi.html#cb287-13"></a></span>
+<span id="cb287-14"><a href="bi.html#cb287-14"></a>l_logistic &lt;-<span class="st"> </span><span class="cf">function</span> (beta, X, y) {</span>
+<span id="cb287-15"><a href="bi.html#cb287-15"></a>  logl &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">sum</span>(y <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(<span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X))) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>y) <span class="op">*</span><span class="st"> </span><span class="kw">log</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X)))))</span>
+<span id="cb287-16"><a href="bi.html#cb287-16"></a>  <span class="cf">if</span> (<span class="kw">is.nan</span>(logl)) logl &lt;-<span class="st"> </span><span class="ot">Inf</span></span>
+<span id="cb287-17"><a href="bi.html#cb287-17"></a>  <span class="kw">return</span>(logl)</span>
+<span id="cb287-18"><a href="bi.html#cb287-18"></a>}</span>
+<span id="cb287-19"><a href="bi.html#cb287-19"></a></span>
+<span id="cb287-20"><a href="bi.html#cb287-20"></a>my_optim &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="fl">0.5</span>, <span class="dt">fn =</span> l_logistic, <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</span>
+<span id="cb287-21"><a href="bi.html#cb287-21"></a>                  <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>, <span class="dt">X =</span> x, <span class="dt">y =</span> y)</span>
+<span id="cb287-22"><a href="bi.html#cb287-22"></a>my_optim<span class="op">$</span>par</span></code></pre></div>
 <pre><code>## [1] 1.166558</code></pre>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1">f_logistic &lt;-<span class="st"> </span><span class="cf">function</span> (beta, X, y) {</a>
-<a class="sourceLine" id="cb289-2" title="2">  logl &lt;-<span class="st"> </span><span class="kw">prod</span>(<span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X))<span class="op">^</span>y <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X)))<span class="op">^</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>y))</a>
-<a class="sourceLine" id="cb289-3" title="3">  <span class="kw">return</span>(logl)</a>
-<a class="sourceLine" id="cb289-4" title="4">}</a>
-<a class="sourceLine" id="cb289-5" title="5"></a>
-<a class="sourceLine" id="cb289-6" title="6">a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb289-7" title="7">my_l &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
-<a class="sourceLine" id="cb289-8" title="8"><span class="cf">for</span> (i <span class="cf">in</span> a) {</a>
-<a class="sourceLine" id="cb289-9" title="9">  my_l &lt;-<span class="st"> </span><span class="kw">c</span>(my_l, <span class="kw">f_logistic</span>(i, x, y) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(i, <span class="fl">0.5</span>, <span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb289-10" title="10">}</a>
-<a class="sourceLine" id="cb289-11" title="11"><span class="kw">plot</span>(my_l)</a></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="bi.html#cb289-1"></a>f_logistic &lt;-<span class="st"> </span><span class="cf">function</span> (beta, X, y) {</span>
+<span id="cb289-2"><a href="bi.html#cb289-2"></a>  logl &lt;-<span class="st"> </span><span class="kw">prod</span>(<span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X))<span class="op">^</span>y <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X)))<span class="op">^</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>y))</span>
+<span id="cb289-3"><a href="bi.html#cb289-3"></a>  <span class="kw">return</span>(logl)</span>
+<span id="cb289-4"><a href="bi.html#cb289-4"></a>}</span>
+<span id="cb289-5"><a href="bi.html#cb289-5"></a></span>
+<span id="cb289-6"><a href="bi.html#cb289-6"></a>a &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb289-7"><a href="bi.html#cb289-7"></a>my_l &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb289-8"><a href="bi.html#cb289-8"></a><span class="cf">for</span> (i <span class="cf">in</span> a) {</span>
+<span id="cb289-9"><a href="bi.html#cb289-9"></a>  my_l &lt;-<span class="st"> </span><span class="kw">c</span>(my_l, <span class="kw">f_logistic</span>(i, x, y) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(i, <span class="fl">0.5</span>, <span class="dv">5</span>))</span>
+<span id="cb289-10"><a href="bi.html#cb289-10"></a>}</span>
+<span id="cb289-11"><a href="bi.html#cb289-11"></a><span class="kw">plot</span>(my_l)</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-264-1.png" width="672" /></p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1">envlp &lt;-<span class="st"> </span><span class="dv">10</span><span class="op">^</span>(<span class="op">-</span><span class="fl">25.8</span>) <span class="op">*</span><span class="st"> </span><span class="kw">dunif</span>(a, <span class="dv">-5</span>, <span class="dv">5</span>) <span class="co"># found by trial and error</span></a>
-<a class="sourceLine" id="cb290-2" title="2"></a>
-<a class="sourceLine" id="cb290-3" title="3">tmp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">envel =</span> envlp, <span class="dt">l =</span> my_l, <span class="dt">t =</span> a)</a>
-<a class="sourceLine" id="cb290-4" title="4">tmp &lt;-<span class="st"> </span><span class="kw">gather</span>(tmp, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>, <span class="op">-</span><span class="st"> </span>t)</a>
-<a class="sourceLine" id="cb290-5" title="5"><span class="kw">ggplot</span>(tmp, <span class="kw">aes</span>(<span class="dt">x =</span> t, <span class="dt">y =</span> value, <span class="dt">color =</span> key)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb290-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>() <span class="co"># envelope OK</span></a></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="bi.html#cb290-1"></a>envlp &lt;-<span class="st"> </span><span class="dv">10</span><span class="op">^</span>(<span class="op">-</span><span class="fl">25.8</span>) <span class="op">*</span><span class="st"> </span><span class="kw">dunif</span>(a, <span class="dv">-5</span>, <span class="dv">5</span>) <span class="co"># found by trial and error</span></span>
+<span id="cb290-2"><a href="bi.html#cb290-2"></a></span>
+<span id="cb290-3"><a href="bi.html#cb290-3"></a>tmp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">envel =</span> envlp, <span class="dt">l =</span> my_l, <span class="dt">t =</span> a)</span>
+<span id="cb290-4"><a href="bi.html#cb290-4"></a>tmp &lt;-<span class="st"> </span><span class="kw">gather</span>(tmp, <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>, <span class="op">-</span><span class="st"> </span>t)</span>
+<span id="cb290-5"><a href="bi.html#cb290-5"></a><span class="kw">ggplot</span>(tmp, <span class="kw">aes</span>(<span class="dt">x =</span> t, <span class="dt">y =</span> value, <span class="dt">color =</span> key)) <span class="op">+</span></span>
+<span id="cb290-6"><a href="bi.html#cb290-6"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="co"># envelope OK</span></span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-264-2.png" width="672" /></p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb291-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb291-3" title="3">samps  &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
-<a class="sourceLine" id="cb291-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</a>
-<a class="sourceLine" id="cb291-5" title="5">  tmp &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">-5</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb291-6" title="6">  u   &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb291-7" title="7">  <span class="cf">if</span> (u <span class="op">&lt;</span><span class="st"> </span>(<span class="kw">f_logistic</span>(tmp, x, y) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(tmp, <span class="fl">0.5</span>, <span class="dv">5</span>)) <span class="op">/</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb291-8" title="8"><span class="st">      </span>(<span class="dv">10</span><span class="op">^</span>(<span class="op">-</span><span class="fl">25.8</span>) <span class="op">*</span><span class="st"> </span><span class="kw">dunif</span>(tmp, <span class="dv">-5</span>, <span class="dv">5</span>))) {</a>
-<a class="sourceLine" id="cb291-9" title="9">    samps &lt;-<span class="st"> </span><span class="kw">c</span>(samps, tmp)</a>
-<a class="sourceLine" id="cb291-10" title="10">  }</a>
-<a class="sourceLine" id="cb291-11" title="11">}</a>
-<a class="sourceLine" id="cb291-12" title="12"><span class="kw">plot</span>(<span class="kw">density</span>(samps))</a></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="bi.html#cb291-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb291-2"><a href="bi.html#cb291-2"></a>nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb291-3"><a href="bi.html#cb291-3"></a>samps  &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb291-4"><a href="bi.html#cb291-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</span>
+<span id="cb291-5"><a href="bi.html#cb291-5"></a>  tmp &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">-5</span>, <span class="dv">5</span>)</span>
+<span id="cb291-6"><a href="bi.html#cb291-6"></a>  u   &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb291-7"><a href="bi.html#cb291-7"></a>  <span class="cf">if</span> (u <span class="op">&lt;</span><span class="st"> </span>(<span class="kw">f_logistic</span>(tmp, x, y) <span class="op">*</span><span class="st"> </span><span class="kw">dnorm</span>(tmp, <span class="fl">0.5</span>, <span class="dv">5</span>)) <span class="op">/</span><span class="st"> </span></span>
+<span id="cb291-8"><a href="bi.html#cb291-8"></a><span class="st">      </span>(<span class="dv">10</span><span class="op">^</span>(<span class="op">-</span><span class="fl">25.8</span>) <span class="op">*</span><span class="st"> </span><span class="kw">dunif</span>(tmp, <span class="dv">-5</span>, <span class="dv">5</span>))) {</span>
+<span id="cb291-9"><a href="bi.html#cb291-9"></a>    samps &lt;-<span class="st"> </span><span class="kw">c</span>(samps, tmp)</span>
+<span id="cb291-10"><a href="bi.html#cb291-10"></a>  }</span>
+<span id="cb291-11"><a href="bi.html#cb291-11"></a>}</span>
+<span id="cb291-12"><a href="bi.html#cb291-12"></a><span class="kw">plot</span>(<span class="kw">density</span>(samps))</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-264-3.png" width="672" /></p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" title="1"><span class="kw">mean</span>(samps)</a></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="bi.html#cb292-1"></a><span class="kw">mean</span>(samps)</span></code></pre></div>
 <pre><code>## [1] 1.211578</code></pre>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" title="1"><span class="kw">median</span>(samps)</a></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="bi.html#cb294-1"></a><span class="kw">median</span>(samps)</span></code></pre></div>
 <pre><code>## [1] 1.204279</code></pre>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1">truth_p &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x), <span class="dt">type =</span> <span class="st">&quot;truth&quot;</span>)</a>
-<a class="sourceLine" id="cb296-2" title="2">preds   &lt;-<span class="st"> </span><span class="kw">inv_log</span>(x <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(samps))</a>
-<a class="sourceLine" id="cb296-3" title="3">preds   &lt;-<span class="st"> </span><span class="kw">gather</span>(<span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(preds), <span class="dt">x =</span> x), <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, </a>
-<a class="sourceLine" id="cb296-4" title="4">                  <span class="st">&quot;value&quot;</span> =<span class="st"> </span>value, <span class="op">-</span><span class="st"> </span>x)</a>
-<a class="sourceLine" id="cb296-5" title="5"></a>
-<a class="sourceLine" id="cb296-6" title="6"><span class="kw">ggplot</span>(preds, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb296-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> key), <span class="dt">color =</span> <span class="st">&quot;gray&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb296-8" title="8"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> truth_p, <span class="kw">aes</span>(<span class="dt">y =</span> prob), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb296-9" title="9"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="bi.html#cb296-1"></a>truth_p &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x), <span class="dt">type =</span> <span class="st">&quot;truth&quot;</span>)</span>
+<span id="cb296-2"><a href="bi.html#cb296-2"></a>preds   &lt;-<span class="st"> </span><span class="kw">inv_log</span>(x <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(samps))</span>
+<span id="cb296-3"><a href="bi.html#cb296-3"></a>preds   &lt;-<span class="st"> </span><span class="kw">gather</span>(<span class="kw">cbind</span>(<span class="kw">as.data.frame</span>(preds), <span class="dt">x =</span> x), <span class="dt">key =</span> <span class="st">&quot;key&quot;</span>, </span>
+<span id="cb296-4"><a href="bi.html#cb296-4"></a>                  <span class="st">&quot;value&quot;</span> =<span class="st"> </span>value, <span class="op">-</span><span class="st"> </span>x)</span>
+<span id="cb296-5"><a href="bi.html#cb296-5"></a></span>
+<span id="cb296-6"><a href="bi.html#cb296-6"></a><span class="kw">ggplot</span>(preds, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> value)) <span class="op">+</span></span>
+<span id="cb296-7"><a href="bi.html#cb296-7"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group =</span> key), <span class="dt">color =</span> <span class="st">&quot;gray&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></span>
+<span id="cb296-8"><a href="bi.html#cb296-8"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> truth_p, <span class="kw">aes</span>(<span class="dt">y =</span> prob), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.7</span>) <span class="op">+</span></span>
+<span id="cb296-9"><a href="bi.html#cb296-9"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-264-4.png" width="672" /></p>
 </div>
 

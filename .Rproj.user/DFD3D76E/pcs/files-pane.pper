@@ -1,9 +1,9 @@
 {
-    "path" : "~/shared_files/course_pou",
-    "sortOrder" : [
+    "path": "~/shared_files/course_pou",
+    "sortOrder": [
         {
-            "ascending" : true,
-            "columnIndex" : 2
+            "ascending": true,
+            "columnIndex": 2
         }
     ]
 }

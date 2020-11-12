@@ -129,8 +129,8 @@ b. Find $Var[X]$.
 a.
 \begin{align*}
   E[X] &= \sum_{k=0}^\infty \frac{\lambda^k e^{-\lambda}}{k!} k & \\
-       &= e^{-\lambda} \lambda \sum_{k=0}^\infty \frac{\lambda^{k-1}}{(k - 1)!} & \\
-       &= e^{-\lambda} \lambda \sum_{k=1}^\infty \frac{\lambda^{k-1}}{(k - 1)!} & \text{term at $k=0$ is 0} \\
+       &= \sum_{k=1}^\infty \frac{\lambda^k e^{-\lambda}}{k!} k & \text{term at $k=0$ is 0} \\
+       &= e^{-\lambda} \lambda \sum_{k=1}^\infty \frac{\lambda^{k-1}}{(k - 1)!} & \\
        &= e^{-\lambda} \lambda \sum_{k=0}^\infty \frac{\lambda^{k}}{k!} & \\
        &= e^{-\lambda} \lambda e^\lambda & \\
        &= \lambda.
@@ -334,7 +334,7 @@ a.
 \begin{align*}
   E[X] &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} x dx & \\
        &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty x e^{-\frac{(x - \mu)^2}{2\sigma^2}} dx & \\
-       &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty \Big(t \sqrt{2\sigma^2} + \mu\Big)e^{-t^2} \sqrt{2 \sigma^2} dt & t = \frac{x - \mu}{\sqrt{2\sigma}} \\
+       &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty \Big(t \sqrt{2\sigma^2} + \mu\Big)e^{-t^2} \sqrt{2 \sigma^2} dt & t = \frac{x - \mu}{\sqrt{2}\sigma} \\
        &= \frac{\sqrt{2\sigma^2}}{\sqrt{\pi}} \int_{-\infty}^\infty t  e^{-t^2} dt + \frac{1}{\sqrt{\pi}} \int_{-\infty}^\infty \mu e^{-t^2} dt & \\
 \end{align*}
 
@@ -387,7 +387,7 @@ a. Find $E[2X + 4]$.
 
 b. Find $E[X^2]$.
 
-c. Find $E[\exp(X)]$.
+c. Find $E[\exp(X)]$. Hint: Use the error function $\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt$
 
 d. <span style="color:blue">R: Check your results numerically for $\mu = 0.4$ and $\sigma^2 = 0.25$ and plot the densities of all four distributions.</span>
 

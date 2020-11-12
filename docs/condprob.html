@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-11-05" />
+<meta name="date" content="2020-11-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,14 +50,15 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -66,14 +67,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -82,9 +85,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -324,21 +327,21 @@ independent and repeat the simulation.</span>
 </div>
 
 <div class="fold">
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb17-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb17-3" title="3">tosses &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, nsamps, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb17-4" title="4">PA &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>)) <span class="op">/</span><span class="st"> </span>nsamps</a>
-<a class="sourceLine" id="cb17-5" title="5">PB &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) <span class="op">/</span><span class="st"> </span>nsamps</a>
-<a class="sourceLine" id="cb17-6" title="6">PA <span class="op">*</span><span class="st"> </span>PB</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="condprob.html#cb17-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb17-2"><a href="condprob.html#cb17-2"></a>nsamps &lt;-<span class="st"> </span><span class="dv">10000</span></span>
+<span id="cb17-3"><a href="condprob.html#cb17-3"></a>tosses &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, nsamps, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb17-4"><a href="condprob.html#cb17-4"></a>PA &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>)) <span class="op">/</span><span class="st"> </span>nsamps</span>
+<span id="cb17-5"><a href="condprob.html#cb17-5"></a>PB &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) <span class="op">/</span><span class="st"> </span>nsamps</span>
+<span id="cb17-6"><a href="condprob.html#cb17-6"></a>PA <span class="op">*</span><span class="st"> </span>PB</span></code></pre></div>
 <pre><code>## [1] 0.3295095</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)) <span class="op">/</span><span class="st"> </span>nsamps</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="condprob.html#cb19-1"></a><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
 <pre><code>## [1] 0.3323</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="co"># Let C = {1,2} and D = {2,3}</span></a>
-<a class="sourceLine" id="cb21-2" title="2">PC &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>nsamps</a>
-<a class="sourceLine" id="cb21-3" title="3">PD &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)) <span class="op">/</span><span class="st"> </span>nsamps</a>
-<a class="sourceLine" id="cb21-4" title="4">PC <span class="op">*</span><span class="st"> </span>PD</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="condprob.html#cb21-1"></a><span class="co"># Let C = {1,2} and D = {2,3}</span></span>
+<span id="cb21-2"><a href="condprob.html#cb21-2"></a>PC &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>nsamps</span>
+<span id="cb21-3"><a href="condprob.html#cb21-3"></a>PD &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)) <span class="op">/</span><span class="st"> </span>nsamps</span>
+<span id="cb21-4"><a href="condprob.html#cb21-4"></a>PC <span class="op">*</span><span class="st"> </span>PD</span></code></pre></div>
 <pre><code>## [1] 0.1067492</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>nsamps</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="condprob.html#cb23-1"></a><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
 <pre><code>## [1] 0.1622</code></pre>
 </div>
 
@@ -377,29 +380,29 @@ to a) and b). </span></p></li>
 \end{align}\]</span></p>
 </div></li>
 </ol>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb25-2" title="2">nsamps   &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb25-3" title="3">report_a &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> nsamps)</a>
-<a class="sourceLine" id="cb25-4" title="4">report_b &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</a>
-<a class="sourceLine" id="cb25-5" title="5">truths   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</a>
-<a class="sourceLine" id="cb25-6" title="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>) {</a>
-<a class="sourceLine" id="cb25-7" title="7">  toss      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">size =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb25-8" title="8">  truth     &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="dv">5</span><span class="op">/</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">6</span>))</a>
-<a class="sourceLine" id="cb25-9" title="9">  truths[i] &lt;-<span class="st"> </span>truth</a>
-<a class="sourceLine" id="cb25-10" title="10">  <span class="cf">if</span> (truth) {</a>
-<a class="sourceLine" id="cb25-11" title="11">    report_a[i] &lt;-<span class="st"> </span>toss</a>
-<a class="sourceLine" id="cb25-12" title="12">    report_b[i] &lt;-<span class="st"> </span>toss <span class="op">==</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb25-13" title="13">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb25-14" title="14">    remaining   &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">12</span> <span class="op">!=</span><span class="st"> </span>toss]</a>
-<a class="sourceLine" id="cb25-15" title="15">    report_a[i] &lt;-<span class="st"> </span><span class="kw">sample</span>(remaining, <span class="dt">size =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb25-16" title="16">    report_b[i] &lt;-<span class="st"> </span>toss <span class="op">!=</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb25-17" title="17">  }</a>
-<a class="sourceLine" id="cb25-18" title="18">}</a>
-<a class="sourceLine" id="cb25-19" title="19">truth_a1 &lt;-<span class="st"> </span>truths[report_a <span class="op">==</span><span class="st"> </span><span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb25-20" title="20"><span class="kw">sum</span>(truth_a1) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(truth_a1)</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="condprob.html#cb25-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb25-2"><a href="condprob.html#cb25-2"></a>nsamps   &lt;-<span class="st"> </span><span class="dv">10000</span></span>
+<span id="cb25-3"><a href="condprob.html#cb25-3"></a>report_a &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> nsamps)</span>
+<span id="cb25-4"><a href="condprob.html#cb25-4"></a>report_b &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
+<span id="cb25-5"><a href="condprob.html#cb25-5"></a>truths   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
+<span id="cb25-6"><a href="condprob.html#cb25-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>) {</span>
+<span id="cb25-7"><a href="condprob.html#cb25-7"></a>  toss      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">size =</span> <span class="dv">1</span>)</span>
+<span id="cb25-8"><a href="condprob.html#cb25-8"></a>  truth     &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="dv">5</span><span class="op">/</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">6</span>))</span>
+<span id="cb25-9"><a href="condprob.html#cb25-9"></a>  truths[i] &lt;-<span class="st"> </span>truth</span>
+<span id="cb25-10"><a href="condprob.html#cb25-10"></a>  <span class="cf">if</span> (truth) {</span>
+<span id="cb25-11"><a href="condprob.html#cb25-11"></a>    report_a[i] &lt;-<span class="st"> </span>toss</span>
+<span id="cb25-12"><a href="condprob.html#cb25-12"></a>    report_b[i] &lt;-<span class="st"> </span>toss <span class="op">==</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb25-13"><a href="condprob.html#cb25-13"></a>  } <span class="cf">else</span> {</span>
+<span id="cb25-14"><a href="condprob.html#cb25-14"></a>    remaining   &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">12</span> <span class="op">!=</span><span class="st"> </span>toss]</span>
+<span id="cb25-15"><a href="condprob.html#cb25-15"></a>    report_a[i] &lt;-<span class="st"> </span><span class="kw">sample</span>(remaining, <span class="dt">size =</span> <span class="dv">1</span>)</span>
+<span id="cb25-16"><a href="condprob.html#cb25-16"></a>    report_b[i] &lt;-<span class="st"> </span>toss <span class="op">!=</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb25-17"><a href="condprob.html#cb25-17"></a>  }</span>
+<span id="cb25-18"><a href="condprob.html#cb25-18"></a>}</span>
+<span id="cb25-19"><a href="condprob.html#cb25-19"></a>truth_a1 &lt;-<span class="st"> </span>truths[report_a <span class="op">==</span><span class="st"> </span><span class="dv">1</span>]</span>
+<span id="cb25-20"><a href="condprob.html#cb25-20"></a><span class="kw">sum</span>(truth_a1) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(truth_a1)</span></code></pre></div>
 <pre><code>## [1] 0.8300733</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">truth_b1 &lt;-<span class="st"> </span>truths[report_b]</a>
-<a class="sourceLine" id="cb27-2" title="2"><span class="kw">sum</span>(truth_b1) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(truth_b1)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="condprob.html#cb27-1"></a>truth_b1 &lt;-<span class="st"> </span>truths[report_b]</span>
+<span id="cb27-2"><a href="condprob.html#cb27-2"></a><span class="kw">sum</span>(truth_b1) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(truth_b1)</span></code></pre></div>
 <pre><code>## [1] 0.3046209</code></pre>
 </div>
 
@@ -436,31 +439,31 @@ And the probability of each separately is again <span class="math inline">\(p(1-
 are independent.</p>
 </div></li>
 </ol>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb29-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb29-3" title="3">p      &lt;-<span class="st"> </span><span class="fl">0.7</span></a>
-<a class="sourceLine" id="cb29-4" title="4">rewardA_<span class="dv">5</span>  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</a>
-<a class="sourceLine" id="cb29-5" title="5">rewardA_<span class="dv">6</span>  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</a>
-<a class="sourceLine" id="cb29-6" title="6">rewardA_<span class="dv">7</span>  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</a>
-<a class="sourceLine" id="cb29-7" title="7">rewardA_<span class="dv">56</span> &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</a>
-<a class="sourceLine" id="cb29-8" title="8">rewardA_<span class="dv">57</span> &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</a>
-<a class="sourceLine" id="cb29-9" title="9"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</a>
-<a class="sourceLine" id="cb29-10" title="10">  samps &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.3</span>))</a>
-<a class="sourceLine" id="cb29-11" title="11">  rewardA_<span class="dv">5</span>[i]  &lt;-<span class="st"> </span>(samps[<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samps[<span class="dv">3</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb29-12" title="12">  rewardA_<span class="dv">6</span>[i]  &lt;-<span class="st"> </span>(samps[<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samps[<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb29-13" title="13">  rewardA_<span class="dv">7</span>[i]  &lt;-<span class="st"> </span>(samps[<span class="dv">6</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samps[<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb29-14" title="14">  rewardA_<span class="dv">56</span>[i] &lt;-<span class="st"> </span>(rewardA_<span class="dv">5</span>[i] <span class="op">&amp;</span><span class="st"> </span>rewardA_<span class="dv">6</span>[i])</a>
-<a class="sourceLine" id="cb29-15" title="15">  rewardA_<span class="dv">57</span>[i] &lt;-<span class="st"> </span>(rewardA_<span class="dv">5</span>[i] <span class="op">&amp;</span><span class="st"> </span>rewardA_<span class="dv">7</span>[i])</a>
-<a class="sourceLine" id="cb29-16" title="16">}</a>
-<a class="sourceLine" id="cb29-17" title="17"><span class="kw">sum</span>(rewardA_<span class="dv">5</span>) <span class="op">/</span><span class="st"> </span>nsamps</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="condprob.html#cb29-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb29-2"><a href="condprob.html#cb29-2"></a>nsamps &lt;-<span class="st"> </span><span class="dv">10000</span></span>
+<span id="cb29-3"><a href="condprob.html#cb29-3"></a>p      &lt;-<span class="st"> </span><span class="fl">0.7</span></span>
+<span id="cb29-4"><a href="condprob.html#cb29-4"></a>rewardA_<span class="dv">5</span>  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
+<span id="cb29-5"><a href="condprob.html#cb29-5"></a>rewardA_<span class="dv">6</span>  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
+<span id="cb29-6"><a href="condprob.html#cb29-6"></a>rewardA_<span class="dv">7</span>  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
+<span id="cb29-7"><a href="condprob.html#cb29-7"></a>rewardA_<span class="dv">56</span> &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
+<span id="cb29-8"><a href="condprob.html#cb29-8"></a>rewardA_<span class="dv">57</span> &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
+<span id="cb29-9"><a href="condprob.html#cb29-9"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</span>
+<span id="cb29-10"><a href="condprob.html#cb29-10"></a>  samps &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.3</span>))</span>
+<span id="cb29-11"><a href="condprob.html#cb29-11"></a>  rewardA_<span class="dv">5</span>[i]  &lt;-<span class="st"> </span>(samps[<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samps[<span class="dv">3</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb29-12"><a href="condprob.html#cb29-12"></a>  rewardA_<span class="dv">6</span>[i]  &lt;-<span class="st"> </span>(samps[<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samps[<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb29-13"><a href="condprob.html#cb29-13"></a>  rewardA_<span class="dv">7</span>[i]  &lt;-<span class="st"> </span>(samps[<span class="dv">6</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samps[<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb29-14"><a href="condprob.html#cb29-14"></a>  rewardA_<span class="dv">56</span>[i] &lt;-<span class="st"> </span>(rewardA_<span class="dv">5</span>[i] <span class="op">&amp;</span><span class="st"> </span>rewardA_<span class="dv">6</span>[i])</span>
+<span id="cb29-15"><a href="condprob.html#cb29-15"></a>  rewardA_<span class="dv">57</span>[i] &lt;-<span class="st"> </span>(rewardA_<span class="dv">5</span>[i] <span class="op">&amp;</span><span class="st"> </span>rewardA_<span class="dv">7</span>[i])</span>
+<span id="cb29-16"><a href="condprob.html#cb29-16"></a>}</span>
+<span id="cb29-17"><a href="condprob.html#cb29-17"></a><span class="kw">sum</span>(rewardA_<span class="dv">5</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
 <pre><code>## [1] 0.2141</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw">sum</span>(rewardA_<span class="dv">6</span>) <span class="op">/</span><span class="st"> </span>nsamps</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="condprob.html#cb31-1"></a><span class="kw">sum</span>(rewardA_<span class="dv">6</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
 <pre><code>## [1] 0.2122</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="kw">sum</span>(rewardA_<span class="dv">7</span>) <span class="op">/</span><span class="st"> </span>nsamps</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="condprob.html#cb33-1"></a><span class="kw">sum</span>(rewardA_<span class="dv">7</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
 <pre><code>## [1] 0.2107</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="kw">sum</span>(rewardA_<span class="dv">56</span>) <span class="op">/</span><span class="st"> </span>nsamps</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="condprob.html#cb35-1"></a><span class="kw">sum</span>(rewardA_<span class="dv">56</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="kw">sum</span>(rewardA_<span class="dv">57</span>) <span class="op">/</span><span class="st"> </span>nsamps</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="condprob.html#cb37-1"></a><span class="kw">sum</span>(rewardA_<span class="dv">57</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
 <pre><code>## [1] 0.0454</code></pre>
 </div>
 
@@ -560,30 +563,30 @@ after two, three and four offices.
 The multiplying parts represent the possibilities of the first flower.</p></li>
 </ol>
 </div>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb39-2" title="2">nsamps     &lt;-<span class="st"> </span><span class="dv">100000</span></a>
-<a class="sourceLine" id="cb39-3" title="3">Judyswalks &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb39-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</a>
-<a class="sourceLine" id="cb39-5" title="5">  thiswalk &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.4</span>, <span class="fl">0.6</span>))</a>
-<a class="sourceLine" id="cb39-6" title="6">  Judyswalks[i, ] &lt;-<span class="st"> </span>thiswalk</a>
-<a class="sourceLine" id="cb39-7" title="7">}</a>
-<a class="sourceLine" id="cb39-8" title="8">csJudy &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(Judyswalks, <span class="dv">1</span>, cumsum))</a>
-<a class="sourceLine" id="cb39-9" title="9"></a>
-<a class="sourceLine" id="cb39-10" title="10"><span class="co"># a</span></a>
-<a class="sourceLine" id="cb39-11" title="11"><span class="kw">sum</span>(csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">3</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">/</span><span class="st"> </span>nsamps</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="condprob.html#cb39-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb39-2"><a href="condprob.html#cb39-2"></a>nsamps     &lt;-<span class="st"> </span><span class="dv">100000</span></span>
+<span id="cb39-3"><a href="condprob.html#cb39-3"></a>Judyswalks &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="dv">8</span>)</span>
+<span id="cb39-4"><a href="condprob.html#cb39-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</span>
+<span id="cb39-5"><a href="condprob.html#cb39-5"></a>  thiswalk &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.4</span>, <span class="fl">0.6</span>))</span>
+<span id="cb39-6"><a href="condprob.html#cb39-6"></a>  Judyswalks[i, ] &lt;-<span class="st"> </span>thiswalk</span>
+<span id="cb39-7"><a href="condprob.html#cb39-7"></a>}</span>
+<span id="cb39-8"><a href="condprob.html#cb39-8"></a>csJudy &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(Judyswalks, <span class="dv">1</span>, cumsum))</span>
+<span id="cb39-9"><a href="condprob.html#cb39-9"></a></span>
+<span id="cb39-10"><a href="condprob.html#cb39-10"></a><span class="co"># a</span></span>
+<span id="cb39-11"><a href="condprob.html#cb39-11"></a><span class="kw">sum</span>(csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">3</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
 <pre><code>## [1] 0.03848</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="co"># b</span></a>
-<a class="sourceLine" id="cb41-2" title="2">csJsubset &lt;-<span class="st"> </span>csJudy[csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">3</span>] <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, ]</a>
-<a class="sourceLine" id="cb41-3" title="3"><span class="kw">sum</span>(csJsubset[ ,<span class="dv">8</span>] <span class="op">==</span><span class="st"> </span><span class="dv">4</span> <span class="op">&amp;</span><span class="st"> </span>csJsubset[ ,<span class="dv">7</span>] <span class="op">==</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(csJsubset)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="condprob.html#cb41-1"></a><span class="co"># b</span></span>
+<span id="cb41-2"><a href="condprob.html#cb41-2"></a>csJsubset &lt;-<span class="st"> </span>csJudy[csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">3</span>] <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, ]</span>
+<span id="cb41-3"><a href="condprob.html#cb41-3"></a><span class="kw">sum</span>(csJsubset[ ,<span class="dv">8</span>] <span class="op">==</span><span class="st"> </span><span class="dv">4</span> <span class="op">&amp;</span><span class="st"> </span>csJsubset[ ,<span class="dv">7</span>] <span class="op">==</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(csJsubset)</span></code></pre></div>
 <pre><code>## [1] 0.03665893</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="co"># c</span></a>
-<a class="sourceLine" id="cb43-2" title="2"><span class="kw">sum</span>(csJudy[ ,<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span>nsamps</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="condprob.html#cb43-1"></a><span class="co"># c</span></span>
+<span id="cb43-2"><a href="condprob.html#cb43-2"></a><span class="kw">sum</span>(csJudy[ ,<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
 <pre><code>## [1] 0.09117</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="co"># d</span></a>
-<a class="sourceLine" id="cb45-2" title="2"><span class="kw">sum</span>(csJudy[ ,<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(csJudy[ ,<span class="dv">2</span>] <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="condprob.html#cb45-1"></a><span class="co"># d</span></span>
+<span id="cb45-2"><a href="condprob.html#cb45-2"></a><span class="kw">sum</span>(csJudy[ ,<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(csJudy[ ,<span class="dv">2</span>] <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1422398</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="co"># e</span></a>
-<a class="sourceLine" id="cb47-2" title="2"><span class="kw">sum</span>(csJudy[ ,<span class="dv">4</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>nsamps</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="condprob.html#cb47-1"></a><span class="co"># e</span></span>
+<span id="cb47-2"><a href="condprob.html#cb47-2"></a><span class="kw">sum</span>(csJudy[ ,<span class="dv">4</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
 <pre><code>## [1] 0.17818</code></pre>
 </div>
 </div>
@@ -723,26 +726,26 @@ open door <span class="math inline">\(k\)</span> is then 1, as he can not pick a
 \end{align}\]</span></p>
 <p>Therefore it makes sense to change the door.</p>
 </div>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb49-2" title="2">nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb49-3" title="3">ifchange &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</a>
-<a class="sourceLine" id="cb49-4" title="4">ifstay   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</a>
-<a class="sourceLine" id="cb49-5" title="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</a>
-<a class="sourceLine" id="cb49-6" title="6">  where_car      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>), <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb49-7" title="7">  where_player   &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>), <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb49-8" title="8">  open_samp      &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)[where_car <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">&amp;</span><span class="st"> </span>where_player <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)]</a>
-<a class="sourceLine" id="cb49-9" title="9">  <span class="cf">if</span> (<span class="kw">length</span>(open_samp) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb49-10" title="10">    where_open &lt;-<span class="st"> </span>open_samp</a>
-<a class="sourceLine" id="cb49-11" title="11">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb49-12" title="12">      where_open &lt;-<span class="st"> </span><span class="kw">sample</span>(open_samp, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb49-13" title="13">  }</a>
-<a class="sourceLine" id="cb49-14" title="14">  ifstay[i]      &lt;-<span class="st"> </span>where_car <span class="op">==</span><span class="st"> </span>where_player</a>
-<a class="sourceLine" id="cb49-15" title="15">  where_ifchange &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)[where_open <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">&amp;</span><span class="st"> </span>where_player <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)]</a>
-<a class="sourceLine" id="cb49-16" title="16">  ifchange[i]    &lt;-<span class="st"> </span>where_ifchange <span class="op">==</span><span class="st"> </span>where_car</a>
-<a class="sourceLine" id="cb49-17" title="17">}</a>
-<a class="sourceLine" id="cb49-18" title="18"><span class="kw">sum</span>(ifstay) <span class="op">/</span><span class="st"> </span>nsamps</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="condprob.html#cb49-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb49-2"><a href="condprob.html#cb49-2"></a>nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb49-3"><a href="condprob.html#cb49-3"></a>ifchange &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
+<span id="cb49-4"><a href="condprob.html#cb49-4"></a>ifstay   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
+<span id="cb49-5"><a href="condprob.html#cb49-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</span>
+<span id="cb49-6"><a href="condprob.html#cb49-6"></a>  where_car      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>), <span class="dv">1</span>)</span>
+<span id="cb49-7"><a href="condprob.html#cb49-7"></a>  where_player   &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>), <span class="dv">1</span>)</span>
+<span id="cb49-8"><a href="condprob.html#cb49-8"></a>  open_samp      &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)[where_car <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">&amp;</span><span class="st"> </span>where_player <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)]</span>
+<span id="cb49-9"><a href="condprob.html#cb49-9"></a>  <span class="cf">if</span> (<span class="kw">length</span>(open_samp) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</span>
+<span id="cb49-10"><a href="condprob.html#cb49-10"></a>    where_open &lt;-<span class="st"> </span>open_samp</span>
+<span id="cb49-11"><a href="condprob.html#cb49-11"></a>  } <span class="cf">else</span> {</span>
+<span id="cb49-12"><a href="condprob.html#cb49-12"></a>      where_open &lt;-<span class="st"> </span><span class="kw">sample</span>(open_samp, <span class="dv">1</span>)</span>
+<span id="cb49-13"><a href="condprob.html#cb49-13"></a>  }</span>
+<span id="cb49-14"><a href="condprob.html#cb49-14"></a>  ifstay[i]      &lt;-<span class="st"> </span>where_car <span class="op">==</span><span class="st"> </span>where_player</span>
+<span id="cb49-15"><a href="condprob.html#cb49-15"></a>  where_ifchange &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)[where_open <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">&amp;</span><span class="st"> </span>where_player <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)]</span>
+<span id="cb49-16"><a href="condprob.html#cb49-16"></a>  ifchange[i]    &lt;-<span class="st"> </span>where_ifchange <span class="op">==</span><span class="st"> </span>where_car</span>
+<span id="cb49-17"><a href="condprob.html#cb49-17"></a>}</span>
+<span id="cb49-18"><a href="condprob.html#cb49-18"></a><span class="kw">sum</span>(ifstay) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
 <pre><code>## [1] 0.328</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1"><span class="kw">sum</span>(ifchange) <span class="op">/</span><span class="st"> </span>nsamps</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="condprob.html#cb51-1"></a><span class="kw">sum</span>(ifchange) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
 <pre><code>## [1] 0.672</code></pre>
 </div>
 
