@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-11-12" />
+<meta name="date" content="2020-11-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -524,7 +524,7 @@ Var[X] &amp;= E[X^2] - E[X]^2  &amp; \\
 <div class="exercise">
 <p><span id="exr:normev" class="exercise"><strong>Exercise 7.8  (Normal)  </strong></span>Let <span class="math inline">\(X \sim \text{N}(\mu, \sigma)\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Show that <span class="math inline">\(E[X] = \mu\)</span>. Hint: Use the error function <span class="math inline">\(\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt\)</span>. The statistical interpretation of this function is that if <span class="math inline">\(Y \sim \text{N}(0, 0.5)\)</span>, then the error function describes the probability of <span class="math inline">\(Y\)</span> falling between <span class="math inline">\(-x\)</span> and <span class="math inline">\(x\)</span>.</p></li>
+<li><p>Show that <span class="math inline">\(E[X] = \mu\)</span>. Hint: Use the error function <span class="math inline">\(\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt\)</span>. The statistical interpretation of this function is that if <span class="math inline">\(Y \sim \text{N}(0, 0.5)\)</span>, then the error function describes the probability of <span class="math inline">\(Y\)</span> falling between <span class="math inline">\(-x\)</span> and <span class="math inline">\(x\)</span>. Also, <span class="math inline">\(\text{erf}(\infty) = 1\)</span>.</p></li>
 <li><p>Show that <span class="math inline">\(Var[X] = \sigma^2\)</span>. Hint: Start with the definition of variance.</p></li>
 </ol>
 </div>
@@ -581,11 +581,11 @@ Combining all of the above we get
 <h2><span class="header-section-number">7.3</span> Sums, functions, conditional expectations</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-148" class="exercise"><strong>Exercise 7.9  (Expectation of transformations)  </strong></span>Let <span class="math inline">\(X\)</span> follow a normal distribution.</p>
+<p><span id="exr:unnamed-chunk-148" class="exercise"><strong>Exercise 7.9  (Expectation of transformations)  </strong></span>Let <span class="math inline">\(X\)</span> follow a normal distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Find <span class="math inline">\(E[2X + 4]\)</span>.</p></li>
 <li><p>Find <span class="math inline">\(E[X^2]\)</span>.</p></li>
-<li><p>Find <span class="math inline">\(E[\exp(X)]\)</span>. Hint: Use the error function <span class="math inline">\(\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt\)</span></p></li>
+<li><p>Find <span class="math inline">\(E[\exp(X)]\)</span>. Hint: Use the error function <span class="math inline">\(\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt\)</span>. Also, <span class="math inline">\(\text{erf}(\infty) = 1\)</span>.</p></li>
 <li><p><span style="color:blue">R: Check your results numerically for <span class="math inline">\(\mu = 0.4\)</span> and <span class="math inline">\(\sigma^2 = 0.25\)</span> and plot the densities of all four distributions.</span></p></li>
 </ol>
 </div>
@@ -600,7 +600,7 @@ E[2X + 4] &amp;= 2E[X] + 4 &amp; \text{linearity of expectation} \\
           &amp;= 2\mu + 4. \\
 \end{align}\]</span></p></li>
 <li><p><span class="math display">\[\begin{align}
-E[X^2] &amp;= E[X]^2 - Var[X] &amp; \text{definition of variance} \\
+E[X^2] &amp;= E[X]^2 + Var[X] &amp; \text{definition of variance} \\
        &amp;= \mu^2 + \sigma^2.
 \end{align}\]</span></p></li>
 <li><p><span class="math display">\[\begin{align}
@@ -685,7 +685,7 @@ E[\exp(X)] &amp;= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-154" class="exercise"><strong>Exercise 7.11  (Conditional expectation)  </strong></span>Let <span class="math inline">\(X \in \mathbb{R}_0^+\)</span> and <span class="math inline">\(Y \in \mathbb{N}_0\)</span> be random variables with joint distribution <span class="math inline">\(p_{XY}(X,Y) = \frac{1}{y + 1} e^{-\frac{x}{y + 1}} 0.5^{y + 1}\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Find <span class="math inline">\(E[X | Y]\)</span> by first finding <span class="math inline">\(p_Y\)</span> and then <span class="math inline">\(p_{X|Y}\)</span>.</p></li>
+<li><p>Find <span class="math inline">\(E[X | Y = y]\)</span> by first finding <span class="math inline">\(p_Y\)</span> and then <span class="math inline">\(p_{X|Y}\)</span>.</p></li>
 <li><p>Find <span class="math inline">\(E[X]\)</span>.</p></li>
 <li><p><span style="color:blue">R: check your answers to a) and b) by drawing 10000 samples from <span class="math inline">\(p_Y\)</span> and <span class="math inline">\(p_{X|Y}\)</span>.</span></p></li>
 </ol>
@@ -705,12 +705,12 @@ p(y) &amp;= \int_0^\infty \frac{1}{y + 1} e^{-\frac{x}{y + 1}} 0.5^{y + 1} dx \\
 \end{align}\]</span>
 We recognize this as the geometric distribution.
 <span class="math display">\[\begin{align}
-p(x|y) &amp;= \frac{p(X,Y)}{P(Y)} \\
+p(x|y) &amp;= \frac{p(x,y)}{p(y)} \\
        &amp;= \frac{1}{y + 1} e^{-\frac{x}{y + 1}}.
 \end{align}\]</span>
 We recognize this as the exponential distribution.
 <span class="math display">\[\begin{align}
-E[X | Y] &amp;= \int_0^\infty x \frac{1}{y + 1} e^{-\frac{x}{y + 1}} dx \\
+E[X | Y = y] &amp;= \int_0^\infty x \frac{1}{y + 1} e^{-\frac{x}{y + 1}} dx \\
          &amp;= y + 1 &amp; \text{expected value of the exponential distribution}
 \end{align}\]</span></p></li>
 <li><p>Use the law of iterated expectation.
@@ -910,7 +910,7 @@ Let us calculate <span class="math inline">\(E[E[Y^2|X]]\)</span>.
 \end{align}\]</span>
 Then <span class="math inline">\(Var[Y] = \frac{1}{9} - \frac{1}{16} = \frac{7}{144}\)</span>. Combining all
 <span class="math display">\[\begin{align}
-  \rho(X,Y) &amp;= \frac{\frac{1}{24}}{\sqrt{\frac{1}{12}\frac{5}{144}}} \\
+  \rho(X,Y) &amp;= \frac{\frac{1}{24}}{\sqrt{\frac{1}{12}\frac{7}{144}}} \\
          &amp;= 0.65.
 \end{align}\]</span></li>
 </ol>

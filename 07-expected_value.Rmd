@@ -319,7 +319,7 @@ b.
 Let $X \sim \text{N}(\mu, \sigma)$.
 
 
-a. Show that $E[X] = \mu$. Hint: Use the error function $\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt$. The statistical interpretation of this function is that if $Y \sim \text{N}(0, 0.5)$, then the error function describes the probability of $Y$ falling between $-x$ and $x$.
+a. Show that $E[X] = \mu$. Hint: Use the error function $\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt$. The statistical interpretation of this function is that if $Y \sim \text{N}(0, 0.5)$, then the error function describes the probability of $Y$ falling between $-x$ and $x$. Also, $\text{erf}(\infty) = 1$.
 
 b. Show that $Var[X] = \sigma^2$. Hint: Start with the definition of variance.
 
@@ -381,13 +381,13 @@ b.
 ## Sums, functions, conditional expectations
 
 ```{exercise, name = "Expectation of transformations"}
-Let $X$ follow a normal distribution.
+Let $X$ follow a normal distribution with mean $\mu$ and variance $\sigma^2$.
 
 a. Find $E[2X + 4]$.
 
 b. Find $E[X^2]$.
 
-c. Find $E[\exp(X)]$. Hint: Use the error function $\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt$
+c. Find $E[\exp(X)]$. Hint: Use the error function $\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt$. Also, $\text{erf}(\infty) = 1$.
 
 d. <span style="color:blue">R: Check your results numerically for $\mu = 0.4$ and $\sigma^2 = 0.25$ and plot the densities of all four distributions.</span>
 
@@ -406,7 +406,7 @@ a.
   
 b.
 \begin{align}
-  E[X^2] &= E[X]^2 - Var[X] & \text{definition of variance} \\
+  E[X^2] &= E[X]^2 + Var[X] & \text{definition of variance} \\
          &= \mu^2 + \sigma^2.
 \end{align}
   
@@ -499,7 +499,7 @@ ggplot(data = X, aes(x = value, colour = variable)) +
 ```{exercise, name = "Conditional expectation"}
 Let $X \in \mathbb{R}_0^+$ and $Y \in \mathbb{N}_0$ be random variables with joint distribution $p_{XY}(X,Y) = \frac{1}{y + 1} e^{-\frac{x}{y + 1}} 0.5^{y + 1}$.
 
-a. Find $E[X | Y]$ by first finding $p_Y$ and then $p_{X|Y}$.
+a. Find $E[X | Y = y]$ by first finding $p_Y$ and then $p_{X|Y}$.
 
 b. Find $E[X]$.
 
@@ -522,12 +522,12 @@ a.
 \end{align}
 We recognize this as the geometric distribution.
 \begin{align}
-  p(x|y) &= \frac{p(X,Y)}{P(Y)} \\
+  p(x|y) &= \frac{p(x,y)}{p(y)} \\
          &= \frac{1}{y + 1} e^{-\frac{x}{y + 1}}.
 \end{align}
 We recognize this as the exponential distribution.
 \begin{align}
-  E[X | Y] &= \int_0^\infty x \frac{1}{y + 1} e^{-\frac{x}{y + 1}} dx \\
+  E[X | Y = y] &= \int_0^\infty x \frac{1}{y + 1} e^{-\frac{x}{y + 1}} dx \\
            &= y + 1 & \text{expected value of the exponential distribution}
 \end{align}
   
@@ -723,7 +723,7 @@ Let us calculate $E[E[Y^2|X]]$.
 \end{align}
 Then $Var[Y] = \frac{1}{9} - \frac{1}{16} = \frac{7}{144}$. Combining all
 \begin{align}
-  \rho(X,Y) &= \frac{\frac{1}{24}}{\sqrt{\frac{1}{12}\frac{5}{144}}} \\
+  \rho(X,Y) &= \frac{\frac{1}{24}}{\sqrt{\frac{1}{12}\frac{7}{144}}} \\
             &= 0.65.
 \end{align}
 
