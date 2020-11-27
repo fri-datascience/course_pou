@@ -319,11 +319,11 @@ Let $X \sim \text{N}(\mu, \Sigma)$, where $\mu = [2, 0, -1]^T$ and $\Sigma =
     
 a. Find the marginal distribution of $B$.
 
-b. Find the conditional distribution of $B | A$.
+b. Find the conditional distribution of $B | A = [a_1, a_2]^T$.
 
 c. Find the marginal distribution of $A$.
 
-d. Find the conditional distribution of $A | B$.
+d. Find the conditional distribution of $A | B = b$.
 
 e.  <span style="color:blue">R: Visually compare the distributions of a) and b), and c) and d) at three different conditional values.</span>
 ```
@@ -376,7 +376,7 @@ c. $\mu_A = [2, 0]^T$ and $\Sigma_A =
   
 d. 
 \begin{align}
-  X_A | X_B = b &\sim \text{N}(\mu_t, \Sigma_t), \\
+  A | B = b &\sim \text{N}(\mu_t, \Sigma_t), \\
   \mu_t     &= [2.25, -0.6]^T + [0.25, -0.6]^T b, \\
   \Sigma_t  &= 
   \begin{bmatrix} 

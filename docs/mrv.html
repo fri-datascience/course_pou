@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-11-19" />
+<meta name="date" content="2020-11-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -522,9 +522,9 @@ For <span class="math inline">\(X_{1t}\)</span> and <span class="math inline">\(
 <p><span id="exr:mvncond" class="exercise"><strong>Exercise 8.5  (Marginal and conditional distributions)  </strong></span>Let <span class="math inline">\(X \sim \text{N}(\mu, \Sigma)\)</span>, where <span class="math inline">\(\mu = [2, 0, -1]^T\)</span> and <span class="math inline">\(\Sigma = \begin{bmatrix}  1 &amp; -0.2 &amp; 0.5 \\  -0.2 &amp; 1.4 &amp; -1.2 \\  0.5 &amp; -1.2 &amp; 2 \\ \end{bmatrix}\)</span>. Let <span class="math inline">\(A\)</span> represent the first two random variables and <span class="math inline">\(B\)</span> the third random variable. <span style="color:blue">R: For the calculation in the following points, you can use R.</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Find the marginal distribution of <span class="math inline">\(B\)</span>.</p></li>
-<li><p>Find the conditional distribution of <span class="math inline">\(B | A\)</span>.</p></li>
+<li><p>Find the conditional distribution of <span class="math inline">\(B | A = [a_1, a_2]^T\)</span>.</p></li>
 <li><p>Find the marginal distribution of <span class="math inline">\(A\)</span>.</p></li>
-<li><p>Find the conditional distribution of <span class="math inline">\(A | B\)</span>.</p></li>
+<li><p>Find the conditional distribution of <span class="math inline">\(A | B = b\)</span>.</p></li>
 <li><p><span style="color:blue">R: Visually compare the distributions of a) and b), and c) and d) at three different conditional values.</span></p>
 </div></li>
 </ol>
@@ -576,7 +576,7 @@ For <span class="math inline">\(X_{1t}\)</span> and <span class="math inline">\(
 <li><p><span class="math inline">\(B | A = a \sim \text{N}(-1.68 + [0.34, -0.81] a, 0.86)\)</span>.</p></li>
 <li><p><span class="math inline">\(\mu_A = [2, 0]^T\)</span> and <span class="math inline">\(\Sigma_A = \begin{bmatrix}  1 &amp; -0.2 &amp; \\  -0.2 &amp; 1.4 \\ \end{bmatrix}\)</span>.</p></li>
 <li><p><span class="math display">\[\begin{align}
-  X_A | X_B = b &amp;\sim \text{N}(\mu_t, \Sigma_t), \\
+  A | B = b &amp;\sim \text{N}(\mu_t, \Sigma_t), \\
   \mu_t     &amp;= [2.25, -0.6]^T + [0.25, -0.6]^T b, \\
   \Sigma_t  &amp;= 
   \begin{bmatrix} 
