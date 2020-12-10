@@ -46,7 +46,7 @@ library(tidyr)
 
 
 ```{exercise}
-Let $X_1$, $X_2$,..., $X_n$ be a sequence of Bernoulli random variables. Let $Y_k = \frac{X_1 + X_2 + ... + X_n}{n^2}$. Show that this sequence converges point-wise to the zero random variable.
+Let $X_1$, $X_2$,..., $X_n$ be a sequence of Bernoulli random variables. Let $Y_n = \frac{X_1 + X_2 + ... + X_n}{n^2}$. Show that this sequence converges point-wise to the zero random variable.
 <span style="color:blue">R: Use a simulation to check your answer.</span>
 
 ```
@@ -158,7 +158,7 @@ ggplot(data = data.frame(x = seq(-5, 5, by = 0.01)), aes(x = x)) +
 
 
 ```{exercise}
-Let $X_i$ be i.i.d. and $\mu = E(X_1)$. Let variance of $X_1$ be finite. Show that the mean of $X_i$ converges in quadratic mean to $\mu$. 
+Let $X_i$ be i.i.d. and $\mu = E(X_1)$. Let variance of $X_1$ be finite. Show that the mean of $X_i$, $X_n = \frac{1}{n}\sum_{i=1}^n X_i$ converges in quadratic mean to $\mu$. 
 
 ```
 <div class="fold">

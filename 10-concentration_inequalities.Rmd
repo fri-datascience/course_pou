@@ -50,7 +50,7 @@ library(tidyr)
 
 ## Comparison
 ```{exercise}
-<span style="color:blue">R: Let $X$ be geometric random variable with $p = 0.7$. Visually compare the Markov bound, Chernoff bound, and the theoretical probabilities. To get the best fitting Chernoff bound, you will need to optimize the bound depending on $t$. Use either analytical or numerical optimization.</span>
+<span style="color:blue">R: Let $X$ be geometric random variable with $p = 0.7$. Visually compare the Markov bound, Chernoff bound, and the theoretical probabilities for $x = 1,...,12$. To get the best fitting Chernoff bound, you will need to optimize the bound depending on $t$. Use either analytical or numerical optimization.</span>
 
 ```
 
