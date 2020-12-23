@@ -100,7 +100,7 @@ b. <span style="color:blue">Simulate $n = 40$ samples from a bivariate normal di
 
 c. <span style="color:blue">Repeat b. several times and observe how the estimates (ellipses) vary around the true value.</span>
 
-Hint: For the derivation of MLE, these identities will be helpful: $\frac{\partial b^T a}{\partial a} = b$, $\frac{\partial a^T A a}{\partial a} = (A + A^T)a$, $\frac{\partial \text{tr}(BA)}{\partial A} = B^T$, $\frac{\partial \ln |A|}{\partial A} = (A^{-1})^T$, $a^T A a = \text{tr}(a^T A a) = \text{tr}(a a^T A) = \text{tr}(Aaa^T)$.
+Hint: For the derivation of MLE, these identities will be helpful: $\frac{\partial b^T a}{\partial a} = \frac{\partial a^T b}{\partial a} = b$, $\frac{\partial a^T A a}{\partial a} = (A + A^T)a$, $\frac{\partial \text{tr}(BA)}{\partial A} = B^T$, $\frac{\partial \ln |A|}{\partial A} = (A^{-1})^T$, $a^T A a = \text{tr}(a^T A a) = \text{tr}(a a^T A) = \text{tr}(Aaa^T)$.
 
 
 ```
