@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-12-12" />
+<meta name="date" content="2020-12-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -281,12 +281,12 @@ $(document).ready(function() {
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-220" class="exercise"><strong>Exercise 14.1  </strong></span>
-Ideally, a <span class="math inline">\(1-\alpha\)</span> CI would have <span class="math inline">\(1-\alpha\)</span> coverage. That is, say a 95% CI should, in the long run, contain the true value of the parameter 95% of the time. In practice, it is impossible to assess the coverage of our CI method, because we rarely know the true parameter. In simulation, however, we can. Let’s assess the coverage of bootstrap percentile intervals.</p>
+<span style="color:blue">Ideally, a <span class="math inline">\(1-\alpha\)</span> CI would have <span class="math inline">\(1-\alpha\)</span> coverage. That is, say a 95% CI should, in the long run, contain the true value of the parameter 95% of the time. In practice, it is impossible to assess the coverage of our CI method, because we rarely know the true parameter. In simulation, however, we can. Let’s assess the coverage of bootstrap percentile intervals.</span></p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Pick a univariate distribution with readily available mean and one that you can easily sample from.</p></li>
-<li><p>Draw <span class="math inline">\(n = 30\)</span> random samples from the chosen distribution and use the bootstrap (with large enough m) and percentile CI method to construct 95% CI. Repeat the process many times and count how many times the CI contains the true mean. That is, compute the actual coverage probability (don’t forget to include the standard error of the coverage probability!). What can you observe?</p></li>
-<li><p>Try one or two different distributions. What can you observe?</p></li>
-<li><p>Repeat (b) and (c) using BCa intervals (R package boot). How does the coverage compare to percentile intervals?</p></li>
+<li><p><span style="color:blue">Pick a univariate distribution with readily available mean and one that you can easily sample from.</span></p></li>
+<li><p><span style="color:blue">Draw <span class="math inline">\(n = 30\)</span> random samples from the chosen distribution and use the bootstrap (with large enough m) and percentile CI method to construct 95% CI. Repeat the process many times and count how many times the CI contains the true mean. That is, compute the actual coverage probability (don’t forget to include the standard error of the coverage probability!). What can you observe?</span></p></li>
+<li><p><span style="color:blue">Try one or two different distributions. What can you observe?</span></p></li>
+<li><p><span style="color:blue">Repeat (b) and (c) using BCa intervals (R package boot). How does the coverage compare to percentile intervals?</span></p></li>
 </ol>
 </div>
 

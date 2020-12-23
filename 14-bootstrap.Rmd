@@ -42,16 +42,16 @@ library(tidyr)
 
 ```{exercise}
 
-Ideally, a $1-\alpha$ CI would have $1-\alpha$ coverage. That is, say a 95% CI should, in the long run, contain the true value of the parameter 95% of the time. In practice, it is impossible to assess the coverage of our CI method, because we rarely know the true parameter. In simulation, however, we can. Let's assess the coverage of bootstrap percentile intervals.
+<span style="color:blue">Ideally, a $1-\alpha$ CI would have $1-\alpha$ coverage. That is, say a 95% CI should, in the long run, contain the true value of the parameter 95% of the time. In practice, it is impossible to assess the coverage of our CI method, because we rarely know the true parameter. In simulation, however, we can. Let's assess the coverage of bootstrap percentile intervals.</span>
 
 
-a. Pick a univariate distribution with readily available mean and one that you can easily sample from.
+a. <span style="color:blue">Pick a univariate distribution with readily available mean and one that you can easily sample from.</span>
 
-b. Draw $n = 30$ random samples from the chosen distribution and use the bootstrap (with large enough m) and percentile CI method to construct 95% CI. Repeat the process many times and count how many times the CI contains the true mean. That is, compute the actual coverage probability (don't forget to include the standard error of the coverage probability!). What can you observe?
+b. <span style="color:blue">Draw $n = 30$ random samples from the chosen distribution and use the bootstrap (with large enough m) and percentile CI method to construct 95% CI. Repeat the process many times and count how many times the CI contains the true mean. That is, compute the actual coverage probability (don't forget to include the standard error of the coverage probability!). What can you observe?</span>
 
-c. Try one or two different distributions. What can you observe?
+c. <span style="color:blue">Try one or two different distributions. What can you observe?</span>
 
-d. Repeat (b) and (c) using BCa intervals (R package boot). How does the coverage compare to percentile intervals?
+d. <span style="color:blue">Repeat (b) and (c) using BCa intervals (R package boot). How does the coverage compare to percentile intervals?</span>
 
 
 ```

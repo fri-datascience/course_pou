@@ -96,9 +96,9 @@ b. The MLE estimator is biased.
 
 a. Derive the maximum likelihood estimate for the mean and covariance matrix of the multivariate normal.
 
-b. Simulate $n = 40$ samples from a bivariate normal distribution (choose non-trivial parameters, that is, mean $\neq 0$ and covariance $\neq 0$). Compute the MLE for the sample. Overlay the data with an ellipse that is determined by the MLE and an ellipse that is determined by the chosen true parameters.
+b. <span style="color:blue">Simulate $n = 40$ samples from a bivariate normal distribution (choose non-trivial parameters, that is, mean $\neq 0$ and covariance $\neq 0$). Compute the MLE for the sample. Overlay the data with an ellipse that is determined by the MLE and an ellipse that is determined by the chosen true parameters.</span>
 
-c. Repeat b. several times and observe how the estimates (ellipses) vary around the true value.
+c. <span style="color:blue">Repeat b. several times and observe how the estimates (ellipses) vary around the true value.</span>
 
 Hint: For the derivation of MLE, these identities will be helpful: $\frac{\partial b^T a}{\partial a} = b$, $\frac{\partial a^T A a}{\partial a} = (A + A^T)a$, $\frac{\partial \text{tr}(BA)}{\partial A} = B^T$, $\frac{\partial \ln |A|}{\partial A} = (A^{-1})^T$, $a^T A a = \text{tr}(a^T A a) = \text{tr}(a a^T A) = \text{tr}(Aaa^T)$.
 
@@ -109,7 +109,7 @@ Hint: For the derivation of MLE, these identities will be helpful: $\frac{\parti
 The log likelihood of the MVN distribution is
 \begin{align*}
   l(\mu, \Sigma ; x) &= -\frac{1}{2}\Big(\sum_{i=1}^n k\ln(2\pi) + |\Sigma| + (x_i - \mu)^T \Sigma^{-1} (x_i - \mu)\Big) \\
-    &= -\frac{n}{2}|\Sigma| + -\frac{1}{2}\Big(\sum_{i=1}^n(x_i - \mu)^T \Sigma^{-1} (x_i - \mu)\Big) + c,
+    &= -\frac{n}{2}\ln|\Sigma| + -\frac{1}{2}\Big(\sum_{i=1}^n(x_i - \mu)^T \Sigma^{-1} (x_i - \mu)\Big) + c,
 \end{align*}
 where $c$ is a constant with respect to $\mu$ and $\Sigma$.
 To find the MLE we first need to find partial derivatives. Let us start with $\mu$.
@@ -169,14 +169,14 @@ ggplot(data = X, aes(x = X1, y = X2)) +
 
 
 ```{exercise, name = "Logistic regression", label = logisticmle}
-Logistic regression is a popular discriminative model when our target variable is binary (categorical with 2 values). One of the ways of looking at logistic regression is that it is linear regression but instead of using the linear term as the mean of a normal RV, we use it as the mean of a Bernoulli RV. Of course, the mean of a Bernoulli is bounded on $[0,1]$, so, to avoid non-sensical values, we squeeze the linear between 0 and 1 with the inverse logit function inv_logit$(z) =  1 / 1 + e^{-z}$. This leads to the following model: $y_i | \beta, x \sim \text{Bernoulli}(\text{inv_logit}(\beta x))$.
+Logistic regression is a popular discriminative model when our target variable is binary (categorical with 2 values). One of the ways of looking at logistic regression is that it is linear regression but instead of using the linear term as the mean of a normal RV, we use it as the mean of a Bernoulli RV. Of course, the mean of a Bernoulli is bounded on $[0,1]$, so, to avoid non-sensical values, we squeeze the linear between 0 and 1 with the inverse logit function inv_logit$(z) =  1 / (1 + e^{-z})$. This leads to the following model: $y_i | \beta, x_i \sim \text{Bernoulli}(\text{inv_logit}(\beta x_i))$.
 
 
 a. Explicitly write the likelihood function of beta.
 
-b. Implement the likelihood function in R. Use black-box box-constraint optimization (for example, _optim()_ with L-BFGS) to find the maximum likelihood estimate for beta for $x$ and $y$ defined below.
+b. <span style="color:blue">Implement the likelihood function in R. Use black-box box-constraint optimization (for example, _optim()_ with L-BFGS) to find the maximum likelihood estimate for beta for $x$ and $y$ defined below.</span>
 
-c. Plot the estimated probability as a function of the independent variable. Compare with the truth.
+c. <span style="color:blue">Plot the estimated probability as a function of the independent variable. Compare with the truth.</span>
 
 d. Let $y2$ be a response defined below. Will logistic regression work well on this dataset? Why not? How can we still use the model, without changing it?
 
@@ -245,14 +245,14 @@ ggplot(data = plot_df, aes(x = x, y = prob, color = type)) +
 
 
 ```{exercise, name = "Linear regression"}
-For the data generated below, do the following:
+<span style="color:blue">For the data generated below, do the following:</span>
   
   
-a. Compute the least squares (MLE) estimate of coefficients beta using the matrix exact solution.
-b. Compute the MLE by minimizing the sum of squared residuals using black-box optimization (_optim()_).
-c. Compute the MLE by using the output built-in linear regression (lm() ). Compare (a-c and the true coefficients).
-d. Compute 95% CI on the beta coefficients using the output of built-in linear regression.
-e. Compute 95% CI on the beta coefficients by using (a or b) and the bootstrap with percentile method for CI. Compare with d.
+a. <span style="color:blue">Compute the least squares (MLE) estimate of coefficients beta using the matrix exact solution.</span>
+b. <span style="color:blue">Compute the MLE by minimizing the sum of squared residuals using black-box optimization (_optim()_).</span>
+c. <span style="color:blue">Compute the MLE by using the output built-in linear regression (lm() ). Compare (a-c and the true coefficients).</span>
+d. <span style="color:blue">Compute 95% CI on the beta coefficients using the output of built-in linear regression.</span>
+e. <span style="color:blue">Compute 95% CI on the beta coefficients by using (a or b) and the bootstrap with percentile method for CI. Compare with d.</span>
 
 ```
 ```{r, message = FALSE, warning=FALSE}
@@ -321,13 +321,13 @@ out$coefficients[ ,2]
 
 
 ```{exercise, name = "Principal component analysis"}
-Load the _olympic_ data set from package _ade4_. The data show decathlon results for 33 men in 1988 Olympic Games. This data set serves as a great example of finding the latent structure in the data, as there are certain characteristics of the athletes that make them excel at different events. For example an explosive athlete will do particulary well in sprints and long jumps.
+<span style="color:blue">Load the _olympic_ data set from package _ade4_. The data show decathlon results for 33 men in 1988 Olympic Games. This data set serves as a great example of finding the latent structure in the data, as there are certain characteristics of the athletes that make them excel at different events. For example an explosive athlete will do particulary well in sprints and long jumps.</span>
 
-a. Perform PCA (_prcomp_) on the data set and interpret the first 2 latent dimensions. Hint: Standardize the data first to get meaningful results.
+a. <span style="color:blue">Perform PCA (_prcomp_) on the data set and interpret the first 2 latent dimensions. Hint: Standardize the data first to get meaningful results.</span>
 
-b. Use MLE to estimate the covariance of the standardized multivariate distribution.
+b. <span style="color:blue">Use MLE to estimate the covariance of the standardized multivariate distribution.</span>
 
-c. Decompose the estimated covariance matrix with the eigendecomposition. Compare the eigenvectors to the output of PCA.
+c. <span style="color:blue">Decompose the estimated covariance matrix with the eigendecomposition. Compare the eigenvectors to the output of PCA.</span>
 
 ```
 <div class="fold">
@@ -360,9 +360,9 @@ a. Derive the MLE estimate of the mean.
 
 b. Derive the Fischer information.
 
-c. For the data below compute the MLE and construct confidence intervals.
+c. <span style="color:blue">For the data below compute the MLE and construct confidence intervals.</span>
 
-d. Use bootstrap to construct the CI for the mean. Compare with c) and discuss.
+d. <span style="color:blue">Use bootstrap to construct the CI for the mean. Compare with c) and discuss.</span>
 ```
 ```{r, message = FALSE, warning=FALSE}
 x <- c(2, 5, 3, 1, 2, 1, 0, 3, 0, 2)
@@ -423,7 +423,7 @@ boot_CI
 
 a. Find the Fisher information matrix for the Gamma distribution.
 
-b. Generate 20 samples from a Gamma distribution and plot a confidence ellipse of the inverse of Fisher information matrix around the ML estimates of the parameters. Also plot the theoretical values. Repeat the sampling several times. What do you observe?
+b. <span style="color:blue">Generate 20 samples from a Gamma distribution and plot a confidence ellipse of the inverse of Fisher information matrix around the ML estimates of the parameters. Also plot the theoretical values. Repeat the sampling several times. What do you observe?</span>
 
 c. Discuss what a non-diagonal Fisher matrix implies.
 
