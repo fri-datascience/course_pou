@@ -358,7 +358,7 @@ Let us assume a Poisson likelihood.
 
 a. Derive the MLE estimate of the mean.
 
-b. Derive the Fischer information.
+b. Derive the Fisher information.
 
 c. <span style="color:blue">For the data below compute the MLE and construct confidence intervals.</span>
 
@@ -378,8 +378,8 @@ a. The log likelihood of the Poisson is
 \end{align*}
 Taking the derivative and equating with 0 we get
 \begin{align*}
-  \frac{1}{\lambda}\sum_{i=1}^n x_i - n &= 0 \\
-  \lambda &= \frac{1}{n} \sum_{i=1}^n x_i.
+  \frac{1}{\hat{\lambda}}\sum_{i=1}^n x_i - n &= 0 \\
+  \hat{\lambda} &= \frac{1}{n} \sum_{i=1}^n x_i.
 \end{align*}
 Since $\lambda$ is the mean parameter, this was expected.
 

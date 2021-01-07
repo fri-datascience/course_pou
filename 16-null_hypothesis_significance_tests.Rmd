@@ -50,7 +50,7 @@ library(numDeriv)
 ```
 
 ```{exercise, name = "Binomial test"}
-We assume $y_i \in \{0,1\}$, $i = 1,...,n$ and $y_i | \theta \sim i.i.d.$ Bernoulli$(\theta)$. The test statistic is  X = heads - tails (heads = 1, tails = 0) and the rejection region R is defined as the region where the probability of obtaining such or more extreme X given $\theta$ is less than 0.05.
+We assume $y_i \in \{0,1\}$, $i = 1,...,n$ and $y_i | \theta = 0.5 \sim i.i.d.$ Bernoulli$(\theta)$. The test statistic is $X = \sum_{i=1}^n$ and the rejection region R is defined as the region where the probability of obtaining such or more extreme $X$ given $\theta = 0.5$ is less than 0.05.
 
 
 a. Derive and plot the power function of the test for $n=100$.

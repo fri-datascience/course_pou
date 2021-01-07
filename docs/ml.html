@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2020-12-23" />
+<meta name="date" content="2021-01-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -630,7 +630,7 @@ Equating above with zero, we get
 <p><span id="exr:unnamed-chunk-236" class="exercise"><strong>Exercise 15.6  </strong></span>Let us assume a Poisson likelihood.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Derive the MLE estimate of the mean.</p></li>
-<li><p>Derive the Fischer information.</p></li>
+<li><p>Derive the Fisher information.</p></li>
 <li><p><span style="color:blue">For the data below compute the MLE and construct confidence intervals.</span></p></li>
 <li><p><span style="color:blue">Use bootstrap to construct the CI for the mean. Compare with c) and discuss.</span></p>
 </div></li>
@@ -647,8 +647,8 @@ Equating above with zero, we get
 \end{align*}\]</span>
 Taking the derivative and equating with 0 we get
 <span class="math display">\[\begin{align*}
-  \frac{1}{\lambda}\sum_{i=1}^n x_i - n &amp;= 0 \\
-  \lambda &amp;= \frac{1}{n} \sum_{i=1}^n x_i.
+  \frac{1}{\hat{\lambda}}\sum_{i=1}^n x_i - n &amp;= 0 \\
+  \hat{\lambda} &amp;= \frac{1}{n} \sum_{i=1}^n x_i.
 \end{align*}\]</span>
 Since <span class="math inline">\(\lambda\)</span> is the mean parameter, this was expected.</p></li>
 <li><p>For the Fischer information, we first need the second derivative, which is</p></li>
