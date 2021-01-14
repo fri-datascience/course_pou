@@ -58,14 +58,14 @@ Let us assume a Poisson likelihood and a gamma prior on the Poisson mean paramet
 a. Derive posterior
 b. Below we have some data, which represents number of goals in a football match. Choose sensible prior for this data (draw the gamma density if necessary), justify it. Compute the posterior. <span style="color:blue">Compute an interval such that the probability that the true mean is in there is 95%. What is the probability that the true mean is greater than 2.5?</span>
 c. Back to theory: Compute prior predictive and posterior predictive. Discuss why the posterior predictive is overdispersed and not Poisson?
-d. <span style="color:blue">Draw a histogram of the prior preditive and posterior predctive for the data from (b). Discuss.</span>
+d. <span style="color:blue">Draw a histogram of the prior predictive and posterior predictive for the data from (b). Discuss.</span>
 e. <span style="color:blue">Generate 10 and 100 random samples from a Poisson distribution and compare the posteriors with a flat prior, and a prior concentrated away from the truth.</span>
 
 
 
 ```
 ```{r, echo = T, message = FALSE, eval = F, warning=FALSE}
-x <- c(4, 5, 3, 2, 4, 2, 3, 3, 1, 3)
+x <- c(3, 2, 1, 1, 5, 4, 0, 0, 4, 3)
 
 ```
 <div class="fold">
@@ -81,7 +81,7 @@ a.
 \end{align*}
 We recognize this as the shape of a gamma distribution, therefore
 \begin{align*}
-  \lambda | X \sim \text{gamma}(a + \sum_{i=1}^n x_i, \beta + n)
+  \lambda | X \sim \text{gamma}(\alpha + \sum_{i=1}^n x_i, \beta + n)
 \end{align*}
 
 c. For the prior predictive, we have
@@ -89,10 +89,10 @@ c. For the prior predictive, we have
   p(x^*) &= \int_0^\infty p(x^*, \lambda) d\lambda \\
   &= \int_0^\infty p(x^* | \lambda) p(\lambda) d\lambda \\
   &= \int_0^\infty \frac{1}{x^*!} \lambda^{x^*} e^{-\lambda} \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha - 1} e^{-\beta \lambda} d\lambda \\
-  &= \frac{\beta^\alpha}{\Gamma(x^*)\Gamma(\alpha)} \int_0^\infty \lambda^{x^* + \alpha - 1} e^{-\lambda (1 + \beta)} d\lambda \\
-  &= \frac{\beta^\alpha}{\Gamma(x^*)\Gamma(\alpha)}  \frac{\Gamma(x^* + \alpha)}{(1 + \beta)^{x^* + \alpha}} \int_0^\infty \frac{(1 + \beta)^{x^* + \alpha}}{\Gamma(x^* + \alpha)} \lambda^{x^* + \alpha - 1} e^{-\lambda (1 + \beta)} d\lambda \\
-  &= \frac{\beta^\alpha}{\Gamma(x^*)\Gamma(\alpha)}  \frac{\Gamma(x^* + \alpha)}{(1 + \beta)^{x^* + \alpha}} \\
-  &= \frac{\Gamma(x^* + \alpha)}{\Gamma(x^*)\Gamma(\alpha)} (\frac{\beta}{1 + \beta})^\alpha (\frac{1}{1 + \beta})^{x^*},
+  &= \frac{\beta^\alpha}{\Gamma(x^* + 1)\Gamma(\alpha)} \int_0^\infty \lambda^{x^* + \alpha - 1} e^{-\lambda (1 + \beta)} d\lambda \\
+  &= \frac{\beta^\alpha}{\Gamma(x^* + 1)\Gamma(\alpha)}  \frac{\Gamma(x^* + \alpha)}{(1 + \beta)^{x^* + \alpha}} \int_0^\infty \frac{(1 + \beta)^{x^* + \alpha}}{\Gamma(x^* + \alpha)} \lambda^{x^* + \alpha - 1} e^{-\lambda (1 + \beta)} d\lambda \\
+  &= \frac{\beta^\alpha}{\Gamma(x^* + 1)\Gamma(\alpha)}  \frac{\Gamma(x^* + \alpha)}{(1 + \beta)^{x^* + \alpha}} \\
+  &= \frac{\Gamma(x^* + \alpha)}{\Gamma(x^* + 1)\Gamma(\alpha)} (\frac{\beta}{1 + \beta})^\alpha (\frac{1}{1 + \beta})^{x^*},
 \end{align*}
 which we recognize as the negative binomial distribution with $r = \alpha$ and $p = \frac{1}{\beta + 1}$. For the posterior predictive, the calculation is the same, only now the parameters are $r = \alpha + \sum_{i=1}^n x_i$ and $p = \frac{1}{\beta + n + 1}$.
 There are two sources of uncertainty in the predictive distribution. First is the uncertainty about the population. Second is the variability in sampling from the population. When $n$ is large, the latter is going to be very small. But when $n$ is small, the latter is going to be higher, resulting in an overdispersed predictive distribution.
@@ -155,7 +155,7 @@ ggplot(data = df, aes(x = value, color = type)) +
 ## Posterior sampling
 
 ```{exercise, name = "Bayesian logistic regression"}
-In Chapter 15 we implemented a MLE for a logistic regression (see the code below). For this model, conjugate priors do not exist, which complicated the calculation of the posterior. However, we can use sampling from the numerator of the posterior, using rejection sampling. 
+In Chapter 15 we implemented a MLE for logistic regression (see the code below). For this model, conjugate priors do not exist, which complicates the calculation of the posterior. However, we can use sampling from the numerator of the posterior, using rejection sampling. 
 
 
 a. <span style="color:blue">Set a sensible prior distribution on $\beta$ and use rejection sampling to find the posterior distribution.</span>

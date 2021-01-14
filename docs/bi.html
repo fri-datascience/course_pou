@@ -24,7 +24,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2021-01-07" />
+<meta name="date" content="2021-01-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -290,12 +290,12 @@ $(document).ready(function() {
 <li>Derive posterior</li>
 <li>Below we have some data, which represents number of goals in a football match. Choose sensible prior for this data (draw the gamma density if necessary), justify it. Compute the posterior. <span style="color:blue">Compute an interval such that the probability that the true mean is in there is 95%. What is the probability that the true mean is greater than 2.5?</span></li>
 <li>Back to theory: Compute prior predictive and posterior predictive. Discuss why the posterior predictive is overdispersed and not Poisson?</li>
-<li><span style="color:blue">Draw a histogram of the prior preditive and posterior predctive for the data from (b). Discuss.</span></li>
+<li><span style="color:blue">Draw a histogram of the prior predictive and posterior predictive for the data from (b). Discuss.</span></li>
 <li><span style="color:blue">Generate 10 and 100 random samples from a Poisson distribution and compare the posteriors with a flat prior, and a prior concentrated away from the truth.</span></li>
 </ol>
 </div>
 
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="bi.html#cb277-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="bi.html#cb277-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div>
 <div class="fold">
 
 <div class="solution">
@@ -309,17 +309,17 @@ $(document).ready(function() {
 \end{align*}\]</span>
 We recognize this as the shape of a gamma distribution, therefore
 <span class="math display">\[\begin{align*}
-  \lambda | X \sim \text{gamma}(a + \sum_{i=1}^n x_i, \beta + n)
+  \lambda | X \sim \text{gamma}(\alpha + \sum_{i=1}^n x_i, \beta + n)
 \end{align*}\]</span></p></li>
 <li><p>For the prior predictive, we have
 <span class="math display">\[\begin{align*}
   p(x^*) &amp;= \int_0^\infty p(x^*, \lambda) d\lambda \\
   &amp;= \int_0^\infty p(x^* | \lambda) p(\lambda) d\lambda \\
   &amp;= \int_0^\infty \frac{1}{x^*!} \lambda^{x^*} e^{-\lambda} \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha - 1} e^{-\beta \lambda} d\lambda \\
-  &amp;= \frac{\beta^\alpha}{\Gamma(x^*)\Gamma(\alpha)} \int_0^\infty \lambda^{x^* + \alpha - 1} e^{-\lambda (1 + \beta)} d\lambda \\
-  &amp;= \frac{\beta^\alpha}{\Gamma(x^*)\Gamma(\alpha)}  \frac{\Gamma(x^* + \alpha)}{(1 + \beta)^{x^* + \alpha}} \int_0^\infty \frac{(1 + \beta)^{x^* + \alpha}}{\Gamma(x^* + \alpha)} \lambda^{x^* + \alpha - 1} e^{-\lambda (1 + \beta)} d\lambda \\
-  &amp;= \frac{\beta^\alpha}{\Gamma(x^*)\Gamma(\alpha)}  \frac{\Gamma(x^* + \alpha)}{(1 + \beta)^{x^* + \alpha}} \\
-  &amp;= \frac{\Gamma(x^* + \alpha)}{\Gamma(x^*)\Gamma(\alpha)} (\frac{\beta}{1 + \beta})^\alpha (\frac{1}{1 + \beta})^{x^*},
+  &amp;= \frac{\beta^\alpha}{\Gamma(x^* + 1)\Gamma(\alpha)} \int_0^\infty \lambda^{x^* + \alpha - 1} e^{-\lambda (1 + \beta)} d\lambda \\
+  &amp;= \frac{\beta^\alpha}{\Gamma(x^* + 1)\Gamma(\alpha)}  \frac{\Gamma(x^* + \alpha)}{(1 + \beta)^{x^* + \alpha}} \int_0^\infty \frac{(1 + \beta)^{x^* + \alpha}}{\Gamma(x^* + \alpha)} \lambda^{x^* + \alpha - 1} e^{-\lambda (1 + \beta)} d\lambda \\
+  &amp;= \frac{\beta^\alpha}{\Gamma(x^* + 1)\Gamma(\alpha)}  \frac{\Gamma(x^* + \alpha)}{(1 + \beta)^{x^* + \alpha}} \\
+  &amp;= \frac{\Gamma(x^* + \alpha)}{\Gamma(x^* + 1)\Gamma(\alpha)} (\frac{\beta}{1 + \beta})^\alpha (\frac{1}{1 + \beta})^{x^*},
 \end{align*}\]</span>
 which we recognize as the negative binomial distribution with <span class="math inline">\(r = \alpha\)</span> and <span class="math inline">\(p = \frac{1}{\beta + 1}\)</span>. For the posterior predictive, the calculation is the same, only now the parameters are <span class="math inline">\(r = \alpha + \sum_{i=1}^n x_i\)</span> and <span class="math inline">\(p = \frac{1}{\beta + n + 1}\)</span>.
 There are two sources of uncertainty in the predictive distribution. First is the uncertainty about the population. Second is the variability in sampling from the population. When <span class="math inline">\(n\)</span> is large, the latter is going to be very small. But when <span class="math inline">\(n\)</span> is small, the latter is going to be higher, resulting in an overdispersed predictive distribution.</p>
@@ -381,7 +381,7 @@ There are two sources of uncertainty in the predictive distribution. First is th
 <h2><span class="header-section-number">17.2</span> Posterior sampling</h2>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-262" class="exercise"><strong>Exercise 17.2  (Bayesian logistic regression)  </strong></span>In Chapter 15 we implemented a MLE for a logistic regression (see the code below). For this model, conjugate priors do not exist, which complicated the calculation of the posterior. However, we can use sampling from the numerator of the posterior, using rejection sampling.</p>
+<p><span id="exr:unnamed-chunk-262" class="exercise"><strong>Exercise 17.2  (Bayesian logistic regression)  </strong></span>In Chapter 15 we implemented a MLE for logistic regression (see the code below). For this model, conjugate priors do not exist, which complicates the calculation of the posterior. However, we can use sampling from the numerator of the posterior, using rejection sampling.</p>
 <ol style="list-style-type: lower-alpha">
 <li><span style="color:blue">Set a sensible prior distribution on <span class="math inline">\(\beta\)</span> and use rejection sampling to find the posterior distribution.</span></li>
 <li><span style="color:blue">In a) you will get a distribution of parameter <span class="math inline">\(\beta\)</span>. Plot the probabilities (as in exercise <a href="ml.html#exr:logisticmle">15.3</a>) for each sample of <span class="math inline">\(\beta\)</span> and compare to the truth.</span></li>
