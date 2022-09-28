@@ -6,3 +6,15 @@ _bookdown_files
 *.rds
 .Rapp.history
 my_ignore/
+
+*.toc
+
+wwu_book/PoU.synctex.gz
+
+wwu_book/PoU.log
+
+wwu_book/PoU.blg
+
+wwu_book/PoU.bbl
+
+wwu_book/PoU.aux
