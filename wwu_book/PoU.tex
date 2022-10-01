@@ -69,7 +69,7 @@
 
 \newcommand\eqas{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily a. s.}}}{=}}}
 
-\title{\textbf{Working with uncertainty}\\ \begin{small}v0.59\end{small}}
+\title{\textbf{Working with uncertainty}\\ \begin{small}v0.60\end{small}}
 
 \author{Erik \v{S}trumbelj}
 
@@ -213,7 +213,7 @@ $\mathcal{F}_4$ is a $\sigma$-algebra on $\Omega$ - it contains the empty set an
 
 \end{cexample}
 
-We also define a generalization of the $\sigma$-algebra - an algebra - which requires only closure under finite unions:
+We also define a generalization of the $\sigma$-algebra - an algebra - which requires only closure under finite unions. Algebras, while not of central interest, are useful, because it is often easier to check properties on an algebra and extend them to the sigma-algebra. As opposed to checking them directly on the sigma-algebra.
 
 \begin{definition}[Algebra]
 A collection $\mathcal{F}$ of subsets of $\Omega$ is an \emph{algebra} on $\Omega$ if it has the following three properties:
@@ -286,8 +286,8 @@ Let $(\Omega, \mathcal{F}, P)$ be a probability space. The following statements 
 \item $\forall A \in \mathcal{F}$: $P(A^c) = 1 - P(A)$.
 \item $\forall A, B \in \mathcal{F}$: If $A \subseteq B$, then $P(A) \leq P(B)$.
 \item $\forall A_1, A_2 \in \mathcal{F}$: $P(A_1 \cup A_2) = P(A_1) + P(A_2) - P(A_1 \cap A_2)$.
-\item $\forall A_i \in \mathcal{F}$: $P(\displaystyle\bigcup_{i=1}^n A_i) = \sum_{i} P(A_i) - \sum_{i<j} P(A_i \cap A_j) + \sum_{i<j<k} P(A_i \cap A_j \cap A_k) - \dots + (-1)^{n+1} P(A_1 \cap \dots \cap A_n)$ \textit{(inclusion-exclusion principle)}.
-\item $\forall A_i \in \mathcal{F}$: $P(\displaystyle\bigcup_{i=1}^n A_i) \leq \displaystyle\sum_{i=1}^n P(A_i)$ \textit{(Boole's inequality)}.
+\item $\forall A_1,...,A_n\in \mathcal{F}$: $P(\displaystyle\bigcup_{i=1}^n A_i) = \sum_{i} P(A_i) - \sum_{i<j} P(A_i \cap A_j) + \sum_{i<j<k} P(A_i \cap A_j \cap A_k) - \dots + (-1)^{n+1} P(A_1 \cap \dots \cap A_n)$ \textit{(inclusion-exclusion principle)}.
+\item $\forall A_1,...,A_n\in \mathcal{F}$: $P(\displaystyle\bigcup_{i=1}^n A_i) \leq \displaystyle\sum_{i=1}^n P(A_i)$ \textit{(Boole's inequality)}.
 \end{enumerate}\label{prop:properties_of_probability}
 \end{proposition}
 
