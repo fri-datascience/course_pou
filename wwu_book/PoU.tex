@@ -610,7 +610,7 @@ In our case we have already determined that our uniform measure of an interval s
 \begin{proof}
 The proof of (a) is straightforward. We have $\mathcal{F}_0 \subseteq \mathcal{B}_{(0,1]}$, so $\sigma(\mathcal{F}_0) \subseteq \mathcal{B}_{(0,1]}$. We also know from before that the collection of all half-open intervals generates $\mathcal{B}_{(0,1]}$, so $\mathcal{B}_{(0,1]} \subset \sigma(\mathcal{F}_0)$.
 
-In order for $\mathcal{F}_0$ to be an algebra, it must contain the empty set (it does, by definition) and must be closed under complementation and under finite unions. A union of two half-open intervals of the form $(a, b]$ is either another interval of the form $(a, b]$ of a union of two such intervals. Both cases are by definition in $\mathcal{F}_0$. Similarly, the complement of any finite union of such intervals is again a finite union of such intervals.
+In order for $\mathcal{F}_0$ to be an algebra, it must contain the empty set (it does, by definition) and must be closed under complementation and under finite unions. A union of two half-open intervals of the form $(a, b]$ is either another interval of the form $(a, b]$ or a union of two such intervals. Both cases are by definition in $\mathcal{F}_0$. Similarly, the complement of any finite union of such intervals is again a finite union of such intervals.
 
 We can show (c) by observing the countable union $\cup_{i=1}^\infty (0, \frac{i}{i+1}]$. All of the terms in the union are intervals of the form $(a, b]$ and are therefore in $\mathcal{F}_0$. However, their union is $(0, 1)$, which is not in $\mathcal{F}_0$.
 \end{proof}
@@ -930,11 +930,11 @@ $$m(b-a) \leq L(P, f) \leq U(P, f) \leq M(b-a).$$
 
 Finally, we define the lower and upper Riemann integrals:
 
-$$\overline{\int_a^b} f(x)dx =  \inf U(P,f)$$
+$$\overline{\int_a^b} f(x)dx =  \inf_\text{all partitions P of [a, b]} U(P,f)$$
 
 and
 
-$$\underline{\int_a^b} f(x)dx =  \sup L(P,f).$$
+$$\underline{\int_a^b} f(x)dx =  \sup_\text{all partitions P of [a, b]} L(P,f).$$
 
 
 If the lower and upper Riemann integrals are the same, we say that $f$ is Riemann integrable and the value of the integral equals the value of the lower and upper Riemann integral.
@@ -944,7 +944,7 @@ If the lower and upper Riemann integrals are the same, we say that $f$ is Rieman
 Before we proceed with the definition of more abstract integration, we must first define what it means for a function to be measurable:
 
 \begin{definition}[Measurable function]
-Let $(\Omega, \mathcal{F})$ and $(S, \mathcal{S})$ be measurable spaces. Function $f: \Omega \rightarrow S$ is said to be a \emph{measurable function} if for set $A \in \mathcal{S}$ we have $f^{-1}(A) \in \mathcal{F}$, where
+Let $(\Omega, \mathcal{F})$ and $(S, \mathcal{S})$ be measurable spaces. Function $f: \Omega \rightarrow S$ is said to be a \emph{measurable function} if for every set $A \in \mathcal{S}$ we have $f^{-1}(A) \in \mathcal{F}$, where
 
 $$f^{-1}(A) \triangleq \{\omega \in \Omega | f(\omega) \in A\}.$$
 
@@ -1020,7 +1020,7 @@ Note that the above definition can be used to integrate over an arbitrary measur
 Integrability, however, is a slightly more strict term than the existence of the integral - it does not include infinite integrals:
 
 \begin{definition}[Integrability]
-We say that function $f$ is integrable if $\int |f| d\mu <  \infty$. That is, if $f$ is absolutely integrable - the integral of its absolute is finite.
+We say that function $f$ is integrable if $\int |f| d\mu <  \infty$. That is, if $f$ is absolutely integrable - the integral of its absolute value is finite.
 \end{definition}
 
 \begin{proposition} A function $f$ is integrable iff both $f_+$ and $f_-$ are integrable.\label{prop:integrable}
@@ -1076,7 +1076,7 @@ Note that the MCT allows for infinite integrals - the function $f$ is not necess
 
 \begin{proposition}
 
-Other properties of abstract integration:
+Let $f$ and $g$ be integrable functions and $A$ a measurable set. Some properties of abstract integration are:
 
 \begin{enumerate}[(a)]
 \item $\int I_A d\mu = \mu(A)$.
