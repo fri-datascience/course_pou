@@ -627,7 +627,7 @@ One step remains before we can invoke Theorem \ref{thm:caratheodory}. We must sh
 
 This completes our argument that there exists a measure $\lambda$ on the Borel $\sigma-$algebra on $(0,1]$ that has the desired uniformity properties. We call this measure the Lebesgue measure. It is a generalization of the notion of length. And on $(0, 1]$ it is a probability measure (why?).
 
-Our successful extension of this uniform measure to all Borel sets implies that the Vitali set is not a Borel set. Therefore, we have successfully avoided this and other pathological sets that are incompatible with the notion of uniform probability. Note that the Borel $\sigma-$algebra on $(0,1]$ is just a subset of the $\sigma$-algebra of all Lebesgue-measurable sets $(0,1]$. That is, there exist sets that are Lebesgue measurable, but are not Borel sets.
+Our successful extension of this uniform measure to all Borel sets implies that the Vitali set is not a Borel set. Therefore, we have successfully avoided this and other pathological sets that are incompatible with the notion of uniform probability. % Note that the Borel $\sigma-$algebra on $(0,1]$ is just a subset of the $\sigma$-algebra of all Lebesgue-measurable sets $(0,1]$. That is, there exist sets that are Lebesgue measurable, but are not Borel sets.
 
 \section{Lebesgue measure on $\mathbb{R}$}
 
@@ -953,6 +953,19 @@ That is, the \emph{pre-image} $f^{-1}$ of every set in $\mathcal{S}$ is in $\mat
 
 Our interest lies in the measurable spaces where $S$ is the real line and $\mathcal{S}$ is the Borel sigma algebra on the real line. Unless otherwise noted, $\mathcal{F}$-measurable implies that the preimage of every Borel set is in $\mathcal{F}$.
 
+The following proposition, which we state without proof, will be useful when dealing with sums and products of measurable functions.
+
+\begin{proposition}
+Let $(\Omega, \mathcal{F})$ be a measurable space and let $f: \Omega \rightarrow \mathbb{R}$ and $g: \Omega \rightarrow \mathbb{R}$ be $\mathcal{F}$-measurable functions. Then,
+
+\begin{itemize}
+\item the pointwise sum function $(f+g)(x) = f(x) + g(x), \forall x \in \Omega$ and
+\item the pointwise product function $(f \cdot g)(x) = f(x)g(x), \forall x \in \Omega$
+\end{itemize}
+
+are $\mathcal{F}$-measurable.
+\end{proposition}
+
 Let $(\Omega, \mathcal{F}, \mu)$ be a measure space. Let $f: \Omega \rightarrow \mathbb{R}$ be an $\mathcal{F}$-measurable function.
 
 \begin{definition}[Simple function]
@@ -1106,7 +1119,7 @@ $$(f + g)(\omega) = \sum_{i=1}^n \sum_{j=1}^m (a_i + b_i) I_{A_i \cap B_j}(\omeg
 Statements (a-c) and (e) are left as an exercise.
 
 
-\subsubsection*{Summation is a special case of integration}
+\subsubsection*{(*) Summation is a special case of integration}
 
 Abstract integration also elegantly generalizes sums and infinite series. First, let's define a new measure:
 
@@ -1121,14 +1134,12 @@ The proof of this proposition is left as an exercise.
 
 With abstract integration at our disposal, we can interpret sums of finite and infinite sequences as an integral with respect to the counting measure:
 
-\begin{proposition} Let $a_1, a_2, ...$ be an infinite sequence and define $f: \mathbb{N} \longrightarrow \mathbb{R}$ as $f(i) = a_i$. Then
+\begin{proposition} Let $a_1, a_2, ...$ be a non-negative infinite sequence and define $f: \mathbb{N} \longrightarrow [0, \infty)$ as $f(i) = a_i$. Then
 
 $$\sum_{i=1}^\infty a_i = \int_\mathbb{N} f d\#.$$
 \end{proposition}
 
-\begin{proof} We will prove the proposition for non-negative $a_i$. The proof for arbitrary $a_i$ follows from combining the positive and negative parts, as when we defined the abstract integral.
-
-First, we define a sequence of functions $f_n: \mathbb{N} \longrightarrow \mathbb{R}$, such that $f_n(k) = f(k)$ if $k \leq n$ and $f_n(k) = 0$, otherwise. That is, each $f_n$ equals $f$ up to the $n$-th number and 0 everywhere else beyond that number.
+\begin{proof} First, we define a sequence of functions $f_n: \mathbb{N} \longrightarrow \mathbb{R}$, such that $f_n(k) = f(k)$ if $k \leq n$ and $f_n(k) = 0$, otherwise. That is, each $f_n$ equals $f$ up to the $n$-th number and 0 everywhere else beyond that number.
 
 Clearly, $f_n$ converges point-wise to $f$ as $n$ approaches $\infty$. Furthermore, $f_n$ are non-decreasing, so we can apply the MCT to show
 
@@ -1224,22 +1235,21 @@ In practical applications, we rarely work directly with probability spaces, $\si
 Note that we often use compact notation $F_X(x) = P(X \leq x)$.
 
 \begin{proposition}
-Let $X$ and $Y$ be random variables on $(\Omega, \mathcal{F}, P)$. The following statements are true:
-\begin{enumerate}[(i)]
-\item If $P_X(B) = P_Y(B)$ for all $B \in \mathcal{B}_\mathbb{R}$ then $F_X(x) = F_Y(x)$ for all $x \in \mathbb{R}$.
-\item If $F_X(x) = F_Y(x)$ for all $x \in \mathbb{R}$ then $P_X(B) = P_Y(B)$ for all $B \in \mathcal{B}_\mathbb{R}$.
-\end{enumerate}
+Let $X$ and $Y$ be random variables on $(\Omega, \mathcal{F}, P)$. Then,
+
+$$P_X(B) = P_Y(B), \forall B \in \mathcal{B}_\mathbb{R} \Longleftrightarrow F_X(x) = F_Y(x),  \forall x \in \mathbb{R}.$$
+
 \end{proposition}
 
 \begin{proof}
-The proof of (i) is straightforward: The CDF of a RV depends only on its probability law. If two RVs have identical probability laws, they have identical CDFs.
+In one direction, the proof of the implication is straightforward: The CDF of a RV depends only on its probability law. If two RVs have identical probability laws, they have identical CDFs.
 
-The proof of (ii) is more involved. One way of proving this is to invoke Dynkin's $\pi$-$\lambda$ theorem. A corollary of that theorem is that if two measures agree on a $\pi$-system, they agree on a $\sigma$-algebra generated by that $\pi$-system. A $\pi$-system is an even more general collection than an algebra. It is a non-empty collection of subsets of $\Omega$ that is closed under finite intersection. The set of intervals $\{(-\infty, x]: x\in \mathbb{R} \}$ that a CDF is defined on is a $\pi$-system, so it follows that if two measures agree on a $\pi$-system (have the same CDF), they agree on the entire $\sigma$-algebra.
+The proof in the other direction is more involved. One way of proving this is to invoke Dynkin's $\pi$-$\lambda$ theorem. A corollary of that theorem is that if two measures agree on a $\pi$-system, they agree on a $\sigma$-algebra generated by that $\pi$-system. A $\pi$-system is an even more general collection than an algebra. It is a non-empty collection of subsets of $\Omega$ that is closed under finite intersection. The set of intervals $\{(-\infty, x]: x\in \mathbb{R} \}$ that a CDF is defined on is a $\pi$-system, so it follows that if two measures agree on a $\pi$-system (have the same CDF), they agree on the entire $\sigma$-algebra.
 
 An alternative is to use Caratheodory's theorem in way very similar to our extension of the Lebesgue measure to all Borel sets on the unit interval. First, recall that the intervals $(a, b]$ generate the Borel $\sigma$-algebra on $\mathbb{R}$ and their algebra are finite unions of disjoint such intervals. Next, we introduce the (pre)measure $\mu((a,b]) = F(b) - F(a)$ and extend it to finite unions via addition (the measure is the sum of measures of disjoint intervals). This measure is finite. What remains is to show the final condition of Caratheodory's theorem - that the pre-measure is countably additive on the algebra (not trivial to prove!). So, the measure $\mu$ uniquely extends to all Borel sets. Because $\mu$ represents the probability law on intervals $(a, b]$ and depends only on the CDF, it follows that two RVs with the same CDF have the same probability law on all Borel sets.
 \end{proof}
 
-The above statements say that if two RVs have identical probability laws, they have identical CDFs. And vice-versa, if they have identical CDFs, they have identical probability laws. That is, there is a one-to-one correspondence between the representations of RVs with their probability laws and their representations with CDFs. CDFs are, of course, a much simpler and easier to understand representation. It might at first be surprising that the probability measure of all Borel sets can be represented by a single function from $\mathbb{R}$ to $\mathbb{R}$. However, recall that we have already noted that the cardinality of the Borel sets is $\mathbb{R}$.
+The above statements say that if two RVs have identical probability laws, they have identical CDFs. And vice-versa, if they have identical CDFs, they have identical probability laws. That is, there is a one-to-one correspondence between the representations of RVs with their probability laws and their representations with CDFs. CDFs are, of course, much simpler and easier to understand representations. It might at first be surprising that the probability measure of all Borel sets can be represented by a single function from $\mathbb{R}$ to $\mathbb{R}$. However, recall that we have already noted that the cardinality of the Borel sets is $\mathbb{R}$.
 
 
 \subsection*{Properties of CDFs}
@@ -1292,13 +1302,15 @@ This generalization is necessary in order to define the inverse on the entire un
 The quantile function plays an important role in practice, both as a means of summarizing the distribution of a random variable (for example, the median, $Q(\frac{1}{2})$) and for generating samples from the distribution via the inverse transform method (see Chapter \ref{sec:rng}). The latter is also interesting from a theoretical perspective. Through the quantile function we can show that for every CDF $F$ and the standard probability space on the unit interval there exists a RV whose CDF is $F$. That is, for every distribution there exists a RV with that distribution:
 
 \begin{theorem}
-Let $F$ be a function that satisfies the properties of CDFs from Proposition \ref{prop:CDF} and let $Q$ be its corresponding quantile function. Consider the uniform probability space $((0,1], \mathcal{B}_{(0,1]}$, $\lambda)$. Let $X: (0,1] \rightarrow \mathbb{R}$ be a RV such that $X(\omega) = Q(\omega)$ for all $\omega \in (0, 1)$ and $X(1)$ is set to any real number. Then $F$ is the CDF of $X$.
+Let $F$ be a function that satisfies the properties of CDFs from Proposition \ref{prop:CDF} and let $Q$ be its corresponding quantile function. Consider the uniform probability space $((0,1], \mathcal{B}_{(0,1]}$, $\lambda)$, where $\lambda$ is the Lebesgue measure. Let $X: (0,1] \rightarrow \mathbb{R}$ be $X(\omega) = Q(\omega)$ for all $\omega \in (0, 1)$ and $X(1)$ is set to any real number. Then $X$ is a RV and $F$ is its CDF.\label{thm:CDF-RV}
 \end{theorem}
 
 \begin{proof}
-$F_X(x) = P_X((-\infty, x]) = \lambda(\{\omega \in (0,1] | X(\omega) \leq x\}]$
+The proof that $X$ is a RV is left as an exercise.
 
-$= \lambda(\{\omega \in (0,1] | Q(\omega) \leq x\}] = \lambda((0, F(x)) = F(x).$
+$F_X(x) = P_X\bigg((-\infty, x]\bigg) = \lambda\bigg(\{\omega \in (0,1] | X(\omega) \leq x\}\bigg)$
+
+$= \lambda\bigg(\{\omega \in (0,1] | Q(\omega) \leq x\}\bigg) = \lambda\bigg((0, F(x)]\bigg) = F(x).$
 \end{proof}
  
 So, every function that has the properties of a CDF corresponds to a probability law of a RV.
@@ -1338,8 +1350,8 @@ Let $X$ be a discrete RV with PMF $p_X$ and CDF $F_X$. Then
 \vspace{0.1pt}
 \begin{enumerate}[(a)]
 \item There exists a countable subset $S$ of $\mathbb{R}$, such that $\sum_{x \in S} p_X(x) = 1$ and $\forall x \notin S: p_X(x) = 0$.
-\item The PMF completely characterizes the probability law: $P_X(B) = \sum_{x \in B \cap S} p_X(x)$.
-\item $F_X(x) = \sum_{x_i \in S: x_i \leq x} p_X(x_i)$.
+\item The PMF completely characterizes the probability law: $P_X(B) = \sum_{x \in B \cap S} p_X(x)$, where $S$ is as in \textit{(a)}.
+\item $F_X(x) = \sum_{x_i \in S: x_i \leq x} p_X(x_i)$, where $S$ is as in \textit{(a)}.
 \item $X$ is discrete $\Longleftrightarrow$ $F_X(x)$ is piecewise constant.
 \end{enumerate}\label{prop:pmf}
 \end{proposition}
@@ -1358,9 +1370,9 @@ Continuous RVs are most often defined through the existence of a probability den
 \begin{definition}[Continuous random variable]
 RV $X$ is a continuous RV if there exists a non-negative measurable function $f_X:\mathbb{R} \rightarrow [0, \infty)$, such that for any $B \in \mathcal{B}_\mathbb{R}$, we have 
 
-$$P_X(B) = \int_B f_X d\lambda.$$
+$$P_X(B) = \int_B f_X d\lambda,$$
 
-Function $f_X$ is the PDF of $X$.\label{def:rv}
+where $\lambda$ is the Lebesgue measure. Function $f_X$ is the PDF of $X$.\label{def:rv}
 \end{definition}
 
 By this definition, RV $X$ is a continuous RV if there exists a non-negative function that characterizes the RVs probability law through its integral. That is, the probability of a set is the integral over that set.
@@ -1383,10 +1395,13 @@ Let $X$ be a continuous RV with PDF $f_X$. Then,
 \item $F_X(x) = \int_{-\infty}^x f_X(y)d\lambda$.
 \item $\int_{-\infty}^\infty f_X(y)d\lambda = 1$.
 \item $f_X(x) \geq 0$, for all $x \in \mathbb{R}$.
+\item $F_X'(x) = f_X(x)$.
 \end{enumerate}\label{prop:pdf}
 \end{proposition}
 
-The proof is left as an exercise.
+\begin{proof}
+The proof of (a-c) is left as an exercise. Statement (d) follows from (a) and the Fundamental theorem of calculus, which has a more general version that applies to Lebesgue-integrable functions (see Theorem 7.11 in \cite{Rudin1987}).
+\end{proof}
 
 The following properties are worth noting regarding continuous RV:
 
@@ -1396,7 +1411,7 @@ $ $
 \item The PDF of a RV does not have to be continuous.
 \item If the CDF of a RV is continuous that does not imply that the RV is continuous.
 \item The PDF of a RV is unique only up to a set of Lebesgue measure 0. This is unlike a CDF where two different CDFs characterize two different RVs.
-\end{enumerate}\label{prop:pdf}
+\end{enumerate}
 \end{proposition}
 
 \begin{proof}
@@ -1493,7 +1508,7 @@ $X$ is a discrete RV so $Y$ is also a discrete RV, because its support can't be 
 
 
 \begin{proposition}[Transformation of a continuous RV]
-Let $X$ be a RV, $g: \mathbb{R} \rightarrow \mathbb{R}$ a Borel measurable, monotone increasing or monotone decreasing, and continuously differentiable function, and $Y = g(X)$. Then,
+Let $X$ be a continuous RV, $g: \mathbb{R} \rightarrow \mathbb{R}$ a Borel measurable, monotone increasing or monotone decreasing, and continuously differentiable function, and $Y = g(X)$. Then,
 
 $$f_Y(y) = f_X(g^{-1}(y)) |\frac{d}{dy}g^{-1}(y)|.$$
 \end{proposition}
@@ -1543,6 +1558,10 @@ $$\int_1^e \frac{1}{x} dx = |\log(x)|_{1}^e = 1.$$
 \end{cexample}
 
 \section*{Exercises}
+
+\begin{exercise}
+Prove the part of Theorem \ref{thm:CDF-RV} that $X$ is a RV.
+\end{exercise}
 
 \begin{exercise}
 Prove statements (b-d) in Proposition \ref{prop:pmf}.
