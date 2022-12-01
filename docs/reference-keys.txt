@@ -189,3 +189,9 @@ exr:unnamed-chunk-18
 exr:unnamed-chunk-21
 exr:unnamed-chunk-24
 exr:unnamed-chunk-26
+exr:saequivalence
+exr:unnamed-chunk-11
+exr:unnamed-chunk-13
+exr:unnamed-chunk-23
+exr:unnamed-chunk-30
+exr:unnamed-chunk-33
