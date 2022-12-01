@@ -595,6 +595,7 @@ ggplot(df, aes(x = n, y = value)) +
   geom_line(alpha = 0.5) +
   facet_wrap(~ type + distribution , scales = "free")
 ```
+
 ```{solution, echo = togs2}
 
 b.
@@ -602,7 +603,15 @@ b.
   \int_0^\infty \frac{x}{1 + x^2} dx &= \frac{1}{2} \int_1^\infty \frac{1}{u} du & u = 1 + x^2 \\
                                      &= \frac{1}{2} \ln(x) |_0^\infty.
 \end{align}
-This integral is not finite. The same holds for the negative part. Therefore, the expectation is undefined, as $E[|X|] = \infty$. See Riemann rearrangement theorem.
+
+
+This integral is not finite. The same holds for the negative part. Therefore, the expectation is undefined, as $E[|X|] = \infty$.
+
+Why can we not just claim that $f(x) = x / (1 + x^2)$ is odd and $\int_{-\infty}^\infty f(x) = 0$?
+By definition of the Lebesgue integral $\int_{-\infty}^{\infty} f= \int_{-\infty}^{\infty} f_+-\int_{-\infty}^{\infty} f_-$.
+At least one of the two integrals needs to be finite for $\int_{-\infty}^{\infty} f$ to be well-defined.
+However $\int_{-\infty}^{\infty} f_+=\int_0^{\infty} x/(1+x^2)$ and $\int_{-\infty}^{\infty} f_-=\int_{-\infty}^{0} |x|/(1+x^2)$.
+We have just shown that both of these integrals are infinite, which implies that their sum is also infinite.
 
 
 ```
