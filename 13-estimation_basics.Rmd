@@ -193,3 +193,71 @@ The above also proves point a. as the median and the mean are the same in normal
 
 ```
 </div>
+
+```{exercise, name = "Matrix trace estimation"}
+The Hutchinson trace estimator [1] is an estimator of the trace of a symmetric positive semidefinite matrix A that relies on Monte Carlo sampling. The estimator is defined as 
+\begin{align*}
+  \textrm{tr}(A) \approx \frac{1}{n} \Sigma_{i=1}^n z_i^T A z_i, &\\
+  z_i \sim_{\mathrm{IID}} \textrm{Uniform}(\{-1, 1\}^m), &
+\end{align*}
+where $A \in \mathbb{R}^{m \times m}$ is a symmetric positive semidefinite matrix. 
+Elements of each vector $z_i$ are either $-1$ or $1$ with equal probability.
+This is also called a Rademacher distribution.
+
+Data scientists often want the trace of a Hessian to obtain valuable curvature information for a loss function. Per [2], an example is classifying ten digits based on $(28,28)$ grayscale images (i.e. MNIST data) using logistic regression. The number of parameters is $m = 28^2 \cdot 10 = 7840$ and the size of the Hessian is $m^2$, roughly $6 \cdot 10^6$. The diagonal average is equal to the average eigenvalue, which may be useful for optimization; in MCMC contexts, this would be useful for preconditioners and step size optimization.
+
+Computing Hessians (as a means of getting eigenvalue information) is often intractable, but Hessian-vector products can be computed faster by autodifferentiation (with e.g. Tensorflow, Pytorch, Jax). This is one motivation for the use of a stochastic trace estimator as outlined above.
+
+References:
+<ol>
+  <li>A stochastic estimator of the trace of the influence matrix for laplacian smoothing splines (Hutchinson, 1990)</li>
+  <li>A Modern Analysis of Hutchinson’s Trace Estimator (Skorski, 2020)</li>
+</ol>
+
+\par\noindent\rule{\textwidth}{0.5pt}
+
+Prove that the Hutchinson trace estimator is an unbiased estimator of the trace.
+```
+<div class="fold">
+```{solution, echo = togs}
+We first simplify our task:
+\begin{align}
+  \mathbb{E}\left[\frac{1}{n} \Sigma_{i=1}^n z_i^T A z_i \right] &= \frac{1}{n} \Sigma_{i=1}^n \mathbb{E}\left[z_i^T A z_i \right] \\
+                                                                 &= \mathbb{E}\left[z_i^T A z_i \right],
+\end{align}
+where the second equality is due to having $n$ IID vectors $z_i$.
+We now only need to show that $\mathbb{E}\left[z^T A z \right] = \mathrm{tr}(A)$.
+We omit the index due to all vectors being IID:
+\begin{align}
+  \mathrm{tr}(A) &= \mathrm{tr}(AI) \\
+                 &= \mathrm{tr}(A\mathbb{E}[zz^T]) \\
+                 &= \mathbb{E}[\mathrm{tr}(Azz^T)] \\
+                 &= \mathbb{E}[\mathrm{tr}(z^TAz)] \\
+                 &= \mathbb{E}[z^TAz].
+\end{align}
+This concludes the proof. We clarify some equalities below.
+
+The second equality assumes that $\mathbb{E}[zz^T] = I$.
+By noting that the mean of the Rademacher distribution is 0, we have 
+\begin{align}
+  \mathrm{Cov}[z, z] &= \mathbb{E}[(z - \mathbb{E}[z])(z - \mathbb{E}[z])^T] \\
+                     &= \mathbb{E}[zz^T].
+\end{align}
+Dimensions of $z$ are independent, so $\mathrm{Cov}[z, z]_{ij} = 0$ for $i \neq j$.
+The diagonal will contain variances, which are equal to $1$ for all dimensions $k = 1 \dots m$: $\mathrm{Var}[z^{(k)}] = \mathbb{E}[z^{(k)}z^{(k)}] - \mathbb{E}[z^{(k)}]^2 = 1 - 0 = 1$.
+It follows that the covariance is an identity matrix. Note that this is a general result for vectors with IID dimensions sampled from a distribution with mean 0 and variance 1. We could therefore use something else instead of the Rademacher, e.g. $z ~ N(0, I)$.
+
+The third equality uses the fact that the expectation of a trace equals the trace of an expectation. If $X$ is a random matrix, then $\mathbb{E}[X]_{ij} = \mathbb{E}[X_{ij}]$. Therefore:
+\begin{align}
+  \mathrm{tr}(\mathbb{E}[X]) &= \Sigma_{i=1}^m(\mathbb{E}[X]_{ii}) \\
+                             &= \Sigma_{i=1}^m(\mathbb{E}[X_{ii}]) \\
+                             &= \mathbb{E}[\Sigma_{i=1}^m(X_{ii})] \\
+                             &= \mathbb{E}[\mathrm{tr}(X)],
+\end{align}
+where we used the linearity of the expectation in the third step.
+
+The fourth equality uses the fact that $\mathrm{tr}(AB) = \mathrm{tr}(BA)$ for any matrices $A \in \mathbb{R}^{n \times m}, B \in \mathbb{R}^{m \times n}$.
+
+The last inequality uses the fact that the trace of a $1 \times 1$ matrix is just its element.
+```
+</div>

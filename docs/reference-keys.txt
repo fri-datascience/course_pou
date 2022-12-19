@@ -195,3 +195,6 @@ exr:unnamed-chunk-13
 exr:unnamed-chunk-23
 exr:unnamed-chunk-30
 exr:unnamed-chunk-33
+exr:unnamed-chunk-7
+exr:unnamed-chunk-9
+computing-hessians-as-a-means-of-getting-eigenvalue-information-is-often-intractable-but-hessian-vector-products-can-be-computed-faster-by-autodifferentiation-with-e.g.-tensorflow-pytorch-jax.-this-is-one-motivation-for-the-use-of-a-stochastic-trace-estimator-as-outlined-below.

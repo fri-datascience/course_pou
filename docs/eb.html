@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 13 Estimation basics | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 13 Estimation basics | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
   <meta property="og:description" content="Course notes" />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2021-01-14" />
+<meta name="date" content="2022-12-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="lt.html"/>
 <link rel="next" href="boot.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,25 +49,24 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,7 +86,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -120,6 +119,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -137,81 +159,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
 <li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
-<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
 <li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fisher-information"><i class="fa fa-check"></i><b>15.2</b> Fisher information</a></li>
 <li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="nhst.html"><a href="nhst.html"><i class="fa fa-check"></i><b>16</b> Null hypothesis significance testing</a></li>
-<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a><ul>
+<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a>
+<ul>
 <li class="chapter" data-level="17.1" data-path="bi.html"><a href="bi.html#conjugate-priors"><i class="fa fa-check"></i><b>17.1</b> Conjugate priors</a></li>
 <li class="chapter" data-level="17.2" data-path="bi.html"><a href="bi.html#posterior-sampling"><i class="fa fa-check"></i><b>17.2</b> Posterior sampling</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a>
+<ul>
 <li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
 <li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
-<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a>
+<ul>
 <li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
 <li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a>
+<ul>
 <li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
 <li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
 <li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
@@ -222,7 +260,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
 <li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a>
+<ul>
 <li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
 </ul></li>
 <li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
@@ -249,8 +288,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="eb" class="section level1">
-<h1><span class="header-section-number">Chapter 13</span> Estimation basics</h1>
+<div id="eb" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Chapter 13</span> Estimation basics<a href="eb.html#eb" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This chapter deals with estimation basics.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <ul>
@@ -280,11 +319,10 @@ $(document).ready(function() {
   })
 });
 </script>
-<div id="ecdf" class="section level2">
-<h2><span class="header-section-number">13.1</span> ECDF</h2>
-
+<div id="ecdf" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> ECDF<a href="eb.html#ecdf" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-212" class="exercise"><strong>Exercise 13.1  (ECDF intuition)  </strong></span></p>
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 13.1  (ECDF intuition) </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li>Take any univariate continuous distribution that is readily available in R and plot its CDF (<span class="math inline">\(F\)</span>).</li>
 <li>Draw one sample (<span class="math inline">\(n = 1\)</span>) from the chosen distribution and draw the ECDF (<span class="math inline">\(F_n\)</span>) of that one sample. Use the definition of the ECDF, not an existing function in R. Implementation hint: ECDFs are always piecewise constant - they only jump at the sampled values and by <span class="math inline">\(1/n\)</span>.</li>
@@ -292,52 +330,48 @@ $(document).ready(function() {
 <li>For <span class="math inline">\(n = 100\)</span> repeat the process <span class="math inline">\(m = 20\)</span> times and plot every <span class="math inline">\(F_n^{(m)}\)</span>. Theory says that <span class="math inline">\(F_n\)</span> will converge to <span class="math inline">\(F\)</span> the slowest where <span class="math inline">\(F\)</span> is close to 0.5 (where the variance is largest). Can you observe that?</li>
 </ol>
 </div>
-
 <div class="fold">
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="eb.html#cb180-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb180-2"><a href="eb.html#cb180-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb180-3"><a href="eb.html#cb180-3"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>))) <span class="op">+</span></span>
-<span id="cb180-4"><a href="eb.html#cb180-4"></a><span class="st">  </span><span class="co"># stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))</span></span>
-<span id="cb180-5"><a href="eb.html#cb180-5"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x), <span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-213-1.png" width="672" /></p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="eb.html#cb181-1"></a>one_samp &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)</span>
-<span id="cb181-2"><a href="eb.html#cb181-2"></a>X        &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, one_samp, <span class="dv">5</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb181-3"><a href="eb.html#cb181-3"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>))) <span class="op">+</span></span>
-<span id="cb181-4"><a href="eb.html#cb181-4"></a><span class="st">  </span><span class="co"># stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))</span></span>
-<span id="cb181-5"><a href="eb.html#cb181-5"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x), <span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)) <span class="op">+</span></span>
-<span id="cb181-6"><a href="eb.html#cb181-6"></a><span class="st">  </span><span class="kw">geom_step</span>(<span class="dt">data =</span> X, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y))</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-213-2.png" width="672" /></p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="eb.html#cb182-1"></a>N &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>)</span>
-<span id="cb182-2"><a href="eb.html#cb182-2"></a>X &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb182-3"><a href="eb.html#cb182-3"></a><span class="cf">for</span> (n <span class="cf">in</span> N) {</span>
-<span id="cb182-4"><a href="eb.html#cb182-4"></a>  tmp   &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</span>
-<span id="cb182-5"><a href="eb.html#cb182-5"></a>  tmp_X &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="kw">sort</span>(tmp), <span class="dv">5</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="kw">seq</span>(<span class="dv">1</span><span class="op">/</span>n, <span class="dv">1</span>, <span class="dt">by =</span> <span class="dv">1</span><span class="op">/</span>n), <span class="dv">1</span>), <span class="dt">n =</span> n)</span>
-<span id="cb182-6"><a href="eb.html#cb182-6"></a>  X     &lt;-<span class="st"> </span><span class="kw">rbind</span>(X, tmp_X)</span>
-<span id="cb182-7"><a href="eb.html#cb182-7"></a>}</span>
-<span id="cb182-8"><a href="eb.html#cb182-8"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">by =</span> <span class="fl">0.01</span>))) <span class="op">+</span></span>
-<span id="cb182-9"><a href="eb.html#cb182-9"></a><span class="st">  </span><span class="co"># stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))</span></span>
-<span id="cb182-10"><a href="eb.html#cb182-10"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x), <span class="dt">fun =</span> pnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)) <span class="op">+</span></span>
-<span id="cb182-11"><a href="eb.html#cb182-11"></a><span class="st">  </span><span class="kw">geom_step</span>(<span class="dt">data =</span> X, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> <span class="kw">as.factor</span>(n))) <span class="op">+</span></span>
-<span id="cb182-12"><a href="eb.html#cb182-12"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="st">&quot;N&quot;</span>)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-213-3.png" width="672" /></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="eb.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="eb.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-3"><a href="eb.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.01</span>))) <span class="sc">+</span></span>
+<span id="cb1-4"><a href="eb.html#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))</span></span>
+<span id="cb1-5"><a href="eb.html#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> x), <span class="at">fun =</span> pnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="eb.html#cb2-1" aria-hidden="true" tabindex="-1"></a>one_samp <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb2-2"><a href="eb.html#cb2-2" aria-hidden="true" tabindex="-1"></a>X        <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, one_samp, <span class="dv">5</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb2-3"><a href="eb.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.01</span>))) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="eb.html#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))</span></span>
+<span id="cb2-5"><a href="eb.html#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> x), <span class="at">fun =</span> pnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="eb.html#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_step</span>(<span class="at">data =</span> X, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y))</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="eb.html#cb3-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>)</span>
+<span id="cb3-2"><a href="eb.html#cb3-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb3-3"><a href="eb.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> N) {</span>
+<span id="cb3-4"><a href="eb.html#cb3-4" aria-hidden="true" tabindex="-1"></a>  tmp   <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb3-5"><a href="eb.html#cb3-5" aria-hidden="true" tabindex="-1"></a>  tmp_X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="fu">sort</span>(tmp), <span class="dv">5</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">/</span>n, <span class="dv">1</span>, <span class="at">by =</span> <span class="dv">1</span><span class="sc">/</span>n), <span class="dv">1</span>), <span class="at">n =</span> n)</span>
+<span id="cb3-6"><a href="eb.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  X     <span class="ot">&lt;-</span> <span class="fu">rbind</span>(X, tmp_X)</span>
+<span id="cb3-7"><a href="eb.html#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-8"><a href="eb.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.01</span>))) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="eb.html#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))</span></span>
+<span id="cb3-10"><a href="eb.html#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> x), <span class="at">fun =</span> pnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="eb.html#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_step</span>(<span class="at">data =</span> X, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> <span class="fu">as.factor</span>(n))) <span class="sc">+</span></span>
+<span id="cb3-12"><a href="eb.html#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;N&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
 </div>
 </div>
-<div id="properties-of-estimators" class="section level2">
-<h2><span class="header-section-number">13.2</span> Properties of estimators</h2>
-
+<div id="properties-of-estimators" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">13.2</span> Properties of estimators<a href="eb.html#properties-of-estimators" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-214" class="exercise"><strong>Exercise 13.2  </strong></span>Show that the sample average is, as an estimator of the mean:</p>
+<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 13.2  </strong></span>Show that the sample average is, as an estimator of the mean:</p>
 <ol style="list-style-type: lower-alpha">
 <li>unbiased,</li>
 <li>consistent,</li>
 <li>asymptotically normal.</li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-1" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math display">\[\begin{align*}
 E[\frac{1}{n} \sum_{i=1}^n X_i] &amp;= \frac{1}{n} \sum_{i=i}^n E[X_i] \\
@@ -355,20 +389,17 @@ For the last equality see the solution to <a href="#exr:vardecomp"><strong>??</s
 </ol>
 </div>
 </div>
-
 <div class="exercise">
-<p><span id="exr:cbest" class="exercise"><strong>Exercise 13.3  (Consistent but biased estimator)  </strong></span></p>
+<p><span id="exr:cbest" class="exercise"><strong>Exercise 13.3  (Consistent but biased estimator) </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li>Show that sample variance (the plug-in estimator of variance) is a biased estimator of variance.</li>
 <li>Show that sample variance is a consistent estimator of variance.</li>
 <li>Show that the estimator with (<span class="math inline">\(N-1\)</span>) (Bessel correction) is unbiased.</li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-2" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math display">\[\begin{align*}
 E[\frac{1}{n} \sum_{i=1}^n (Y_i - \bar{Y})^2] &amp;= \frac{1}{n} \sum_{i=1}^n E[(Y_i - \bar{Y})^2] \\
@@ -388,9 +419,8 @@ Now <span class="math inline">\(\bar{X}\)</span> converges in probability (by WL
 </ol>
 </div>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-217" class="exercise"><strong>Exercise 13.4  (Estimating the median)  </strong></span></p>
+<p><span id="exr:unnamed-chunk-7" class="exercise"><strong>Exercise 13.4  (Estimating the median) </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li>Show that the sample median is an unbiased estimator of the median for N<span class="math inline">\((\mu, \sigma^2)\)</span>.</li>
 <li>Show that the sample median is an unbiased estimator of the mean for any distribution with symmetric density.</li>
@@ -398,11 +428,9 @@ Now <span class="math inline">\(\bar{X}\)</span> converges in probability (by WL
 <p>Hint 1: The pdf of an order statistic is <span class="math inline">\(f_{X_{(k)}}(x) = \frac{n!}{(n - k)!(k - 1)!}f_X(x)\Big(F_X(x)^{k-1} (1 - F_X(x)^{n - k}) \Big)\)</span>.</p>
 <p>Hint 2: A distribution is symmetric when <span class="math inline">\(X\)</span> and <span class="math inline">\(2a - X\)</span> have the same distribution for some <span class="math inline">\(a\)</span>.</p>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-3" class="solution"><em>Solution</em>. </span></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Let <span class="math inline">\(Z_i\)</span>, <span class="math inline">\(i = 1,...,n\)</span> be i.i.d. variables with a symmetric distribution and let <span class="math inline">\(Z_{k:n}\)</span> denote the <span class="math inline">\(k\)</span>-th order statistic. We will distinguish two cases, when <span class="math inline">\(n\)</span> is odd and when <span class="math inline">\(n\)</span> is even. Let first <span class="math inline">\(n = 2m + 1\)</span> be odd. Then the sample median is <span class="math inline">\(M = Z_{m+1:2m+1}\)</span>. Its PDF is
 <span class="math display">\[\begin{align*}
@@ -424,6 +452,68 @@ The above also proves point a. as the median and the mean are the same in normal
 </ol>
 </div>
 </div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-9" class="exercise"><strong>Exercise 13.5  (Matrix trace estimation) </strong></span>The Hutchinson trace estimator [1] is an estimator of the trace of a symmetric positive semidefinite matrix A that relies on Monte Carlo sampling. The estimator is defined as
+<span class="math display">\[\begin{align*}
+  \textrm{tr}(A) \approx \frac{1}{n} \Sigma_{i=1}^n z_i^T A z_i, &amp;\\
+  z_i \sim_{\mathrm{IID}} \textrm{Uniform}(\{-1, 1\}^m), &amp;
+\end{align*}\]</span>
+where <span class="math inline">\(A \in \mathbb{R}^{m \times m}\)</span> is a symmetric positive semidefinite matrix.
+Elements of each vector <span class="math inline">\(z_i\)</span> are either <span class="math inline">\(-1\)</span> or <span class="math inline">\(1\)</span> with equal probability.
+This is also called a Rademacher distribution.</p>
+<p>Data scientists often want the trace of a Hessian to obtain valuable curvature information for a loss function. Per [2], an example is classifying ten digits based on <span class="math inline">\((28,28)\)</span> grayscale images (i.e. MNIST data) using logistic regression. The number of parameters is <span class="math inline">\(m = 28^2 \cdot 10 = 7840\)</span> and the size of the Hessian is <span class="math inline">\(m^2\)</span>, roughly <span class="math inline">\(6 \cdot 10^6\)</span>. The diagonal average is equal to the average eigenvalue, which may be useful for optimization; in MCMC contexts, this would be useful for preconditioners and step size optimization.</p>
+<p>Computing Hessians (as a means of getting eigenvalue information) is often intractable, but Hessian-vector products can be computed faster by autodifferentiation (with e.g. Tensorflow, Pytorch, Jax). This is one motivation for the use of a stochastic trace estimator as outlined above.</p>
+References:
+<ol>
+<li>
+A stochastic estimator of the trace of the influence matrix for laplacian smoothing splines (Hutchinson, 1990)
+</li>
+<li>
+A Modern Analysis of Hutchinson’s Trace Estimator (Skorski, 2020)
+</li>
+</ol>
+
+<p>Prove that the Hutchinson trace estimator is an unbiased estimator of the trace.</p>
+</div>
+<div class="fold">
+<div class="solution">
+<p><span id="unlabeled-div-4" class="solution"><em>Solution</em>. </span>We first simplify our task:
+<span class="math display">\[\begin{align}
+  \mathbb{E}\left[\frac{1}{n} \Sigma_{i=1}^n z_i^T A z_i \right] &amp;= \frac{1}{n} \Sigma_{i=1}^n \mathbb{E}\left[z_i^T A z_i \right] \\
+                                                                 &amp;= \mathbb{E}\left[z_i^T A z_i \right],
+\end{align}\]</span>
+where the second equality is due to having <span class="math inline">\(n\)</span> IID vectors <span class="math inline">\(z_i\)</span>.
+We now only need to show that <span class="math inline">\(\mathbb{E}\left[z^T A z \right] = \mathrm{tr}(A)\)</span>.
+We omit the index due to all vectors being IID:
+<span class="math display">\[\begin{align}
+  \mathrm{tr}(A) &amp;= \mathrm{tr}(AI) \\
+                 &amp;= \mathrm{tr}(A\mathbb{E}[zz^T]) \\
+                 &amp;= \mathbb{E}[\mathrm{tr}(Azz^T)] \\
+                 &amp;= \mathbb{E}[\mathrm{tr}(z^TAz)] \\
+                 &amp;= \mathbb{E}[z^TAz].
+\end{align}\]</span>
+This concludes the proof. We clarify some equalities below.</p>
+<p>The second equality assumes that <span class="math inline">\(\mathbb{E}[zz^T] = I\)</span>.
+By noting that the mean of the Rademacher distribution is 0, we have
+<span class="math display">\[\begin{align}
+  \mathrm{Cov}[z, z] &amp;= \mathbb{E}[(z - \mathbb{E}[z])(z - \mathbb{E}[z])^T] \\
+                     &amp;= \mathbb{E}[zz^T].
+\end{align}\]</span>
+Dimensions of <span class="math inline">\(z\)</span> are independent, so <span class="math inline">\(\mathrm{Cov}[z, z]_{ij} = 0\)</span> for <span class="math inline">\(i \neq j\)</span>.
+The diagonal will contain variances, which are equal to <span class="math inline">\(1\)</span> for all dimensions <span class="math inline">\(k = 1 \dots m\)</span>: <span class="math inline">\(\mathrm{Var}[z^{(k)}] = \mathbb{E}[z^{(k)}z^{(k)}] - \mathbb{E}[z^{(k)}]^2 = 1 - 0 = 1\)</span>.
+It follows that the covariance is an identity matrix. Note that this is a general result for vectors with IID dimensions sampled from a distribution with mean 0 and variance 1. We could therefore use something else instead of the Rademacher, e.g. <span class="math inline">\(z ~ N(0, I)\)</span>.</p>
+<p>The third equality uses the fact that the expectation of a trace equals the trace of an expectation. If <span class="math inline">\(X\)</span> is a random matrix, then <span class="math inline">\(\mathbb{E}[X]_{ij} = \mathbb{E}[X_{ij}]\)</span>. Therefore:
+<span class="math display">\[\begin{align}
+  \mathrm{tr}(\mathbb{E}[X]) &amp;= \Sigma_{i=1}^m(\mathbb{E}[X]_{ii}) \\
+                             &amp;= \Sigma_{i=1}^m(\mathbb{E}[X_{ii}]) \\
+                             &amp;= \mathbb{E}[\Sigma_{i=1}^m(X_{ii})] \\
+                             &amp;= \mathbb{E}[\mathrm{tr}(X)],
+\end{align}\]</span>
+where we used the linearity of the expectation in the third step.</p>
+<p>The fourth equality uses the fact that <span class="math inline">\(\mathrm{tr}(AB) = \mathrm{tr}(BA)\)</span> for any matrices <span class="math inline">\(A \in \mathbb{R}^{n \times m}, B \in \mathbb{R}^{m \times n}\)</span>.</p>
+<p>The last inequality uses the fact that the trace of a <span class="math inline">\(1 \times 1\)</span> matrix is just its element.</p>
+</div>
+</div>
 
 </div>
 </div>
@@ -437,7 +527,6 @@ The above also proves point a. as the median and the mean are the same in normal
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -456,6 +545,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -476,6 +566,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -489,7 +583,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
