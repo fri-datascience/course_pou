@@ -14,7 +14,7 @@
 \usepackage[authoryear,round]{natbib}
 \usepackage[toc,page]{appendix}
 \usepackage{framed}
-
+\usepackage{pst-plot}
 \usepackage{tikz}
  
 
@@ -1395,7 +1395,7 @@ Let $X$ be a continuous RV with PDF $f_X$. Then,
 \item $F_X(x) = \int_{-\infty}^x f_X(y)d\lambda$.
 \item $\int_{-\infty}^\infty f_X(y)d\lambda = 1$.
 \item $f_X(x) \geq 0$, for all $x \in \mathbb{R}$.
-\item $F_X'(x) = f_X(x)$.
+\item $F_X'(x) = f_X(x)$, for almost every $x$ with respect to the Lebesgue measure.
 \end{enumerate}\label{prop:pdf}
 \end{proposition}
 
@@ -1510,10 +1510,12 @@ $X$ is a discrete RV so $Y$ is also a discrete RV, because its support can't be 
 \begin{proposition}[Transformation of a continuous RV]
 Let $X$ be a continuous RV, $g: \mathbb{R} \rightarrow \mathbb{R}$ a Borel measurable, monotone increasing or monotone decreasing, and continuously differentiable function, and $Y = g(X)$. Then,
 
-$$f_Y(y) = f_X(g^{-1}(y)) |\frac{d}{dy}g^{-1}(y)|.$$
+$$f_Y(y) = f_X(g^{-1}(y)) |\frac{d}{dy}g^{-1}(y)|,$$ 
+
+almost everywhere with respect to the Lebesgue measure.
 \end{proposition}
 
-\begin{proof} First note that the purpose of the conditions regarding $g$ in the statement of the theorem are for $g$ to have an inverse and for that inverse to be differentiable (or, to be more precise, non-differentiable at most on a set of Lebesgue measure 0, so that $Y$ has a PDF).
+\begin{proof} First note that the purpose of the conditions regarding $g$ in the statement of the theorem are for $g$ to have an inverse and for that inverse to be differentiable. To be more precise, non-differentiable at most on a set of Lebesgue measure 0, so that $Y$ has a PDF. Another consequence of $g^{-1}$ being differentiable almost everywhere is that the statement in the Proposition is also true almost everywhere.
 
 Monotonicity also simplifies the relationship between the CDF of $X$ and the CDF of $Y$. If $g$ is a monotone increasing function, we have 
 
@@ -1637,7 +1639,7 @@ Note that if the measure spaces in the definition of the product measure are $\s
 
 \begin{cexample}[Lebesgue integration on $\mathbb{R}^2$] Let $(\mathbb{R}^2, \mathcal{B}_{\mathbb{R}^2}, \lambda_1 \times \lambda_2)$ be our measurable space. So far in this chapter we have established that $\mathcal{B}_{\mathbb{R}^2}$ is a product $\sigma$-algebra (and a product of two Borel $\sigma$-algebras) and that the product measure $\lambda_1 \times \lambda_2$ exists and is unique (we know $\lambda$ exists on $(\mathbb{R}, \mathcal{B}_{\mathbb{R}})$ and we have noted that it is $\sigma$-finite, although we did not go into the details of what that means, other than that it is a condition less strict that finite).
 
-By definition, we have $\lambda_1 \times \lambda_2(B_1, B_2) = \lambda_1(B_1)\lambda_2(B_2)$, so if the Lebesgue measure $\lambda$ is a generalization of length then the product measure of two Lebesgue measures can be seen as a generalization of area. For example, let's integrate function $f(x_1, x_2)$ which has value 1 on the unit square $[0, 1]^2$ and 0 otherwise:
+By definition, we have $(\lambda_1 \times \lambda_2)(B_1, B_2) = \lambda_1(B_1)\lambda_2(B_2)$, so if the Lebesgue measure $\lambda$ is a generalization of length then the product measure of two Lebesgue measures can be seen as a generalization of area. For example, let's integrate function $f(x_1, x_2)$ which has value 1 on the unit square $[0, 1]^2$ and 0 otherwise:
 
 $$\int_{\mathbb{R}^2} f d(\lambda_1 \times \lambda_2).$$
 
@@ -1648,7 +1650,7 @@ $$\int_{\mathbb{R}^2} f d(\lambda_1 \times \lambda_2) = 1.$$
 It might be somewhat surprising that we do not have to introduce any additional theory for integration over 2 (or more) dimensions. However, note that dimensionality of the sample space does not play a role in the definition of abstract integration. We have measurable spaces and we measure (and integrate over) subsets of those measurable spaces. The product measure $\lambda \times \lambda$ does measure 2-dimensional sets, but it is just a measure. And $B = [0, 1]^2$ is a 2-dimensional set, but it is still a set. The definition of the abstract integral does not depend on the dimensionality of the sample space (or any partition that would depend on its dimensionality), we only observe subsets with the same value.
 \end{cexample}
 
-In practice, it is in most cases more convenient to integrate function of 2 or more variables first wrt one variable, then wrt another, etc. A very important theorem from measure theory, which we state without proof, states that:
+In practice it is in most cases more convenient to integrate a function of 2 or more variables first wrt one variable, then wrt another, etc. A very important theorem from measure theory, which we state without proof, states that:
 
 \begin{theorem}[Tonelli/Fubini] Let $(\Omega_1, \mathcal{F}_1, \mu_1)$ and $(\Omega_2, \mathcal{F}_2, \mu_2)$ be measure spaces, where $\mu_1$ and $\mu_2$ are $\sigma$-finite measures. Let $\mu = \mu_1 \times \mu_2$  be the product measure on the measurable space $(\Omega_1 \times \Omega_2, \mathcal{F}_1 \otimes \mathcal{F}_2)$. Let $f: \Omega_1 \times \Omega_2 \rightarrow \mathbb{R}$ be a measurable function. If $\int |f| d(\mu_1 \times \mu_2) < \infty$ then
 
@@ -1661,7 +1663,7 @@ So, when integrating with respect to a product measure and if the function is in
 
 So far in this text we have only observed a single RV at a time. Now we are ready to extend this to multiple RVs (random vector, random matrix). The chapter focuses on joint distributions of two RVs. However, all the results readily generalize to three or more random variables.
 
-First, we must ask the following question. If $X$ and $Y$ are random variables on the same probability space $(\Omega, \mathcal{F}, P)$, is $(X(\cdot), Y(\cdot)):\Omega \rightarrow \mathbb{R}^2$ also a RV on that probability space? The following theorem says that the answer is yes.
+First, we must ask the following question. If $X$ and $Y$ are RVs on the same probability space $(\Omega, \mathcal{F}, P)$, is $(X(\cdot), Y(\cdot)):\Omega \rightarrow \mathbb{R}^2$ also a random vector on that probability space? The following theorem says that the answer is yes.
 
 \begin{theorem}
 Let $X$ and $Y$ be random variables on probability space $(\Omega, \mathcal{F}, P)$. Then, $(X(\cdot), Y(\cdot)):\Omega \rightarrow \mathbb{R}^2$ is $\mathcal{F}$-measurable.
@@ -1757,7 +1759,7 @@ $$p_{X,Y}(x,y) \triangleq P(X = x, Y = y)$$
 is called the \emph{joint probability mass function} of $X$ and $Y$.
 \end{definition}
 
-The PMF of a jointly discrete RV completely characterizes its probability law $P_{X,Y}(B) = \sum_{x,y \in B} p_{X,Y}(x,y)$ and the marginal probability laws $p_X(x) = \sum_y  p_{X,Y}(x,y)$ and $p_Y(y) = \sum_x p_{X,Y}(x,y)$.
+The PMF of a jointly discrete RV completely characterizes its probability law $P_{X,Y}(B) = \sum_{(x,y) \in B; p_{X,Y}(x,y) > 0} p_{X,Y}(x,y)$ and the marginal probability laws $p_X(x) = \sum_y  p_{X,Y}(x,y)$ and $p_Y(y) = \sum_x p_{X,Y}(x,y)$.
 
 \begin{definition}
 Let $X$ and $Y$ be discrete random variables. The \emph{conditional probability} of $X$ given $Y$ is defined as
@@ -1781,7 +1783,9 @@ P(X \in B_1, Y \in B_2) &= \sum_{x \in B_1} \sum_{y \in B_2} p_{X,Y}(x,y) = \sum
 &=\sum_{x \in B_1} p_{X}(x) \sum_{y \in B_2} p_{Y}(y) = P(X \in B_1)P(Y \in B_2).
 \end{align*}
 
-Note: What remains is to show that independence on these intervals is enough to imply independence on the entire $\sigma$-algebra.
+To simplify notation, we omit that we restrict ourselves to $B_1$ and $B_2$ such that $p_{X,Y}(x,y) > 0$.
+
+What remains is to show that independence on these intervals is enough to imply independence on the entire $\sigma$-algebra.
 
 \end{proof}
 
@@ -1828,7 +1832,7 @@ This implies that $f_{X,Y}(x,y) = f_{X}(x)f_{Y}(y)$ almost everywhere. the set w
 \end{proof}
 
 \begin{definition}
-The conditional PDF of $X$ given $Y$ is defined as
+The conditional PDF of continuous RV $X$ given continuous RV $Y$ is defined as
 $$f_{X|Y}(x|y) \triangleq \frac{f_{X,Y}(x,y)}{f_Y(y)},$$
 for $f_Y(y) > 0$.
 \end{definition}
@@ -1887,16 +1891,18 @@ Show that the marginals of a jointly continuous RV are continuous.
 
 \chapter{Expected value}
 
-The expected value, expectation, or mean of a RVs is arguably the most important single-value representation of a probability distribution. Geometrically, it is the center of mass, and, unless the distribution is very skewed or multi-modal, it will be a good summary of its location. Through the law of large numbers, the expected value is also related to the sample average. Expected value together with variance represent a complete representation of a normal distribution, which is most often parametrized in with its mean and variance.
+The expected value, expectation, or mean of a RVs is arguably the most important single-value representation of a probability distribution. Geometrically, it is the center of mass, and, unless the distribution is very skewed or multi-modal, it will be a good summary of its location. Through the law of large numbers, the expected value is also related to the sample average. Expected value together with variance represent a complete representation of a normal distribution, which is most often parametrized with its mean and variance.
 
 \section{Definition of expectation}
 
 The expectation (expected value or mean) of a function of a random variable on a probability space is defined as the integral of the composition of that function and random variable with respect to the probability measure.
 
 \begin{definition}
-Let $(\Omega, \mathcal{F}, P)$ be a probability space, $X: \Omega \rightarrow \mathbb{R}$ a random variable and $g: \mathbb{R} \rightarrow \mathbb{R}$ a function. The expected value of $g(X)$ is defined as
+Let $(\Omega, \mathcal{F}, P)$ be a probability space, $X: \Omega \rightarrow \mathbb{R}$ a random variable and $g: \mathbb{R} \rightarrow \mathbb{R}$ a measurable function. The expected value of $g(X)$ is defined as
 
-$$E[g(X)] \triangleq \int_{\Omega} g(X(\omega))dP(\omega).$$
+$$E[g(X)] \triangleq \int_{\Omega} g(X(\omega))dP(\omega),$$
+
+if the integral exists.
 
 If $g$ is the identity, this simplifies to the expectation of the RV $X$:
 
@@ -1906,7 +1912,7 @@ $$E[X] \triangleq \int_{\Omega} X(\omega)dP(\omega).$$
 \begin{cexample}[Expected value of a Bernoulli RV]
 Later in this chapter we will derive the expected value of a Bernoulli distribution using the much more convenient definition for the special case of discrete RVs, which is derived from this more general definition.
 
-However, to illustrate the use of the general definition, let $((0,1], \mathbb{B}_{(0,1]}, \lambda)$ be our probability space and $X: (0,1] \rightarrow {0,1}$, such that $X((0,\theta]) = 1$ and  $X((\theta, 1]) = 0$, $\theta \in (0,1)$. Clearly, the probability law of $X$ is $\text{Bernoulli}(\theta)$.
+However, to illustrate the use of the general definition, let $((0,1], \mathbb{B}_{(0,1]}, \lambda)$ be our probability space and $X: (0,1] \rightarrow \{0,1\}$, such that $X((0,\theta]) = 1$ and  $X((\theta, 1]) = 0$, $\theta \in (0,1)$. Clearly, the probability law of $X$ is $\text{Bernoulli}(\theta)$.
 
 Using the definition of expectation and observing that $X$ is a non-negative simple function, we have
 
@@ -1930,7 +1936,9 @@ The two definitions above apply to all RVs. However, they are not very useful in
 \begin{proposition}
 The expected value of a function of a discrete random variable $X$ is
 
-$$E[g(X)] = \sum_{i=1}^\infty g(x_i) p_X(x_i).$$
+$$E[g(X)] = \sum_{i=1}^\infty g(x_i) p_X(x_i),$$
+
+where $x_1, x_2, \cdots$ are values that $X$ attain.
 \end{proposition}
 
 \begin{proof}
@@ -1971,7 +1979,9 @@ Note that in the 2nd equality we took out $ \lambda e^{-\lambda}$, canceled the 
 \begin{proposition}
 The expected value of a function of a continuous random variable $X$ is
 
-$$E[g(X)] = \int_\mathbb{R} g(x) f_X(x) d\lambda(x) = \int_\mathbb{R} g(x) f_X(x) dx.$$
+$$E[g(X)] = \int_\mathbb{R} g(x) f_X(x) d\lambda(x) = \int_\mathbb{R} g(x) f_X(x) dx,$$
+
+where $\lambda$ is the Lebesgue measure. Note that the second equality only applies when $g(x)f_X(x)$ is Riemann integrable.
 \end{proposition}
 
 \begin{proof}[Proof sketch without $g(\cdot)$]
@@ -2095,7 +2105,7 @@ Let $X$ be a real-valued random variable. $Var[X] = 0$ if and only if $X$ is con
 \end{proposition}
 
 \begin{proof}
-Let $c$ be a real constant. First, we show that $X = c$ $a.s.$ is sufficient. From property (c) from Proposition \ref{prop:properties_of_expectation} and linearity of expectation we have $E[X] = c$. Therefore, $X - E[X] = 0$ $a.s.$ and $(E[X - E[X])^2 = 0$ $a.s.$. This is also a random variable, so, using property (c) again, we get $E[(X - E[X])^2] = 0$.
+Let $c$ be a real constant. First, we show that $X = c$ $a.s.$ is sufficient. From property (c) from Proposition \ref{prop:properties_of_expectation} and linearity of expectation we have $E[X] = c$. Therefore, $X - E[X] = 0$ $a.s.$ and $(X - E[X])^2 = 0$ $a.s.$. This is also a RV, so, using property (c) again, we get $E[(X - E[X])^2] = 0$.
 
 Now we show that it is necessary. $Var[X] = E[(X - E[X])^2] = 0$ and $(X - E[X])^2 \geq 0$, so, by property (f) from Proposition \ref{prop:properties_of_expectation}, we have that $(X - E[X])^2 = 0$ a.s.. Therefore, $X = E[X]$ a.s. and $X$ is a constant a.s..
 \end{proof}
@@ -2135,13 +2145,13 @@ $$E[X^2] \geq E[X]^2.$$\label{prop:varsum}
 Observe that the square is a convex function. The proposition follows from Jensen's inequality.
 \end{proof}
 
-\begin{definition}[Covariance] Let $X$ and $Y$ be real-valued random variables, such that $E[X] < \infty$ and $E[Y] < \infty$.  The \emph{covariance} of $X$ and $Y$ is defined as
+\begin{definition}[Covariance] Let $X$ and $Y$ be real-valued RVs, such that $E[X] < \infty$ and $E[Y] < \infty$.  The \emph{covariance} of $X$ and $Y$ is defined as
 
 $$Cov[X,Y] \triangleq E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y].$$
 \end{definition}
 
 \begin{definition}[Correlation]
-Let $X$ and $Y$ be real-valued random variables, such that $E[X] < \infty$ and $E[Y] < \infty$.  The \emph{correlation} of $X$ and $Y$ is defined as
+Let $X$ and $Y$ be real-valued RVs, such that $0 < Var[X] < \infty$ and $0 < Var[Y] < \infty$. The \emph{correlation} of $X$ and $Y$ is defined as
 
 $$\rho[X,Y] \triangleq \frac{Cov[X,Y]}{\sqrt{Var[X]Var[Y]}}.$$
 \end{definition}
@@ -2152,25 +2162,27 @@ Random variables $X$ and $Y$ are said to be \emph{uncorrelated} if $\rho[X,Y] = 
 Equivalent conditions are if $Cov[X,Y] = 0$ or $E[XY] = E[X]E[Y]$.
 \end{definition}
 
-
-
 \begin{proposition}
 Let $X$ and $Y$ be a random variables, such that $E[X] < \infty$, $E[Y] < \infty$ and $X$ and $Y$ are independent. Then,
 
 $$E[XY] = E[X]E[Y].$$
 \end{proposition}
 
-\begin{proof}[Partial proof assuming that the variables are continuous] 
+\begin{proof}
+By definition of independence, $P_{X,Y}$ is a product measure of $P_X$ and $P_Y$. Therefore,
+
 \begin{align*}
-E[XY] &= \int\int x y f_{X,Y}(x,y) dx dy  \\
-&= \int\int x y f_X(x)f_Y(y) dx dy \\
-&= \left(\int x f_X(x) dx \right)  \left(\int y f_Y(y) dy\right) \\
+E[XY] &= \int_\Omega X(\cdot)Y(\cdot) dP  \\
+&= \int_{\mathbb{R}^2} x y dP_{X,Y} \\
+&= \int_{\mathbb{R}^2} x y d(P_X \otimes P_Y) \\
+&= \int_\mathbb{R} \left(\int_\mathbb{R} xy dP_X \right) dP_Y & \text{(Fubini's Theorem)} \\
+&= \left(\int_\mathbb{R} y dP_Y \right)  \left(\int_\mathbb{R} x dP_X \right) \\
 &= E[X]E[Y].
 \end{align*}
 \end{proof}
 
 \begin{corollary}
-If $X$ and $Y$ are independent then they are uncorrelated.
+If $X$ and $Y$ are independent, then they are uncorrelated.
 \end{corollary}
 
 The corollary states that independence implies uncorrelatedness. It is important to note that the converse is not true.
@@ -2185,10 +2197,8 @@ $$Cov[X,Y] = E[XY] - E[X]E[Y] = E[X^3] - E[X]E[X^2] = 0.$$
 Zero covariance (correlation) does not imply independence. Covariance is just a special case of independence - linear independence.
 \end{cexample}
 
-
-
 \begin{proposition}
-Let $X$ and $Y$ be real valued random variables. Then,
+Let $X$ and $Y$ be real-valued RVs and $E[X^2] < \infty$, $E[Y^2] < \infty$. Then,
 
 $$Var[X+Y] = Var[X] + Var[Y] + 2Cov[X,Y].$$
 \end{proposition}
@@ -2203,19 +2213,19 @@ Var[X+Y] &= E[(X +Y)^2] - (E[X]+ E[Y])^2  \\
 \end{proof}
 
 \begin{proposition}
-Variance, covariance and correlation have some other useful properties:
+Variance, covariance and correlation have some other useful properties. Assuming $E[X^2] < \infty$, $E[Y^2] < \infty$:
 
 \begin{enumerate}[(a)]
 \item $Var[aX + b] = a^2Var[X]$.
 \item $Cov[aX, bY] = abCov[X,Y]$.
-\item $\rho(aX, bY) = \frac{abCov[X,Y]}{|a||b|\sqrt{Var[X]Var[Y]}}$.
+\item $\rho(aX, bY) = \frac{abCov[X,Y]}{|a||b|\sqrt{Var[X]Var[Y]}}$, additionally assuming $Var[X] > 0$, $Var[Y] > 0$.
 \end{enumerate}\label{prop:variance2}
 \end{proposition}
 
 The proof is left as an exercise.
 
 \begin{proposition}
-Let $X_i$, $i = 1..n$ be real valued random variables. Then,
+Let $X_i$, $i = 1,...,n$ be real valued RVs and $E[X_i^2] < \infty$. Then,
 
 $$Var[\sum_{i=1}^n a_iX_i] = \sum_{i=1}^n a_i^2Var[X_i]+ 2\sum_{i,j:i<j}a_ia_jCov[X_i,X_j].$$
 \end{proposition}
@@ -2245,7 +2255,7 @@ $$\E[XY] \leq \sqrt{\E[X^2]\E[Y^2]}.$$
 \end{proposition}
 
 \begin{proof}
-This is a direct application of the Cauchy-Schwarz inequality with the inner product defined with the expectation of the product of random variables.
+This is a direct application of the Cauchy-Schwarz inequality with the (semi) inner product defined with the expectation of the product of random variables.
 \end{proof}
 
 \begin{proposition}[Cauchy-Schwarz inequality on covariance]
@@ -2254,7 +2264,9 @@ Let $X$ and $Y$ be random variables with finite variance. Then,
 $$\Cov[X,Y]^2 \leq \Var[X]\Var[Y].$$
 \end{proposition}
 
-The proof of this proposition is beyond the scope of this text.
+\begin{proof}
+This is a direct application of the Cauchy-Schwarz inequality with the (semi) inner product defined with $Cov[X,Y]$.
+\end{proof}
 
 \begin{corollary}
 Correlation between random variables is between -1 and 1.
@@ -2356,7 +2368,7 @@ Prove the law of iterated expectation for jointly continuous RVs.
 \section{Expectation, variance, and covariance}
 
 \begin{definition}
-A \textit{multivariate random variable} or random vector $X$ is a column vector $X = [X_1,X_2,...,X_k]^T$, $k \geq 1$ whose components are random variables on the same probability space.
+A \textit{multivariate (k-variate) RV} or random vector $X$ is a column vector $X = [X_1,X_2,...,X_k]^T$, $k \geq 1$ whose components are random variables on the same probability space.
 \end{definition}
 
 \begin{definition} Let $X$ and $Y$ be $k$-variate and $r$-variate random variables, respectively.
@@ -2376,6 +2388,8 @@ In matrix form,
 \begin{align*}
 \Cov[X,Y] &= \E[(X - \E[X])(Y - \E[Y])^T] = \E[XY^T] - E[X]E[Y]^T.
 \end{align*}
+
+Note that the expected value of the matrix valued $E[XY^T]$ is defined analogously to the expectation of a random vector - with expectations of individual components.
 
 Similarly, $\rho[X,Y]$, the cross-correlation matrix of $X$ and $Y$, is a $k \times r$ matrix with components
 
@@ -2820,6 +2834,34 @@ For a Bernoulli variable we have $E[e^{tX_i}] = pe^t + (1-p) = 1 + p(e^t - 1) \l
 For any $\delta > 0$ and taking $t = \ln(1 + \delta) > 0$ and $a = (1+\delta)np$, we have $E[e^{tS_n}] \leq e^{\delta np}$ and $e^{-ta} = (1 + \delta)^{-(1+\delta)np}$. Substituting into the generic Chernoff bound, we have
 $$P(S_n - np \geq \delta np) = P(S_n \geq (1 + \delta)np) \leq \frac{e^{\delta np}}{(1 + \delta)^{(1+\delta)np}} = \left(\frac{e^\delta}{(1 + \delta)^{(1+\delta)}}\right)^{np}.$$
 \end{proof}
+
+\begin{cexample}{Application of inequalities in the Bernoulli case}
+
+Suppose a system has $n$ independent components, each with a $p = \frac{1}{2}$ probability of failing. The system fails if more than $\frac{3}{4}$ components fail. Let's use the concentration inequalities to put an upper bound on the probability that the system fails.
+
+Let $X$ be the RV that represents the number of components that fail. Because it is a sum of iid Bernoulli, it has a binomial distribution $X \sim \text{Binomial}(n, \frac{1}{2})$.
+
+First, let's use the Markov inequality $P(X \geq a) \leq \frac{E[X]}{a}$. In our case we have $a = \frac{3}{4}n$ and $\E[X] = \frac{n}{2}$, which gives us
+
+$$P(X \geq \frac{3}{4}n) \leq \frac{4n}{6n} = \frac{2}{3}.$$
+
+Before using the Markov inequality we should of course always check if the conditions are met - $a$ should be positive and $X$ should be a non-negative RVs, which are both true in our case.
+
+The Markov inequality does not provide us with a very tight bound and what is even worse, it is constant for all $n$. That is, it does not get tighter with increasing $n$, although we know that the probability of system failure decreases with increasing $n$.
+
+Next, let's apply the Chebyshev inequality, which does improve with increasing $n$. We start with the two sided $P(|X - \mu| \geq b) \leq \frac{\sigma^2}{b^2}$, which implies the one sided bound $P(X - \mu \geq b) \leq \frac{\sigma^2}{b^2}$ (if the bound is true for the absolute of the value, it is also true for the value, which is the same or less). In our case we have $\mu = E[X] = \frac{n}{2}$, $b = \frac{1}{4}n$, and $\sigma^2 = n\frac{1}{2}(1 - \frac{1}{2}) = \frac{1}{2}n$. Putting it all together, we get
+
+$$P(X \geq \frac{3}{4}n) = P(X - \frac{1}{2}n \geq \frac{1}{4}n) \leq \frac{\frac{1}{4}n}{(\frac{1}{4}n)^2} = \frac{4}{n}.$$
+
+Finally, let's apply the Chernoff bound for Bernoulli variables. We have
+
+$P(X \geq \frac{3}{4}n) = P(X \geq (1 + 2)\frac{1}{2}n)$, which identifies $\delta = 2 > 0$, so
+
+$$P(X \geq \frac{3}{4}n) \leq \left(\frac{e^2}{3^3}\right)^{\frac{1}{2}n} = \left(\frac{e^2}{27}\right)^{\frac{n}{2}} = \left(\frac{e}{\sqrt{27}}\right)^n.$$
+
+As we can see, each subsequent inequality achieves an asymptotically tighter bound by incorporating more information about the RV (variance for Chebyshev and moment generating function for Chernoff).
+\label{ex:ineq_binom}
+\end{cexample}
 
 \section{Hoeffding inequality}
 
