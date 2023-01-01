@@ -663,6 +663,50 @@ In this problem we will illustrate the use of the nonparametric bootstrap for es
 <span id="cb37-9"><a href="boot.html#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Standard error&quot;</span>) <span class="co"># + scale_y_continuous(trans = &quot;log&quot;) # If you want to also plot bias</span></span></code></pre></div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-10" class="exercise"><strong>Exercise 14.5  </strong></span><span style="color:blue">
+This exercise shows a shortcoming of the bootstrap method when using the plug in estimator for the maximum.
+</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span style="color:blue">Compute the 95% bootstrap CI for the maximum of a standard normal distribution.</span></p></li>
+<li><p><span style="color:blue">Compute the 95% bootstrap CI for the maximum of a binomial distribution with n = 15 and p = 0.2.</span></p></li>
+<li><p><span style="color:blue">Repeat (b) using p = 0.9. Why is the result different?</span></p></li>
+</ol>
+</div>
+<div class="fold">
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="boot.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bootstrap CI for maximum</span></span>
+<span id="cb38-2"><a href="boot.html#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="boot.html#cb38-3" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb38-4"><a href="boot.html#cb38-4" aria-hidden="true" tabindex="-1"></a>T_max <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {<span class="fu">max</span>(x)}  <span class="co"># Equal to T_max = max</span></span>
+<span id="cb38-5"><a href="boot.html#cb38-5" aria-hidden="true" tabindex="-1"></a>bootstrap <span class="ot">&lt;-</span> <span class="cf">function</span>(x, t, <span class="at">m =</span> <span class="dv">1000</span>) {</span>
+<span id="cb38-6"><a href="boot.html#cb38-6" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb38-7"><a href="boot.html#cb38-7" aria-hidden="true" tabindex="-1"></a>  values <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, m)</span>
+<span id="cb38-8"><a href="boot.html#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m) {</span>
+<span id="cb38-9"><a href="boot.html#cb38-9" aria-hidden="true" tabindex="-1"></a>    values[i] <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">sample</span>(x, n, <span class="at">replace =</span> T))</span>
+<span id="cb38-10"><a href="boot.html#cb38-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb38-11"><a href="boot.html#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quantile</span>(values, <span class="at">probs =</span> <span class="fu">c</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>))</span>
+<span id="cb38-12"><a href="boot.html#cb38-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-13"><a href="boot.html#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="boot.html#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># a</span></span>
+<span id="cb38-15"><a href="boot.html#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Meaningless, as the normal distribution can yield arbitrarily large values.</span></span>
+<span id="cb38-16"><a href="boot.html#cb38-16" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb38-17"><a href="boot.html#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="fu">bootstrap</span>(x, T_max)</span></code></pre></div>
+<pre><code>##     2.5%    97.5% 
+## 1.819425 2.961743</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="boot.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># b</span></span>
+<span id="cb40-2"><a href="boot.html#cb40-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="at">size =</span> <span class="dv">15</span>, <span class="at">prob =</span> <span class="fl">0.2</span>) <span class="co"># min = 0, max = 15</span></span>
+<span id="cb40-3"><a href="boot.html#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bootstrap</span>(x, T_max)</span></code></pre></div>
+<pre><code>##  2.5% 97.5% 
+##     6     7</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="boot.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># c</span></span>
+<span id="cb42-2"><a href="boot.html#cb42-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="at">size =</span> <span class="dv">15</span>, <span class="at">prob =</span> <span class="fl">0.9</span>) <span class="co"># min = 0, max = 15</span></span>
+<span id="cb42-3"><a href="boot.html#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bootstrap</span>(x, T_max)</span></code></pre></div>
+<pre><code>##  2.5% 97.5% 
+##    15    15</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="boot.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Observation: to estimate the maximum, we need sufficient probability mass near the maximum value the distribution can yield.</span></span>
+<span id="cb44-2"><a href="boot.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Using bootstrap is pointless when there is too little mass near the true maximum.</span></span>
+<span id="cb44-3"><a href="boot.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># In general, bootstrap will fail when estimating the CI for the maximum.</span></span></code></pre></div>
+</div>
 
 </div>
             </section>

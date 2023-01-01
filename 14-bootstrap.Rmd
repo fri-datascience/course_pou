@@ -330,3 +330,52 @@ ggplot(melted_df, aes(x = index, y = value, fill = variable)) +
   
 ```
 </div> 
+
+```{exercise}
+
+<span style="color:blue">
+  This exercise shows a shortcoming of the bootstrap method when using the plug in estimator for the maximum.
+</span>
+
+
+a. <span style="color:blue">Compute the 95% bootstrap CI for the maximum of a standard normal distribution.</span>
+
+b. <span style="color:blue">Compute the 95% bootstrap CI for the maximum of a binomial distribution with n = 15 and p = 0.2.</span>
+
+c. <span style="color:blue">Repeat (b) using p = 0.9. Why is the result different?</span>
+  
+```
+<div class = "fold">
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+# bootstrap CI for maximum
+
+alpha <- 0.05
+T_max <- function(x) {max(x)}  # Equal to T_max = max
+bootstrap <- function(x, t, m = 1000) {
+  n <- length(x)
+  values <- rep(0, m)
+  for (i in 1:m) {
+    values[i] <- t(sample(x, n, replace = T))
+  }
+  quantile(values, probs = c(alpha / 2, 1 - alpha / 2))
+}
+
+# a
+# Meaningless, as the normal distribution can yield arbitrarily large values.
+x <- rnorm(100)
+bootstrap(x, T_max)
+
+
+# b
+x <- rbinom(100, size = 15, prob = 0.2) # min = 0, max = 15
+bootstrap(x, T_max)
+
+# c
+x <- rbinom(100, size = 15, prob = 0.9) # min = 0, max = 15
+bootstrap(x, T_max)
+
+# Observation: to estimate the maximum, we need sufficient probability mass near the maximum value the distribution can yield.
+# Using bootstrap is pointless when there is too little mass near the true maximum.
+# In general, bootstrap will fail when estimating the CI for the maximum.
+```
+</div> 
