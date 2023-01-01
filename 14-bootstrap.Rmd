@@ -53,29 +53,43 @@ c. <span style="color:blue">Try one or two different distributions. What can you
 
 d. <span style="color:blue">Repeat (b) and (c) using BCa intervals (R package boot). How does the coverage compare to percentile intervals?</span>
 
+e. <span style="color:blue">As (d) but using intervals based on asymptotic normality (+/- 1.96 SE).</span>
+  
+f. <span style="color:blue">How do results from (b), (d), and (e) change if we increase the sample size to n = 200? What about n = 5?</span>
 
 ```
 <div class = "fold">
 ```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
 library(boot)
-set.seed(1)
-nit   <- 1000
-alpha <- 0.05
-nboot <- 100
+set.seed(0)
+nit   <- 1000  # Repeat the process "many times"
+alpha <- 0.05  # CI parameter
+nboot <- 100   # m parameter for bootstrap ("large enough m")
+# f: change this to 200 or 5.
+nsample <- 30  # n = 30 random samples from the chosen distribution. Comment out BCa code if it breaks.
 covers     <- matrix(nrow = nit, ncol = 3)
 covers_BCa <- matrix(nrow = nit, ncol = 3)
-for (j in 1:nit) {
-  x1 <- rnorm(30)
-  x2 <- rbeta(30, 1, 2)
-  x3 <- rpois(30, 5)
+covers_asymp_norm <- matrix(nrow = nit, ncol = 3)
+
+isin <- function (x, lower, upper) {
+  (x > lower) & (x < upper)
+}
+
+for (j in 1:nit) {  # Repeating many times
+  # a: pick a univariate distribution - standard normal
+  x1 <- rnorm(nsample)
   
-  X1 <- matrix(data = NA, nrow = 30, ncol = nboot)
-  X2 <- matrix(data = NA, nrow = 30, ncol = nboot)
-  X3 <- matrix(data = NA, nrow = 30, ncol = nboot)
+  # c: one or two different distributions - beta and poisson
+  x2 <- rbeta(nsample, 1, 2)
+  x3 <- rpois(nsample, 5)
+  
+  X1 <- matrix(data = NA, nrow = nsample, ncol = nboot)
+  X2 <- matrix(data = NA, nrow = nsample, ncol = nboot)
+  X3 <- matrix(data = NA, nrow = nsample, ncol = nboot)
   for (i in 1:nboot) {
-    X1[ ,i] <- sample(x1, 30, replace = T)
-    X2[ ,i] <- sample(x2, 30, T)
-    X3[ ,i] <- sample(x3, 30, T)
+    X1[ ,i] <- sample(x1, nsample, replace = T)
+    X2[ ,i] <- sample(x2, nsample, T)
+    X3[ ,i] <- sample(x3, nsample, T)
   }
   X1_func <- apply(X1, 2, mean)
   X2_func <- apply(X2, 2, mean)
@@ -99,6 +113,21 @@ for (j in 1:nit) {
   covers_BCa[j,1] <- (0 > X1_quant_BCa[4]) & (0 < X1_quant_BCa[5])
   covers_BCa[j,2] <- ((1 / 3) > X2_quant_BCa[4]) & ((1 / 3) < X2_quant_BCa[5])
   covers_BCa[j,3] <- (5 > X3_quant_BCa[4]) & (5 < X3_quant_BCa[5])
+  
+  # e: estimate mean and standard error
+  # sample mean:
+  x1_bar <- mean(x1)
+  x2_bar <- mean(x2)
+  x3_bar <- mean(x3)
+  
+  # standard error (of the sample mean) estimate: sample standard deviation / sqrt(n)
+  x1_bar_SE <- sd(x1) / sqrt(nsample)
+  x2_bar_SE <- sd(x2) / sqrt(nsample)
+  x3_bar_SE <- sd(x3) / sqrt(nsample)
+  
+  covers_asymp_norm[j,1] <- isin(0, x1_bar - 1.96 * x1_bar_SE, x1_bar + 1.96 * x1_bar_SE)
+  covers_asymp_norm[j,2] <- isin(1/3, x2_bar - 1.96 * x2_bar_SE, x2_bar + 1.96 * x2_bar_SE)
+  covers_asymp_norm[j,3] <- isin(5, x3_bar - 1.96 * x3_bar_SE, x3_bar + 1.96 * x3_bar_SE)
 
 }
 apply(covers, 2, mean)
@@ -107,5 +136,197 @@ apply(covers, 2, sd) / sqrt(nit)
 apply(covers_BCa, 2, mean)
 apply(covers_BCa, 2, sd) / sqrt(nit)
 
+apply(covers_asymp_norm, 2, mean)
+apply(covers_asymp_norm, 2, sd) / sqrt(nit)
+
 ```
 </div>
+
+
+
+
+```{exercise}
+
+<span style="color:blue">
+  You are given a sample of independent observations from a process of interest:
+  
+  | Index | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   |
+  | :-- | --: | --:	| --:	| --: | --: | --: | --: | --: |
+  | X   | 7   | 2   | 4   | 6   | 4   | 5   | 9   | 10  |
+  
+</span>
+
+
+a. <span style="color:blue">Compute the plug-in estimate of mean and 95% symmetric CI based on asymptotic normality. Use the plug-in estimate of SE.</span>
+
+b. <span style="color:blue">Same as (a), but use the unbiased estimate of SE.</span>
+
+c. <span style="color:blue">Apply nonparametric bootstrap with 1000 bootstrap replications and estimate the 95% CI for the mean with percentile-based CI.</span>
+
+```
+<div class = "fold">
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+# a
+x <- c(7, 2, 4, 6, 4, 5, 9, 10)
+n <- length(x)
+mu <- mean(x)
+
+SE <- sqrt(mean((x - mu)^2)) / sqrt(n)
+SE
+z <- qnorm(1 - 0.05 / 2)
+c(mu - z * SE, mu + z * SE)
+
+# b
+SE <- sd(x) / sqrt(n)
+SE
+c(mu - z * SE, mu + z * SE)
+
+# c
+set.seed(0)
+
+m  <- 1000
+T_mean <- function(x) {mean(x)}
+
+est_boot <- array(NA, m)
+for (i in 1:m) {
+  x_boot <- x[sample(1:n, n, rep = T)]
+  est_boot[i] <- T_mean(x_boot)
+}
+
+quantile(est_boot, p = c(0.025, 0.975))
+```
+</div> 
+
+
+```{exercise}
+
+<span style="color:blue">
+  We are given a sample of 10 independent paired (bivariate) observations:
+  
+  | Index   | 1    | 2     | 3    | 4    | 5     | 6     | 7     | 8     | 9     | 10 |
+  | :-- | --:  | --:	 | --:	| --:	 | --:   | --:   | --:   | --:   | --:   | --:   |
+  | X   | 1.26 | -0.33 | 1.33 | 1.27 | 0.41  | -1.54 | -0.93 | -0.29 | -0.01 |  2.40 |
+  | Y   | 2.64 | 0.33  | 0.48 | 0.06 | -0.88 | -2.14 | -2.21 | 0.95  | 0.83  | 1.45  |
+
+</span>
+
+
+a. <span style="color:blue">Compute Pearson correlation between X and Y.</span>
+
+b. <span style="color:blue">Use the cor.test() from R to estimate a 95% CI for the estimate from (a).</span>
+
+c. <span style="color:blue">Apply nonparametric bootstrap with 1000 bootstrap replications and estimate the 95% CI for the Pearson correlation with percentile-based CI.</span>
+  
+d. <span style="color:blue">Compare CI from (b) and (c). Are they similar?</span>
+  
+e. <span style="color:blue">How would the bootstrap estimation of CI change if we were interested in Spearman or Kendall correlation instead?</span>
+
+```
+<div class = "fold">
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+x <- c(1.26, -0.33,  1.33,  1.27,  0.41, -1.54, -0.93, -0.29, -0.01,  2.40)
+y <- c(2.64,  0.33,  0.48,  0.06, -0.88, -2.14, -2.21,  0.95,  0.83,  1.45)
+
+# a
+cor(x, y)
+
+# b
+res <- cor.test(x, y)
+res$conf.int[1:2]
+
+# c
+set.seed(0)
+m  <- 1000
+n  <- length(x) 
+T_cor <- function(x, y) {cor(x, y)}
+
+est_boot <- array(NA, m)
+for (i in 1:m) {
+  idx <- sample(1:n, n, rep = T) # !!! important to use same indices to keep dependency between x and y
+  est_boot[i] <- T_cor(x[idx], y[idx])
+}
+
+quantile(est_boot, p = c(0.025, 0.975))
+
+# d
+# Yes, but the bootstrap CI is more narrow.
+
+# e
+# We just use the functions for Kendall/Spearman coefficients instead:
+T_kendall <- function(x, y) {cor(x, y, method = "kendall")}
+T_spearman <- function(x, y) {cor(x, y, method = "spearman")}
+
+# Put this in a function that returns the CI
+bootstrap_95_ci <- function(x, y, t, m = 1000) {
+  n <- length(x)
+  est_boot <- array(NA, m)
+  for (i in 1:m) {
+    idx <- sample(1:n, n, rep = T) # !!! important to use same indices to keep dependency between x and y
+    est_boot[i] <- t(x[idx], y[idx])
+  }
+  quantile(est_boot, p = c(0.025, 0.975))
+}
+
+bootstrap_95_ci(x, y, T_kendall)
+bootstrap_95_ci(x, y, T_spearman)
+
+```
+</div> 
+
+
+
+```{exercise}
+
+<span style="color:blue">
+  In this problem we will illustrate the use of the nonparametric bootstrap for estimating CIs of regression model coefficients.
+</span>
+
+
+a. <span style="color:blue">Load the longley dataset from base R with data(longley).</span>
+
+b. <span style="color:blue">Use lm() to apply linear regression using "Employed" as the target (dependent) variable and all other variables as the predictors (independent). Using lm() results, print the estimated regression coefficients and standard errors. Estimate 95% CI for the coefficients using +/- 1.96 * SE.</span>
+
+c. <span style="color:blue">Use nonparametric bootstrap with 100 replications to estimate the SE of the coefficients from (b). Compare the SE from (c) with those from (b).</span>
+
+```
+<div class = "fold">
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+# a
+data(longley)
+
+# b
+res <- lm(Employed ~ . , longley)
+tmp <- data.frame(summary(res)$coefficients[,1:2])
+tmp$LB <- tmp[,1] - 1.96 * tmp[,2]
+tmp$UB <- tmp[,1] + 1.96 * tmp[,2]
+tmp
+
+# c
+set.seed(0)
+m <- 100
+n <- nrow(longley)
+T_coef <- function(x) {
+  lm(Employed ~ . , x)$coefficients
+}
+
+est_boot <- array(NA, c(m, ncol(longley)))
+for (i in 1:m) {
+  idx <- sample(1:n, n, rep = T)
+  est_boot[i,] <- T_coef(longley[idx,])
+}
+
+SE <- apply(est_boot, 2, sd)
+SE
+
+# Show the standard errors around coefficients
+library(ggplot2)
+library(reshape2)
+df <- data.frame(index = 1:7, bootstrap_SE = SE, lm_SE = tmp$Std..Error)
+melted_df <- melt(df[2:nrow(df), ], id.vars = "index")  # Ignore bias which has a really large magnitude
+ggplot(melted_df, aes(x = index, y = value, fill = variable)) +
+  geom_bar(stat="identity", position="dodge") +
+  xlab("Coefficient") +
+  ylab("Standard error") # + scale_y_continuous(trans = "log") # If you want to also plot bias
+  
+```
+</div> 

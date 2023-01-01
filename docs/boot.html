@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 14 Bootstrap | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 14 Bootstrap | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
   <meta property="og:description" content="Course notes" />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2021-01-14" />
+<meta name="date" content="2023-01-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="eb.html"/>
 <link rel="next" href="ml.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,25 +49,24 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,7 +86,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -120,6 +119,29 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -137,81 +159,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
 <li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
-<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
 <li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fisher-information"><i class="fa fa-check"></i><b>15.2</b> Fisher information</a></li>
 <li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="nhst.html"><a href="nhst.html"><i class="fa fa-check"></i><b>16</b> Null hypothesis significance testing</a></li>
-<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a><ul>
+<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a>
+<ul>
 <li class="chapter" data-level="17.1" data-path="bi.html"><a href="bi.html#conjugate-priors"><i class="fa fa-check"></i><b>17.1</b> Conjugate priors</a></li>
 <li class="chapter" data-level="17.2" data-path="bi.html"><a href="bi.html#posterior-sampling"><i class="fa fa-check"></i><b>17.2</b> Posterior sampling</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a>
+<ul>
 <li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
 <li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
-<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a>
+<ul>
 <li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
 <li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a>
+<ul>
 <li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
 <li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
 <li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
@@ -222,7 +260,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
 <li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a>
+<ul>
 <li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
 </ul></li>
 <li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
@@ -249,8 +288,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="boot" class="section level1">
-<h1><span class="header-section-number">Chapter 14</span> Bootstrap</h1>
+<div id="boot" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Chapter 14</span> Bootstrap<a href="boot.html#boot" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This chapter deals with bootstrap.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <ul>
@@ -278,71 +317,351 @@ $(document).ready(function() {
   })
 });
 </script>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-220" class="exercise"><strong>Exercise 14.1  </strong></span>
-<span style="color:blue">Ideally, a <span class="math inline">\(1-\alpha\)</span> CI would have <span class="math inline">\(1-\alpha\)</span> coverage. That is, say a 95% CI should, in the long run, contain the true value of the parameter 95% of the time. In practice, it is impossible to assess the coverage of our CI method, because we rarely know the true parameter. In simulation, however, we can. Let’s assess the coverage of bootstrap percentile intervals.</span></p>
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 14.1  </strong></span><span style="color:blue">Ideally, a <span class="math inline">\(1-\alpha\)</span> CI would have <span class="math inline">\(1-\alpha\)</span> coverage. That is, say a 95% CI should, in the long run, contain the true value of the parameter 95% of the time. In practice, it is impossible to assess the coverage of our CI method, because we rarely know the true parameter. In simulation, however, we can. Let’s assess the coverage of bootstrap percentile intervals.</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span style="color:blue">Pick a univariate distribution with readily available mean and one that you can easily sample from.</span></p></li>
 <li><p><span style="color:blue">Draw <span class="math inline">\(n = 30\)</span> random samples from the chosen distribution and use the bootstrap (with large enough m) and percentile CI method to construct 95% CI. Repeat the process many times and count how many times the CI contains the true mean. That is, compute the actual coverage probability (don’t forget to include the standard error of the coverage probability!). What can you observe?</span></p></li>
 <li><p><span style="color:blue">Try one or two different distributions. What can you observe?</span></p></li>
 <li><p><span style="color:blue">Repeat (b) and (c) using BCa intervals (R package boot). How does the coverage compare to percentile intervals?</span></p></li>
+<li><p><span style="color:blue">As (d) but using intervals based on asymptotic normality (+/- 1.96 SE).</span></p></li>
+<li><p><span style="color:blue">How do results from (b), (d), and (e) change if we increase the sample size to n = 200? What about n = 5?</span></p></li>
 </ol>
 </div>
-
 <div class="fold">
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="boot.html#cb183-1"></a><span class="kw">library</span>(boot)</span>
-<span id="cb183-2"><a href="boot.html#cb183-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb183-3"><a href="boot.html#cb183-3"></a>nit   &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb183-4"><a href="boot.html#cb183-4"></a>alpha &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
-<span id="cb183-5"><a href="boot.html#cb183-5"></a>nboot &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb183-6"><a href="boot.html#cb183-6"></a>covers     &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> nit, <span class="dt">ncol =</span> <span class="dv">3</span>)</span>
-<span id="cb183-7"><a href="boot.html#cb183-7"></a>covers_BCa &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> nit, <span class="dt">ncol =</span> <span class="dv">3</span>)</span>
-<span id="cb183-8"><a href="boot.html#cb183-8"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nit) {</span>
-<span id="cb183-9"><a href="boot.html#cb183-9"></a>  x1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">30</span>)</span>
-<span id="cb183-10"><a href="boot.html#cb183-10"></a>  x2 &lt;-<span class="st"> </span><span class="kw">rbeta</span>(<span class="dv">30</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb183-11"><a href="boot.html#cb183-11"></a>  x3 &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">30</span>, <span class="dv">5</span>)</span>
-<span id="cb183-12"><a href="boot.html#cb183-12"></a>  </span>
-<span id="cb183-13"><a href="boot.html#cb183-13"></a>  X1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">30</span>, <span class="dt">ncol =</span> nboot)</span>
-<span id="cb183-14"><a href="boot.html#cb183-14"></a>  X2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">30</span>, <span class="dt">ncol =</span> nboot)</span>
-<span id="cb183-15"><a href="boot.html#cb183-15"></a>  X3 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">30</span>, <span class="dt">ncol =</span> nboot)</span>
-<span id="cb183-16"><a href="boot.html#cb183-16"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nboot) {</span>
-<span id="cb183-17"><a href="boot.html#cb183-17"></a>    X1[ ,i] &lt;-<span class="st"> </span><span class="kw">sample</span>(x1, <span class="dv">30</span>, <span class="dt">replace =</span> T)</span>
-<span id="cb183-18"><a href="boot.html#cb183-18"></a>    X2[ ,i] &lt;-<span class="st"> </span><span class="kw">sample</span>(x2, <span class="dv">30</span>, T)</span>
-<span id="cb183-19"><a href="boot.html#cb183-19"></a>    X3[ ,i] &lt;-<span class="st"> </span><span class="kw">sample</span>(x3, <span class="dv">30</span>, T)</span>
-<span id="cb183-20"><a href="boot.html#cb183-20"></a>  }</span>
-<span id="cb183-21"><a href="boot.html#cb183-21"></a>  X1_func &lt;-<span class="st"> </span><span class="kw">apply</span>(X1, <span class="dv">2</span>, mean)</span>
-<span id="cb183-22"><a href="boot.html#cb183-22"></a>  X2_func &lt;-<span class="st"> </span><span class="kw">apply</span>(X2, <span class="dv">2</span>, mean)</span>
-<span id="cb183-23"><a href="boot.html#cb183-23"></a>  X3_func &lt;-<span class="st"> </span><span class="kw">apply</span>(X3, <span class="dv">2</span>, mean)</span>
-<span id="cb183-24"><a href="boot.html#cb183-24"></a>  X1_quant &lt;-<span class="st"> </span><span class="kw">quantile</span>(X1_func, <span class="dt">probs =</span> <span class="kw">c</span>(alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>))</span>
-<span id="cb183-25"><a href="boot.html#cb183-25"></a>  X2_quant &lt;-<span class="st"> </span><span class="kw">quantile</span>(X2_func, <span class="dt">probs =</span> <span class="kw">c</span>(alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>))</span>
-<span id="cb183-26"><a href="boot.html#cb183-26"></a>  X3_quant &lt;-<span class="st"> </span><span class="kw">quantile</span>(X3_func, <span class="dt">probs =</span> <span class="kw">c</span>(alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>alpha <span class="op">/</span><span class="st"> </span><span class="dv">2</span>))</span>
-<span id="cb183-27"><a href="boot.html#cb183-27"></a>  covers[j,<span class="dv">1</span>] &lt;-<span class="st"> </span>(<span class="dv">0</span> <span class="op">&gt;</span><span class="st"> </span>X1_quant[<span class="dv">1</span>]) <span class="op">&amp;</span><span class="st"> </span>(<span class="dv">0</span> <span class="op">&lt;</span><span class="st"> </span>X1_quant[<span class="dv">2</span>])</span>
-<span id="cb183-28"><a href="boot.html#cb183-28"></a>  covers[j,<span class="dv">2</span>] &lt;-<span class="st"> </span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">3</span>) <span class="op">&gt;</span><span class="st"> </span>X2_quant[<span class="dv">1</span>]) <span class="op">&amp;</span><span class="st"> </span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">3</span>) <span class="op">&lt;</span><span class="st"> </span>X2_quant[<span class="dv">2</span>])</span>
-<span id="cb183-29"><a href="boot.html#cb183-29"></a>  covers[j,<span class="dv">3</span>] &lt;-<span class="st"> </span>(<span class="dv">5</span> <span class="op">&gt;</span><span class="st"> </span>X3_quant[<span class="dv">1</span>]) <span class="op">&amp;</span><span class="st"> </span>(<span class="dv">5</span> <span class="op">&lt;</span><span class="st"> </span>X3_quant[<span class="dv">2</span>])</span>
-<span id="cb183-30"><a href="boot.html#cb183-30"></a></span>
-<span id="cb183-31"><a href="boot.html#cb183-31"></a>  mf     &lt;-<span class="st"> </span><span class="cf">function</span> (x, i) <span class="kw">return</span>(<span class="kw">mean</span>(x[i]))</span>
-<span id="cb183-32"><a href="boot.html#cb183-32"></a>  bootX1 &lt;-<span class="st"> </span><span class="kw">boot</span>(x1, <span class="dt">statistic =</span> mf, <span class="dt">R =</span> nboot)</span>
-<span id="cb183-33"><a href="boot.html#cb183-33"></a>  bootX2 &lt;-<span class="st"> </span><span class="kw">boot</span>(x2, <span class="dt">statistic =</span> mf, <span class="dt">R =</span> nboot)</span>
-<span id="cb183-34"><a href="boot.html#cb183-34"></a>  bootX3 &lt;-<span class="st"> </span><span class="kw">boot</span>(x3, <span class="dt">statistic =</span> mf, <span class="dt">R =</span> nboot)</span>
-<span id="cb183-35"><a href="boot.html#cb183-35"></a></span>
-<span id="cb183-36"><a href="boot.html#cb183-36"></a>  X1_quant_BCa &lt;-<span class="st"> </span><span class="kw">boot.ci</span>(bootX1, <span class="dt">type =</span> <span class="st">&quot;bca&quot;</span>)<span class="op">$</span>bca</span>
-<span id="cb183-37"><a href="boot.html#cb183-37"></a>  X2_quant_BCa &lt;-<span class="st"> </span><span class="kw">boot.ci</span>(bootX2, <span class="dt">type =</span> <span class="st">&quot;bca&quot;</span>)<span class="op">$</span>bca</span>
-<span id="cb183-38"><a href="boot.html#cb183-38"></a>  X3_quant_BCa &lt;-<span class="st"> </span><span class="kw">boot.ci</span>(bootX3, <span class="dt">type =</span> <span class="st">&quot;bca&quot;</span>)<span class="op">$</span>bca</span>
-<span id="cb183-39"><a href="boot.html#cb183-39"></a>  </span>
-<span id="cb183-40"><a href="boot.html#cb183-40"></a>  covers_BCa[j,<span class="dv">1</span>] &lt;-<span class="st"> </span>(<span class="dv">0</span> <span class="op">&gt;</span><span class="st"> </span>X1_quant_BCa[<span class="dv">4</span>]) <span class="op">&amp;</span><span class="st"> </span>(<span class="dv">0</span> <span class="op">&lt;</span><span class="st"> </span>X1_quant_BCa[<span class="dv">5</span>])</span>
-<span id="cb183-41"><a href="boot.html#cb183-41"></a>  covers_BCa[j,<span class="dv">2</span>] &lt;-<span class="st"> </span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">3</span>) <span class="op">&gt;</span><span class="st"> </span>X2_quant_BCa[<span class="dv">4</span>]) <span class="op">&amp;</span><span class="st"> </span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">3</span>) <span class="op">&lt;</span><span class="st"> </span>X2_quant_BCa[<span class="dv">5</span>])</span>
-<span id="cb183-42"><a href="boot.html#cb183-42"></a>  covers_BCa[j,<span class="dv">3</span>] &lt;-<span class="st"> </span>(<span class="dv">5</span> <span class="op">&gt;</span><span class="st"> </span>X3_quant_BCa[<span class="dv">4</span>]) <span class="op">&amp;</span><span class="st"> </span>(<span class="dv">5</span> <span class="op">&lt;</span><span class="st"> </span>X3_quant_BCa[<span class="dv">5</span>])</span>
-<span id="cb183-43"><a href="boot.html#cb183-43"></a></span>
-<span id="cb183-44"><a href="boot.html#cb183-44"></a>}</span>
-<span id="cb183-45"><a href="boot.html#cb183-45"></a><span class="kw">apply</span>(covers, <span class="dv">2</span>, mean)</span></code></pre></div>
-<pre><code>## [1] 0.925 0.913 0.920</code></pre>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="boot.html#cb185-1"></a><span class="kw">apply</span>(covers, <span class="dv">2</span>, sd) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(nit)</span></code></pre></div>
-<pre><code>## [1] 0.008333333 0.008916867 0.008583337</code></pre>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="boot.html#cb187-1"></a><span class="kw">apply</span>(covers_BCa, <span class="dv">2</span>, mean)</span></code></pre></div>
-<pre><code>## [1] 0.943 0.940 0.933</code></pre>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="boot.html#cb189-1"></a><span class="kw">apply</span>(covers_BCa, <span class="dv">2</span>, sd) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(nit)</span></code></pre></div>
-<pre><code>## [1] 0.007335176 0.007513751 0.007910346</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="boot.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb1-2"><a href="boot.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb1-3"><a href="boot.html#cb1-3" aria-hidden="true" tabindex="-1"></a>nit   <span class="ot">&lt;-</span> <span class="dv">1000</span>  <span class="co"># Repeat the process &quot;many times&quot;</span></span>
+<span id="cb1-4"><a href="boot.html#cb1-4" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span>  <span class="co"># CI parameter</span></span>
+<span id="cb1-5"><a href="boot.html#cb1-5" aria-hidden="true" tabindex="-1"></a>nboot <span class="ot">&lt;-</span> <span class="dv">100</span>   <span class="co"># m parameter for bootstrap (&quot;large enough m&quot;)</span></span>
+<span id="cb1-6"><a href="boot.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># f: change this to 200 or 5.</span></span>
+<span id="cb1-7"><a href="boot.html#cb1-7" aria-hidden="true" tabindex="-1"></a>nsample <span class="ot">&lt;-</span> <span class="dv">30</span>  <span class="co"># n = 30 random samples from the chosen distribution. Comment out BCa code if it breaks.</span></span>
+<span id="cb1-8"><a href="boot.html#cb1-8" aria-hidden="true" tabindex="-1"></a>covers     <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> nit, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb1-9"><a href="boot.html#cb1-9" aria-hidden="true" tabindex="-1"></a>covers_BCa <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> nit, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb1-10"><a href="boot.html#cb1-10" aria-hidden="true" tabindex="-1"></a>covers_asymp_norm <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> nit, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb1-11"><a href="boot.html#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="boot.html#cb1-12" aria-hidden="true" tabindex="-1"></a>isin <span class="ot">&lt;-</span> <span class="cf">function</span> (x, lower, upper) {</span>
+<span id="cb1-13"><a href="boot.html#cb1-13" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">&gt;</span> lower) <span class="sc">&amp;</span> (x <span class="sc">&lt;</span> upper)</span>
+<span id="cb1-14"><a href="boot.html#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-15"><a href="boot.html#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="boot.html#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nit) {  <span class="co"># Repeating many times</span></span>
+<span id="cb1-17"><a href="boot.html#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a: pick a univariate distribution - standard normal</span></span>
+<span id="cb1-18"><a href="boot.html#cb1-18" aria-hidden="true" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nsample)</span>
+<span id="cb1-19"><a href="boot.html#cb1-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-20"><a href="boot.html#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># c: one or two different distributions - beta and poisson</span></span>
+<span id="cb1-21"><a href="boot.html#cb1-21" aria-hidden="true" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(nsample, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb1-22"><a href="boot.html#cb1-22" aria-hidden="true" tabindex="-1"></a>  x3 <span class="ot">&lt;-</span> <span class="fu">rpois</span>(nsample, <span class="dv">5</span>)</span>
+<span id="cb1-23"><a href="boot.html#cb1-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-24"><a href="boot.html#cb1-24" aria-hidden="true" tabindex="-1"></a>  X1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="cn">NA</span>, <span class="at">nrow =</span> nsample, <span class="at">ncol =</span> nboot)</span>
+<span id="cb1-25"><a href="boot.html#cb1-25" aria-hidden="true" tabindex="-1"></a>  X2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="cn">NA</span>, <span class="at">nrow =</span> nsample, <span class="at">ncol =</span> nboot)</span>
+<span id="cb1-26"><a href="boot.html#cb1-26" aria-hidden="true" tabindex="-1"></a>  X3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="cn">NA</span>, <span class="at">nrow =</span> nsample, <span class="at">ncol =</span> nboot)</span>
+<span id="cb1-27"><a href="boot.html#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nboot) {</span>
+<span id="cb1-28"><a href="boot.html#cb1-28" aria-hidden="true" tabindex="-1"></a>    X1[ ,i] <span class="ot">&lt;-</span> <span class="fu">sample</span>(x1, nsample, <span class="at">replace =</span> T)</span>
+<span id="cb1-29"><a href="boot.html#cb1-29" aria-hidden="true" tabindex="-1"></a>    X2[ ,i] <span class="ot">&lt;-</span> <span class="fu">sample</span>(x2, nsample, T)</span>
+<span id="cb1-30"><a href="boot.html#cb1-30" aria-hidden="true" tabindex="-1"></a>    X3[ ,i] <span class="ot">&lt;-</span> <span class="fu">sample</span>(x3, nsample, T)</span>
+<span id="cb1-31"><a href="boot.html#cb1-31" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-32"><a href="boot.html#cb1-32" aria-hidden="true" tabindex="-1"></a>  X1_func <span class="ot">&lt;-</span> <span class="fu">apply</span>(X1, <span class="dv">2</span>, mean)</span>
+<span id="cb1-33"><a href="boot.html#cb1-33" aria-hidden="true" tabindex="-1"></a>  X2_func <span class="ot">&lt;-</span> <span class="fu">apply</span>(X2, <span class="dv">2</span>, mean)</span>
+<span id="cb1-34"><a href="boot.html#cb1-34" aria-hidden="true" tabindex="-1"></a>  X3_func <span class="ot">&lt;-</span> <span class="fu">apply</span>(X3, <span class="dv">2</span>, mean)</span>
+<span id="cb1-35"><a href="boot.html#cb1-35" aria-hidden="true" tabindex="-1"></a>  X1_quant <span class="ot">&lt;-</span> <span class="fu">quantile</span>(X1_func, <span class="at">probs =</span> <span class="fu">c</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>))</span>
+<span id="cb1-36"><a href="boot.html#cb1-36" aria-hidden="true" tabindex="-1"></a>  X2_quant <span class="ot">&lt;-</span> <span class="fu">quantile</span>(X2_func, <span class="at">probs =</span> <span class="fu">c</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>))</span>
+<span id="cb1-37"><a href="boot.html#cb1-37" aria-hidden="true" tabindex="-1"></a>  X3_quant <span class="ot">&lt;-</span> <span class="fu">quantile</span>(X3_func, <span class="at">probs =</span> <span class="fu">c</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>))</span>
+<span id="cb1-38"><a href="boot.html#cb1-38" aria-hidden="true" tabindex="-1"></a>  covers[j,<span class="dv">1</span>] <span class="ot">&lt;-</span> (<span class="dv">0</span> <span class="sc">&gt;</span> X1_quant[<span class="dv">1</span>]) <span class="sc">&amp;</span> (<span class="dv">0</span> <span class="sc">&lt;</span> X1_quant[<span class="dv">2</span>])</span>
+<span id="cb1-39"><a href="boot.html#cb1-39" aria-hidden="true" tabindex="-1"></a>  covers[j,<span class="dv">2</span>] <span class="ot">&lt;-</span> ((<span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span>) <span class="sc">&gt;</span> X2_quant[<span class="dv">1</span>]) <span class="sc">&amp;</span> ((<span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span>) <span class="sc">&lt;</span> X2_quant[<span class="dv">2</span>])</span>
+<span id="cb1-40"><a href="boot.html#cb1-40" aria-hidden="true" tabindex="-1"></a>  covers[j,<span class="dv">3</span>] <span class="ot">&lt;-</span> (<span class="dv">5</span> <span class="sc">&gt;</span> X3_quant[<span class="dv">1</span>]) <span class="sc">&amp;</span> (<span class="dv">5</span> <span class="sc">&lt;</span> X3_quant[<span class="dv">2</span>])</span>
+<span id="cb1-41"><a href="boot.html#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="boot.html#cb1-42" aria-hidden="true" tabindex="-1"></a>  mf     <span class="ot">&lt;-</span> <span class="cf">function</span> (x, i) <span class="fu">return</span>(<span class="fu">mean</span>(x[i]))</span>
+<span id="cb1-43"><a href="boot.html#cb1-43" aria-hidden="true" tabindex="-1"></a>  bootX1 <span class="ot">&lt;-</span> <span class="fu">boot</span>(x1, <span class="at">statistic =</span> mf, <span class="at">R =</span> nboot)</span>
+<span id="cb1-44"><a href="boot.html#cb1-44" aria-hidden="true" tabindex="-1"></a>  bootX2 <span class="ot">&lt;-</span> <span class="fu">boot</span>(x2, <span class="at">statistic =</span> mf, <span class="at">R =</span> nboot)</span>
+<span id="cb1-45"><a href="boot.html#cb1-45" aria-hidden="true" tabindex="-1"></a>  bootX3 <span class="ot">&lt;-</span> <span class="fu">boot</span>(x3, <span class="at">statistic =</span> mf, <span class="at">R =</span> nboot)</span>
+<span id="cb1-46"><a href="boot.html#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="boot.html#cb1-47" aria-hidden="true" tabindex="-1"></a>  X1_quant_BCa <span class="ot">&lt;-</span> <span class="fu">boot.ci</span>(bootX1, <span class="at">type =</span> <span class="st">&quot;bca&quot;</span>)<span class="sc">$</span>bca</span>
+<span id="cb1-48"><a href="boot.html#cb1-48" aria-hidden="true" tabindex="-1"></a>  X2_quant_BCa <span class="ot">&lt;-</span> <span class="fu">boot.ci</span>(bootX2, <span class="at">type =</span> <span class="st">&quot;bca&quot;</span>)<span class="sc">$</span>bca</span>
+<span id="cb1-49"><a href="boot.html#cb1-49" aria-hidden="true" tabindex="-1"></a>  X3_quant_BCa <span class="ot">&lt;-</span> <span class="fu">boot.ci</span>(bootX3, <span class="at">type =</span> <span class="st">&quot;bca&quot;</span>)<span class="sc">$</span>bca</span>
+<span id="cb1-50"><a href="boot.html#cb1-50" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-51"><a href="boot.html#cb1-51" aria-hidden="true" tabindex="-1"></a>  covers_BCa[j,<span class="dv">1</span>] <span class="ot">&lt;-</span> (<span class="dv">0</span> <span class="sc">&gt;</span> X1_quant_BCa[<span class="dv">4</span>]) <span class="sc">&amp;</span> (<span class="dv">0</span> <span class="sc">&lt;</span> X1_quant_BCa[<span class="dv">5</span>])</span>
+<span id="cb1-52"><a href="boot.html#cb1-52" aria-hidden="true" tabindex="-1"></a>  covers_BCa[j,<span class="dv">2</span>] <span class="ot">&lt;-</span> ((<span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span>) <span class="sc">&gt;</span> X2_quant_BCa[<span class="dv">4</span>]) <span class="sc">&amp;</span> ((<span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span>) <span class="sc">&lt;</span> X2_quant_BCa[<span class="dv">5</span>])</span>
+<span id="cb1-53"><a href="boot.html#cb1-53" aria-hidden="true" tabindex="-1"></a>  covers_BCa[j,<span class="dv">3</span>] <span class="ot">&lt;-</span> (<span class="dv">5</span> <span class="sc">&gt;</span> X3_quant_BCa[<span class="dv">4</span>]) <span class="sc">&amp;</span> (<span class="dv">5</span> <span class="sc">&lt;</span> X3_quant_BCa[<span class="dv">5</span>])</span>
+<span id="cb1-54"><a href="boot.html#cb1-54" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-55"><a href="boot.html#cb1-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># e: estimate mean and standard error</span></span>
+<span id="cb1-56"><a href="boot.html#cb1-56" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sample mean:</span></span>
+<span id="cb1-57"><a href="boot.html#cb1-57" aria-hidden="true" tabindex="-1"></a>  x1_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(x1)</span>
+<span id="cb1-58"><a href="boot.html#cb1-58" aria-hidden="true" tabindex="-1"></a>  x2_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(x2)</span>
+<span id="cb1-59"><a href="boot.html#cb1-59" aria-hidden="true" tabindex="-1"></a>  x3_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(x3)</span>
+<span id="cb1-60"><a href="boot.html#cb1-60" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-61"><a href="boot.html#cb1-61" aria-hidden="true" tabindex="-1"></a>  <span class="co"># standard error (of the sample mean) estimate: sample standard deviation / sqrt(n)</span></span>
+<span id="cb1-62"><a href="boot.html#cb1-62" aria-hidden="true" tabindex="-1"></a>  x1_bar_SE <span class="ot">&lt;-</span> <span class="fu">sd</span>(x1) <span class="sc">/</span> <span class="fu">sqrt</span>(nsample)</span>
+<span id="cb1-63"><a href="boot.html#cb1-63" aria-hidden="true" tabindex="-1"></a>  x2_bar_SE <span class="ot">&lt;-</span> <span class="fu">sd</span>(x2) <span class="sc">/</span> <span class="fu">sqrt</span>(nsample)</span>
+<span id="cb1-64"><a href="boot.html#cb1-64" aria-hidden="true" tabindex="-1"></a>  x3_bar_SE <span class="ot">&lt;-</span> <span class="fu">sd</span>(x3) <span class="sc">/</span> <span class="fu">sqrt</span>(nsample)</span>
+<span id="cb1-65"><a href="boot.html#cb1-65" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-66"><a href="boot.html#cb1-66" aria-hidden="true" tabindex="-1"></a>  covers_asymp_norm[j,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">isin</span>(<span class="dv">0</span>, x1_bar <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> x1_bar_SE, x1_bar <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> x1_bar_SE)</span>
+<span id="cb1-67"><a href="boot.html#cb1-67" aria-hidden="true" tabindex="-1"></a>  covers_asymp_norm[j,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">isin</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, x2_bar <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> x2_bar_SE, x2_bar <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> x2_bar_SE)</span>
+<span id="cb1-68"><a href="boot.html#cb1-68" aria-hidden="true" tabindex="-1"></a>  covers_asymp_norm[j,<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">isin</span>(<span class="dv">5</span>, x3_bar <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> x3_bar_SE, x3_bar <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> x3_bar_SE)</span>
+<span id="cb1-69"><a href="boot.html#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="boot.html#cb1-70" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-71"><a href="boot.html#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(covers, <span class="dv">2</span>, mean)</span></code></pre></div>
+<pre><code>## [1] 0.918 0.925 0.905</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="boot.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(covers, <span class="dv">2</span>, sd) <span class="sc">/</span> <span class="fu">sqrt</span>(nit)</span></code></pre></div>
+<pre><code>## [1] 0.008680516 0.008333333 0.009276910</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="boot.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(covers_BCa, <span class="dv">2</span>, mean)</span></code></pre></div>
+<pre><code>## [1] 0.927 0.944 0.927</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="boot.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(covers_BCa, <span class="dv">2</span>, sd) <span class="sc">/</span> <span class="fu">sqrt</span>(nit)</span></code></pre></div>
+<pre><code>## [1] 0.008230355 0.007274401 0.008230355</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="boot.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(covers_asymp_norm, <span class="dv">2</span>, mean)</span></code></pre></div>
+<pre><code>## [1] 0.939 0.937 0.930</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="boot.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(covers_asymp_norm, <span class="dv">2</span>, sd) <span class="sc">/</span> <span class="fu">sqrt</span>(nit)</span></code></pre></div>
+<pre><code>## [1] 0.007572076 0.007687008 0.008072494</code></pre>
+</div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 14.2  </strong></span><span style="color:blue">
+You are given a sample of independent observations from a process of interest:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Index</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">7</th>
+<th align="right">8</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">X</td>
+<td align="right">7</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">9</td>
+<td align="right">10</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span style="color:blue">Compute the plug-in estimate of mean and 95% symmetric CI based on asymptotic normality. Use the plug-in estimate of SE.</span></p></li>
+<li><p><span style="color:blue">Same as (a), but use the unbiased estimate of SE.</span></p></li>
+<li><p><span style="color:blue">Apply nonparametric bootstrap with 1000 bootstrap replications and estimate the 95% CI for the mean with percentile-based CI.</span></p></li>
+</ol>
+</div>
+<div class="fold">
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="boot.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a</span></span>
+<span id="cb13-2"><a href="boot.html#cb13-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">10</span>)</span>
+<span id="cb13-3"><a href="boot.html#cb13-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb13-4"><a href="boot.html#cb13-4" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb13-5"><a href="boot.html#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="boot.html#cb13-6" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((x <span class="sc">-</span> mu)<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb13-7"><a href="boot.html#cb13-7" aria-hidden="true" tabindex="-1"></a>SE</span></code></pre></div>
+<pre><code>## [1] 0.8915839</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="boot.html#cb15-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb15-2"><a href="boot.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(mu <span class="sc">-</span> z <span class="sc">*</span> SE, mu <span class="sc">+</span> z <span class="sc">*</span> SE)</span></code></pre></div>
+<pre><code>## [1] 4.127528 7.622472</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="boot.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># b</span></span>
+<span id="cb17-2"><a href="boot.html#cb17-2" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fu">sd</span>(x) <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb17-3"><a href="boot.html#cb17-3" aria-hidden="true" tabindex="-1"></a>SE</span></code></pre></div>
+<pre><code>## [1] 0.9531433</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="boot.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(mu <span class="sc">-</span> z <span class="sc">*</span> SE, mu <span class="sc">+</span> z <span class="sc">*</span> SE)</span></code></pre></div>
+<pre><code>## [1] 4.006873 7.743127</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="boot.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># c</span></span>
+<span id="cb21-2"><a href="boot.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb21-3"><a href="boot.html#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="boot.html#cb21-4" aria-hidden="true" tabindex="-1"></a>m  <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb21-5"><a href="boot.html#cb21-5" aria-hidden="true" tabindex="-1"></a>T_mean <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {<span class="fu">mean</span>(x)}</span>
+<span id="cb21-6"><a href="boot.html#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="boot.html#cb21-7" aria-hidden="true" tabindex="-1"></a>est_boot <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="cn">NA</span>, m)</span>
+<span id="cb21-8"><a href="boot.html#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m) {</span>
+<span id="cb21-9"><a href="boot.html#cb21-9" aria-hidden="true" tabindex="-1"></a>  x_boot <span class="ot">&lt;-</span> x[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, n, <span class="at">rep =</span> T)]</span>
+<span id="cb21-10"><a href="boot.html#cb21-10" aria-hidden="true" tabindex="-1"></a>  est_boot[i] <span class="ot">&lt;-</span> <span class="fu">T_mean</span>(x_boot)</span>
+<span id="cb21-11"><a href="boot.html#cb21-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-12"><a href="boot.html#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="boot.html#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(est_boot, <span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<pre><code>##  2.5% 97.5% 
+## 4.250 7.625</code></pre>
+</div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-6" class="exercise"><strong>Exercise 14.3  </strong></span><span style="color:blue">
+We are given a sample of 10 independent paired (bivariate) observations:</p>
+<table>
+<colgroup>
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Index</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">7</th>
+<th align="right">8</th>
+<th align="right">9</th>
+<th align="right">10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">X</td>
+<td align="right">1.26</td>
+<td align="right">-0.33</td>
+<td align="right">1.33</td>
+<td align="right">1.27</td>
+<td align="right">0.41</td>
+<td align="right">-1.54</td>
+<td align="right">-0.93</td>
+<td align="right">-0.29</td>
+<td align="right">-0.01</td>
+<td align="right">2.40</td>
+</tr>
+<tr class="even">
+<td align="left">Y</td>
+<td align="right">2.64</td>
+<td align="right">0.33</td>
+<td align="right">0.48</td>
+<td align="right">0.06</td>
+<td align="right">-0.88</td>
+<td align="right">-2.14</td>
+<td align="right">-2.21</td>
+<td align="right">0.95</td>
+<td align="right">0.83</td>
+<td align="right">1.45</td>
+</tr>
+</tbody>
+</table>
+<p></span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span style="color:blue">Compute Pearson correlation between X and Y.</span></p></li>
+<li><p><span style="color:blue">Use the cor.test() from R to estimate a 95% CI for the estimate from (a).</span></p></li>
+<li><p><span style="color:blue">Apply nonparametric bootstrap with 1000 bootstrap replications and estimate the 95% CI for the Pearson correlation with percentile-based CI.</span></p></li>
+<li><p><span style="color:blue">Compare CI from (b) and (c). Are they similar?</span></p></li>
+<li><p><span style="color:blue">How would the bootstrap estimation of CI change if we were interested in Spearman or Kendall correlation instead?</span></p></li>
+</ol>
+</div>
+<div class="fold">
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="boot.html#cb23-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.26</span>, <span class="sc">-</span><span class="fl">0.33</span>,  <span class="fl">1.33</span>,  <span class="fl">1.27</span>,  <span class="fl">0.41</span>, <span class="sc">-</span><span class="fl">1.54</span>, <span class="sc">-</span><span class="fl">0.93</span>, <span class="sc">-</span><span class="fl">0.29</span>, <span class="sc">-</span><span class="fl">0.01</span>,  <span class="fl">2.40</span>)</span>
+<span id="cb23-2"><a href="boot.html#cb23-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.64</span>,  <span class="fl">0.33</span>,  <span class="fl">0.48</span>,  <span class="fl">0.06</span>, <span class="sc">-</span><span class="fl">0.88</span>, <span class="sc">-</span><span class="fl">2.14</span>, <span class="sc">-</span><span class="fl">2.21</span>,  <span class="fl">0.95</span>,  <span class="fl">0.83</span>,  <span class="fl">1.45</span>)</span>
+<span id="cb23-3"><a href="boot.html#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="boot.html#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># a</span></span>
+<span id="cb23-5"><a href="boot.html#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x, y)</span></code></pre></div>
+<pre><code>## [1] 0.6991247</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="boot.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># b</span></span>
+<span id="cb25-2"><a href="boot.html#cb25-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(x, y)</span>
+<span id="cb25-3"><a href="boot.html#cb25-3" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>conf.int[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] 0.1241458 0.9226238</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="boot.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># c</span></span>
+<span id="cb27-2"><a href="boot.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb27-3"><a href="boot.html#cb27-3" aria-hidden="true" tabindex="-1"></a>m  <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb27-4"><a href="boot.html#cb27-4" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="fu">length</span>(x) </span>
+<span id="cb27-5"><a href="boot.html#cb27-5" aria-hidden="true" tabindex="-1"></a>T_cor <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {<span class="fu">cor</span>(x, y)}</span>
+<span id="cb27-6"><a href="boot.html#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="boot.html#cb27-7" aria-hidden="true" tabindex="-1"></a>est_boot <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="cn">NA</span>, m)</span>
+<span id="cb27-8"><a href="boot.html#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m) {</span>
+<span id="cb27-9"><a href="boot.html#cb27-9" aria-hidden="true" tabindex="-1"></a>  idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, n, <span class="at">rep =</span> T) <span class="co"># !!! important to use same indices to keep dependency between x and y</span></span>
+<span id="cb27-10"><a href="boot.html#cb27-10" aria-hidden="true" tabindex="-1"></a>  est_boot[i] <span class="ot">&lt;-</span> <span class="fu">T_cor</span>(x[idx], y[idx])</span>
+<span id="cb27-11"><a href="boot.html#cb27-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb27-12"><a href="boot.html#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="boot.html#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(est_boot, <span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<pre><code>##      2.5%     97.5% 
+## 0.2565537 0.9057664</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="boot.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># d</span></span>
+<span id="cb29-2"><a href="boot.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Yes, but the bootstrap CI is more narrow.</span></span>
+<span id="cb29-3"><a href="boot.html#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="boot.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># e</span></span>
+<span id="cb29-5"><a href="boot.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># We just use the functions for Kendall/Spearman coefficients instead:</span></span>
+<span id="cb29-6"><a href="boot.html#cb29-6" aria-hidden="true" tabindex="-1"></a>T_kendall <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {<span class="fu">cor</span>(x, y, <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>)}</span>
+<span id="cb29-7"><a href="boot.html#cb29-7" aria-hidden="true" tabindex="-1"></a>T_spearman <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {<span class="fu">cor</span>(x, y, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)}</span>
+<span id="cb29-8"><a href="boot.html#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="boot.html#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Put this in a function that returns the CI</span></span>
+<span id="cb29-10"><a href="boot.html#cb29-10" aria-hidden="true" tabindex="-1"></a>bootstrap_95_ci <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, t, <span class="at">m =</span> <span class="dv">1000</span>) {</span>
+<span id="cb29-11"><a href="boot.html#cb29-11" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb29-12"><a href="boot.html#cb29-12" aria-hidden="true" tabindex="-1"></a>  est_boot <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="cn">NA</span>, m)</span>
+<span id="cb29-13"><a href="boot.html#cb29-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m) {</span>
+<span id="cb29-14"><a href="boot.html#cb29-14" aria-hidden="true" tabindex="-1"></a>    idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, n, <span class="at">rep =</span> T) <span class="co"># !!! important to use same indices to keep dependency between x and y</span></span>
+<span id="cb29-15"><a href="boot.html#cb29-15" aria-hidden="true" tabindex="-1"></a>    est_boot[i] <span class="ot">&lt;-</span> <span class="fu">t</span>(x[idx], y[idx])</span>
+<span id="cb29-16"><a href="boot.html#cb29-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-17"><a href="boot.html#cb29-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quantile</span>(est_boot, <span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
+<span id="cb29-18"><a href="boot.html#cb29-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-19"><a href="boot.html#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="boot.html#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="fu">bootstrap_95_ci</span>(x, y, T_kendall)</span></code></pre></div>
+<pre><code>##        2.5%       97.5% 
+## -0.08108108  0.78378378</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="boot.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bootstrap_95_ci</span>(x, y, T_spearman)</span></code></pre></div>
+<pre><code>##       2.5%      97.5% 
+## -0.1701115  0.8867925</code></pre>
+</div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 14.4  </strong></span><span style="color:blue">
+In this problem we will illustrate the use of the nonparametric bootstrap for estimating CIs of regression model coefficients.
+</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span style="color:blue">Load the longley dataset from base R with data(longley).</span></p></li>
+<li><p><span style="color:blue">Use lm() to apply linear regression using “Employed” as the target (dependent) variable and all other variables as the predictors (independent). Using lm() results, print the estimated regression coefficients and standard errors. Estimate 95% CI for the coefficients using +/- 1.96 * SE.</span></p></li>
+<li><p><span style="color:blue">Use nonparametric bootstrap with 100 replications to estimate the SE of the coefficients from (b). Compare the SE from (c) with those from (b).</span></p></li>
+</ol>
+</div>
+<div class="fold">
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="boot.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a</span></span>
+<span id="cb33-2"><a href="boot.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(longley)</span>
+<span id="cb33-3"><a href="boot.html#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="boot.html#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># b</span></span>
+<span id="cb33-5"><a href="boot.html#cb33-5" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">lm</span>(Employed <span class="sc">~</span> . , longley)</span>
+<span id="cb33-6"><a href="boot.html#cb33-6" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">summary</span>(res)<span class="sc">$</span>coefficients[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span>
+<span id="cb33-7"><a href="boot.html#cb33-7" aria-hidden="true" tabindex="-1"></a>tmp<span class="sc">$</span>LB <span class="ot">&lt;-</span> tmp[,<span class="dv">1</span>] <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> tmp[,<span class="dv">2</span>]</span>
+<span id="cb33-8"><a href="boot.html#cb33-8" aria-hidden="true" tabindex="-1"></a>tmp<span class="sc">$</span>UB <span class="ot">&lt;-</span> tmp[,<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> tmp[,<span class="dv">2</span>]</span>
+<span id="cb33-9"><a href="boot.html#cb33-9" aria-hidden="true" tabindex="-1"></a>tmp</span></code></pre></div>
+<pre><code>##                   Estimate   Std..Error            LB            UB
+## (Intercept)  -3.482259e+03 8.904204e+02 -5.227483e+03 -1.737035e+03
+## GNP.deflator  1.506187e-02 8.491493e-02 -1.513714e-01  1.814951e-01
+## GNP          -3.581918e-02 3.349101e-02 -1.014616e-01  2.982320e-02
+## Unemployed   -2.020230e-02 4.883997e-03 -2.977493e-02 -1.062966e-02
+## Armed.Forces -1.033227e-02 2.142742e-03 -1.453204e-02 -6.132495e-03
+## Population   -5.110411e-02 2.260732e-01 -4.942076e-01  3.919994e-01
+## Year          1.829151e+00 4.554785e-01  9.364136e-01  2.721889e+00</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="boot.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># c</span></span>
+<span id="cb35-2"><a href="boot.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb35-3"><a href="boot.html#cb35-3" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb35-4"><a href="boot.html#cb35-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(longley)</span>
+<span id="cb35-5"><a href="boot.html#cb35-5" aria-hidden="true" tabindex="-1"></a>T_coef <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb35-6"><a href="boot.html#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(Employed <span class="sc">~</span> . , x)<span class="sc">$</span>coefficients</span>
+<span id="cb35-7"><a href="boot.html#cb35-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-8"><a href="boot.html#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="boot.html#cb35-9" aria-hidden="true" tabindex="-1"></a>est_boot <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="cn">NA</span>, <span class="fu">c</span>(m, <span class="fu">ncol</span>(longley)))</span>
+<span id="cb35-10"><a href="boot.html#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m) {</span>
+<span id="cb35-11"><a href="boot.html#cb35-11" aria-hidden="true" tabindex="-1"></a>  idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, n, <span class="at">rep =</span> T)</span>
+<span id="cb35-12"><a href="boot.html#cb35-12" aria-hidden="true" tabindex="-1"></a>  est_boot[i,] <span class="ot">&lt;-</span> <span class="fu">T_coef</span>(longley[idx,])</span>
+<span id="cb35-13"><a href="boot.html#cb35-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-14"><a href="boot.html#cb35-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="boot.html#cb35-15" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fu">apply</span>(est_boot, <span class="dv">2</span>, sd)</span>
+<span id="cb35-16"><a href="boot.html#cb35-16" aria-hidden="true" tabindex="-1"></a>SE</span></code></pre></div>
+<pre><code>## [1] 1.826011e+03 1.605981e-01 5.693746e-02 8.204892e-03 3.802225e-03
+## [6] 3.907527e-01 9.414436e-01</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="boot.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the standard errors around coefficients</span></span>
+<span id="cb37-2"><a href="boot.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb37-3"><a href="boot.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb37-4"><a href="boot.html#cb37-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">index =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">bootstrap_SE =</span> SE, <span class="at">lm_SE =</span> tmp<span class="sc">$</span>Std..Error)</span>
+<span id="cb37-5"><a href="boot.html#cb37-5" aria-hidden="true" tabindex="-1"></a>melted_df <span class="ot">&lt;-</span> <span class="fu">melt</span>(df[<span class="dv">2</span><span class="sc">:</span><span class="fu">nrow</span>(df), ], <span class="at">id.vars =</span> <span class="st">&quot;index&quot;</span>)  <span class="co"># Ignore bias which has a really large magnitude</span></span>
+<span id="cb37-6"><a href="boot.html#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(melted_df, <span class="fu">aes</span>(<span class="at">x =</span> index, <span class="at">y =</span> value, <span class="at">fill =</span> variable)) <span class="sc">+</span></span>
+<span id="cb37-7"><a href="boot.html#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-8"><a href="boot.html#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Coefficient&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-9"><a href="boot.html#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Standard error&quot;</span>) <span class="co"># + scale_y_continuous(trans = &quot;log&quot;) # If you want to also plot bias</span></span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 
 </div>
@@ -356,7 +675,6 @@ $(document).ready(function() {
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -375,6 +693,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -395,6 +714,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -408,7 +731,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
