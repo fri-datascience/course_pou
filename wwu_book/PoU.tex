@@ -69,7 +69,7 @@
 
 \newcommand\eqas{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily a. s.}}}{=}}}
 
-\title{\textbf{Working with uncertainty}\\ \begin{small}v0.60\end{small}}
+\title{\textbf{Working with uncertainty}\\ \begin{small}v0.61\end{small}}
 
 \author{Erik \v{S}trumbelj}
 
@@ -84,7 +84,7 @@
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-I would like to thank Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Ma\v{s}a Kljun, Timur Kulenovi\'{c}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
+I would like to thank my students Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Ma\v{s}a Kljun, Timur Kulenovi\'{c}, Miha Marke\v{z}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
 
 Special thanks to Alja\v{z} Zalar for reading an early version of the book and providing feedback.
 
@@ -1722,17 +1722,27 @@ RVs $X$ and $Y$ are independent if and only if $F_{X,Y}(x,y) = F_X(x)F_Y(y)$.\la
 \begin{proof}
 First, let's show that independence implies that the joint CDF factors. $F_{X,Y}(x,y) = P_{X,Y}((-\infty,x] \times (-\infty,y]) = P_X((-\infty,x])P_Y((-\infty,y]) = F_X(x)F_Y(y)$.
 
-Now let's show that if the joint CDF factors, we have independence of $X$ and $Y$. Let $A = (a, b]$ and $B = (c, d]$. We have 
+Now let us show that the CDF factoring implies independence.
 
-\begin{align*}
-& P(\{\omega: X(\omega) \in A, Y(\omega) \in B\})  \\
-&= P(X \in A, Y \in B) && \text{ (simplify notation)} \\
-&= P(a < X \leq b, c < Y \leq d) \\
-&= F_{X,Y}(b, d) - F_{X,Y}(a, d) - F_{X,Y}(b, c)  + F_{X,Y}(a, c) \\
-&= F_X(b)F_Y(d) - F_X(a)F_Y(d) - F_X(b)F_Y(c)   + F_X(a)F_Y(c) \\
-&= (F_X(b) - F_X(a))(F_Y(d) - F_Y(c)) \\
-&= P(X \in A)P(Y \in B).\\
-\end{align*}
+We have to prove that for every $A,B \in \mathbb{B}_\mathbb{R}$ the following holds: 
+\begin{equation}
+	\label{product}
+		P_{X,Y} (A\times B)=P_X(A)P_Y(B).
+\end{equation}
+
+
+Let us fix $B$ of the form $(-\infty, y]$, $y \in \mathbb{R}$. We define two measures 
+$\mu_B,\nu_B :\mathbb{B}_\mathbb{R} \rightarrow \mathbb{R}$: $\mu_B(A) := P_{X,Y}(A \times B \text{ and }\nu_B(A) := P_X(A)P_Y(B).$
+
+Because of the assumption that the CDF factors, we have that for every $A$ of the form $(-\infty, x]$, $x \in \mathbb{R}$: 
+$\mu_B(A) = \nu_B(A)$.
+Since $\mu_B$ and $\nu_B$ are $\sigma$-finite, $\mu_B = \nu_B$ by the uniqueness from Caratheodory's theorem. So, 
+\eqref{product} holds 
+%$$P_{X,Y}(A \times B) = P_X(A)P_Y(B),$$
+for every $A \in \mathbb{B}_\mathbb{R}$ and every $B$ of the form $(-\infty, y]$.
+
+Now we fix $A\in \mathbb{B}_\mathbb{R}$ and define two measures $\mu^A,\nu^A:\mathbb{B}_\mathbb{R} \rightarrow \mathbb{R}$: $\mu^A(B):=\mu_B(A)$ and $\nu^A(B):=\nu_B(A)$. Since by the previous paragraph, $\mu^A$ and $\nu^A$ coincide on $(-\infty, y]$, $y \in \mathbb{R}$ and are $\sigma$-finite, it follows that $\mu^A = \nu^A$ on $\mathbb{B}_\mathbb{R}$. Since $A\in \mathbb{B}_\mathbb{R}$ was arbitrary, it follows that \eqref{product} holds for every $A,B \in \mathbb{B}_\mathbb{R}$.
+
 \end{proof}
 
 The definition of independence and all statements so far in this section can be generalized to countably many RVs. With 3 or more RVs we again, analogous to 3 or more events, have to distinguish between pairwise and joint independence (joint implies pairwise, but the converse is not true). We only state the result that will be most useful to us:
@@ -1927,7 +1937,29 @@ $E[X] = \int_{\mathbb{R}} x dP_X(x).$\label{prop:exp_law}
 \end{proposition}
 
 \begin{proof}
-Let's introduce a RV $Y: \mathbb{R} \rightarrow \mathbb{R}$, such that $Y(x) = x$. The probability law of this RV is $P_Y(A) = P_X(Y^{-1}(A)) = P_X(A)$ for all $A \in \mathcal{B}_\mathbb{R}$. That is, $X$ and $Y$ have identical probability laws and therefore identical expectations. Then, $E[X] = \int_{\Omega} X(\omega)dP(\omega) = E[Y] = \int_{\mathbb{R}} Y(x)dP_X(x) = \int_{\mathbb{R}} x dP_X(x) $.
+
+It is enough to prove that 
+
+$$E(X_+) = \int_\mathbb{R} x_+ dP_X.$$
+
+Let $s_n(x): \mathbb{R} \rightarrow [0, \infty)$ be a sequence of simple non-negative measurable functions such that $s_n \leq s_{n+1} \leq s_{n+2} \leq \dots$ and $\lim_{n\rightarrow\infty}s_n(x)= x_+
+$. 
+
+Write $s_n = \sum_{i=1}^{m_n} s_{n,i} I_{A_i}$ and define $s'_n = \sum_{i=1}^{m_n} s_{n,i} I_{X^{-1}(A_i)}$.
+
+Clearly $s'_n \leq s'_{n+1} \leq \dots$ and $\lim_{n\rightarrow\infty}s'_n(\omega)= X(\omega)$.
+
+By MCT,
+\begin{align*}
+	\lim_{n \rightarrow \infty} \int_\Omega s'_n dP 
+		&= \int_\Omega X_+ dP,\\
+	\lim_{n \rightarrow \infty} \int_\mathbb{R} s_n dP_X 
+		&= \int_\mathbb{R} x_+ dP_X.
+\end{align*}
+
+From 
+$$\int_\Omega s'_n dP = \sum_{i} s_{n,i} P(X^{-1}(A_i)) = \sum_{i} s_{n,i} P_X(A_i) = \int_\mathbb{R} s_n dP_X,$$
+it follows that the initial statement holds.
 
 \end{proof}
 
@@ -2092,6 +2124,8 @@ Properties of expected values:
 
 
 \section{Variance and covariance}
+
+TODO: Move covariance/correlation (the 2 RV stuff) to Ch8 on multivariate. Maybe rename Ch8 to Random vectors and multivariate distributions.
 
 \begin{definition}[Variance] Let $X$ be a real-valued random variable, such that $E[X] < \infty$.  The \emph{variance} of $X$ is defined as
 
@@ -2718,7 +2752,7 @@ Properties (a-c) are left as an exercise. The proof of property (d) is more invo
 First, let's derive the MGF of a standard normal RV. Using the definition of a MGF and plugging in the PDF of the standard normal, we get
 
 \begin{align*}
-M(t) = \E[e^{tX}] &= \int_{-\infty}^\infty e^{tx} \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}} \\ &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{-\frac{1}{2}(x^2 - 2tx)} \\ &= e^\frac{t^2}{2} \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}(x - t)^2}  \\
+M(t) = \E[e^{tX}] &= \int_{-\infty}^\infty e^{tx} \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}} dx \\ &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{-\frac{1}{2}(x^2 - 2tx)}dx \\ &= e^\frac{t^2}{2} \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}(x - t)^2} dx \\
 &= e^\frac{t^2}{2}.
 \end{align*}
 
@@ -3708,7 +3742,7 @@ Null-hypothesis significance testing has a long tradition of both use and misuse
 
 
 
-\chapter{Nonparametric inference - The bootstrap}
+\chapter{Plug-in estimators and the bootstrap}
 
 \section{Empirical CDF}
 
@@ -3743,14 +3777,14 @@ The \textit{plug-in estimator} of statistical functional $\theta = T(F)$ is defi
 \section{Properties of point estimators}
 Before we discuss the properties of plug-in estimators, we define some general notions that are helpful in characterizing the usefulness of estimators of statistical functionals.
 
-\begin{definition} A point estimator $\hat{\theta}_n$ of $\theta_0$ is \textit{unbiased} if $\E[\hat{\theta}_n] = T(F)$.
+\begin{definition} A point estimator $\hat{\theta}_n$ of $\theta$ is \textit{unbiased} if $\E[\hat{\theta}_n] = T(F)$.
 \end{definition}
 
-\begin{definition} A point estimator $\hat{\theta}_n$ of $\theta_0$ is \textit{consistent} if $\hat{\theta}_n \myrightarrow{P} \theta_0$.
+\begin{definition} A point estimator $\hat{\theta}_n$ of $\theta$ is \textit{consistent} if $\hat{\theta}_n \myrightarrow{P} \theta$.
 \end{definition}
 
 \begin{definition} The mean square error (MSE) of a point estimator is
-MSE$(\hat{\theta}) \triangleq \E[(\hat{\theta} - \theta)^2]$.
+MSE$(\hat{\theta}) \triangleq \E[(\hat{\theta}_n - \theta)^2]$.
 \end{definition}
 
 \begin{proposition}[Bias-variance decomposition] MSE$(\hat{\theta}) = (\E[\hat{\theta}] - \theta)^2 + \Var[\hat{\theta}]$.\label{prop:biasvar}
@@ -3763,10 +3797,12 @@ The proof is left as an exercise.
 
 The proof is left as an exercise.
 
-\begin{definition} A point estimator $\hat{\theta}_n$  is \textit{asymptotically normal} if $$\frac{\hat{\theta}_n - \theta_0}{\sigma_{\hat{\theta}_n}} \myrightarrow{D} N(0,1).$$
+\begin{definition} A point estimator $\hat{\theta}_n$  is \textit{asymptotically normal} if $$\frac{\hat{\theta}_n - \theta}{\sigma_{\hat{\theta}_n}} \myrightarrow{D} N(0,1).$$
 \end{definition}
 
 For most common functionals, their plug-in estimators have at least some of these desirable properties (see Exercises). Unfortunately, there are no general rules for when a plug-in estimator is a good estimator. Although the Glivenko-Cantelli theorem has very strong implications, it is not enough to imply $T(F_n) \rightarrow T(F)$, because a small change in $F_n$ could still cause a big change in $T(F_n)$. In order for the implication to work, $T$ has to be sufficiently smooth, where the notion of smoothness here is more general, because we are talking about functions.
+
+\section{TODO: Linear functionals, influence function}
 
 \section{Bootstrapping the variance of an estimator}
 
@@ -3824,7 +3860,6 @@ $$\widehat{\Var}_B[\hat{\theta}^*_n] \approx \Var[\hat{\theta}^*_n| F_n] \approx
 The first approximation is obvious - estimated bootstrap variance is a consistent and unbiased estimator of bootstrap variance. Furthermore, we can make it arbitrarily accurate by increasing the number of bootstrap samples $m$!
 
 The second approximation is more difficult to show in general. We provide some intuition: Imagine that we could draw not just one $F_n$ but an arbitrary number of samples of size $n$ from our population. We could use the values of the functional on these samples to estimate the variance of the estimate of the functional $\Var[\hat{\theta}_n]$. With the bootstrap, we are doing exactly this, but pretending that $F_n$ is $F$. And, as $n$ grows large, $F_n$ is a better and better approximation to $F$. A bootstrap sample $F^*_n$ is to the ECDF $F_n$ what the ECDF $F_n$ is to the underlying population $F$.
-
 
 
 \section{Bootstrapping confidence intervals}
@@ -3908,11 +3943,11 @@ Show that sample correlation is a consistent estimator of correlation.
 
 
 
-\chapter{Parametric inference - Maximum Likelihood}\label{ch:ml}
+\chapter{Maximum likelihood estimation}\label{ch:ml}
 
 Now we return to parametric methods. Like with non-parametric inference, the goal is still to infer the properties of a data generating process based on a sample independent observations from that process:
 
-$$Y_1 = Y_1, Y_2 = Y_2, ...., Y_n = y_n \sim_\text{iid} \minibox[frame]{\text{unknown data} \\ \text{generating process}}.$$
+$$Y_1 = y_1, Y_2 = y_2, ...., Y_n = y_n \sim_\text{iid} \minibox[frame]{\text{unknown data} \\ \text{generating process}}.$$
 
 However, unlike with the plug-in estimators and bootstrap inference, parametric approaches have to explicitly hypothesize what the unknown data generating process might be.
 
@@ -3952,7 +3987,7 @@ Let $\hat{\theta}$ be the MLE of $\theta$. Let $g$ be a function. Then, $g(\hat{
 The proposition does not state that $g$ is bijective, so we must consider the possibility that $g(\theta) = \nu$ maps distinct $\theta$ to the same $\nu$. Let $g^{-1}(\nu) = \{\theta: g(\theta) = \nu\}$ be the preimage of all $\theta$ that are mapped to a particular $\nu$. The domain of $g$ is the parameter space, so the MLE $\hat{\theta}$ must be in $g^{-1}(\nu)$ for exactly one $\nu$, which we will call $\hat{\nu}$. As $\hat{\theta}$ is the maximum of $L(\theta)$, $\hat{\nu}$ must be the maximum $L(\nu)$. And we know $\hat{\nu} = g(\hat{\theta})$.
 \end{proof}
 
-The MLE has several other nice properties. The MLE is consistent and asymptotically normal, two properties of estimators that we have already defined. The MLE is also asymptotically efficient, which we will show in Section \ref{sec:optimality}. These properties only hold under one or more conditions. We list them here and invoke them as required by a particular theorem:
+The MLE has several other nice properties. The MLE is consistent and asymptotically normal, two properties of estimators that we have already defined. The MLE is also asymptotically efficient, which we will show in Section \ref{sec:optimality}. These properties only hold under one or more conditions. We list them here and invoke them as required by a particular theorem. Note that $\theta_0$ here means the true value of the parameter, while $\theta$ is used to represent a value of the parameter:
 
 \begin{description}
 \item[\textbf{R1}] $\theta \neq \theta_0 \Leftrightarrow p(\cdot|\theta) \neq p(\cdot|\theta_0)$ \emph{(identifiability)}.
@@ -3966,7 +4001,7 @@ with $\E_{\theta_0}[M(y)] < \infty$, for all $\theta_0 - c < \theta < \theta_0 +
 
 These conditions are often omitted or summarized as \emph{under certain regularity conditions}.
 
-\begin{theorem}[Consistency of MLE] Assume regularity conditions R1-R4. The MLE $\hat{\theta}_n$ is a consistent estimator of $\theta_0$.
+\begin{theorem}[Consistency of MLE] Assume regularity conditions R1-R4. The MLE $\hat{\theta}_n$ is a consistent estimator of $\theta$.
 \end{theorem}
 
 The proof of this theorem is out of the scope of this text. We refer the interested reader to \citet[ch. 6.]{Hogg2005}.
@@ -4034,18 +4069,18 @@ The first definition shows that Fisher information can be expressed as the varia
 
 The alternative definition stated as a proposition shows that Fisher information can be expressed as the (negative) expectation of the second derivative of the log-likelihood - the curvature of the log-likelihood. Higher curvature of course implies higher peaks.
 
-\begin{theorem}[Asymptotic normality of MLE] Assume regularity conditions R1-R6. If the Fisher information $I(\theta_0)$ is positive and finite, then for any consistent sequence of MLE $\hat{\theta}_n$ we have
+\begin{theorem}[Asymptotic normality of MLE] Assume regularity conditions R1-R6. If the Fisher information $I(\theta)$ is positive and finite, then for any consistent sequence of MLE $\hat{\theta}_n$ we have
 
-$$\hat{\theta}_n - \theta_0 \myrightarrow{D} N\left(0, I_n(\theta_0)^{-1}\right).$$\label{thm:normality}
+$$\hat{\theta}_n - \theta \myrightarrow{D} N\left(0, I_n(\theta)^{-1}\right).$$\label{thm:normality}
 \end{theorem}
 
 The proof of this theorem is out of the scope of this text. We refer the interested reader to \citet[ch. 6.1]{Hogg2005}.
 
 \begin{corollary} When Theorem \ref{thm:normality} applies, we also have
-$$\hat{\theta}_n - \theta_0 \myrightarrow{D} N\left(0, I_n(\hat{\theta}_n)^{-1}\right).$$\label{cor:normality}
+$$\hat{\theta}_n - \theta \myrightarrow{D} N\left(0, I_n(\hat{\theta}_n)^{-1}\right).$$\label{cor:normality}
 \end{corollary}
 
-That is, plugging in a consistent estimator does not affect asymptotic normality. The proof of this corollary is left as an exercise. The corollary provides an estimate for the asymptotic standard error of the MLE: $\hat{\sigma}_\text{MLE} \approx \sqrt{I_n(\theta_0)^{-1}}$. 
+That is, plugging in a consistent estimator does not affect asymptotic normality. The proof of this corollary is left as an exercise. The corollary provides an estimate for the asymptotic standard error of the MLE: $\hat{\sigma}_\text{MLE} \approx \sqrt{I_n(\theta_n)^{-1}}$. 
 
 We can utilize the asymptotic normality of MLE to construct confidence intervals:
 
@@ -4141,7 +4176,7 @@ Theorem \ref{thm:normality} and Corollary \ref{cor:normality} also hold for the 
 
 This can be utilized to construct confidence regions (a generalization of CIs), however, these are rarely used in practice. Instead, we still only focus on individual parameters. For the $i-th$ parameter we have
 
-$$\hat{\theta}_{ni} - \theta_{0i} \myrightarrow{D} N\left(0, \left[I_n(\theta_0)^{-1}\right]_{ii}\right).$$
+$$\hat{\theta}_{ni} - \theta_{0i} \myrightarrow{D} N\left(0, \left[I_n(\theta)^{-1}\right]_{ii}\right).$$
 
 Note that this requires us to compute the inverse of the Fisher information matrix and take the $i-$th diagonal element. This is not the same as computing the univariate Fisher information for the $i-$th parameter and taking the reciprocal value (although it is in some cases).
 
@@ -4261,12 +4296,17 @@ Finally, we compute the size of the test. Observe that $\beta(\mu_0) = \alpha$ a
 Rejecting the null-hypothesis is often referred to as finding a \emph{statistically significant} result. 
 
 Statistical significance should not be confused with practical importance. The former talks about something being true with some level of certainty while the latter is concerned with the size of the effect and depends on the given context. For example, if we gathered a random sample of babies, we would be able to determine that there are statistically significantly more boys than girls (about 1.05 boys are born for every girl). This result is also an interesting fact about humans and therefore of practical significance to science. However, it is probably of no practical significance to manufacturers of newborn baby greeting cards - they would probably still make the same amount of \emph{it's a girl} and \emph{it's a boy} cards.
-%\section{The likelihood ratio test}
 
-%\section{Testing multiple hypotheses}
+\section{TODO: The Wald test}
+
+\section{TODO: Testing with confidence intervals}
+
+\section{TODO: The likelihood ratio test}
+
+\section{TODO: Testing multiple hypotheses}
 
 
-\chapter{Parametric inference - Bayesian}\label{ch:bayes}
+\chapter{Bayesian inference}\label{ch:bayes}
 
 \section{The Bayesian perspective}
 
@@ -4293,7 +4333,7 @@ Finally, $p(\theta)$ is known as the prior distribution (density) or just the \e
 \begin{definition}[Conjugate prior] If for some likelihood $p(y|\theta)$ the posterior distribution $p(\theta | y)$ and the prior distribution $p(\theta)$ are in the same family, we say that the prior is a \emph{conjugate prior} for the likelihood.
 \end{definition}
 
-Conjugate priors simplify computation and allow us to incrementally learn our models, using the posterior from one iteration as the prior for the next iteration of learning. Historically, conjugate priors were very important, because Bayesian computation would otherwise be infeasible. However, many models that are commonly used in practice do not have conjugate priors (in fact most), so we have to rely on numerical methods to do Bayesian inference (see Chapter \ref{ch:bayespractical}\footnote{The random number generation chapter is excluded for now.})
+Conjugate priors simplify computation and allow us to incrementally learn our models, using the posterior from one iteration as the prior for the next iteration of learning. Historically, conjugate priors were very important, because Bayesian computation would otherwise be infeasible. However, many models that are commonly used in practice do not have conjugate priors (in fact most), so we have to rely on numerical methods to do Bayesian inference (see Chapter \ref{ch:mcmc}\footnote{The random number generation chapter is excluded for now.})
 
 \begin{cexample}[Conjugate prior for the Bernoulli] We've already seen in Chapter \ref{ch:inference} that using a $U(0,1)$ prior for the parameter of the Bernoulli model results in a Beta posterior. If we combine that with the fact that $U(0,1)$ is a special case of beta - $Beta(1, 1)$ - we should consider the possibility that Beta might be conjugate for this likelihood.
 
