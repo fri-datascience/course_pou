@@ -69,7 +69,7 @@
 
 \newcommand\eqas{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily a. s.}}}{=}}}
 
-\title{\textbf{Working with uncertainty}\\ \begin{small}v0.61\end{small}}
+\title{\textbf{Working with uncertainty}\\ \begin{small}v0.62\end{small}}
 
 \author{Erik \v{S}trumbelj}
 
@@ -84,7 +84,7 @@
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-I would like to thank my students Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Ma\v{s}a Kljun, Timur Kulenovi\'{c}, Miha Marke\v{z}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
+I would like to thank my students Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Ma\v{s}a Kljun, Timur Kulenovi\'{c}, Miha Marke\v{z}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, \v{Z}iga Rot, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
 
 Special thanks to Alja\v{z} Zalar for reading an early version of the book and providing feedback.
 
@@ -2413,7 +2413,7 @@ The expectation of $X$ is defined as
 \E[X] &= \mu \triangleq (\E[X_1], \E[X_2],...,\E[X_k])^T.
 \end{align*}
 
-$\Cov[X,Y]$, the cross-covariance matrix of $X$ and $Y$ is a $k \times r$ symmetric matrix with components
+$\Cov[X,Y]$, the cross-covariance matrix of $X$ and $Y$ is a $k \times r$ matrix with components
 
 $$\Cov[X,Y]_{i,j} \triangleq \Cov[X_i, Y_j].$$
 
@@ -2429,7 +2429,7 @@ Similarly, $\rho[X,Y]$, the cross-correlation matrix of $X$ and $Y$, is a $k \ti
 
 $$\rho[X,Y]_{i,j} = \rho[X_i, Y_j].$$
 
-If $X = Y$, we refer to $\Cov[X,X] = \Cov[X] = \Var[X]$ as the covariance matrix and to $\rho[X,X] = \rho[X]$ as the correlation matrix. When $k = r$, the cross-covariance and cross-correlation matrices are squared and symmetric.
+If $X = Y$, we refer to $\Cov[X,X] = \Cov[X] = \Var[X]$ as the covariance matrix and to $\rho[X,X] = \rho[X]$ as the correlation matrix. When $k = r$, the covariance and correlation matrices are squared and symmetric.
 \end{definition}
 
 \begin{proposition} The properties of univariate expectation and variance transfer to the multivariate random variables:
