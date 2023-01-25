@@ -84,7 +84,7 @@
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-I would like to thank my students Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Ma\v{s}a Kljun, Timur Kulenovi\'{c}, Miha Marke\v{z}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, \v{Z}iga Rot, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
+I would like to thank my students Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Valter Hudovernik, Ma\v{s}a Kljun, Timur Kulenovi\'{c}, Miha Marke\v{z}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, \v{Z}iga Rot, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
 
 Special thanks to Alja\v{z} Zalar for reading an early version of the book and providing feedback.
 
@@ -2215,6 +2215,7 @@ E[XY] &= \int_\Omega X(\cdot)Y(\cdot) dP  \\
 \end{align*}
 \end{proof}
 
+
 \begin{corollary}
 If $X$ and $Y$ are independent, then they are uncorrelated.
 \end{corollary}
@@ -2227,9 +2228,17 @@ Let $X$ be a standard normal RV. By definition, $E[X] = 0$ and, using Example \r
 Let $Y = X^2$. Clearly, $X$ and $Y$ are dependent - knowing the value of $X$ determines the value of $Y$. However,
 
 $$Cov[X,Y] = E[XY] - E[X]E[Y] = E[X^3] - E[X]E[X^2] = 0.$$
-
-Zero covariance (correlation) does not imply independence. Covariance is just a special case of independence - linear independence.
 \end{cexample}
+
+As this example shows, there exist RVs that are uncorrelated but dependent. Covariance is just a special case of dependence (linear dependence).
+
+For the special case of jointly multivariate normal RVs, uncorrelatedness does imply independence.
+
+TODO: Proposition and proof.
+
+However, the above holds only for jointly multivariate normal, but not for marginally normal that are not jointly multivariate normal.
+
+TODO: Example. Note that this example also solves Exercise \ref{ex:mvn}.
 
 \begin{proposition}
 Let $X$ and $Y$ be real-valued RVs and $E[X^2] < \infty$, $E[Y^2] < \infty$. Then,
@@ -2602,7 +2611,7 @@ Prove Proposition \ref{prop:marginal}.
 \end{exercise}
 
 \begin{exercise}
-Find a bivariate distribution where the two marginal distributions are univariate normal but the distribution is not bivariate normal.
+Find a bivariate distribution where the two marginal distributions are univariate normal but the distribution is not bivariate normal.\label{ex:mvn}
 \end{exercise}
 
 \begin{exercise}
