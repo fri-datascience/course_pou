@@ -74,8 +74,8 @@ We need to find the maximum of this function. We first observe that we can repla
 Differentiating we get
 \begin{align}
  \frac{d}{d \sigma^2} L(\sigma^2; y) &= (\sigma^2)^{-\frac{n}{2}} \frac{d}{d \sigma^2} e^{\frac{c}{\sigma^2}} +  e^{\frac{c}{\sigma^2}} \frac{d}{d \sigma^2} (\sigma^2)^{-\frac{n}{2}} \\
-  &= - (\sigma^2)^{-\frac{n}{2}} e^{\frac{c}{\sigma^2}} \frac{c}{(\sigma^2)^2} - e^{\frac{c}{\sigma^2}} \frac{n}{2} (\sigma^2)^{\frac{n + 2}{2}} \\
-  &= - (\sigma^2)^{-\frac{n + 4}{2}} e^{\frac{c}{\sigma^2}} c - e^{\frac{c}{\sigma^2}} \frac{n}{2} (\sigma^2)^{\frac{n + 2}{2}} \\
+  &= - (\sigma^2)^{-\frac{n}{2}} e^{\frac{c}{\sigma^2}} \frac{c}{(\sigma^2)^2} - e^{\frac{c}{\sigma^2}} \frac{n}{2} (\sigma^2)^{-\frac{n + 2}{2}} \\
+  &= - (\sigma^2)^{-\frac{n + 4}{2}} e^{\frac{c}{\sigma^2}} c - e^{\frac{c}{\sigma^2}} \frac{n}{2} (\sigma^2)^{-\frac{n + 2}{2}} \\
   &= - e^{\frac{c}{\sigma^2}} (\sigma^2)^{-\frac{n + 4}{2}} \Big(c + \frac{n}{2}\sigma^2 \Big).
 \end{align}
 To get the maximum, this has to equal to 0, so
