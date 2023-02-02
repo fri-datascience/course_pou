@@ -108,7 +108,7 @@ b.
   \lim_{n \rightarrow \infty} P(|\frac{1}{n} \sum_{i=1}^n X_i - E[X]| > \epsilon) &= \lim_{n \rightarrow \infty} P((\frac{1}{n} \sum_{i=1}^n X_i - E[X])^2 > \epsilon^2) \\
   & \leq \lim_{n \rightarrow \infty} \frac{E[(\frac{1}{n} \sum_{i=1}^n X_i - E[X])^2]}{\epsilon^2} & \text{Markov inequality} \\
   & = \lim_{n \rightarrow \infty} \frac{E[(\frac{1}{n} \sum_{i=1}^n X_i)^2 - 2 \frac{1}{n} \sum_{i=1}^n X_i E[X] + E[X]^2]}{\epsilon^2} \\
-  & = \lim_{n \rightarrow \infty} \frac{E[(\frac{1}{n} \sum_{i=1}^n X_i)^2] - 2 E[X] + E[X]^2}{\epsilon^2} \\
+  & = \lim_{n \rightarrow \infty} \frac{E[(\frac{1}{n} \sum_{i=1}^n X_i)^2] - 2 E[X]^2 + E[X]^2}{\epsilon^2} \\
   &= 0
 \end{align*}
 For the last equality see the solution to \@ref(exr:vardecomp).
