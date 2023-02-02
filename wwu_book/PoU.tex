@@ -69,7 +69,7 @@
 
 \newcommand\eqas{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily a. s.}}}{=}}}
 
-\title{\textbf{Working with uncertainty}\\ \begin{small}v0.62\end{small}}
+\title{\textbf{Working with uncertainty}\\ \begin{small}v0.63\end{small}}
 
 \author{Erik \v{S}trumbelj}
 
@@ -84,7 +84,7 @@
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-I would like to thank my students Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Valter Hudovernik, Ma\v{s}a Kljun, Timur Kulenovi\'{c}, Miha Marke\v{z}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, \v{Z}iga Rot, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
+I would like to thank my students Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Valter Hudovernik, Leon Hvastja, Martin Jurkovi\v{c}, Ma\v{s}a Kljun, Timur Kulenovi\'{c}, Miha Marke\v{z}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, \v{Z}iga Rot, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
 
 Special thanks to Alja\v{z} Zalar for reading an early version of the book and providing feedback.
 
@@ -171,7 +171,7 @@ This example also illustrates how our intuition can sometimes fail us. We will e
 The example from the previous section suggests that the power set might not always be the appropriate choice for the set of events. Instead, we will use a more general mathematical object called a sigma algebra (or $\sigma$-algebra): 
 
 \begin{definition}[Sigma algebra]
-A collection $\mathcal{F}$ of subsets of $\Omega$ is a \emph{$\sigma$-algebra} on $\Omega$ if it has the following three properties:
+A set $\mathcal{F}$ of subsets of $\Omega$ is a \emph{$\sigma$-algebra} on $\Omega$ if it has the following three properties:
 
 \begin{enumerate}[(i)]
 \item $\emptyset \in  \mathcal{F}$ \emph{(contains the empty set)}.
@@ -188,7 +188,7 @@ We can show that a $\sigma$-algebra is a strict generalization of the power set.
 The following statements are true:
 \begin{enumerate}[(i)]
 \item The power set $2^\Omega$ is a $\sigma$-algebra on $\Omega$.
-\item There exists a set $\Omega$ and a collection $\mathcal{F}$ of subsets of $\Omega$, such that $\mathcal{F}$ is a $\sigma$-algebra on $\Omega$ and $\mathcal{F}$ is a strict subset of $2^\Omega$. 
+\item There exists a set $\Omega$ and a set $\mathcal{F}$ of subsets of $\Omega$, such that $\mathcal{F}$ is a $\sigma$-algebra on $\Omega$ and $\mathcal{F}$ is a strict subset of $2^\Omega$.
 \end{enumerate}
 \label{prop:001a}
 \end{proposition}
@@ -196,7 +196,7 @@ The following statements are true:
 The proof of this proposition is left as an exercise.
 
 \begin{cexample}{}{-}
-Consider $\Omega = \{0, 1\}$. Which of the following collections of subsets of $\Omega$ are $\sigma$-algebras on $\Omega$?
+Consider $\Omega = \{0, 1\}$. Which of the following sets of subsets of $\Omega$ are $\sigma$-algebras on $\Omega$?
 
 \begin{enumerate}[(a)]
 \item $\mathcal{F}_1 = \{\emptyset, \{0\}, \{1\},\Omega\}$. 
@@ -216,12 +216,12 @@ $\mathcal{F}_4$ is a $\sigma$-algebra on $\Omega$ - it contains the empty set an
 We also define a generalization of the $\sigma$-algebra - an algebra - which requires only closure under finite unions. Algebras, while not of central interest, are useful, because it is often easier to check properties on an algebra and extend them to the sigma-algebra. As opposed to checking them directly on the sigma-algebra.
 
 \begin{definition}[Algebra]
-A collection $\mathcal{F}$ of subsets of $\Omega$ is an \emph{algebra} on $\Omega$ if it has the following three properties:
+A set $\mathcal{F}$ of subsets of $\Omega$ is an \emph{algebra} on $\Omega$ if it has the following three properties:
 
 \begin{enumerate}[(i)]
 \item $\emptyset \in  \mathcal{F}$ \textit{(contains the empty set)}.
 \item $A \in \mathcal{F}$ then $A^c \in \mathcal{F}$ \textit{(closed under complementation)}.
-\item If $\{A_i\}$ is a finite sequence of subsets of $\mathcal{F}$,  then $\bigcup_{i=1}^n A_i \in \mathcal{F}$ \textit{(closed under finite unions)}.
+\item If $\{A_i\}$ is a finite sequence of elements of $\mathcal{F}$,  then $\bigcup_{i=1}^n A_i \in \mathcal{F}$ \textit{(closed under finite unions)}.
 \end{enumerate}
 \end{definition}
 
@@ -232,7 +232,7 @@ If $\mathcal{F}$ is a $\sigma$-algebra on $\Omega$ then:
 \begin{enumerate}[(a)]
 \item $\mathcal{F}$ is an algebra on $\Omega$.
 \item  $\Omega \in \mathcal{F}$.
-\item If $\{A_i\}$ is a countable sequence of subsets of $\mathcal{F}$ then $\bigcap_{i=1}^\infty A_i \in \mathcal{F}$.
+\item If $\{A_i\}$ is a countable sequence of elements of $\mathcal{F}$ then $\bigcap_{i=1}^\infty A_i \in \mathcal{F}$.
 \end{enumerate}\label{prop:001}
 \end{proposition}
 
@@ -485,25 +485,25 @@ If our goal is to have a uniform probability measure, then we cannot relax the t
 
 We have shown that it is impossible to construct a uniform probability measure on the unit interval $\Omega = [0, 1]$, if we set $\mathcal{F} = 2^\Omega$. Therefore, we must consider a smaller $\sigma$-algebra. Note that for convenience (some proofs are easier), we now focus on the set $\Omega = (0, 1]$.
 
-We will construct such a $\sigma$-algebra implicitly by starting with a relatively small collections of sets that we definitely want to have in our set of events - the collection of open intervals (why do we want at least these?) - and then extending this collection the minimum required amount to make it a $\sigma$-algebra. Such an approach is justified by the following proposition:
+We will construct such a $\sigma$-algebra implicitly by starting with a relatively small set of subsets of $(0, 1]$ that we definitely want to have in our set of events - the set of open intervals (why do we want at least these?) - and then extending this set the minimum required amount to make it a $\sigma$-algebra. Such an approach is justified by the following proposition:
 
 \begin{proposition}[Generated $\sigma$-algebras]
-For every collection $\mathcal{C}$ of subsets of $\Omega$ there exists a smallest $\sigma$-algebra that contains all elements of $\mathcal{C}$.
+For every set $\mathcal{C}$ of subsets of $\Omega$ there exists a smallest $\sigma$-algebra that contains all elements of $\mathcal{C}$.
 
 We denote such a $\sigma$-algebra by $\sigma(\mathcal{C})$ and we call it the $\sigma$-algebra generated by $\mathcal{C}$.\label{prop:generated_algebras}
 \end{proposition}
 
 \begin{proof}
-Let $\{\mathcal{F}_i\}$ be a collection of all $\sigma$-algebras that contain $\mathcal{C}$. We know that this collection is non-empty - it contains at least $2^{{\Omega}}$.
+Let $\{\mathcal{F}_i\}$ be a set of all $\sigma$-algebras that contain $\mathcal{C}$. We know that this set is non-empty - it contains at least $2^{{\Omega}}$.
 
-Now consider the intersection of all sets in our collection $\mathfrak{F} = \bigcap_{i} \mathcal{F}_i$. Because every $\mathcal{F}_i$ contains $\mathcal{C}$ (by definition), we have $\mathcal{C} \in \mathfrak{F}$. Furthermore, the intersection of $\sigma$-algebras is a $\sigma$-algebra (left as an exercise). Therefore, $\mathfrak{F}$ is a $\sigma$-algebra that contains $\mathcal{C}$.
+Now consider the intersection of all sets in our set $\mathfrak{F} = \bigcap_{i} \mathcal{F}_i$. Because every $\mathcal{F}_i$ contains $\mathcal{C}$ (by definition), we have $\mathcal{C} \in \mathfrak{F}$. Furthermore, the intersection of $\sigma$-algebras is a $\sigma$-algebra (left as an exercise). Therefore, $\mathfrak{F}$ is a $\sigma$-algebra that contains $\mathcal{C}$.
 
 Finally, for every $\mathcal{F}_i$, we have $\mathfrak{F} \subseteq \mathcal{F}_i$. So, $\mathfrak{F}$ is at most as large as any $\sigma$-algebra that contains $\mathcal{C}$ and is therefore the smallest $\sigma$-algebra that contains $\mathcal{C}$.
 \end{proof}
 
-So, if we define $\mathcal{C}$ to be the collection of all open intervals $(a,b) \subset (0,1]$, we know that there exists $\sigma(\mathcal{C})$ that is a $\sigma$-algebra with the fewest additional elements. If fact, such $\sigma$-algebras are so important that they have a name:
+So, if we define $\mathcal{C}$ to be the set of all open intervals $(a,b) \subset (0,1]$, we know that there exists $\sigma(\mathcal{C})$ that is a $\sigma$-algebra with the fewest additional elements. If fact, such $\sigma$-algebras are so important that they have a name:
 
-\begin{definition}[Borel $\sigma$-algebra] Let $\mathcal{C}$ be the collection of all open intervals $(a, b)$ in $(0,1]$. The generated $\sigma$-algebra $\sigma(\mathcal{C})$ is called the \textbf{Borel $\sigma$-algebra} and is denoted by $\mathcal{B}_{(0,1]}$. Elements of Borel $\sigma$-algebras are called \emph{Borel sets.}
+\begin{definition}[Borel $\sigma$-algebra] Let $\mathcal{C}$ be the set of all open intervals $(a, b)$ in $(0,1]$. The generated $\sigma$-algebra $\sigma(\mathcal{C})$ is called the \textbf{Borel $\sigma$-algebra} and is denoted by $\mathcal{B}_{(0,1]}$. Elements of Borel $\sigma$-algebras are called \emph{Borel sets.}
 \end{definition}
 
 Proposition \ref{prop:generated_algebras} guarantees that $\mathcal{B}_{(0,1]}$ exists, but we at this point understand very little about this $\sigma$-algebra.
@@ -550,15 +550,15 @@ The proof of Corollary \ref{prop:borel_sets} is left as an exercise.
 
 So, all intervals, singletons, countable unions, intersections, and complements thereof are Borel sets. In fact, all sets that will be of practical interest to most of us, are Borel sets.
 
-While a collection of subsets generates a unique $\sigma$-algebra, multiple different collections can generate the same $\sigma$-algebra:
+While a set of subsets generates a unique $\sigma$-algebra, multiple different sets can generate the same $\sigma$-algebra:
 
 
 \begin{proposition}
-Show for each of the following collections that $\sigma(\mathcal{C}) = \mathcal{B}_{(0,1]}$:
+Show for each of the following sets that $\sigma(\mathcal{C}) = \mathcal{B}_{(0,1]}$:
 \begin{enumerate}[(a)]
-\item $\mathcal{C}$ is the collection of all intervals in $(0,1]$ of the form $(a,b]$.
-\item $\mathcal{C}$ is the collection of all intervals in $(0,1]$ of the form $[a,b]$.
-\item $\mathcal{C}$ is the collection of all intervals in $(0,1]$ of the form $(0,a]$.
+\item $\mathcal{C}$ is the set of all intervals in $(0,1]$ of the form $(a,b]$.
+\item $\mathcal{C}$ is the set of all intervals in $(0,1]$ of the form $[a,b]$.
+\item $\mathcal{C}$ is the set of all intervals in $(0,1]$ of the form $(0,a]$.
 \end{enumerate}\label{prop:generateborel}
 \end{proposition}
 
@@ -569,7 +569,7 @@ We can prove $\sigma(\mathcal{C}) = \mathcal{B}_{(0,1]}$ by showing that $\sigma
 
 To prove $\mathcal{B}_{(0,1]} \subseteq \sigma(\mathcal{C})$ it suffices to show that semi-open intervals generate all open intervals:
 $$(a,b) = \displaystyle\bigcup_{i=1}^\infty (a,b-\frac{1}{i}].$$
-Because the collection of open intervals generates $\mathcal{B}_{(0,1]}$, the set of semi-open intervals generates at least $\mathcal{B}_{(0,1]}$. 
+Because the set of open intervals generates $\mathcal{B}_{(0,1]}$, the set of semi-open intervals generates at least $\mathcal{B}_{(0,1]}$. 
 \end{proof}
 
 \section{Uniform measure on $(0, 1]$}
@@ -585,7 +585,7 @@ Let us recall our notion of a uniform measure, as we defined it in Definition \r
 
 Property (i) states that the measure needs to be proportional to the length of the interval. So, for intervals of the form $(a,b)$ (and for their half-open and closed counterparts), we could, without loss of generality, define our measure $\lambda$ with the length of the interval: $\lambda((a,b)) \triangleq b - a$. As an exercise, verify that this measure is shift invariant as well. 
 
-The problem we face now is how to extend this measure to all Borel sets in $\mathcal{B}_{(0,1]}$, some of which can be very complicated. We will tackle this problem by starting with a more manageable collection of sets and then invoking this powerful theorem from measure theory that will allow us to extend the probability measure to all Borel sets:
+The problem we face now is how to extend this measure to all Borel sets in $\mathcal{B}_{(0,1]}$, some of which can be very complicated. We will tackle this problem by starting with a more manageable set of sets and then invoking this powerful theorem from measure theory that will allow us to extend the probability measure to all Borel sets:
 
 \begin{theorem}[Caratheodory's extension theorem]
 Let $\mathcal{F}_0$ be an algebra of subsets of $\Omega$. Let $\mu_0: \mathcal{F}_0 \rightarrow [0,\infty)$, such that for every countable sequence $\{A_i\}$ of disjoint sets in $\mathcal{F}_0$ we have $\mu_0(\bigcup_{i=1}^\infty A_i) = \sum_{i=1}^\infty \mu_0(A_i)$ for any $\bigcup_{i=1}^\infty A_i \in \mathcal{F}_0$. Then there exists a unique measure $\mu$ on $(\Omega, \sigma( \mathcal{F}_0 ))$, such that $\mu(A) = \mu_0(A)$ for all $A \in \mathcal{F}_0$.
@@ -596,9 +596,9 @@ The proof of Caratheodory's theorem is beyond the scope of this text. Note that 
 
 The theorem states that in order to uniquely define a measure over some measurable space $(\Omega, \mathcal{F})$, it suffices to define a measure that is consistent on an algebra that generates $\mathcal{F}$. This is a very useful statement, because the required properties can be much easier to verify on an algebra. Note that measures defined only on an algebra are not really measures according to our definition, so we call them pre-measures.
 
-In our case we have already determined that our uniform measure of an interval should be the length of an interval. However, the collection of intervals is not an algebra on $(0,1]$. For example, the complement of an interval or the union of two disjoint intervals is not always an interval. Instead, we start with half-open intervals and add all that is required to make this collection an algebra.
+In our case we have already determined that our uniform measure of an interval should be the length of an interval. However, the set of intervals is not an algebra on $(0,1]$. For example, the complement of an interval or the union of two disjoint intervals is not always an interval. Instead, we start with half-open intervals and add all that is required to make this set an algebra.
 
-\begin{proposition} Let $\mathcal{F}_0$ be the collection of $\emptyset$ and all subsets of $(0, 1]$ which are finite unions of disjoint intervals of the form $(a, b]$. We have
+\begin{proposition} Let $\mathcal{F}_0$ be the set of $\emptyset$ and all subsets of $(0, 1]$ which are finite unions of disjoint intervals of the form $(a, b]$. We have
 
 \begin{enumerate}[(a)]
 \item $\sigma(\mathcal{F}_0) = \mathcal{B}_{(0,1]} $,
@@ -608,7 +608,7 @@ In our case we have already determined that our uniform measure of an interval s
 \end{proposition}
 
 \begin{proof}
-The proof of (a) is straightforward. We have $\mathcal{F}_0 \subseteq \mathcal{B}_{(0,1]}$, so $\sigma(\mathcal{F}_0) \subseteq \mathcal{B}_{(0,1]}$. We also know from before that the collection of all half-open intervals generates $\mathcal{B}_{(0,1]}$, so $\mathcal{B}_{(0,1]} \subset \sigma(\mathcal{F}_0)$.
+The proof of (a) is straightforward. We have $\mathcal{F}_0 \subseteq \mathcal{B}_{(0,1]}$, so $\sigma(\mathcal{F}_0) \subseteq \mathcal{B}_{(0,1]}$. We also know from before that the set of all half-open intervals generates $\mathcal{B}_{(0,1]}$, so $\mathcal{B}_{(0,1]} \subset \sigma(\mathcal{F}_0)$.
 
 In order for $\mathcal{F}_0$ to be an algebra, it must contain the empty set (it does, by definition) and must be closed under complementation and under finite unions. A union of two half-open intervals of the form $(a, b]$ is either another interval of the form $(a, b]$ or a union of two such intervals. Both cases are by definition in $\mathcal{F}_0$. Similarly, the complement of any finite union of such intervals is again a finite union of such intervals.
 
@@ -633,19 +633,19 @@ Our successful extension of this uniform measure to all Borel sets implies that 
 
 Borel sets and Lebesgue measure can be defined in a similar fashion for the real line (and $\mathbb{R}^n$, although this is too technical and out of the scope of this text). Note that there is also more general way of defining Borel sets on any topological space by starting with open sets. We can see how $\mathbb{R}$ and open intervals is just a special case.
 
-\begin{definition}[Borel $\sigma$-algebra on $\mathbb{R}$] Let $\mathcal{C}$ be the collection of all open intervals in $\mathbb{R}$.  The generated $\sigma$-algebra $\sigma(\mathcal{C})$  is called the Borel $\sigma$-algebra and is denoted by $\mathcal{B}_\mathbb{R}$.
+\begin{definition}[Borel $\sigma$-algebra on $\mathbb{R}$] Let $\mathcal{C}$ be the set of all open intervals in $\mathbb{R}$.  The generated $\sigma$-algebra $\sigma(\mathcal{C})$  is called the Borel $\sigma$-algebra and is denoted by $\mathcal{B}_\mathbb{R}$.
 \end{definition}
 
 The following two propositions give two alternative but equivalent definitions of the Borel $\sigma$-algebra on the real line.
 
 \begin{proposition}
-Let $\mathcal{C}$ be the collection of all intervals of the form $(-\infty, a]$ in $\mathbb{R}$. Then $\sigma(\mathcal{C}) = \mathcal{B}_\mathbb{R}$.\label{prop:borel1}
+Let $\mathcal{C}$ be the set of all intervals of the form $(-\infty, a]$ in $\mathbb{R}$. Then $\sigma(\mathcal{C}) = \mathcal{B}_\mathbb{R}$.\label{prop:borel1}
 \end{proposition}
 
 The proof of this proposition is left as an exercise.
 
 \begin{proposition}
-Let $\mathcal{C}$ be the collection of all sets $A \subseteq \mathbb{R}$, such that $A \cap (n, n + 1]$ is a Borel set on $(n, n + 1]$ for all $n \in \mathbb{Z}$. Then $\sigma(\mathcal{C}) = \mathcal{B}_\mathbb{R}$.\label{prop:borel2}
+Let $\mathcal{C}$ be the set of all sets $A \subseteq \mathbb{R}$, such that $A \cap (n, n + 1]$ is a Borel set on $(n, n + 1]$ for all $n \in \mathbb{Z}$. Then $\sigma(\mathcal{C}) = \mathcal{B}_\mathbb{R}$.\label{prop:borel2}
 \end{proposition}
 
 The proof of this proposition is left as an exercise.
@@ -688,7 +688,7 @@ Prove that the intersection of two $\sigma$-algebras on $\Omega$ is a $\sigma$-a
 \end{exercise}
 
 \begin{exercise}
-Show that the collection of open subsets of $(0,1]$ is not a $\sigma$-algebra on $(0,1]$.\label{ex:001}
+Show that the set of open subsets of $(0,1]$ is not a $\sigma$-algebra on $(0,1]$.\label{ex:001}
 \end{exercise}
 
 \begin{exercise}
@@ -704,7 +704,7 @@ Prove that the Lebesgue measure of an interval $(a,b)$ on $(0,1]$ is shift-invar
 \end{exercise}
 
 \begin{exercise}
-Let $\mathcal{F}_0$ be the collection of $\emptyset$ and all subsets of $(0,1]$ which are finite unions of disjoint intervals of the form $(a, b]$. Show that:
+Let $\mathcal{F}_0$ be a set that contains $\emptyset$ and all subsets of $(0,1]$ which are finite unions of disjoint intervals of the form $(a, b]$. Show that:
 
 \begin{enumerate}[(a)]
 \item $\mathcal{F}_0$ is an algebra.
@@ -767,7 +767,7 @@ P(\bigcup_{i=1}^\infty A_i | B) &= \frac{P((\cup_{i=1}^\infty A_i)\cap B)}{P(B)}
 \section{Properties of conditional probability}
 
 \begin{definition}[Partition]
-The \emph{partition of a set} $\Omega$ is a countable collection of disjoint events $\{A_i\}$, such that $\cup_{i=1}^\infty A_i = \Omega$. 
+The \emph{partition of a set} $\Omega$ is a countable set of disjoint events $\{A_i\}$, such that $\cup_{i=1}^\infty A_i = \Omega$. 
 \end{definition}
 
 \begin{proposition}[Marginal probability] Let $A \in \mathcal{F}$ and let $\{B_i\}$ be a partition of $\Omega$. Then,
@@ -815,13 +815,13 @@ We prove the statement by applying Bayes's rule and the Law of total probability
 $$P(B_i|A) = \frac{P(A|B_i)P(B_i)}{P(A)} = \frac{P(A|B_i)P(B_i)}{\sum_{i=1}^\infty P(A|B_i)P(B_i)}.$$
 \end{proof}
 
-\begin{proposition}[Factorization of probability measures] For any countable collection of events $\{A_i\}$ we have $$ P(\bigcap_{i=1}^\infty A_i) = P(A_1) \prod_{i=2}^\infty P(A_i | A_1 \cap A_2 \cap \dots \cap A_{i-1}).$$
+\begin{proposition}[Factorization of probability measures] For any countable set of events $\{A_i\}$ we have $$ P(\bigcap_{i=1}^\infty A_i) = P(A_1) \prod_{i=2}^\infty P(A_i | A_1 \cap A_2 \cap \dots \cap A_{i-1}).$$
 
 This statement is conditional on all the conditional probabilities being well defined.
 \end{proposition}
 
 \begin{proof}
-First, we prove the statement for a finite collection of events. By applying the definition of conditional probability to all factors on the right-hand side, all but one of the terms cancel out:
+First, we prove the statement for a finite set of events. By applying the definition of conditional probability to all factors on the right-hand side, all but one of the terms cancel out:
 
 $$P(A_1) \prod_{i=2}^n \frac{P(A_1 \cap A_2 \cap \dots \cap A_{i})}{P(A_1 \cap A_2 \cap \dots \cap A_{i-1})} = P(\bigcap_{i=1}^n A_i).$$
 
@@ -854,7 +854,7 @@ Events $A$ and $B$ are said to be conditionally independent given event $C$ if $
 \end{definition}
 
 \begin{definition}[Joint independence]
-A countable collection of events $\{A_i\}$, $i \in I$ are said to be jointly independent if for every non-empty finite subset $I_0 \subseteq I$ we have 
+A countable set of events $\{A_i\}$, $i \in I$ are said to be jointly independent if for every non-empty finite subset $I_0 \subseteq I$ we have 
 
 $$\displaystyle P(\bigcap_{i \in I_0} A_i) = \prod_{i \in I_0} P(A_i).$$
 \end{definition}
@@ -867,8 +867,8 @@ The following proposition characterizes the (lack of) relationship between diffe
 \begin{enumerate}[(a)]
 \item \emph{Conditional independence does not imply independence}: That is, for events $A$, $B$ and $C$, such that $P(A|B \cap C) = P(A|C)$, that does not imply that $P(A|B) = P(A)$.
 \item \emph{Independence does not imply conditional independence}: That is, there exist events $A$, $B$ and $C$, such that $P(A|B) = P(A)$ and $P(A|B \cap C) \neq P(A|C)$.
-\item \emph{Pairwise independence does not imply joint independence}: That is, for a countable collection of events $\{A_i\}$, such that $P(A_i|A_j) = P(A_i)$ for all $i \neq j$, that does not imply that events $\{A_i\}$ are jointly independent.
-\item \emph{Joint independence implies pairwise independence of all sets in the collection}.
+\item \emph{Pairwise independence does not imply joint independence}: That is, for a countable set of events $\{A_i\}$, such that $P(A_i|A_j) = P(A_i)$ for all $i \neq j$, that does not imply that events $\{A_i\}$ are jointly independent.
+\item \emph{Joint independence implies pairwise independence for all pairs.}.
 \end{enumerate}\label{prop:independence}
 \end{proposition}
 
@@ -1009,7 +1009,7 @@ In Chapter \ref{ch:rvs} we will see how this characterizes the uniform probabili
 Before we fully generalize the abstract integral, we need one more intermediate step - the integral of a non-negative function:
 
 \begin{definition}
-Let $f: \Omega \rightarrow [0, \infty)$ be a non-negative $\mathcal{F}$-measurable function. Let $S(f)$ be the collection of all non-negative simple functions $g: \Omega \rightarrow [0, \infty)$, such that $\forall \omega \in \Omega: g(\omega) \leq f(\omega)$.
+Let $f: \Omega \rightarrow [0, \infty)$ be a non-negative $\mathcal{F}$-measurable function. Let $S(f)$ be the set of all non-negative simple functions $g: \Omega \rightarrow [0, \infty)$, such that $\forall \omega \in \Omega: g(\omega) \leq f(\omega)$.
 
 The abstract integral of $f$ with respect to a measure $\mu$ is defined as
 
@@ -1095,7 +1095,7 @@ Let $f$ and $g$ be integrable functions and $A$ a measurable set. Some propertie
 \item $\int I_A d\mu = \mu(A)$.
 \item If $f \geq 0$, then $\int f d\mu \geq 0$.
 \item If $f = 0$ $\mu$-a.e., then $\int f d\mu = 0$.
-\item For integrable functions $f$ and $g$: $\int (f + g) d\mu = \int f d\mu + \int g d\mu$ \emph{(linearity)}.
+\item For integrable functions $f$ and $g$: $\int (f + g) d\mu = \int f d\mu + \int g d\mu$ \emph{(additivity)}.
 \item $\int afd\mu = a \int fd\mu$, for $a \in \mathbb{R}$.
 \end{enumerate}\label{prop:abstract}
 \end{proposition}
@@ -1244,7 +1244,7 @@ $$P_X(B) = P_Y(B), \forall B \in \mathcal{B}_\mathbb{R} \Longleftrightarrow F_X(
 \begin{proof}
 In one direction, the proof of the implication is straightforward: The CDF of a RV depends only on its probability law. If two RVs have identical probability laws, they have identical CDFs.
 
-The proof in the other direction is more involved. One way of proving this is to invoke Dynkin's $\pi$-$\lambda$ theorem. A corollary of that theorem is that if two measures agree on a $\pi$-system, they agree on a $\sigma$-algebra generated by that $\pi$-system. A $\pi$-system is an even more general collection than an algebra. It is a non-empty collection of subsets of $\Omega$ that is closed under finite intersection. The set of intervals $\{(-\infty, x]: x\in \mathbb{R} \}$ that a CDF is defined on is a $\pi$-system, so it follows that if two measures agree on a $\pi$-system (have the same CDF), they agree on the entire $\sigma$-algebra.
+The proof in the other direction is more involved. One way of proving this is to invoke Dynkin's $\pi$-$\lambda$ theorem. A corollary of that theorem is that if two measures agree on a $\pi$-system, they agree on a $\sigma$-algebra generated by that $\pi$-system. A $\pi$-system is an even more general set than an algebra. It is a non-empty set of subsets of $\Omega$ that is closed under finite intersection. The set of intervals $\{(-\infty, x]: x\in \mathbb{R} \}$ that a CDF is defined on is a $\pi$-system, so it follows that if two measures agree on a $\pi$-system (have the same CDF), they agree on the entire $\sigma$-algebra.
 
 An alternative is to use Caratheodory's theorem in way very similar to our extension of the Lebesgue measure to all Borel sets on the unit interval. First, recall that the intervals $(a, b]$ generate the Borel $\sigma$-algebra on $\mathbb{R}$ and their algebra are finite unions of disjoint such intervals. Next, we introduce the (pre)measure $\mu((a,b]) = F(b) - F(a)$ and extend it to finite unions via addition (the measure is the sum of measures of disjoint intervals). This measure is finite. What remains is to show the final condition of Caratheodory's theorem - that the pre-measure is countably additive on the algebra (not trivial to prove!). So, the measure $\mu$ uniquely extends to all Borel sets. Because $\mu$ represents the probability law on intervals $(a, b]$ and depends only on the CDF, it follows that two RVs with the same CDF have the same probability law on all Borel sets.
 \end{proof}
@@ -1550,7 +1550,7 @@ For the uniform RV on the unit interval we have $f_X(x) = 1$. Function $g$ is in
 
 $$f_Y(y) = f_X(g^{-1}(y)) |\frac{d}{dy}g^{-1}(y)| = 1 |\frac{1}{y}| = \frac{1}{y},$$
 
-because we have $y \in \{e^0, e^1\} = \{1, e\}$.
+because we have $y \in [e^0, e^1] = [1, e]$.
 
 We can check if $f_Y$ is indeed a PDF. It is non-negative and the integral is
 
@@ -1600,7 +1600,7 @@ $$\mathcal{F}_1 \otimes \mathcal{F}_2  = \sigma(\{A_1 \times A_2: A_1 \in \mathc
 Now we will extend our favorite $\sigma$-algebra to $\mathbb{R}^n$ and show that it is a product $\sigma$-algebra.
 
 \begin{definition}[Borel $\sigma$-algebra]
-The Borel $\sigma$-algebra on $\mathbb{R}^n$ is the $\sigma$-algebra generated by these collections of hyper-rectangles
+The Borel $\sigma$-algebra on $\mathbb{R}^n$ is the $\sigma$-algebra generated by these sets of hyper-rectangles
 
 \begin{align*}
 \mathcal{B}_{\mathbb{R}^n} &= \sigma(\{(-\infty, b_1) \times (-\infty, b_2) \times \hdots \times (-\infty, b_n) : b_i \in \mathbb{R}\})\\
@@ -1621,15 +1621,15 @@ $$\mathcal{B}_{\mathbb{R}^n} = \underbrace{\mathcal{B}_\mathbb{R} \otimes \mathc
 \begin{proof}
 For simplicity, will prove it for $n = 2$. The proof extends to $n$ via induction.
 
-First, we show that $\mathcal{B}_{\mathbb{R}^2} \subseteq \mathcal{B}_\mathbb{R} \otimes \mathcal{B}_\mathbb{R}$. By definition of a product $\sigma$-algebra, the rectangle $(a,b) \times (c, d)$ belongs to $\mathcal{B}_\mathbb{R} \otimes \mathcal{B}_\mathbb{R}$. Because the collection of all such rectangles is a generating set of $\mathcal{B}_{\mathbb{R}^2}$ the product $\sigma$-algebra will contain at least all the sets in $\mathcal{B}_{\mathbb{R}^2}$.
+First, we show that $\mathcal{B}_{\mathbb{R}^2} \subseteq \mathcal{B}_\mathbb{R} \otimes \mathcal{B}_\mathbb{R}$. By definition of a product $\sigma$-algebra, the rectangle $(a,b) \times (c, d)$ belongs to $\mathcal{B}_\mathbb{R} \otimes \mathcal{B}_\mathbb{R}$. Because the set of all such rectangles is a generating set of $\mathcal{B}_{\mathbb{R}^2}$ the product $\sigma$-algebra will contain at least all the sets in $\mathcal{B}_{\mathbb{R}^2}$.
 
-To complete the proof, we show that $\mathcal{B}_\mathbb{R} \otimes \mathcal{B}_\mathbb{R} \subseteq \mathcal{B}_{\mathbb{R}^2}$. We introduce $\mathcal{F}$, a collection of all subsets $A$ of $\mathbb{R}$ such that $A \times \mathbb{R} \in \mathcal{B}_{\mathbb{R}^2}$. Note that $\mathcal{F}$ is a $\sigma$-algebra (why?). $\mathcal{F}$ also contains all intervals $(a, b)$, because $(a, b) \times \mathbb{R}$ is in $\mathcal{B}_{\mathbb{R}^2}$, So, $\mathcal{B}_\mathbb{R} \subseteq \mathcal{F}$ and for every $A \in \mathcal{B}_\mathbb{R}$ we have $A \times \mathbb{R} \in \mathcal{B}_{\mathbb{R}^2}$.
+To complete the proof, we show that $\mathcal{B}_\mathbb{R} \otimes \mathcal{B}_\mathbb{R} \subseteq \mathcal{B}_{\mathbb{R}^2}$. We introduce $\mathcal{F}$, a set of all subsets $A$ of $\mathbb{R}$ such that $A \times \mathbb{R} \in \mathcal{B}_{\mathbb{R}^2}$. Note that $\mathcal{F}$ is a $\sigma$-algebra (why?). $\mathcal{F}$ also contains all intervals $(a, b)$, because $(a, b) \times \mathbb{R}$ is in $\mathcal{B}_{\mathbb{R}^2}$, So, $\mathcal{B}_\mathbb{R} \subseteq \mathcal{F}$ and for every $A \in \mathcal{B}_\mathbb{R}$ we have $A \times \mathbb{R} \in \mathcal{B}_{\mathbb{R}^2}$.
 
 Similarly, we can derive that for every $B \in \mathcal{B}_\mathbb{R}$ we have $\mathbb{R}  \times B\in \mathcal{B}_{\mathbb{R}^2}$. It follows that 
 
 $$A \times B = (A \cap \mathbb{R}) \times (\mathbb{R} \cap B) = (A \times \mathbb{R}) \cap (\mathbb{R} \times B) \in \mathcal{B}_{\mathbb{R}^2}.$$
 
-So, the $\sigma$-algebra generated by the collection of rectangles $A \times B$, where $A, B \in \mathcal{B}_\mathbb{R}$ is a subset of $\mathcal{B}_{\mathbb{R}^2}$.
+So, the $\sigma$-algebra generated by the set of rectangles $A \times B$, where $A, B \in \mathcal{B}_\mathbb{R}$ is a subset of $\mathcal{B}_{\mathbb{R}^2}$.
 \end{proof}
 
 \begin{definition}[Product measure] Let $(\Omega_1, \mathcal{F}_1, \mu_1)$ and $(\Omega_2, \mathcal{F}_2, \mu_2)$ be measure spaces and let $\mathcal{F}_1 \otimes \mathcal{F}_2$ be the product $\sigma$-algebra of their product space $\Omega_1 \times \Omega_2$. A \emph{product measure} $\mu_1 \times \mu_2$ is a measure on the measurable space $(\Omega_1 \times \Omega_2, \mathcal{F}_1 \otimes \mathcal{F}_2)$ satisfying the property $\mu_1 \times \mu_2(A_1 \times A_2) = \mu_1(A_1)\mu_2(A_2),$ for all $A_1 \in \mathcal{F}_1, A_2 \in \mathcal{F}_2$.
@@ -1637,7 +1637,7 @@ So, the $\sigma$-algebra generated by the collection of rectangles $A \times B$,
 
 Note that if the measure spaces in the definition of the product measure are $\sigma$-finite then the product measure exists, is unique, and is also $\sigma$-finite. We will not concern ourselves with the technical details and for us it will suffice that there exists a product Lebesgue measure. The product of two probability measures will also be of some interest, because of its connection with independence of RVs.
 
-\begin{cexample}[Lebesgue integration on $\mathbb{R}^2$] Let $(\mathbb{R}^2, \mathcal{B}_{\mathbb{R}^2}, \lambda_1 \times \lambda_2)$ be our measurable space. So far in this chapter we have established that $\mathcal{B}_{\mathbb{R}^2}$ is a product $\sigma$-algebra (and a product of two Borel $\sigma$-algebras) and that the product measure $\lambda_1 \times \lambda_2$ exists and is unique (we know $\lambda$ exists on $(\mathbb{R}, \mathcal{B}_{\mathbb{R}})$ and we have noted that it is $\sigma$-finite, although we did not go into the details of what that means, other than that it is a condition less strict that finite).
+\begin{cexample}[Lebesgue integration on $\mathbb{R}^2$] Let $(\mathbb{R}^2, \mathcal{B}_{\mathbb{R}^2}, \lambda_1 \times \lambda_2)$ be our measurable space. So far in this chapter we have established that $\mathcal{B}_{\mathbb{R}^2}$ is a product $\sigma$-algebra (and a product of two Borel $\sigma$-algebras) and that the product measure $\lambda_1 \times \lambda_2$ exists and is unique (we know $\lambda$ exists on $(\mathbb{R}, \mathcal{B}_{\mathbb{R}})$ and we have noted that it is $\sigma$-finite, although we did not go into the details of what that means, other than that it is a condition less strict than finite).
 
 By definition, we have $(\lambda_1 \times \lambda_2)(B_1, B_2) = \lambda_1(B_1)\lambda_2(B_2)$, so if the Lebesgue measure $\lambda$ is a generalization of length then the product measure of two Lebesgue measures can be seen as a generalization of area. For example, let's integrate function $f(x_1, x_2)$ which has value 1 on the unit square $[0, 1]^2$ and 0 otherwise:
 
@@ -1748,7 +1748,7 @@ Now we fix $A\in \mathbb{B}_\mathbb{R}$ and define two measures $\mu^A,\nu^A:\ma
 The definition of independence and all statements so far in this section can be generalized to countably many RVs. With 3 or more RVs we again, analogous to 3 or more events, have to distinguish between pairwise and joint independence (joint implies pairwise, but the converse is not true). We only state the result that will be most useful to us:
 
 \begin{theorem}
-Let $\{X_i\}$ be a countable collection of RVs. RVs $X_i$ are jointly independent if and only if
+Let $\{X_i\}$ be a countable set of RVs. RVs $X_i$ are jointly independent if and only if
 
 $$F_{X_1,\dots}(x_1,\dots) = \prod_{i=1}^\infty F_{X_i}(x_i).$$
 \end{theorem}
@@ -2111,14 +2111,15 @@ Properties of expected values:
 \item $E[I_A] = P(A)$.
 \item If $X \geq 0$ then $E[X] \geq 0$.
 \item If $X = 0$ a.s. then $E[X] = 0$.
-\item For finite $E[X]$ and $E[Y]$: $E[X+Y] = E[X] + E[Y]$ \emph{(linearity)}.
-\item $E[aX] = aE[X]$.
+\item For finite $E[X]$ and $E[Y]$: $E[X+Y] = E[X] + E[Y]$ \emph{(additivity)}.
+\item $E[aX] = aE[X]$ \emph{(homogeneity)}.
+\item $E[aX + bY] = aE[X] + bE[Y]$ \emph{(linearity)}.
 \item If $X \geq 0$ a.s. and $E[X] = 0$ then $X = 0$ a.s..
 \end{enumerate}\label{prop:properties_of_expectation}
 \end{proposition}
 
 \begin{proof}
-(a-e) are just special cases of Proposition \ref{prop:abstract}. We state (f) without proof.
+(a-e) are just special cases of Proposition \ref{prop:abstract}. (f) combines (d) and (e). We state (g) without proof.
 %(f): \url{https://math.stackexchange.com/questions/897876/a-nonnegative-random-variable-has-zero-expectation-if-and-only-if-it-is-zero-alm/897893}
 \end{proof}
 
@@ -2127,7 +2128,7 @@ Properties of expected values:
 
 TODO: Move covariance/correlation (the 2 RV stuff) to Ch8 on multivariate. Maybe rename Ch8 to Random vectors and multivariate distributions.
 
-\begin{definition}[Variance] Let $X$ be a real-valued random variable, such that $E[X] < \infty$.  The \emph{variance} of $X$ is defined as
+\begin{definition}[Variance] Let $X$ be a real-valued random variable, such that $E[X]$ is finite.  The \emph{variance} of $X$ is defined as
 
 $$Var[X] = \sigma^2_{X} \triangleq E[(X - E[X])^2].$$
 
@@ -2179,7 +2180,7 @@ $$E[X^2] \geq E[X]^2.$$\label{prop:varsum}
 Observe that the square is a convex function. The proposition follows from Jensen's inequality.
 \end{proof}
 
-\begin{definition}[Covariance] Let $X$ and $Y$ be real-valued RVs, such that $E[X] < \infty$ and $E[Y] < \infty$.  The \emph{covariance} of $X$ and $Y$ is defined as
+\begin{definition}[Covariance] Let $X$ and $Y$ be real-valued RVs, such that $E[X]$ and $E[Y]$ are finite.  The \emph{covariance} of $X$ and $Y$ is defined as
 
 $$Cov[X,Y] \triangleq E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y].$$
 \end{definition}
@@ -2197,7 +2198,7 @@ Equivalent conditions are if $Cov[X,Y] = 0$ or $E[XY] = E[X]E[Y]$.
 \end{definition}
 
 \begin{proposition}
-Let $X$ and $Y$ be a random variables, such that $E[X] < \infty$, $E[Y] < \infty$ and $X$ and $Y$ are independent. Then,
+Let $X$ and $Y$ be a random variables, such that $E[X]$ and $E[Y]$ are finite and $X$ and $Y$ are independent. Then,
 
 $$E[XY] = E[X]E[Y].$$
 \end{proposition}
@@ -2286,7 +2287,7 @@ Var[\sum_{i} a_iX_i] &= E[(\sum_{i}a_iX_i)^2] - (\sum_i E[a_iX_i])^2  \\
 \end{align*}
 \end{proof}
 
-\begin{theorem} Suppose $E[X^k] < \infty$ for some $k$ then $E[X^j] < \infty$ for $j < k$.\label{thm:moments}
+\begin{theorem} Suppose $E[X^k]$ is finite for some $k$ then $E[X^j]$ is finite for $j < k$.\label{thm:moments}
 \end{theorem}
 
 The proof of this theorem is left as an exercise. In words, the theorem says that if the $X^k$-th moment exists and is finite, then all lower-order moments also exist and are finite. In particular, if a RV has finite variance it has a finite mean.
@@ -2690,7 +2691,7 @@ Let $X \sim \text{Poisson}(\lambda_X)$ and $Y \sim \text{Poisson}(\lambda_Y)$, $
 
 Recall that the PMF of a Poisson is $p(i) = \frac{\lambda^i}{i!}e^{-\lambda}$. Its PGF is then
 
-$$\alpha(t) = \sum_{i=0}^\infty t^i p(i) = \sum_{i=0}^\infty t^i \frac{\lambda^i}{i!}e^{-\lambda} = e^{\lambda(t - 1)} = e^{-\lambda} \sum_{i=0}^\infty \frac{(t\lambda)^i}{i!} = e^{\lambda(t - 1)},$$
+$$\alpha(t) = \sum_{i=0}^\infty t^i p(i) = \sum_{i=0}^\infty t^i \frac{\lambda^i}{i!}e^{-\lambda} = e^{-\lambda} \sum_{i=0}^\infty \frac{(t\lambda)^i}{i!} = e^{\lambda(t - 1)},$$
 
 where the final step is based on recognizing the Taylor series expansion of $e^{t\lambda}$ at 0.
 
@@ -2961,14 +2962,18 @@ Show that the Chernoff bound for Bernoulli variables is a special case of the Ho
 
 \section{Types of convergence}
 
+We start with the type of convergence that might already be familiar to us from sequences and limits of real numbers:
+
 \begin{definition}[Convergence of a sequence of real numbers]
 
 A sequence of real numbers $\{x_n\}$ is said to converge to some $x \in \mathbb{R}$ if for any $\epsilon > 0$ there exists an $n_0$, such that 
 
 $$|x_n - x| < \epsilon, \forall n \geq n_0.$$
 
-We write $x_n \myrightarrow{} x$.
+We write $\lim_{n \rightarrow \infty} x_n = x$ or just $x_n \myrightarrow{} x$.
 \end{definition}
+
+We cannot apply point-wise convergence directly to RVs, because RVs are not real numbers but functions from $\Omega$ to $\mathbb{R}$. However, if we limit ourselves to some $\omega \in \Omega$, we get a sequence of values $X_n(\omega)$ and a value $X(\omega)$. If the RVs converge in the sequence sense above at every $\omega$, we have point-wise convergence:  
 
 \begin{definition}[Point-wise convergence]
 A sequence of random variables ${X_i}$ is said to converge point-wise to $X$ if $X_n(\omega) \myrightarrow{}  X(\omega)$, $\forall \omega \in \Omega$.
@@ -2976,24 +2981,36 @@ A sequence of random variables ${X_i}$ is said to converge point-wise to $X$ if 
 We write $X_n \myrightarrow{p.w.} X$.
 \end{definition}
 
+Some parts of $\Omega$ might have, even when combined, zero probability. Those $\omega$ do not contribute to the behaviour of our RVs. In this sense point-wise convergence is unnecessarily restrictive. A much more commonly used type is almost sure convergence, which discards $\omega$ with zero probability.
+
 \begin{definition}[Almost sure convergence]
-A sequence of random variables ${X_i}$ is said to converge almost surely to $X$ if $$P(\{\omega: X_n(\omega) \myrightarrow{} X(\omega)\}) = 1 .$$
+Let ${X_i}$ be a sequence of random variables and $X$ a RV, all of which are defined on the same probability space $(\Omega, \mathcal{F}, P)$. ${X_i}$ is said to converge almost surely to $X$ if $$P(\{\omega: X_n(\omega) \myrightarrow{} X(\omega)\}) = 1 .$$
 
 We write $X_n \myrightarrow{a.s.} X$.
 \end{definition}
 
+That is, we have almost sure convergence, if we do not have point-wise convergence at most on a set of $\omega$ with probability 0.
+
+Another type of convergence that is less strict than almost sure convergence but in practice usually enough that things behave nicely as our sample size increases is convergence in probability.
 \begin{definition}[Convergence in probability]
-A sequence of random variables ${X_i}$ is said to converge in probability to $X$ if $$\lim_{n \rightarrow \infty} P(|X_n - X| > \epsilon) = 0, \forall \epsilon > 0.$$
+Let ${X_i}$ be a sequence of random variables and $X$ a RV, all of which are defined on the same probability space $(\Omega, \mathcal{F}, P)$. ${X_i}$ is said to converge in probability to $X$ if $$\lim_{n \rightarrow \infty} P(\{\omega: |X_n(\omega) - X(\omega)| > \epsilon\}) = 0, \forall \epsilon > 0.$$
 
 We write $X_n \myrightarrow{P} X$.
 \end{definition}
 
+See Example \ref{ex:cip_asc} for the proof and an explanation of the difference between the two types of convergence. Note that in probability and statistics textbooks the above definition of convergence in probability usually appears in a simplified but equivalent form:
+
+\begin{definition}[Convergence in probability]
+Let ${X_i}$ be a sequence of random variables and $X$ a RV, all of which are defined on the same probability space $(\Omega, \mathcal{F}, P)$. ${X_i}$ is said to converge in probability to $X$ if $$\lim_{n \rightarrow \infty} P(|X_n - X| > \epsilon) = 0, \forall \epsilon > 0.$$
+\end{definition}
 
 \begin{definition}[Convergence in $r$-th mean]
-A sequence of random variables ${X_i}$ is said to converge in $r-$th mean ($r \geq 1$) to $X$ if $$\lim_{n \rightarrow \infty} E[|X_n - X|^r] = 0.$$
+Let ${X_i}$ be a sequence of random variables and $X$ a RV, all of which are defined on the same probability space $(\Omega, \mathcal{F}, P)$. ${X_i}$ is said to converge in $r-$th mean ($r \geq 1$) to $X$ if $$\lim_{n \rightarrow \infty} E[|X_n - X|^r] = 0.$$
 
-We write $X_n \myrightarrow{r} X$ and in the special case of $r = 2$  $X_n \myrightarrow{q.m.} X$ (in quadratic mean).
+We write $X_n \myrightarrow{r} X$ and in the special case of $r = 2$, we write  $X_n \myrightarrow{q.m.} X$ (in quadratic mean).
 \end{definition}
+
+Convergence in $r$-th mean is often easier to prove than convergence in probability. This is particularly useful combined with the fact that it implies convergence in probability (see Example \ref{thm:cim_cip}).
 
 \begin{definition}[Convergence in distribution]
 A sequence of random variables ${X_i}$ is said to converge in distribution to $X$ if $$\lim_{n \rightarrow \infty} F_{X_n}(x) = F_X(x), \forall x \in R, \text{ where \mbox{$F_X(\cdot)$} is continuous.}$$
@@ -3001,8 +3018,9 @@ A sequence of random variables ${X_i}$ is said to converge in distribution to $X
 We write $X_n \myrightarrow{D} X$.
 \end{definition}
 
-\section{Relationships between types of convergence}
+Convergence in distribution is the weakest type of convergence of RVs in the sense that it is implied by all other types of convergence that we have introduced in this chapter. Unlike the other types of convergence it does not focus on the behaviour of the RVs at particular $\omega$. Instead, it is interested only in the probability law or distribution of the RVs, represented here with the CDF. As such, it does not require the RVs to be defined on the same probability space. See Example \ref{ex:cid_cip} for an illustration of what it means for RVs to be similar in behaviour or only similar in distribution.
 
+\section{Relationships between types of convergence}\label{sec:rel}
 \begin{theorem}
 $X_n \myrightarrow{p.w.} X \Longrightarrow X_n \myrightarrow{a.s.} X$.
 \end{theorem}
@@ -3029,15 +3047,17 @@ X_n =
 \end{cases}
 $$
 
-We have $\lim_{n \rightarrow \infty} P(|X_n| > \epsilon) = \lim_{n \rightarrow \infty}\frac{1}{n} = 0$, so $X_n \myrightarrow{P} 0$. On the other hand, let $A_n$ be the event that $X_n = 1$. These events are independent and $\sum_{n=1}^\infty P(A_n) = \sum_{n=1}^\infty \frac{1}{n} = \infty$. The Second Borel-Cantelli lemma (see Chapter \ref{ch:bclemma}) states that infinitely many $A_n$ will occur, so $X_n$ does not converge to 0 almost surely.
+We have $\lim_{n \rightarrow \infty} P(|X_n| > \epsilon) = \lim_{n \rightarrow \infty}\frac{1}{n} = 0$, so $X_n \myrightarrow{P} 0$. On the other hand, let $A_n$ be the event that $X_n = 1$. These events are independent and $\sum_{n=1}^\infty P(A_n) = \sum_{n=1}^\infty \frac{1}{n} = \infty$. The Second Borel-Cantelli lemma (see Chapter \ref{ch:bclemma}) states that infinitely many $A_n$ will occur, so $X_n$ does not converge to 0 almost surely.\label{ex:cip_asc}
+
+This example illustrates the difference between convergence in probability and in the almost sure sense. Convergence in probability states that the probability of the unwanted deviation goes to 0 as $n$ approaches infinity, but still allows for the deviation to happen an infinite number of times, albeit at less and less frequent intervals. Almost sure convergence is much more strict, as the probability of deviation not only goes to 0, but does it in a way that at some point there is not enough probability left combined over all $X_i$ beyond some $n$ for the deviation to occur infinitely many times. That is, almost sure convergence is a statement about the probability of the entire tail from $n$ onwards. As loose analogy would be that of the convergence of a sequence - there exist sequences that converge to 0, but the series sum can still diverge, because the convergence is not "fast" enough.
 \end{cexample}
 
 \begin{theorem}
-$X_n \myrightarrow{r} X \Longrightarrow X_n \myrightarrow{P} X$.
+$X_n \myrightarrow{r} X \Longrightarrow X_n \myrightarrow{P} X$.\label{thm:cim_cip}
 \end{theorem}
 
 \begin{proof}
-We'll use the Markov inequality. For $Y \geq 0$ and $\epsilon > 0$ we have $$P(Y > \epsilon) = P(Y^r > \epsilon^r) \leq \frac{E[Y^r]}{\epsilon^r}.$$
+We will use the Markov inequality. For $Y \geq 0$ and $\epsilon > 0$ we have $$P(Y > \epsilon) = P(Y^r > \epsilon^r) \leq \frac{E[Y^r]}{\epsilon^r}.$$
 
 By applying this to $Y = |X_n - X|$, we get
 
@@ -3078,7 +3098,7 @@ For any $\epsilon > 0$ we have
 
 \begin{align*}
 F_{X_n}(x) &= P(X_n \leq x) \\
-&= P(X_n \leq x \cup X \leq x + \epsilon) + P(X_n \leq x \cup X > x + \epsilon) \\
+&= P(X_n \leq x \cap X \leq x + \epsilon) + P(X_n \leq x \cap X > x + \epsilon) \\
 &\leq F_X(x + \epsilon) + P(|X_n - X| > \epsilon). \\
 \text{Similarly, we have} & \\
 F_{X}(x - \epsilon) &\leq F_{X_n}(x) + P(|X_n - X| > \epsilon).
@@ -3095,8 +3115,10 @@ $$F_{X}(x - \epsilon) \leq \liminf_{n \rightarrow \infty} F_{X_n}(x) \leq \limsu
 If $F_X$ is continuous at $x$, then we take $\epsilon \rightarrow 0$, which proves the result.
 \end{proof}
 
-\begin{cexample}[Convergence in distribution does not imply convergence probability]
-Consider $X \sim \text{Bernoulli}(\frac{1}{2})$, the sequence $X_i = X$ and $Y = 1 - X$. Clearly, $X_n \myrightarrow{D} Y$, because they have the same distribution. However, $|X_i - Y| = 1$, for all $i$, so $X_n$ does not converge to $Y$ in probability.
+\begin{cexample}[Convergence in distribution does not imply convergence in probability]
+Consider $X \sim \text{Bernoulli}(\frac{1}{2})$, the sequence $X_i = X$ and $Y = 1 - X$. Clearly, $X_n \myrightarrow{D} Y$, because they have the same distribution. However, $|X_i - Y| = 1$, for all $i$, so $X_n$ does not converge to $Y$ in probability. 
+
+This example illustrates the difference between the specific behaviour of RVs and their general behaviour as represented by their distribution. The restriction that one coin flips the opposite of the other simplifies the proof but is not neccessary. The argument would hold even if the coins were independent fair coins. In words, two independent fair coins will have the same distribution, but one can still flip heads when the other flips tails or vice versa.\label{ex:cid_cip}
 \end{cexample}
 
 \section{Useful theorems}
@@ -3837,7 +3859,7 @@ The key idea of the bootstrap is to simulate $m$ replications of the original sa
 
 Before we formally state the statement made by this algorithm, we formally define the objects from the algorithm.
 
-\begin{definition} The \textit{bootstrap sample} from ECDF $F_n$ is defined as a collection of $n$ independent samples from $F_n$. That is, 
+\begin{definition} The \textit{bootstrap sample} from ECDF $F_n$ is defined as a set of $n$ independent samples from $F_n$. That is, 
 
 $$X_1^*, X_2^*,...,X_n^* \sim F_n.$$ 
 \end{definition}
@@ -3963,7 +3985,7 @@ However, unlike with the plug-in estimators and bootstrap inference, parametric 
 
 \section{Parametric models and the likelihood}
 
-\begin{definition} A \emph{parametric model} $\mathcal{H}$ for data $y$ is a parametrized collection of distributions
+\begin{definition} A \emph{parametric model} $\mathcal{H}$ for data $y$ is a parametrized set of distributions
 
 $$\mathcal{H} = \left\lbrace p(y|\theta) : \theta \in \Theta = \mathbb{R}^k \right\rbrace,$$
 
@@ -4782,7 +4804,7 @@ HMC also allows some additional diagnostics to complement the usual MCMC diagnos
 
 \section{Set theory}
 
-\begin{definition}(Informal definition of a set) A set is an unordered collection of distinct objects. Note that a set is also an object, so we can have sets of sets.
+\begin{definition}(Informal definition of a set) A set is an unordered set of distinct objects. Note that a set is also an object, so we can have sets of sets.
 \end{definition}
 
 We can define a set by enumerating all of its elements, for example, $A = \{1,3,7,8\}$, or by stating the property that the set's elements must satisfy, for example, $\{x \mid x \in \mathbb{N} \wedge \text{$x$ is even}\}$.
@@ -4862,9 +4884,9 @@ In this text we are primarily interested in the set of real numbers $\mathbb{R}$
 
 \subsection*{Functions}
 
-\begin{definition} A function $f$ from set $X$ to set $Y$ is a collection of ordered pairs $(x, y), x \in X, y \in Y$, such that every element of $X$ appears exactly once.
+\begin{definition} A function $f$ from set $X$ to set $Y$ is a set of ordered pairs $(x, y), x \in X, y \in Y$, such that every element of $X$ appears exactly once.
 
-Typically, we use the notation $f(x) = y$ to indicate that the pair $(x,y)$ is in the collection. We refer to $y$ as the \textit{image} of $x$ under $f$. Conversely, $x$ is the \emph{preimage} of $y$ under the function.
+Typically, we use the notation $f(x) = y$ to indicate that the pair $(x,y)$ is in the set. We refer to $y$ as the \textit{image} of $x$ under $f$. Conversely, $x$ is the \emph{preimage} of $y$ under the function.
 
 The shorthand for $f$ being a function from $X$ to $Y$ is $f: X \longrightarrow Y$. $X$ and $Y$ are the \textit{domain} and \textit{codomain} of the function. 
 \end{definition}
