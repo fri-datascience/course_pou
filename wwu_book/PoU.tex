@@ -69,7 +69,7 @@
 
 \newcommand\eqas{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily a. s.}}}{=}}}
 
-\title{\textbf{Working with uncertainty}\\ \begin{small}v0.63\end{small}}
+\title{\textbf{Working with uncertainty}\\ \begin{small}v0.64\end{small}}
 
 \author{Erik \v{S}trumbelj}
 
@@ -2697,7 +2697,7 @@ where the final step is based on recognizing the Taylor series expansion of $e^{
 
 Using the property of PGFs that the sum of two independent RVs' PGF is the product of their PGFs, we have
 
-$$\alpha_{X + Y}(t) = e^{t\lambda_X} e^{t\lambda_Y} = e^{t(\lambda_X + \lambda_Y)}.$$
+$$\alpha_{X + Y}(t) = e^{\lambda_X(t-1)} e^{\lambda_Y(t-1)} = e^{(\lambda_X + \lambda_Y)(t-1)}.$$
 
 Because the PGF uniquely determines the distribution, the sum of independent Poisson RVs is also Poisson with rate $\lambda_X + \lambda_Y$.
 \label{ex:pois1}
