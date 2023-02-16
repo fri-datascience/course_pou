@@ -84,7 +84,7 @@
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-I would like to thank my students Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Valter Hudovernik, Leon Hvastja, Martin Jurkovi\v{c}, Ma\v{s}a Kljun, Timur Kulenovi\'{c}, Miha Marke\v{z}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, \v{Z}iga Rot, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
+I would like to thank my students Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Valter Hudovernik, Leon Hvastja, Martin Jurkovi\v{c}, Ma\v{s}a Kljun, Uro\v{s} Kozole, Timur Kulenovi\'{c}, Miha Marke\v{z}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, \v{Z}iga Rot, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
 
 Special thanks to Alja\v{z} Zalar for reading an early version of the book and providing feedback.
 
@@ -844,10 +844,10 @@ Events $A$ and $B$ are said to be independent if $P(A \cap B) = P(A)P(B)$.
 
 \begin{proposition}[Conditional probability of independent events]
 If $A$ and $B$ are independent and $P(B) > 0$, then
-$P(A|B) = P(A)$.\label{prop:independent}
+$P(A|B) = P(A)$. Conversely, if $P(A|B) = P(A)$ then $A$ and $B$ are independent. \label{prop:independent}
 \end{proposition}
 
-The proof is left as an exercise.
+Therefore, as long as $P(B) > 0$ the statement $P(A|B) = P(A)$ is equivalent to independence of $A$ and $B$. The proof is left as an exercise.
 
 \begin{definition}[Conditional independence]
 Events $A$ and $B$ are said to be conditionally independent given event $C$ if $P(A \cap B|C) = P(A|C)P(B|C)$.
