@@ -1199,13 +1199,13 @@ Introductory probability courses typically focus on two families of RVs: discret
 Random variable is in a way a very unfortunate name, because random variables are neither random nor variables! They are in fact functions! More precisely, they are measurable functions:
 
 \begin{definition}
-Let $(\Omega, \mathcal{F})$ and $(\mathbb{R}, \mathcal{B}_\mathbb{R})$ be measurable spaces. A \emph{random variable} $X$ is a function $X: \Omega \rightarrow \mathbb{R}$ that is $\mathcal{F}$-measurable. 
+Let $(\Omega, \mathcal{F}, P)$ be a probability space and $(\mathbb{R}, \mathcal{B}_\mathbb{R})$ a measurable space. A real-valued \emph{random variable} $X$ is a function $X: \Omega \rightarrow \mathbb{R}$ that is $\mathcal{F}$-measurable. 
 \end{definition}
 
 Recall that measurable (see Definition \ref{def:measurable}) in this context means that the preimage $X^{-1}$ of every Borel set is in $\mathcal{F}$. Measurability is necessary - when we equip the measurable space $(\Omega, \mathcal{F})$ with a probability measure, we want to be able to measure the probability of sets of values of our random variable. We now proceed by doing just that. A random variable that maps from a probability space to a new measurable space induces a (new) probability measure on that new space:
 
 \begin{definition}
-Let $(\Omega, \mathcal{F}, P)$ be a probability space. Let $X$ be a random variable. The \emph{probability law} of $X$ is a function $P_X: \mathcal{B}_\mathbb{R} \rightarrow [0,1]$, which is defined as $$P_X(B) \triangleq P(\{\omega \in \Omega | X(\omega) \in B\}) = P \circ X^{-1}(B)$$
+Let $(\Omega, \mathcal{F}, P)$ be a probability space, $(\mathbb{R}, \mathcal{B}_\mathbb{R})$ a measurable space, and $X$ a random variable that maps from one to the other. The \emph{probability law} of $X$ is a function $P_X: \mathcal{B}_\mathbb{R} \rightarrow [0,1]$, which is defined as $$P_X(B) \triangleq P(\{\omega \in \Omega | X(\omega) \in B\}) = P \circ X^{-1}(B)$$
 \end{definition}
 
 \begin{proposition}
