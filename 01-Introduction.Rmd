@@ -300,9 +300,9 @@ From this follows
   
 which is the upper bound for the intersection.
 
-For an example take a fair die. To achieve the lower bound let $A = \{1,2,3\}$
-and $B = \{3,4,5,6\}$, then their intersection is $A \cap B = \{3\}$. To
-achieve the upper bound take $A = \{1,2,3\}$ and $B = \{1,2,3,4\}$.
+For an example take a fair die. To achieve the lower bound let $A = \{3,4,5,6\}$
+and $B = \{1,2,3\}$, then their intersection is $A \cap B = \{3\}$. To
+achieve the upper bound take $A = \{1,2,3,4\}$ and $B = \{1,2,3\} $.
 
 
 - For the bounds of the union we will use the results from the first part. 
