@@ -16,7 +16,7 @@
 \usepackage{framed}
 \usepackage{pst-plot}
 \usepackage{tikz}
- 
+
 
 \theoremstyle{plain}% default
 \newtheorem{prototheorem}{Example}[section]
@@ -63,13 +63,13 @@
 \renewcommand{\qedsymbol}{$\blacksquare$}
 
 \newcommand\eqd{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily d}}}{=}}}
-  
+
   \newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
 
 
 \newcommand\eqas{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily a. s.}}}{=}}}
 
-\title{\textbf{Working with uncertainty}\\ \begin{small}v0.64\end{small}}
+\title{\textbf{Working with uncertainty}\\ \begin{small}v0.65\end{small}}
 
 \author{Erik \v{S}trumbelj}
 
@@ -168,7 +168,7 @@ This example also illustrates how our intuition can sometimes fail us. We will e
 
 \section{Measure and probability spaces}
 
-The example from the previous section suggests that the power set might not always be the appropriate choice for the set of events. Instead, we will use a more general mathematical object called a sigma algebra (or $\sigma$-algebra): 
+The example from the previous section suggests that the power set might not always be the appropriate choice for the set of events. Instead, we will use a more general mathematical object called a sigma algebra (or $\sigma$-algebra):
 
 \begin{definition}[Sigma algebra]
 A set $\mathcal{F}$ of subsets of $\Omega$ is a \emph{$\sigma$-algebra} on $\Omega$ if it has the following three properties:
@@ -199,10 +199,10 @@ The proof of this proposition is left as an exercise.
 Consider $\Omega = \{0, 1\}$. Which of the following sets of subsets of $\Omega$ are $\sigma$-algebras on $\Omega$?
 
 \begin{enumerate}[(a)]
-\item $\mathcal{F}_1 = \{\emptyset, \{0\}, \{1\},\Omega\}$. 
+\item $\mathcal{F}_1 = \{\emptyset, \{0\}, \{1\},\Omega\}$.
 \item $\mathcal{F}_2 = \{\emptyset, \{1\},\Omega\}$.
 \item $\mathcal{F}_3 = \{\{0\}, \{1\},\Omega\}$.
-\item $\mathcal{F}_4 = \{\emptyset, \Omega\}$. 
+\item $\mathcal{F}_4 = \{\emptyset, \Omega\}$.
 \end{enumerate}
 
 $\mathcal{F}_1$ is the power set of $\Omega$ and thus a $\sigma$-algebra on $\Omega$.
@@ -360,11 +360,11 @@ We illustrate discrete probability spaces with two examples:
 \begin{cexample}{(Coin flip)}{}
 
 A coin has two possible states - heads and tails. Without loss of generality, we can assign the number 1 to heads and number 0 to tails. Our set of outcomes is then $\Omega = \{0, 1\}$.
-  
+
 For the set of events, we use the power set $\mathcal{F} = \{\emptyset, \{0\}, \{1\}, \Omega\}$, although it is not the only possible choice (see below).
-  
+
 For the probability measure we must set $P(\emptyset) = 0$ (definition of measure) and $P(\Omega) = 1$ (definition of probability measure). We have the freedom to set $P(\{1\})= \theta$, where $\theta \in [0,1]$ (property of probability measures), but $P(\{0\}) = 1 - \theta$ (property of probability measures). This \emph{coin-with-probability-$\theta$} measure is also called a Bernoulli measure or, when used to define a distribution of a random variable, a Bernoulli random variable.
-  
+
 Note that $\Omega = \{0, 1\}$, $\mathcal{F} = \{\emptyset, \Omega\}$ with $P(\emptyset) = 0$ and $P(\Omega) = 1$ is also a probability space (as an exercise, you can verify it has all the defining properties). It is just a probability space where $P(\text{heads})$ and $P(\text{tails})$ do not exist, which arguably makes it a less useful probability space.
 \end{cexample}
 
@@ -375,7 +375,7 @@ With Proposition \ref{prop:discrete_prob_space} it is straightforward to constru
 Let $\Omega = \mathbb{N}$ and  $\mathcal{F} = 2^\mathbb{N}$. Observe that the set of events is not countable. However, as long as the set of outcomes is, things remain simple.
 
 The following are two very common probability measures:
-  
+
 \begin{enumerate}[(a)]
 \item \emph{Geometric}: $P(\{k\}) = (1 - \theta)^{k}\theta$, $\theta \in (0,1)$. Check that $\sum_{k \in N} P(\{k\}) = 1$.
 \item \emph{Poisson}: $P(\{k\}) = \frac{\lambda^ke^{-\lambda}}{k!}$, where $\lambda > 0$. Check that $\sum_{k \in N} P(\{k\}) = 1$.
@@ -446,7 +446,7 @@ Now we attempt a more formal construction of our uniform probability:
 
 \begin{definition}[Naive uniform probability measure]
 Let $P$ be a probability measure on measurable space $(\Omega = [0,1], \mathcal{F} = 2^{[0,1]})$. $P$ is a \emph{uniform probability measure} if it satisfies the following two properties:
-  
+
 \begin{enumerate}[(i)]
 \item $P((a,b)) = P([a,b)) = P((a,b]) = P([a,b])$ for all $(a,b) \in \mathcal{F}$ \emph{(uniformity)}.
 \item $P(A) = P(A \oplus \omega)$ for all $\omega \in \Omega$ and $A \in \mathcal{F}$ \emph{(shift invariance)}.
@@ -466,16 +466,16 @@ We will prove this by contradiction. Let us assume that such a probability measu
 
 We define an equivalence relation on $\Omega$: $x \sim y$ iff $y - x \in \mathbb{Q}$. This relation partitions $\Omega$ into equivalence classes. Let $H \subset \Omega$ consist of precisely one element from each equivalence class (this requires the use of the Axiom of choice). Note that we assume, without loss of generality, that $0 \notin H$. If we were to allow for the case $0 \in H$, the union below would have to handle it as a special case, in order to be able to obtain a subset that contains $1$.
 
-Because $H$ contains an element from each equivalence class, the union 
+Because $H$ contains an element from each equivalence class, the union
 
 $$\displaystyle \bigcup_{x \in [0, 1), x \in \mathbb{Q}} H \oplus x$$
-  
+
 contains every point in $(0,1]$. Furthermore, sets $H \oplus x$ in the above union are all disjoint. By construction, each of them contains elements that are not exactly a rational number apart, so they can appear in another set only by looping around. However, this cannot happen, since we don't include 1.
 
 Now we can use two properties of probability measures (total probability of 1 and countable additivity) and shift invariance to show that
 
 $$P((0,1]) = 1 = \displaystyle \sum_{x \in [0, 1), x \in \mathbb{Q}} P(H \oplus x) = \displaystyle \sum_{x \in [0, 1), x \in \mathbb{Q}} P(H).$$
-  
+
 The rightmost sum is a countable sum of the same element and can only be 0 or infinite. This leads to a contradiction!
 \end{proof}
 
@@ -510,7 +510,7 @@ Proposition \ref{prop:generated_algebras} guarantees that $\mathcal{B}_{(0,1]}$ 
 
 First, let us inquire about the cardinality of $\mathcal{B}_{(0,1]}$. We know that it contains more than just the open intervals (why?; see Exercise \ref{ex:001}) and we have not excluded the possibility that the completion of the open subsets to a $\sigma$-algebra would lead to $\mathcal{B}_{(0,1]} = 2^{(0,1]}$. Luckily, that is not the case. In fact, it has been proven that the cardinality of the Borel $\sigma$-algebra is equal to the cardinality of $\mathbb{R}$. However, the proof of this statement is beyond the scope of this text.
 
-Next, let us explore which sets are Borel sets. 
+Next, let us explore which sets are Borel sets.
 
 \begin{proposition}
 Every singleton set $\{\omega\}$, $0 < \omega \leq 1$, is in $\mathcal{B}_{(0,1]}$.
@@ -528,7 +528,7 @@ First, $\{1\}$ is in $\mathcal{B}_{(0,1]}$, because the complement $(0, 1)$ is b
 %       \Longrightarrow & \bigcap_{i=1}^\infty \left(b - \frac{1}{i}, b + \frac{1}{i}\right) \in \mathcal{B}_{(0,1]} && \text{}.
 %\end{align*}
 %
-%Then we prove, by contradiction, that 
+%Then we prove, by contradiction, that
 %
 %$$\{b\} = \bigcap_{i=1}^\infty \left(b - \frac{1}{i}, b + \frac{1}{i}\right).$$
 %
@@ -569,7 +569,7 @@ We can prove $\sigma(\mathcal{C}) = \mathcal{B}_{(0,1]}$ by showing that $\sigma
 
 To prove $\mathcal{B}_{(0,1]} \subseteq \sigma(\mathcal{C})$ it suffices to show that semi-open intervals generate all open intervals:
 $$(a,b) = \displaystyle\bigcup_{i=1}^\infty (a,b-\frac{1}{i}].$$
-Because the set of open intervals generates $\mathcal{B}_{(0,1]}$, the set of semi-open intervals generates at least $\mathcal{B}_{(0,1]}$. 
+Because the set of open intervals generates $\mathcal{B}_{(0,1]}$, the set of semi-open intervals generates at least $\mathcal{B}_{(0,1]}$.
 \end{proof}
 
 \section{Uniform measure on $(0, 1]$}
@@ -577,13 +577,13 @@ Because the set of open intervals generates $\mathcal{B}_{(0,1]}$, the set of se
 Now we can return to the task of constructing a uniform measure $\lambda$ on $\Omega = (0,1]$. Instead of using the power set, our measurable space will be $((0,1], \mathcal{B}_{(0,1]})$. Hopefully this removes the pathological sets that made it impossible (see Theorem \ref{thm:nonexistence}).
 
 Let us recall our notion of a uniform measure, as we defined it in Definition \ref{def:naive_uniform}. We required such a method to have the following two properties:
-  
+
 \begin{enumerate}[(i)]
 \item $P((a,b)) = P([a,b)) = P((a,b]) = P([a,b])$ for all $(a,b) \in \mathcal{F}$ \emph{(uniformity)}.
 \item $P(A) = P(A \oplus \omega)$ for all $\omega \in \Omega$ and $A \in \mathcal{F}$ \emph{(shift invariance)}.
 \end{enumerate}
 
-Property (i) states that the measure needs to be proportional to the length of the interval. So, for intervals of the form $(a,b)$ (and for their half-open and closed counterparts), we could, without loss of generality, define our measure $\lambda$ with the length of the interval: $\lambda((a,b)) \triangleq b - a$. As an exercise, verify that this measure is shift invariant as well. 
+Property (i) states that the measure needs to be proportional to the length of the interval. So, for intervals of the form $(a,b)$ (and for their half-open and closed counterparts), we could, without loss of generality, define our measure $\lambda$ with the length of the interval: $\lambda((a,b)) \triangleq b - a$. As an exercise, verify that this measure is shift invariant as well.
 
 The problem we face now is how to extend this measure to all Borel sets in $\mathcal{B}_{(0,1]}$, some of which can be very complicated. We will tackle this problem by starting with a more manageable set of sets and then invoking this powerful theorem from measure theory that will allow us to extend the probability measure to all Borel sets:
 
@@ -767,7 +767,7 @@ P(\bigcup_{i=1}^\infty A_i | B) &= \frac{P((\cup_{i=1}^\infty A_i)\cap B)}{P(B)}
 \section{Properties of conditional probability}
 
 \begin{definition}[Partition]
-The \emph{partition of a set} $\Omega$ is a countable set of disjoint events $\{A_i\}$, such that $\cup_{i=1}^\infty A_i = \Omega$. 
+The \emph{partition of a set} $\Omega$ is a countable set of disjoint events $\{A_i\}$, such that $\cup_{i=1}^\infty A_i = \Omega$.
 \end{definition}
 
 \begin{proposition}[Marginal probability] Let $A \in \mathcal{F}$ and let $\{B_i\}$ be a partition of $\Omega$. Then,
@@ -776,7 +776,7 @@ $$P(A) = \sum_{i=1}^\infty P(A \cap B_i).$$
 \end{proposition}
 
 \begin{proof}
-Sets $A \cap B_i$ are disjoint, therefore 
+Sets $A \cap B_i$ are disjoint, therefore
 
 $$\sum_{i=1}^\infty P(A \cap B_i) = P(\bigcup_{i=1}^\infty A \cap B_i) = P(A \cap \bigcup_{i=1}^\infty B_i) = P(A \cap \Omega) = P(A).$$
 
@@ -854,7 +854,7 @@ Events $A$ and $B$ are said to be conditionally independent given event $C$ if $
 \end{definition}
 
 \begin{definition}[Joint independence]
-A countable set of events $\{A_i\}$, $i \in I$ are said to be jointly independent if for every non-empty finite subset $I_0 \subseteq I$ we have 
+A countable set of events $\{A_i\}$, $i \in I$ are said to be jointly independent if for every non-empty finite subset $I_0 \subseteq I$ we have
 
 $$\displaystyle P(\bigcap_{i \in I_0} A_i) = \prod_{i \in I_0} P(A_i).$$
 \end{definition}
@@ -1083,7 +1083,7 @@ $$\lim_{n \rightarrow \infty}  \int f_n d\mu = \int f d\mu.$$
 \label{thm:mct}
 \end{theorem}
 
-The proof of these theorems is beyond the scope of this text. 
+The proof of these theorems is beyond the scope of this text.
 
 Note that the MCT allows for infinite integrals - the function $f$ is not necessarily integrable. The existence of an dominating function $g$ in the DCT, however, implies that $f$ and $f_n$ are integrable.
 
@@ -1112,7 +1112,7 @@ $$(f + g)(\omega) = \sum_{i=1}^n \sum_{j=1}^m (a_i + b_i) I_{A_i \cap B_j}(\omeg
 &= \sum_{i=1}^n a_i \sum_{j=1}^m  \mu(A_i \cap B_j) + \sum_{j=1}^m b_i \sum_{i=1}^n \mu(A_i \cap B_j)  \\
 &= \sum_{i=1}^n a_i
  \mu(A_i) + \sum_{j=1}^m b_i \mu(B_j) && \text{(marginalize)} \\
-&= \int f(\omega) d\mu + \int g(\omega) d\mu  
+&= \int f(\omega) d\mu + \int g(\omega) d\mu
 \end{align*}
 \end{proof}
 
@@ -1199,7 +1199,7 @@ Introductory probability courses typically focus on two families of RVs: discret
 Random variable is in a way a very unfortunate name, because random variables are neither random nor variables! They are in fact functions! More precisely, they are measurable functions:
 
 \begin{definition}
-Let $(\Omega, \mathcal{F}, P)$ be a probability space and $(\mathbb{R}, \mathcal{B}_\mathbb{R})$ a measurable space. A real-valued \emph{random variable} $X$ is a function $X: \Omega \rightarrow \mathbb{R}$ that is $\mathcal{F}$-measurable. 
+Let $(\Omega, \mathcal{F}, P)$ be a probability space and $(\mathbb{R}, \mathcal{B}_\mathbb{R})$ a measurable space. A real-valued \emph{random variable} $X$ is a function $X: \Omega \rightarrow \mathbb{R}$ that is $\mathcal{F}$-measurable.
 \end{definition}
 
 Recall that measurable (see Definition \ref{def:measurable}) in this context means that the preimage $X^{-1}$ of every Borel set is in $\mathcal{F}$. Measurability is necessary - when we equip the measurable space $(\Omega, \mathcal{F})$ with a probability measure, we want to be able to measure the probability of sets of values of our random variable. We now proceed by doing just that. A random variable that maps from a probability space to a new measurable space induces a (new) probability measure on that new space:
@@ -1217,7 +1217,7 @@ $P_X(\emptyset) = 0$ follows from the fact that $P_X$ is a finite measure. $P_X(
 
 \begin{align*}
     P_X(\bigcup_{i=1}^\infty A_i) &= P(\bigcup_{i=1}^\infty  \{\omega \in \Omega | f(\omega) \in A_i\}) \\
-    &= \sum_{i=1}^\infty P(\{\omega \in \Omega | f(\omega) \in A_i\}) \\ 
+    &= \sum_{i=1}^\infty P(\{\omega \in \Omega | f(\omega) \in A_i\}) \\
     &= \sum_{i=1}^\infty P_X(A_i).
 \end{align*}
 
@@ -1227,7 +1227,7 @@ The probability law of a RV is an example of a \emph{pushforward} measure - a me
 
 \section{Cumulative distribution function}
 
-In practical applications, we rarely work directly with probability spaces, $\sigma$-algebras, or even probability laws of RVs. Instead, we work with easier to understand and easier to use representations of RVs. The most important such representation is the cumulative distribution function (CDF): 
+In practical applications, we rarely work directly with probability spaces, $\sigma$-algebras, or even probability laws of RVs. Instead, we work with easier to understand and easier to use representations of RVs. The most important such representation is the cumulative distribution function (CDF):
 
 \begin{definition}The \textit{cumulative distribution function} $F_X: \mathbb{R} \rightarrow [0, 1]$ of a random variable $X$ on a probability space $(\Omega, \mathcal{F}, P)$ is defined as $$F_X(x) \triangleq P_X((-\infty,x]) = P(\{\omega \in \Omega | X(\omega) \leq x\}) .$$
 \end{definition}
@@ -1260,7 +1260,7 @@ CDFs have the following properties.
 Let $X$ be a random variable with CDF $F_X(\cdot)$. Then $F_X(\cdot)$ has the following properties:
 \begin{enumerate}[(a)]
 \item If $x \leq y$, then $F_X(x) \leq F_X(y)$ \textit{(non-decreasing function)}.
-\item $\lim_{x \rightarrow -\infty} F_X(x) = 0$ and $\lim_{x \rightarrow \infty} F_X(x) = 1$. 
+\item $\lim_{x \rightarrow -\infty} F_X(x) = 0$ and $\lim_{x \rightarrow \infty} F_X(x) = 1$.
 \item $\forall x \in \mathbb{R}: \lim_{\epsilon \downarrow 0} F_X(x + \epsilon) = F_X(x)$ \textit{(right continuity)}.
 \end{enumerate}\label{prop:CDF}
 \end{proposition}
@@ -1273,7 +1273,7 @@ We will prove only the second part of (b) as the proof of the first part is symm
 \begin{align*}
     \lim_{x \rightarrow \infty} F_X(x) &= \lim_{x \rightarrow \infty} P(X \leq x) && \text{(definition of CDF)} \\
     &= \lim_{n \rightarrow \infty} P(X \leq x_n) && \text{(sequence that goes to $\infty$)} \\
-    &= P(\bigcup_{n \in \mathbb{N}} \{\omega \in \Omega | X(\omega) \leq x_n\}) && \text{(continuity of probability)}\\ 
+    &= P(\bigcup_{n \in \mathbb{N}} \{\omega \in \Omega | X(\omega) \leq x_n\}) && \text{(continuity of probability)}\\
     &= P(\Omega) \\
     &= 1
 \end{align*}
@@ -1283,7 +1283,7 @@ Claim (c) is proved in a similar way:
 \begin{align*}
     \lim_{\epsilon \downarrow 0} F_X(x + \epsilon) &= \lim_{\epsilon \downarrow 0} P(X \leq x + \epsilon) = && \text{(definition of CDF)} \\
     &= \lim_{n \rightarrow \infty} P(X \leq x + \epsilon_n) = && \text{(sequence that goes to 0)} \\
-    &= P(\bigcap_{n \in \mathbb{N}} \{\omega \in \Omega | X(\omega) \leq x + \epsilon_n\}) && \text{(continuity of probability)}\\ 
+    &= P(\bigcap_{n \in \mathbb{N}} \{\omega \in \Omega | X(\omega) \leq x + \epsilon_n\}) && \text{(continuity of probability)}\\
     &= P(X \leq x) \\
     &= F_X(x)
 \end{align*}
@@ -1312,12 +1312,12 @@ $F_X(x) = P_X\bigg((-\infty, x]\bigg) = \lambda\bigg(\{\omega \in (0,1] | X(\ome
 
 $= \lambda\bigg(\{\omega \in (0,1] | Q(\omega) \leq x\}\bigg) = \lambda\bigg((0, F(x)]\bigg) = F(x).$
 \end{proof}
- 
+
 So, every function that has the properties of a CDF corresponds to a probability law of a RV.
 
 \section{Different RVs, same distribution}
 
-It is clear that two identical RVs will have identical probability laws and therefore identical CDFs. However, two different RVs can also have identical probability laws and CDFs! 
+It is clear that two identical RVs will have identical probability laws and therefore identical CDFs. However, two different RVs can also have identical probability laws and CDFs!
 
 \begin{cexample}{}{-}
 Let $((0, 1], \mathcal{B}_{(0,1]}, \lambda)$ be our probability space. Let $X: (0, 1] \to \mathbb{R}$ such that $X(\omega) = 1$, if $\omega < \frac{1}{2}$, and $X(\omega) = 0$, otherwise. Let $Y: (0, 1] \to \mathbb{R}$ such that $Y(\omega) = 1 - X(\omega)$.
@@ -1368,7 +1368,7 @@ Statements (b), (c), and (d) are left as an exercise.
 Continuous RVs are most often defined through the existence of a probability density function (PDF) $f_X$:
 
 \begin{definition}[Continuous random variable]
-RV $X$ is a continuous RV if there exists a non-negative measurable function $f_X:\mathbb{R} \rightarrow [0, \infty)$, such that for any $B \in \mathcal{B}_\mathbb{R}$, we have 
+RV $X$ is a continuous RV if there exists a non-negative measurable function $f_X:\mathbb{R} \rightarrow [0, \infty)$, such that for any $B \in \mathcal{B}_\mathbb{R}$, we have
 
 $$P_X(B) = \int_B f_X d\lambda,$$
 
@@ -1493,7 +1493,7 @@ $$F_Y(y) = P(g(X) \leq y) = P(\{\omega|g(X(\omega)) \leq y\}) = P_X(B_y),$$
 where $B_y$ is the set of all $x$, such that $g(x) \leq y$. This by itself is not very useful, but there are two special cases where it is easier to compute the transformed RV.
 
 \begin{proposition}[Transformation of a discrete RV]
-Let $X$ be a RV, $g: \mathbb{R} \rightarrow \mathbb{R}$ a Borel measurable function, and $Y = g(X)$. If $X$ is discrete, then: 
+Let $X$ be a RV, $g: \mathbb{R} \rightarrow \mathbb{R}$ a Borel measurable function, and $Y = g(X)$. If $X$ is discrete, then:
 
 $$p_Y(y) = \sum_{x \in g^{-1}(y)} p_X(x).$$\label{prop:transd}
 \end{proposition}
@@ -1510,14 +1510,14 @@ $X$ is a discrete RV so $Y$ is also a discrete RV, because its support can't be 
 \begin{proposition}[Transformation of a continuous RV]
 Let $X$ be a continuous RV, $g: \mathbb{R} \rightarrow \mathbb{R}$ a Borel measurable, monotone increasing or monotone decreasing, and continuously differentiable function, and $Y = g(X)$. Then,
 
-$$f_Y(y) = f_X(g^{-1}(y)) |\frac{d}{dy}g^{-1}(y)|,$$ 
+$$f_Y(y) = f_X(g^{-1}(y)) |\frac{d}{dy}g^{-1}(y)|,$$
 
 almost everywhere with respect to the Lebesgue measure.
 \end{proposition}
 
 \begin{proof} First note that the purpose of the conditions regarding $g$ in the statement of the theorem are for $g$ to have an inverse and for that inverse to be differentiable. To be more precise, non-differentiable at most on a set of Lebesgue measure 0, so that $Y$ has a PDF. Another consequence of $g^{-1}$ being differentiable almost everywhere is that the statement in the Proposition is also true almost everywhere.
 
-Monotonicity also simplifies the relationship between the CDF of $X$ and the CDF of $Y$. If $g$ is a monotone increasing function, we have 
+Monotonicity also simplifies the relationship between the CDF of $X$ and the CDF of $Y$. If $g$ is a monotone increasing function, we have
 
 $$F_Y(y) = P(Y \leq y) = P(g(X) \leq y) = P(X \leq g^{-1}(y)) = F_X(g^{-1}(y)).$$
 
@@ -1527,7 +1527,7 @@ Differentiating both sides with respect to $y$, we get
 
 $$f_Y(y) = f_X(g^{-1}(y)) \frac{d}{dy}g^{-1}(y).$$
 
-Similarly, if $g$ is a monotone decreasing function, we get 
+Similarly, if $g$ is a monotone decreasing function, we get
 
 $$F_Y(y) = P(X \geq g^{-1}(y)) = 1 - P(X < g^{-1}(y)) = 1 - F_X(g^{-1}(y)).$$
 
@@ -1625,7 +1625,7 @@ First, we show that $\mathcal{B}_{\mathbb{R}^2} \subseteq \mathcal{B}_\mathbb{R}
 
 To complete the proof, we show that $\mathcal{B}_\mathbb{R} \otimes \mathcal{B}_\mathbb{R} \subseteq \mathcal{B}_{\mathbb{R}^2}$. We introduce $\mathcal{F}$, a set of all subsets $A$ of $\mathbb{R}$ such that $A \times \mathbb{R} \in \mathcal{B}_{\mathbb{R}^2}$. Note that $\mathcal{F}$ is a $\sigma$-algebra (why?). $\mathcal{F}$ also contains all intervals $(a, b)$, because $(a, b) \times \mathbb{R}$ is in $\mathcal{B}_{\mathbb{R}^2}$, So, $\mathcal{B}_\mathbb{R} \subseteq \mathcal{F}$ and for every $A \in \mathcal{B}_\mathbb{R}$ we have $A \times \mathbb{R} \in \mathcal{B}_{\mathbb{R}^2}$.
 
-Similarly, we can derive that for every $B \in \mathcal{B}_\mathbb{R}$ we have $\mathbb{R}  \times B\in \mathcal{B}_{\mathbb{R}^2}$. It follows that 
+Similarly, we can derive that for every $B \in \mathcal{B}_\mathbb{R}$ we have $\mathbb{R}  \times B\in \mathcal{B}_{\mathbb{R}^2}$. It follows that
 
 $$A \times B = (A \cap \mathbb{R}) \times (\mathbb{R} \cap B) = (A \times \mathbb{R}) \cap (\mathbb{R} \times B) \in \mathcal{B}_{\mathbb{R}^2}.$$
 
@@ -1676,7 +1676,7 @@ Let $X$ and $Y$ be random variables on probability space $(\Omega, \mathcal{F}, 
 The probability law and CDF generalize to two or more RVs:
 
 \begin{definition}
-The joint probability law of RVs $X$ and $Y$ is defined as 
+The joint probability law of RVs $X$ and $Y$ is defined as
 $$P_{X,Y}(B) \triangleq P(\{\omega \in \Omega | (X(\omega), Y(\omega)) \in B\}), B \in \mathcal{B}_{\mathbb{R}^2}.$$
 \end{definition}
 
@@ -1724,20 +1724,20 @@ First, let's show that independence implies that the joint CDF factors. $F_{X,Y}
 
 Now let us show that the CDF factoring implies independence.
 
-We have to prove that for every $A,B \in \mathbb{B}_\mathbb{R}$ the following holds: 
+We have to prove that for every $A,B \in \mathbb{B}_\mathbb{R}$ the following holds:
 \begin{equation}
 	\label{product}
 		P_{X,Y} (A\times B)=P_X(A)P_Y(B).
 \end{equation}
 
 
-Let us fix $B$ of the form $(-\infty, y]$, $y \in \mathbb{R}$. We define two measures 
+Let us fix $B$ of the form $(-\infty, y]$, $y \in \mathbb{R}$. We define two measures
 $\mu_B,\nu_B :\mathbb{B}_\mathbb{R} \rightarrow \mathbb{R}$: $\mu_B(A) := P_{X,Y}(A \times B \text{ and }\nu_B(A) := P_X(A)P_Y(B).$
 
-Because of the assumption that the CDF factors, we have that for every $A$ of the form $(-\infty, x]$, $x \in \mathbb{R}$: 
+Because of the assumption that the CDF factors, we have that for every $A$ of the form $(-\infty, x]$, $x \in \mathbb{R}$:
 $\mu_B(A) = \nu_B(A)$.
-Since $\mu_B$ and $\nu_B$ are $\sigma$-finite, $\mu_B = \nu_B$ by the uniqueness from Caratheodory's theorem. So, 
-\eqref{product} holds 
+Since $\mu_B$ and $\nu_B$ are $\sigma$-finite, $\mu_B = \nu_B$ by the uniqueness from Caratheodory's theorem. So,
+\eqref{product} holds
 %$$P_{X,Y}(A \times B) = P_X(A)P_Y(B),$$
 for every $A \in \mathbb{B}_\mathbb{R}$ and every $B$ of the form $(-\infty, y]$.
 
@@ -1762,9 +1762,9 @@ So far, our treatment has been general, at the level of probability laws and CDF
 It is a well-known result that the Cartesian product of two countable sets is countable. Therefore, the joint distribution of two discrete random variables is also discrete.
 
 \begin{definition}[Joint probability mass function]
-Let $X$ and $Y$ be discrete random variables. The function $p_{X,Y}: \mathbb{R}^2 \rightarrow [0,1]$, 
+Let $X$ and $Y$ be discrete random variables. The function $p_{X,Y}: \mathbb{R}^2 \rightarrow [0,1]$,
 
-$$p_{X,Y}(x,y) \triangleq P(X = x, Y = y)$$ 
+$$p_{X,Y}(x,y) \triangleq P(X = x, Y = y)$$
 
 is called the \emph{joint probability mass function} of $X$ and $Y$.
 \end{definition}
@@ -1786,7 +1786,7 @@ Discrete RVs $X$ and $Y$ are independent if and only if $\forall x,y \in \mathbb
 \begin{proof}
 If $X$ and $Y$ are independent, then $P(X \in B_1, Y \in B_2) = P(X \in B_1)P(Y \in B_2)$, for any $B_1$ and $B_2$, including $B_1 = \{x\}$, $B_2 = \{y\}$. Hence, $p_{X,Y}(x,y) = p_X(x)p_Y(y)$.
 
-If $p_{X,Y}(x,y) = p_X(x)p_Y(y)$, we have 
+If $p_{X,Y}(x,y) = p_X(x)p_Y(y)$, we have
 
 \begin{align*}
 P(X \in B_1, Y \in B_2) &= \sum_{x \in B_1} \sum_{y \in B_2} p_{X,Y}(x,y) = \sum_{x \in B_1} \sum_{y \in B_2} p_{X}(x)p_{Y}(y)\\
@@ -1804,7 +1804,7 @@ What remains is to show that independence on these intervals is enough to imply 
 Similarly to a continuous RV the jointly continuous RVs are defined through the existence of a joint probability density function.
 
 \begin{definition}[Jointly continuous RVs]
-$X$ and $Y$ are jointly continuous if there exists a non-negative measurable function $f_{X,Y}:\mathbb{R}^2 \rightarrow [0, \infty)$, such that for any $B \in \mathcal{B}_{\mathbb{R}^2}$, we have 
+$X$ and $Y$ are jointly continuous if there exists a non-negative measurable function $f_{X,Y}:\mathbb{R}^2 \rightarrow [0, \infty)$, such that for any $B \in \mathcal{B}_{\mathbb{R}^2}$, we have
 
 $$P_{X,Y}(B) = \int_{B} f_{X,Y}(x, y) d(\lambda(x) \times \lambda(y)).$$
 
@@ -1862,7 +1862,7 @@ Often we are interested in joint distributions of discrete and continuous RVs. F
 The joint PDF-PMF of a continuous RV $X$ and a discrete RV $Y$ is defined as
 $$f_{X,Y}(x,y) \triangleq f_{X|Y}(x|y)p_y(y) = p_{Y|X}(y|x)f_X(x),$$
 
-where 
+where
 
 $$f_{X|Y}(x|y) = \frac{f_{X,Y}(x, y)}{p_Y(y)}$$
 
@@ -1938,12 +1938,12 @@ $E[X] = \int_{\mathbb{R}} x dP_X(x).$\label{prop:exp_law}
 
 \begin{proof}
 
-It is enough to prove that 
+It is enough to prove that
 
 $$E(X_+) = \int_\mathbb{R} x_+ dP_X.$$
 
 Let $s_n(x): \mathbb{R} \rightarrow [0, \infty)$ be a sequence of simple non-negative measurable functions such that $s_n \leq s_{n+1} \leq s_{n+2} \leq \dots$ and $\lim_{n\rightarrow\infty}s_n(x)= x_+
-$. 
+$.
 
 Write $s_n = \sum_{i=1}^{m_n} s_{n,i} I_{A_i}$ and define $s'_n = \sum_{i=1}^{m_n} s_{n,i} I_{X^{-1}(A_i)}$.
 
@@ -1951,13 +1951,13 @@ Clearly $s'_n \leq s'_{n+1} \leq \dots$ and $\lim_{n\rightarrow\infty}s'_n(\omeg
 
 By MCT,
 \begin{align*}
-	\lim_{n \rightarrow \infty} \int_\Omega s'_n dP 
+	\lim_{n \rightarrow \infty} \int_\Omega s'_n dP
 		&= \int_\Omega X_+ dP,\\
-	\lim_{n \rightarrow \infty} \int_\mathbb{R} s_n dP_X 
+	\lim_{n \rightarrow \infty} \int_\mathbb{R} s_n dP_X
 		&= \int_\mathbb{R} x_+ dP_X.
 \end{align*}
 
-From 
+From
 $$\int_\Omega s'_n dP = \sum_{i} s_{n,i} P(X^{-1}(A_i)) = \sum_{i} s_{n,i} P_X(A_i) = \int_\mathbb{R} s_n dP_X,$$
 it follows that the initial statement holds.
 
@@ -1974,7 +1974,7 @@ where $x_1, x_2, \cdots$ are values that $X$ attain.
 \end{proposition}
 
 \begin{proof}
-For now, we'll assume that $g(X)$ is non-negative. Because $X$ is a discrete RV, $g(X)$ has countably many values, so we can partition $\Omega$ into a countable number of parts $A_i$, such that all $\omega$ with the same value of $g(X(\omega)) = a_i$ are in the same partition. Then we can write: 
+For now, we'll assume that $g(X)$ is non-negative. Because $X$ is a discrete RV, $g(X)$ has countably many values, so we can partition $\Omega$ into a countable number of parts $A_i$, such that all $\omega$ with the same value of $g(X(\omega)) = a_i$ are in the same partition. Then we can write:
 
 $$g(X(\omega)) = \sum_{i=1}^\infty a_i I_{A_i}(\omega).$$
 
@@ -2041,7 +2041,7 @@ E[X] &= \int_0^\infty x \lambda e^{-\lambda x} dx \\
 &= \frac{1}{\lambda}.
 \end{align*}
 
-In line 3 we used integration by parts with $u = x$ and $dv = e^{-\lambda x} dx$, so $du = dx$ and $v = -\frac{1}{\lambda}e^{-\lambda x}$. 
+In line 3 we used integration by parts with $u = x$ and $dv = e^{-\lambda x} dx$, so $du = dx$ and $v = -\frac{1}{\lambda}e^{-\lambda x}$.
 \end{cexample}
 
 Being an integral, expected value might not be integrable (for example, the Cauchy distribution) or might be integrable but infinite (for example, the Pareto distribution for some parameter values). That is, there exist RVs with an undefined expected value and RVs with infinite expectation.
@@ -2166,12 +2166,12 @@ $$g(E[X]) \geq E[g(X)].$$
 
 \begin{proof}
 We will prove the first statement, the proof of the second is similar. Let $bx + a$ be a line tangent to $g$ at the point $E[X]$. That is, $bE[X] + a = g(E[X])$. Because $g$ is convex, it lies above any of it's tangents, so
-$$E[g(X)] \geq E[bX + a] = bE[X] + a = g(E[X]).$$ 
+$$E[g(X)] \geq E[bX + a] = bE[X] + a = g(E[X]).$$
 \end{proof}
 
 
 \begin{proposition}
-Let $X$ be a real-valued random variable. Then, 
+Let $X$ be a real-valued random variable. Then,
 
 $$E[X^2] \geq E[X]^2.$$\label{prop:varsum}
 \end{proposition}
@@ -2538,7 +2538,7 @@ f(x) &= |(\det A)^{-1}|f(A^{-1}(x - \mu))\\
 \end{proof}
 
 \begin{corollary}
-Every $k-$variate normal distribution is a transformation $AZ + \mu$ of a $k$-variate random vector $Z$ with standard normal components. 
+Every $k-$variate normal distribution is a transformation $AZ + \mu$ of a $k$-variate random vector $Z$ with standard normal components.
 
 Note: By definition, any positive definite matrix $\Sigma$ can be written as a product $\Sigma = AA^T$, where $A$ is non-singular.\label{cor:mvn}
 \end{corollary}
@@ -2574,7 +2574,7 @@ $$X = \begin{bmatrix}
            \Sigma_{AA}, \Sigma_{AB} \\
            \Sigma_{BA}, \Sigma_{BB}
          \end{bmatrix}  \right),$$
-         
+
 where $\Sigma_{WZ} = \Cov(X_W, X_Z)$. For any such partition, we have
 
 \begin{enumerate}[(a)]
@@ -2713,7 +2713,7 @@ $$\E[X] = \frac{d}{dt} e^{\lambda(t - 1)} |_{t = 1} = \lambda e^{\lambda(t - 1)}
 Differentiating one more time, we have
 
 $$\frac{d^2}{dt^2} e^{\lambda(t - 1)} |_{t = 1} = \lambda^2 e^{\lambda(t - 1)} |_{t = 1} = \lambda^2$$
-and 
+and
 $$\Var[X] = \frac{d^2}{dt^2}\alpha(t)|_{t=1} + \frac{d}{dt}\alpha(t)|_{t=1} - (\frac{d}{dt}\alpha(t))^2|_{t=1} = \lambda^2 + \lambda - \lambda^2 = \lambda.$$
 
 \end{cexample}
@@ -2899,9 +2899,9 @@ $$P(X \geq \frac{3}{4}n) = P(X - \frac{1}{2}n \geq \frac{1}{4}n) \leq \frac{\fra
 
 Finally, let's apply the Chernoff bound for Bernoulli variables. We have
 
-$P(X \geq \frac{3}{4}n) = P(X \geq (1 + 2)\frac{1}{2}n)$, which identifies $\delta = 2 > 0$, so
+$P(X \geq \frac{3}{4}n) = P(X \geq (1 + \frac{1}{2})\frac{1}{2}n)$, which identifies $\delta = \frac{1}{2} > 0$, so
 
-$$P(X \geq \frac{3}{4}n) \leq \left(\frac{e^2}{3^3}\right)^{\frac{1}{2}n} = \left(\frac{e^2}{27}\right)^{\frac{n}{2}} = \left(\frac{e}{\sqrt{27}}\right)^n.$$
+$$P(X \geq \frac{3}{4}n) \leq \left(\frac{e^{\frac{1}{2}}}{(1 + \frac{1}{2})^{(1 + \frac{1}{2})}}\right)^{\frac{1}{2}n} = \left(\frac{e^{\frac{1}{2}}}{\frac{3}{2}^{\frac{3}{2}}}\right)^{\frac{n}{2}} = \left(\frac{e}{{\frac{27}{8}}}\right)^{\frac{n}{4}}.$$
 
 As we can see, each subsequent inequality achieves an asymptotically tighter bound by incorporating more information about the RV (variance for Chebyshev and moment generating function for Chernoff).
 \label{ex:ineq_binom}
@@ -2966,14 +2966,14 @@ We start with the type of convergence that might already be familiar to us from 
 
 \begin{definition}[Convergence of a sequence of real numbers]
 
-A sequence of real numbers $\{x_n\}$ is said to converge to some $x \in \mathbb{R}$ if for any $\epsilon > 0$ there exists an $n_0$, such that 
+A sequence of real numbers $\{x_n\}$ is said to converge to some $x \in \mathbb{R}$ if for any $\epsilon > 0$ there exists an $n_0$, such that
 
 $$|x_n - x| < \epsilon, \forall n \geq n_0.$$
 
 We write $\lim_{n \rightarrow \infty} x_n = x$ or just $x_n \myrightarrow{} x$.
 \end{definition}
 
-We cannot apply point-wise convergence directly to RVs, because RVs are not real numbers but functions from $\Omega$ to $\mathbb{R}$. However, if we limit ourselves to some $\omega \in \Omega$, we get a sequence of values $X_n(\omega)$ and a value $X(\omega)$. If the RVs converge in the sequence sense above at every $\omega$, we have point-wise convergence:  
+We cannot apply point-wise convergence directly to RVs, because RVs are not real numbers but functions from $\Omega$ to $\mathbb{R}$. However, if we limit ourselves to some $\omega \in \Omega$, we get a sequence of values $X_n(\omega)$ and a value $X(\omega)$. If the RVs converge in the sequence sense above at every $\omega$, we have point-wise convergence:
 
 \begin{definition}[Point-wise convergence]
 A sequence of random variables ${X_i}$ is said to converge point-wise to $X$ if $X_n(\omega) \myrightarrow{}  X(\omega)$, $\forall \omega \in \Omega$.
@@ -3116,7 +3116,7 @@ If $F_X$ is continuous at $x$, then we take $\epsilon \rightarrow 0$, which prov
 \end{proof}
 
 \begin{cexample}[Convergence in distribution does not imply convergence in probability]
-Consider $X \sim \text{Bernoulli}(\frac{1}{2})$, the sequence $X_i = X$ and $Y = 1 - X$. Clearly, $X_n \myrightarrow{D} Y$, because they have the same distribution. However, $|X_i - Y| = 1$, for all $i$, so $X_n$ does not converge to $Y$ in probability. 
+Consider $X \sim \text{Bernoulli}(\frac{1}{2})$, the sequence $X_i = X$ and $Y = 1 - X$. Clearly, $X_n \myrightarrow{D} Y$, because they have the same distribution. However, $|X_i - Y| = 1$, for all $i$, so $X_n$ does not converge to $Y$ in probability.
 
 This example illustrates the difference between the specific behaviour of RVs and their general behaviour as represented by their distribution. The restriction that one coin flips the opposite of the other simplifies the proof but is not neccessary. The argument would hold even if the coins were independent fair coins. In words, two independent fair coins will have the same distribution, but one can still flip heads when the other flips tails or vice versa.\label{ex:cid_cip}
 \end{cexample}
@@ -3130,7 +3130,7 @@ Here we state, without proof, several useful theorems:
 For any real-valued constants $a$ and $b$ we have
 
 \begin{enumerate}[(a)]
-\item If $X_n \myrightarrow{a.s.} X$ and $Y_n \myrightarrow{a.s.} Y$, then $aX_n + bY_n \myrightarrow{a.s.} aX + bY$ 
+\item If $X_n \myrightarrow{a.s.} X$ and $Y_n \myrightarrow{a.s.} Y$, then $aX_n + bY_n \myrightarrow{a.s.} aX + bY$
 
 and $X_nY_n \myrightarrow{a.s.} XY$.
 \item If $X_n \myrightarrow{P} X$ and $Y_n \myrightarrow{P} Y$, then $aX_n + bY_n \myrightarrow{P} aX + bY$
@@ -3239,7 +3239,7 @@ $$\sum_{j=1}^\infty P(|\frac{S_{j^2}}{j^2} - E[X]| \geq \epsilon) \leq  \sum_{j=
 
 We took squared indices to obtain convergence of the right-hand side. Finiteness of the left-hand side implies, together with the First Borel-Cantelli lemma, that $\frac{S_{j^2}}{j^2} \myrightarrow{a.s.} E[X]$.
 
-Now we show that this also holds for $j^2 \leq n \leq (j + 1)^2$. Since $X_i \geq 0$, we have 
+Now we show that this also holds for $j^2 \leq n \leq (j + 1)^2$. Since $X_i \geq 0$, we have
 
 \begin{align*}
 S_{j^2} \leq S_n &\leq S_{(j+1)^2}\\
@@ -3339,10 +3339,10 @@ We will only be concerned concerned with \emph{homogeneous} or \emph{stationary}
 
 For finite $S$ the transition matrix $K$ can be represented with a matrix, where each row and column correspond to a state and the values in a row represent the probability vector for transitions from that state to all other states.
 
-\begin{proposition}[Chapman-Kolmogorov] For every $m, n \geq 0$ and $x, y \in S$, we have 
+\begin{proposition}[Chapman-Kolmogorov] For every $m, n \geq 0$ and $x, y \in S$, we have
 
 $$K^{m+n}(x, y) = \sum_{z \in S} K^m(x,z)K^n(z,y).$$
-\label{prop:chapman} 
+\label{prop:chapman}
 \end{proposition}
 
 The proof is left as an exercise.
@@ -3440,7 +3440,7 @@ This classification can be further refined as follows.
 
 This refinement is necessary, because for a countably infinite state space we can have cases where we will return in a finite number of steps with probability 1, but our expected return time would be infinite.\footnote{While it might at first be counter-intuitive, there exists random variables that take only finite values but still have an infinite expectation.} That is, despite the state being recurrent, the visits would not be frequent enough for the chain to have a stationary distribution (see Example \ref{ex:markov_chain01}).
 
-\begin{proposition} Positive-recurrence, null-recurrence and transience are class properties - all states in a communicating class share them. 
+\begin{proposition} Positive-recurrence, null-recurrence and transience are class properties - all states in a communicating class share them.
 \end{proposition}
 
 \begin{proof} Let $x$ and $y$ be states that communicate. That is, there exists a $m \geq 0$, such that $K^m(x, y) > 0$. Suppose $x$ is recurrent. It follows that $y$ must also be recurrent, because every time we re-visit $x$ there is a non-zero probability that we will re-visit $y$ in $m$ steps. A similar argument can be used for null-recurrence and transience.
@@ -3448,12 +3448,12 @@ This refinement is necessary, because for a countably infinite state space we ca
 
 Therefore, if one state in an irreducible chain is positive-recurrent, all states are positive recurrent. If all states in a chain are positive-recurrent, we say that the chain is positive-recurrent.
 
-\begin{theorem} An irreducible Markov chain has a stationary distribution if and only if it is positive recurrent. If it does, then the stationary distribution $\pi$ is unique and 
+\begin{theorem} An irreducible Markov chain has a stationary distribution if and only if it is positive recurrent. If it does, then the stationary distribution $\pi$ is unique and
 $$\pi(x) = \frac{1}{\E[T_x]} > 0.$$
 \end{theorem}
 
 \begin{proof}[Partial proof of uniqueness assuming $K(x,y) > 0$ for all pairs of states.]
-Suppose an irreducible Markov chain has more than one stationary distribution and take two of those stationary distributions, $\pi_1$ and $\pi_2$. Let $x$ be the state that maximizes $\frac{\pi_1(z)}{\pi_2(z)}$ over all $z \in S$ and let $a = \frac{\pi_1(x)}{\pi_2(x)}$.  It follows that $a\pi_2(z) \geq \pi_1(z)$, for all $z \in S$. Because the chain is irreducible, we have 
+Suppose an irreducible Markov chain has more than one stationary distribution and take two of those stationary distributions, $\pi_1$ and $\pi_2$. Let $x$ be the state that maximizes $\frac{\pi_1(z)}{\pi_2(z)}$ over all $z \in S$ and let $a = \frac{\pi_1(x)}{\pi_2(x)}$.  It follows that $a\pi_2(z) \geq \pi_1(z)$, for all $z \in S$. Because the chain is irreducible, we have
 
 $$\pi_1(x) = \sum_{z \in S} \pi_1(z) K(z,x) \leq \sum_{z \in S} a\pi_2(z) K(z,x) = a\pi_2(x) = \pi_1(x).$$
 
@@ -3462,7 +3462,7 @@ The inequality must therefore never be strict and we have $\pi_1(z) = a\pi_2(z)$
 
 Because all states in an irreducible finite-state Markov chain are recurrent and positive-recurrent, we have:
 
-\begin{corollary} An irreducible finite-state Markov chain has a unique stationary distribution. 
+\begin{corollary} An irreducible finite-state Markov chain has a unique stationary distribution.
 \end{corollary}
 
 \begin{proof} Because positive-recurrence is a class property, it suffices to show that at least one state is positive-recurrent. Because the state space is finite, if we start in state $i$ at least one state $j$ must be visited an infinite number of times with positive probability. However, because the chain is irreducible, there is a positive probability of getting from $j$ to $i$. Therefore, there is a positive probability that the chain starting in $j$ will visit $j$ and infinite number of times, which implies that $j$ is positive-recurrent.
@@ -3492,7 +3492,7 @@ So, this irreducible chain is recurrent, but not positive recurrent. It is null-
 
 Finally, the following will be particularly useful for constructing Markov Chains with desirable stationary distributions:
 
-\begin{definition}[Detailed balance] Consider a Markov chain with state space $S$ and transition matrix $K$. A distribution $\pi$ is said to satisfy \emph{detailed balance} for this Markov chain if for every pair of states $x, y \in S$ we have 
+\begin{definition}[Detailed balance] Consider a Markov chain with state space $S$ and transition matrix $K$. A distribution $\pi$ is said to satisfy \emph{detailed balance} for this Markov chain if for every pair of states $x, y \in S$ we have
 
 $$\pi(x)K(x,y) = \pi(y)K(y,x).$$
 \end{definition}
@@ -3537,10 +3537,10 @@ Although $K$ now denotes a kernel, the transition matrix that we used for counta
 
 The Chapman-Kolmogorov equation and definition of a stationary distribution (measure) transfers to the general setting:
 
-\begin{proposition}[Chapman-Kolmogorov] For every $m, n \geq 0$, $x \in S$, and $A \in \mathcal{S}$, we have 
+\begin{proposition}[Chapman-Kolmogorov] For every $m, n \geq 0$, $x \in S$, and $A \in \mathcal{S}$, we have
 
 $$K^{m+n}(x, A) = \int_{S} K^m(x,dz)K^n(z,A).$$
-\label{prop:chapman} 
+\label{prop:chapman}
 \end{proposition}
 
 \begin{definition} A sigma-finite measure $\pi(x)$ on $S$ is stationary for a Markov chain with transition kernel $K$ if
@@ -3671,7 +3671,7 @@ In our example, it is reasonable to interpret the data as if they were generated
 
 $$Y_1 = y_1,...,Y_{20} = y_{20}|\theta\sim_{iid} \Bernoulli(\theta).$$
 
-Because the sum of independent and identically distributed Bernoulli variables is distributed Binomial, we could equivalently write 
+Because the sum of independent and identically distributed Bernoulli variables is distributed Binomial, we could equivalently write
 
 $$Y = \sum_{i = 1}^{20} y_i|\theta \sim \Binomial(20, \theta).$$
 
@@ -3688,9 +3688,9 @@ where $y = \sum_{i = 1}^{20} y_i$.
 The function $p(y|\theta)$ plays a central role in parametric inference. It is called the \textit{likelihood} function and we will often write $L(\theta;y) = p(y|\theta)$ and $\ell(\theta;y) = \log p(y|\theta)$. This naming convention and notation are deliberate to make the distinction between the likelihood and PMFs/PDFs. The function $p(y|\theta)$ when viewed as a function of $\theta$ with $y$ known (as is typically the case with statistical analyses) is not a PMF or PDF.
 
 What remains is to infer $\theta$ from the data. There are many different approaches to statistical inference to choose from, each with its advantages and disadvantages. The remainder of the chapter is dedicated to three examples that will briefly illustrate three of the most common: maximum likelihood, Bayesian inference and null-hypothesis significance testing. Each of these will be covered in more detail in the following chapters.
- 
+
 \section{Approaches to statistical inference}
- 
+
 \begin{cexample}[Maximum likelihood estimate for a Binomial proportion]
 Maximum likelihood is, as the name suggests, concerned with finding the parameter values that maximize the likelihood. That is, the parameter value that is out of all parameter values the most likely to have generated the data.
 
@@ -3751,7 +3751,7 @@ Similarly, we could, for example, compute the probability that this coin's $\the
 
 $$P(\theta > 0.5|y) = \int_{0.5}^{1.0} p(\theta|y) d\theta \approx 0.81.$$
 \end{cexample}
- 
+
 \begin{cexample}[Exact Binomial test for proportion] Null-hypothesis significance testing, as the name suggests, focuses on testing a particular hypothesis. While there are many different tests, they all follow the same process:
 
 \begin{itemize}
@@ -3764,7 +3764,7 @@ In our case we might be interested in testing if the coin is fair. Therefore, th
 
 $$H_0: \theta = \frac{1}{2}.$$
 
-A reasonable test statistic in this case would be the deviation from the expected equi-distribution of tails and heads. The bigger the absolute difference between number of tails and number of heads, the less likely it is that the coin is fair. Our sample has an absolute difference of $12 - 8 = 4$. The probability of obtaining a difference at least this large is 
+A reasonable test statistic in this case would be the deviation from the expected equi-distribution of tails and heads. The bigger the absolute difference between number of tails and number of heads, the less likely it is that the coin is fair. Our sample has an absolute difference of $12 - 8 = 4$. The probability of obtaining a difference at least this large is
 
 $$P(|\text{\#heads - \#tails}| \geq 4| H_0)  = P(y \leq 8 \text{ or } y \geq 12| H_0) = 2F(8|H_0) \approx 0.50.$$
 
@@ -3845,7 +3845,7 @@ We start by describing the algorithm:
 Let the ECDF $F_n$ be our sample from $F$ and let $T$ be a functional of interest. Then, the following algorithm returns an estimate of the variance of the plug-in estimator $\hat{\theta}_n$:
 \begin{algorithmic}[1]
 \Procedure{Bootstrap-Variance}{$F_n$, $T$, $m$}
-\For{$i \gets 1:m$} \Comment{number of bootstrap samples}    
+\For{$i \gets 1:m$} \Comment{number of bootstrap samples}
 \State sample $X^*_{1},..., X^*_{n}$ iid from $F_n$ \Comment{sampling with replacement}
 \State let $F^*_{n}$ represent $X^*_{1},..., X^*_{n}$
                 \State $\hat{\theta}^*_{n,i} \gets T(F^*_{n})$
@@ -3859,9 +3859,9 @@ The key idea of the bootstrap is to simulate $m$ replications of the original sa
 
 Before we formally state the statement made by this algorithm, we formally define the objects from the algorithm.
 
-\begin{definition} The \textit{bootstrap sample} from ECDF $F_n$ is defined as a set of $n$ independent samples from $F_n$. That is, 
+\begin{definition} The \textit{bootstrap sample} from ECDF $F_n$ is defined as a set of $n$ independent samples from $F_n$. That is,
 
-$$X_1^*, X_2^*,...,X_n^* \sim F_n.$$ 
+$$X_1^*, X_2^*,...,X_n^* \sim F_n.$$
 \end{definition}
 
 
@@ -3898,7 +3898,7 @@ The second approximation is more difficult to show in general. We provide some i
 Confidence intervals are among the most common ways of summarizing the uncertainty associated with an estimator, second only to the variance/standard deviation of an estimator. Before we proceed with describing three different procedures for constructing confidence intervals, we will first formalize the concept of a confidence interval.
 
 \begin{definition}[Confidence interval]
-A $1-\alpha$ confidence interval for a parameter $\theta$ is an interval $C_n = [a,b]$, such that 
+A $1-\alpha$ confidence interval for a parameter $\theta$ is an interval $C_n = [a,b]$, such that
 
 $$P(\theta \in C_n) = 1-\alpha,$$
 
@@ -3907,7 +3907,7 @@ for all possible values of $\theta$. The bounds $a$ and $b$ are functions of the
 
 It is beneficial to think about confidence interval not as an interval but as a procedure to construct an interval for the given data. If an experiment would be repeated many times and we used a $1 - \alpha$ confidence interval procedure each time, the $1 - \alpha$ of the constructed confidence intervals would contain the true value of the parameter. Hence, the confidence interval is random, not the parameter, and it is in general incorrect to say that the true value of the parameter lies in the confidence interval with $1 - \alpha$ probability.
 
-We will use the term \emph{confidence level} to refer to $1 - \alpha$ and \emph{coverage probability} to refer to the proportion of 
+We will use the term \emph{confidence level} to refer to $1 - \alpha$ and \emph{coverage probability} to refer to the proportion of
 cases when the true parameter is covered by the confidence interval. Ideally, the two would be the same for our procedure for constructing confidence intervals. However, in practice, it is difficult to guarantee this in general, so confidence intervals in practice are often too wide or too narrow.
 
 \begin{definition} The $(1 - \alpha)$ \emph{Bootstrap standard confidence interval} is based on the bootstrap estimate of variance:
@@ -3938,7 +3938,7 @@ The bootstrap is an extremely powerful technique but it does have certain limita
 
 One of the few more general cases where the bootstrap is guaranteed to work are linear statistical functionals, as long as the 2-nd moment of the functional is finite. That is, functionals of the form $T(F) = \int r(x) dF(x)$ with the corresponding plug-in estimator
 
-$$T(F_n) = \int r(x)dF_n(x) = \frac{1}{n}\sum_{i=1}^n r(X_i).$$ 
+$$T(F_n) = \int r(x)dF_n(x) = \frac{1}{n}\sum_{i=1}^n r(X_i).$$
 
 Note that most common functionals such as the mean, median, and variance are linear functionals.
 
@@ -4068,11 +4068,11 @@ First, we'll introduce a quantity that plays an important role in several areas 
 
 If the data bring a lot of information, then we expect the likelihood to form a sharp peak - the data could not have been generated by many different parameter values. On the other hand, if the data bring little information, the likelihood will be more flat - a wider range of parameter values is likely to have generated the data.
 
-The goal is to quantify this difference. One way of doing this is by observing the derivative of the log-likelihood $\frac{d}{d\theta} \log f(X|\theta)$, also known as the \emph{score function}. Sharper peaks will have higher slopes and flatter peaks lower slopes. The absolute or squared value of the score function would therefore be a good indicator. 
+The goal is to quantify this difference. One way of doing this is by observing the derivative of the log-likelihood $\frac{d}{d\theta} \log f(X|\theta)$, also known as the \emph{score function}. Sharper peaks will have higher slopes and flatter peaks lower slopes. The absolute or squared value of the score function would therefore be a good indicator.
 
 Of course, we do not know what the data will be, so we can only compute the expected value. This leads to the following definition of Fisher information:
 
-\begin{definition} \emph{(Unit) Fisher information} is defined as 
+\begin{definition} \emph{(Unit) Fisher information} is defined as
 
 $$I(\theta) \triangleq \E\left[\left(\frac{d}{d \theta} \log f(X|\theta)\right)^2  \middle| \theta\right] = \int \left(\frac{d}{d \theta} \log f(x|\theta)\right)^2 f(x|\theta)dx.$$
 
@@ -4111,11 +4111,11 @@ The proof of this theorem is out of the scope of this text. We refer the interes
 $$\hat{\theta}_n - \theta \myrightarrow{D} N\left(0, I_n(\hat{\theta}_n)^{-1}\right).$$\label{cor:normality}
 \end{corollary}
 
-That is, plugging in a consistent estimator does not affect asymptotic normality. The proof of this corollary is left as an exercise. The corollary provides an estimate for the asymptotic standard error of the MLE: $\hat{\sigma}_\text{MLE} \approx \sqrt{I_n(\theta_n)^{-1}}$. 
+That is, plugging in a consistent estimator does not affect asymptotic normality. The proof of this corollary is left as an exercise. The corollary provides an estimate for the asymptotic standard error of the MLE: $\hat{\sigma}_\text{MLE} \approx \sqrt{I_n(\theta_n)^{-1}}$.
 
 We can utilize the asymptotic normality of MLE to construct confidence intervals:
 
-\begin{definition} The $(1 - \alpha)$ \emph{MLE standard confidence interval} is 
+\begin{definition} The $(1 - \alpha)$ \emph{MLE standard confidence interval} is
 
 $$C_n = [\hat{\theta}_n - z_{1 - \frac{\alpha}{2}}\widehat{\sigma}_\text{MLE},\hat{\theta}_n + z_{1 - \frac{\alpha}{2}}\widehat{\sigma}_\text{MLE}],$$
 
@@ -4140,7 +4140,7 @@ Now we take the expectation over $k$, taking into account that $E[k|\theta] = n\
 
 $$E\left[-\frac{k}{\theta^2} - \frac{n - k}{(1 - \theta)^2}\middle|\theta\right] = -\frac{n}{\theta} -\frac{n}{1 - \theta} = -\frac{n}{\theta(1-\theta)}.$$
 
-So, the Fisher information is 
+So, the Fisher information is
 
 $$I_n(\theta) = \frac{n}{\theta(1-\theta)}$$
 
@@ -4177,7 +4177,7 @@ The theorem states that out of all in some sense well-behaved estimators, MLE ha
 The normality and efficiency arguments also extend to multiple parameters. Fisher information generalizes to the Fisher information matrix.
 
 
-\begin{definition} The \emph{Fisher information matrix} is defined (component-wise) as 
+\begin{definition} The \emph{Fisher information matrix} is defined (component-wise) as
 
 $$[I(\theta)]_{ij} \triangleq \E\left[\left(\frac{\partial}{\partial \theta_i} \log f(X|\theta)\right)\left(\frac{\partial}{\partial \theta_j} \log f(X|\theta)\right)   \middle| \theta\right].$$
 
@@ -4324,7 +4324,7 @@ where $Y \sim N(0,1)$ and $\Phi$ is the CDF of the standard normal.
 Finally, we compute the size of the test. Observe that $\beta(\mu_0) = \alpha$ and that $\beta(\mu)$ is an increasing function. Therefore, for all $\mu \leq \mu_0$ we have $\beta(\mu) \leq \alpha$. So, the test has significance level $\alpha$. Note that this does not mean that the probability of rejecting a true null-hypothesis is $\alpha$! Because we have a composite hypothesis we can only claim that the probability of rejecting a true null-hypothesis is at most $\alpha$ (it could be less).
 \end{cexample}
 
-Rejecting the null-hypothesis is often referred to as finding a \emph{statistically significant} result. 
+Rejecting the null-hypothesis is often referred to as finding a \emph{statistically significant} result.
 
 Statistical significance should not be confused with practical importance. The former talks about something being true with some level of certainty while the latter is concerned with the size of the effect and depends on the given context. For example, if we gathered a random sample of babies, we would be able to determine that there are statistically significantly more boys than girls (about 1.05 boys are born for every girl). This result is also an interesting fact about humans and therefore of practical significance to science. However, it is probably of no practical significance to manufacturers of newborn baby greeting cards - they would probably still make the same amount of \emph{it's a girl} and \emph{it's a boy} cards.
 
@@ -4341,11 +4341,11 @@ Statistical significance should not be confused with practical importance. The f
 
 \section{The Bayesian perspective}
 
-The differences between Bayesian statistics and the classical approaches to inference are rooted in a fundamental difference in how probability is viewed. In classical approaches we view probability as the property of random experiments. In Bayesian statistics, however, we view probability as a tool for expressing uncertainty. 
+The differences between Bayesian statistics and the classical approaches to inference are rooted in a fundamental difference in how probability is viewed. In classical approaches we view probability as the property of random experiments. In Bayesian statistics, however, we view probability as a tool for expressing uncertainty.
 
 Bayesian statisticians share the statistical modelling approach and use the same models (that is, the same likelihoods $p(y|\theta)$) but the above difference leads to a fundamentally different treatment of a model's parameters $\theta$.
 
-This difference can be illustrated by trying to answer this arguably very natural question:\emph{Given this model $p(y|\theta)$ and some data $y$, what is the probability that $\theta > 0.5$?} 
+This difference can be illustrated by trying to answer this arguably very natural question:\emph{Given this model $p(y|\theta)$ and some data $y$, what is the probability that $\theta > 0.5$?}
 
 In maximum likelihood inference, for example, we treated $\theta$ as an unknown constant, the data on the other hand we treated as random variables, realizations from the idealized random experiment that we are using to interpret the process we are studying.    Because $\theta$ is treated as a constant the above question is not even allowed in the maximum likelihood inference framework (NHST is the same)! MLE inference then proceeds in a different way - finding the parameter value that maximizes the probability of the data. Furthermore, uncertainty is quantified through the parameter estimator, which is a random variable, because it is a function of the data, which are random.
 
@@ -4393,7 +4393,7 @@ In practice it might sometimes be infeasible or unnecessary to compute the poste
 The \textit{maximum a-posteriori} (MAP) estimator of the parameter $\theta$ is defined as $$\hat{\theta}_n \triangleq \displaystyle\argmax_\theta p(\theta |y).$$
 \end{definition}
 
-Analogous to the MLE being the maximum of the likelihood the MAP is the maximum of the posterior distribution. Note that the two can, under certain conditions, be the same (left as an exercise). MAP estimation is also the first step of trying to estimate the Bayesian posterior with a normal distribution. 
+Analogous to the MLE being the maximum of the likelihood the MAP is the maximum of the posterior distribution. Note that the two can, under certain conditions, be the same (left as an exercise). MAP estimation is also the first step of trying to estimate the Bayesian posterior with a normal distribution.
 
 In large samples there is a strong relationship between frequentist and Bayesian inference:
 
@@ -4412,7 +4412,7 @@ Derive the condition under which the MLE and MAP estimator will be the same, ass
 
 %\section{Practical considerations}
 %
-%The two main practical issues with Bayesian %statistics are choosing the prior and 
+%The two main practical issues with Bayesian %statistics are choosing the prior and
 %\input{chapter_remainder}
 
 
@@ -4479,7 +4479,7 @@ This leads to the following algorithm.
 Let $Q$ be the generalized inverse of our target distribution. Then, the following algorithm returns $m$ independent samples from our target distribution:
 \begin{algorithmic}[1]
 \Procedure{Inverse-Sampling}{$Q,m$}
-\For{$i \gets 1:m$} \Comment{for each sample}    
+\For{$i \gets 1:m$} \Comment{for each sample}
 \State sample $u$ from $\Unif(0,1)$
 
                 \State $x_i \gets Q(u)$
@@ -4506,7 +4506,7 @@ Let $g$ be our proposal density. Let $f$ be a function such that $f(x) = Cp(x)$ 
 
 \begin{algorithmic}[1]
 \Procedure{Rejection-Sampling}{$f,g,M,m$}
-\For{$i \gets 1:m$} \Comment{for each sample}    
+\For{$i \gets 1:m$} \Comment{for each sample}
     \Repeat \Comment{repeat until accepted}
                 \State sample $y$ from $g$
                 \State sample $u$ from $\Unif(0,1)$
@@ -4518,7 +4518,7 @@ Let $g$ be our proposal density. Let $f$ be a function such that $f(x) = Cp(x)$ 
     \end{algorithmic}
 \end{algo}
 
-\begin{proof}[Proof that rejection sampling works] The samples produced by the algorithm are independent and identically distributed. Let $h$ be their density. We have  
+\begin{proof}[Proof that rejection sampling works] The samples produced by the algorithm are independent and identically distributed. Let $h$ be their density. We have
 
 $h(y) = P(Y = y \cap \text{accept } Y)= g(y)P(\text{accept } Y|Y = y) = g(y)\frac{f(y)}{Mg(y)} \propto f(y) \propto p(y).$
 
@@ -4540,9 +4540,9 @@ $$I = \int_\Omega f(x) p(x) dx = E_p[f(x)],$$
 
 however, we are unable to efficiently sample from $p(x)$.
 
-Rejection methods compensate for drawing samples from the proposal distribution instead of the target distribution by rejecting some of the samples. Weighting methods achieve the same by weighting the samples from the proposal distribution. 
+Rejection methods compensate for drawing samples from the proposal distribution instead of the target distribution by rejecting some of the samples. Weighting methods achieve the same by weighting the samples from the proposal distribution.
 
-Importance sampling, the main representative of this idea, generalizes Monte Carlo integration by introducing a proposal distribution $g$ which we do know how to efficiently sample from. Then, 
+Importance sampling, the main representative of this idea, generalizes Monte Carlo integration by introducing a proposal distribution $g$ which we do know how to efficiently sample from. Then,
 
 $$I = \int_\Omega f(x) p(x) dx = \int_\Omega \frac{f(x) p(x)}{g(x)} g(x) dx = E_g[\frac{f(x) p(x)}{g(x)}].$$
 
@@ -4623,15 +4623,15 @@ Observe that in order to compute the Metropolis-Hastings correction, we need onl
 Let $f(x) \propto p(x)$ a function that is proportional to our target density (trivially, it can be the actual target density), $k$ a transition function, $x_0 \in S$ a starting state, and $m$ the number of samples that we want to draw. The following algorithm returns $m$ (possibly dependent) samples from $p$:
 \begin{algorithmic}[1]
 \Procedure{Metropolis-Hastings}{$f$, $k$, $m$, $x_0$}
-\For{$i \gets 1:m$} \Comment{number of samples}    
+\For{$i \gets 1:m$} \Comment{number of samples}
 \State sample candidate state $x^* \sim k(x_{i-1}, x^*)$
 \State $\alpha \gets \min \left\lbrace 1, \frac{p(x^*)k(x^*,x_{i-1})}{p(x_{i-1})k(x_{i-1},x^*)}\right\rbrace$
 \State sample $u \sim U(0,1)$
-\If{$u \leq \alpha$} 
+\If{$u \leq \alpha$}
 
-\State $x_i \gets x^*$ \Comment{accept transition} 
-\Else 
-\State $x_i \gets x_{i-1}$ \Comment{transitions to self do not spoil detailed balance}    
+\State $x_i \gets x^*$ \Comment{accept transition}
+\Else
+\State $x_i \gets x_{i-1}$ \Comment{transitions to self do not spoil detailed balance}
 \EndIf
               \EndFor
               \State \textbf{return} $x_1,...,x_m$.
@@ -4701,7 +4701,7 @@ To summarize, all these diagnostics tools help us identify relatively obvious is
 
 In this section we will provide a short introduction to Hamiltonian Monte Carlo (HMC). For a more detailed treatment of this topic, we refer the reader to the tutorials by \cite{Neal2011} and  \cite{Betancourt2017}.
 
-HMC is currently the state-of-the-art MCMC method for general-purpose Bayesian inference and an essential part of statistics and machine learning frameworks such as Stan, PyMC3, Tensorflow, and Pyro. 
+HMC is currently the state-of-the-art MCMC method for general-purpose Bayesian inference and an essential part of statistics and machine learning frameworks such as Stan, PyMC3, Tensorflow, and Pyro.
 
 HMC deals with the relatively inefficient exploration of the target distribution and poor scaling to higher dimensions of random walk Metropolis-Hastings and its variants. This is achieved by a physics-inspired approach to proposing the next state and by utilizing the gradient of the target distribution for a better understanding of its geometry.
 
@@ -4753,7 +4753,7 @@ $$p(q, p) \propto e^{-H(q, p)} = e^{-U(q)} e^{-K(p)}$$
 
 Now we take $U(q) = -\log f(q)$, where $f$ is proportional to the distribution we want to sample from, and use the most typical kinetic energy:
 
-$$p(q, p) \propto f(q) e^{-\frac{1}{2}p^TM^{-1}p}.$$ 
+$$p(q, p) \propto f(q) e^{-\frac{1}{2}p^TM^{-1}p}.$$
 
 The resulting joint distribution $p(q, p)$ can be seen as the target distribution over the position vector $q$ augmented by an independent multivariate Gaussian for the momentum vector $p$, with mean 0 and covariance $M$.
 
@@ -4769,15 +4769,15 @@ Putting it all together, we get the basic HMC algorithm:
 Let $f(x)$ a function that is proportional to our target density, $q_0 \in \mathbb{R}^d$ the starting value, $\epsilon > 0$ a step size, $L$ the number of steps, $M$ a diagonal mass matrix with diagonal elements $m_i$, and $m$ the number of samples that we want to draw. Note that $H(q, p) = -\log f(x) + \frac{1}{2}p^T M^{-1}p$.
 \begin{algorithmic}[1]
 \Procedure{HMC}{$f$, $q_0$, $\epsilon$, $L$, $m$}
-\For{$i \gets 1:m$} \Comment{number of samples}    
-\State $p \sim N(0, M)$ \Comment{sample new momentum}    
-\State get $(q^*, p^*)$ by running $L$ Leapfrog steps with step size $\epsilon$ from $(q_{i-1}, p)$ 
-\State $\alpha \gets \min \left\lbrace 1, \frac{e^{-H(q^*, p^*)}}{e^{-H(q_{i-1}, p)}} = e^{-H(q^*, p^*) + H(q_{i-1}, p)}\right\rbrace$ \Comment{Metropolis corr.} 
+\For{$i \gets 1:m$} \Comment{number of samples}
+\State $p \sim N(0, M)$ \Comment{sample new momentum}
+\State get $(q^*, p^*)$ by running $L$ Leapfrog steps with step size $\epsilon$ from $(q_{i-1}, p)$
+\State $\alpha \gets \min \left\lbrace 1, \frac{e^{-H(q^*, p^*)}}{e^{-H(q_{i-1}, p)}} = e^{-H(q^*, p^*) + H(q_{i-1}, p)}\right\rbrace$ \Comment{Metropolis corr.}
 \State sample $u \sim U(0,1)$
-\If{$u \leq \alpha$} 
+\If{$u \leq \alpha$}
 
-\State $q_i \gets q^*$ \Comment{accept transition} 
-\Else 
+\State $q_i \gets q^*$ \Comment{accept transition}
+\Else
 \State $q_i \gets q_{i-1}$
 \EndIf
               \EndFor
@@ -4798,162 +4798,7 @@ In order to use HMC, we have to determine step size, number of steps, and the ma
 
 HMC also allows some additional diagnostics to complement the usual MCMC diagnostics like the traceplot, ESS, and observing the agreement of multiple independent chains. The most commonly used is the number of divergent transitions (trajectories) - more
 
-\begin{appendices}
-
-\chapter{Mathematics refresher}
-
-\section{Set theory}
-
-\begin{definition}(Informal definition of a set) A set is an unordered set of distinct objects. Note that a set is also an object, so we can have sets of sets.
-\end{definition}
-
-We can define a set by enumerating all of its elements, for example, $A = \{1,3,7,8\}$, or by stating the property that the set's elements must satisfy, for example, $\{x \mid x \in \mathbb{N} \wedge \text{$x$ is even}\}$.
-
-\begin{definition}(Set membership) If object $x$ is in set $A$, we say that $x$ is an element of $A$ and write $x \in A$. If $x$ is not an element of $A$, we write $x \notin A$.
-\end{definition}
-
-\begin{definition}(Empty set) An empty set is a set that contains no objects. We write it as $\{\}$ or $\emptyset$.
-\end{definition}
-
-\begin{definition} We say that two sets $A$ and $B$ are equal if they have exactly the same elements. We write $A = B$.
-\end{definition}
-
-\begin{definition}(Cardinality) The cardinality of a set $A$ is the number of its elements. We write the cardinality of set $A$ as $|A|$.
-\end{definition}
-
-\begin{definition}(Intersection) The intersection of two sets $A$ and $B$ is a set of all objects that are elements of $A$ and elements of $B$:
-
-$$A \cap B = \{x \mid x \in A \wedge x \in B\}.$$
-
-If $A \cap B = \emptyset$, we say that $A$ and $B$ are disjoint.
-\end{definition}
-
-\begin{definition}(Union) The union of two sets $A$ and $B$ is a set of all objects that are elements of $A$ or elements of $B$:
-
-$$A \cup B = \{x \mid x \in A \vee x \in B\}.$$
-\end{definition}
-
-\begin{definition}(Difference) The difference of two sets $A$ and $B$ is a set of all objects that are elements of $A$ and not elements of $B$:
-
-$$A \setminus B \triangleq \{x \mid x \in A \wedge x \notin B\}.$$
-\end{definition}
-
-\begin{definition}(Universal set) The universal set is the set of all objects (in the given context). We often write it as $\mathcal{U}$.
-\end{definition}
-
-\begin{definition}(Complement) The complement of a set $A^c$ is the set of all objects not in $A$:
-
-$$A^c \triangleq \{x \mid x \in \mathcal{U} \wedge x \notin A\}.$$
-\end{definition}
-
-\begin{definition}(Subset) For two sets $A$ and $B$ we say that $A$ is a subset of $B$ (or $A \subseteq B$) if every element of $A$ is also an element of $B$. 
-
-If $A \subseteq B$ and $A \neq B$, we say $A$ is a proper subset of $B$ and write $A \subset B$.
-\end{definition}
-
-\begin{definition}(Power set) The power set $\mathcal{P}(A)$ of set $A$ is defined as the set of all subsets of $A$:
-
-$$\mathcal{P}(A) \triangleq \{x \mid x \text{ is a subset of } A\}.$$
-
-We also use $2^A$ to denote the power set.
-\end{definition}
-
-
-Some useful properties of sets:
-
-\begin{proposition} Let $A$, $B$ and $C$ be sets.
-\begin{enumerate}[(a)]
-\item $A \cup \emptyset = A$ and $A \cap \emptyset = \emptyset$.
-\item $A \cup \mathcal{U} = \mathcal{U}$ and $A \cap \mathcal{U} = A$.
-\item $A \cap A = A$ and $A \cup A = A$.
-\item $A \cup B = B \cup A$ and $A \cap B = B \cap A$. (commutativity)
-\item $(A \cup B) \cup C = A \cup (B \cup C)$ and $(A \cap B) \cap C = A \cap (B \cap C)$. (associativity)
-\item $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$ and $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$. (distributivity)
-\item $(A \cup B)^c = A^c \cap B^c$ and $(A \cap B)^c = A^c \cup B^c.$ (De Morgan's laws)
-\end{enumerate}
-\end{proposition}
-
-\begin{definition}(Cartesian product) The Cartesian product of sets $A$ and $B$ is defined as the set of all possible pairs of elements:
-
-$$A \times B = \{(x,y) \mid x \in A \wedge y \in B\}.$$
-\end{definition}
-
-\section{Real analysis}
-
-In this text we are primarily interested in the set of real numbers $\mathbb{R}$, its subsets (naturals, integers and rationals), and Euclidean space $\mathbb{R}^n$.
-
-\subsection*{Functions}
-
-\begin{definition} A function $f$ from set $X$ to set $Y$ is a set of ordered pairs $(x, y), x \in X, y \in Y$, such that every element of $X$ appears exactly once.
-
-Typically, we use the notation $f(x) = y$ to indicate that the pair $(x,y)$ is in the set. We refer to $y$ as the \textit{image} of $x$ under $f$. Conversely, $x$ is the \emph{preimage} of $y$ under the function.
-
-The shorthand for $f$ being a function from $X$ to $Y$ is $f: X \longrightarrow Y$. $X$ and $Y$ are the \textit{domain} and \textit{codomain} of the function. 
-\end{definition}
-
-\begin{definition} Let $f: X \longrightarrow Y$. If every element of $Y$ is paired with at least one element of $X$, we say that the function $f$ is \emph{surjective} (onto). If no two elements of $X$ is paired with the same element of $Y$, we say that the function $f$ is \emph{injective} (one-to-one). If a function is both surjective and injective, we call it a \emph{bijective} function or bijection.
-\end{definition}
-
-
-
-
-\subsection*{Cardinality}
-
-Cardinality of finite sets can be established and compared by counting the number of elements in the sets. However, to support infinite sets, we need to extend the definition of cardinality:
-
-\begin{definition} Sets $A$ and $B$ have the same cardinality if there exists a bijective function between $A$ and $B$.
-
-If there exists an injective function from $A$ to $B$, but not a bijective function from $A$ to $B$, then set $B$ has strictly higher cardinality than set $A$.
-\end{definition}
-
-There are different degrees of infinity. In particular, we distinguish between sets that are infinite but enumerable (countable), such as the set of natural numbers $\mathbb{N}$, and sets that have strictly higher cardinality than $\mathbb{N}$.
-
-\begin{definition}(Countably infinite) Set $A$ is countably infinite if it has the same cardinality as $\mathbb{N}$.
-\end{definition}
-
-\begin{proposition} Natural numbers ($\mathbb{N}$), integers ($\mathbb{Z}$) and rationals ($\mathbb{Q}$) are countably infinite.
-\end{proposition}
-
-\begin{definition}(Countability) A set is countable if it is finite or countably infinite. Otherwise, it is uncountable.
-\end{definition}
-
-\begin{proposition} Reals ($\mathbb{R}$) and power sets of countable sets are uncountable.
-\end{proposition}
-
-\begin{proposition} A countable union of countable sets is countable.
-\end{proposition}
-
-\section{Homogeneous relations}
-
-\begin{definition}
-A homogeneous relation $R$ (sometimes binary relation and henceforth just relation) on a set $A$ is a subset of the Cartesian product of $A$: $R \subseteq A \times A$. If elements $x, y \in A$ are related under relation $R$ (that is, if $(a,b) \in R$), we write $x \sim y$.
-\end{definition}
-
-In words, a relation says which pairs of elements are related and which are not.
-
-A relation may or may not have certain properties that are relevant for classifying relations:
-
-\begin{proposition} A relation $R$ on $A$ is said to be:
-\begin{enumerate}[(a)]
-\item Reflexive: if $x \sim x$, for all $x \in A$.
-\item Symmetric: if $x \sim y \Longleftrightarrow y \sim x$.
-\item Antisymmetric: $x \sim y \wedge y \sim x\Longrightarrow x = y$.
-\item Transitive: $x \sim y \wedge y \sim z\Longrightarrow x \sim z$.
-\end{enumerate}
-\end{proposition}
-\end{appendices}
-
-\begin{definition}(Equivalence relation)
-A relation is called an equivalence relation if it is reflexive, symmetric and transitive.
-\end{definition}
-
-\begin{proposition}(Equivalence classes)
-An equivalence relation on $A$ partitions the set $A$ in such a way that all elements in a subset are related and no two elements from different subsets are related. We refer to these subsets as equivalence classes.
-\end{proposition}
-
-An example of an equivalence relation is '$=$' (equals) on, for example, $\mathbb{N}$. Clearly, it is reflexive (a = a), symmetric (if $a = b$ then $b = a$) and transitive (if $a = b$ and $b = c$ then $a = c$). This relation partitions the natural numbers - every natural number is its own equivalence class.
-
-Another example is '$\leq$', which is a reflexive, transitive, and antisymmetric ($a \leq b$ and $b \leq a$ implies $a = b$) relation on $\mathbb{N}$. Relations with these three properties determine a partial or total ordering on the set. The '$\subseteq$' relation also has these three properties and it is a partial ordering on the set.
+% removed appendicies and moved them to "Survival guide to undergraduate probability" book
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{PoU}
