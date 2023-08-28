@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Integration | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Integration | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
   <meta property="og:description" content="Course notes" />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2021-01-14" />
+<meta name="date" content="2023-08-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="mrvs.html"/>
 <link rel="next" href="ev.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,25 +49,24 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,13 +86,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -106,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -118,6 +117,33 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -137,81 +163,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
 <li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
-<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
 <li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fisher-information"><i class="fa fa-check"></i><b>15.2</b> Fisher information</a></li>
 <li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="nhst.html"><a href="nhst.html"><i class="fa fa-check"></i><b>16</b> Null hypothesis significance testing</a></li>
-<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a><ul>
+<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a>
+<ul>
 <li class="chapter" data-level="17.1" data-path="bi.html"><a href="bi.html#conjugate-priors"><i class="fa fa-check"></i><b>17.1</b> Conjugate priors</a></li>
 <li class="chapter" data-level="17.2" data-path="bi.html"><a href="bi.html#posterior-sampling"><i class="fa fa-check"></i><b>17.2</b> Posterior sampling</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a>
+<ul>
 <li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
 <li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
-<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a>
+<ul>
 <li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
 <li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a>
+<ul>
 <li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
 <li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
 <li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
@@ -222,7 +264,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
 <li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a>
+<ul>
 <li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
 </ul></li>
 <li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
@@ -249,8 +292,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="integ" class="section level1">
-<h1><span class="header-section-number">Chapter 6</span> Integration</h1>
+<div id="integ" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Integration<a href="integ.html#integ" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This chapter deals with abstract and Monte Carlo integration.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
@@ -283,69 +326,65 @@ $(document).ready(function() {
   })
 });
 </script>
-<div id="monte-carlo-integration" class="section level2">
-<h2><span class="header-section-number">6.1</span> Monte Carlo integration</h2>
-
+<div id="monte-carlo-integration" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Monte Carlo integration<a href="integ.html#monte-carlo-integration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<span id="exr:unnamed-chunk-131" class="exercise"><strong>Exercise 6.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be continuous random variables on the unit interval and <span class="math inline">\(p(x,y) = 6(x - y)^2\)</span>. Use Monte Carlo integration to estimate the probability <span class="math inline">\(P(0.2 \leq X \leq 0.5, \: 0.1 \leq Y \leq 0.2)\)</span>. Can you find the exact value?</span>
+<p><span id="exr:unnamed-chunk-132" class="exercise"><strong>Exercise 6.1  </strong></span><span style="color:blue">Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be continuous random variables on the unit interval and <span class="math inline">\(p(x,y) = 6(x - y)^2\)</span>. Use Monte Carlo integration to estimate the probability <span class="math inline">\(P(0.2 \leq X \leq 0.5, \: 0.1 \leq Y \leq 0.2)\)</span>. Can you find the exact value?</span></p>
 </div>
-
 <div class="fold">
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="integ.html#cb92-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb92-2"><a href="integ.html#cb92-2"></a>nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb92-3"><a href="integ.html#cb92-3"></a>V  &lt;-<span class="st"> </span>(<span class="fl">0.5</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.2</span>) <span class="op">*</span><span class="st"> </span>(<span class="fl">0.2</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.1</span>)</span>
-<span id="cb92-4"><a href="integ.html#cb92-4"></a>x1 &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, <span class="fl">0.2</span>, <span class="fl">0.5</span>)</span>
-<span id="cb92-5"><a href="integ.html#cb92-5"></a>x2 &lt;-<span class="st"> </span><span class="kw">runif</span>(nsamps, <span class="fl">0.1</span>, <span class="fl">0.2</span>)</span>
-<span id="cb92-6"><a href="integ.html#cb92-6"></a>f_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {</span>
-<span id="cb92-7"><a href="integ.html#cb92-7"></a>  <span class="kw">return</span> (<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>(x <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb92-8"><a href="integ.html#cb92-8"></a>}</span>
-<span id="cb92-9"><a href="integ.html#cb92-9"></a>mcint  &lt;-<span class="st"> </span>V <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>nsamps) <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">f_1</span>(x1, x2))</span>
-<span id="cb92-10"><a href="integ.html#cb92-10"></a>sdm    &lt;-<span class="st"> </span><span class="kw">sqrt</span>((V<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>nsamps) <span class="op">*</span><span class="st"> </span><span class="kw">var</span>(<span class="kw">f_1</span>(x1, x2)))</span>
-<span id="cb92-11"><a href="integ.html#cb92-11"></a></span>
-<span id="cb92-12"><a href="integ.html#cb92-12"></a>mcint</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="integ.html#cb92-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb92-2"><a href="integ.html#cb92-2" tabindex="-1"></a>nsamps <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb92-3"><a href="integ.html#cb92-3" tabindex="-1"></a>V  <span class="ot">&lt;-</span> (<span class="fl">0.5</span> <span class="sc">-</span> <span class="fl">0.2</span>) <span class="sc">*</span> (<span class="fl">0.2</span> <span class="sc">-</span> <span class="fl">0.1</span>)</span>
+<span id="cb92-4"><a href="integ.html#cb92-4" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(nsamps, <span class="fl">0.2</span>, <span class="fl">0.5</span>)</span>
+<span id="cb92-5"><a href="integ.html#cb92-5" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(nsamps, <span class="fl">0.1</span>, <span class="fl">0.2</span>)</span>
+<span id="cb92-6"><a href="integ.html#cb92-6" tabindex="-1"></a>f_1 <span class="ot">&lt;-</span> <span class="cf">function</span> (x, y) {</span>
+<span id="cb92-7"><a href="integ.html#cb92-7" tabindex="-1"></a>  <span class="fu">return</span> (<span class="dv">6</span> <span class="sc">*</span> (x <span class="sc">-</span> y)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb92-8"><a href="integ.html#cb92-8" tabindex="-1"></a>}</span>
+<span id="cb92-9"><a href="integ.html#cb92-9" tabindex="-1"></a>mcint  <span class="ot">&lt;-</span> V <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> nsamps) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">f_1</span>(x1, x2))</span>
+<span id="cb92-10"><a href="integ.html#cb92-10" tabindex="-1"></a>sdm    <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((V<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> nsamps) <span class="sc">*</span> <span class="fu">var</span>(<span class="fu">f_1</span>(x1, x2)))</span>
+<span id="cb92-11"><a href="integ.html#cb92-11" tabindex="-1"></a></span>
+<span id="cb92-12"><a href="integ.html#cb92-12" tabindex="-1"></a>mcint</span></code></pre></div>
 <pre><code>## [1] 0.008793445</code></pre>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="integ.html#cb94-1"></a>sdm</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="integ.html#cb94-1" tabindex="-1"></a>sdm</span></code></pre></div>
 <pre><code>## [1] 0.0002197686</code></pre>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="integ.html#cb96-1"></a>F_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="cf">function</span> (x, y) {</span>
-<span id="cb96-2"><a href="integ.html#cb96-2"></a>  <span class="kw">return</span> (<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>y <span class="op">-</span><span class="st"> </span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>y<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">*</span><span class="st"> </span>y<span class="op">^</span><span class="dv">3</span>)</span>
-<span id="cb96-3"><a href="integ.html#cb96-3"></a>}</span>
-<span id="cb96-4"><a href="integ.html#cb96-4"></a><span class="kw">F_1</span>(<span class="fl">0.5</span>, <span class="fl">0.2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">F_1</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">F_1</span>(<span class="fl">0.5</span>, <span class="fl">0.1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">F_1</span>(<span class="fl">0.2</span>, <span class="fl">0.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="integ.html#cb96-1" tabindex="-1"></a>F_1 <span class="ot">&lt;-</span> <span class="cf">function</span> (x, y) {</span>
+<span id="cb96-2"><a href="integ.html#cb96-2" tabindex="-1"></a>  <span class="fu">return</span> (<span class="dv">2</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">3</span> <span class="sc">*</span> y <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> y<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">*</span> y<span class="sc">^</span><span class="dv">3</span>)</span>
+<span id="cb96-3"><a href="integ.html#cb96-3" tabindex="-1"></a>}</span>
+<span id="cb96-4"><a href="integ.html#cb96-4" tabindex="-1"></a><span class="fu">F_1</span>(<span class="fl">0.5</span>, <span class="fl">0.2</span>) <span class="sc">-</span> <span class="fu">F_1</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>) <span class="sc">-</span> <span class="fu">F_1</span>(<span class="fl">0.5</span>, <span class="fl">0.1</span>) <span class="sc">+</span> <span class="fu">F_1</span>(<span class="fl">0.2</span>, <span class="fl">0.1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.0087</code></pre>
 </div>
 </div>
-<div id="lebesgue-integrals" class="section level2">
-<h2><span class="header-section-number">6.2</span> Lebesgue integrals</h2>
-
+<div id="lebesgue-integrals" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Lebesgue integrals<a href="integ.html#lebesgue-integrals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-133" class="exercise"><strong>Exercise 6.2  (borrowed from Jagannathan)  </strong></span>Find the Lebesgue integral of the following functions on (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>, <span class="math inline">\(\lambda\)</span>).</p>
+<p><span id="exr:unnamed-chunk-134" class="exercise"><strong>Exercise 6.2  (borrowed from Jagannathan) </strong></span>Find the Lebesgue integral of the following functions on (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>, <span class="math inline">\(\lambda\)</span>).</p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math display">\[\begin{align}
-f(\omega) = 
+f(\omega) =
   \begin{cases}
     \omega, &amp; \text{for } \omega = 0,1,...,n \\
     0, &amp; \text{elsewhere}
   \end{cases}
 \end{align}\]</span></p></li>
 <li><p><span class="math display">\[\begin{align}
-f(\omega) = 
+f(\omega) =
   \begin{cases}
     1, &amp; \text{for } \omega = \mathbb{Q}^c \cap [0,1] \\
     0, &amp; \text{elsewhere}
   \end{cases}
 \end{align}\]</span></p></li>
 <li><p><span class="math display">\[\begin{align}
-f(\omega) = 
+f(\omega) =
   \begin{cases}
     n, &amp; \text{for } \omega = \mathbb{Q}^c \cap [0,n] \\
     0, &amp; \text{elsewhere}
   \end{cases}
-\end{align}\]</span></p>
-</div></li>
+\end{align}\]</span></p></li>
 </ol>
+</div>
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-52" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math display">\[\begin{align}
 \int f(\omega) d\lambda = \sum_{\omega = 0}^n \omega \lambda(\omega) = 0.
@@ -355,25 +394,22 @@ f(\omega) =
 \end{align}\]</span></p></li>
 <li><p><span class="math display">\[\begin{align}
 \int f(\omega) d\lambda = n \times \lambda(\mathbb{Q}^c \cap [0,n]) = n^2.
-\end{align}\]</span></p>
-</div></li>
+\end{align}\]</span></p></li>
 </ol>
 </div>
-
-<div class="exercise">
-<span id="exr:unnamed-chunk-135" class="exercise"><strong>Exercise 6.3  (borrowed from Jagannathan)  </strong></span>Let <span class="math inline">\(c \in \mathbb{R}\)</span> be fixed and (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>) a measurable space. If for any Borel set <span class="math inline">\(A\)</span>, <span class="math inline">\(\delta_c (A) = 1\)</span> if <span class="math inline">\(c \in A\)</span>, and <span class="math inline">\(\delta_c (A) = 0\)</span> otherwise, then <span class="math inline">\(\delta_c\)</span> is called a <em>Dirac measure</em>. Let <span class="math inline">\(g\)</span> be a non-negative, measurable function. Show that <span class="math inline">\(\int g d \delta_c = g(c)\)</span>.
 </div>
-
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-136" class="exercise"><strong>Exercise 6.3  (borrowed from Jagannathan) </strong></span>Let <span class="math inline">\(c \in \mathbb{R}\)</span> be fixed and (<span class="math inline">\(\mathbb{R}\)</span>, <span class="math inline">\(\mathcal{B}(\mathbb{R})\)</span>) a measurable space. If for any Borel set <span class="math inline">\(A\)</span>, <span class="math inline">\(\delta_c (A) = 1\)</span> if <span class="math inline">\(c \in A\)</span>, and <span class="math inline">\(\delta_c (A) = 0\)</span> otherwise, then <span class="math inline">\(\delta_c\)</span> is called a <em>Dirac measure</em>. Let <span class="math inline">\(g\)</span> be a non-negative, measurable function. Show that <span class="math inline">\(\int g d \delta_c = g(c)\)</span>.</p>
+</div>
 <div class="fold">
-
 <div class="solution">
- <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align}
+<p><span id="unlabeled-div-53" class="solution"><em>Solution</em>. </span><span class="math display">\[\begin{align}
   \int g d \delta_c &amp;= \sup_{q \in S(g)} \int q d \delta_c \\
                     &amp;= \sup_{q \in S(g)} \sum_{i = 1}^n a_i \delta_c(A_i) \\
                     &amp;= \sup_{q \in S(g)} \sum_{i = 1}^n a_i \text{I}_{A_i}(c) \\
                     &amp;= \sup_{q \in S(g)} q(c) \\
                     &amp;= g(c)
-\end{align}\]</span>
+\end{align}\]</span></p>
 </div>
 </div>
 
@@ -389,7 +425,6 @@ f(\omega) =
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -408,6 +443,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -428,6 +464,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -441,7 +481,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

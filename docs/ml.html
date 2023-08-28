@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 15 Maximum likelihood | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 15 Maximum likelihood | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
   <meta property="og:description" content="Course notes" />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2021-01-14" />
+<meta name="date" content="2023-08-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="boot.html"/>
 <link rel="next" href="nhst.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,25 +49,24 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,13 +86,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -106,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -118,6 +117,33 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -137,81 +163,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
 <li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
-<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
 <li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fisher-information"><i class="fa fa-check"></i><b>15.2</b> Fisher information</a></li>
 <li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="nhst.html"><a href="nhst.html"><i class="fa fa-check"></i><b>16</b> Null hypothesis significance testing</a></li>
-<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a><ul>
+<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a>
+<ul>
 <li class="chapter" data-level="17.1" data-path="bi.html"><a href="bi.html#conjugate-priors"><i class="fa fa-check"></i><b>17.1</b> Conjugate priors</a></li>
 <li class="chapter" data-level="17.2" data-path="bi.html"><a href="bi.html#posterior-sampling"><i class="fa fa-check"></i><b>17.2</b> Posterior sampling</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a>
+<ul>
 <li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
 <li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
-<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a>
+<ul>
 <li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
 <li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a>
+<ul>
 <li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
 <li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
 <li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
@@ -222,7 +264,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
 <li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a>
+<ul>
 <li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
 </ul></li>
 <li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
@@ -249,8 +292,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ml" class="section level1">
-<h1><span class="header-section-number">Chapter 15</span> Maximum likelihood</h1>
+<div id="ml" class="section level1 hasAnchor" number="15">
+<h1><span class="header-section-number">Chapter 15</span> Maximum likelihood<a href="ml.html#ml" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This chapter deals with maximum likelihood estimation.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <ul>
@@ -281,26 +324,23 @@ $(document).ready(function() {
   })
 });
 </script>
-<div id="deriving-mle" class="section level2">
-<h2><span class="header-section-number">15.1</span> Deriving MLE</h2>
-
+<div id="deriving-mle" class="section level2 hasAnchor" number="15.1">
+<h2><span class="header-section-number">15.1</span> Deriving MLE<a href="ml.html#deriving-mle" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-223" class="exercise"><strong>Exercise 15.1  </strong></span></p>
+<p><span id="exr:unnamed-chunk-234" class="exercise"><strong>Exercise 15.1  </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li>Derive the maximum likelihood estimator of variance for N<span class="math inline">\((\mu, \sigma^2)\)</span>.</li>
 <li>Compare with results from <a href="eb.html#exr:cbest">13.3</a>. What does that say about the MLE estimator?</li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-88" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>The mean is assumed constant, so we have the likelihood
 <span class="math display">\[\begin{align}
   L(\sigma^2; y) &amp;= \prod_{i=1}^n \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(y_i - \mu)^2}{2 \sigma^2}} \\
- &amp;= \frac{1}{\sqrt{2 \pi \sigma^2}^n} e^{\frac{-\sum_{i=1}^n (y_i - \mu)^2}{2 \sigma^2}}
+&amp;= \frac{1}{\sqrt{2 \pi \sigma^2}^n} e^{\frac{-\sum_{i=1}^n (y_i - \mu)^2}{2 \sigma^2}}
 \end{align}\]</span>
 We need to find the maximum of this function. We first observe that we can replace <span class="math inline">\(\frac{-\sum_{i=1}^n (y_i - \mu)^2}{2}\)</span> with a constant <span class="math inline">\(c\)</span>, since none of the terms are dependent on <span class="math inline">\(\sigma^2\)</span>. Additionally, the term <span class="math inline">\(\frac{1}{\sqrt{2 \pi}^n}\)</span> does not affect the calculation of the maximum. So now we have
 <span class="math display">\[\begin{align}
@@ -308,9 +348,9 @@ We need to find the maximum of this function. We first observe that we can repla
 \end{align}\]</span>
 Differentiating we get
 <span class="math display">\[\begin{align}
- \frac{d}{d \sigma^2} L(\sigma^2; y) &amp;= (\sigma^2)^{-\frac{n}{2}} \frac{d}{d \sigma^2} e^{\frac{c}{\sigma^2}} +  e^{\frac{c}{\sigma^2}} \frac{d}{d \sigma^2} (\sigma^2)^{-\frac{n}{2}} \\
-  &amp;= - (\sigma^2)^{-\frac{n}{2}} e^{\frac{c}{\sigma^2}} \frac{c}{(\sigma^2)^2} - e^{\frac{c}{\sigma^2}} \frac{n}{2} (\sigma^2)^{\frac{n + 2}{2}} \\
-  &amp;= - (\sigma^2)^{-\frac{n + 4}{2}} e^{\frac{c}{\sigma^2}} c - e^{\frac{c}{\sigma^2}} \frac{n}{2} (\sigma^2)^{\frac{n + 2}{2}} \\
+\frac{d}{d \sigma^2} L(\sigma^2; y) &amp;= (\sigma^2)^{-\frac{n}{2}} \frac{d}{d \sigma^2} e^{\frac{c}{\sigma^2}} +  e^{\frac{c}{\sigma^2}} \frac{d}{d \sigma^2} (\sigma^2)^{-\frac{n}{2}} \\
+  &amp;= - (\sigma^2)^{-\frac{n}{2}} e^{\frac{c}{\sigma^2}} \frac{c}{(\sigma^2)^2} - e^{\frac{c}{\sigma^2}} \frac{n}{2} (\sigma^2)^{-\frac{n + 2}{2}} \\
+  &amp;= - (\sigma^2)^{-\frac{n + 4}{2}} e^{\frac{c}{\sigma^2}} c - e^{\frac{c}{\sigma^2}} \frac{n}{2} (\sigma^2)^{-\frac{n + 2}{2}} \\
   &amp;= - e^{\frac{c}{\sigma^2}} (\sigma^2)^{-\frac{n + 4}{2}} \Big(c + \frac{n}{2}\sigma^2 \Big).
 \end{align}\]</span>
 To get the maximum, this has to equal to 0, so
@@ -323,9 +363,8 @@ To get the maximum, this has to equal to 0, so
 </ol>
 </div>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-225" class="exercise"><strong>Exercise 15.2  (Multivariate normal distribution)  </strong></span></p>
+<p><span id="exr:unnamed-chunk-236" class="exercise"><strong>Exercise 15.2  (Multivariate normal distribution) </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Derive the maximum likelihood estimate for the mean and covariance matrix of the multivariate normal.</p></li>
 <li><p><span style="color:blue">Simulate <span class="math inline">\(n = 40\)</span> samples from a bivariate normal distribution (choose non-trivial parameters, that is, mean <span class="math inline">\(\neq 0\)</span> and covariance <span class="math inline">\(\neq 0\)</span>). Compute the MLE for the sample. Overlay the data with an ellipse that is determined by the MLE and an ellipse that is determined by the chosen true parameters.</span></p></li>
@@ -333,11 +372,9 @@ To get the maximum, this has to equal to 0, so
 </ol>
 <p>Hint: For the derivation of MLE, these identities will be helpful: <span class="math inline">\(\frac{\partial b^T a}{\partial a} = \frac{\partial a^T b}{\partial a} = b\)</span>, <span class="math inline">\(\frac{\partial a^T A a}{\partial a} = (A + A^T)a\)</span>, <span class="math inline">\(\frac{\partial \text{tr}(BA)}{\partial A} = B^T\)</span>, <span class="math inline">\(\frac{\partial \ln |A|}{\partial A} = (A^{-1})^T\)</span>, <span class="math inline">\(a^T A a = \text{tr}(a^T A a) = \text{tr}(a a^T A) = \text{tr}(Aaa^T)\)</span>.</p>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> The log likelihood of the MVN distribution is
+<p><span id="unlabeled-div-89" class="solution"><em>Solution</em>. </span>The log likelihood of the MVN distribution is
 <span class="math display">\[\begin{align*}
   l(\mu, \Sigma ; x) &amp;= -\frac{1}{2}\Big(\sum_{i=1}^n k\ln(2\pi) + |\Sigma| + (x_i - \mu)^T \Sigma^{-1} (x_i - \mu)\Big) \\
     &amp;= -\frac{n}{2}\ln|\Sigma| + -\frac{1}{2}\Big(\sum_{i=1}^n(x_i - \mu)^T \Sigma^{-1} (x_i - \mu)\Big) + c,
@@ -366,37 +403,36 @@ Equating above with zero, we get
   \hat{\Sigma} = \frac{1}{n}\sum_{i=1}^n (x_i - \mu) (x_i - \mu)^T.
 \end{align*}\]</span></p>
 </div>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="ml.html#cb191-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb191-2"><a href="ml.html#cb191-2"></a>n     &lt;-<span class="st"> </span><span class="dv">40</span></span>
-<span id="cb191-3"><a href="ml.html#cb191-3"></a>mu    &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">-2</span>)</span>
-<span id="cb191-4"><a href="ml.html#cb191-4"></a>Sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">-1.6</span>, <span class="fl">-1.6</span>, <span class="fl">1.8</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb191-5"><a href="ml.html#cb191-5"></a>X     &lt;-<span class="st"> </span><span class="kw">mvrnorm</span>(<span class="dt">n =</span> n, <span class="dt">mu =</span> mu, <span class="dt">Sigma =</span> Sigma)</span>
-<span id="cb191-6"><a href="ml.html#cb191-6"></a><span class="kw">colnames</span>(X) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>)</span>
-<span id="cb191-7"><a href="ml.html#cb191-7"></a>X     &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(X)</span>
-<span id="cb191-8"><a href="ml.html#cb191-8"></a></span>
-<span id="cb191-9"><a href="ml.html#cb191-9"></a><span class="co"># plot.new()</span></span>
-<span id="cb191-10"><a href="ml.html#cb191-10"></a>tru_ellip &lt;-<span class="st"> </span><span class="kw">ellipse</span>(mu, Sigma, <span class="dt">draw =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb191-11"><a href="ml.html#cb191-11"></a><span class="kw">colnames</span>(tru_ellip) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>)</span>
-<span id="cb191-12"><a href="ml.html#cb191-12"></a>tru_ellip &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(tru_ellip)</span>
-<span id="cb191-13"><a href="ml.html#cb191-13"></a></span>
-<span id="cb191-14"><a href="ml.html#cb191-14"></a>mu_est    &lt;-<span class="st"> </span><span class="kw">apply</span>(X, <span class="dv">2</span>, mean)</span>
-<span id="cb191-15"><a href="ml.html#cb191-15"></a>tmp       &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">sweep</span>(X, <span class="dv">2</span>, mu_est))</span>
-<span id="cb191-16"><a href="ml.html#cb191-16"></a>Sigma_est &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>n) <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(tmp) <span class="op">%*%</span><span class="st"> </span>tmp</span>
-<span id="cb191-17"><a href="ml.html#cb191-17"></a></span>
-<span id="cb191-18"><a href="ml.html#cb191-18"></a>est_ellip &lt;-<span class="st"> </span><span class="kw">ellipse</span>(mu_est, Sigma_est, <span class="dt">draw =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb191-19"><a href="ml.html#cb191-19"></a><span class="kw">colnames</span>(est_ellip) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>)</span>
-<span id="cb191-20"><a href="ml.html#cb191-20"></a>est_ellip &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(est_ellip)</span>
-<span id="cb191-21"><a href="ml.html#cb191-21"></a></span>
-<span id="cb191-22"><a href="ml.html#cb191-22"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> X, <span class="kw">aes</span>(<span class="dt">x =</span> X1, <span class="dt">y =</span> X2)) <span class="op">+</span></span>
-<span id="cb191-23"><a href="ml.html#cb191-23"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb191-24"><a href="ml.html#cb191-24"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> tru_ellip, <span class="kw">aes</span>(<span class="dt">x =</span> X1, <span class="dt">y =</span> X2, <span class="dt">color =</span> <span class="st">&quot;truth&quot;</span>)) <span class="op">+</span></span>
-<span id="cb191-25"><a href="ml.html#cb191-25"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> est_ellip, <span class="kw">aes</span>(<span class="dt">x =</span> X1, <span class="dt">y =</span> X2, <span class="dt">color =</span> <span class="st">&quot;estimated&quot;</span>)) <span class="op">+</span></span>
-<span id="cb191-26"><a href="ml.html#cb191-26"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color =</span> <span class="st">&quot;type&quot;</span>)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-227-1.png" width="672" /></p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="ml.html#cb227-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb227-2"><a href="ml.html#cb227-2" tabindex="-1"></a>n     <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb227-3"><a href="ml.html#cb227-3" tabindex="-1"></a>mu    <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">2</span>)</span>
+<span id="cb227-4"><a href="ml.html#cb227-4" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="sc">-</span><span class="fl">1.6</span>, <span class="sc">-</span><span class="fl">1.6</span>, <span class="fl">1.8</span>), <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb227-5"><a href="ml.html#cb227-5" tabindex="-1"></a>X     <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="at">n =</span> n, <span class="at">mu =</span> mu, <span class="at">Sigma =</span> Sigma)</span>
+<span id="cb227-6"><a href="ml.html#cb227-6" tabindex="-1"></a><span class="fu">colnames</span>(X) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>)</span>
+<span id="cb227-7"><a href="ml.html#cb227-7" tabindex="-1"></a>X     <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(X)</span>
+<span id="cb227-8"><a href="ml.html#cb227-8" tabindex="-1"></a></span>
+<span id="cb227-9"><a href="ml.html#cb227-9" tabindex="-1"></a><span class="co"># plot.new()</span></span>
+<span id="cb227-10"><a href="ml.html#cb227-10" tabindex="-1"></a>tru_ellip <span class="ot">&lt;-</span> <span class="fu">ellipse</span>(mu, Sigma, <span class="at">draw =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb227-11"><a href="ml.html#cb227-11" tabindex="-1"></a><span class="fu">colnames</span>(tru_ellip) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>)</span>
+<span id="cb227-12"><a href="ml.html#cb227-12" tabindex="-1"></a>tru_ellip <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(tru_ellip)</span>
+<span id="cb227-13"><a href="ml.html#cb227-13" tabindex="-1"></a></span>
+<span id="cb227-14"><a href="ml.html#cb227-14" tabindex="-1"></a>mu_est    <span class="ot">&lt;-</span> <span class="fu">apply</span>(X, <span class="dv">2</span>, mean)</span>
+<span id="cb227-15"><a href="ml.html#cb227-15" tabindex="-1"></a>tmp       <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">sweep</span>(X, <span class="dv">2</span>, mu_est))</span>
+<span id="cb227-16"><a href="ml.html#cb227-16" tabindex="-1"></a>Sigma_est <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">/</span> n) <span class="sc">*</span> <span class="fu">t</span>(tmp) <span class="sc">%*%</span> tmp</span>
+<span id="cb227-17"><a href="ml.html#cb227-17" tabindex="-1"></a></span>
+<span id="cb227-18"><a href="ml.html#cb227-18" tabindex="-1"></a>est_ellip <span class="ot">&lt;-</span> <span class="fu">ellipse</span>(mu_est, Sigma_est, <span class="at">draw =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb227-19"><a href="ml.html#cb227-19" tabindex="-1"></a><span class="fu">colnames</span>(est_ellip) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>)</span>
+<span id="cb227-20"><a href="ml.html#cb227-20" tabindex="-1"></a>est_ellip <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(est_ellip)</span>
+<span id="cb227-21"><a href="ml.html#cb227-21" tabindex="-1"></a></span>
+<span id="cb227-22"><a href="ml.html#cb227-22" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> X, <span class="fu">aes</span>(<span class="at">x =</span> X1, <span class="at">y =</span> X2)) <span class="sc">+</span></span>
+<span id="cb227-23"><a href="ml.html#cb227-23" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb227-24"><a href="ml.html#cb227-24" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">data =</span> tru_ellip, <span class="fu">aes</span>(<span class="at">x =</span> X1, <span class="at">y =</span> X2, <span class="at">color =</span> <span class="st">&quot;truth&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb227-25"><a href="ml.html#cb227-25" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">data =</span> est_ellip, <span class="fu">aes</span>(<span class="at">x =</span> X1, <span class="at">y =</span> X2, <span class="at">color =</span> <span class="st">&quot;estimated&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb227-26"><a href="ml.html#cb227-26" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;type&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-238-1.png" width="672" /></p>
 </div>
-
 <div class="exercise">
-<p><span id="exr:logisticmle" class="exercise"><strong>Exercise 15.3  (Logistic regression)  </strong></span>Logistic regression is a popular discriminative model when our target variable is binary (categorical with 2 values). One of the ways of looking at logistic regression is that it is linear regression but instead of using the linear term as the mean of a normal RV, we use it as the mean of a Bernoulli RV. Of course, the mean of a Bernoulli is bounded on <span class="math inline">\([0,1]\)</span>, so, to avoid non-sensical values, we squeeze the linear between 0 and 1 with the inverse logit function inv_logit<span class="math inline">\((z) = 1 / (1 + e^{-z})\)</span>. This leads to the following model: <span class="math inline">\(y_i | \beta, x_i \sim \text{Bernoulli}(\text{inv_logit}(\beta x_i))\)</span>.</p>
+<p><span id="exr:logisticmle" class="exercise"><strong>Exercise 15.3  (Logistic regression) </strong></span>Logistic regression is a popular discriminative model when our target variable is binary (categorical with 2 values). One of the ways of looking at logistic regression is that it is linear regression but instead of using the linear term as the mean of a normal RV, we use it as the mean of a Bernoulli RV. Of course, the mean of a Bernoulli is bounded on <span class="math inline">\([0,1]\)</span>, so, to avoid non-sensical values, we squeeze the linear between 0 and 1 with the inverse logit function inv_logit<span class="math inline">\((z) = 1 / (1 + e^{-z})\)</span>. This leads to the following model: <span class="math inline">\(y_i | \beta, x_i \sim \text{Bernoulli}(\text{inv_logit}(\beta x_i))\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Explicitly write the likelihood function of beta.</p></li>
 <li><p><span style="color:blue">Implement the likelihood function in R. Use black-box box-constraint optimization (for example, <em>optim()</em> with L-BFGS) to find the maximum likelihood estimate for beta for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> defined below.</span></p></li>
@@ -404,65 +440,62 @@ Equating above with zero, we get
 <li><p>Let <span class="math inline">\(y2\)</span> be a response defined below. Will logistic regression work well on this dataset? Why not? How can we still use the model, without changing it?</p></li>
 </ol>
 </div>
-
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="ml.html#cb192-1"></a>inv_log &lt;-<span class="st"> </span><span class="cf">function</span> (z) {</span>
-<span id="cb192-2"><a href="ml.html#cb192-2"></a>  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>z)))</span>
-<span id="cb192-3"><a href="ml.html#cb192-3"></a>}</span>
-<span id="cb192-4"><a href="ml.html#cb192-4"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb192-5"><a href="ml.html#cb192-5"></a>x  &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb192-6"><a href="ml.html#cb192-6"></a>y  &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x))</span>
-<span id="cb192-7"><a href="ml.html#cb192-7"></a>y2 &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="fl">1.4</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="ml.html#cb228-1" tabindex="-1"></a>inv_log <span class="ot">&lt;-</span> <span class="cf">function</span> (z) {</span>
+<span id="cb228-2"><a href="ml.html#cb228-2" tabindex="-1"></a>  <span class="fu">return</span> (<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>z)))</span>
+<span id="cb228-3"><a href="ml.html#cb228-3" tabindex="-1"></a>}</span>
+<span id="cb228-4"><a href="ml.html#cb228-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb228-5"><a href="ml.html#cb228-5" tabindex="-1"></a>x  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb228-6"><a href="ml.html#cb228-6" tabindex="-1"></a>y  <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">inv_log</span>(<span class="fl">1.2</span> <span class="sc">*</span> x))</span>
+<span id="cb228-7"><a href="ml.html#cb228-7" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">inv_log</span>(<span class="fl">1.2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fl">1.4</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> <span class="math display">\[\begin{align*}
+<p><span id="unlabeled-div-90" class="solution"><em>Solution</em>. </span><span class="math display">\[\begin{align*}
   l(\beta; x, y) &amp;= p(y | x, \beta) \\
     &amp;= \ln(\prod_{i=1}^n \text{inv_logit}(\beta x_i)^{y_i} (1 - \text{inv_logit}(\beta x_i))^{1 - y_i}) \\
     &amp;= \sum_{i=1}^n y_i \ln(\text{inv_logit}(\beta x_i)) + (1 - y_i) \ln(1 - \text{inv_logit}(\beta x_i)).
 \end{align*}\]</span></p>
 </div>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="ml.html#cb193-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb193-2"><a href="ml.html#cb193-2"></a>inv_log &lt;-<span class="st"> </span><span class="cf">function</span> (z) {</span>
-<span id="cb193-3"><a href="ml.html#cb193-3"></a>  <span class="kw">return</span> (<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>z)))</span>
-<span id="cb193-4"><a href="ml.html#cb193-4"></a>}</span>
-<span id="cb193-5"><a href="ml.html#cb193-5"></a></span>
-<span id="cb193-6"><a href="ml.html#cb193-6"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb193-7"><a href="ml.html#cb193-7"></a>y &lt;-<span class="st"> </span>x</span>
-<span id="cb193-8"><a href="ml.html#cb193-8"></a>y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">100</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x))</span>
-<span id="cb193-9"><a href="ml.html#cb193-9"></a></span>
-<span id="cb193-10"><a href="ml.html#cb193-10"></a>l_logistic &lt;-<span class="st"> </span><span class="cf">function</span> (beta, X, y) {</span>
-<span id="cb193-11"><a href="ml.html#cb193-11"></a>  logl &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">sum</span>(y <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(<span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X))) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>y) <span class="op">*</span><span class="st"> </span><span class="kw">log</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">inv_log</span>(<span class="kw">as.vector</span>(beta <span class="op">%*%</span><span class="st"> </span>X)))))</span>
-<span id="cb193-12"><a href="ml.html#cb193-12"></a>  <span class="kw">return</span>(logl)</span>
-<span id="cb193-13"><a href="ml.html#cb193-13"></a>}</span>
-<span id="cb193-14"><a href="ml.html#cb193-14"></a></span>
-<span id="cb193-15"><a href="ml.html#cb193-15"></a>my_optim &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="fl">0.5</span>, <span class="dt">fn =</span> l_logistic, <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</span>
-<span id="cb193-16"><a href="ml.html#cb193-16"></a>                  <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>, <span class="dt">X =</span> x, <span class="dt">y =</span> y)</span>
-<span id="cb193-17"><a href="ml.html#cb193-17"></a>my_optim<span class="op">$</span>par</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="ml.html#cb229-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb229-2"><a href="ml.html#cb229-2" tabindex="-1"></a>inv_log <span class="ot">&lt;-</span> <span class="cf">function</span> (z) {</span>
+<span id="cb229-3"><a href="ml.html#cb229-3" tabindex="-1"></a>  <span class="fu">return</span> (<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>z)))</span>
+<span id="cb229-4"><a href="ml.html#cb229-4" tabindex="-1"></a>}</span>
+<span id="cb229-5"><a href="ml.html#cb229-5" tabindex="-1"></a></span>
+<span id="cb229-6"><a href="ml.html#cb229-6" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb229-7"><a href="ml.html#cb229-7" tabindex="-1"></a>y <span class="ot">&lt;-</span> x</span>
+<span id="cb229-8"><a href="ml.html#cb229-8" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">inv_log</span>(<span class="fl">1.2</span> <span class="sc">*</span> x))</span>
+<span id="cb229-9"><a href="ml.html#cb229-9" tabindex="-1"></a></span>
+<span id="cb229-10"><a href="ml.html#cb229-10" tabindex="-1"></a>l_logistic <span class="ot">&lt;-</span> <span class="cf">function</span> (beta, X, y) {</span>
+<span id="cb229-11"><a href="ml.html#cb229-11" tabindex="-1"></a>  logl <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">sum</span>(y <span class="sc">*</span> <span class="fu">log</span>(<span class="fu">inv_log</span>(<span class="fu">as.vector</span>(beta <span class="sc">%*%</span> X))) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> y) <span class="sc">*</span> <span class="fu">log</span>((<span class="dv">1</span> <span class="sc">-</span> <span class="fu">inv_log</span>(<span class="fu">as.vector</span>(beta <span class="sc">%*%</span> X)))))</span>
+<span id="cb229-12"><a href="ml.html#cb229-12" tabindex="-1"></a>  <span class="fu">return</span>(logl)</span>
+<span id="cb229-13"><a href="ml.html#cb229-13" tabindex="-1"></a>}</span>
+<span id="cb229-14"><a href="ml.html#cb229-14" tabindex="-1"></a></span>
+<span id="cb229-15"><a href="ml.html#cb229-15" tabindex="-1"></a>my_optim <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par =</span> <span class="fl">0.5</span>, <span class="at">fn =</span> l_logistic, <span class="at">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</span>
+<span id="cb229-16"><a href="ml.html#cb229-16" tabindex="-1"></a>                  <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">10</span>, <span class="at">X =</span> x, <span class="at">y =</span> y)</span>
+<span id="cb229-17"><a href="ml.html#cb229-17" tabindex="-1"></a>my_optim<span class="sc">$</span>par</span></code></pre></div>
 <pre><code>## [1] 1.166558</code></pre>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="ml.html#cb195-1"></a>truth_p &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x), <span class="dt">type =</span> <span class="st">&quot;truth&quot;</span>)</span>
-<span id="cb195-2"><a href="ml.html#cb195-2"></a>est_p   &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">prob =</span> <span class="kw">inv_log</span>(my_optim<span class="op">$</span>par <span class="op">*</span><span class="st"> </span>x), <span class="dt">type =</span> <span class="st">&quot;estimated&quot;</span>)</span>
-<span id="cb195-3"><a href="ml.html#cb195-3"></a>plot_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(truth_p, est_p)</span>
-<span id="cb195-4"><a href="ml.html#cb195-4"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> prob, <span class="dt">color =</span> type)) <span class="op">+</span></span>
-<span id="cb195-5"><a href="ml.html#cb195-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-230-1.png" width="672" /></p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="ml.html#cb196-1"></a>y2 &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">2000</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="fl">1.4</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span>))</span>
-<span id="cb196-2"><a href="ml.html#cb196-2"></a>X2 &lt;-<span class="st"> </span><span class="kw">cbind</span>(x, x<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb196-3"><a href="ml.html#cb196-3"></a>my_optim2 &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">fn =</span> l_logistic, <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</span>
-<span id="cb196-4"><a href="ml.html#cb196-4"></a>                   <span class="dt">lower =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">upper =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">X =</span> <span class="kw">t</span>(X2), <span class="dt">y =</span> y2)</span>
-<span id="cb196-5"><a href="ml.html#cb196-5"></a>my_optim2<span class="op">$</span>par</span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="ml.html#cb231-1" tabindex="-1"></a>truth_p <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">prob =</span> <span class="fu">inv_log</span>(<span class="fl">1.2</span> <span class="sc">*</span> x), <span class="at">type =</span> <span class="st">&quot;truth&quot;</span>)</span>
+<span id="cb231-2"><a href="ml.html#cb231-2" tabindex="-1"></a>est_p   <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">prob =</span> <span class="fu">inv_log</span>(my_optim<span class="sc">$</span>par <span class="sc">*</span> x), <span class="at">type =</span> <span class="st">&quot;estimated&quot;</span>)</span>
+<span id="cb231-3"><a href="ml.html#cb231-3" tabindex="-1"></a>plot_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(truth_p, est_p)</span>
+<span id="cb231-4"><a href="ml.html#cb231-4" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> plot_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> prob, <span class="at">color =</span> type)) <span class="sc">+</span></span>
+<span id="cb231-5"><a href="ml.html#cb231-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-241-1.png" width="672" /></p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="ml.html#cb232-1" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">2000</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">inv_log</span>(<span class="fl">1.2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fl">1.4</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb232-2"><a href="ml.html#cb232-2" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(x, x<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb232-3"><a href="ml.html#cb232-3" tabindex="-1"></a>my_optim2 <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">fn =</span> l_logistic, <span class="at">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</span>
+<span id="cb232-4"><a href="ml.html#cb232-4" tabindex="-1"></a>                   <span class="at">lower =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">upper =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">X =</span> <span class="fu">t</span>(X2), <span class="at">y =</span> y2)</span>
+<span id="cb232-5"><a href="ml.html#cb232-5" tabindex="-1"></a>my_optim2<span class="sc">$</span>par</span></code></pre></div>
 <pre><code>## [1] 1.153656 1.257649</code></pre>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="ml.html#cb198-1"></a>tmp     &lt;-<span class="st"> </span><span class="kw">sweep</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">x2 =</span> x<span class="op">^</span><span class="dv">2</span>), <span class="dv">2</span>, my_optim2<span class="op">$</span>par, <span class="dt">FUN =</span> <span class="st">&quot;*&quot;</span>)</span>
-<span id="cb198-2"><a href="ml.html#cb198-2"></a>tmp     &lt;-<span class="st"> </span>tmp[ ,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>tmp[ ,<span class="dv">2</span>]</span>
-<span id="cb198-3"><a href="ml.html#cb198-3"></a>truth_p &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">prob =</span> <span class="kw">inv_log</span>(<span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="fl">1.4</span> <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span>), <span class="dt">type =</span> <span class="st">&quot;truth&quot;</span>)</span>
-<span id="cb198-4"><a href="ml.html#cb198-4"></a>est_p   &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">prob =</span> <span class="kw">inv_log</span>(tmp), <span class="dt">type =</span> <span class="st">&quot;estimated&quot;</span>)</span>
-<span id="cb198-5"><a href="ml.html#cb198-5"></a>plot_df &lt;-<span class="st"> </span><span class="kw">rbind</span>(truth_p, est_p)</span>
-<span id="cb198-6"><a href="ml.html#cb198-6"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> plot_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> prob, <span class="dt">color =</span> type)) <span class="op">+</span></span>
-<span id="cb198-7"><a href="ml.html#cb198-7"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-230-2.png" width="672" /></p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="ml.html#cb234-1" tabindex="-1"></a>tmp     <span class="ot">&lt;-</span> <span class="fu">sweep</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">x2 =</span> x<span class="sc">^</span><span class="dv">2</span>), <span class="dv">2</span>, my_optim2<span class="sc">$</span>par, <span class="at">FUN =</span> <span class="st">&quot;*&quot;</span>)</span>
+<span id="cb234-2"><a href="ml.html#cb234-2" tabindex="-1"></a>tmp     <span class="ot">&lt;-</span> tmp[ ,<span class="dv">1</span>] <span class="sc">+</span> tmp[ ,<span class="dv">2</span>]</span>
+<span id="cb234-3"><a href="ml.html#cb234-3" tabindex="-1"></a>truth_p <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">prob =</span> <span class="fu">inv_log</span>(<span class="fl">1.2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fl">1.4</span> <span class="sc">*</span> x<span class="sc">^</span><span class="dv">2</span>), <span class="at">type =</span> <span class="st">&quot;truth&quot;</span>)</span>
+<span id="cb234-4"><a href="ml.html#cb234-4" tabindex="-1"></a>est_p   <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">prob =</span> <span class="fu">inv_log</span>(tmp), <span class="at">type =</span> <span class="st">&quot;estimated&quot;</span>)</span>
+<span id="cb234-5"><a href="ml.html#cb234-5" tabindex="-1"></a>plot_df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(truth_p, est_p)</span>
+<span id="cb234-6"><a href="ml.html#cb234-6" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> plot_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> prob, <span class="at">color =</span> type)) <span class="sc">+</span></span>
+<span id="cb234-7"><a href="ml.html#cb234-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-241-2.png" width="672" /></p>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-231" class="exercise"><strong>Exercise 15.4  (Linear regression)  </strong></span><span style="color:blue">For the data generated below, do the following:</span></p>
+<p><span id="exr:unnamed-chunk-242" class="exercise"><strong>Exercise 15.4  (Linear regression) </strong></span><span style="color:blue">For the data generated below, do the following:</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><span style="color:blue">Compute the least squares (MLE) estimate of coefficients beta using the matrix exact solution.</span></li>
 <li><span style="color:blue">Compute the MLE by minimizing the sum of squared residuals using black-box optimization (<em>optim()</em>).</span></li>
@@ -471,38 +504,37 @@ Equating above with zero, we get
 <li><span style="color:blue">Compute 95% CI on the beta coefficients by using (a or b) and the bootstrap with percentile method for CI. Compare with d.</span></li>
 </ol>
 </div>
-
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="ml.html#cb199-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb199-2"><a href="ml.html#cb199-2"></a>n &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb199-3"><a href="ml.html#cb199-3"></a>x1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</span>
-<span id="cb199-4"><a href="ml.html#cb199-4"></a>x2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</span>
-<span id="cb199-5"><a href="ml.html#cb199-5"></a>x3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</span>
-<span id="cb199-6"><a href="ml.html#cb199-6"></a></span>
-<span id="cb199-7"><a href="ml.html#cb199-7"></a>X &lt;-<span class="st"> </span><span class="kw">cbind</span>(x1, x2, x3)</span>
-<span id="cb199-8"><a href="ml.html#cb199-8"></a>beta &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.6</span>, <span class="fl">-1.2</span>)</span>
-<span id="cb199-9"><a href="ml.html#cb199-9"></a></span>
-<span id="cb199-10"><a href="ml.html#cb199-10"></a>y &lt;-<span class="st"> </span><span class="kw">as.vector</span>(<span class="kw">t</span>(beta <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X))) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">sd =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="ml.html#cb235-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb235-2"><a href="ml.html#cb235-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb235-3"><a href="ml.html#cb235-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb235-4"><a href="ml.html#cb235-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb235-5"><a href="ml.html#cb235-5" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb235-6"><a href="ml.html#cb235-6" tabindex="-1"></a></span>
+<span id="cb235-7"><a href="ml.html#cb235-7" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(x1, x2, x3)</span>
+<span id="cb235-8"><a href="ml.html#cb235-8" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.6</span>, <span class="sc">-</span><span class="fl">1.2</span>)</span>
+<span id="cb235-9"><a href="ml.html#cb235-9" tabindex="-1"></a></span>
+<span id="cb235-10"><a href="ml.html#cb235-10" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">t</span>(beta <span class="sc">%*%</span> <span class="fu">t</span>(X))) <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="fl">0.2</span>)</span></code></pre></div>
 <div class="fold">
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="ml.html#cb200-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb200-2"><a href="ml.html#cb200-2"></a>n &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb200-3"><a href="ml.html#cb200-3"></a>x1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</span>
-<span id="cb200-4"><a href="ml.html#cb200-4"></a>x2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</span>
-<span id="cb200-5"><a href="ml.html#cb200-5"></a>x3 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)</span>
-<span id="cb200-6"><a href="ml.html#cb200-6"></a></span>
-<span id="cb200-7"><a href="ml.html#cb200-7"></a>X &lt;-<span class="st"> </span><span class="kw">cbind</span>(x1, x2, x3)</span>
-<span id="cb200-8"><a href="ml.html#cb200-8"></a>beta &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.6</span>, <span class="fl">-1.2</span>)</span>
-<span id="cb200-9"><a href="ml.html#cb200-9"></a></span>
-<span id="cb200-10"><a href="ml.html#cb200-10"></a>y &lt;-<span class="st"> </span><span class="kw">as.vector</span>(<span class="kw">t</span>(beta <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X))) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">sd =</span> <span class="fl">0.2</span>)</span>
-<span id="cb200-11"><a href="ml.html#cb200-11"></a>LS_fun &lt;-<span class="st"> </span><span class="cf">function</span> (beta, X, y) {</span>
-<span id="cb200-12"><a href="ml.html#cb200-12"></a>  <span class="kw">return</span>(<span class="kw">sum</span>((y <span class="op">-</span><span class="st"> </span>beta <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X))<span class="op">^</span><span class="dv">2</span>))</span>
-<span id="cb200-13"><a href="ml.html#cb200-13"></a>}</span>
-<span id="cb200-14"><a href="ml.html#cb200-14"></a>my_optim &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="dt">fn =</span> LS_fun, <span class="dt">lower =</span> <span class="dv">-5</span>, <span class="dt">upper =</span> <span class="dv">5</span>,</span>
-<span id="cb200-15"><a href="ml.html#cb200-15"></a>                  <span class="dt">X =</span> X, <span class="dt">y =</span> y, <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>)</span>
-<span id="cb200-16"><a href="ml.html#cb200-16"></a>my_optim<span class="op">$</span>par</span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="ml.html#cb236-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb236-2"><a href="ml.html#cb236-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb236-3"><a href="ml.html#cb236-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb236-4"><a href="ml.html#cb236-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb236-5"><a href="ml.html#cb236-5" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb236-6"><a href="ml.html#cb236-6" tabindex="-1"></a></span>
+<span id="cb236-7"><a href="ml.html#cb236-7" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(x1, x2, x3)</span>
+<span id="cb236-8"><a href="ml.html#cb236-8" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.6</span>, <span class="sc">-</span><span class="fl">1.2</span>)</span>
+<span id="cb236-9"><a href="ml.html#cb236-9" tabindex="-1"></a></span>
+<span id="cb236-10"><a href="ml.html#cb236-10" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">t</span>(beta <span class="sc">%*%</span> <span class="fu">t</span>(X))) <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="fl">0.2</span>)</span>
+<span id="cb236-11"><a href="ml.html#cb236-11" tabindex="-1"></a>LS_fun <span class="ot">&lt;-</span> <span class="cf">function</span> (beta, X, y) {</span>
+<span id="cb236-12"><a href="ml.html#cb236-12" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>((y <span class="sc">-</span> beta <span class="sc">%*%</span> <span class="fu">t</span>(X))<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb236-13"><a href="ml.html#cb236-13" tabindex="-1"></a>}</span>
+<span id="cb236-14"><a href="ml.html#cb236-14" tabindex="-1"></a>my_optim <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">fn =</span> LS_fun, <span class="at">lower =</span> <span class="sc">-</span><span class="dv">5</span>, <span class="at">upper =</span> <span class="dv">5</span>,</span>
+<span id="cb236-15"><a href="ml.html#cb236-15" tabindex="-1"></a>                  <span class="at">X =</span> X, <span class="at">y =</span> y, <span class="at">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>)</span>
+<span id="cb236-16"><a href="ml.html#cb236-16" tabindex="-1"></a>my_optim<span class="sc">$</span>par</span></code></pre></div>
 <pre><code>## [1]  0.1898162  0.5885946 -1.1788264</code></pre>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="ml.html#cb202-1"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y =</span> y, <span class="dt">x1 =</span> x1, <span class="dt">x2 =</span> x2, <span class="dt">x3 =</span> x3)</span>
-<span id="cb202-2"><a href="ml.html#cb202-2"></a>my_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>x2 <span class="op">+</span><span class="st"> </span>x3 <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> df)</span>
-<span id="cb202-3"><a href="ml.html#cb202-3"></a>my_lm</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="ml.html#cb238-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> y, <span class="at">x1 =</span> x1, <span class="at">x2 =</span> x2, <span class="at">x3 =</span> x3)</span>
+<span id="cb238-2"><a href="ml.html#cb238-2" tabindex="-1"></a>my_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">-</span> <span class="dv">1</span>, <span class="at">data =</span> df)</span>
+<span id="cb238-3"><a href="ml.html#cb238-3" tabindex="-1"></a>my_lm</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x1 + x2 + x3 - 1, data = df)
@@ -510,56 +542,54 @@ Equating above with zero, we get
 ## Coefficients:
 ##      x1       x2       x3  
 ##  0.1898   0.5886  -1.1788</code></pre>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="ml.html#cb204-1"></a><span class="co"># matrix solution</span></span>
-<span id="cb204-2"><a href="ml.html#cb204-2"></a>beta_hat &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>y</span>
-<span id="cb204-3"><a href="ml.html#cb204-3"></a>beta_hat</span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="ml.html#cb240-1" tabindex="-1"></a><span class="co"># matrix solution</span></span>
+<span id="cb240-2"><a href="ml.html#cb240-2" tabindex="-1"></a>beta_hat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
+<span id="cb240-3"><a href="ml.html#cb240-3" tabindex="-1"></a>beta_hat</span></code></pre></div>
 <pre><code>##          [,1]
 ## x1  0.1898162
 ## x2  0.5885946
 ## x3 -1.1788264</code></pre>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="ml.html#cb206-1"></a>out &lt;-<span class="st"> </span><span class="kw">summary</span>(my_lm)</span>
-<span id="cb206-2"><a href="ml.html#cb206-2"></a>out<span class="op">$</span>coefficients[ ,<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="ml.html#cb242-1" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">summary</span>(my_lm)</span>
+<span id="cb242-2"><a href="ml.html#cb242-2" tabindex="-1"></a>out<span class="sc">$</span>coefficients[ ,<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>##         x1         x2         x3 
 ## 0.02209328 0.02087542 0.01934506</code></pre>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="ml.html#cb208-1"></a><span class="co"># bootstrap CI</span></span>
-<span id="cb208-2"><a href="ml.html#cb208-2"></a>nboot &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb208-3"><a href="ml.html#cb208-3"></a>beta_boot &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">ncol =</span> <span class="kw">length</span>(beta), <span class="dt">nrow =</span> nboot)</span>
-<span id="cb208-4"><a href="ml.html#cb208-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nboot) {</span>
-<span id="cb208-5"><a href="ml.html#cb208-5"></a>  inds     &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>n, n, <span class="dt">replace =</span> T)</span>
-<span id="cb208-6"><a href="ml.html#cb208-6"></a>  new_df   &lt;-<span class="st"> </span>df[inds, ]</span>
-<span id="cb208-7"><a href="ml.html#cb208-7"></a>  X_tmp    &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(new_df[ ,<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb208-8"><a href="ml.html#cb208-8"></a>  y_tmp    &lt;-<span class="st"> </span>new_df[ ,<span class="dv">1</span>]</span>
-<span id="cb208-9"><a href="ml.html#cb208-9"></a>  <span class="co"># print(nrow(new_df))</span></span>
-<span id="cb208-10"><a href="ml.html#cb208-10"></a>  tmp_beta &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X_tmp) <span class="op">%*%</span><span class="st"> </span>X_tmp) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X_tmp) <span class="op">%*%</span><span class="st"> </span>y_tmp</span>
-<span id="cb208-11"><a href="ml.html#cb208-11"></a>  beta_boot[i, ] &lt;-<span class="st"> </span>tmp_beta</span>
-<span id="cb208-12"><a href="ml.html#cb208-12"></a>}</span>
-<span id="cb208-13"><a href="ml.html#cb208-13"></a><span class="kw">apply</span>(beta_boot, <span class="dv">2</span>, mean)</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="ml.html#cb244-1" tabindex="-1"></a><span class="co"># bootstrap CI</span></span>
+<span id="cb244-2"><a href="ml.html#cb244-2" tabindex="-1"></a>nboot <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb244-3"><a href="ml.html#cb244-3" tabindex="-1"></a>beta_boot <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="cn">NA</span>, <span class="at">ncol =</span> <span class="fu">length</span>(beta), <span class="at">nrow =</span> nboot)</span>
+<span id="cb244-4"><a href="ml.html#cb244-4" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nboot) {</span>
+<span id="cb244-5"><a href="ml.html#cb244-5" tabindex="-1"></a>  inds     <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, n, <span class="at">replace =</span> T)</span>
+<span id="cb244-6"><a href="ml.html#cb244-6" tabindex="-1"></a>  new_df   <span class="ot">&lt;-</span> df[inds, ]</span>
+<span id="cb244-7"><a href="ml.html#cb244-7" tabindex="-1"></a>  X_tmp    <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(new_df[ ,<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb244-8"><a href="ml.html#cb244-8" tabindex="-1"></a>  y_tmp    <span class="ot">&lt;-</span> new_df[ ,<span class="dv">1</span>]</span>
+<span id="cb244-9"><a href="ml.html#cb244-9" tabindex="-1"></a>  <span class="co"># print(nrow(new_df))</span></span>
+<span id="cb244-10"><a href="ml.html#cb244-10" tabindex="-1"></a>  tmp_beta <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X_tmp) <span class="sc">%*%</span> X_tmp) <span class="sc">%*%</span> <span class="fu">t</span>(X_tmp) <span class="sc">%*%</span> y_tmp</span>
+<span id="cb244-11"><a href="ml.html#cb244-11" tabindex="-1"></a>  beta_boot[i, ] <span class="ot">&lt;-</span> tmp_beta</span>
+<span id="cb244-12"><a href="ml.html#cb244-12" tabindex="-1"></a>}</span>
+<span id="cb244-13"><a href="ml.html#cb244-13" tabindex="-1"></a><span class="fu">apply</span>(beta_boot, <span class="dv">2</span>, mean)</span></code></pre></div>
 <pre><code>## [1]  0.1893281  0.5887068 -1.1800738</code></pre>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="ml.html#cb210-1"></a><span class="kw">apply</span>(beta_boot, <span class="dv">2</span>, quantile, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="ml.html#cb246-1" tabindex="-1"></a><span class="fu">apply</span>(beta_boot, <span class="dv">2</span>, quantile, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
 <pre><code>##            [,1]      [,2]      [,3]
 ## 2.5%  0.1389441 0.5436911 -1.221560
 ## 97.5% 0.2386295 0.6363102 -1.140416</code></pre>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="ml.html#cb212-1"></a>out<span class="op">$</span>coefficients[ ,<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="ml.html#cb248-1" tabindex="-1"></a>out<span class="sc">$</span>coefficients[ ,<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>##         x1         x2         x3 
 ## 0.02209328 0.02087542 0.01934506</code></pre>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-234" class="exercise"><strong>Exercise 15.5  (Principal component analysis)  </strong></span><span style="color:blue">Load the <em>olympic</em> data set from package <em>ade4</em>. The data show decathlon results for 33 men in 1988 Olympic Games. This data set serves as a great example of finding the latent structure in the data, as there are certain characteristics of the athletes that make them excel at different events. For example an explosive athlete will do particulary well in sprints and long jumps.</span></p>
+<p><span id="exr:unnamed-chunk-245" class="exercise"><strong>Exercise 15.5  (Principal component analysis) </strong></span><span style="color:blue">Load the <em>olympic</em> data set from package <em>ade4</em>. The data show decathlon results for 33 men in 1988 Olympic Games. This data set serves as a great example of finding the latent structure in the data, as there are certain characteristics of the athletes that make them excel at different events. For example an explosive athlete will do particulary well in sprints and long jumps.</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span style="color:blue">Perform PCA (<em>prcomp</em>) on the data set and interpret the first 2 latent dimensions. Hint: Standardize the data first to get meaningful results.</span></p></li>
 <li><p><span style="color:blue">Use MLE to estimate the covariance of the standardized multivariate distribution.</span></p></li>
 <li><p><span style="color:blue">Decompose the estimated covariance matrix with the eigendecomposition. Compare the eigenvectors to the output of PCA.</span></p></li>
 </ol>
 </div>
-
 <div class="fold">
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="ml.html#cb214-1"></a><span class="kw">data</span>(olympic)</span>
-<span id="cb214-2"><a href="ml.html#cb214-2"></a></span>
-<span id="cb214-3"><a href="ml.html#cb214-3"></a>X        &lt;-<span class="st"> </span>olympic<span class="op">$</span>tab</span>
-<span id="cb214-4"><a href="ml.html#cb214-4"></a>X_scaled &lt;-<span class="st"> </span><span class="kw">scale</span>(X)</span>
-<span id="cb214-5"><a href="ml.html#cb214-5"></a>my_pca   &lt;-<span class="st"> </span><span class="kw">prcomp</span>(X_scaled)</span>
-<span id="cb214-6"><a href="ml.html#cb214-6"></a><span class="kw">summary</span>(my_pca)</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="ml.html#cb250-1" tabindex="-1"></a><span class="fu">data</span>(olympic)</span>
+<span id="cb250-2"><a href="ml.html#cb250-2" tabindex="-1"></a></span>
+<span id="cb250-3"><a href="ml.html#cb250-3" tabindex="-1"></a>X        <span class="ot">&lt;-</span> olympic<span class="sc">$</span>tab</span>
+<span id="cb250-4"><a href="ml.html#cb250-4" tabindex="-1"></a>X_scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(X)</span>
+<span id="cb250-5"><a href="ml.html#cb250-5" tabindex="-1"></a>my_pca   <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(X_scaled)</span>
+<span id="cb250-6"><a href="ml.html#cb250-6" tabindex="-1"></a><span class="fu">summary</span>(my_pca)</span></code></pre></div>
 <pre><code>## Importance of components:
 ##                           PC1    PC2     PC3    PC4     PC5     PC6     PC7
 ## Standard deviation     1.8488 1.6144 0.97123 0.9370 0.74607 0.70088 0.65620
@@ -569,13 +599,13 @@ Equating above with zero, we get
 ## Standard deviation     0.55389 0.51667 0.31915
 ## Proportion of Variance 0.03068 0.02669 0.01019
 ## Cumulative Proportion  0.96312 0.98981 1.00000</code></pre>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="ml.html#cb216-1"></a><span class="kw">autoplot</span>(my_pca, <span class="dt">data =</span> X, <span class="dt">loadings =</span> <span class="ot">TRUE</span>, <span class="dt">loadings.colour =</span> <span class="st">&#39;blue&#39;</span>,</span>
-<span id="cb216-2"><a href="ml.html#cb216-2"></a>         <span class="dt">loadings.label =</span> <span class="ot">TRUE</span>, <span class="dt">loadings.label.size =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-235-1.png" width="672" /></p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="ml.html#cb217-1"></a>Sigma_est &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(X_scaled)) <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(X_scaled) <span class="op">%*%</span><span class="st"> </span>X_scaled</span>
-<span id="cb217-2"><a href="ml.html#cb217-2"></a>Sigma_dec &lt;-<span class="st"> </span><span class="kw">eigen</span>(Sigma_est)</span>
-<span id="cb217-3"><a href="ml.html#cb217-3"></a></span>
-<span id="cb217-4"><a href="ml.html#cb217-4"></a>Sigma_dec<span class="op">$</span>vectors</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="ml.html#cb252-1" tabindex="-1"></a><span class="fu">autoplot</span>(my_pca, <span class="at">data =</span> X, <span class="at">loadings =</span> <span class="cn">TRUE</span>, <span class="at">loadings.colour =</span> <span class="st">&#39;blue&#39;</span>,</span>
+<span id="cb252-2"><a href="ml.html#cb252-2" tabindex="-1"></a>         <span class="at">loadings.label =</span> <span class="cn">TRUE</span>, <span class="at">loadings.label.size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-246-1.png" width="672" /></p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="ml.html#cb253-1" tabindex="-1"></a>Sigma_est <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">nrow</span>(X_scaled)) <span class="sc">*</span> <span class="fu">t</span>(X_scaled) <span class="sc">%*%</span> X_scaled</span>
+<span id="cb253-2"><a href="ml.html#cb253-2" tabindex="-1"></a>Sigma_dec <span class="ot">&lt;-</span> <span class="fu">eigen</span>(Sigma_est)</span>
+<span id="cb253-3"><a href="ml.html#cb253-3" tabindex="-1"></a></span>
+<span id="cb253-4"><a href="ml.html#cb253-4" tabindex="-1"></a>Sigma_dec<span class="sc">$</span>vectors</span></code></pre></div>
 <pre><code>##             [,1]       [,2]        [,3]        [,4]         [,5]        [,6]
 ##  [1,]  0.4158823  0.1488081 -0.26747198  0.08833244 -0.442314456  0.03071237
 ##  [2,] -0.3940515 -0.1520815 -0.16894945  0.24424963  0.368913901 -0.09378242
@@ -598,18 +628,18 @@ Equating above with zero, we get
 ##  [8,]  0.2732665 -0.276873049 -0.01766443  0.06589572
 ##  [9,] -0.3419099  0.058519366 -0.30619617  0.13093187
 ## [10,]  0.1868704  0.007310045 -0.45688227 -0.24311846</code></pre>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="ml.html#cb219-1"></a>my_pca<span class="op">$</span>rotation</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="ml.html#cb255-1" tabindex="-1"></a>my_pca<span class="sc">$</span>rotation</span></code></pre></div>
 <pre><code>##             PC1        PC2         PC3         PC4          PC5         PC6
-## 100  -0.4158823  0.1488081 -0.26747198  0.08833244 -0.442314456  0.03071237
-## long  0.3940515 -0.1520815 -0.16894945  0.24424963  0.368913901 -0.09378242
-## poid  0.2691057  0.4835374  0.09853273  0.10776276 -0.009754680  0.23002054
-## haut  0.2122818  0.0278985 -0.85498656 -0.38794393 -0.001876311  0.07454380
-## 400  -0.3558474  0.3521598 -0.18949642 -0.08057457  0.146965351 -0.32692886
-## 110  -0.4334816  0.0695682 -0.12616012  0.38229029 -0.088802794  0.21049130
-## disq  0.1757923  0.5033347  0.04609969 -0.02558404  0.019358607  0.61491241
-## perc  0.3840821  0.1495820  0.13687235 -0.14396548 -0.716743474 -0.34776037
-## jave  0.1799436  0.3719570 -0.19232803  0.60046566  0.095582043 -0.43744387
-## 1500 -0.1701426  0.4209653  0.22255233 -0.48564231  0.339772188 -0.30032419
+## 100  -0.4158823  0.1488081  0.26747198 -0.08833244 -0.442314456  0.03071237
+## long  0.3940515 -0.1520815  0.16894945 -0.24424963  0.368913901 -0.09378242
+## poid  0.2691057  0.4835374 -0.09853273 -0.10776276 -0.009754680  0.23002054
+## haut  0.2122818  0.0278985  0.85498656  0.38794393 -0.001876311  0.07454380
+## 400  -0.3558474  0.3521598  0.18949642  0.08057457  0.146965351 -0.32692886
+## 110  -0.4334816  0.0695682  0.12616012 -0.38229029 -0.088802794  0.21049130
+## disq  0.1757923  0.5033347 -0.04609969  0.02558404  0.019358607  0.61491241
+## perc  0.3840821  0.1495820 -0.13687235  0.14396548 -0.716743474 -0.34776037
+## jave  0.1799436  0.3719570  0.19232803 -0.60046566  0.095582043 -0.43744387
+## 1500 -0.1701426  0.4209653 -0.22255233  0.48564231  0.339772188 -0.30032419
 ##             PC7          PC8         PC9        PC10
 ## 100   0.2543985 -0.663712826  0.10839531 -0.10948045
 ## long  0.7505343 -0.141264141 -0.04613910 -0.05580431
@@ -623,23 +653,21 @@ Equating above with zero, we get
 ## 1500  0.1868704 -0.007310045  0.45688227 -0.24311846</code></pre>
 </div>
 </div>
-<div id="fisher-information" class="section level2">
-<h2><span class="header-section-number">15.2</span> Fisher information</h2>
-
+<div id="fisher-information" class="section level2 hasAnchor" number="15.2">
+<h2><span class="header-section-number">15.2</span> Fisher information<a href="ml.html#fisher-information" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-236" class="exercise"><strong>Exercise 15.6  </strong></span>Let us assume a Poisson likelihood.</p>
+<p><span id="exr:unnamed-chunk-247" class="exercise"><strong>Exercise 15.6  </strong></span>Let us assume a Poisson likelihood.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Derive the MLE estimate of the mean.</p></li>
 <li><p>Derive the Fisher information.</p></li>
 <li><p><span style="color:blue">For the data below compute the MLE and construct confidence intervals.</span></p></li>
-<li><p><span style="color:blue">Use bootstrap to construct the CI for the mean. Compare with c) and discuss.</span></p>
-</div></li>
+<li><p><span style="color:blue">Use bootstrap to construct the CI for the mean. Compare with c) and discuss.</span></p></li>
 </ol>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="ml.html#cb221-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span></code></pre></div>
+</div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="ml.html#cb257-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span></code></pre></div>
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-91" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>The log likelihood of the Poisson is
 <span class="math display">\[\begin{align*}
@@ -663,41 +691,38 @@ Now taking the expectation of the negative of the above, we get
   &amp;= \frac{n}{\lambda}.
 \end{align*}\]</span></p>
 </div>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="ml.html#cb222-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb222-2"><a href="ml.html#cb222-2"></a>x          &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb222-3"><a href="ml.html#cb222-3"></a>lambda_hat &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</span>
-<span id="cb222-4"><a href="ml.html#cb222-4"></a>finfo      &lt;-<span class="st"> </span><span class="kw">length</span>(x) <span class="op">/</span><span class="st"> </span>lambda_hat</span>
-<span id="cb222-5"><a href="ml.html#cb222-5"></a>mle_CI     &lt;-<span class="st"> </span><span class="kw">c</span>(lambda_hat <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>finfo),</span>
-<span id="cb222-6"><a href="ml.html#cb222-6"></a>                lambda_hat <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>finfo))</span>
-<span id="cb222-7"><a href="ml.html#cb222-7"></a>boot_lambda &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb222-8"><a href="ml.html#cb222-8"></a>nboot       &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb222-9"><a href="ml.html#cb222-9"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nboot) {</span>
-<span id="cb222-10"><a href="ml.html#cb222-10"></a>  tmp_x          &lt;-<span class="st"> </span><span class="kw">sample</span>(x, <span class="kw">length</span>(x), <span class="dt">replace =</span> T)</span>
-<span id="cb222-11"><a href="ml.html#cb222-11"></a>  boot_lambda[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(tmp_x)</span>
-<span id="cb222-12"><a href="ml.html#cb222-12"></a>}</span>
-<span id="cb222-13"><a href="ml.html#cb222-13"></a>boot_CI &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">quantile</span>(boot_lambda, <span class="fl">0.025</span>),</span>
-<span id="cb222-14"><a href="ml.html#cb222-14"></a>             <span class="kw">quantile</span>(boot_lambda, <span class="fl">0.975</span>))</span>
-<span id="cb222-15"><a href="ml.html#cb222-15"></a>mle_CI</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="ml.html#cb258-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb258-2"><a href="ml.html#cb258-2" tabindex="-1"></a>x          <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb258-3"><a href="ml.html#cb258-3" tabindex="-1"></a>lambda_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb258-4"><a href="ml.html#cb258-4" tabindex="-1"></a>finfo      <span class="ot">&lt;-</span> <span class="fu">length</span>(x) <span class="sc">/</span> lambda_hat</span>
+<span id="cb258-5"><a href="ml.html#cb258-5" tabindex="-1"></a>mle_CI     <span class="ot">&lt;-</span> <span class="fu">c</span>(lambda_hat <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> finfo),</span>
+<span id="cb258-6"><a href="ml.html#cb258-6" tabindex="-1"></a>                lambda_hat <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> finfo))</span>
+<span id="cb258-7"><a href="ml.html#cb258-7" tabindex="-1"></a>boot_lambda <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb258-8"><a href="ml.html#cb258-8" tabindex="-1"></a>nboot       <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb258-9"><a href="ml.html#cb258-9" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nboot) {</span>
+<span id="cb258-10"><a href="ml.html#cb258-10" tabindex="-1"></a>  tmp_x          <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, <span class="fu">length</span>(x), <span class="at">replace =</span> T)</span>
+<span id="cb258-11"><a href="ml.html#cb258-11" tabindex="-1"></a>  boot_lambda[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(tmp_x)</span>
+<span id="cb258-12"><a href="ml.html#cb258-12" tabindex="-1"></a>}</span>
+<span id="cb258-13"><a href="ml.html#cb258-13" tabindex="-1"></a>boot_CI <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">quantile</span>(boot_lambda, <span class="fl">0.025</span>),</span>
+<span id="cb258-14"><a href="ml.html#cb258-14" tabindex="-1"></a>             <span class="fu">quantile</span>(boot_lambda, <span class="fl">0.975</span>))</span>
+<span id="cb258-15"><a href="ml.html#cb258-15" tabindex="-1"></a>mle_CI</span></code></pre></div>
 <pre><code>## [1] 1.045656 2.754344</code></pre>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="ml.html#cb224-1"></a>boot_CI</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="ml.html#cb260-1" tabindex="-1"></a>boot_CI</span></code></pre></div>
 <pre><code>##  2.5% 97.5% 
 ##   1.0   2.7</code></pre>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-240" class="exercise"><strong>Exercise 15.7  </strong></span></p>
+<p><span id="exr:unnamed-chunk-251" class="exercise"><strong>Exercise 15.7  </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Find the Fisher information matrix for the Gamma distribution.</p></li>
 <li><p><span style="color:blue">Generate 20 samples from a Gamma distribution and plot a confidence ellipse of the inverse of Fisher information matrix around the ML estimates of the parameters. Also plot the theoretical values. Repeat the sampling several times. What do you observe?</span></p></li>
 <li><p>Discuss what a non-diagonal Fisher matrix implies.</p></li>
 </ol>
-Hint: The digamma function is defined as <span class="math inline">\(\psi(x) = \frac{\frac{d}{dx} \Gamma(x)}{\Gamma(x)}\)</span>. Additionally, you do not need to evaluate <span class="math inline">\(\frac{d}{dx} \psi(x)\)</span>. To calculate its value in R, use package <strong>numDeriv</strong>.
+<p>Hint: The digamma function is defined as <span class="math inline">\(\psi(x) = \frac{\frac{d}{dx} \Gamma(x)}{\Gamma(x)}\)</span>. Additionally, you do not need to evaluate <span class="math inline">\(\frac{d}{dx} \psi(x)\)</span>. To calculate its value in R, use package <strong>numDeriv</strong>.</p>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-92" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li>The log likelihood of the Gamma is
 <span class="math display">\[\begin{equation*}
@@ -720,7 +745,7 @@ I(\alpha, \beta) =
     - n \psi&#39;(\alpha)       &amp; \frac{n}{\beta} \\
       \frac{n}{\beta} &amp; - \frac{n \alpha}{\beta^2}
   \end{bmatrix}
-  ] = 
+  ] =
   \begin{bmatrix}
       n \psi&#39;(\alpha)       &amp; - \frac{n}{\beta} \\
     - \frac{n}{\beta} &amp; \frac{n \alpha}{\beta^2}
@@ -731,51 +756,50 @@ I(\alpha, \beta) =
 <li>A non-diagonal Fisher matrix implies that the parameter estimates are linearly dependent.</li>
 </ol>
 </div>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="ml.html#cb226-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb226-2"><a href="ml.html#cb226-2"></a>n  &lt;-<span class="st"> </span><span class="dv">20</span></span>
-<span id="cb226-3"><a href="ml.html#cb226-3"></a>pars_theor &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>)</span>
-<span id="cb226-4"><a href="ml.html#cb226-4"></a>x  &lt;-<span class="st"> </span><span class="kw">rgamma</span>(n, <span class="dv">5</span>, <span class="dv">2</span>)</span>
-<span id="cb226-5"><a href="ml.html#cb226-5"></a></span>
-<span id="cb226-6"><a href="ml.html#cb226-6"></a></span>
-<span id="cb226-7"><a href="ml.html#cb226-7"></a><span class="co"># MLE for alpha and beta</span></span>
-<span id="cb226-8"><a href="ml.html#cb226-8"></a>log_lik &lt;-<span class="st"> </span><span class="cf">function</span> (pars, x) {</span>
-<span id="cb226-9"><a href="ml.html#cb226-9"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
-<span id="cb226-10"><a href="ml.html#cb226-10"></a>  <span class="kw">return</span> (<span class="op">-</span><span class="st"> </span>(n <span class="op">*</span><span class="st"> </span>pars[<span class="dv">1</span>] <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(pars[<span class="dv">2</span>]) <span class="op">-</span></span>
-<span id="cb226-11"><a href="ml.html#cb226-11"></a><span class="st">             </span>n <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(<span class="kw">gamma</span>(pars[<span class="dv">1</span>])) <span class="op">+</span></span>
-<span id="cb226-12"><a href="ml.html#cb226-12"></a><span class="st">             </span>(pars[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">log</span>(x)) <span class="op">-</span></span>
-<span id="cb226-13"><a href="ml.html#cb226-13"></a><span class="st">             </span>pars[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(x)))</span>
-<span id="cb226-14"><a href="ml.html#cb226-14"></a>}</span>
-<span id="cb226-15"><a href="ml.html#cb226-15"></a>my_optim &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="dt">fn =</span> log_lik, <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</span>
-<span id="cb226-16"><a href="ml.html#cb226-16"></a>                  <span class="dt">lower =</span> <span class="kw">c</span>(<span class="fl">0.001</span>, <span class="fl">0.001</span>), <span class="dt">upper =</span> <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">8</span>), <span class="dt">x =</span> x)</span>
-<span id="cb226-17"><a href="ml.html#cb226-17"></a>pars_mle &lt;-<span class="st"> </span>my_optim<span class="op">$</span>par</span>
-<span id="cb226-18"><a href="ml.html#cb226-18"></a></span>
-<span id="cb226-19"><a href="ml.html#cb226-19"></a>fish_mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb226-20"><a href="ml.html#cb226-20"></a>fish_mat[<span class="dv">1</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="op">-</span><span class="st"> </span>n <span class="op">/</span><span class="st"> </span>pars_mle[<span class="dv">2</span>]</span>
-<span id="cb226-21"><a href="ml.html#cb226-21"></a>fish_mat[<span class="dv">2</span>,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="op">-</span><span class="st"> </span>n <span class="op">/</span><span class="st"> </span>pars_mle[<span class="dv">2</span>]</span>
-<span id="cb226-22"><a href="ml.html#cb226-22"></a>fish_mat[<span class="dv">2</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span>(n <span class="op">*</span><span class="st"> </span>pars_mle[<span class="dv">1</span>]) <span class="op">/</span><span class="st"> </span>(pars_mle[<span class="dv">2</span>]<span class="op">^</span><span class="dv">2</span>)</span>
-<span id="cb226-23"><a href="ml.html#cb226-23"></a>fish_mat[<span class="dv">1</span>,<span class="dv">1</span>] &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span><span class="kw">grad</span>(digamma, pars_mle[<span class="dv">1</span>])</span>
-<span id="cb226-24"><a href="ml.html#cb226-24"></a></span>
-<span id="cb226-25"><a href="ml.html#cb226-25"></a>fish_mat_inv &lt;-<span class="st"> </span><span class="kw">solve</span>(fish_mat)</span>
-<span id="cb226-26"><a href="ml.html#cb226-26"></a></span>
-<span id="cb226-27"><a href="ml.html#cb226-27"></a>est_ellip &lt;-<span class="st"> </span><span class="kw">ellipse</span>(pars_mle, fish_mat_inv, <span class="dt">draw =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb226-28"><a href="ml.html#cb226-28"></a><span class="kw">colnames</span>(est_ellip) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>)</span>
-<span id="cb226-29"><a href="ml.html#cb226-29"></a>est_ellip &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(est_ellip)</span>
-<span id="cb226-30"><a href="ml.html#cb226-30"></a></span>
-<span id="cb226-31"><a href="ml.html#cb226-31"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb226-32"><a href="ml.html#cb226-32"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> pars_mle[<span class="dv">1</span>], <span class="dt">y =</span> pars_mle[<span class="dv">2</span>]), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></span>
-<span id="cb226-33"><a href="ml.html#cb226-33"></a><span class="st">  </span><span class="kw">geom_path</span>(<span class="dt">data =</span> est_ellip, <span class="kw">aes</span>(<span class="dt">x =</span> X1, <span class="dt">y =</span> X2)) <span class="op">+</span></span>
-<span id="cb226-34"><a href="ml.html#cb226-34"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> pars_theor[<span class="dv">1</span>], <span class="dt">y =</span> pars_theor[<span class="dv">2</span>]), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
-<span id="cb226-35"><a href="ml.html#cb226-35"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">x =</span> pars_theor[<span class="dv">1</span>], <span class="dt">y =</span> pars_theor[<span class="dv">2</span>], <span class="dt">label =</span> <span class="st">&quot;Theoretical parameters&quot;</span>), </span>
-<span id="cb226-36"><a href="ml.html#cb226-36"></a>            <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb226-37"><a href="ml.html#cb226-37"></a>            <span class="dt">nudge_y =</span> <span class="fl">-0.2</span>)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-242-1.png" width="672" /></p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="ml.html#cb262-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb262-2"><a href="ml.html#cb262-2" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb262-3"><a href="ml.html#cb262-3" tabindex="-1"></a>pars_theor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb262-4"><a href="ml.html#cb262-4" tabindex="-1"></a>x  <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(n, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb262-5"><a href="ml.html#cb262-5" tabindex="-1"></a></span>
+<span id="cb262-6"><a href="ml.html#cb262-6" tabindex="-1"></a></span>
+<span id="cb262-7"><a href="ml.html#cb262-7" tabindex="-1"></a><span class="co"># MLE for alpha and beta</span></span>
+<span id="cb262-8"><a href="ml.html#cb262-8" tabindex="-1"></a>log_lik <span class="ot">&lt;-</span> <span class="cf">function</span> (pars, x) {</span>
+<span id="cb262-9"><a href="ml.html#cb262-9" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb262-10"><a href="ml.html#cb262-10" tabindex="-1"></a>  <span class="fu">return</span> (<span class="sc">-</span> (n <span class="sc">*</span> pars[<span class="dv">1</span>] <span class="sc">*</span> <span class="fu">log</span>(pars[<span class="dv">2</span>]) <span class="sc">-</span></span>
+<span id="cb262-11"><a href="ml.html#cb262-11" tabindex="-1"></a>             n <span class="sc">*</span> <span class="fu">log</span>(<span class="fu">gamma</span>(pars[<span class="dv">1</span>])) <span class="sc">+</span></span>
+<span id="cb262-12"><a href="ml.html#cb262-12" tabindex="-1"></a>             (pars[<span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">log</span>(x)) <span class="sc">-</span></span>
+<span id="cb262-13"><a href="ml.html#cb262-13" tabindex="-1"></a>             pars[<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">sum</span>(x)))</span>
+<span id="cb262-14"><a href="ml.html#cb262-14" tabindex="-1"></a>}</span>
+<span id="cb262-15"><a href="ml.html#cb262-15" tabindex="-1"></a>my_optim <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">fn =</span> log_lik, <span class="at">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</span>
+<span id="cb262-16"><a href="ml.html#cb262-16" tabindex="-1"></a>                  <span class="at">lower =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.001</span>), <span class="at">upper =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">8</span>), <span class="at">x =</span> x)</span>
+<span id="cb262-17"><a href="ml.html#cb262-17" tabindex="-1"></a>pars_mle <span class="ot">&lt;-</span> my_optim<span class="sc">$</span>par</span>
+<span id="cb262-18"><a href="ml.html#cb262-18" tabindex="-1"></a></span>
+<span id="cb262-19"><a href="ml.html#cb262-19" tabindex="-1"></a>fish_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="cn">NA</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb262-20"><a href="ml.html#cb262-20" tabindex="-1"></a>fish_mat[<span class="dv">1</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="sc">-</span> n <span class="sc">/</span> pars_mle[<span class="dv">2</span>]</span>
+<span id="cb262-21"><a href="ml.html#cb262-21" tabindex="-1"></a>fish_mat[<span class="dv">2</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="sc">-</span> n <span class="sc">/</span> pars_mle[<span class="dv">2</span>]</span>
+<span id="cb262-22"><a href="ml.html#cb262-22" tabindex="-1"></a>fish_mat[<span class="dv">2</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> (n <span class="sc">*</span> pars_mle[<span class="dv">1</span>]) <span class="sc">/</span> (pars_mle[<span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb262-23"><a href="ml.html#cb262-23" tabindex="-1"></a>fish_mat[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> n <span class="sc">*</span> <span class="fu">grad</span>(digamma, pars_mle[<span class="dv">1</span>])</span>
+<span id="cb262-24"><a href="ml.html#cb262-24" tabindex="-1"></a></span>
+<span id="cb262-25"><a href="ml.html#cb262-25" tabindex="-1"></a>fish_mat_inv <span class="ot">&lt;-</span> <span class="fu">solve</span>(fish_mat)</span>
+<span id="cb262-26"><a href="ml.html#cb262-26" tabindex="-1"></a></span>
+<span id="cb262-27"><a href="ml.html#cb262-27" tabindex="-1"></a>est_ellip <span class="ot">&lt;-</span> <span class="fu">ellipse</span>(pars_mle, fish_mat_inv, <span class="at">draw =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb262-28"><a href="ml.html#cb262-28" tabindex="-1"></a><span class="fu">colnames</span>(est_ellip) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>)</span>
+<span id="cb262-29"><a href="ml.html#cb262-29" tabindex="-1"></a>est_ellip <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(est_ellip)</span>
+<span id="cb262-30"><a href="ml.html#cb262-30" tabindex="-1"></a></span>
+<span id="cb262-31"><a href="ml.html#cb262-31" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb262-32"><a href="ml.html#cb262-32" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> pars_mle[<span class="dv">1</span>], <span class="at">y =</span> pars_mle[<span class="dv">2</span>]), <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb262-33"><a href="ml.html#cb262-33" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">data =</span> est_ellip, <span class="fu">aes</span>(<span class="at">x =</span> X1, <span class="at">y =</span> X2)) <span class="sc">+</span></span>
+<span id="cb262-34"><a href="ml.html#cb262-34" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> pars_theor[<span class="dv">1</span>], <span class="at">y =</span> pars_theor[<span class="dv">2</span>]), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb262-35"><a href="ml.html#cb262-35" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> pars_theor[<span class="dv">1</span>], <span class="at">y =</span> pars_theor[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;Theoretical parameters&quot;</span>), </span>
+<span id="cb262-36"><a href="ml.html#cb262-36" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb262-37"><a href="ml.html#cb262-37" tabindex="-1"></a>            <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.2</span>)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-253-1.png" width="672" /></p>
 </div>
 </div>
-<div id="the-german-tank-problem" class="section level2">
-<h2><span class="header-section-number">15.3</span> The German tank problem</h2>
-
+<div id="the-german-tank-problem" class="section level2 hasAnchor" number="15.3">
+<h2><span class="header-section-number">15.3</span> The German tank problem<a href="ml.html#the-german-tank-problem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-243" class="exercise"><strong>Exercise 15.8  (The German tank problem)  </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
+<p><span id="exr:unnamed-chunk-254" class="exercise"><strong>Exercise 15.8  (The German tank problem) </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
 <ol style="list-style-type: lower-alpha">
 <li>What assumptions were made by using the above model? Do you think they are reasonable assumptions in practice?</li>
 <li>Show that the plug-in estimate for the maximum (i.e. the maximum of the sample) is a biased estimator.</li>
@@ -783,11 +807,9 @@ I(\alpha, \beta) =
 <li>Check that the following estimator is not biased: <span class="math inline">\(\hat{n} = \frac{k + 1}{k}m - 1\)</span>.</li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> The data are the serial numbers of the tanks. The parameter is <span class="math inline">\(n\)</span>, the total production of the tank. The distribution of the serial numbers is a discrete uniform distribution over all serial numbers.</p>
+<p><span id="unlabeled-div-93" class="solution"><em>Solution</em>. </span>The data are the serial numbers of the tanks. The parameter is <span class="math inline">\(n\)</span>, the total production of the tank. The distribution of the serial numbers is a discrete uniform distribution over all serial numbers.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>One of the assumptions is that we have i.i.d samples, however in practice this might not be true, as some tanks produced later could be sent to the field later, therefore already in theory we would not be able to recover some values from the population.</p></li>
 <li><p>To find the expected value we first need to find the distribution of <span class="math inline">\(m\)</span>. Let us start with the CDF.
@@ -810,32 +832,30 @@ The bias of this estimator is then
 <span class="math display">\[\begin{align*}
   E[m] - n = \frac{k(n + 1)}{k + 1} - n = \frac{k - n}{k + 1}.
 \end{align*}\]</span></p></li>
-<li><p>The probability that we observed our sample <span class="math inline">\(Y = {Y_1, Y_2,...,,Y_k}\)</span> given <span class="math inline">\(n\)</span> is <span class="math inline">\(\frac{1}{{n}\choose{k}}\)</span>. We need to find such <span class="math inline">\(n^*\)</span> that this function is maximized. Additionally, we have a constraint that <span class="math inline">\(n^* \geq m = \max{(Y)}\)</span>. Let us plot this function for <span class="math inline">\(m = 10\)</span> and <span class="math inline">\(k = 4\)</span>.</p>
-</div></li>
+<li><p>The probability that we observed our sample <span class="math inline">\(Y = {Y_1, Y_2,...,,Y_k}\)</span> given <span class="math inline">\(n\)</span> is <span class="math inline">\(\frac{1}{{n}\choose{k}}\)</span>. We need to find such <span class="math inline">\(n^*\)</span> that this function is maximized. Additionally, we have a constraint that <span class="math inline">\(n^* \geq m = \max{(Y)}\)</span>. Let us plot this function for <span class="math inline">\(m = 10\)</span> and <span class="math inline">\(k = 4\)</span>.</p></li>
 </ol>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="ml.html#cb227-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb227-2"><a href="ml.html#cb227-2"></a>my_fun &lt;-<span class="st"> </span><span class="cf">function</span> (x, m, k) {</span>
-<span id="cb227-3"><a href="ml.html#cb227-3"></a>  tmp        &lt;-<span class="st">  </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="kw">choose</span>(x, k))</span>
-<span id="cb227-4"><a href="ml.html#cb227-4"></a>  tmp[x <span class="op">&lt;</span><span class="st"> </span>m] &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb227-5"><a href="ml.html#cb227-5"></a>  <span class="kw">return</span> (tmp)</span>
-<span id="cb227-6"><a href="ml.html#cb227-6"></a>}</span>
-<span id="cb227-7"><a href="ml.html#cb227-7"></a>x  &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">20</span></span>
-<span id="cb227-8"><a href="ml.html#cb227-8"></a>y  &lt;-<span class="st"> </span><span class="kw">my_fun</span>(x, <span class="dv">10</span>, <span class="dv">4</span>)</span>
-<span id="cb227-9"><a href="ml.html#cb227-9"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)</span>
-<span id="cb227-10"><a href="ml.html#cb227-10"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></span>
-<span id="cb227-11"><a href="ml.html#cb227-11"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
-<img src="bookdown-pou_files/figure-html/unnamed-chunk-245-1.png" width="672" />
-
-<div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+</div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="ml.html#cb263-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb263-2"><a href="ml.html#cb263-2" tabindex="-1"></a>my_fun <span class="ot">&lt;-</span> <span class="cf">function</span> (x, m, k) {</span>
+<span id="cb263-3"><a href="ml.html#cb263-3" tabindex="-1"></a>  tmp        <span class="ot">&lt;-</span>  <span class="dv">1</span> <span class="sc">/</span> (<span class="fu">choose</span>(x, k))</span>
+<span id="cb263-4"><a href="ml.html#cb263-4" tabindex="-1"></a>  tmp[x <span class="sc">&lt;</span> m] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb263-5"><a href="ml.html#cb263-5" tabindex="-1"></a>  <span class="fu">return</span> (tmp)</span>
+<span id="cb263-6"><a href="ml.html#cb263-6" tabindex="-1"></a>}</span>
+<span id="cb263-7"><a href="ml.html#cb263-7" tabindex="-1"></a>x  <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb263-8"><a href="ml.html#cb263-8" tabindex="-1"></a>y  <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(x, <span class="dv">10</span>, <span class="dv">4</span>)</span>
+<span id="cb263-9"><a href="ml.html#cb263-9" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)</span>
+<span id="cb263-10"><a href="ml.html#cb263-10" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb263-11"><a href="ml.html#cb263-11" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-256-1.png" width="672" />
+::: {.solution}</p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li><p>(continued) We observe that the maximum of this function lies at the maximum value of the sample. Therefore <span class="math inline">\(n^* = m\)</span> and ML estimate equals the plug-in estimate.</p></li>
 <li><p><span class="math display">\[\begin{align*}
   E[\hat{n}] &amp;= \frac{k + 1}{k} E[m] - 1 \\
   &amp;= \frac{k + 1}{k} \frac{k(n + 1)}{k + 1} - 1 \\
   &amp;= n.
-\end{align*}\]</span></p>
-</div></li>
+\end{align*}\]</span>
+:::</p></li>
 </ol>
 </div>
 
@@ -851,7 +871,6 @@ The bias of this estimator is then
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -870,6 +889,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -890,6 +910,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -903,7 +927,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

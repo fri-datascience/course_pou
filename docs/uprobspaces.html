@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Uncountable probability spaces | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Uncountable probability spaces | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
   <meta property="og:description" content="Course notes" />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2021-01-14" />
+<meta name="date" content="2023-08-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="introduction.html"/>
 <link rel="next" href="condprob.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,25 +49,24 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,13 +86,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -106,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -118,6 +117,33 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -137,81 +163,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
 <li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
-<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
 <li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fisher-information"><i class="fa fa-check"></i><b>15.2</b> Fisher information</a></li>
 <li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="nhst.html"><a href="nhst.html"><i class="fa fa-check"></i><b>16</b> Null hypothesis significance testing</a></li>
-<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a><ul>
+<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a>
+<ul>
 <li class="chapter" data-level="17.1" data-path="bi.html"><a href="bi.html#conjugate-priors"><i class="fa fa-check"></i><b>17.1</b> Conjugate priors</a></li>
 <li class="chapter" data-level="17.2" data-path="bi.html"><a href="bi.html#posterior-sampling"><i class="fa fa-check"></i><b>17.2</b> Posterior sampling</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a>
+<ul>
 <li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
 <li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
-<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a>
+<ul>
 <li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
 <li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a>
+<ul>
 <li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
 <li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
 <li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
@@ -222,7 +264,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
 <li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a>
+<ul>
 <li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
 </ul></li>
 <li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
@@ -249,8 +292,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="uprobspaces" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Uncountable probability spaces</h1>
+<div id="uprobspaces" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Uncountable probability spaces<a href="uprobspaces.html#uprobspaces" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This chapter deals with uncountable probability spaces.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
@@ -286,11 +329,10 @@ $(document).ready(function() {
   })
 });
 </script>
-<div id="bset" class="section level2">
-<h2><span class="header-section-number">2.1</span> Borel sets</h2>
-
+<div id="bset" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Borel sets<a href="uprobspaces.html#bset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-36" class="exercise"><strong>Exercise 2.1  </strong></span></p>
+<p><span id="exr:unnamed-chunk-37" class="exercise"><strong>Exercise 2.1  </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Prove that the intersection of two sigma algebras on <span class="math inline">\(\Omega\)</span> is a sigma
 algebra.</p></li>
@@ -298,16 +340,14 @@ algebra.</p></li>
 sigma algebra of <span class="math inline">\((0,1]\)</span>.</p></li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-16" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Empty set:
 <span class="math display">\[\begin{equation}
-  \emptyset \in \mathcal{A} \wedge \emptyset \in \mathcal{B} 
-  \Rightarrow \emptyset \in \mathcal{A} \cap \mathcal{B} 
+  \emptyset \in \mathcal{A} \wedge \emptyset \in \mathcal{B}
+  \Rightarrow \emptyset \in \mathcal{A} \cap \mathcal{B}
 \end{equation}\]</span>
 Complement:
 <span class="math display">\[\begin{equation}
@@ -319,7 +359,7 @@ Complement:
 Countable additivity: Let <span class="math inline">\(\{A_i\}\)</span> be a countable sequence of subsets in
 <span class="math inline">\(\mathcal{A} \cap \mathcal{B}\)</span>.
 <span class="math display">\[\begin{equation}
-  \forall i: A_i \in \mathcal{A} \cap \mathcal{B} \Rightarrow 
+  \forall i: A_i \in \mathcal{A} \cap \mathcal{B} \Rightarrow
   A_i \in \mathcal{A} \wedge A_i \in \mathcal{B} \Rightarrow
   \cup A_i \in \mathcal{A} \wedge  \cup A_i \in \mathcal{B} \Rightarrow
   \cup A_i \in \mathcal{A} \cap \mathcal{B}
@@ -329,17 +369,13 @@ Countable additivity: Let <span class="math inline">\(\{A_i\}\)</span> be a coun
 </ol>
 </div>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-38" class="exercise"><strong>Exercise 2.2  </strong></span>Show that <span class="math inline">\(\mathcal{C} = \sigma(\mathcal{C})\)</span> if and only if <span class="math inline">\(\mathcal{C}\)</span> is
+<p><span id="exr:unnamed-chunk-39" class="exercise"><strong>Exercise 2.2  </strong></span>Show that <span class="math inline">\(\mathcal{C} = \sigma(\mathcal{C})\)</span> if and only if <span class="math inline">\(\mathcal{C}\)</span> is
 a sigma algebra.</p>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
-<p>“<span class="math inline">\(\Rightarrow\)</span>” This follows from the definition of a generated sigma algebra.</p>
+<p><span id="unlabeled-div-17" class="solution"><em>Solution</em>. </span>“<span class="math inline">\(\Rightarrow\)</span>” This follows from the definition of a generated sigma algebra.</p>
 <p>“<span class="math inline">\(\Leftarrow\)</span>” Let <span class="math inline">\(\mathcal{F} = \cap_i F_i\)</span> be the intersection of all
 sigma algebras that contain <span class="math inline">\(\mathcal{C}\)</span>. Then
 <span class="math inline">\(\sigma(\mathcal{C}) = \mathcal{F}\)</span>.
@@ -354,18 +390,14 @@ Since this is the smallest subset in the intersection it follows that
 <span class="math inline">\(\sigma(\mathcal{C}) = \mathcal{F} = \mathcal{C}\)</span>.</p>
 </div>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-40" class="exercise"><strong>Exercise 2.3  </strong></span>Let <span class="math inline">\(\mathcal{C}\)</span> and <span class="math inline">\(\mathcal{D}\)</span> be two collections of subsets on <span class="math inline">\(\Omega\)</span>
+<p><span id="exr:unnamed-chunk-41" class="exercise"><strong>Exercise 2.3  </strong></span>Let <span class="math inline">\(\mathcal{C}\)</span> and <span class="math inline">\(\mathcal{D}\)</span> be two collections of subsets on <span class="math inline">\(\Omega\)</span>
 such that <span class="math inline">\(\mathcal{C} \subset \mathcal{D}\)</span>. Prove that
 <span class="math inline">\(\sigma(\mathcal{C}) \subseteq \sigma(\mathcal{D})\)</span>.</p>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> 
-<span class="math inline">\(\sigma(\mathcal{D})\)</span> is a sigma algebra that contains <span class="math inline">\(\mathcal{D}\)</span>. It
+<p><span id="unlabeled-div-18" class="solution"><em>Solution</em>. </span><span class="math inline">\(\sigma(\mathcal{D})\)</span> is a sigma algebra that contains <span class="math inline">\(\mathcal{D}\)</span>. It
 follows that <span class="math inline">\(\sigma(\mathcal{D})\)</span> is a sigma algebra that contains
 <span class="math inline">\(\mathcal{C}\)</span>. Let us write <span class="math inline">\(\sigma(\mathcal{C}) = \cap_i F_i\)</span>, where <span class="math inline">\(\{F_i\}\)</span>
 is the collection of all sigma algebras that contain <span class="math inline">\(\mathcal{C}\)</span>. Since
@@ -413,19 +445,16 @@ so that <span class="math inline">\(F_j = \sigma(\mathcal{D})\)</span>. Then we 
 <!--   ylab("depth") -->
 <!-- plot(cantor_plot) -->
 <!-- ``` -->
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-42" class="exercise"><strong>Exercise 2.4  </strong></span>Prove that the following subsets of <span class="math inline">\((0,1]\)</span> are Borel-measurable by finding their measure.</p>
+<p><span id="exr:unnamed-chunk-43" class="exercise"><strong>Exercise 2.4  </strong></span>Prove that the following subsets of <span class="math inline">\((0,1]\)</span> are Borel-measurable by finding their measure.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Any countable set.</p></li>
 <li><p>The set of numbers in (0,1] whose decimal expansion does not contain 7.</p></li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-19" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>This follows directly from the fact that every countable set is a union
 of singletons, whose measure is 0.</p></li>
@@ -447,9 +476,8 @@ Now</p></li>
 that the set is measurable.</p>
 </div>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-44" class="exercise"><strong>Exercise 2.5  </strong></span>Let <span class="math inline">\(\Omega = [0,1]\)</span>, and let <span class="math inline">\(\mathcal{F}_3\)</span> consist of all countable subsets
+<p><span id="exr:unnamed-chunk-45" class="exercise"><strong>Exercise 2.5  </strong></span>Let <span class="math inline">\(\Omega = [0,1]\)</span>, and let <span class="math inline">\(\mathcal{F}_3\)</span> consist of all countable subsets
 of <span class="math inline">\(\Omega\)</span>, and all subsets of <span class="math inline">\(\Omega\)</span> having a countable complement.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Show
@@ -460,11 +488,9 @@ a countable complement. Is <span class="math inline">\((\Omega, \mathcal{F}_3, P
 probability space?</p></li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-20" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>The empty set is countable, therefore it is in <span class="math inline">\(\mathcal{F}_3\)</span>. For any
 <span class="math inline">\(A \in \mathcal{F}_3\)</span>. If <span class="math inline">\(A\)</span> is countable, then <span class="math inline">\(A^c\)</span> has a countable
@@ -515,21 +541,17 @@ is a legitimate probability space.</p></li>
 </div>
 </div>
 </div>
-<div id="lebesgue-measure" class="section level2">
-<h2><span class="header-section-number">2.2</span> Lebesgue measure</h2>
-
+<div id="lebesgue-measure" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Lebesgue measure<a href="uprobspaces.html#lebesgue-measure" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-46" class="exercise"><strong>Exercise 2.6  </strong></span>Show that the Lebesgue measure of rational numbers on <span class="math inline">\([0,1]\)</span> is 0.
+<p><span id="exr:unnamed-chunk-47" class="exercise"><strong>Exercise 2.6  </strong></span>Show that the Lebesgue measure of rational numbers on <span class="math inline">\([0,1]\)</span> is 0.
 <span style="color:blue">R: Implement a random number generator, which
 generates uniform samples of irrational numbers in <span class="math inline">\([0,1]\)</span> by uniformly sampling
 from <span class="math inline">\([0,1]\)</span> and rejecting a sample if it is rational.</span></p>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
-<p>There are a countable number of rational numbers. Therefore, we can write
+<p><span id="unlabeled-div-21" class="solution"><em>Solution</em>. </span>There are a countable number of rational numbers. Therefore, we can write
 <span class="math display">\[\begin{align}
   \lambda(\mathbb{Q}) &amp;= \lambda(\cup_{i = 1}^{\infty} q_i) &amp;\\
                       &amp;= \sum_{i = 1}^{\infty} \lambda(q_i) &amp;\text{ (countable additivity)} \\
@@ -538,20 +560,17 @@ from <span class="math inline">\([0,1]\)</span> and rejecting a sample if it is 
 \end{align}\]</span></p>
 </div>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-48" class="exercise"><strong>Exercise 2.7  </strong></span></p>
+<p><span id="exr:unnamed-chunk-49" class="exercise"><strong>Exercise 2.7  </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Prove that the Lebesgue measure of <span class="math inline">\(\mathbb{R}\)</span> is infinity.</p></li>
 <li><p><em>Paradox</em>. Show that the cardinality of <span class="math inline">\(\mathbb{R}\)</span> and <span class="math inline">\((0,1)\)</span> is the same,
 while their Lebesgue measures are infinity and one respectively.</p></li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-22" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li>Let <span class="math inline">\(a_i\)</span> be the <span class="math inline">\(i\)</span>-th integer for <span class="math inline">\(i \in \mathbb{Z}\)</span>. We can write
 <span class="math inline">\(\mathbb{R} = \cup_{-\infty}^{\infty} (a_i, a_{i + 1}]\)</span>.</li>
@@ -576,14 +595,12 @@ that we move the function above zero. Then we only have to divide by the max
 value, which in this case is <span class="math inline">\(\pi\)</span>. So our bijection is</li>
 </ol>
 <p><span class="math display">\[\begin{equation}
- f(x) = \frac{\tan^{-1}(x) + \frac{\pi}{2}}{\pi}.
+f(x) = \frac{\tan^{-1}(x) + \frac{\pi}{2}}{\pi}.
 \end{equation}\]</span></p>
 </div>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-50" class="exercise"><strong>Exercise 2.8  </strong></span>
-Take the measure space <span class="math inline">\((\Omega_1 = (0,1], B_{(0,1]}, \lambda)\)</span> (we know
+<p><span id="exr:unnamed-chunk-51" class="exercise"><strong>Exercise 2.8  </strong></span>Take the measure space <span class="math inline">\((\Omega_1 = (0,1], B_{(0,1]}, \lambda)\)</span> (we know
 that this is a probability space on <span class="math inline">\((0,1]\)</span>).</p>
 <ol style="list-style-type: lower-alpha">
 <li>Define a map (function) from <span class="math inline">\(\Omega_1\)</span> to
@@ -599,11 +616,9 @@ in a probability space that can be interpreted as a coin toss with probability
 generator for this fair die.</span></li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-23" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li>In other words, we have to assign disjunct intervals of the same size to
 each element of <span class="math inline">\(\Omega_2\)</span>. Therefore</li>
@@ -624,10 +639,10 @@ tails. Then
 where <span class="math inline">\(A = \{y \in (0,1] : y &lt; p\}\)</span>.</li>
 </ol>
 </div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="uprobspaces.html#cb15-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb15-2"><a href="uprobspaces.html#cb15-2"></a>unif_s &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1000</span>)</span>
-<span id="cb15-3"><a href="uprobspaces.html#cb15-3"></a>die_s  &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>unif_s)</span>
-<span id="cb15-4"><a href="uprobspaces.html#cb15-4"></a><span class="kw">summary</span>(<span class="kw">as.factor</span>(die_s))</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="uprobspaces.html#cb15-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb15-2"><a href="uprobspaces.html#cb15-2" tabindex="-1"></a>unif_s <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1000</span>)</span>
+<span id="cb15-3"><a href="uprobspaces.html#cb15-3" tabindex="-1"></a>die_s  <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="dv">6</span> <span class="sc">*</span> unif_s)</span>
+<span id="cb15-4"><a href="uprobspaces.html#cb15-4" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">as.factor</span>(die_s))</span></code></pre></div>
 <pre><code>##   1   2   3   4   5   6 
 ## 166 154 200 146 166 168</code></pre>
 </div>
@@ -644,7 +659,6 @@ where <span class="math inline">\(A = \{y \in (0,1] : y &lt; p\}\)</span>.</li>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -663,6 +677,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -683,6 +698,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -696,7 +715,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

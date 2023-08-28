@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Alternative representation of distributions | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Alternative representation of distributions | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
   <meta property="og:description" content="Course notes" />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2021-01-14" />
+<meta name="date" content="2023-08-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="mrv.html"/>
 <link rel="next" href="ci.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,25 +49,24 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,13 +86,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -106,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -118,6 +117,33 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -137,81 +163,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
 <li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
-<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
 <li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fisher-information"><i class="fa fa-check"></i><b>15.2</b> Fisher information</a></li>
 <li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="nhst.html"><a href="nhst.html"><i class="fa fa-check"></i><b>16</b> Null hypothesis significance testing</a></li>
-<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a><ul>
+<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a>
+<ul>
 <li class="chapter" data-level="17.1" data-path="bi.html"><a href="bi.html#conjugate-priors"><i class="fa fa-check"></i><b>17.1</b> Conjugate priors</a></li>
 <li class="chapter" data-level="17.2" data-path="bi.html"><a href="bi.html#posterior-sampling"><i class="fa fa-check"></i><b>17.2</b> Posterior sampling</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a>
+<ul>
 <li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
 <li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
-<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a>
+<ul>
 <li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
 <li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a>
+<ul>
 <li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
 <li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
 <li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
@@ -222,7 +264,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
 <li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a>
+<ul>
 <li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
 </ul></li>
 <li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
@@ -249,8 +292,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ard" class="section level1">
-<h1><span class="header-section-number">Chapter 9</span> Alternative representation of distributions</h1>
+<div id="ard" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Alternative representation of distributions<a href="ard.html#ard" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This chapter deals with alternative representation of distributions.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
@@ -280,17 +323,14 @@ $(document).ready(function() {
   })
 });
 </script>
-<div id="probability-generating-functions-pgfs" class="section level2">
-<h2><span class="header-section-number">9.1</span> Probability generating functions (PGFs)</h2>
-
+<div id="probability-generating-functions-pgfs" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Probability generating functions (PGFs)<a href="ard.html#probability-generating-functions-pgfs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
 <p><span id="exr:poissum" class="exercise"><strong>Exercise 9.1  </strong></span>Show that the sum of independent Poisson random variables is itself a Poisson random variable. <span style="color:blue">R: Let <span class="math inline">\(X\)</span> be a sum of three Poisson distributions with <span class="math inline">\(\lambda_i \in \{2, 5.2, 10\}\)</span>. Take 1000 samples and plot the three distributions and the sum. Then take 1000 samples from the theoretical distribution of <span class="math inline">\(X\)</span> and compare them to the sum.</span></p>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(X_i \sim \text{Poisson}(\lambda_i)\)</span> for <span class="math inline">\(i = 1,...,n\)</span>, and let <span class="math inline">\(X = \sum_{i=1}^n X_i\)</span>.
+<p><span id="unlabeled-div-73" class="solution"><em>Solution</em>. </span>Let <span class="math inline">\(X_i \sim \text{Poisson}(\lambda_i)\)</span> for <span class="math inline">\(i = 1,...,n\)</span>, and let <span class="math inline">\(X = \sum_{i=1}^n X_i\)</span>.
 <span class="math display">\[\begin{align}
   \alpha_X(t) &amp;= \prod_{i=1}^n \alpha_{X_i}(t) \\
               &amp;= \prod_{i=1}^n \bigg( \sum_{j=0}^\infty t^j \frac{\lambda_i^j e^{-\lambda_i}}{j!} \bigg) \\
@@ -304,37 +344,34 @@ $(document).ready(function() {
 \end{align}\]</span>
 The last term is the PGF of a Poisson random variable with parameter <span class="math inline">\(\sum_{i=1}^n \lambda_i\)</span>. Because the PGF is unique, <span class="math inline">\(X\)</span> is a Poisson random variable.</p>
 </div>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="ard.html#cb156-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb156-2"><a href="ard.html#cb156-2"></a><span class="kw">library</span>(tidyr)</span>
-<span id="cb156-3"><a href="ard.html#cb156-3"></a>nsamps           &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb156-4"><a href="ard.html#cb156-4"></a>samps            &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="dv">4</span>)</span>
-<span id="cb156-5"><a href="ard.html#cb156-5"></a>samps[ ,<span class="dv">1</span>]       &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="dv">2</span>)</span>
-<span id="cb156-6"><a href="ard.html#cb156-6"></a>samps[ ,<span class="dv">2</span>]       &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="fl">5.2</span>)</span>
-<span id="cb156-7"><a href="ard.html#cb156-7"></a>samps[ ,<span class="dv">3</span>]       &lt;-<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="dv">10</span>)</span>
-<span id="cb156-8"><a href="ard.html#cb156-8"></a>samps[ ,<span class="dv">4</span>]       &lt;-<span class="st"> </span>samps[ ,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>samps[ ,<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span>samps[ ,<span class="dv">3</span>]</span>
-<span id="cb156-9"><a href="ard.html#cb156-9"></a><span class="kw">colnames</span>(samps)  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">2.5</span>, <span class="dv">10</span>, <span class="st">&quot;sum&quot;</span>)</span>
-<span id="cb156-10"><a href="ard.html#cb156-10"></a>gsamps           &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(samps)</span>
-<span id="cb156-11"><a href="ard.html#cb156-11"></a>gsamps           &lt;-<span class="st"> </span><span class="kw">gather</span>(gsamps, <span class="dt">key =</span> <span class="st">&quot;dist&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>)</span>
-<span id="cb156-12"><a href="ard.html#cb156-12"></a><span class="kw">ggplot</span>(gsamps, <span class="kw">aes</span>(<span class="dt">x =</span> value)) <span class="op">+</span></span>
-<span id="cb156-13"><a href="ard.html#cb156-13"></a><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></span>
-<span id="cb156-14"><a href="ard.html#cb156-14"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>dist)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-182-1.png" width="672" /></p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="ard.html#cb157-1"></a>samps              &lt;-<span class="st"> </span><span class="kw">cbind</span>(samps, <span class="st">&quot;theoretical&quot;</span> =<span class="st"> </span><span class="kw">rpois</span>(nsamps, <span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="fl">5.2</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span>))</span>
-<span id="cb157-2"><a href="ard.html#cb157-2"></a>gsamps             &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(samps[ ,<span class="dv">4</span><span class="op">:</span><span class="dv">5</span>])</span>
-<span id="cb157-3"><a href="ard.html#cb157-3"></a>gsamps             &lt;-<span class="st"> </span><span class="kw">gather</span>(gsamps, <span class="dt">key =</span> <span class="st">&quot;dist&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;value&quot;</span>)</span>
-<span id="cb157-4"><a href="ard.html#cb157-4"></a><span class="kw">ggplot</span>(gsamps, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> dist)) <span class="op">+</span></span>
-<span id="cb157-5"><a href="ard.html#cb157-5"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-182-2.png" width="672" /></p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="ard.html#cb156-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb156-2"><a href="ard.html#cb156-2" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb156-3"><a href="ard.html#cb156-3" tabindex="-1"></a>nsamps           <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb156-4"><a href="ard.html#cb156-4" tabindex="-1"></a>samps            <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="cn">NA</span>, <span class="at">nrow =</span> nsamps, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb156-5"><a href="ard.html#cb156-5" tabindex="-1"></a>samps[ ,<span class="dv">1</span>]       <span class="ot">&lt;-</span> <span class="fu">rpois</span>(nsamps, <span class="dv">2</span>)</span>
+<span id="cb156-6"><a href="ard.html#cb156-6" tabindex="-1"></a>samps[ ,<span class="dv">2</span>]       <span class="ot">&lt;-</span> <span class="fu">rpois</span>(nsamps, <span class="fl">5.2</span>)</span>
+<span id="cb156-7"><a href="ard.html#cb156-7" tabindex="-1"></a>samps[ ,<span class="dv">3</span>]       <span class="ot">&lt;-</span> <span class="fu">rpois</span>(nsamps, <span class="dv">10</span>)</span>
+<span id="cb156-8"><a href="ard.html#cb156-8" tabindex="-1"></a>samps[ ,<span class="dv">4</span>]       <span class="ot">&lt;-</span> samps[ ,<span class="dv">1</span>] <span class="sc">+</span> samps[ ,<span class="dv">2</span>] <span class="sc">+</span> samps[ ,<span class="dv">3</span>]</span>
+<span id="cb156-9"><a href="ard.html#cb156-9" tabindex="-1"></a><span class="fu">colnames</span>(samps)  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="fl">2.5</span>, <span class="dv">10</span>, <span class="st">&quot;sum&quot;</span>)</span>
+<span id="cb156-10"><a href="ard.html#cb156-10" tabindex="-1"></a>gsamps           <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(samps)</span>
+<span id="cb156-11"><a href="ard.html#cb156-11" tabindex="-1"></a>gsamps           <span class="ot">&lt;-</span> <span class="fu">gather</span>(gsamps, <span class="at">key =</span> <span class="st">&quot;dist&quot;</span>, <span class="at">value =</span> <span class="st">&quot;value&quot;</span>)</span>
+<span id="cb156-12"><a href="ard.html#cb156-12" tabindex="-1"></a><span class="fu">ggplot</span>(gsamps, <span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
+<span id="cb156-13"><a href="ard.html#cb156-13" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb156-14"><a href="ard.html#cb156-14" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> dist)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-183-1.png" width="672" /></p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="ard.html#cb157-1" tabindex="-1"></a>samps              <span class="ot">&lt;-</span> <span class="fu">cbind</span>(samps, <span class="st">&quot;theoretical&quot;</span> <span class="ot">=</span> <span class="fu">rpois</span>(nsamps, <span class="dv">2</span> <span class="sc">+</span> <span class="fl">5.2</span> <span class="sc">+</span> <span class="dv">10</span>))</span>
+<span id="cb157-2"><a href="ard.html#cb157-2" tabindex="-1"></a>gsamps             <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(samps[ ,<span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb157-3"><a href="ard.html#cb157-3" tabindex="-1"></a>gsamps             <span class="ot">&lt;-</span> <span class="fu">gather</span>(gsamps, <span class="at">key =</span> <span class="st">&quot;dist&quot;</span>, <span class="at">value =</span> <span class="st">&quot;value&quot;</span>)</span>
+<span id="cb157-4"><a href="ard.html#cb157-4" tabindex="-1"></a><span class="fu">ggplot</span>(gsamps, <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">fill =</span> dist)) <span class="sc">+</span></span>
+<span id="cb157-5"><a href="ard.html#cb157-5" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-183-2.png" width="672" /></p>
 </div>
-
 <div class="exercise">
 <p><span id="exr:nbev" class="exercise"><strong>Exercise 9.2  </strong></span>Find the expected value and variance of the negative binomial distribution. Hint: Find the Taylor series of <span class="math inline">\((1 - y)^{-r}\)</span> at point 0.</p>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(X \sim \text{NB}(r, p)\)</span>.
+<p><span id="unlabeled-div-74" class="solution"><em>Solution</em>. </span>Let <span class="math inline">\(X \sim \text{NB}(r, p)\)</span>.
 <span class="math display">\[\begin{align}
   \alpha_X(t) &amp;= E[t^X] \\
               &amp;= \sum_{j=0}^\infty t^j \binom{j + r - 1}{j} (1 - p)^r p^j \\
@@ -376,39 +413,36 @@ Evaluating this at 1, we get:
          &amp;= \frac{rp}{(1 - p)^2}.
 \end{align}\]</span></p>
 </div>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="ard.html#cb158-1"></a><span class="kw">library</span>(tidyr)</span>
-<span id="cb158-2"><a href="ard.html#cb158-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb158-3"><a href="ard.html#cb158-3"></a>nsamps &lt;-<span class="st"> </span><span class="dv">100000</span></span>
-<span id="cb158-4"><a href="ard.html#cb158-4"></a>find_p &lt;-<span class="st"> </span><span class="cf">function</span> (mu, r) {</span>
-<span id="cb158-5"><a href="ard.html#cb158-5"></a>  <span class="kw">return</span> (<span class="dv">10</span> <span class="op">/</span><span class="st"> </span>(r <span class="op">+</span><span class="st"> </span><span class="dv">10</span>))</span>
-<span id="cb158-6"><a href="ard.html#cb158-6"></a>}</span>
-<span id="cb158-7"><a href="ard.html#cb158-7"></a>r &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">10</span>,<span class="dv">20</span>)</span>
-<span id="cb158-8"><a href="ard.html#cb158-8"></a>p &lt;-<span class="st"> </span><span class="kw">find_p</span>(<span class="dv">10</span>, r)</span>
-<span id="cb158-9"><a href="ard.html#cb158-9"></a>sigma &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">sqrt</span>(p<span class="op">*</span>r <span class="op">/</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p)<span class="op">^</span><span class="dv">2</span>), <span class="dt">each =</span> nsamps)</span>
-<span id="cb158-10"><a href="ard.html#cb158-10"></a>samps &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="st">&quot;r=1&quot;</span>  =<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> r[<span class="dv">1</span>], <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p[<span class="dv">1</span>]),</span>
-<span id="cb158-11"><a href="ard.html#cb158-11"></a>               <span class="st">&quot;r=2&quot;</span>  =<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> r[<span class="dv">2</span>], <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p[<span class="dv">2</span>]),</span>
-<span id="cb158-12"><a href="ard.html#cb158-12"></a>               <span class="st">&quot;r=4&quot;</span>  =<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> r[<span class="dv">3</span>], <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p[<span class="dv">3</span>]),</span>
-<span id="cb158-13"><a href="ard.html#cb158-13"></a>               <span class="st">&quot;r=20&quot;</span> =<span class="st"> </span><span class="kw">rnbinom</span>(nsamps, <span class="dt">size =</span> r[<span class="dv">4</span>], <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p[<span class="dv">4</span>]))</span>
-<span id="cb158-14"><a href="ard.html#cb158-14"></a>gsamps &lt;-<span class="st"> </span><span class="kw">gather</span>(<span class="kw">as.data.frame</span>(samps))</span>
-<span id="cb158-15"><a href="ard.html#cb158-15"></a>iw     &lt;-<span class="st"> </span>(gsamps<span class="op">$</span>value <span class="op">&gt;</span><span class="st"> </span>sigma <span class="op">+</span><span class="st"> </span><span class="dv">10</span>) <span class="op">|</span><span class="st"> </span>(gsamps<span class="op">$</span>value <span class="op">&lt;</span><span class="st"> </span>sigma <span class="op">-</span><span class="st"> </span><span class="dv">10</span>)</span>
-<span id="cb158-16"><a href="ard.html#cb158-16"></a><span class="kw">ggplot</span>(gsamps, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> iw)) <span class="op">+</span></span>
-<span id="cb158-17"><a href="ard.html#cb158-17"></a><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></span>
-<span id="cb158-18"><a href="ard.html#cb158-18"></a><span class="st">  </span><span class="co"># geom_density() +</span></span>
-<span id="cb158-19"><a href="ard.html#cb158-19"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>key)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-184-1.png" width="672" /></p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="ard.html#cb158-1" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb158-2"><a href="ard.html#cb158-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb158-3"><a href="ard.html#cb158-3" tabindex="-1"></a>nsamps <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb158-4"><a href="ard.html#cb158-4" tabindex="-1"></a>find_p <span class="ot">&lt;-</span> <span class="cf">function</span> (mu, r) {</span>
+<span id="cb158-5"><a href="ard.html#cb158-5" tabindex="-1"></a>  <span class="fu">return</span> (<span class="dv">10</span> <span class="sc">/</span> (r <span class="sc">+</span> <span class="dv">10</span>))</span>
+<span id="cb158-6"><a href="ard.html#cb158-6" tabindex="-1"></a>}</span>
+<span id="cb158-7"><a href="ard.html#cb158-7" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">10</span>,<span class="dv">20</span>)</span>
+<span id="cb158-8"><a href="ard.html#cb158-8" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">find_p</span>(<span class="dv">10</span>, r)</span>
+<span id="cb158-9"><a href="ard.html#cb158-9" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">sqrt</span>(p<span class="sc">*</span>r <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> p)<span class="sc">^</span><span class="dv">2</span>), <span class="at">each =</span> nsamps)</span>
+<span id="cb158-10"><a href="ard.html#cb158-10" tabindex="-1"></a>samps <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="st">&quot;r=1&quot;</span>  <span class="ot">=</span> <span class="fu">rnbinom</span>(nsamps, <span class="at">size =</span> r[<span class="dv">1</span>], <span class="at">prob =</span> <span class="dv">1</span> <span class="sc">-</span> p[<span class="dv">1</span>]),</span>
+<span id="cb158-11"><a href="ard.html#cb158-11" tabindex="-1"></a>               <span class="st">&quot;r=2&quot;</span>  <span class="ot">=</span> <span class="fu">rnbinom</span>(nsamps, <span class="at">size =</span> r[<span class="dv">2</span>], <span class="at">prob =</span> <span class="dv">1</span> <span class="sc">-</span> p[<span class="dv">2</span>]),</span>
+<span id="cb158-12"><a href="ard.html#cb158-12" tabindex="-1"></a>               <span class="st">&quot;r=4&quot;</span>  <span class="ot">=</span> <span class="fu">rnbinom</span>(nsamps, <span class="at">size =</span> r[<span class="dv">3</span>], <span class="at">prob =</span> <span class="dv">1</span> <span class="sc">-</span> p[<span class="dv">3</span>]),</span>
+<span id="cb158-13"><a href="ard.html#cb158-13" tabindex="-1"></a>               <span class="st">&quot;r=20&quot;</span> <span class="ot">=</span> <span class="fu">rnbinom</span>(nsamps, <span class="at">size =</span> r[<span class="dv">4</span>], <span class="at">prob =</span> <span class="dv">1</span> <span class="sc">-</span> p[<span class="dv">4</span>]))</span>
+<span id="cb158-14"><a href="ard.html#cb158-14" tabindex="-1"></a>gsamps <span class="ot">&lt;-</span> <span class="fu">gather</span>(<span class="fu">as.data.frame</span>(samps))</span>
+<span id="cb158-15"><a href="ard.html#cb158-15" tabindex="-1"></a>iw     <span class="ot">&lt;-</span> (gsamps<span class="sc">$</span>value <span class="sc">&gt;</span> sigma <span class="sc">+</span> <span class="dv">10</span>) <span class="sc">|</span> (gsamps<span class="sc">$</span>value <span class="sc">&lt;</span> sigma <span class="sc">-</span> <span class="dv">10</span>)</span>
+<span id="cb158-16"><a href="ard.html#cb158-16" tabindex="-1"></a><span class="fu">ggplot</span>(gsamps, <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">fill =</span> iw)) <span class="sc">+</span></span>
+<span id="cb158-17"><a href="ard.html#cb158-17" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb158-18"><a href="ard.html#cb158-18" tabindex="-1"></a>  <span class="co"># geom_density() +</span></span>
+<span id="cb158-19"><a href="ard.html#cb158-19" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> key)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-185-1.png" width="672" /></p>
 </div>
 </div>
-<div id="moment-generating-functions-mgfs" class="section level2">
-<h2><span class="header-section-number">9.2</span> Moment generating functions (MGFs)</h2>
-
+<div id="moment-generating-functions-mgfs" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Moment generating functions (MGFs)<a href="ard.html#moment-generating-functions-mgfs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
 <p><span id="exr:geovar" class="exercise"><strong>Exercise 9.3  </strong></span>Find the variance of the geometric distribution.</p>
 </div>
-
 <div class="fold">
-
 <div class="solution">
- <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(X \sim \text{Geometric}(p)\)</span>. The MGF of the geometric distribution is
+<p><span id="unlabeled-div-75" class="solution"><em>Solution</em>. </span>Let <span class="math inline">\(X \sim \text{Geometric}(p)\)</span>. The MGF of the geometric distribution is
 <span class="math display">\[\begin{align}
   M_X(t) &amp;= E[e^{tX}] \\
          &amp;= \sum_{k=0}^\infty p(1 - p)^k e^{tk} \\
@@ -432,18 +466,15 @@ and evaluating at <span class="math inline">\(t = 0\)</span>, we get <span class
   Var(X) &amp;= \frac{(p - 1)(p - 2)}{p^2} - \frac{(1 - p)^2}{p^2} \\
          &amp;= \frac{(p-1)(p-2) - (1-p)^2}{p^2} \\
          &amp;= \frac{1 - p}{p^2}.
-\end{align}\]</span>
+\end{align}\]</span></p>
 </div>
 </div>
-
 <div class="exercise">
 <p><span id="exr:nsumev" class="exercise"><strong>Exercise 9.4  </strong></span>Find the distribution of sum of two normal random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, by comparing <span class="math inline">\(M_{X+Y}(t)\)</span> to <span class="math inline">\(M_X(t)\)</span>. <span style="color:blue">R: To illustrate the result draw random samples from N<span class="math inline">\((-3, 1)\)</span> and N<span class="math inline">\((5, 1.2)\)</span> and calculate the empirical mean and variance of <span class="math inline">\(X+Y\)</span>. Plot all three histograms in one plot. </span></p>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(X \sim \text{N}(\mu_X, 1)\)</span> and <span class="math inline">\(Y \sim \text{N}(\mu_Y, 1)\)</span>. The MGF of the sum is
+<p><span id="unlabeled-div-76" class="solution"><em>Solution</em>. </span>Let <span class="math inline">\(X \sim \text{N}(\mu_X, 1)\)</span> and <span class="math inline">\(Y \sim \text{N}(\mu_Y, 1)\)</span>. The MGF of the sum is
 <span class="math display">\[\begin{align}
   M_{X+Y}(t) &amp;= M_X(t) M_Y(t).
 \end{align}\]</span>
@@ -465,22 +496,22 @@ The MGF of the sum is then
 \end{align}\]</span>
 By comparing <span class="math inline">\(M_{X+Y}(t)\)</span> and <span class="math inline">\(M_X(t)\)</span> we observe that both have two terms. The first is <span class="math inline">\(2t^2\)</span> multiplied by the variance, and the second is <span class="math inline">\(2t\)</span> multiplied by the mean. Since MGFs are unique, we conclude that <span class="math inline">\(Z = X + Y \sim \text{N}(\mu_X + \mu_Y, \sigma_X^2 + \sigma_Y^2)\)</span>.</p>
 </div>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="ard.html#cb159-1"></a><span class="kw">library</span>(tidyr)</span>
-<span id="cb159-2"><a href="ard.html#cb159-2"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb159-3"><a href="ard.html#cb159-3"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb159-4"><a href="ard.html#cb159-4"></a>nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb159-5"><a href="ard.html#cb159-5"></a>x      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dv">-3</span>, <span class="dv">1</span>)</span>
-<span id="cb159-6"><a href="ard.html#cb159-6"></a>y      &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nsamps, <span class="dv">5</span>, <span class="fl">1.2</span>)</span>
-<span id="cb159-7"><a href="ard.html#cb159-7"></a>z      &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y</span>
-<span id="cb159-8"><a href="ard.html#cb159-8"></a><span class="kw">mean</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="ard.html#cb159-1" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb159-2"><a href="ard.html#cb159-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb159-3"><a href="ard.html#cb159-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb159-4"><a href="ard.html#cb159-4" tabindex="-1"></a>nsamps <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb159-5"><a href="ard.html#cb159-5" tabindex="-1"></a>x      <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nsamps, <span class="sc">-</span><span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb159-6"><a href="ard.html#cb159-6" tabindex="-1"></a>y      <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nsamps, <span class="dv">5</span>, <span class="fl">1.2</span>)</span>
+<span id="cb159-7"><a href="ard.html#cb159-7" tabindex="-1"></a>z      <span class="ot">&lt;-</span> x <span class="sc">+</span> y</span>
+<span id="cb159-8"><a href="ard.html#cb159-8" tabindex="-1"></a><span class="fu">mean</span>(z)</span></code></pre></div>
 <pre><code>## [1] 1.968838</code></pre>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="ard.html#cb161-1"></a><span class="kw">var</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="ard.html#cb161-1" tabindex="-1"></a><span class="fu">var</span>(z)</span></code></pre></div>
 <pre><code>## [1] 2.645034</code></pre>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="ard.html#cb163-1"></a>df     &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">z =</span> z) <span class="op">%&gt;%</span></span>
-<span id="cb163-2"><a href="ard.html#cb163-2"></a><span class="st">  </span><span class="kw">gather</span>()</span>
-<span id="cb163-3"><a href="ard.html#cb163-3"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> value, <span class="dt">fill =</span> key)) <span class="op">+</span></span>
-<span id="cb163-4"><a href="ard.html#cb163-4"></a><span class="st">         </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-187-1.png" width="672" /></p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="ard.html#cb163-1" tabindex="-1"></a>df     <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">z =</span> z) <span class="sc">%&gt;%</span></span>
+<span id="cb163-2"><a href="ard.html#cb163-2" tabindex="-1"></a>  <span class="fu">gather</span>()</span>
+<span id="cb163-3"><a href="ard.html#cb163-3" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">fill =</span> key)) <span class="sc">+</span></span>
+<span id="cb163-4"><a href="ard.html#cb163-4" tabindex="-1"></a>         <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-188-1.png" width="672" /></p>
 </div>
 
 </div>
@@ -495,7 +526,6 @@ By comparing <span class="math inline">\(M_{X+Y}(t)\)</span> and <span class="ma
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -514,6 +544,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -534,6 +565,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -547,7 +582,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

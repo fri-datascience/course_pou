@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 13 Estimation basics | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 13 Estimation basics | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2022-12-19" />
+<meta name="date" content="2023-08-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -322,7 +326,7 @@ $(document).ready(function() {
 <div id="ecdf" class="section level2 hasAnchor" number="13.1">
 <h2><span class="header-section-number">13.1</span> ECDF<a href="eb.html#ecdf" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 13.1  (ECDF intuition) </strong></span></p>
+<p><span id="exr:unnamed-chunk-213" class="exercise"><strong>Exercise 13.1  (ECDF intuition) </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li>Take any univariate continuous distribution that is readily available in R and plot its CDF (<span class="math inline">\(F\)</span>).</li>
 <li>Draw one sample (<span class="math inline">\(n = 1\)</span>) from the chosen distribution and draw the ECDF (<span class="math inline">\(F_n\)</span>) of that one sample. Use the definition of the ECDF, not an existing function in R. Implementation hint: ECDFs are always piecewise constant - they only jump at the sampled values and by <span class="math inline">\(1/n\)</span>.</li>
@@ -331,38 +335,38 @@ $(document).ready(function() {
 </ol>
 </div>
 <div class="fold">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="eb.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="eb.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb1-3"><a href="eb.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.01</span>))) <span class="sc">+</span></span>
-<span id="cb1-4"><a href="eb.html#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))</span></span>
-<span id="cb1-5"><a href="eb.html#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> x), <span class="at">fun =</span> pnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="eb.html#cb2-1" aria-hidden="true" tabindex="-1"></a>one_samp <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
-<span id="cb2-2"><a href="eb.html#cb2-2" aria-hidden="true" tabindex="-1"></a>X        <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, one_samp, <span class="dv">5</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb2-3"><a href="eb.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.01</span>))) <span class="sc">+</span></span>
-<span id="cb2-4"><a href="eb.html#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))</span></span>
-<span id="cb2-5"><a href="eb.html#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> x), <span class="at">fun =</span> pnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb2-6"><a href="eb.html#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_step</span>(<span class="at">data =</span> X, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y))</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="eb.html#cb3-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>)</span>
-<span id="cb3-2"><a href="eb.html#cb3-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb3-3"><a href="eb.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> N) {</span>
-<span id="cb3-4"><a href="eb.html#cb3-4" aria-hidden="true" tabindex="-1"></a>  tmp   <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb3-5"><a href="eb.html#cb3-5" aria-hidden="true" tabindex="-1"></a>  tmp_X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="fu">sort</span>(tmp), <span class="dv">5</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">/</span>n, <span class="dv">1</span>, <span class="at">by =</span> <span class="dv">1</span><span class="sc">/</span>n), <span class="dv">1</span>), <span class="at">n =</span> n)</span>
-<span id="cb3-6"><a href="eb.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  X     <span class="ot">&lt;-</span> <span class="fu">rbind</span>(X, tmp_X)</span>
-<span id="cb3-7"><a href="eb.html#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-8"><a href="eb.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.01</span>))) <span class="sc">+</span></span>
-<span id="cb3-9"><a href="eb.html#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))</span></span>
-<span id="cb3-10"><a href="eb.html#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> x), <span class="at">fun =</span> pnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb3-11"><a href="eb.html#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_step</span>(<span class="at">data =</span> X, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> <span class="fu">as.factor</span>(n))) <span class="sc">+</span></span>
-<span id="cb3-12"><a href="eb.html#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;N&quot;</span>)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="eb.html#cb180-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb180-2"><a href="eb.html#cb180-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb180-3"><a href="eb.html#cb180-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.01</span>))) <span class="sc">+</span></span>
+<span id="cb180-4"><a href="eb.html#cb180-4" tabindex="-1"></a>  <span class="co"># stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))</span></span>
+<span id="cb180-5"><a href="eb.html#cb180-5" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> x), <span class="at">fun =</span> pnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-214-1.png" width="672" /></p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="eb.html#cb181-1" tabindex="-1"></a>one_samp <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb181-2"><a href="eb.html#cb181-2" tabindex="-1"></a>X        <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, one_samp, <span class="dv">5</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb181-3"><a href="eb.html#cb181-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.01</span>))) <span class="sc">+</span></span>
+<span id="cb181-4"><a href="eb.html#cb181-4" tabindex="-1"></a>  <span class="co"># stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))</span></span>
+<span id="cb181-5"><a href="eb.html#cb181-5" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> x), <span class="at">fun =</span> pnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb181-6"><a href="eb.html#cb181-6" tabindex="-1"></a>  <span class="fu">geom_step</span>(<span class="at">data =</span> X, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y))</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-214-2.png" width="672" /></p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="eb.html#cb182-1" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>)</span>
+<span id="cb182-2"><a href="eb.html#cb182-2" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb182-3"><a href="eb.html#cb182-3" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> N) {</span>
+<span id="cb182-4"><a href="eb.html#cb182-4" tabindex="-1"></a>  tmp   <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb182-5"><a href="eb.html#cb182-5" tabindex="-1"></a>  tmp_X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="fu">sort</span>(tmp), <span class="dv">5</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">/</span>n, <span class="dv">1</span>, <span class="at">by =</span> <span class="dv">1</span><span class="sc">/</span>n), <span class="dv">1</span>), <span class="at">n =</span> n)</span>
+<span id="cb182-6"><a href="eb.html#cb182-6" tabindex="-1"></a>  X     <span class="ot">&lt;-</span> <span class="fu">rbind</span>(X, tmp_X)</span>
+<span id="cb182-7"><a href="eb.html#cb182-7" tabindex="-1"></a>}</span>
+<span id="cb182-8"><a href="eb.html#cb182-8" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.01</span>))) <span class="sc">+</span></span>
+<span id="cb182-9"><a href="eb.html#cb182-9" tabindex="-1"></a>  <span class="co"># stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))</span></span>
+<span id="cb182-10"><a href="eb.html#cb182-10" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="fu">aes</span>(<span class="at">x =</span> x), <span class="at">fun =</span> pnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb182-11"><a href="eb.html#cb182-11" tabindex="-1"></a>  <span class="fu">geom_step</span>(<span class="at">data =</span> X, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> <span class="fu">as.factor</span>(n))) <span class="sc">+</span></span>
+<span id="cb182-12"><a href="eb.html#cb182-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;N&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-214-3.png" width="672" /></p>
 </div>
 </div>
 <div id="properties-of-estimators" class="section level2 hasAnchor" number="13.2">
 <h2><span class="header-section-number">13.2</span> Properties of estimators<a href="eb.html#properties-of-estimators" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 13.2  </strong></span>Show that the sample average is, as an estimator of the mean:</p>
+<p><span id="exr:unnamed-chunk-215" class="exercise"><strong>Exercise 13.2  </strong></span>Show that the sample average is, as an estimator of the mean:</p>
 <ol style="list-style-type: lower-alpha">
 <li>unbiased,</li>
 <li>consistent,</li>
@@ -371,7 +375,7 @@ $(document).ready(function() {
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-1" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-84" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math display">\[\begin{align*}
 E[\frac{1}{n} \sum_{i=1}^n X_i] &amp;= \frac{1}{n} \sum_{i=i}^n E[X_i] \\
@@ -381,7 +385,7 @@ E[\frac{1}{n} \sum_{i=1}^n X_i] &amp;= \frac{1}{n} \sum_{i=i}^n E[X_i] \\
 \lim_{n \rightarrow \infty} P(|\frac{1}{n} \sum_{i=1}^n X_i - E[X]| &gt; \epsilon) &amp;= \lim_{n \rightarrow \infty} P((\frac{1}{n} \sum_{i=1}^n X_i - E[X])^2 &gt; \epsilon^2) \\
 &amp; \leq \lim_{n \rightarrow \infty} \frac{E[(\frac{1}{n} \sum_{i=1}^n X_i - E[X])^2]}{\epsilon^2} &amp; \text{Markov inequality} \\
 &amp; = \lim_{n \rightarrow \infty} \frac{E[(\frac{1}{n} \sum_{i=1}^n X_i)^2 - 2 \frac{1}{n} \sum_{i=1}^n X_i E[X] + E[X]^2]}{\epsilon^2} \\
-&amp; = \lim_{n \rightarrow \infty} \frac{E[(\frac{1}{n} \sum_{i=1}^n X_i)^2] - 2 E[X] + E[X]^2}{\epsilon^2} \\
+&amp; = \lim_{n \rightarrow \infty} \frac{E[(\frac{1}{n} \sum_{i=1}^n X_i)^2] - 2 E[X]^2 + E[X]^2}{\epsilon^2} \\
 &amp;= 0
 \end{align*}\]</span>
 For the last equality see the solution to <a href="#exr:vardecomp"><strong>??</strong></a>.</p></li>
@@ -399,7 +403,7 @@ For the last equality see the solution to <a href="#exr:vardecomp"><strong>??</s
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-2" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-85" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math display">\[\begin{align*}
 E[\frac{1}{n} \sum_{i=1}^n (Y_i - \bar{Y})^2] &amp;= \frac{1}{n} \sum_{i=1}^n E[(Y_i - \bar{Y})^2] \\
@@ -420,7 +424,7 @@ Now <span class="math inline">\(\bar{X}\)</span> converges in probability (by WL
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-7" class="exercise"><strong>Exercise 13.4  (Estimating the median) </strong></span></p>
+<p><span id="exr:unnamed-chunk-218" class="exercise"><strong>Exercise 13.4  (Estimating the median) </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li>Show that the sample median is an unbiased estimator of the median for N<span class="math inline">\((\mu, \sigma^2)\)</span>.</li>
 <li>Show that the sample median is an unbiased estimator of the mean for any distribution with symmetric density.</li>
@@ -430,7 +434,7 @@ Now <span class="math inline">\(\bar{X}\)</span> converges in probability (by WL
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-3" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-86" class="solution"><em>Solution</em>. </span></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Let <span class="math inline">\(Z_i\)</span>, <span class="math inline">\(i = 1,...,n\)</span> be i.i.d. variables with a symmetric distribution and let <span class="math inline">\(Z_{k:n}\)</span> denote the <span class="math inline">\(k\)</span>-th order statistic. We will distinguish two cases, when <span class="math inline">\(n\)</span> is odd and when <span class="math inline">\(n\)</span> is even. Let first <span class="math inline">\(n = 2m + 1\)</span> be odd. Then the sample median is <span class="math inline">\(M = Z_{m+1:2m+1}\)</span>. Its PDF is
 <span class="math display">\[\begin{align*}
@@ -453,7 +457,7 @@ The above also proves point a. as the median and the mean are the same in normal
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-9" class="exercise"><strong>Exercise 13.5  (Matrix trace estimation) </strong></span>The Hutchinson trace estimator [1] is an estimator of the trace of a symmetric positive semidefinite matrix A that relies on Monte Carlo sampling. The estimator is defined as
+<p><span id="exr:unnamed-chunk-220" class="exercise"><strong>Exercise 13.5  (Matrix trace estimation) </strong></span>The Hutchinson trace estimator [1] is an estimator of the trace of a symmetric positive semidefinite matrix A that relies on Monte Carlo sampling. The estimator is defined as
 <span class="math display">\[\begin{align*}
   \textrm{tr}(A) \approx \frac{1}{n} \Sigma_{i=1}^n z_i^T A z_i, &amp;\\
   z_i \sim_{\mathrm{IID}} \textrm{Uniform}(\{-1, 1\}^m), &amp;
@@ -477,7 +481,7 @@ A Modern Analysis of Hutchinson’s Trace Estimator (Skorski, 2020)
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-4" class="solution"><em>Solution</em>. </span>We first simplify our task:
+<p><span id="unlabeled-div-87" class="solution"><em>Solution</em>. </span>We first simplify our task:
 <span class="math display">\[\begin{align}
   \mathbb{E}\left[\frac{1}{n} \Sigma_{i=1}^n z_i^T A z_i \right] &amp;= \frac{1}{n} \Sigma_{i=1}^n \mathbb{E}\left[z_i^T A z_i \right] \\
                                                                  &amp;= \mathbb{E}\left[z_i^T A z_i \right],

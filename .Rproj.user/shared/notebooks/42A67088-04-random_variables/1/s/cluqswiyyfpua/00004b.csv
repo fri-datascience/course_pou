@@ -1,5 +1,0 @@
-"0",""
-"0","nl_plot <- ggplot(data = data.frame(x = seq(5, 10, by = 0.01)), aes(x = x)) +"
-"0","  stat_function(fun = dnorm, args = list(mean = 0, sd = 2), aes(color = ""normal"")) +"
-"0","  stat_function(fun = logit_pdf, args = list(mu = 0, s = sqrt(12/pi^2)), aes(color = ""logit""))"
-"0","plot(nl_plot)"

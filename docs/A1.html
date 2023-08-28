@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>A R programming language | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="A R programming language | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
   <meta property="og:description" content="Course notes" />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2021-01-14" />
+<meta name="date" content="2023-08-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="bi.html"/>
 <link rel="next" href="probability-distributions.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,25 +49,24 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,13 +86,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -106,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -118,6 +117,33 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -137,81 +163,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
 <li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
-<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
 <li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fisher-information"><i class="fa fa-check"></i><b>15.2</b> Fisher information</a></li>
 <li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="nhst.html"><a href="nhst.html"><i class="fa fa-check"></i><b>16</b> Null hypothesis significance testing</a></li>
-<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a><ul>
+<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a>
+<ul>
 <li class="chapter" data-level="17.1" data-path="bi.html"><a href="bi.html#conjugate-priors"><i class="fa fa-check"></i><b>17.1</b> Conjugate priors</a></li>
 <li class="chapter" data-level="17.2" data-path="bi.html"><a href="bi.html#posterior-sampling"><i class="fa fa-check"></i><b>17.2</b> Posterior sampling</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a>
+<ul>
 <li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
 <li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
-<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a>
+<ul>
 <li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
 <li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a>
+<ul>
 <li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
 <li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
 <li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
@@ -222,7 +264,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
 <li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a>
+<ul>
 <li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
 </ul></li>
 <li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
@@ -249,14 +292,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="A1" class="section level1">
-<h1><span class="header-section-number">A</span> R programming language</h1>
-<div id="basic-characteristics" class="section level2">
-<h2><span class="header-section-number">A.1</span> Basic characteristics</h2>
+<div id="A1" class="section level1 hasAnchor" number="18">
+<h1><span class="header-section-number">A</span> R programming language<a href="A1.html#A1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="basic-characteristics" class="section level2 hasAnchor" number="18.1">
+<h2><span class="header-section-number">A.1</span> Basic characteristics<a href="A1.html#basic-characteristics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>R is free software for statistical computing and graphics. It is widely used by statisticians, scientists, and other professionals for software development and data analysis. It is an interpreted language and therefore the programs do not need compilation.</p>
 </div>
-<div id="why-r" class="section level2">
-<h2><span class="header-section-number">A.2</span> Why R?</h2>
+<div id="why-r" class="section level2 hasAnchor" number="18.2">
+<h2><span class="header-section-number">A.2</span> Why R?<a href="A1.html#why-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>R is one of the main two languages used for statistics and machine learning (the other being Python).</p>
 <p><strong>Pros</strong></p>
 <ul>
@@ -275,15 +318,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Object oriented programming in R can be very confusing and complex.</li>
 </ul>
 </div>
-<div id="setting-up" class="section level2">
-<h2><span class="header-section-number">A.3</span> Setting up</h2>
+<div id="setting-up" class="section level2 hasAnchor" number="18.3">
+<h2><span class="header-section-number">A.3</span> Setting up<a href="A1.html#setting-up" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>.</p>
-<div id="rstudio" class="section level3">
-<h3><span class="header-section-number">A.3.1</span> RStudio</h3>
+<div id="rstudio" class="section level3 hasAnchor" number="18.3.1">
+<h3><span class="header-section-number">A.3.1</span> RStudio<a href="A1.html#rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>RStudio is the most widely used IDE for R. It is free, you can download it from <a href="https://rstudio.com/" class="uri">https://rstudio.com/</a>. While console R is sufficient for the requirements of this course, we recommend the students install RStudio for its better user interface.</p>
 </div>
-<div id="libraries-for-data-science" class="section level3">
-<h3><span class="header-section-number">A.3.2</span> Libraries for data science</h3>
+<div id="libraries-for-data-science" class="section level3 hasAnchor" number="18.3.2">
+<h3><span class="header-section-number">A.3.2</span> Libraries for data science<a href="A1.html#libraries-for-data-science" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Listed below are some of the more useful libraries (packages) for data science. Students are also encouraged to find other useful packages.</p>
 <ul>
 <li><strong>dplyr</strong> Efficient data manipulation. Part of the wider package collection called <strong>tidyverse</strong>.</li>
@@ -296,10 +339,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 </div>
-<div id="r-basics" class="section level2">
-<h2><span class="header-section-number">A.4</span> R basics</h2>
-<div id="variables-and-types" class="section level3">
-<h3><span class="header-section-number">A.4.1</span> Variables and types</h3>
+<div id="r-basics" class="section level2 hasAnchor" number="18.4">
+<h2><span class="header-section-number">A.4</span> R basics<a href="A1.html#r-basics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="variables-and-types" class="section level3 hasAnchor" number="18.4.1">
+<h3><span class="header-section-number">A.4.1</span> Variables and types<a href="A1.html#variables-and-types" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Important information and tips:</p>
 <ul>
 <li>no type declaration</li>
@@ -309,52 +352,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>change types with <code>as.type()</code> functions</li>
 <li>no special type for single character like C++ for example</li>
 </ul>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="A1.html#cb297-1"></a>n            &lt;-<span class="st"> </span><span class="dv">20</span></span>
-<span id="cb297-2"><a href="A1.html#cb297-2"></a>x            &lt;-<span class="st"> </span><span class="fl">2.7</span></span>
-<span id="cb297-3"><a href="A1.html#cb297-3"></a>m            &lt;-<span class="st"> </span>n <span class="co"># m gets value 20</span></span>
-<span id="cb297-4"><a href="A1.html#cb297-4"></a>my_flag      &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
-<span id="cb297-5"><a href="A1.html#cb297-5"></a>student_name &lt;-<span class="st"> &quot;Luka&quot;</span></span>
-<span id="cb297-6"><a href="A1.html#cb297-6"></a><span class="kw">typeof</span>(n)</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="A1.html#cb333-1" tabindex="-1"></a>n            <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb333-2"><a href="A1.html#cb333-2" tabindex="-1"></a>x            <span class="ot">&lt;-</span> <span class="fl">2.7</span></span>
+<span id="cb333-3"><a href="A1.html#cb333-3" tabindex="-1"></a>m            <span class="ot">&lt;-</span> n <span class="co"># m gets value 20</span></span>
+<span id="cb333-4"><a href="A1.html#cb333-4" tabindex="-1"></a>my_flag      <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb333-5"><a href="A1.html#cb333-5" tabindex="-1"></a>student_name <span class="ot">&lt;-</span> <span class="st">&quot;Luka&quot;</span></span>
+<span id="cb333-6"><a href="A1.html#cb333-6" tabindex="-1"></a><span class="fu">typeof</span>(n)</span></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="A1.html#cb299-1"></a><span class="kw">typeof</span>(student_name)</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="A1.html#cb335-1" tabindex="-1"></a><span class="fu">typeof</span>(student_name)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="A1.html#cb301-1"></a><span class="kw">typeof</span>(my_flag)</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="A1.html#cb337-1" tabindex="-1"></a><span class="fu">typeof</span>(my_flag)</span></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="A1.html#cb303-1"></a><span class="kw">typeof</span>(<span class="kw">as.integer</span>(n))</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="A1.html#cb339-1" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">as.integer</span>(n))</span></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="A1.html#cb305-1"></a><span class="kw">typeof</span>(<span class="kw">as.character</span>(n))</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="A1.html#cb341-1" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">as.character</span>(n))</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </div>
-<div id="basic-operations" class="section level3">
-<h3><span class="header-section-number">A.4.2</span> Basic operations</h3>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="A1.html#cb307-1"></a>n <span class="op">+</span><span class="st"> </span>x</span></code></pre></div>
+<div id="basic-operations" class="section level3 hasAnchor" number="18.4.2">
+<h3><span class="header-section-number">A.4.2</span> Basic operations<a href="A1.html#basic-operations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="A1.html#cb343-1" tabindex="-1"></a>n <span class="sc">+</span> x</span></code></pre></div>
 <pre><code>## [1] 22.7</code></pre>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="A1.html#cb309-1"></a>n <span class="op">-</span><span class="st"> </span>x</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="A1.html#cb345-1" tabindex="-1"></a>n <span class="sc">-</span> x</span></code></pre></div>
 <pre><code>## [1] 17.3</code></pre>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="A1.html#cb311-1"></a>diff &lt;-<span class="st"> </span>n <span class="op">-</span><span class="st"> </span>x <span class="co"># variable diff gets the difference between n and x</span></span>
-<span id="cb311-2"><a href="A1.html#cb311-2"></a>diff</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="A1.html#cb347-1" tabindex="-1"></a>diff <span class="ot">&lt;-</span> n <span class="sc">-</span> x <span class="co"># variable diff gets the difference between n and x</span></span>
+<span id="cb347-2"><a href="A1.html#cb347-2" tabindex="-1"></a>diff</span></code></pre></div>
 <pre><code>## [1] 17.3</code></pre>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="A1.html#cb313-1"></a>n <span class="op">*</span><span class="st"> </span>x</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="A1.html#cb349-1" tabindex="-1"></a>n <span class="sc">*</span> x</span></code></pre></div>
 <pre><code>## [1] 54</code></pre>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="A1.html#cb315-1"></a>n <span class="op">/</span><span class="st"> </span>x</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="A1.html#cb351-1" tabindex="-1"></a>n <span class="sc">/</span> x</span></code></pre></div>
 <pre><code>## [1] 7.407407</code></pre>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="A1.html#cb317-1"></a>x<span class="op">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="A1.html#cb353-1" tabindex="-1"></a>x<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 7.29</code></pre>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="A1.html#cb319-1"></a><span class="kw">sqrt</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="A1.html#cb355-1" tabindex="-1"></a><span class="fu">sqrt</span>(x)</span></code></pre></div>
 <pre><code>## [1] 1.643168</code></pre>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="A1.html#cb321-1"></a>n <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="A1.html#cb357-1" tabindex="-1"></a>n <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">*</span> n</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="A1.html#cb323-1"></a>n <span class="op">==</span><span class="st"> </span>n</span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="A1.html#cb359-1" tabindex="-1"></a>n <span class="sc">==</span> n</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="A1.html#cb325-1"></a>n <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>n</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="A1.html#cb361-1" tabindex="-1"></a>n <span class="sc">==</span> <span class="dv">2</span> <span class="sc">*</span> n</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="A1.html#cb327-1"></a>n <span class="op">!=</span><span class="st"> </span>n</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="A1.html#cb363-1" tabindex="-1"></a>n <span class="sc">!=</span> n</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="A1.html#cb329-1"></a><span class="kw">paste</span>(student_name, <span class="st">&quot;is&quot;</span>, n, <span class="st">&quot;years old&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="A1.html#cb365-1" tabindex="-1"></a><span class="fu">paste</span>(student_name, <span class="st">&quot;is&quot;</span>, n, <span class="st">&quot;years old&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Luka is 20 years old&quot;</code></pre>
 </div>
-<div id="vectors" class="section level3">
-<h3><span class="header-section-number">A.4.3</span> Vectors</h3>
+<div id="vectors" class="section level3 hasAnchor" number="18.4.3">
+<h3><span class="header-section-number">A.4.3</span> Vectors<a href="A1.html#vectors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>use <code>c()</code> to combine elements into vectors</li>
 <li>can only contain one type of variable</li>
@@ -362,208 +405,208 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>access elements by indexes or logical vectors of the same length</li>
 <li>a scalar value is regarded as a vector of length 1</li>
 </ul>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="A1.html#cb331-1"></a><span class="dv">1</span><span class="op">:</span><span class="dv">4</span> <span class="co"># creates a vector of integers from 1 to 4</span></span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="A1.html#cb367-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span> <span class="co"># creates a vector of integers from 1 to 4</span></span></code></pre></div>
 <pre><code>## [1] 1 2 3 4</code></pre>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="A1.html#cb333-1"></a>student_ages  &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">23</span>, <span class="dv">21</span>)</span>
-<span id="cb333-2"><a href="A1.html#cb333-2"></a>student_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luke&quot;</span>, <span class="st">&quot;Jen&quot;</span>, <span class="st">&quot;Mike&quot;</span>)</span>
-<span id="cb333-3"><a href="A1.html#cb333-3"></a>passed        &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</span>
-<span id="cb333-4"><a href="A1.html#cb333-4"></a><span class="kw">length</span>(student_ages)</span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="A1.html#cb369-1" tabindex="-1"></a>student_ages  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">23</span>, <span class="dv">21</span>)</span>
+<span id="cb369-2"><a href="A1.html#cb369-2" tabindex="-1"></a>student_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Luke&quot;</span>, <span class="st">&quot;Jen&quot;</span>, <span class="st">&quot;Mike&quot;</span>)</span>
+<span id="cb369-3"><a href="A1.html#cb369-3" tabindex="-1"></a>passed        <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb369-4"><a href="A1.html#cb369-4" tabindex="-1"></a><span class="fu">length</span>(student_ages)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="A1.html#cb335-1"></a><span class="co"># access by index</span></span>
-<span id="cb335-2"><a href="A1.html#cb335-2"></a>student_ages[<span class="dv">2</span>] </span></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="A1.html#cb371-1" tabindex="-1"></a><span class="co"># access by index</span></span>
+<span id="cb371-2"><a href="A1.html#cb371-2" tabindex="-1"></a>student_ages[<span class="dv">2</span>] </span></code></pre></div>
 <pre><code>## [1] 23</code></pre>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="A1.html#cb337-1"></a>student_ages[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="A1.html#cb373-1" tabindex="-1"></a>student_ages[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div>
 <pre><code>## [1] 20 23</code></pre>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="A1.html#cb339-1"></a>student_ages[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">24</span> <span class="co"># change values</span></span>
-<span id="cb339-2"><a href="A1.html#cb339-2"></a></span>
-<span id="cb339-3"><a href="A1.html#cb339-3"></a><span class="co"># access by logical vectors</span></span>
-<span id="cb339-4"><a href="A1.html#cb339-4"></a>student_ages[passed <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>] <span class="co"># same as student_ages[passed]</span></span></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="A1.html#cb375-1" tabindex="-1"></a>student_ages[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">24</span> <span class="co"># change values</span></span>
+<span id="cb375-2"><a href="A1.html#cb375-2" tabindex="-1"></a></span>
+<span id="cb375-3"><a href="A1.html#cb375-3" tabindex="-1"></a><span class="co"># access by logical vectors</span></span>
+<span id="cb375-4"><a href="A1.html#cb375-4" tabindex="-1"></a>student_ages[passed <span class="sc">==</span> <span class="cn">TRUE</span>] <span class="co"># same as student_ages[passed]</span></span></code></pre></div>
 <pre><code>## [1] 20 24</code></pre>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="A1.html#cb341-1"></a>student_ages[student_names <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Luke&quot;</span>, <span class="st">&quot;Mike&quot;</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="A1.html#cb377-1" tabindex="-1"></a>student_ages[student_names <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Luke&quot;</span>, <span class="st">&quot;Mike&quot;</span>)]</span></code></pre></div>
 <pre><code>## [1] 20 21</code></pre>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="A1.html#cb343-1"></a>student_names[student_ages <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="A1.html#cb379-1" tabindex="-1"></a>student_names[student_ages <span class="sc">&gt;</span> <span class="dv">20</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;Jen&quot;  &quot;Mike&quot;</code></pre>
-<div id="operations-with-vectors" class="section level4">
-<h4><span class="header-section-number">A.4.3.1</span> Operations with vectors</h4>
+<div id="operations-with-vectors" class="section level4 hasAnchor" number="18.4.3.1">
+<h4><span class="header-section-number">A.4.3.1</span> Operations with vectors<a href="A1.html#operations-with-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>most operations are element-wise</li>
 <li>if we operate on vectors of different lengths, the shorter vector periodically repeats its elements until it reaches the length of the longer one</li>
 </ul>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="A1.html#cb345-1"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
-<span id="cb345-2"><a href="A1.html#cb345-2"></a>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb345-3"><a href="A1.html#cb345-3"></a>d &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">7</span>)</span>
-<span id="cb345-4"><a href="A1.html#cb345-4"></a>a <span class="op">+</span><span class="st"> </span>b</span></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="A1.html#cb381-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
+<span id="cb381-2"><a href="A1.html#cb381-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb381-3"><a href="A1.html#cb381-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>)</span>
+<span id="cb381-4"><a href="A1.html#cb381-4" tabindex="-1"></a>a <span class="sc">+</span> b</span></code></pre></div>
 <pre><code>## [1] 3 5 6</code></pre>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="A1.html#cb347-1"></a>a <span class="op">*</span><span class="st"> </span>b</span></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="A1.html#cb383-1" tabindex="-1"></a>a <span class="sc">*</span> b</span></code></pre></div>
 <pre><code>## [1] 2 6 5</code></pre>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="A1.html#cb349-1"></a>a <span class="op">+</span><span class="st"> </span>d</span></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="A1.html#cb385-1" tabindex="-1"></a>a <span class="sc">+</span> d</span></code></pre></div>
 <pre><code>## Warning in a + d: longer object length is not a multiple of shorter object
 ## length</code></pre>
 <pre><code>## [1]  7 10 11</code></pre>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="A1.html#cb352-1"></a>a <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>b</span></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="A1.html#cb388-1" tabindex="-1"></a>a <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> b</span></code></pre></div>
 <pre><code>## [1] 5 7 7</code></pre>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="A1.html#cb354-1"></a>a <span class="op">&gt;</span><span class="st"> </span>b</span></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="A1.html#cb390-1" tabindex="-1"></a>a <span class="sc">&gt;</span> b</span></code></pre></div>
 <pre><code>## [1] FALSE  TRUE  TRUE</code></pre>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="A1.html#cb356-1"></a>b <span class="op">==</span><span class="st"> </span>a</span></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="A1.html#cb392-1" tabindex="-1"></a>b <span class="sc">==</span> a</span></code></pre></div>
 <pre><code>## [1] FALSE FALSE FALSE</code></pre>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="A1.html#cb358-1"></a>a <span class="op">%*%</span><span class="st"> </span>b <span class="co"># vector multiplication, not element-wise</span></span></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="A1.html#cb394-1" tabindex="-1"></a>a <span class="sc">%*%</span> b <span class="co"># vector multiplication, not element-wise</span></span></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]   13</code></pre>
 </div>
 </div>
-<div id="factors" class="section level3">
-<h3><span class="header-section-number">A.4.4</span> Factors</h3>
+<div id="factors" class="section level3 hasAnchor" number="18.4.4">
+<h3><span class="header-section-number">A.4.4</span> Factors<a href="A1.html#factors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>vectors of finite predetermined classes</li>
 <li>suitable for categorical variables</li>
 <li>ordinal (ordered) or nominal (unordered)</li>
 </ul>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="A1.html#cb360-1"></a>car_brand &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;Audi&quot;</span>, <span class="st">&quot;BMW&quot;</span>, <span class="st">&quot;Mercedes&quot;</span>, <span class="st">&quot;BMW&quot;</span>), <span class="dt">ordered =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb360-2"><a href="A1.html#cb360-2"></a>car_brand</span></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="A1.html#cb396-1" tabindex="-1"></a>car_brand <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;Audi&quot;</span>, <span class="st">&quot;BMW&quot;</span>, <span class="st">&quot;Mercedes&quot;</span>, <span class="st">&quot;BMW&quot;</span>), <span class="at">ordered =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb396-2"><a href="A1.html#cb396-2" tabindex="-1"></a>car_brand</span></code></pre></div>
 <pre><code>## [1] Audi     BMW      Mercedes BMW     
 ## Levels: Audi BMW Mercedes</code></pre>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="A1.html#cb362-1"></a>freq      &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="dt">x       =</span> <span class="ot">NA</span>,</span>
-<span id="cb362-2"><a href="A1.html#cb362-2"></a>                    <span class="dt">levels  =</span> <span class="kw">c</span>(<span class="st">&quot;never&quot;</span>,<span class="st">&quot;rarely&quot;</span>,<span class="st">&quot;sometimes&quot;</span>,<span class="st">&quot;often&quot;</span>,<span class="st">&quot;always&quot;</span>),</span>
-<span id="cb362-3"><a href="A1.html#cb362-3"></a>                    <span class="dt">ordered =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb362-4"><a href="A1.html#cb362-4"></a>freq[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;rarely&quot;</span>, <span class="st">&quot;sometimes&quot;</span>, <span class="st">&quot;rarely&quot;</span>)</span>
-<span id="cb362-5"><a href="A1.html#cb362-5"></a>freq</span></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="A1.html#cb398-1" tabindex="-1"></a>freq      <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="at">x       =</span> <span class="cn">NA</span>,</span>
+<span id="cb398-2"><a href="A1.html#cb398-2" tabindex="-1"></a>                    <span class="at">levels  =</span> <span class="fu">c</span>(<span class="st">&quot;never&quot;</span>,<span class="st">&quot;rarely&quot;</span>,<span class="st">&quot;sometimes&quot;</span>,<span class="st">&quot;often&quot;</span>,<span class="st">&quot;always&quot;</span>),</span>
+<span id="cb398-3"><a href="A1.html#cb398-3" tabindex="-1"></a>                    <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb398-4"><a href="A1.html#cb398-4" tabindex="-1"></a>freq[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;rarely&quot;</span>, <span class="st">&quot;sometimes&quot;</span>, <span class="st">&quot;rarely&quot;</span>)</span>
+<span id="cb398-5"><a href="A1.html#cb398-5" tabindex="-1"></a>freq</span></code></pre></div>
 <pre><code>## [1] rarely    sometimes rarely   
 ## Levels: never &lt; rarely &lt; sometimes &lt; often &lt; always</code></pre>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="A1.html#cb364-1"></a>freq[<span class="dv">4</span>]   &lt;-<span class="st"> &quot;quite_often&quot;</span> <span class="co"># non-existing level, returns NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="A1.html#cb400-1" tabindex="-1"></a>freq[<span class="dv">4</span>]   <span class="ot">&lt;-</span> <span class="st">&quot;quite_often&quot;</span> <span class="co"># non-existing level, returns NA</span></span></code></pre></div>
 <pre><code>## Warning in `[&lt;-.factor`(`*tmp*`, 4, value = &quot;quite_often&quot;): invalid factor
 ## level, NA generated</code></pre>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="A1.html#cb366-1"></a>freq</span></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="A1.html#cb402-1" tabindex="-1"></a>freq</span></code></pre></div>
 <pre><code>## [1] rarely    sometimes rarely    &lt;NA&gt;     
 ## Levels: never &lt; rarely &lt; sometimes &lt; often &lt; always</code></pre>
 </div>
-<div id="matrices" class="section level3">
-<h3><span class="header-section-number">A.4.5</span> Matrices</h3>
+<div id="matrices" class="section level3 hasAnchor" number="18.4.5">
+<h3><span class="header-section-number">A.4.5</span> Matrices<a href="A1.html#matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>two-dimensional generalizations of vectors</li>
 </ul>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="A1.html#cb368-1"></a>my_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>,</span>
-<span id="cb368-2"><a href="A1.html#cb368-2"></a>                      <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">2</span>),</span>
-<span id="cb368-3"><a href="A1.html#cb368-3"></a>                    <span class="dt">nrow  =</span> <span class="dv">2</span>,</span>
-<span id="cb368-4"><a href="A1.html#cb368-4"></a>                    <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb368-5"><a href="A1.html#cb368-5"></a>my_matrix</span></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="A1.html#cb404-1" tabindex="-1"></a>my_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb404-2"><a href="A1.html#cb404-2" tabindex="-1"></a>                      <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">2</span>),</span>
+<span id="cb404-3"><a href="A1.html#cb404-3" tabindex="-1"></a>                    <span class="at">nrow  =</span> <span class="dv">2</span>,</span>
+<span id="cb404-4"><a href="A1.html#cb404-4" tabindex="-1"></a>                    <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb404-5"><a href="A1.html#cb404-5" tabindex="-1"></a>my_matrix</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    2    1
 ## [2,]    5    4    2</code></pre>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="A1.html#cb370-1"></a>my_square_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>,</span>
-<span id="cb370-2"><a href="A1.html#cb370-2"></a>                             <span class="dv">2</span>, <span class="dv">3</span>),</span>
-<span id="cb370-3"><a href="A1.html#cb370-3"></a>                           <span class="dt">nrow  =</span> <span class="dv">2</span>)</span>
-<span id="cb370-4"><a href="A1.html#cb370-4"></a>my_square_matrix</span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="A1.html#cb406-1" tabindex="-1"></a>my_square_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>,</span>
+<span id="cb406-2"><a href="A1.html#cb406-2" tabindex="-1"></a>                             <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb406-3"><a href="A1.html#cb406-3" tabindex="-1"></a>                           <span class="at">nrow  =</span> <span class="dv">2</span>)</span>
+<span id="cb406-4"><a href="A1.html#cb406-4" tabindex="-1"></a>my_square_matrix</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    2
 ## [2,]    3    3</code></pre>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="A1.html#cb372-1"></a>my_matrix[<span class="dv">1</span>,<span class="dv">2</span>] <span class="co"># first row, second column</span></span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="A1.html#cb408-1" tabindex="-1"></a>my_matrix[<span class="dv">1</span>,<span class="dv">2</span>] <span class="co"># first row, second column</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="A1.html#cb374-1"></a>my_matrix[<span class="dv">2</span>, ] <span class="co"># second row</span></span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="A1.html#cb410-1" tabindex="-1"></a>my_matrix[<span class="dv">2</span>, ] <span class="co"># second row</span></span></code></pre></div>
 <pre><code>## [1] 5 4 2</code></pre>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="A1.html#cb376-1"></a>my_matrix[ ,<span class="dv">3</span>] <span class="co"># third column</span></span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="A1.html#cb412-1" tabindex="-1"></a>my_matrix[ ,<span class="dv">3</span>] <span class="co"># third column</span></span></code></pre></div>
 <pre><code>## [1] 1 2</code></pre>
-<div id="matrix-functions-and-operations" class="section level4">
-<h4><span class="header-section-number">A.4.5.1</span> Matrix functions and operations</h4>
+<div id="matrix-functions-and-operations" class="section level4 hasAnchor" number="18.4.5.1">
+<h4><span class="header-section-number">A.4.5.1</span> Matrix functions and operations<a href="A1.html#matrix-functions-and-operations" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>most operation element-wise</li>
 <li>mind the dimensions when using matrix multiplication <code>%*%</code></li>
 </ul>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="A1.html#cb378-1"></a><span class="kw">nrow</span>(my_matrix) <span class="co"># number of matrix rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="A1.html#cb414-1" tabindex="-1"></a><span class="fu">nrow</span>(my_matrix) <span class="co"># number of matrix rows</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="A1.html#cb380-1"></a><span class="kw">ncol</span>(my_matrix) <span class="co"># number of matrix columns</span></span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="A1.html#cb416-1" tabindex="-1"></a><span class="fu">ncol</span>(my_matrix) <span class="co"># number of matrix columns</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="A1.html#cb382-1"></a><span class="kw">dim</span>(my_matrix) <span class="co"># matrix dimension</span></span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="A1.html#cb418-1" tabindex="-1"></a><span class="fu">dim</span>(my_matrix) <span class="co"># matrix dimension</span></span></code></pre></div>
 <pre><code>## [1] 2 3</code></pre>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="A1.html#cb384-1"></a><span class="kw">t</span>(my_matrix) <span class="co"># transpose</span></span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="A1.html#cb420-1" tabindex="-1"></a><span class="fu">t</span>(my_matrix) <span class="co"># transpose</span></span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    5
 ## [2,]    2    4
 ## [3,]    1    2</code></pre>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="A1.html#cb386-1"></a><span class="kw">diag</span>(my_matrix) <span class="co"># the diagonal of the matrix as vector</span></span></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="A1.html#cb422-1" tabindex="-1"></a><span class="fu">diag</span>(my_matrix) <span class="co"># the diagonal of the matrix as vector</span></span></code></pre></div>
 <pre><code>## [1] 1 4</code></pre>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="A1.html#cb388-1"></a><span class="kw">diag</span>(<span class="dv">1</span>, <span class="dt">nrow =</span> <span class="dv">3</span>) <span class="co"># creates a diagonal matrix</span></span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="A1.html#cb424-1" tabindex="-1"></a><span class="fu">diag</span>(<span class="dv">1</span>, <span class="at">nrow =</span> <span class="dv">3</span>) <span class="co"># creates a diagonal matrix</span></span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    0    0
 ## [2,]    0    1    0
 ## [3,]    0    0    1</code></pre>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="A1.html#cb390-1"></a><span class="kw">det</span>(my_square_matrix) <span class="co"># matrix determinant</span></span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="A1.html#cb426-1" tabindex="-1"></a><span class="fu">det</span>(my_square_matrix) <span class="co"># matrix determinant</span></span></code></pre></div>
 <pre><code>## [1] -3</code></pre>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="A1.html#cb392-1"></a>my_matrix <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>my_matrix</span></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="A1.html#cb428-1" tabindex="-1"></a>my_matrix <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> my_matrix</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    3    6    3
 ## [2,]   15   12    6</code></pre>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="A1.html#cb394-1"></a>my_matrix <span class="op">*</span><span class="st"> </span>my_matrix <span class="co"># element-wise multiplication</span></span></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="A1.html#cb430-1" tabindex="-1"></a>my_matrix <span class="sc">*</span> my_matrix <span class="co"># element-wise multiplication</span></span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    4    1
 ## [2,]   25   16    4</code></pre>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="A1.html#cb396-1"></a>my_matrix <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(my_matrix) <span class="co"># matrix multiplication</span></span></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="A1.html#cb432-1" tabindex="-1"></a>my_matrix <span class="sc">%*%</span> <span class="fu">t</span>(my_matrix) <span class="co"># matrix multiplication</span></span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    6   15
 ## [2,]   15   45</code></pre>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="A1.html#cb398-1"></a>my_vec &lt;-<span class="st"> </span><span class="kw">as.vector</span>(my_matrix) <span class="co"># transform to vector</span></span>
-<span id="cb398-2"><a href="A1.html#cb398-2"></a>my_vec</span></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="A1.html#cb434-1" tabindex="-1"></a>my_vec <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(my_matrix) <span class="co"># transform to vector</span></span>
+<span id="cb434-2"><a href="A1.html#cb434-2" tabindex="-1"></a>my_vec</span></code></pre></div>
 <pre><code>## [1] 1 5 2 4 1 2</code></pre>
 </div>
 </div>
-<div id="arrays" class="section level3">
-<h3><span class="header-section-number">A.4.6</span> Arrays</h3>
+<div id="arrays" class="section level3 hasAnchor" number="18.4.6">
+<h3><span class="header-section-number">A.4.6</span> Arrays<a href="A1.html#arrays" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>multi-dimensional generalizations of matrices</li>
 </ul>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="A1.html#cb400-1"></a>my_array &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="dt">dim =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb400-2"><a href="A1.html#cb400-2"></a>my_array[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="A1.html#cb436-1" tabindex="-1"></a>my_array <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb436-2"><a href="A1.html#cb436-2" tabindex="-1"></a>my_array[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="A1.html#cb402-1"></a>my_array[<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="A1.html#cb438-1" tabindex="-1"></a>my_array[<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="A1.html#cb404-1"></a>my_array[<span class="dv">1</span>, , ]</span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="A1.html#cb440-1" tabindex="-1"></a>my_array[<span class="dv">1</span>, , ]</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    5
 ## [2,]    3    7</code></pre>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="A1.html#cb406-1"></a><span class="kw">dim</span>(my_array)</span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="A1.html#cb442-1" tabindex="-1"></a><span class="fu">dim</span>(my_array)</span></code></pre></div>
 <pre><code>## [1] 2 2 2</code></pre>
 </div>
-<div id="data-frames" class="section level3">
-<h3><span class="header-section-number">A.4.7</span> Data frames</h3>
+<div id="data-frames" class="section level3 hasAnchor" number="18.4.7">
+<h3><span class="header-section-number">A.4.7</span> Data frames<a href="A1.html#data-frames" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>basic data structure for analysis</li>
 <li>differ from matrices as columns can be of different types</li>
 </ul>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="A1.html#cb408-1"></a>student_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;Name&quot;</span> =<span class="st"> </span>student_names, </span>
-<span id="cb408-2"><a href="A1.html#cb408-2"></a>                           <span class="st">&quot;Age&quot;</span>  =<span class="st"> </span>student_ages, </span>
-<span id="cb408-3"><a href="A1.html#cb408-3"></a>                           <span class="st">&quot;Pass&quot;</span> =<span class="st"> </span>passed)</span>
-<span id="cb408-4"><a href="A1.html#cb408-4"></a>student_data</span></code></pre></div>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="A1.html#cb444-1" tabindex="-1"></a>student_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;Name&quot;</span> <span class="ot">=</span> student_names, </span>
+<span id="cb444-2"><a href="A1.html#cb444-2" tabindex="-1"></a>                           <span class="st">&quot;Age&quot;</span>  <span class="ot">=</span> student_ages, </span>
+<span id="cb444-3"><a href="A1.html#cb444-3" tabindex="-1"></a>                           <span class="st">&quot;Pass&quot;</span> <span class="ot">=</span> passed)</span>
+<span id="cb444-4"><a href="A1.html#cb444-4" tabindex="-1"></a>student_data</span></code></pre></div>
 <pre><code>##   Name Age  Pass
 ## 1 Luke  20  TRUE
 ## 2  Jen  24  TRUE
 ## 3 Mike  21 FALSE</code></pre>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="A1.html#cb410-1"></a><span class="kw">colnames</span>(student_data) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;pass&quot;</span>) <span class="co"># change column names</span></span>
-<span id="cb410-2"><a href="A1.html#cb410-2"></a>student_data[<span class="dv">1</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="A1.html#cb446-1" tabindex="-1"></a><span class="fu">colnames</span>(student_data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;pass&quot;</span>) <span class="co"># change column names</span></span>
+<span id="cb446-2"><a href="A1.html#cb446-2" tabindex="-1"></a>student_data[<span class="dv">1</span>, ]</span></code></pre></div>
 <pre><code>##   name age pass
 ## 1 Luke  20 TRUE</code></pre>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="A1.html#cb412-1"></a>student_data[ ,<span class="kw">colnames</span>(student_data) <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;pass&quot;</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="A1.html#cb448-1" tabindex="-1"></a>student_data[ ,<span class="fu">colnames</span>(student_data) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;pass&quot;</span>)]</span></code></pre></div>
 <pre><code>##   name  pass
 ## 1 Luke  TRUE
 ## 2  Jen  TRUE
 ## 3 Mike FALSE</code></pre>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="A1.html#cb414-1"></a>student_data<span class="op">$</span>pass <span class="co"># access column by name</span></span></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="A1.html#cb450-1" tabindex="-1"></a>student_data<span class="sc">$</span>pass <span class="co"># access column by name</span></span></code></pre></div>
 <pre><code>## [1]  TRUE  TRUE FALSE</code></pre>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="A1.html#cb416-1"></a>student_data[student_data<span class="op">$</span>pass <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="A1.html#cb452-1" tabindex="-1"></a>student_data[student_data<span class="sc">$</span>pass <span class="sc">==</span> <span class="cn">TRUE</span>, ]</span></code></pre></div>
 <pre><code>##   name age pass
 ## 1 Luke  20 TRUE
 ## 2  Jen  24 TRUE</code></pre>
 </div>
-<div id="lists" class="section level3">
-<h3><span class="header-section-number">A.4.8</span> Lists</h3>
+<div id="lists" class="section level3 hasAnchor" number="18.4.8">
+<h3><span class="header-section-number">A.4.8</span> Lists<a href="A1.html#lists" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>useful for storing different data structures</li>
 <li>access elements with double square brackets</li>
 <li>elements can be named</li>
 </ul>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="A1.html#cb418-1"></a>first_list  &lt;-<span class="st"> </span><span class="kw">list</span>(student_ages, my_matrix, student_data)</span>
-<span id="cb418-2"><a href="A1.html#cb418-2"></a>second_list &lt;-<span class="st"> </span><span class="kw">list</span>(student_ages, my_matrix, student_data, first_list)</span>
-<span id="cb418-3"><a href="A1.html#cb418-3"></a>first_list[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="A1.html#cb454-1" tabindex="-1"></a>first_list  <span class="ot">&lt;-</span> <span class="fu">list</span>(student_ages, my_matrix, student_data)</span>
+<span id="cb454-2"><a href="A1.html#cb454-2" tabindex="-1"></a>second_list <span class="ot">&lt;-</span> <span class="fu">list</span>(student_ages, my_matrix, student_data, first_list)</span>
+<span id="cb454-3"><a href="A1.html#cb454-3" tabindex="-1"></a>first_list[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## [1] 20 24 21</code></pre>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="A1.html#cb420-1"></a>second_list[[<span class="dv">4</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="A1.html#cb456-1" tabindex="-1"></a>second_list[[<span class="dv">4</span>]]</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 20 24 21
 ## 
@@ -577,61 +620,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 Luke  20  TRUE
 ## 2  Jen  24  TRUE
 ## 3 Mike  21 FALSE</code></pre>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="A1.html#cb422-1"></a>second_list[[<span class="dv">4</span>]][[<span class="dv">1</span>]] <span class="co"># first element of the fourth element of second_list</span></span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="A1.html#cb458-1" tabindex="-1"></a>second_list[[<span class="dv">4</span>]][[<span class="dv">1</span>]] <span class="co"># first element of the fourth element of second_list</span></span></code></pre></div>
 <pre><code>## [1] 20 24 21</code></pre>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="A1.html#cb424-1"></a><span class="kw">length</span>(second_list)</span></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="A1.html#cb460-1" tabindex="-1"></a><span class="fu">length</span>(second_list)</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="A1.html#cb426-1"></a>second_list[[<span class="kw">length</span>(second_list) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]] &lt;-<span class="st"> &quot;add_me&quot;</span> <span class="co"># append an element</span></span>
-<span id="cb426-2"><a href="A1.html#cb426-2"></a><span class="kw">names</span>(first_list) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Matrix&quot;</span>, <span class="st">&quot;Data&quot;</span>)</span>
-<span id="cb426-3"><a href="A1.html#cb426-3"></a>first_list<span class="op">$</span>Age</span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="A1.html#cb462-1" tabindex="-1"></a>second_list[[<span class="fu">length</span>(second_list) <span class="sc">+</span> <span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="st">&quot;add_me&quot;</span> <span class="co"># append an element</span></span>
+<span id="cb462-2"><a href="A1.html#cb462-2" tabindex="-1"></a><span class="fu">names</span>(first_list) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Age&quot;</span>, <span class="st">&quot;Matrix&quot;</span>, <span class="st">&quot;Data&quot;</span>)</span>
+<span id="cb462-3"><a href="A1.html#cb462-3" tabindex="-1"></a>first_list<span class="sc">$</span>Age</span></code></pre></div>
 <pre><code>## [1] 20 24 21</code></pre>
 </div>
-<div id="loops" class="section level3">
-<h3><span class="header-section-number">A.4.9</span> Loops</h3>
+<div id="loops" class="section level3 hasAnchor" number="18.4.9">
+<h3><span class="header-section-number">A.4.9</span> Loops<a href="A1.html#loops" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>mostly for loop</li>
 <li>for loop can iterate over an arbitrary vector</li>
 </ul>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="A1.html#cb428-1"></a><span class="co"># iterate over consecutive natural numbers</span></span>
-<span id="cb428-2"><a href="A1.html#cb428-2"></a>my_sum &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb428-3"><a href="A1.html#cb428-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</span>
-<span id="cb428-4"><a href="A1.html#cb428-4"></a>  my_sum &lt;-<span class="st"> </span>my_sum <span class="op">+</span><span class="st"> </span>i</span>
-<span id="cb428-5"><a href="A1.html#cb428-5"></a>}</span>
-<span id="cb428-6"><a href="A1.html#cb428-6"></a>my_sum</span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="A1.html#cb464-1" tabindex="-1"></a><span class="co"># iterate over consecutive natural numbers</span></span>
+<span id="cb464-2"><a href="A1.html#cb464-2" tabindex="-1"></a>my_sum <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb464-3"><a href="A1.html#cb464-3" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb464-4"><a href="A1.html#cb464-4" tabindex="-1"></a>  my_sum <span class="ot">&lt;-</span> my_sum <span class="sc">+</span> i</span>
+<span id="cb464-5"><a href="A1.html#cb464-5" tabindex="-1"></a>}</span>
+<span id="cb464-6"><a href="A1.html#cb464-6" tabindex="-1"></a>my_sum</span></code></pre></div>
 <pre><code>## [1] 55</code></pre>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="A1.html#cb430-1"></a><span class="co"># iterate over an arbirary vector</span></span>
-<span id="cb430-2"><a href="A1.html#cb430-2"></a>my_sum       &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb430-3"><a href="A1.html#cb430-3"></a>some_numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="fl">3.5</span>, <span class="dv">6</span>, <span class="dv">100</span>)</span>
-<span id="cb430-4"><a href="A1.html#cb430-4"></a><span class="cf">for</span> (i <span class="cf">in</span> some_numbers) {</span>
-<span id="cb430-5"><a href="A1.html#cb430-5"></a>  my_sum &lt;-<span class="st"> </span>my_sum <span class="op">+</span><span class="st"> </span>i</span>
-<span id="cb430-6"><a href="A1.html#cb430-6"></a>}</span>
-<span id="cb430-7"><a href="A1.html#cb430-7"></a>my_sum</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="A1.html#cb466-1" tabindex="-1"></a><span class="co"># iterate over an arbirary vector</span></span>
+<span id="cb466-2"><a href="A1.html#cb466-2" tabindex="-1"></a>my_sum       <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb466-3"><a href="A1.html#cb466-3" tabindex="-1"></a>some_numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="fl">3.5</span>, <span class="dv">6</span>, <span class="dv">100</span>)</span>
+<span id="cb466-4"><a href="A1.html#cb466-4" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> some_numbers) {</span>
+<span id="cb466-5"><a href="A1.html#cb466-5" tabindex="-1"></a>  my_sum <span class="ot">&lt;-</span> my_sum <span class="sc">+</span> i</span>
+<span id="cb466-6"><a href="A1.html#cb466-6" tabindex="-1"></a>}</span>
+<span id="cb466-7"><a href="A1.html#cb466-7" tabindex="-1"></a>my_sum</span></code></pre></div>
 <pre><code>## [1] 111.5</code></pre>
 </div>
 </div>
-<div id="functions" class="section level2">
-<h2><span class="header-section-number">A.5</span> Functions</h2>
+<div id="functions" class="section level2 hasAnchor" number="18.5">
+<h2><span class="header-section-number">A.5</span> Functions<a href="A1.html#functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>for help use <code>?function_name</code></li>
 </ul>
-<div id="writing-functions" class="section level3">
-<h3><span class="header-section-number">A.5.1</span> Writing functions</h3>
+<div id="writing-functions" class="section level3 hasAnchor" number="18.5.1">
+<h3><span class="header-section-number">A.5.1</span> Writing functions<a href="A1.html#writing-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can write our own functions with <code>function()</code>. In the brackets, we
 define the parameters the function gets, and in curly brackets we define what
 the function does. We use <code>return()</code> to return values.</p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="A1.html#cb432-1"></a>sum_first_n_elements &lt;-<span class="st"> </span><span class="cf">function</span> (n) {</span>
-<span id="cb432-2"><a href="A1.html#cb432-2"></a>  my_sum &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb432-3"><a href="A1.html#cb432-3"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</span>
-<span id="cb432-4"><a href="A1.html#cb432-4"></a>    my_sum &lt;-<span class="st"> </span>my_sum <span class="op">+</span><span class="st"> </span>i</span>
-<span id="cb432-5"><a href="A1.html#cb432-5"></a>  }</span>
-<span id="cb432-6"><a href="A1.html#cb432-6"></a>  <span class="kw">return</span> (my_sum)</span>
-<span id="cb432-7"><a href="A1.html#cb432-7"></a>}</span>
-<span id="cb432-8"><a href="A1.html#cb432-8"></a><span class="kw">sum_first_n_elements</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="A1.html#cb468-1" tabindex="-1"></a>sum_first_n_elements <span class="ot">&lt;-</span> <span class="cf">function</span> (n) {</span>
+<span id="cb468-2"><a href="A1.html#cb468-2" tabindex="-1"></a>  my_sum <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb468-3"><a href="A1.html#cb468-3" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb468-4"><a href="A1.html#cb468-4" tabindex="-1"></a>    my_sum <span class="ot">&lt;-</span> my_sum <span class="sc">+</span> i</span>
+<span id="cb468-5"><a href="A1.html#cb468-5" tabindex="-1"></a>  }</span>
+<span id="cb468-6"><a href="A1.html#cb468-6" tabindex="-1"></a>  <span class="fu">return</span> (my_sum)</span>
+<span id="cb468-7"><a href="A1.html#cb468-7" tabindex="-1"></a>}</span>
+<span id="cb468-8"><a href="A1.html#cb468-8" tabindex="-1"></a><span class="fu">sum_first_n_elements</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## [1] 55</code></pre>
 </div>
 </div>
-<div id="other-tips" class="section level2">
-<h2><span class="header-section-number">A.6</span> Other tips</h2>
+<div id="other-tips" class="section level2 hasAnchor" number="18.6">
+<h2><span class="header-section-number">A.6</span> Other tips<a href="A1.html#other-tips" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Use <code>set.seed(arbitrary_number)</code> at the beginning of a script to set the seed and ensure replication.</li>
 <li>To dynamically set the working directory in R Studio to the parent folder of a R script use <code>setwd(dirname(rstudioapi::getSourceEditorContext()$path))</code>.</li>
@@ -667,8 +710,8 @@ the function does. We use <code>return()</code> to return values.</p>
 <!-- ### Getting function code -->
 <!-- Use `getAnywhere(function_name)` to see the code of the function. -->
 </div>
-<div id="further-reading-and-references" class="section level2">
-<h2><span class="header-section-number">A.7</span> Further reading and references</h2>
+<div id="further-reading-and-references" class="section level2 hasAnchor" number="18.7">
+<h2><span class="header-section-number">A.7</span> Further reading and references<a href="A1.html#further-reading-and-references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Getting started with R Studio: <a href="https://www.youtube.com/watch?v=lVKMsaWju8w" class="uri">https://www.youtube.com/watch?v=lVKMsaWju8w</a></li>
 <li>Official R manuals: <a href="https://cran.r-project.org/manuals.html" class="uri">https://cran.r-project.org/manuals.html</a></li>
@@ -711,7 +754,6 @@ the function does. We use <code>return()</code> to return values.</p>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -730,6 +772,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -750,6 +793,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -763,7 +810,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

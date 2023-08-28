@@ -1,6 +1,0 @@
-"0",""
-"0","norm_samps <- log(ln_samps)"
-"0","n_plot     <- ggplot(data = data.frame(x = norm_samps), aes(x = x)) +"
-"0","  geom_histogram(aes(y = ..density..), color = ""black"") +"
-"0","  stat_function(fun = dnorm, args = list(mean = mu, sd = sigma), color = ""red"")"
-"0","plot(n_plot)"

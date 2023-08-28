@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 16 Null hypothesis significance testing | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 16 Null hypothesis significance testing | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
   <meta property="og:description" content="Course notes" />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2021-01-14" />
+<meta name="date" content="2023-08-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="ml.html"/>
 <link rel="next" href="bi.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,25 +49,24 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,13 +86,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -106,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -118,6 +117,33 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -137,81 +163,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
 <li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
-<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
 <li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fisher-information"><i class="fa fa-check"></i><b>15.2</b> Fisher information</a></li>
 <li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="nhst.html"><a href="nhst.html"><i class="fa fa-check"></i><b>16</b> Null hypothesis significance testing</a></li>
-<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a><ul>
+<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a>
+<ul>
 <li class="chapter" data-level="17.1" data-path="bi.html"><a href="bi.html#conjugate-priors"><i class="fa fa-check"></i><b>17.1</b> Conjugate priors</a></li>
 <li class="chapter" data-level="17.2" data-path="bi.html"><a href="bi.html#posterior-sampling"><i class="fa fa-check"></i><b>17.2</b> Posterior sampling</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a>
+<ul>
 <li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
 <li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
-<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a>
+<ul>
 <li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
 <li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a>
+<ul>
 <li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
 <li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
 <li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
@@ -222,7 +264,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
 <li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a>
+<ul>
 <li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
 </ul></li>
 <li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
@@ -249,8 +292,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="nhst" class="section level1">
-<h1><span class="header-section-number">Chapter 16</span> Null hypothesis significance testing</h1>
+<div id="nhst" class="section level1 hasAnchor" number="16">
+<h1><span class="header-section-number">Chapter 16</span> Null hypothesis significance testing<a href="nhst.html#nhst" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This chapter deals with null hypothesis significance testing.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <ul>
@@ -280,42 +323,39 @@ $(document).ready(function() {
   })
 });
 </script>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-248" class="exercise"><strong>Exercise 16.1  (Binomial test)  </strong></span>We assume <span class="math inline">\(y_i \in \{0,1\}\)</span>, <span class="math inline">\(i = 1,...,n\)</span> and <span class="math inline">\(y_i | \theta = 0.5 \sim i.i.d.\)</span> Bernoulli<span class="math inline">\((\theta)\)</span>. The test statistic is <span class="math inline">\(X = \sum_{i=1}^n\)</span> and the rejection region R is defined as the region where the probability of obtaining such or more extreme <span class="math inline">\(X\)</span> given <span class="math inline">\(\theta = 0.5\)</span> is less than 0.05.</p>
+<p><span id="exr:unnamed-chunk-259" class="exercise"><strong>Exercise 16.1  (Binomial test) </strong></span>We assume <span class="math inline">\(y_i \in \{0,1\}\)</span>, <span class="math inline">\(i = 1,...,n\)</span> and <span class="math inline">\(y_i | \theta = 0.5 \sim i.i.d.\)</span> Bernoulli<span class="math inline">\((\theta)\)</span>. The test statistic is <span class="math inline">\(X = \sum_{i=1}^n\)</span> and the rejection region R is defined as the region where the probability of obtaining such or more extreme <span class="math inline">\(X\)</span> given <span class="math inline">\(\theta = 0.5\)</span> is less than 0.05.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Derive and plot the power function of the test for <span class="math inline">\(n=100\)</span>.</li>
 <li>What is the significance level of this test if <span class="math inline">\(H0: \theta = 0.5\)</span>? At which values of X will we reject the null hypothesis?</li>
 </ol>
 </div>
-
 <div class="fold">
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="nhst.html#cb228-1"></a><span class="co"># a</span></span>
-<span id="cb228-2"><a href="nhst.html#cb228-2"></a><span class="co"># First we need the rejection region, so we need to find X_min and X_max</span></span>
-<span id="cb228-3"><a href="nhst.html#cb228-3"></a>n &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb228-4"><a href="nhst.html#cb228-4"></a><span class="kw">qbinom</span>(<span class="fl">0.025</span>, n, <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="nhst.html#cb264-1" tabindex="-1"></a><span class="co"># a</span></span>
+<span id="cb264-2"><a href="nhst.html#cb264-2" tabindex="-1"></a><span class="co"># First we need the rejection region, so we need to find X_min and X_max</span></span>
+<span id="cb264-3"><a href="nhst.html#cb264-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb264-4"><a href="nhst.html#cb264-4" tabindex="-1"></a><span class="fu">qbinom</span>(<span class="fl">0.025</span>, n, <span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## [1] 40</code></pre>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="nhst.html#cb230-1"></a><span class="kw">qbinom</span>(<span class="fl">0.975</span>, n, <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="nhst.html#cb266-1" tabindex="-1"></a><span class="fu">qbinom</span>(<span class="fl">0.975</span>, n, <span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## [1] 60</code></pre>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="nhst.html#cb232-1"></a><span class="kw">pbinom</span>(<span class="dv">40</span>, n, <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="nhst.html#cb268-1" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">40</span>, n, <span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.02844397</code></pre>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="nhst.html#cb234-1"></a><span class="kw">pbinom</span>(<span class="dv">60</span>, n, <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="nhst.html#cb270-1" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">60</span>, n, <span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## [1] 0.9823999</code></pre>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="nhst.html#cb236-1"></a>X_min &lt;-<span class="st"> </span><span class="dv">39</span></span>
-<span id="cb236-2"><a href="nhst.html#cb236-2"></a>X_max &lt;-<span class="st"> </span><span class="dv">60</span></span>
-<span id="cb236-3"><a href="nhst.html#cb236-3"></a>thetas &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb236-4"><a href="nhst.html#cb236-4"></a>beta_t &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pbinom</span>(X_max, <span class="dt">size =</span> n, <span class="dt">prob =</span> thetas) <span class="op">+</span><span class="st"> </span><span class="kw">pbinom</span>(X_min, <span class="dt">size =</span> n, <span class="dt">prob =</span> thetas)</span>
-<span id="cb236-5"><a href="nhst.html#cb236-5"></a><span class="kw">plot</span>(beta_t)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-249-1.png" width="672" /></p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="nhst.html#cb237-1"></a><span class="co"># b</span></span>
-<span id="cb237-2"><a href="nhst.html#cb237-2"></a><span class="co"># The significance level is</span></span>
-<span id="cb237-3"><a href="nhst.html#cb237-3"></a>beta_t[<span class="dv">51</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="nhst.html#cb272-1" tabindex="-1"></a>X_min <span class="ot">&lt;-</span> <span class="dv">39</span></span>
+<span id="cb272-2"><a href="nhst.html#cb272-2" tabindex="-1"></a>X_max <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb272-3"><a href="nhst.html#cb272-3" tabindex="-1"></a>thetas <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb272-4"><a href="nhst.html#cb272-4" tabindex="-1"></a>beta_t <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(X_max, <span class="at">size =</span> n, <span class="at">prob =</span> thetas) <span class="sc">+</span> <span class="fu">pbinom</span>(X_min, <span class="at">size =</span> n, <span class="at">prob =</span> thetas)</span>
+<span id="cb272-5"><a href="nhst.html#cb272-5" tabindex="-1"></a><span class="fu">plot</span>(beta_t)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-260-1.png" width="672" /></p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="nhst.html#cb273-1" tabindex="-1"></a><span class="co"># b</span></span>
+<span id="cb273-2"><a href="nhst.html#cb273-2" tabindex="-1"></a><span class="co"># The significance level is</span></span>
+<span id="cb273-3"><a href="nhst.html#cb273-3" tabindex="-1"></a>beta_t[<span class="dv">51</span>]</span></code></pre></div>
 <pre><code>## [1] 0.0352002</code></pre>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="nhst.html#cb239-1"></a><span class="co"># We will reject the null hypothesis at X values below X_min and above X_max.</span></span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="nhst.html#cb275-1" tabindex="-1"></a><span class="co"># We will reject the null hypothesis at X values below X_min and above X_max.</span></span></code></pre></div>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-250" class="exercise"><strong>Exercise 16.2  (Long-run guarantees of the t-test)  </strong></span></p>
+<p><span id="exr:unnamed-chunk-261" class="exercise"><strong>Exercise 16.2  (Long-run guarantees of the t-test) </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li><span style="color:blue">Generate a sample of size <span class="math inline">\(n = 10\)</span> from the standard normal. Use the two-sided t-test with <span class="math inline">\(H0: \mu = 0\)</span> and record the p-value. Can you reject H0 at 0.05 significance level?</span></li>
 <li><span style="color:blue">(before simulating) If we repeated (b) many times, what would be the relative frequency of false positives/Type I errors (rejecting the null that is true)? What would be the relative frequency of false negatives /Type II errors (retaining the null when the null is false)?</span></li>
@@ -324,14 +364,13 @@ $(document).ready(function() {
 <li><span style="color:blue">Similar to (a-c) but now we generate data from N(<span class="math inline">\(\mu\)</span>, 1) where we every time pick a different <span class="math inline">\(\mu &lt; 0\)</span> and use a one-sided test <span class="math inline">\(H0: \mu &lt;= 0\)</span>.</span></li>
 </ol>
 </div>
-
 <div class="fold">
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="nhst.html#cb240-1"></a><span class="kw">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb240-2"><a href="nhst.html#cb240-2"></a></span>
-<span id="cb240-3"><a href="nhst.html#cb240-3"></a><span class="co"># a</span></span>
-<span id="cb240-4"><a href="nhst.html#cb240-4"></a>x       &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>)</span>
-<span id="cb240-5"><a href="nhst.html#cb240-5"></a>my_test &lt;-<span class="st"> </span><span class="kw">t.test</span>(x, <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="dt">mu =</span> <span class="dv">0</span>)</span>
-<span id="cb240-6"><a href="nhst.html#cb240-6"></a>my_test</span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="nhst.html#cb276-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb276-2"><a href="nhst.html#cb276-2" tabindex="-1"></a></span>
+<span id="cb276-3"><a href="nhst.html#cb276-3" tabindex="-1"></a><span class="co"># a</span></span>
+<span id="cb276-4"><a href="nhst.html#cb276-4" tabindex="-1"></a>x       <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb276-5"><a href="nhst.html#cb276-5" tabindex="-1"></a>my_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">mu =</span> <span class="dv">0</span>)</span>
+<span id="cb276-6"><a href="nhst.html#cb276-6" tabindex="-1"></a>my_test</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -343,128 +382,123 @@ $(document).ready(function() {
 ## sample estimates:
 ## mean of x 
 ## 0.2111516</code></pre>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="nhst.html#cb242-1"></a><span class="co"># we can not reject the null hypothesis</span></span>
-<span id="cb242-2"><a href="nhst.html#cb242-2"></a></span>
-<span id="cb242-3"><a href="nhst.html#cb242-3"></a></span>
-<span id="cb242-4"><a href="nhst.html#cb242-4"></a><span class="co"># b</span></span>
-<span id="cb242-5"><a href="nhst.html#cb242-5"></a><span class="co"># The expected value of false positives would be 0.05. The expected value of </span></span>
-<span id="cb242-6"><a href="nhst.html#cb242-6"></a><span class="co"># true negatives would be 0, as there are no negatives (the null hypothesis is </span></span>
-<span id="cb242-7"><a href="nhst.html#cb242-7"></a><span class="co"># always the truth).</span></span>
-<span id="cb242-8"><a href="nhst.html#cb242-8"></a>nit       &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb242-9"><a href="nhst.html#cb242-9"></a>typeIerr  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nit)</span>
-<span id="cb242-10"><a href="nhst.html#cb242-10"></a>typeIIerr &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nit)</span>
-<span id="cb242-11"><a href="nhst.html#cb242-11"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nit) {</span>
-<span id="cb242-12"><a href="nhst.html#cb242-12"></a>  x       &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>)</span>
-<span id="cb242-13"><a href="nhst.html#cb242-13"></a>  my_test &lt;-<span class="st"> </span><span class="kw">t.test</span>(x, <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="dt">mu =</span> <span class="dv">0</span>)</span>
-<span id="cb242-14"><a href="nhst.html#cb242-14"></a>  <span class="cf">if</span> (my_test<span class="op">$</span>p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>) {</span>
-<span id="cb242-15"><a href="nhst.html#cb242-15"></a>    typeIerr[i] &lt;-<span class="st"> </span>T</span>
-<span id="cb242-16"><a href="nhst.html#cb242-16"></a>  } <span class="cf">else</span> {</span>
-<span id="cb242-17"><a href="nhst.html#cb242-17"></a>    typeIerr[i] &lt;-<span class="st"> </span>F</span>
-<span id="cb242-18"><a href="nhst.html#cb242-18"></a></span>
-<span id="cb242-19"><a href="nhst.html#cb242-19"></a>  }</span>
-<span id="cb242-20"><a href="nhst.html#cb242-20"></a>}</span>
-<span id="cb242-21"><a href="nhst.html#cb242-21"></a><span class="kw">mean</span>(typeIerr)</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="nhst.html#cb278-1" tabindex="-1"></a><span class="co"># we can not reject the null hypothesis</span></span>
+<span id="cb278-2"><a href="nhst.html#cb278-2" tabindex="-1"></a></span>
+<span id="cb278-3"><a href="nhst.html#cb278-3" tabindex="-1"></a></span>
+<span id="cb278-4"><a href="nhst.html#cb278-4" tabindex="-1"></a><span class="co"># b</span></span>
+<span id="cb278-5"><a href="nhst.html#cb278-5" tabindex="-1"></a><span class="co"># The expected value of false positives would be 0.05. The expected value of </span></span>
+<span id="cb278-6"><a href="nhst.html#cb278-6" tabindex="-1"></a><span class="co"># true negatives would be 0, as there are no negatives (the null hypothesis is </span></span>
+<span id="cb278-7"><a href="nhst.html#cb278-7" tabindex="-1"></a><span class="co"># always the truth).</span></span>
+<span id="cb278-8"><a href="nhst.html#cb278-8" tabindex="-1"></a>nit       <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb278-9"><a href="nhst.html#cb278-9" tabindex="-1"></a>typeIerr  <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">length =</span> nit)</span>
+<span id="cb278-10"><a href="nhst.html#cb278-10" tabindex="-1"></a>typeIIerr <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">length =</span> nit)</span>
+<span id="cb278-11"><a href="nhst.html#cb278-11" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nit) {</span>
+<span id="cb278-12"><a href="nhst.html#cb278-12" tabindex="-1"></a>  x       <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
+<span id="cb278-13"><a href="nhst.html#cb278-13" tabindex="-1"></a>  my_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">mu =</span> <span class="dv">0</span>)</span>
+<span id="cb278-14"><a href="nhst.html#cb278-14" tabindex="-1"></a>  <span class="cf">if</span> (my_test<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>) {</span>
+<span id="cb278-15"><a href="nhst.html#cb278-15" tabindex="-1"></a>    typeIerr[i] <span class="ot">&lt;-</span> T</span>
+<span id="cb278-16"><a href="nhst.html#cb278-16" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb278-17"><a href="nhst.html#cb278-17" tabindex="-1"></a>    typeIerr[i] <span class="ot">&lt;-</span> F</span>
+<span id="cb278-18"><a href="nhst.html#cb278-18" tabindex="-1"></a></span>
+<span id="cb278-19"><a href="nhst.html#cb278-19" tabindex="-1"></a>  }</span>
+<span id="cb278-20"><a href="nhst.html#cb278-20" tabindex="-1"></a>}</span>
+<span id="cb278-21"><a href="nhst.html#cb278-21" tabindex="-1"></a><span class="fu">mean</span>(typeIerr)</span></code></pre></div>
 <pre><code>## [1] 0.052</code></pre>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="nhst.html#cb244-1"></a><span class="kw">sd</span>(typeIerr) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(nit)</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="nhst.html#cb280-1" tabindex="-1"></a><span class="fu">sd</span>(typeIerr) <span class="sc">/</span> <span class="fu">sqrt</span>(nit)</span></code></pre></div>
 <pre><code>## [1] 0.007024624</code></pre>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="nhst.html#cb246-1"></a><span class="co"># d</span></span>
-<span id="cb246-2"><a href="nhst.html#cb246-2"></a><span class="co"># We can not estimate the percentage of true negatives, but it will probably be </span></span>
-<span id="cb246-3"><a href="nhst.html#cb246-3"></a><span class="co"># higher than 0.05. There will be no false positives as the null hypothesis is</span></span>
-<span id="cb246-4"><a href="nhst.html#cb246-4"></a><span class="co"># always false.</span></span>
-<span id="cb246-5"><a href="nhst.html#cb246-5"></a>typeIIerr &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nit)</span>
-<span id="cb246-6"><a href="nhst.html#cb246-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nit) {</span>
-<span id="cb246-7"><a href="nhst.html#cb246-7"></a>  x       &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="fl">-0.5</span>)</span>
-<span id="cb246-8"><a href="nhst.html#cb246-8"></a>  my_test &lt;-<span class="st"> </span><span class="kw">t.test</span>(x, <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="dt">mu =</span> <span class="dv">0</span>)</span>
-<span id="cb246-9"><a href="nhst.html#cb246-9"></a>  <span class="cf">if</span> (my_test<span class="op">$</span>p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>) {</span>
-<span id="cb246-10"><a href="nhst.html#cb246-10"></a>    typeIIerr[i] &lt;-<span class="st"> </span>F</span>
-<span id="cb246-11"><a href="nhst.html#cb246-11"></a>  } <span class="cf">else</span> {</span>
-<span id="cb246-12"><a href="nhst.html#cb246-12"></a>    typeIIerr[i] &lt;-<span class="st"> </span>T</span>
-<span id="cb246-13"><a href="nhst.html#cb246-13"></a></span>
-<span id="cb246-14"><a href="nhst.html#cb246-14"></a>  }</span>
-<span id="cb246-15"><a href="nhst.html#cb246-15"></a>}</span>
-<span id="cb246-16"><a href="nhst.html#cb246-16"></a><span class="kw">mean</span>(typeIIerr)</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="nhst.html#cb282-1" tabindex="-1"></a><span class="co"># d</span></span>
+<span id="cb282-2"><a href="nhst.html#cb282-2" tabindex="-1"></a><span class="co"># We can not estimate the percentage of true negatives, but it will probably be </span></span>
+<span id="cb282-3"><a href="nhst.html#cb282-3" tabindex="-1"></a><span class="co"># higher than 0.05. There will be no false positives as the null hypothesis is</span></span>
+<span id="cb282-4"><a href="nhst.html#cb282-4" tabindex="-1"></a><span class="co"># always false.</span></span>
+<span id="cb282-5"><a href="nhst.html#cb282-5" tabindex="-1"></a>typeIIerr <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">length =</span> nit)</span>
+<span id="cb282-6"><a href="nhst.html#cb282-6" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nit) {</span>
+<span id="cb282-7"><a href="nhst.html#cb282-7" tabindex="-1"></a>  x       <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="sc">-</span><span class="fl">0.5</span>)</span>
+<span id="cb282-8"><a href="nhst.html#cb282-8" tabindex="-1"></a>  my_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">mu =</span> <span class="dv">0</span>)</span>
+<span id="cb282-9"><a href="nhst.html#cb282-9" tabindex="-1"></a>  <span class="cf">if</span> (my_test<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>) {</span>
+<span id="cb282-10"><a href="nhst.html#cb282-10" tabindex="-1"></a>    typeIIerr[i] <span class="ot">&lt;-</span> F</span>
+<span id="cb282-11"><a href="nhst.html#cb282-11" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb282-12"><a href="nhst.html#cb282-12" tabindex="-1"></a>    typeIIerr[i] <span class="ot">&lt;-</span> T</span>
+<span id="cb282-13"><a href="nhst.html#cb282-13" tabindex="-1"></a></span>
+<span id="cb282-14"><a href="nhst.html#cb282-14" tabindex="-1"></a>  }</span>
+<span id="cb282-15"><a href="nhst.html#cb282-15" tabindex="-1"></a>}</span>
+<span id="cb282-16"><a href="nhst.html#cb282-16" tabindex="-1"></a><span class="fu">mean</span>(typeIIerr)</span></code></pre></div>
 <pre><code>## [1] 0.719</code></pre>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="nhst.html#cb248-1"></a><span class="kw">sd</span>(typeIIerr) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(nit)</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="nhst.html#cb284-1" tabindex="-1"></a><span class="fu">sd</span>(typeIIerr) <span class="sc">/</span> <span class="fu">sqrt</span>(nit)</span></code></pre></div>
 <pre><code>## [1] 0.01422115</code></pre>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="nhst.html#cb250-1"></a><span class="co"># e</span></span>
-<span id="cb250-2"><a href="nhst.html#cb250-2"></a><span class="co"># The expected value of false positives would be lower than 0.05. The expected </span></span>
-<span id="cb250-3"><a href="nhst.html#cb250-3"></a><span class="co"># value of true negatives would be 0, as there are no negatives (the null </span></span>
-<span id="cb250-4"><a href="nhst.html#cb250-4"></a><span class="co"># hypothesis is always the truth).</span></span>
-<span id="cb250-5"><a href="nhst.html#cb250-5"></a>typeIerr &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nit)</span>
-<span id="cb250-6"><a href="nhst.html#cb250-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nit) {</span>
-<span id="cb250-7"><a href="nhst.html#cb250-7"></a>  u       &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>, <span class="dv">-1</span>, <span class="dv">0</span>)</span>
-<span id="cb250-8"><a href="nhst.html#cb250-8"></a>  x       &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>, u)</span>
-<span id="cb250-9"><a href="nhst.html#cb250-9"></a>  my_test &lt;-<span class="st"> </span><span class="kw">t.test</span>(x, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>, <span class="dt">mu =</span> <span class="dv">0</span>)</span>
-<span id="cb250-10"><a href="nhst.html#cb250-10"></a>  <span class="cf">if</span> (my_test<span class="op">$</span>p.value <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>) {</span>
-<span id="cb250-11"><a href="nhst.html#cb250-11"></a>    typeIerr[i] &lt;-<span class="st"> </span>T</span>
-<span id="cb250-12"><a href="nhst.html#cb250-12"></a>  } <span class="cf">else</span> {</span>
-<span id="cb250-13"><a href="nhst.html#cb250-13"></a>    typeIerr[i] &lt;-<span class="st"> </span>F</span>
-<span id="cb250-14"><a href="nhst.html#cb250-14"></a></span>
-<span id="cb250-15"><a href="nhst.html#cb250-15"></a>  }</span>
-<span id="cb250-16"><a href="nhst.html#cb250-16"></a>}</span>
-<span id="cb250-17"><a href="nhst.html#cb250-17"></a><span class="kw">mean</span>(typeIerr)</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="nhst.html#cb286-1" tabindex="-1"></a><span class="co"># e</span></span>
+<span id="cb286-2"><a href="nhst.html#cb286-2" tabindex="-1"></a><span class="co"># The expected value of false positives would be lower than 0.05. The expected </span></span>
+<span id="cb286-3"><a href="nhst.html#cb286-3" tabindex="-1"></a><span class="co"># value of true negatives would be 0, as there are no negatives (the null </span></span>
+<span id="cb286-4"><a href="nhst.html#cb286-4" tabindex="-1"></a><span class="co"># hypothesis is always the truth).</span></span>
+<span id="cb286-5"><a href="nhst.html#cb286-5" tabindex="-1"></a>typeIerr <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">length =</span> nit)</span>
+<span id="cb286-6"><a href="nhst.html#cb286-6" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nit) {</span>
+<span id="cb286-7"><a href="nhst.html#cb286-7" tabindex="-1"></a>  u       <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb286-8"><a href="nhst.html#cb286-8" tabindex="-1"></a>  x       <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, u)</span>
+<span id="cb286-9"><a href="nhst.html#cb286-9" tabindex="-1"></a>  my_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>, <span class="at">mu =</span> <span class="dv">0</span>)</span>
+<span id="cb286-10"><a href="nhst.html#cb286-10" tabindex="-1"></a>  <span class="cf">if</span> (my_test<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>) {</span>
+<span id="cb286-11"><a href="nhst.html#cb286-11" tabindex="-1"></a>    typeIerr[i] <span class="ot">&lt;-</span> T</span>
+<span id="cb286-12"><a href="nhst.html#cb286-12" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb286-13"><a href="nhst.html#cb286-13" tabindex="-1"></a>    typeIerr[i] <span class="ot">&lt;-</span> F</span>
+<span id="cb286-14"><a href="nhst.html#cb286-14" tabindex="-1"></a></span>
+<span id="cb286-15"><a href="nhst.html#cb286-15" tabindex="-1"></a>  }</span>
+<span id="cb286-16"><a href="nhst.html#cb286-16" tabindex="-1"></a>}</span>
+<span id="cb286-17"><a href="nhst.html#cb286-17" tabindex="-1"></a><span class="fu">mean</span>(typeIerr)</span></code></pre></div>
 <pre><code>## [1] 0.012</code></pre>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="nhst.html#cb252-1"></a><span class="kw">sd</span>(typeIerr) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(nit)</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="nhst.html#cb288-1" tabindex="-1"></a><span class="fu">sd</span>(typeIerr) <span class="sc">/</span> <span class="fu">sqrt</span>(nit)</span></code></pre></div>
 <pre><code>## [1] 0.003444977</code></pre>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-252" class="exercise"><strong>Exercise 16.3  (T-test, confidence intervals, and bootstrap)  </strong></span><span style="color:blue">Sample <span class="math inline">\(n=20\)</span> from a standard normal distribution and calculate the p-value using t-test, confidence intervals based on normal distribution, and bootstrap. Repeat this several times and check how many times we rejected the null hypothesis (made a type I error). Hint: For the confidence intervals you can use function <em>CI</em> from the <em>Rmisc</em> package.</span></p>
+<p><span id="exr:unnamed-chunk-263" class="exercise"><strong>Exercise 16.3  (T-test, confidence intervals, and bootstrap) </strong></span><span style="color:blue">Sample <span class="math inline">\(n=20\)</span> from a standard normal distribution and calculate the p-value using t-test, confidence intervals based on normal distribution, and bootstrap. Repeat this several times and check how many times we rejected the null hypothesis (made a type I error). Hint: For the confidence intervals you can use function <em>CI</em> from the <em>Rmisc</em> package.</span></p>
 </div>
-
 <div class="fold">
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="nhst.html#cb254-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb254-2"><a href="nhst.html#cb254-2"></a><span class="kw">library</span>(Rmisc)</span>
-<span id="cb254-3"><a href="nhst.html#cb254-3"></a>nit    &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb254-4"><a href="nhst.html#cb254-4"></a>n_boot &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb254-5"><a href="nhst.html#cb254-5"></a></span>
-<span id="cb254-6"><a href="nhst.html#cb254-6"></a>t_logic    &lt;-<span class="st"> </span><span class="kw">rep</span>(F, nit)</span>
-<span id="cb254-7"><a href="nhst.html#cb254-7"></a>boot_logic &lt;-<span class="st"> </span><span class="kw">rep</span>(F, nit)</span>
-<span id="cb254-8"><a href="nhst.html#cb254-8"></a>norm_logic &lt;-<span class="st"> </span><span class="kw">rep</span>(F, nit)</span>
-<span id="cb254-9"><a href="nhst.html#cb254-9"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nit) {</span>
-<span id="cb254-10"><a href="nhst.html#cb254-10"></a>  x       &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">20</span>)</span>
-<span id="cb254-11"><a href="nhst.html#cb254-11"></a>  my_test &lt;-<span class="st"> </span><span class="kw">t.test</span>(x)</span>
-<span id="cb254-12"><a href="nhst.html#cb254-12"></a>  my_CI   &lt;-<span class="st"> </span><span class="kw">CI</span>(x)</span>
-<span id="cb254-13"><a href="nhst.html#cb254-13"></a>  <span class="cf">if</span> (my_test<span class="op">$</span>p.value <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span>) t_logic[i] &lt;-<span class="st"> </span>T</span>
-<span id="cb254-14"><a href="nhst.html#cb254-14"></a>  boot_tmp &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> n_boot)</span>
-<span id="cb254-15"><a href="nhst.html#cb254-15"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n_boot) {</span>
-<span id="cb254-16"><a href="nhst.html#cb254-16"></a>    tmp_samp    &lt;-<span class="st"> </span><span class="kw">sample</span>(x, <span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">replace =</span> T)</span>
-<span id="cb254-17"><a href="nhst.html#cb254-17"></a>    boot_tmp[j] &lt;-<span class="st"> </span><span class="kw">mean</span>(tmp_samp)</span>
-<span id="cb254-18"><a href="nhst.html#cb254-18"></a>  }</span>
-<span id="cb254-19"><a href="nhst.html#cb254-19"></a>  <span class="cf">if</span> ((<span class="kw">quantile</span>(boot_tmp, <span class="fl">0.025</span>) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>) <span class="op">|</span><span class="st"> </span>(<span class="kw">quantile</span>(boot_tmp, <span class="fl">0.975</span>) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>)) {</span>
-<span id="cb254-20"><a href="nhst.html#cb254-20"></a>    boot_logic[i] &lt;-<span class="st"> </span>T</span>
-<span id="cb254-21"><a href="nhst.html#cb254-21"></a>  }</span>
-<span id="cb254-22"><a href="nhst.html#cb254-22"></a>  <span class="cf">if</span> ((my_CI[<span class="dv">3</span>] <span class="op">&gt;=</span><span class="st"> </span><span class="dv">0</span>) <span class="op">|</span><span class="st"> </span>(my_CI[<span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span>)) {</span>
-<span id="cb254-23"><a href="nhst.html#cb254-23"></a>    norm_logic[i] &lt;-<span class="st"> </span>T</span>
-<span id="cb254-24"><a href="nhst.html#cb254-24"></a>  }</span>
-<span id="cb254-25"><a href="nhst.html#cb254-25"></a>}</span>
-<span id="cb254-26"><a href="nhst.html#cb254-26"></a><span class="kw">mean</span>(t_logic)</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="nhst.html#cb290-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb290-2"><a href="nhst.html#cb290-2" tabindex="-1"></a><span class="fu">library</span>(Rmisc)</span>
+<span id="cb290-3"><a href="nhst.html#cb290-3" tabindex="-1"></a>nit    <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb290-4"><a href="nhst.html#cb290-4" tabindex="-1"></a>n_boot <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb290-5"><a href="nhst.html#cb290-5" tabindex="-1"></a></span>
+<span id="cb290-6"><a href="nhst.html#cb290-6" tabindex="-1"></a>t_logic    <span class="ot">&lt;-</span> <span class="fu">rep</span>(F, nit)</span>
+<span id="cb290-7"><a href="nhst.html#cb290-7" tabindex="-1"></a>boot_logic <span class="ot">&lt;-</span> <span class="fu">rep</span>(F, nit)</span>
+<span id="cb290-8"><a href="nhst.html#cb290-8" tabindex="-1"></a>norm_logic <span class="ot">&lt;-</span> <span class="fu">rep</span>(F, nit)</span>
+<span id="cb290-9"><a href="nhst.html#cb290-9" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nit) {</span>
+<span id="cb290-10"><a href="nhst.html#cb290-10" tabindex="-1"></a>  x       <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>)</span>
+<span id="cb290-11"><a href="nhst.html#cb290-11" tabindex="-1"></a>  my_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x)</span>
+<span id="cb290-12"><a href="nhst.html#cb290-12" tabindex="-1"></a>  my_CI   <span class="ot">&lt;-</span> <span class="fu">CI</span>(x)</span>
+<span id="cb290-13"><a href="nhst.html#cb290-13" tabindex="-1"></a>  <span class="cf">if</span> (my_test<span class="sc">$</span>p.value <span class="sc">&lt;=</span> <span class="fl">0.05</span>) t_logic[i] <span class="ot">&lt;-</span> T</span>
+<span id="cb290-14"><a href="nhst.html#cb290-14" tabindex="-1"></a>  boot_tmp <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="at">length =</span> n_boot)</span>
+<span id="cb290-15"><a href="nhst.html#cb290-15" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_boot) {</span>
+<span id="cb290-16"><a href="nhst.html#cb290-16" tabindex="-1"></a>    tmp_samp    <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">replace =</span> T)</span>
+<span id="cb290-17"><a href="nhst.html#cb290-17" tabindex="-1"></a>    boot_tmp[j] <span class="ot">&lt;-</span> <span class="fu">mean</span>(tmp_samp)</span>
+<span id="cb290-18"><a href="nhst.html#cb290-18" tabindex="-1"></a>  }</span>
+<span id="cb290-19"><a href="nhst.html#cb290-19" tabindex="-1"></a>  <span class="cf">if</span> ((<span class="fu">quantile</span>(boot_tmp, <span class="fl">0.025</span>) <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">|</span> (<span class="fu">quantile</span>(boot_tmp, <span class="fl">0.975</span>) <span class="sc">&lt;=</span> <span class="dv">0</span>)) {</span>
+<span id="cb290-20"><a href="nhst.html#cb290-20" tabindex="-1"></a>    boot_logic[i] <span class="ot">&lt;-</span> T</span>
+<span id="cb290-21"><a href="nhst.html#cb290-21" tabindex="-1"></a>  }</span>
+<span id="cb290-22"><a href="nhst.html#cb290-22" tabindex="-1"></a>  <span class="cf">if</span> ((my_CI[<span class="dv">3</span>] <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">|</span> (my_CI[<span class="dv">1</span>] <span class="sc">&lt;=</span> <span class="dv">0</span>)) {</span>
+<span id="cb290-23"><a href="nhst.html#cb290-23" tabindex="-1"></a>    norm_logic[i] <span class="ot">&lt;-</span> T</span>
+<span id="cb290-24"><a href="nhst.html#cb290-24" tabindex="-1"></a>  }</span>
+<span id="cb290-25"><a href="nhst.html#cb290-25" tabindex="-1"></a>}</span>
+<span id="cb290-26"><a href="nhst.html#cb290-26" tabindex="-1"></a><span class="fu">mean</span>(t_logic)</span></code></pre></div>
 <pre><code>## [1] 0.053</code></pre>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="nhst.html#cb256-1"></a><span class="kw">sd</span>(t_logic) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(nit)</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="nhst.html#cb292-1" tabindex="-1"></a><span class="fu">sd</span>(t_logic) <span class="sc">/</span> <span class="fu">sqrt</span>(nit)</span></code></pre></div>
 <pre><code>## [1] 0.007088106</code></pre>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="nhst.html#cb258-1"></a><span class="kw">mean</span>(boot_logic)</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="nhst.html#cb294-1" tabindex="-1"></a><span class="fu">mean</span>(boot_logic)</span></code></pre></div>
 <pre><code>## [1] 0.093</code></pre>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="nhst.html#cb260-1"></a><span class="kw">sd</span>(boot_logic) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(nit)</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="nhst.html#cb296-1" tabindex="-1"></a><span class="fu">sd</span>(boot_logic) <span class="sc">/</span> <span class="fu">sqrt</span>(nit)</span></code></pre></div>
 <pre><code>## [1] 0.009188876</code></pre>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="nhst.html#cb262-1"></a><span class="kw">mean</span>(norm_logic)</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="nhst.html#cb298-1" tabindex="-1"></a><span class="fu">mean</span>(norm_logic)</span></code></pre></div>
 <pre><code>## [1] 0.053</code></pre>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="nhst.html#cb264-1"></a><span class="kw">sd</span>(norm_logic) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(nit)</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="nhst.html#cb300-1" tabindex="-1"></a><span class="fu">sd</span>(norm_logic) <span class="sc">/</span> <span class="fu">sqrt</span>(nit)</span></code></pre></div>
 <pre><code>## [1] 0.007088106</code></pre>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-254" class="exercise"><strong>Exercise 16.4  (Chi-squared test)  </strong></span></p>
+<p><span id="exr:unnamed-chunk-265" class="exercise"><strong>Exercise 16.4  (Chi-squared test) </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li>Show that the <span class="math inline">\(\chi^2 = \sum_{i=1}^k \frac{(O_i - E_i)^2}{E_i}\)</span> test statistic is approximately <span class="math inline">\(\chi^2\)</span> distributed when we have two categories.</li>
 <li><span style="color:blue">Let us look at the US voting data <a href="https://edition.cnn.com/election/2016/results/exit-polls">here</a>. Compare the number of voters who voted for Trump or Hillary depending on their income (less or more than 100.000 dollars per year). Manually calculate the chi-squared statistic, compare to the chisq.test in R, and discuss the results.</span></li>
 <li><span style="color:blue">Visualize the test.</span></li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-94" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li>Let <span class="math inline">\(X_i\)</span> be binary variables, <span class="math inline">\(i = 1,...,n\)</span>. We can then express the test statistic as
 <span class="math display">\[\begin{align}
@@ -475,47 +509,47 @@ $(document).ready(function() {
 When <span class="math inline">\(n\)</span> is large, this distrbution is approximately normal with <span class="math inline">\(\mu = np\)</span> and <span class="math inline">\(\sigma^2 = np(1 - p)\)</span> (binomial converges in distribution to standard normal). By definition, the chi-squared distribution with <span class="math inline">\(k\)</span> degrees of freedom is a sum of squares of <span class="math inline">\(k\)</span> independent standard normal random variables.</li>
 </ol>
 </div>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="nhst.html#cb266-1"></a>n &lt;-<span class="st"> </span><span class="dv">24588</span></span>
-<span id="cb266-2"><a href="nhst.html#cb266-2"></a>less100     &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="fl">0.66</span> <span class="op">*</span><span class="st"> </span>n <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="fl">0.49</span>, <span class="fl">0.45</span>, <span class="fl">0.06</span>)) <span class="co"># some rounding, but it should not affect results</span></span>
-<span id="cb266-3"><a href="nhst.html#cb266-3"></a>more100     &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="fl">0.34</span> <span class="op">*</span><span class="st"> </span>n <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="fl">0.47</span>, <span class="fl">0.47</span>, <span class="fl">0.06</span>))</span>
-<span id="cb266-4"><a href="nhst.html#cb266-4"></a>x           &lt;-<span class="st"> </span><span class="kw">rbind</span>(less100, more100)</span>
-<span id="cb266-5"><a href="nhst.html#cb266-5"></a><span class="kw">colnames</span>(x) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Clinton&quot;</span>, <span class="st">&quot;Trump&quot;</span>, <span class="st">&quot;other/no answer&quot;</span>)</span>
-<span id="cb266-6"><a href="nhst.html#cb266-6"></a><span class="kw">print</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="nhst.html#cb302-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">24588</span></span>
+<span id="cb302-2"><a href="nhst.html#cb302-2" tabindex="-1"></a>less100     <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fl">0.66</span> <span class="sc">*</span> n <span class="sc">*</span> <span class="fu">c</span>(<span class="fl">0.49</span>, <span class="fl">0.45</span>, <span class="fl">0.06</span>)) <span class="co"># some rounding, but it should not affect results</span></span>
+<span id="cb302-3"><a href="nhst.html#cb302-3" tabindex="-1"></a>more100     <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fl">0.34</span> <span class="sc">*</span> n <span class="sc">*</span> <span class="fu">c</span>(<span class="fl">0.47</span>, <span class="fl">0.47</span>, <span class="fl">0.06</span>))</span>
+<span id="cb302-4"><a href="nhst.html#cb302-4" tabindex="-1"></a>x           <span class="ot">&lt;-</span> <span class="fu">rbind</span>(less100, more100)</span>
+<span id="cb302-5"><a href="nhst.html#cb302-5" tabindex="-1"></a><span class="fu">colnames</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Clinton&quot;</span>, <span class="st">&quot;Trump&quot;</span>, <span class="st">&quot;other/no answer&quot;</span>)</span>
+<span id="cb302-6"><a href="nhst.html#cb302-6" tabindex="-1"></a><span class="fu">print</span>(x)</span></code></pre></div>
 <pre><code>##         Clinton Trump other/no answer
 ## less100    7952  7303             974
 ## more100    3929  3929             502</code></pre>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="nhst.html#cb268-1"></a><span class="kw">chisq.test</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="nhst.html#cb304-1" tabindex="-1"></a><span class="fu">chisq.test</span>(x)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  x
 ## X-squared = 9.3945, df = 2, p-value = 0.00912</code></pre>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="nhst.html#cb270-1"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="nhst.html#cb306-1" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>##         Clinton Trump other/no answer
 ## less100    7952  7303             974
 ## more100    3929  3929             502</code></pre>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="nhst.html#cb272-1"></a>csum &lt;-<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">2</span>, sum)</span>
-<span id="cb272-2"><a href="nhst.html#cb272-2"></a>rsum &lt;-<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">1</span>, sum)</span>
-<span id="cb272-3"><a href="nhst.html#cb272-3"></a></span>
-<span id="cb272-4"><a href="nhst.html#cb272-4"></a>chi2 &lt;-<span class="st"> </span>(x[<span class="dv">1</span>,<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>csum[<span class="dv">1</span>] <span class="op">*</span><span class="st"> </span>rsum[<span class="dv">1</span>] <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x))<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(csum[<span class="dv">1</span>] <span class="op">*</span><span class="st"> </span>rsum[<span class="dv">1</span>] <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x)) <span class="op">+</span></span>
-<span id="cb272-5"><a href="nhst.html#cb272-5"></a><span class="st">  </span>(x[<span class="dv">1</span>,<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>csum[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>rsum[<span class="dv">1</span>] <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x))<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(csum[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>rsum[<span class="dv">1</span>] <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x)) <span class="op">+</span></span>
-<span id="cb272-6"><a href="nhst.html#cb272-6"></a><span class="st">  </span>(x[<span class="dv">1</span>,<span class="dv">3</span>] <span class="op">-</span><span class="st"> </span>csum[<span class="dv">3</span>] <span class="op">*</span><span class="st"> </span>rsum[<span class="dv">1</span>] <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x))<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(csum[<span class="dv">3</span>] <span class="op">*</span><span class="st"> </span>rsum[<span class="dv">1</span>] <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x)) <span class="op">+</span></span>
-<span id="cb272-7"><a href="nhst.html#cb272-7"></a><span class="st">  </span>(x[<span class="dv">2</span>,<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>csum[<span class="dv">1</span>] <span class="op">*</span><span class="st"> </span>rsum[<span class="dv">2</span>] <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x))<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(csum[<span class="dv">1</span>] <span class="op">*</span><span class="st"> </span>rsum[<span class="dv">2</span>] <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x)) <span class="op">+</span></span>
-<span id="cb272-8"><a href="nhst.html#cb272-8"></a><span class="st">  </span>(x[<span class="dv">2</span>,<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>csum[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>rsum[<span class="dv">2</span>] <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x))<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(csum[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>rsum[<span class="dv">2</span>] <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x)) <span class="op">+</span></span>
-<span id="cb272-9"><a href="nhst.html#cb272-9"></a><span class="st">  </span>(x[<span class="dv">2</span>,<span class="dv">3</span>] <span class="op">-</span><span class="st"> </span>csum[<span class="dv">3</span>] <span class="op">*</span><span class="st"> </span>rsum[<span class="dv">2</span>] <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x))<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(csum[<span class="dv">3</span>] <span class="op">*</span><span class="st"> </span>rsum[<span class="dv">2</span>] <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x))</span>
-<span id="cb272-10"><a href="nhst.html#cb272-10"></a>chi2</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="nhst.html#cb308-1" tabindex="-1"></a>csum <span class="ot">&lt;-</span> <span class="fu">apply</span>(x, <span class="dv">2</span>, sum)</span>
+<span id="cb308-2"><a href="nhst.html#cb308-2" tabindex="-1"></a>rsum <span class="ot">&lt;-</span> <span class="fu">apply</span>(x, <span class="dv">1</span>, sum)</span>
+<span id="cb308-3"><a href="nhst.html#cb308-3" tabindex="-1"></a></span>
+<span id="cb308-4"><a href="nhst.html#cb308-4" tabindex="-1"></a>chi2 <span class="ot">&lt;-</span> (x[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">-</span> csum[<span class="dv">1</span>] <span class="sc">*</span> rsum[<span class="dv">1</span>] <span class="sc">/</span> <span class="fu">sum</span>(x))<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (csum[<span class="dv">1</span>] <span class="sc">*</span> rsum[<span class="dv">1</span>] <span class="sc">/</span> <span class="fu">sum</span>(x)) <span class="sc">+</span></span>
+<span id="cb308-5"><a href="nhst.html#cb308-5" tabindex="-1"></a>  (x[<span class="dv">1</span>,<span class="dv">2</span>] <span class="sc">-</span> csum[<span class="dv">2</span>] <span class="sc">*</span> rsum[<span class="dv">1</span>] <span class="sc">/</span> <span class="fu">sum</span>(x))<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (csum[<span class="dv">2</span>] <span class="sc">*</span> rsum[<span class="dv">1</span>] <span class="sc">/</span> <span class="fu">sum</span>(x)) <span class="sc">+</span></span>
+<span id="cb308-6"><a href="nhst.html#cb308-6" tabindex="-1"></a>  (x[<span class="dv">1</span>,<span class="dv">3</span>] <span class="sc">-</span> csum[<span class="dv">3</span>] <span class="sc">*</span> rsum[<span class="dv">1</span>] <span class="sc">/</span> <span class="fu">sum</span>(x))<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (csum[<span class="dv">3</span>] <span class="sc">*</span> rsum[<span class="dv">1</span>] <span class="sc">/</span> <span class="fu">sum</span>(x)) <span class="sc">+</span></span>
+<span id="cb308-7"><a href="nhst.html#cb308-7" tabindex="-1"></a>  (x[<span class="dv">2</span>,<span class="dv">1</span>] <span class="sc">-</span> csum[<span class="dv">1</span>] <span class="sc">*</span> rsum[<span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sum</span>(x))<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (csum[<span class="dv">1</span>] <span class="sc">*</span> rsum[<span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sum</span>(x)) <span class="sc">+</span></span>
+<span id="cb308-8"><a href="nhst.html#cb308-8" tabindex="-1"></a>  (x[<span class="dv">2</span>,<span class="dv">2</span>] <span class="sc">-</span> csum[<span class="dv">2</span>] <span class="sc">*</span> rsum[<span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sum</span>(x))<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (csum[<span class="dv">2</span>] <span class="sc">*</span> rsum[<span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sum</span>(x)) <span class="sc">+</span></span>
+<span id="cb308-9"><a href="nhst.html#cb308-9" tabindex="-1"></a>  (x[<span class="dv">2</span>,<span class="dv">3</span>] <span class="sc">-</span> csum[<span class="dv">3</span>] <span class="sc">*</span> rsum[<span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sum</span>(x))<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (csum[<span class="dv">3</span>] <span class="sc">*</span> rsum[<span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sum</span>(x))</span>
+<span id="cb308-10"><a href="nhst.html#cb308-10" tabindex="-1"></a>chi2</span></code></pre></div>
 <pre><code>##  Clinton 
 ## 9.394536</code></pre>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="nhst.html#cb274-1"></a><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pchisq</span>(chi2, <span class="dt">df =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="nhst.html#cb310-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(chi2, <span class="at">df =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##     Clinton 
 ## 0.009120161</code></pre>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="nhst.html#cb276-1"></a>x  &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">15</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</span>
-<span id="cb276-2"><a href="nhst.html#cb276-2"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x)</span>
-<span id="cb276-3"><a href="nhst.html#cb276-3"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x)) <span class="op">+</span></span>
-<span id="cb276-4"><a href="nhst.html#cb276-4"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dchisq, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">df =</span> <span class="dv">2</span>)) <span class="op">+</span></span>
-<span id="cb276-5"><a href="nhst.html#cb276-5"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> chi2, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">xend =</span> chi2, <span class="dt">yend =</span> <span class="kw">dchisq</span>(chi2, <span class="dt">df =</span> <span class="dv">2</span>))) <span class="op">+</span></span>
-<span id="cb276-6"><a href="nhst.html#cb276-6"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dchisq, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">df =</span> <span class="dv">2</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(chi2, <span class="dv">15</span>), <span class="dt">geom =</span> <span class="st">&quot;area&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-256-1.png" width="672" /></p>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="nhst.html#cb312-1" tabindex="-1"></a>x  <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">15</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb312-2"><a href="nhst.html#cb312-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x)</span>
+<span id="cb312-3"><a href="nhst.html#cb312-3" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb312-4"><a href="nhst.html#cb312-4" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dchisq, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">df =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb312-5"><a href="nhst.html#cb312-5" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> chi2, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> chi2, <span class="at">yend =</span> <span class="fu">dchisq</span>(chi2, <span class="at">df =</span> <span class="dv">2</span>))) <span class="sc">+</span></span>
+<span id="cb312-6"><a href="nhst.html#cb312-6" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dchisq, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">df =</span> <span class="dv">2</span>), <span class="at">xlim =</span> <span class="fu">c</span>(chi2, <span class="dv">15</span>), <span class="at">geom =</span> <span class="st">&quot;area&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-267-1.png" width="672" /></p>
 </div>
 
 </div>
@@ -529,7 +563,6 @@ When <span class="math inline">\(n\)</span> is large, this distrbution is approx
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -548,6 +581,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -568,6 +602,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -581,7 +619,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

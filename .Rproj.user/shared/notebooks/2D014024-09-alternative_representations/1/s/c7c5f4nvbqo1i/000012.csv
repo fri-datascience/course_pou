@@ -1,7 +1,0 @@
-"0",""
-"0","samps              <- cbind(samps, ""theoretical"" = rpois(nsamps, 2 + 5.2 + 10))"
-"0","gsamps             <- as_tibble(samps[ ,4:5])"
-"0","gsamps             <- gather(gsamps, key = ""dist"", value = ""value"")"
-"0","ggplot(gsamps, aes(x = value, fill = dist)) +"
-"0","  geom_bar(position = ""dodge"")"
-"0",""

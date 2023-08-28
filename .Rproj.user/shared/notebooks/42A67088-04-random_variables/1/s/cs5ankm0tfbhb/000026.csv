@@ -1,5 +1,0 @@
-"0",""
-"0","ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +"
-"0","  stat_function(fun = qexp, args = list(rate = 1.5), aes(color = ""R""), size = 2.5) +"
-"0","  stat_function(fun = exp_quant, args = list(lambda = 1.5), aes(color = ""Mine""), size = 1.2) +"
-"0","  scale_color_manual(values = c(""red"", ""black""))"

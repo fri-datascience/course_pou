@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Conditional probability | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Conditional probability | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://fri-datascience.github.io/course_pou/" />
   
   <meta property="og:description" content="Course notes" />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2021-01-14" />
+<meta name="date" content="2023-08-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="uprobspaces.html"/>
 <link rel="next" href="rvs.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,25 +49,24 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,13 +86,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -106,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -118,6 +117,33 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -137,81 +163,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Probability spaces</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#measure-and-probability-spaces"><i class="fa fa-check"></i><b>1.1</b> Measure and probability spaces</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#properties-of-probability-measures"><i class="fa fa-check"></i><b>1.2</b> Properties of probability measures</a></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#discrete-probability-spaces"><i class="fa fa-check"></i><b>1.3</b> Discrete probability spaces</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a><ul>
+<li class="chapter" data-level="2" data-path="uprobspaces.html"><a href="uprobspaces.html"><i class="fa fa-check"></i><b>2</b> Uncountable probability spaces</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="uprobspaces.html"><a href="uprobspaces.html#bset"><i class="fa fa-check"></i><b>2.1</b> Borel sets</a></li>
 <li class="chapter" data-level="2.2" data-path="uprobspaces.html"><a href="uprobspaces.html#lebesgue-measure"><i class="fa fa-check"></i><b>2.2</b> Lebesgue measure</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a><ul>
+<li class="chapter" data-level="3" data-path="condprob.html"><a href="condprob.html"><i class="fa fa-check"></i><b>3</b> Conditional probability</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="condprob.html"><a href="condprob.html#calculating-conditional-probabilities"><i class="fa fa-check"></i><b>3.1</b> Calculating conditional probabilities</a></li>
 <li class="chapter" data-level="3.2" data-path="condprob.html"><a href="condprob.html#conditional-independence"><i class="fa fa-check"></i><b>3.2</b> Conditional independence</a></li>
 <li class="chapter" data-level="3.3" data-path="condprob.html"><a href="condprob.html#monty-hall-problem"><i class="fa fa-check"></i><b>3.3</b> Monty Hall problem</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a><ul>
+<li class="chapter" data-level="4" data-path="rvs.html"><a href="rvs.html"><i class="fa fa-check"></i><b>4</b> Random variables</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="rvs.html"><a href="rvs.html#general-properties-and-calculations"><i class="fa fa-check"></i><b>4.1</b> General properties and calculations</a></li>
 <li class="chapter" data-level="4.2" data-path="rvs.html"><a href="rvs.html#discrete-random-variables"><i class="fa fa-check"></i><b>4.2</b> Discrete random variables</a></li>
 <li class="chapter" data-level="4.3" data-path="rvs.html"><a href="rvs.html#continuous-random-variables"><i class="fa fa-check"></i><b>4.3</b> Continuous random variables</a></li>
 <li class="chapter" data-level="4.4" data-path="rvs.html"><a href="rvs.html#singular-random-variables"><i class="fa fa-check"></i><b>4.4</b> Singular random variables</a></li>
 <li class="chapter" data-level="4.5" data-path="rvs.html"><a href="rvs.html#transformations"><i class="fa fa-check"></i><b>4.5</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a><ul>
+<li class="chapter" data-level="5" data-path="mrvs.html"><a href="mrvs.html"><i class="fa fa-check"></i><b>5</b> Multiple random variables</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="mrvs.html"><a href="mrvs.html#general"><i class="fa fa-check"></i><b>5.1</b> General</a></li>
 <li class="chapter" data-level="5.2" data-path="mrvs.html"><a href="mrvs.html#bivariate-distribution-examples"><i class="fa fa-check"></i><b>5.2</b> Bivariate distribution examples</a></li>
 <li class="chapter" data-level="5.3" data-path="mrvs.html"><a href="mrvs.html#transformations-1"><i class="fa fa-check"></i><b>5.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a><ul>
+<li class="chapter" data-level="6" data-path="integ.html"><a href="integ.html"><i class="fa fa-check"></i><b>6</b> Integration</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="integ.html"><a href="integ.html#monte-carlo-integration"><i class="fa fa-check"></i><b>6.1</b> Monte Carlo integration</a></li>
 <li class="chapter" data-level="6.2" data-path="integ.html"><a href="integ.html#lebesgue-integrals"><i class="fa fa-check"></i><b>6.2</b> Lebesgue integrals</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a><ul>
+<li class="chapter" data-level="7" data-path="ev.html"><a href="ev.html"><i class="fa fa-check"></i><b>7</b> Expected value</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="ev.html"><a href="ev.html#discrete-random-variables-1"><i class="fa fa-check"></i><b>7.1</b> Discrete random variables</a></li>
 <li class="chapter" data-level="7.2" data-path="ev.html"><a href="ev.html#continuous-random-variables-1"><i class="fa fa-check"></i><b>7.2</b> Continuous random variables</a></li>
 <li class="chapter" data-level="7.3" data-path="ev.html"><a href="ev.html#sums-functions-conditional-expectations"><i class="fa fa-check"></i><b>7.3</b> Sums, functions, conditional expectations</a></li>
 <li class="chapter" data-level="7.4" data-path="ev.html"><a href="ev.html#covariance"><i class="fa fa-check"></i><b>7.4</b> Covariance</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a><ul>
+<li class="chapter" data-level="8" data-path="mrv.html"><a href="mrv.html"><i class="fa fa-check"></i><b>8</b> Multivariate random variables</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="mrv.html"><a href="mrv.html#multinomial-random-variables"><i class="fa fa-check"></i><b>8.1</b> Multinomial random variables</a></li>
 <li class="chapter" data-level="8.2" data-path="mrv.html"><a href="mrv.html#multivariate-normal-random-variables"><i class="fa fa-check"></i><b>8.2</b> Multivariate normal random variables</a></li>
 <li class="chapter" data-level="8.3" data-path="mrv.html"><a href="mrv.html#transformations-2"><i class="fa fa-check"></i><b>8.3</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a><ul>
+<li class="chapter" data-level="9" data-path="ard.html"><a href="ard.html"><i class="fa fa-check"></i><b>9</b> Alternative representation of distributions</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="ard.html"><a href="ard.html#probability-generating-functions-pgfs"><i class="fa fa-check"></i><b>9.1</b> Probability generating functions (PGFs)</a></li>
 <li class="chapter" data-level="9.2" data-path="ard.html"><a href="ard.html#moment-generating-functions-mgfs"><i class="fa fa-check"></i><b>9.2</b> Moment generating functions (MGFs)</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a><ul>
+<li class="chapter" data-level="10" data-path="ci.html"><a href="ci.html"><i class="fa fa-check"></i><b>10</b> Concentration inequalities</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="ci.html"><a href="ci.html#comparison"><i class="fa fa-check"></i><b>10.1</b> Comparison</a></li>
 <li class="chapter" data-level="10.2" data-path="ci.html"><a href="ci.html#practical"><i class="fa fa-check"></i><b>10.2</b> Practical</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="crv.html"><a href="crv.html"><i class="fa fa-check"></i><b>11</b> Convergence of random variables</a></li>
 <li class="chapter" data-level="12" data-path="lt.html"><a href="lt.html"><i class="fa fa-check"></i><b>12</b> Limit theorems</a></li>
-<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a><ul>
+<li class="chapter" data-level="13" data-path="eb.html"><a href="eb.html"><i class="fa fa-check"></i><b>13</b> Estimation basics</a>
+<ul>
 <li class="chapter" data-level="13.1" data-path="eb.html"><a href="eb.html#ecdf"><i class="fa fa-check"></i><b>13.1</b> ECDF</a></li>
 <li class="chapter" data-level="13.2" data-path="eb.html"><a href="eb.html#properties-of-estimators"><i class="fa fa-check"></i><b>13.2</b> Properties of estimators</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="boot.html"><a href="boot.html"><i class="fa fa-check"></i><b>14</b> Bootstrap</a></li>
-<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a><ul>
+<li class="chapter" data-level="15" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>15</b> Maximum likelihood</a>
+<ul>
 <li class="chapter" data-level="15.1" data-path="ml.html"><a href="ml.html#deriving-mle"><i class="fa fa-check"></i><b>15.1</b> Deriving MLE</a></li>
 <li class="chapter" data-level="15.2" data-path="ml.html"><a href="ml.html#fisher-information"><i class="fa fa-check"></i><b>15.2</b> Fisher information</a></li>
 <li class="chapter" data-level="15.3" data-path="ml.html"><a href="ml.html#the-german-tank-problem"><i class="fa fa-check"></i><b>15.3</b> The German tank problem</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="nhst.html"><a href="nhst.html"><i class="fa fa-check"></i><b>16</b> Null hypothesis significance testing</a></li>
-<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a><ul>
+<li class="chapter" data-level="17" data-path="bi.html"><a href="bi.html"><i class="fa fa-check"></i><b>17</b> Bayesian inference</a>
+<ul>
 <li class="chapter" data-level="17.1" data-path="bi.html"><a href="bi.html#conjugate-priors"><i class="fa fa-check"></i><b>17.1</b> Conjugate priors</a></li>
 <li class="chapter" data-level="17.2" data-path="bi.html"><a href="bi.html#posterior-sampling"><i class="fa fa-check"></i><b>17.2</b> Posterior sampling</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a><ul>
+<li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a>
+<ul>
 <li class="chapter" data-level="A.1" data-path="A1.html"><a href="A1.html#basic-characteristics"><i class="fa fa-check"></i><b>A.1</b> Basic characteristics</a></li>
 <li class="chapter" data-level="A.2" data-path="A1.html"><a href="A1.html#why-r"><i class="fa fa-check"></i><b>A.2</b> Why R?</a></li>
-<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a><ul>
+<li class="chapter" data-level="A.3" data-path="A1.html"><a href="A1.html#setting-up"><i class="fa fa-check"></i><b>A.3</b> Setting up</a>
+<ul>
 <li class="chapter" data-level="A.3.1" data-path="A1.html"><a href="A1.html#rstudio"><i class="fa fa-check"></i><b>A.3.1</b> RStudio</a></li>
 <li class="chapter" data-level="A.3.2" data-path="A1.html"><a href="A1.html#libraries-for-data-science"><i class="fa fa-check"></i><b>A.3.2</b> Libraries for data science</a></li>
 </ul></li>
-<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a><ul>
+<li class="chapter" data-level="A.4" data-path="A1.html"><a href="A1.html#r-basics"><i class="fa fa-check"></i><b>A.4</b> R basics</a>
+<ul>
 <li class="chapter" data-level="A.4.1" data-path="A1.html"><a href="A1.html#variables-and-types"><i class="fa fa-check"></i><b>A.4.1</b> Variables and types</a></li>
 <li class="chapter" data-level="A.4.2" data-path="A1.html"><a href="A1.html#basic-operations"><i class="fa fa-check"></i><b>A.4.2</b> Basic operations</a></li>
 <li class="chapter" data-level="A.4.3" data-path="A1.html"><a href="A1.html#vectors"><i class="fa fa-check"></i><b>A.4.3</b> Vectors</a></li>
@@ -222,7 +264,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A.4.8" data-path="A1.html"><a href="A1.html#lists"><i class="fa fa-check"></i><b>A.4.8</b> Lists</a></li>
 <li class="chapter" data-level="A.4.9" data-path="A1.html"><a href="A1.html#loops"><i class="fa fa-check"></i><b>A.4.9</b> Loops</a></li>
 </ul></li>
-<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a><ul>
+<li class="chapter" data-level="A.5" data-path="A1.html"><a href="A1.html#functions"><i class="fa fa-check"></i><b>A.5</b> Functions</a>
+<ul>
 <li class="chapter" data-level="A.5.1" data-path="A1.html"><a href="A1.html#writing-functions"><i class="fa fa-check"></i><b>A.5.1</b> Writing functions</a></li>
 </ul></li>
 <li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
@@ -249,8 +292,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="condprob" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Conditional probability</h1>
+<div id="condprob" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Conditional probability<a href="condprob.html#condprob" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This chapter deals with conditional probability.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
@@ -288,65 +331,59 @@ $(document).ready(function() {
   })
 });
 </script>
-<div id="calculating-conditional-probabilities" class="section level2">
-<h2><span class="header-section-number">3.1</span> Calculating conditional probabilities</h2>
-
+<div id="calculating-conditional-probabilities" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Calculating conditional probabilities<a href="condprob.html#calculating-conditional-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-54" class="exercise"><strong>Exercise 3.1  </strong></span>A military officer is in charge of identifying enemy aircraft and shooting them
+<p><span id="exr:unnamed-chunk-55" class="exercise"><strong>Exercise 3.1  </strong></span>A military officer is in charge of identifying enemy aircraft and shooting them
 down. He is able to positively identify an enemy airplane 95% of the time
 and positively identify a friendly airplane 90% of the time. Furthermore, 99%
 of the airplanes are friendly. When the officer identifies an airplane as an
 enemy airplane, what is the probability that it is not and they will shoot at
 a friendly airplane?</p>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(E = 0\)</span> denote that the observed plane is friendly and <span class="math inline">\(E=1\)</span> that it
+<p><span id="unlabeled-div-24" class="solution"><em>Solution</em>. </span>Let <span class="math inline">\(E = 0\)</span> denote that the observed plane is friendly and <span class="math inline">\(E=1\)</span> that it
 is an enemy. Let <span class="math inline">\(I = 0\)</span> denote that the officer identified it as friendly and
 <span class="math inline">\(I = 1\)</span> as enemy. Then</p>
-<span class="math display">\[\begin{align}
-  P(E = 0 | I = 1) &amp;= \frac{P(I = 1 | E = 0)P(E = 0)}{P(I = 1)} \\ 
-                   &amp;= \frac{P(I = 1 | E = 0)P(E = 0)}{P(I = 1 | E = 0)P(E = 0) + 
+<p><span class="math display">\[\begin{align}
+  P(E = 0 | I = 1) &amp;= \frac{P(I = 1 | E = 0)P(E = 0)}{P(I = 1)} \\
+                   &amp;= \frac{P(I = 1 | E = 0)P(E = 0)}{P(I = 1 | E = 0)P(E = 0) +
                        P(I = 1 | E = 1)P(E = 1)} \\
-                   &amp;= \frac{0.1 \times 0.99}{0.1 \times 0.99 + 
+                   &amp;= \frac{0.1 \times 0.99}{0.1 \times 0.99 +
                       0.95  \times 0.01} \\
                    &amp;= 0.91.
-\end{align}\]</span>
+\end{align}\]</span></p>
 </div>
 </div>
-
 <div class="exercise">
-<span id="exr:unnamed-chunk-56" class="exercise"><strong>Exercise 3.2  </strong></span><span style="color:blue">R: Consider tossing a fair die. Let <span class="math inline">\(A = \{2,4,6\}\)</span>
+<p><span id="exr:unnamed-chunk-57" class="exercise"><strong>Exercise 3.2  </strong></span><span style="color:blue">R: Consider tossing a fair die. Let <span class="math inline">\(A = \{2,4,6\}\)</span>
 and <span class="math inline">\(B = \{1,2,3,4\}\)</span>. Then <span class="math inline">\(P(A) = \frac{1}{2}\)</span>, <span class="math inline">\(P(B) = \frac{2}{3}\)</span> and
 <span class="math inline">\(P(AB) = \frac{1}{3}\)</span>. Since <span class="math inline">\(P(AB) = P(A)P(B)\)</span>, the events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are
 independent. Simulate draws from the sample space and verify that the
 proportions are the same. Then find two events <span class="math inline">\(C\)</span> and <span class="math inline">\(D\)</span> that are not
-independent and repeat the simulation.</span>
+independent and repeat the simulation.</span></p>
 </div>
-
 <div class="fold">
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="condprob.html#cb17-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb17-2"><a href="condprob.html#cb17-2"></a>nsamps &lt;-<span class="st"> </span><span class="dv">10000</span></span>
-<span id="cb17-3"><a href="condprob.html#cb17-3"></a>tosses &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, nsamps, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb17-4"><a href="condprob.html#cb17-4"></a>PA &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>)) <span class="op">/</span><span class="st"> </span>nsamps</span>
-<span id="cb17-5"><a href="condprob.html#cb17-5"></a>PB &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) <span class="op">/</span><span class="st"> </span>nsamps</span>
-<span id="cb17-6"><a href="condprob.html#cb17-6"></a>PA <span class="op">*</span><span class="st"> </span>PB</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="condprob.html#cb17-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb17-2"><a href="condprob.html#cb17-2" tabindex="-1"></a>nsamps <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb17-3"><a href="condprob.html#cb17-3" tabindex="-1"></a>tosses <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, nsamps, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-4"><a href="condprob.html#cb17-4" tabindex="-1"></a>PA <span class="ot">&lt;-</span> <span class="fu">sum</span>(tosses <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>)) <span class="sc">/</span> nsamps</span>
+<span id="cb17-5"><a href="condprob.html#cb17-5" tabindex="-1"></a>PB <span class="ot">&lt;-</span> <span class="fu">sum</span>(tosses <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) <span class="sc">/</span> nsamps</span>
+<span id="cb17-6"><a href="condprob.html#cb17-6" tabindex="-1"></a>PA <span class="sc">*</span> PB</span></code></pre></div>
 <pre><code>## [1] 0.3295095</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="condprob.html#cb19-1"></a><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="condprob.html#cb19-1" tabindex="-1"></a><span class="fu">sum</span>(tosses <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)) <span class="sc">/</span> nsamps</span></code></pre></div>
 <pre><code>## [1] 0.3323</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="condprob.html#cb21-1"></a><span class="co"># Let C = {1,2} and D = {2,3}</span></span>
-<span id="cb21-2"><a href="condprob.html#cb21-2"></a>PC &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>nsamps</span>
-<span id="cb21-3"><a href="condprob.html#cb21-3"></a>PD &lt;-<span class="st"> </span><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)) <span class="op">/</span><span class="st"> </span>nsamps</span>
-<span id="cb21-4"><a href="condprob.html#cb21-4"></a>PC <span class="op">*</span><span class="st"> </span>PD</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="condprob.html#cb21-1" tabindex="-1"></a><span class="co"># Let C = {1,2} and D = {2,3}</span></span>
+<span id="cb21-2"><a href="condprob.html#cb21-2" tabindex="-1"></a>PC <span class="ot">&lt;-</span> <span class="fu">sum</span>(tosses <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">/</span> nsamps</span>
+<span id="cb21-3"><a href="condprob.html#cb21-3" tabindex="-1"></a>PD <span class="ot">&lt;-</span> <span class="fu">sum</span>(tosses <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)) <span class="sc">/</span> nsamps</span>
+<span id="cb21-4"><a href="condprob.html#cb21-4" tabindex="-1"></a>PC <span class="sc">*</span> PD</span></code></pre></div>
 <pre><code>## [1] 0.1067492</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="condprob.html#cb23-1"></a><span class="kw">sum</span>(tosses <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>)) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="condprob.html#cb23-1" tabindex="-1"></a><span class="fu">sum</span>(tosses <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>)) <span class="sc">/</span> nsamps</span></code></pre></div>
 <pre><code>## [1] 0.1622</code></pre>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-58" class="exercise"><strong>Exercise 3.3  </strong></span>A machine reports the true value of a thrown 12-sided die 5 out of 6 times.</p>
+<p><span id="exr:unnamed-chunk-59" class="exercise"><strong>Exercise 3.3  </strong></span>A machine reports the true value of a thrown 12-sided die 5 out of 6 times.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>If the machine reports a 1 has been tossed, what is the probability that
 it is actually a 1?</p></li>
@@ -356,58 +393,55 @@ tossed or not. Does the probability change?</p></li>
 to a) and b). </span></p></li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-25" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Let <span class="math inline">\(T = 1\)</span> denote that the toss is 1 and <span class="math inline">\(M = 1\)</span> that the machine reports a 1.
 <span class="math display">\[\begin{align}
-  P(T = 1 | M = 1) &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{P(M = 1)} \\ 
-                &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{\sum_{k=1}^{12} 
+  P(T = 1 | M = 1) &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{P(M = 1)} \\
+                &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{\sum_{k=1}^{12}
                   P(M = 1 | T = k)P(T = k)} \\
                 &amp;= \frac{\frac{5}{6}\frac{1}{12}}{\frac{5}{6}\frac{1}{12} + 11 \frac{1}{6} \frac{1}{11} \frac{1}{12}} \\
                 &amp;= \frac{5}{6}.
 \end{align}\]</span></p></li>
 <li><p>Yes.
 <span class="math display">\[\begin{align}
-  P(T = 1 | M = 1) &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{P(M = 1)} \\ 
-                &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{\sum_{k=1}^{12} 
+  P(T = 1 | M = 1) &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{P(M = 1)} \\
+                &amp;= \frac{P(M = 1 | T = 1)P(T = 1)}{\sum_{k=1}^{12}
                   P(M = 1 | T = k)P(T = k)} \\
                 &amp;= \frac{\frac{5}{6}\frac{1}{12}}{\frac{5}{6}\frac{1}{12} + 11 \frac{1}{6} \frac{1}{12}} \\
                 &amp;= \frac{5}{16}.
-\end{align}\]</span></p>
-</div></li>
+\end{align}\]</span></p></li>
 </ol>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="condprob.html#cb25-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb25-2"><a href="condprob.html#cb25-2"></a>nsamps   &lt;-<span class="st"> </span><span class="dv">10000</span></span>
-<span id="cb25-3"><a href="condprob.html#cb25-3"></a>report_a &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> nsamps)</span>
-<span id="cb25-4"><a href="condprob.html#cb25-4"></a>report_b &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
-<span id="cb25-5"><a href="condprob.html#cb25-5"></a>truths   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
-<span id="cb25-6"><a href="condprob.html#cb25-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10000</span>) {</span>
-<span id="cb25-7"><a href="condprob.html#cb25-7"></a>  toss      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">size =</span> <span class="dv">1</span>)</span>
-<span id="cb25-8"><a href="condprob.html#cb25-8"></a>  truth     &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="dv">5</span><span class="op">/</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">/</span><span class="dv">6</span>))</span>
-<span id="cb25-9"><a href="condprob.html#cb25-9"></a>  truths[i] &lt;-<span class="st"> </span>truth</span>
-<span id="cb25-10"><a href="condprob.html#cb25-10"></a>  <span class="cf">if</span> (truth) {</span>
-<span id="cb25-11"><a href="condprob.html#cb25-11"></a>    report_a[i] &lt;-<span class="st"> </span>toss</span>
-<span id="cb25-12"><a href="condprob.html#cb25-12"></a>    report_b[i] &lt;-<span class="st"> </span>toss <span class="op">==</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb25-13"><a href="condprob.html#cb25-13"></a>  } <span class="cf">else</span> {</span>
-<span id="cb25-14"><a href="condprob.html#cb25-14"></a>    remaining   &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">12</span> <span class="op">!=</span><span class="st"> </span>toss]</span>
-<span id="cb25-15"><a href="condprob.html#cb25-15"></a>    report_a[i] &lt;-<span class="st"> </span><span class="kw">sample</span>(remaining, <span class="dt">size =</span> <span class="dv">1</span>)</span>
-<span id="cb25-16"><a href="condprob.html#cb25-16"></a>    report_b[i] &lt;-<span class="st"> </span>toss <span class="op">!=</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb25-17"><a href="condprob.html#cb25-17"></a>  }</span>
-<span id="cb25-18"><a href="condprob.html#cb25-18"></a>}</span>
-<span id="cb25-19"><a href="condprob.html#cb25-19"></a>truth_a1 &lt;-<span class="st"> </span>truths[report_a <span class="op">==</span><span class="st"> </span><span class="dv">1</span>]</span>
-<span id="cb25-20"><a href="condprob.html#cb25-20"></a><span class="kw">sum</span>(truth_a1) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(truth_a1)</span></code></pre></div>
+</div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="condprob.html#cb25-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb25-2"><a href="condprob.html#cb25-2" tabindex="-1"></a>nsamps   <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb25-3"><a href="condprob.html#cb25-3" tabindex="-1"></a>report_a <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="at">length =</span> nsamps)</span>
+<span id="cb25-4"><a href="condprob.html#cb25-4" tabindex="-1"></a>report_b <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">length =</span> nsamps)</span>
+<span id="cb25-5"><a href="condprob.html#cb25-5" tabindex="-1"></a>truths   <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">length =</span> nsamps)</span>
+<span id="cb25-6"><a href="condprob.html#cb25-6" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>) {</span>
+<span id="cb25-7"><a href="condprob.html#cb25-7" tabindex="-1"></a>  toss      <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">size =</span> <span class="dv">1</span>)</span>
+<span id="cb25-8"><a href="condprob.html#cb25-8" tabindex="-1"></a>  truth     <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">/</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>))</span>
+<span id="cb25-9"><a href="condprob.html#cb25-9" tabindex="-1"></a>  truths[i] <span class="ot">&lt;-</span> truth</span>
+<span id="cb25-10"><a href="condprob.html#cb25-10" tabindex="-1"></a>  <span class="cf">if</span> (truth) {</span>
+<span id="cb25-11"><a href="condprob.html#cb25-11" tabindex="-1"></a>    report_a[i] <span class="ot">&lt;-</span> toss</span>
+<span id="cb25-12"><a href="condprob.html#cb25-12" tabindex="-1"></a>    report_b[i] <span class="ot">&lt;-</span> toss <span class="sc">==</span> <span class="dv">1</span></span>
+<span id="cb25-13"><a href="condprob.html#cb25-13" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb25-14"><a href="condprob.html#cb25-14" tabindex="-1"></a>    remaining   <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span> <span class="sc">!=</span> toss]</span>
+<span id="cb25-15"><a href="condprob.html#cb25-15" tabindex="-1"></a>    report_a[i] <span class="ot">&lt;-</span> <span class="fu">sample</span>(remaining, <span class="at">size =</span> <span class="dv">1</span>)</span>
+<span id="cb25-16"><a href="condprob.html#cb25-16" tabindex="-1"></a>    report_b[i] <span class="ot">&lt;-</span> toss <span class="sc">!=</span> <span class="dv">1</span></span>
+<span id="cb25-17"><a href="condprob.html#cb25-17" tabindex="-1"></a>  }</span>
+<span id="cb25-18"><a href="condprob.html#cb25-18" tabindex="-1"></a>}</span>
+<span id="cb25-19"><a href="condprob.html#cb25-19" tabindex="-1"></a>truth_a1 <span class="ot">&lt;-</span> truths[report_a <span class="sc">==</span> <span class="dv">1</span>]</span>
+<span id="cb25-20"><a href="condprob.html#cb25-20" tabindex="-1"></a><span class="fu">sum</span>(truth_a1) <span class="sc">/</span> <span class="fu">length</span>(truth_a1)</span></code></pre></div>
 <pre><code>## [1] 0.8300733</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="condprob.html#cb27-1"></a>truth_b1 &lt;-<span class="st"> </span>truths[report_b]</span>
-<span id="cb27-2"><a href="condprob.html#cb27-2"></a><span class="kw">sum</span>(truth_b1) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(truth_b1)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="condprob.html#cb27-1" tabindex="-1"></a>truth_b1 <span class="ot">&lt;-</span> truths[report_b]</span>
+<span id="cb27-2"><a href="condprob.html#cb27-2" tabindex="-1"></a><span class="fu">sum</span>(truth_b1) <span class="sc">/</span> <span class="fu">length</span>(truth_b1)</span></code></pre></div>
 <pre><code>## [1] 0.3046209</code></pre>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-61" class="exercise"><strong>Exercise 3.4  </strong></span>A coin is tossed independently <span class="math inline">\(n\)</span> times. The probability of heads at each
+<p><span id="exr:unnamed-chunk-62" class="exercise"><strong>Exercise 3.4  </strong></span>A coin is tossed independently <span class="math inline">\(n\)</span> times. The probability of heads at each
 toss is <span class="math inline">\(p\)</span>. At each time <span class="math inline">\(k\)</span>, <span class="math inline">\((k = 2,3,...,n)\)</span> we get a reward at time <span class="math inline">\(k+1\)</span>
 if <span class="math inline">\(k\)</span>-th toss was a head and the previous toss was a tail. Let <span class="math inline">\(A_k\)</span> be the
 event that a reward is obtained at time <span class="math inline">\(k\)</span>.</p>
@@ -420,11 +454,9 @@ answers to a) and b) by counting the frequencies of the events <span class="math
 <span class="math inline">\(A_6\)</span>, and <span class="math inline">\(A_7\)</span>.</span></p></li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-26" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>For <span class="math inline">\(A_k\)</span> to happen, we need the tosses <span class="math inline">\(k-2\)</span> and <span class="math inline">\(k-1\)</span> be tails and heads
 respectively. For <span class="math inline">\(A_{k+1}\)</span> to happen, we need tosses <span class="math inline">\(k-1\)</span> and <span class="math inline">\(k\)</span> be tails
@@ -436,39 +468,38 @@ separately is <span class="math inline">\(p(1-p) &gt; 0\)</span>. Therefore, the
 respectively. For <span class="math inline">\(A_{k+2}\)</span> to happen, we need tosses <span class="math inline">\(k\)</span> and <span class="math inline">\(k+1\)</span> be tails
 and heads respectively. So the probability of intersection is <span class="math inline">\(p^2(1-p)^2\)</span>.
 And the probability of each separately is again <span class="math inline">\(p(1-p)\)</span>. Therefore, they
-are independent.</p>
-</div></li>
+are independent.</p></li>
 </ol>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="condprob.html#cb29-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb29-2"><a href="condprob.html#cb29-2"></a>nsamps &lt;-<span class="st"> </span><span class="dv">10000</span></span>
-<span id="cb29-3"><a href="condprob.html#cb29-3"></a>p      &lt;-<span class="st"> </span><span class="fl">0.7</span></span>
-<span id="cb29-4"><a href="condprob.html#cb29-4"></a>rewardA_<span class="dv">5</span>  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
-<span id="cb29-5"><a href="condprob.html#cb29-5"></a>rewardA_<span class="dv">6</span>  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
-<span id="cb29-6"><a href="condprob.html#cb29-6"></a>rewardA_<span class="dv">7</span>  &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
-<span id="cb29-7"><a href="condprob.html#cb29-7"></a>rewardA_<span class="dv">56</span> &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
-<span id="cb29-8"><a href="condprob.html#cb29-8"></a>rewardA_<span class="dv">57</span> &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
-<span id="cb29-9"><a href="condprob.html#cb29-9"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</span>
-<span id="cb29-10"><a href="condprob.html#cb29-10"></a>  samps &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.3</span>))</span>
-<span id="cb29-11"><a href="condprob.html#cb29-11"></a>  rewardA_<span class="dv">5</span>[i]  &lt;-<span class="st"> </span>(samps[<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samps[<span class="dv">3</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</span>
-<span id="cb29-12"><a href="condprob.html#cb29-12"></a>  rewardA_<span class="dv">6</span>[i]  &lt;-<span class="st"> </span>(samps[<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samps[<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</span>
-<span id="cb29-13"><a href="condprob.html#cb29-13"></a>  rewardA_<span class="dv">7</span>[i]  &lt;-<span class="st"> </span>(samps[<span class="dv">6</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>samps[<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</span>
-<span id="cb29-14"><a href="condprob.html#cb29-14"></a>  rewardA_<span class="dv">56</span>[i] &lt;-<span class="st"> </span>(rewardA_<span class="dv">5</span>[i] <span class="op">&amp;</span><span class="st"> </span>rewardA_<span class="dv">6</span>[i])</span>
-<span id="cb29-15"><a href="condprob.html#cb29-15"></a>  rewardA_<span class="dv">57</span>[i] &lt;-<span class="st"> </span>(rewardA_<span class="dv">5</span>[i] <span class="op">&amp;</span><span class="st"> </span>rewardA_<span class="dv">7</span>[i])</span>
-<span id="cb29-16"><a href="condprob.html#cb29-16"></a>}</span>
-<span id="cb29-17"><a href="condprob.html#cb29-17"></a><span class="kw">sum</span>(rewardA_<span class="dv">5</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
+</div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="condprob.html#cb29-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb29-2"><a href="condprob.html#cb29-2" tabindex="-1"></a>nsamps <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb29-3"><a href="condprob.html#cb29-3" tabindex="-1"></a>p      <span class="ot">&lt;-</span> <span class="fl">0.7</span></span>
+<span id="cb29-4"><a href="condprob.html#cb29-4" tabindex="-1"></a>rewardA_5  <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">length =</span> nsamps)</span>
+<span id="cb29-5"><a href="condprob.html#cb29-5" tabindex="-1"></a>rewardA_6  <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">length =</span> nsamps)</span>
+<span id="cb29-6"><a href="condprob.html#cb29-6" tabindex="-1"></a>rewardA_7  <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">length =</span> nsamps)</span>
+<span id="cb29-7"><a href="condprob.html#cb29-7" tabindex="-1"></a>rewardA_56 <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">length =</span> nsamps)</span>
+<span id="cb29-8"><a href="condprob.html#cb29-8" tabindex="-1"></a>rewardA_57 <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">length =</span> nsamps)</span>
+<span id="cb29-9"><a href="condprob.html#cb29-9" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsamps) {</span>
+<span id="cb29-10"><a href="condprob.html#cb29-10" tabindex="-1"></a>  samps <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.3</span>))</span>
+<span id="cb29-11"><a href="condprob.html#cb29-11" tabindex="-1"></a>  rewardA_5[i]  <span class="ot">&lt;-</span> (samps[<span class="dv">4</span>] <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> samps[<span class="dv">3</span>] <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb29-12"><a href="condprob.html#cb29-12" tabindex="-1"></a>  rewardA_6[i]  <span class="ot">&lt;-</span> (samps[<span class="dv">5</span>] <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> samps[<span class="dv">4</span>] <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb29-13"><a href="condprob.html#cb29-13" tabindex="-1"></a>  rewardA_7[i]  <span class="ot">&lt;-</span> (samps[<span class="dv">6</span>] <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> samps[<span class="dv">5</span>] <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb29-14"><a href="condprob.html#cb29-14" tabindex="-1"></a>  rewardA_56[i] <span class="ot">&lt;-</span> (rewardA_5[i] <span class="sc">&amp;</span> rewardA_6[i])</span>
+<span id="cb29-15"><a href="condprob.html#cb29-15" tabindex="-1"></a>  rewardA_57[i] <span class="ot">&lt;-</span> (rewardA_5[i] <span class="sc">&amp;</span> rewardA_7[i])</span>
+<span id="cb29-16"><a href="condprob.html#cb29-16" tabindex="-1"></a>}</span>
+<span id="cb29-17"><a href="condprob.html#cb29-17" tabindex="-1"></a><span class="fu">sum</span>(rewardA_5) <span class="sc">/</span> nsamps</span></code></pre></div>
 <pre><code>## [1] 0.2141</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="condprob.html#cb31-1"></a><span class="kw">sum</span>(rewardA_<span class="dv">6</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="condprob.html#cb31-1" tabindex="-1"></a><span class="fu">sum</span>(rewardA_6) <span class="sc">/</span> nsamps</span></code></pre></div>
 <pre><code>## [1] 0.2122</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="condprob.html#cb33-1"></a><span class="kw">sum</span>(rewardA_<span class="dv">7</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="condprob.html#cb33-1" tabindex="-1"></a><span class="fu">sum</span>(rewardA_7) <span class="sc">/</span> nsamps</span></code></pre></div>
 <pre><code>## [1] 0.2107</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="condprob.html#cb35-1"></a><span class="kw">sum</span>(rewardA_<span class="dv">56</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="condprob.html#cb35-1" tabindex="-1"></a><span class="fu">sum</span>(rewardA_56) <span class="sc">/</span> nsamps</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="condprob.html#cb37-1"></a><span class="kw">sum</span>(rewardA_<span class="dv">57</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="condprob.html#cb37-1" tabindex="-1"></a><span class="fu">sum</span>(rewardA_57) <span class="sc">/</span> nsamps</span></code></pre></div>
 <pre><code>## [1] 0.0454</code></pre>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-64" class="exercise"><strong>Exercise 3.5  </strong></span>A drawer contains two coins. One is an unbiased coin, the other is a biased
+<p><span id="exr:unnamed-chunk-65" class="exercise"><strong>Exercise 3.5  </strong></span>A drawer contains two coins. One is an unbiased coin, the other is a biased
 coin, which will turn up heads with probability <span class="math inline">\(p\)</span> and tails with
 probability <span class="math inline">\(1-p\)</span>. One coin is selected uniformly at random.</p>
 <ol style="list-style-type: lower-alpha">
@@ -479,11 +510,9 @@ Given that it is tossed <span class="math inline">\(n\)</span> times in total, w
 coin is biased?</p></li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-27" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Let <span class="math inline">\(B = 1\)</span> denote that the coin is biased and let <span class="math inline">\(H = k\)</span> denote that
 we’ve seen <span class="math inline">\(k\)</span> heads.
@@ -496,13 +525,12 @@ we’ve seen <span class="math inline">\(k\)</span> heads.
 <li><p>The same results as in a). The only difference between these two scenarios
 is that in b) the last throw must be heads. However, this holds for the biased
 and the unbiased coin and therefore does not affect the probability of the
-coin being biased.</p>
-</div></li>
+coin being biased.</p></li>
 </ol>
 </div>
-
+</div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-66" class="exercise"><strong>Exercise 3.6  </strong></span>Judy goes around the company for Women’s day and shares flowers. In every
+<p><span id="exr:unnamed-chunk-67" class="exercise"><strong>Exercise 3.6  </strong></span>Judy goes around the company for Women’s day and shares flowers. In every
 office she leaves a flower, if there is at least one woman inside.
 The probability
 that there’s a woman in the office is <span class="math inline">\(\frac{3}{5}\)</span>.</p>
@@ -524,11 +552,9 @@ five offices, if she starts with two flowers?</p></li>
 check your answers a) - e).</span></p></li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> Let <span class="math inline">\(X_i = k\)</span> denote the event that … <span class="math inline">\(i\)</span>-th sample on the <span class="math inline">\(k\)</span>-th run.</p>
+<p><span id="unlabeled-div-28" class="solution"><em>Solution</em>. </span>Let <span class="math inline">\(X_i = k\)</span> denote the event that … <span class="math inline">\(i\)</span>-th sample on the <span class="math inline">\(k\)</span>-th run.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Since the events are independent, we can multiply their probabilities to get
 <span class="math display">\[\begin{equation}
@@ -540,7 +566,7 @@ first four offices. Therefore there are four possibilities, and for each
 of those the probability is <span class="math inline">\(0.4^3 \times 0.6\)</span>. Additionally, the probability
 that she leaves a flower in the fifth office is <span class="math inline">\(0.6\)</span>. So
 <span class="math display">\[\begin{equation}
-  P(X_2 = 5) = \binom{4}{1} \times 0.4^3 \times 0.6^2 = 0.09216. 
+  P(X_2 = 5) = \binom{4}{1} \times 0.4^3 \times 0.6^2 = 0.09216.
 \end{equation}\]</span></p></li>
 <li><p>We use Bayes’ theorem.
 <span class="math display">\[\begin{align}
@@ -563,38 +589,37 @@ after two, three and four offices.
 The multiplying parts represent the possibilities of the first flower.</p></li>
 </ol>
 </div>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="condprob.html#cb39-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb39-2"><a href="condprob.html#cb39-2"></a>nsamps     &lt;-<span class="st"> </span><span class="dv">100000</span></span>
-<span id="cb39-3"><a href="condprob.html#cb39-3"></a>Judyswalks &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="ot">NA</span>, <span class="dt">nrow =</span> nsamps, <span class="dt">ncol =</span> <span class="dv">8</span>)</span>
-<span id="cb39-4"><a href="condprob.html#cb39-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</span>
-<span id="cb39-5"><a href="condprob.html#cb39-5"></a>  thiswalk &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> <span class="kw">c</span>(<span class="fl">0.4</span>, <span class="fl">0.6</span>))</span>
-<span id="cb39-6"><a href="condprob.html#cb39-6"></a>  Judyswalks[i, ] &lt;-<span class="st"> </span>thiswalk</span>
-<span id="cb39-7"><a href="condprob.html#cb39-7"></a>}</span>
-<span id="cb39-8"><a href="condprob.html#cb39-8"></a>csJudy &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">apply</span>(Judyswalks, <span class="dv">1</span>, cumsum))</span>
-<span id="cb39-9"><a href="condprob.html#cb39-9"></a></span>
-<span id="cb39-10"><a href="condprob.html#cb39-10"></a><span class="co"># a</span></span>
-<span id="cb39-11"><a href="condprob.html#cb39-11"></a><span class="kw">sum</span>(csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">3</span>] <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="condprob.html#cb39-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb39-2"><a href="condprob.html#cb39-2" tabindex="-1"></a>nsamps     <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb39-3"><a href="condprob.html#cb39-3" tabindex="-1"></a>Judyswalks <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="cn">NA</span>, <span class="at">nrow =</span> nsamps, <span class="at">ncol =</span> <span class="dv">8</span>)</span>
+<span id="cb39-4"><a href="condprob.html#cb39-4" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsamps) {</span>
+<span id="cb39-5"><a href="condprob.html#cb39-5" tabindex="-1"></a>  thiswalk <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">size =</span> <span class="dv">8</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.6</span>))</span>
+<span id="cb39-6"><a href="condprob.html#cb39-6" tabindex="-1"></a>  Judyswalks[i, ] <span class="ot">&lt;-</span> thiswalk</span>
+<span id="cb39-7"><a href="condprob.html#cb39-7" tabindex="-1"></a>}</span>
+<span id="cb39-8"><a href="condprob.html#cb39-8" tabindex="-1"></a>csJudy <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">apply</span>(Judyswalks, <span class="dv">1</span>, cumsum))</span>
+<span id="cb39-9"><a href="condprob.html#cb39-9" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="condprob.html#cb39-10" tabindex="-1"></a><span class="co"># a</span></span>
+<span id="cb39-11"><a href="condprob.html#cb39-11" tabindex="-1"></a><span class="fu">sum</span>(csJudy[ ,<span class="dv">4</span>] <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> csJudy[ ,<span class="dv">3</span>] <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">/</span> nsamps</span></code></pre></div>
 <pre><code>## [1] 0.03848</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="condprob.html#cb41-1"></a><span class="co"># b</span></span>
-<span id="cb41-2"><a href="condprob.html#cb41-2"></a>csJsubset &lt;-<span class="st"> </span>csJudy[csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">3</span>] <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, ]</span>
-<span id="cb41-3"><a href="condprob.html#cb41-3"></a><span class="kw">sum</span>(csJsubset[ ,<span class="dv">8</span>] <span class="op">==</span><span class="st"> </span><span class="dv">4</span> <span class="op">&amp;</span><span class="st"> </span>csJsubset[ ,<span class="dv">7</span>] <span class="op">==</span><span class="st"> </span><span class="dv">3</span>) <span class="op">/</span><span class="st"> </span><span class="kw">nrow</span>(csJsubset)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="condprob.html#cb41-1" tabindex="-1"></a><span class="co"># b</span></span>
+<span id="cb41-2"><a href="condprob.html#cb41-2" tabindex="-1"></a>csJsubset <span class="ot">&lt;-</span> csJudy[csJudy[ ,<span class="dv">4</span>] <span class="sc">==</span> <span class="dv">3</span> <span class="sc">&amp;</span> csJudy[ ,<span class="dv">3</span>] <span class="sc">==</span> <span class="dv">2</span>, ]</span>
+<span id="cb41-3"><a href="condprob.html#cb41-3" tabindex="-1"></a><span class="fu">sum</span>(csJsubset[ ,<span class="dv">8</span>] <span class="sc">==</span> <span class="dv">4</span> <span class="sc">&amp;</span> csJsubset[ ,<span class="dv">7</span>] <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">/</span> <span class="fu">nrow</span>(csJsubset)</span></code></pre></div>
 <pre><code>## [1] 0.03665893</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="condprob.html#cb43-1"></a><span class="co"># c</span></span>
-<span id="cb43-2"><a href="condprob.html#cb43-2"></a><span class="kw">sum</span>(csJudy[ ,<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="condprob.html#cb43-1" tabindex="-1"></a><span class="co"># c</span></span>
+<span id="cb43-2"><a href="condprob.html#cb43-2" tabindex="-1"></a><span class="fu">sum</span>(csJudy[ ,<span class="dv">5</span>] <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> csJudy[ ,<span class="dv">4</span>] <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">/</span> nsamps</span></code></pre></div>
 <pre><code>## [1] 0.09117</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="condprob.html#cb45-1"></a><span class="co"># d</span></span>
-<span id="cb45-2"><a href="condprob.html#cb45-2"></a><span class="kw">sum</span>(csJudy[ ,<span class="dv">5</span>] <span class="op">==</span><span class="st"> </span><span class="dv">2</span> <span class="op">&amp;</span><span class="st"> </span>csJudy[ ,<span class="dv">4</span>] <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(csJudy[ ,<span class="dv">2</span>] <span class="op">!=</span><span class="st"> </span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="condprob.html#cb45-1" tabindex="-1"></a><span class="co"># d</span></span>
+<span id="cb45-2"><a href="condprob.html#cb45-2" tabindex="-1"></a><span class="fu">sum</span>(csJudy[ ,<span class="dv">5</span>] <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> csJudy[ ,<span class="dv">4</span>] <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="fu">sum</span>(csJudy[ ,<span class="dv">2</span>] <span class="sc">!=</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1422398</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="condprob.html#cb47-1"></a><span class="co"># e</span></span>
-<span id="cb47-2"><a href="condprob.html#cb47-2"></a><span class="kw">sum</span>(csJudy[ ,<span class="dv">4</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="condprob.html#cb47-1" tabindex="-1"></a><span class="co"># e</span></span>
+<span id="cb47-2"><a href="condprob.html#cb47-2" tabindex="-1"></a><span class="fu">sum</span>(csJudy[ ,<span class="dv">4</span>] <span class="sc">&lt;</span> <span class="dv">2</span>) <span class="sc">/</span> nsamps</span></code></pre></div>
 <pre><code>## [1] 0.17818</code></pre>
 </div>
 </div>
-<div id="conditional-independence" class="section level2">
-<h2><span class="header-section-number">3.2</span> Conditional independence</h2>
-
+<div id="conditional-independence" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Conditional independence<a href="condprob.html#conditional-independence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-69" class="exercise"><strong>Exercise 3.7  </strong></span>Describe:</p>
+<p><span id="exr:unnamed-chunk-70" class="exercise"><strong>Exercise 3.7  </strong></span>Describe:</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>A real-world example of two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> that are dependent but
 become conditionally independent if conditioned on a third event <span class="math inline">\(C\)</span>.</p></li>
@@ -602,11 +627,9 @@ become conditionally independent if conditioned on a third event <span class="ma
 become dependent if conditioned on some third event <span class="math inline">\(C\)</span>.</p></li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-29" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Let <span class="math inline">\(A\)</span> be the height of a person and let <span class="math inline">\(B\)</span> be the person’s knowledge
 of the Dutch language. These events are dependent since the Dutch are known
@@ -619,9 +642,8 @@ conditionally dependent given <span class="math inline">\(C\)</span>.</p></li>
 </ol>
 </div>
 </div>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-71" class="exercise"><strong>Exercise 3.8  </strong></span>We have two coins of identical appearance. We know that one is a fair coin
+<p><span id="exr:unnamed-chunk-72" class="exercise"><strong>Exercise 3.8  </strong></span>We have two coins of identical appearance. We know that one is a fair coin
 and the other flips heads 80% of the time. We choose one of the two
 coins uniformly at random. We discard the coin that was not chosen. We now
 flip the chosen coin independently 10 times, producing a sequence
@@ -636,11 +658,9 @@ independent?</p></li>
 If so, discuss why your intuition had failed.</p></li>
 </ol>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> </p>
+<p><span id="unlabeled-div-30" class="solution"><em>Solution</em>. </span></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li><p><span class="math inline">\(P(Y_1 = 1) = 0.5 * 0.8 + 0.5 * 0.5 = 0.65\)</span>.</p></li>
 <li><p>Since we know that <span class="math inline">\(Y_1 = 1\)</span> this should change our view of the probability
@@ -650,7 +670,7 @@ marginal probability, we can write
 <span class="math display">\[\begin{align}
   P(Y_2 = 1 | Y_1 = 1) &amp;= P(Y_2 = 1, B = 1 | Y_1 = 1) + P(Y_2 = 1, B = 0 | Y_1 = 1) \\
                     &amp;= \sum_{k=1}^2 P(Y_2 = 1 | B = k, Y_1 = 1)P(B = k | Y_1 = 1) \\
-                    &amp;= 0.8 \frac{P(Y_1 = 1 | B = 1)P(B = 1)}{P(Y_1 = 1)} + 
+                    &amp;= 0.8 \frac{P(Y_1 = 1 | B = 1)P(B = 1)}{P(Y_1 = 1)} +
                        0.5 \frac{P(Y_1 = 1 | B = 0)P(B = 0)}{P(Y_1 = 1)} \\
                     &amp;= 0.8 \frac{0.8 \times 0.5}{0.65} + 0.5 \frac{0.5 \times 0.5}{0.65} \\
                     &amp;\approx 0.68.
@@ -660,7 +680,7 @@ that first nine tosses are all heads (equivalent to <span class="math inline">\(
 <span class="math display">\[\begin{align}
   P(Y_{10} = 1 | X = 1) &amp;= P(Y_2 = 1, B = 1 | X = 1) + P(Y_2 = 1, B = 0 | X = 1) \\
                     &amp;= \sum_{k=1}^2 P(Y_2 = 1 | B = k, X = 1)P(B = k | X = 1) \\
-                    &amp;= 0.8 \frac{P(X = 1 | B = 1)P(B = 1)}{P(X = 1)} + 
+                    &amp;= 0.8 \frac{P(X = 1 | B = 1)P(B = 1)}{P(X = 1)} +
                        0.5 \frac{P(X = 1 | B = 0)P(B = 0)}{P(X = 1)} \\
                     &amp;= 0.8 \frac{0.8^9 \times 0.5}{0.5 \times 0.8^9 + 0.5 \times 0.5^9} + 0.5 \frac{0.5^9 \times 0.5}{0.5 \times 0.8^9 + 0.5 \times 0.5^9} \\
                     &amp;\approx 0.8.
@@ -669,26 +689,23 @@ that first nine tosses are all heads (equivalent to <span class="math inline">\(
 </div>
 </div>
 </div>
-<div id="monty-hall-problem" class="section level2">
-<h2><span class="header-section-number">3.3</span> Monty Hall problem</h2>
+<div id="monty-hall-problem" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Monty Hall problem<a href="condprob.html#monty-hall-problem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The Monty Hall problem is a famous probability puzzle with non-intuitive
 outcome. Many established mathematicians and statisticians had problems
 solving it and many even disregarded the correct solution until they’ve seen
 the proof by simulation. Here we will show how it can be solved relatively
 simply with the use of Bayes’ theorem if we select the variables in a smart way.</p>
-
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-73" class="exercise"><strong>Exercise 3.9  (Monty Hall problem)  </strong></span>A prize is placed at random behind one of three doors. You pick a door. Now
+<p><span id="exr:unnamed-chunk-74" class="exercise"><strong>Exercise 3.9  (Monty Hall problem) </strong></span>A prize is placed at random behind one of three doors. You pick a door. Now
 Monty Hall chooses one of the other two doors, opens it and shows you that it is
 empty. He then gives you the opportunity to keep your door or switch to the
 other unopened door. Should you stay or switch? Use Bayes’ theorem to calculate the probability of winning if you switch and if you do not.
 <span style="color:blue">R: Check your answers in R.</span></p>
 </div>
-
 <div class="fold">
-
 <div class="solution">
-<p> <span class="solution"><em>Solution. </em></span> W.L.O.G. assume we always pick the first door. The host can only open door 2
+<p><span id="unlabeled-div-31" class="solution"><em>Solution</em>. </span>W.L.O.G. assume we always pick the first door. The host can only open door 2
 or door 3, as he can not open the door we picked. Let <span class="math inline">\(k \in \{2,3\}\)</span>.</p>
 <p>Let us first look at what happens if we do not change. Then we have</p>
 <p><span class="math display">\[\begin{align}
@@ -726,26 +743,26 @@ open door <span class="math inline">\(k\)</span> is then 1, as he can not pick a
 \end{align}\]</span></p>
 <p>Therefore it makes sense to change the door.</p>
 </div>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="condprob.html#cb49-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb49-2"><a href="condprob.html#cb49-2"></a>nsamps &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb49-3"><a href="condprob.html#cb49-3"></a>ifchange &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
-<span id="cb49-4"><a href="condprob.html#cb49-4"></a>ifstay   &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="dt">length =</span> nsamps)</span>
-<span id="cb49-5"><a href="condprob.html#cb49-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamps) {</span>
-<span id="cb49-6"><a href="condprob.html#cb49-6"></a>  where_car      &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>), <span class="dv">1</span>)</span>
-<span id="cb49-7"><a href="condprob.html#cb49-7"></a>  where_player   &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>), <span class="dv">1</span>)</span>
-<span id="cb49-8"><a href="condprob.html#cb49-8"></a>  open_samp      &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)[where_car <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">&amp;</span><span class="st"> </span>where_player <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)]</span>
-<span id="cb49-9"><a href="condprob.html#cb49-9"></a>  <span class="cf">if</span> (<span class="kw">length</span>(open_samp) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</span>
-<span id="cb49-10"><a href="condprob.html#cb49-10"></a>    where_open &lt;-<span class="st"> </span>open_samp</span>
-<span id="cb49-11"><a href="condprob.html#cb49-11"></a>  } <span class="cf">else</span> {</span>
-<span id="cb49-12"><a href="condprob.html#cb49-12"></a>      where_open &lt;-<span class="st"> </span><span class="kw">sample</span>(open_samp, <span class="dv">1</span>)</span>
-<span id="cb49-13"><a href="condprob.html#cb49-13"></a>  }</span>
-<span id="cb49-14"><a href="condprob.html#cb49-14"></a>  ifstay[i]      &lt;-<span class="st"> </span>where_car <span class="op">==</span><span class="st"> </span>where_player</span>
-<span id="cb49-15"><a href="condprob.html#cb49-15"></a>  where_ifchange &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)[where_open <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">&amp;</span><span class="st"> </span>where_player <span class="op">!=</span><span class="st"> </span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)]</span>
-<span id="cb49-16"><a href="condprob.html#cb49-16"></a>  ifchange[i]    &lt;-<span class="st"> </span>where_ifchange <span class="op">==</span><span class="st"> </span>where_car</span>
-<span id="cb49-17"><a href="condprob.html#cb49-17"></a>}</span>
-<span id="cb49-18"><a href="condprob.html#cb49-18"></a><span class="kw">sum</span>(ifstay) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="condprob.html#cb49-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb49-2"><a href="condprob.html#cb49-2" tabindex="-1"></a>nsamps <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb49-3"><a href="condprob.html#cb49-3" tabindex="-1"></a>ifchange <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">length =</span> nsamps)</span>
+<span id="cb49-4"><a href="condprob.html#cb49-4" tabindex="-1"></a>ifstay   <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">&quot;logical&quot;</span>, <span class="at">length =</span> nsamps)</span>
+<span id="cb49-5"><a href="condprob.html#cb49-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nsamps) {</span>
+<span id="cb49-6"><a href="condprob.html#cb49-6" tabindex="-1"></a>  where_car      <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>), <span class="dv">1</span>)</span>
+<span id="cb49-7"><a href="condprob.html#cb49-7" tabindex="-1"></a>  where_player   <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>), <span class="dv">1</span>)</span>
+<span id="cb49-8"><a href="condprob.html#cb49-8" tabindex="-1"></a>  open_samp      <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)[where_car <span class="sc">!=</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">&amp;</span> where_player <span class="sc">!=</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)]</span>
+<span id="cb49-9"><a href="condprob.html#cb49-9" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(open_samp) <span class="sc">==</span> <span class="dv">1</span>) {</span>
+<span id="cb49-10"><a href="condprob.html#cb49-10" tabindex="-1"></a>    where_open <span class="ot">&lt;-</span> open_samp</span>
+<span id="cb49-11"><a href="condprob.html#cb49-11" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb49-12"><a href="condprob.html#cb49-12" tabindex="-1"></a>      where_open <span class="ot">&lt;-</span> <span class="fu">sample</span>(open_samp, <span class="dv">1</span>)</span>
+<span id="cb49-13"><a href="condprob.html#cb49-13" tabindex="-1"></a>  }</span>
+<span id="cb49-14"><a href="condprob.html#cb49-14" tabindex="-1"></a>  ifstay[i]      <span class="ot">&lt;-</span> where_car <span class="sc">==</span> where_player</span>
+<span id="cb49-15"><a href="condprob.html#cb49-15" tabindex="-1"></a>  where_ifchange <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)[where_open <span class="sc">!=</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">&amp;</span> where_player <span class="sc">!=</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)]</span>
+<span id="cb49-16"><a href="condprob.html#cb49-16" tabindex="-1"></a>  ifchange[i]    <span class="ot">&lt;-</span> where_ifchange <span class="sc">==</span> where_car</span>
+<span id="cb49-17"><a href="condprob.html#cb49-17" tabindex="-1"></a>}</span>
+<span id="cb49-18"><a href="condprob.html#cb49-18" tabindex="-1"></a><span class="fu">sum</span>(ifstay) <span class="sc">/</span> nsamps</span></code></pre></div>
 <pre><code>## [1] 0.328</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="condprob.html#cb51-1"></a><span class="kw">sum</span>(ifchange) <span class="op">/</span><span class="st"> </span>nsamps</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="condprob.html#cb51-1" tabindex="-1"></a><span class="fu">sum</span>(ifchange) <span class="sc">/</span> nsamps</span></code></pre></div>
 <pre><code>## [1] 0.672</code></pre>
 </div>
 
@@ -761,7 +778,6 @@ open door <span class="math inline">\(k\)</span> is then 1, as he can not pick a
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -780,6 +796,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -800,6 +817,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -813,7 +834,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
