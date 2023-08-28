@@ -348,13 +348,21 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td>normal</td>
-<td><span class="math inline">\(\mu \in \mathbb{R}\)</span>, <span class="math inline">\(\sigma &gt; 0\)</span></td>
+<td><span class="math inline">\(\mu \in \mathbb{R}\)</span>, <span class="math inline">\(\sigma^2 &gt; 0\)</span></td>
 <td><span class="math inline">\(x \in \mathbb{R}\)</span></td>
 <td><span class="math inline">\(\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}}\)</span> <br> <a href="rvs.html#exr:normalpdf">4.12</a></td>
 <td><span class="math inline">\(\mu\)</span> <a href="ev.html#exr:normev">7.8</a></td>
 <td><span class="math inline">\(\sigma^2\)</span> <a href="ev.html#exr:normev">7.8</a></td>
 </tr>
 <tr class="even">
+<td>uniform</td>
+<td><span class="math inline">\(a,b \in \mathbb{R}\)</span>, <span class="math inline">\(a &lt; b\)</span></td>
+<td><span class="math inline">\(x \in [a,b]\)</span></td>
+<td><span class="math inline">\(\frac{1}{b-a}\)</span> <br> <a href="rvs.html#exr:unifpdf">4.9</a></td>
+<td><span class="math inline">\(\frac{a+b}{2}\)</span></td>
+<td><span class="math inline">\(\frac{(b-a)^2}{12}\)</span></td>
+</tr>
+<tr class="odd">
 <td>beta</td>
 <td><span class="math inline">\(\alpha,\beta &gt; 0\)</span></td>
 <td><span class="math inline">\(x \in [0,1]\)</span></td>
@@ -362,7 +370,7 @@ div.csl-indent {
 <td><span class="math inline">\(\frac{\alpha}{\alpha + \beta}\)</span> <a href="ev.html#exr:betaev">7.6</a></td>
 <td><span class="math inline">\(\frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}\)</span> <a href="ev.html#exr:betaev">7.6</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>gamma</td>
 <td><span class="math inline">\(\alpha,\beta &gt; 0\)</span></td>
 <td><span class="math inline">\(x \in (0, \infty)\)</span></td>
@@ -370,7 +378,7 @@ div.csl-indent {
 <td><span class="math inline">\(\frac{\alpha}{\beta}\)</span> <br> <a href="ev.html#exr:gammaev">7.5</a></td>
 <td><span class="math inline">\(\frac{\alpha}{\beta^2}\)</span> <br> <a href="ev.html#exr:gammaev">7.5</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>exponential</td>
 <td><span class="math inline">\(\lambda &gt; 0\)</span></td>
 <td><span class="math inline">\(x \in [0, \infty)\)</span></td>
@@ -378,7 +386,7 @@ div.csl-indent {
 <td><span class="math inline">\(\frac{1}{\lambda}\)</span> <br> <a href="ev.html#exr:expev">7.7</a></td>
 <td><span class="math inline">\(\frac{1}{\lambda^2}\)</span> <br> <a href="ev.html#exr:expev">7.7</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>logistic</td>
 <td><span class="math inline">\(\mu \in \mathbb{R}\)</span>, <span class="math inline">\(s &gt; 0\)</span></td>
 <td><span class="math inline">\(x \in \mathbb{R}\)</span></td>
@@ -386,7 +394,7 @@ div.csl-indent {
 <td><span class="math inline">\(\mu\)</span></td>
 <td><span class="math inline">\(\frac{s^2 \pi^2}{3}\)</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>negative binomial</td>
 <td><span class="math inline">\(r \in \mathbb{N}\)</span>, <span class="math inline">\(p \in [0,1]\)</span></td>
 <td><span class="math inline">\(k \in \mathbb{N}_0\)</span></td>
@@ -394,7 +402,7 @@ div.csl-indent {
 <td><span class="math inline">\(\frac{rp}{1 - p}\)</span> <br> <a href="ard.html#exr:nbev">9.2</a></td>
 <td><span class="math inline">\(\frac{rp}{(1 - p)^2}\)</span> <br> <a href="ard.html#exr:nbev">9.2</a></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>multinomial</td>
 <td><span class="math inline">\(n \in \mathbb{N}\)</span>, <span class="math inline">\(k \in \mathbb{N}\)</span> <span class="math inline">\(p_i \in [0,1]\)</span>, <span class="math inline">\(\sum p_i = 1\)</span></td>
 <td><span class="math inline">\(x_i \in \{0,..., n\}\)</span>, <span class="math inline">\(i \in \{1,...,k\}\)</span>, <span class="math inline">\(\sum{x_i} = n\)</span></td>
