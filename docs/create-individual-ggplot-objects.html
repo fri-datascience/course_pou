@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 12 Limit theorems | Principles of Uncertainty – exercises</title>
+  <title>Chapter 20 Create individual ggplot objects | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 12 Limit theorems | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 20 Create individual ggplot objects | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Course notes" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 12 Limit theorems | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 20 Create individual ggplot objects | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -23,15 +23,15 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2023-09-25" />
+<meta name="date" content="2023-08-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="crv.html"/>
-<link rel="next" href="eb.html"/>
+<link rel="prev" href="create-poisson-data.html"/>
+<link rel="next" href="combine-the-plots.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,70 +54,6 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <style type="text/css">
   
@@ -244,8 +180,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="18" data-path="distributions-intutition.html"><a href="distributions-intutition.html"><i class="fa fa-check"></i><b>18</b> Distributions intutition</a>
 <ul>
-<li class="chapter" data-level="18.1" data-path="distributions-intutition.html"><a href="distributions-intutition.html#discrete-distributions"><i class="fa fa-check"></i><b>18.1</b> Discrete distributions</a></li>
-<li class="chapter" data-level="18.2" data-path="distributions-intutition.html"><a href="distributions-intutition.html#continuous-distributions"><i class="fa fa-check"></i><b>18.2</b> Continuous distributions</a></li>
+<li class="chapter" data-level="18.1" data-path="distributions-intutition.html"><a href="distributions-intutition.html#discrete-probabilities"><i class="fa fa-check"></i><b>18.1</b> Discrete probabilities</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a>
@@ -276,7 +211,7 @@ div.csl-indent {
 <li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
 <li class="chapter" data-level="A.7" data-path="A1.html"><a href="A1.html#further-reading-and-references"><i class="fa fa-check"></i><b>A.7</b> Further reading and references</a></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>B</b> Probability distributions</a></li>
+<li class="chapter" data-level="B" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>B</b> Probability distributions</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>      
@@ -297,84 +232,22 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lt" class="section level1 hasAnchor" number="12">
-<h1><span class="header-section-number">Chapter 12</span> Limit theorems<a href="lt.html#lt" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This chapter deals with limit theorems.</p>
-<p>The students are expected to acquire the following knowledge:</p>
-<p><strong>Theoretical</strong></p>
-<ul>
-<li>Monte Carlo integration convergence.</li>
-<li>Difference between weak and strong law of large numbers.</li>
-</ul>
-<style>
-.fold-btn { 
-  float: right; 
-  margin: 5px 5px 0 0;
-}
-.fold { 
-  border: 1px solid black;
-  min-height: 40px;
-}
-</style>
-<script type="text/javascript">
-$(document).ready(function() {
-  $folds = $(".fold");
-  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
-  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");  // add a button
-  $(".fold-blck").toggle();  // fold all blocks
-  $(".fold-btn").on("click", function() {  // add onClick event
-    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
-    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
-  })
-});
-</script>
-<div class="exercise">
-<p><span id="exr:unnamed-chunk-207" class="exercise"><strong>Exercise 12.1  </strong></span>Show that Monte Carlo integration converges almost surely to the true integral of a bounded function.</p>
-</div>
-<div class="fold">
-<div class="solution">
-<p><span id="unlabeled-div-82" class="solution"><em>Solution</em>. </span>Let <span class="math inline">\(g\)</span> be a function defined on <span class="math inline">\(\Omega\)</span>. Let <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i = 1,...,n\)</span> be i.i.d. (multivariate) uniform random variables with bounds defined on <span class="math inline">\(\Omega\)</span>. Let <span class="math inline">\(Y_i\)</span> = <span class="math inline">\(g(X_i)\)</span>. Then it follows that <span class="math inline">\(Y_i\)</span> are also i.i.d. random variables and their expected value is <span class="math inline">\(E[g(X)] = \int_{\Omega} g(x) f_X(x) dx = \frac{1}{V_{\Omega}} \int_{\Omega} g(x) dx\)</span>. By the strong law of large numbers, we have
-<span class="math display">\[\begin{equation}
-  \frac{1}{n}\sum_{i=1}^n Y_i \xrightarrow{\text{a.s.}} E[g(X)].
-\end{equation}\]</span>
-It follows that
-<span class="math display">\[\begin{equation}
-  V_{\Omega} \frac{1}{n}\sum_{i=1}^n Y_i \xrightarrow{\text{a.s.}} \int_{\Omega} g(x) dx.
-\end{equation}\]</span></p>
-</div>
-</div>
-<div class="exercise">
-<p><span id="exr:unnamed-chunk-209" class="exercise"><strong>Exercise 12.2  </strong></span>Let <span class="math inline">\(X\)</span> be a geometric random variable with probability 0.5 and support in positive integers. Let <span class="math inline">\(Y = 2^X (-1)^X X^{-1}\)</span>. Find the expected value of <span class="math inline">\(Y\)</span> by using conditional convergence (this variable does not have an expected value in the conventional sense – the series is not absolutely convergent).
-<span style="color:blue">R: Draw <span class="math inline">\(10000\)</span> samples from a geometric distribution with probability 0.5 and support in positive integers to get <span class="math inline">\(X\)</span>. Then calculate <span class="math inline">\(Y\)</span> and plot the means at each iteration (sample). Additionally, plot the expected value calculated in a. Try it with different seeds. What do you notice?</span></p>
-</div>
-<div class="fold">
-<div class="solution">
-<p><span id="unlabeled-div-83" class="solution"><em>Solution</em>. </span><span class="math display">\[\begin{align*}
-  E[Y] &amp;= \sum_{x=1}^{\infty} \frac{2^x (-1)^x}{x} 0.5^x \\
-       &amp;= \sum_{x=1}^{\infty} \frac{(-1)^x}{x} \\
-       &amp;= - \sum_{x=1}^{\infty} \frac{(-1)^{x+1}}{x} \\
-       &amp;= - \ln(2)
-\end{align*}\]</span></p>
-</div>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="lt.html#cb179-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
-<span id="cb179-2"><a href="lt.html#cb179-2" tabindex="-1"></a>x       <span class="ot">&lt;-</span> <span class="fu">rgeom</span>(<span class="dv">100000</span>, <span class="at">prob =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb179-3"><a href="lt.html#cb179-3" tabindex="-1"></a>y       <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">^</span>x <span class="sc">*</span> (<span class="sc">-</span><span class="dv">1</span>)<span class="sc">^</span>x <span class="sc">*</span> x<span class="sc">^</span>{<span class="sc">-</span><span class="dv">1</span>}</span>
-<span id="cb179-4"><a href="lt.html#cb179-4" tabindex="-1"></a>y_means <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(y) <span class="sc">/</span> <span class="fu">seq_along</span>(y)</span>
-<span id="cb179-5"><a href="lt.html#cb179-5" tabindex="-1"></a>df      <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(y_means), <span class="at">y =</span> y_means)</span>
-<span id="cb179-6"><a href="lt.html#cb179-6" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb179-7"><a href="lt.html#cb179-7" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb179-8"><a href="lt.html#cb179-8" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log</span>(<span class="dv">2</span>))</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-211-1.png" width="672" /></p>
-</div>
-
+<div id="create-individual-ggplot-objects" class="section level1 hasAnchor" number="20">
+<h1><span class="header-section-number">Chapter 20</span> Create individual ggplot objects<a href="create-individual-ggplot-objects.html#create-individual-ggplot-objects" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>plot1 &lt;- ggplot(data1, aes(x, y)) + geom_col() +
+xlab(“x”) + ylab(“Probability”) + ylim(0,1)</p>
+<p>plot2 &lt;- ggplot(data2, aes(x, y)) + geom_col() +
+xlab(“x”) + ylab(NULL) + ylim(0,1)</p>
+<p>plot3 &lt;- ggplot(data3, aes(x, y)) + geom_col() +
+xlab(“x”) + ylab(NULL) + ylim(0,1)</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="crv.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="eb.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="create-poisson-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="combine-the-plots.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
