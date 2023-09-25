@@ -1,10 +1,10 @@
-# Probability distributions
+# Probability distributions {#distributions}
 
 
 Name | parameters | support | pdf/pmf | mean | variance
 --- | --- | --- | --- | --- | ---
 Bernoulli | $p \in [0,1]$ | $k \in \{0,1\}$ | $p^k (1 - p)^{1 - k}$ <br> \@ref(exr:binomialpmf) | $p$ <br> \@ref(exr:Bernev) |  $p(1-p)$ <br> \@ref(exr:Bernev)
-binomial |$n \in \mathbb{N}$, $p \in [0,1]$| $k \in \{0,1,\dots,n\}$ | $\binom{n}{k} p^k (1 - p)^{n - k}$ <br> \@ref(exr:bincdf) |$np$ <br> \@ref(exr:binomev) |  $np(1-p)$ <br> \@ref(exr:binomev)
+binomial |$n \in \mathbb{N}$, $p \in [0,1]$| $k \in \{0,1,\dots,n\}$ | $\binom{n}{k} p^k (1 - p)^{n - k}$ <br> \@ref(exr:bincdf) |$np$ <br> \@ref(exr:binomev) |  $np(1-p)$ <br> \@ref(exr:binomev) 
 Poisson |$\lambda > 0$| $k \in \mathbb{N}_0$ | $\frac{\lambda^k e^{-\lambda}}{k!}$ <br> \@ref(exr:poisex) |  $\lambda$ <br> \@ref(exr:poisev) | $\lambda$ <br> \@ref(exr:poisev)
 geometric | $p \in (0,1]$ | $k \in \mathbb{N}_0$ | $p(1-p)^k$ <br> \@ref(exr:geocdf) | $\frac{1 - p}{p}$ <br> \@ref(exr:geoev)| $\frac{1 - p}{p^2}$ <br> \@ref(exr:geovar)
 normal |$\mu \in \mathbb{R}$, $\sigma^2 > 0$ | $x \in \mathbb{R}$ |$\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}}$ <br> \@ref(exr:normalpdf) | $\mu$ \@ref(exr:normev) | $\sigma^2$ \@ref(exr:normev)
