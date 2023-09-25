@@ -190,3 +190,8 @@ writing-functions
 other-tips
 further-reading-and-references
 probability-distributions
+exr:unnamed-chunk-5
+distributions-intutition
+discrete-distributions
+continuous-distributions
+distributions

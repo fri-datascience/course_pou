@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Principles of Uncertainty – exercises</title>
+  <title>Chapter 18 Distributions intutition | Principles of Uncertainty – exercises</title>
   <meta name="description" content="Course notes" />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Principles of Uncertainty – exercises" />
+  <meta property="og:title" content="Chapter 18 Distributions intutition | Principles of Uncertainty – exercises" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Course notes" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Principles of Uncertainty – exercises" />
+  <meta name="twitter:title" content="Chapter 18 Distributions intutition | Principles of Uncertainty – exercises" />
   
   <meta name="twitter:description" content="Course notes" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="bi.html"/>
+<link rel="next" href="A1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -297,19 +297,228 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="distributions-intutition" class="section level1 hasAnchor" number="18">
+<h1><span class="header-section-number">Chapter 18</span> Distributions intutition<a href="distributions-intutition.html#distributions-intutition" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This chapter is intended to help you familiarize yourself with the different
+probability distributions you will encounter in this course.</p>
+<p>Use <a href="distributions.html#distributions">Appendix B</a> as a reference for the basic properties of distributions.</p>
+<style>
+.fold-btn { 
+  float: right; 
+  margin: 5px 5px 0 0;
+}
+.fold { 
+  border: 1px solid black;
+  min-height: 40px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+  $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">"); // wrap a div container around content
+  $folds.prepend("<button class=\"fold-btn\">Unfold Solution</button>");  // add a button
+  $(".fold-blck").toggle();  // fold all blocks
+  $(".fold-btn").on("click", function() {  // add onClick event
+    $(this).text($(this).text() === "Fold Solution" ? "Unfold Solution" : "Fold Solution");  // if the text equals "Fold", change it to "Unfold"or else to "Fold" 
+    $(this).next(".fold-blck").toggle("linear");  // "swing" is the default easing function. This can be further customized in its speed or the overall animation itself.
+  })
+});
+</script>
+<div id="discrete-distributions" class="section level2 hasAnchor" number="18.1">
+<h2><span class="header-section-number">18.1</span> Discrete distributions<a href="distributions-intutition.html#discrete-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 18.1  (Bernoulli intuition 1) </strong></span>Arguably the simplest distribution you will enocounter is the Bernoulli distribution.
+It is a discrete probability distribution used to represent the outcome of a yes/no
+question. It has one parameter <span class="math inline">\(p\)</span> which is the probability of success. The
+probability of failure is <span class="math inline">\(1-p\)</span>, sometimes denoted as <span class="math inline">\(q\)</span>.</p>
+<p>A classic way to think about a Bernoulli trial (a yes/no experiment) is a coin
+flip. Real coins are fair, meaning the probability of either heads (1)
+or tails (0) are the same i.e. <span class="math inline">\(p=0.5\)</span>, shown below in <em>figure a</em>. Alternatively
+we may want to represent a process that doesn’t have equal probabilities of outcomes
+like “Will a throw of a fair die result in a 6?”. In this case <span class="math inline">\(p=\frac{1}{6}\)</span>,
+shown in <em>figure b</em>.</p>
+<p>Using your knowledge of the Bernoulli distribution use the throw of a fair die
+to think of events, such that:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(p = 0.5\)</span></li>
+<li><span class="math inline">\(p = \frac{5}{6}\)</span></li>
+<li><span class="math inline">\(q = \frac{2}{3}\)</span></li>
+</ol>
+</div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="fold">
+<div class="solution">
+<p><span id="unlabeled-div-1" class="solution"><em>Solution</em>. </span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>An event that is equally likely to happen or not happen i.e. <span class="math inline">\(p = 0.5\)</span> would be
+throwing an even number. More formally we can name this event <span class="math inline">\(A\)</span> and write:
+<span class="math inline">\(A = \{2,4,6\}\)</span>, <span class="math inline">\(P(A) = 0.5\)</span></p></li>
+<li><p>An example of an event with <span class="math inline">\(p = \frac{5}{6}\)</span> would be throwing a number
+greater than 1. Defined as <span class="math inline">\(B = \{2,3,4,5,6\}\)</span>.</p></li>
+<li><p>We need an event that fails <span class="math inline">\(\frac{2}{3}\)</span> of the time. Alternatively we can
+reverse the problem and find an event that succeeds <span class="math inline">\(\frac{1}{3}\)</span> of the time,
+since: <span class="math inline">\(q = 1 - p \implies p = 1 - q = \frac{1}{3}\)</span>. The event that our outcome
+is divisible by 3: <span class="math inline">\(C = \{3, 6\}\)</span> satisfies this condition.</p></li>
+</ol>
+</div>
+</div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-5" class="exercise"><strong>Exercise 18.2  (Binomial intuition 1) </strong></span>The binomial distribution is a generalization of the Bernoulli distribution.
+Instead of considering a single Bernoulli trial, we now consider a sequence of <span class="math inline">\(n\)</span> trials,
+which are independent and have the same parameter <span class="math inline">\(p\)</span>. So the binomial distribution
+has two parameters <span class="math inline">\(n\)</span> - the number of trials and <span class="math inline">\(p\)</span> - the probability of success
+for each trial.</p>
+<p>If we return to our coin flip representation, we now flip a coin several times.
+The binomial distribution will give us the probabilities of all possible outcomes.
+Below we show the distribution for a series of 10 coin flips with a fair coin
+(left) and a biased coin (right). The numbers on the x axis represent the
+number of times the coin landed heads.</p>
+<p>Using your knowledge of the binomial distribution:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Take the <a href="distributions.html#distributions">pmf of the binomial distribution</a> and plug in <span class="math inline">\(n=1\)</span>,
+check that it is in fact equivalent to a Bernoulli distribution.</p></li>
+<li><p>In our examples we show the graph of a binomial distribution over 10 trials with
+<span class="math inline">\(p=0.8\)</span>. If we take a look at the graph, it appears as though the probabilities of getting 0,1,2 or 3
+heads in 10 flips are zero. Is it actually zero? Check by plugging in the values
+into the pmf.</p></li>
+</ol>
+</div>
+<div class="fold">
+<div class="solution">
+<p><span id="unlabeled-div-2" class="solution"><em>Solution</em>. </span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>The pmf of a binomial distribution is <span class="math inline">\(\binom{n}{k} p^k (1 - p)^{n - k}\)</span>, now
+we insert <span class="math inline">\(n=1\)</span> to get:
+<span class="math display">\[\binom{1}{k} p^k (1 - p)^{1 - k}\]</span>.
+Not quite equivalent to
+a Bernoulli, however note that the support of the binomial distribution is
+defined as <span class="math inline">\(k \in \{0,1,\dots,n\}\)</span>, so in our case <span class="math inline">\(k = \{0,1\}\)</span>, then:
+<span class="math display">\[\binom{1}{0} = \binom{1}{1} = 1\]</span>
+we get: <span class="math inline">\(p^k (1 - p)^{1 - k}\)</span> ,the Bernoulli distribution.</p></li>
+<li><p>As we already know <span class="math inline">\(p=0.8, n=10\)</span>, so:
+<span class="math display">\[\binom{10}{0} 0.8^0 (1 - 0.8)^{10 - 0} = 1.024 \cdot 10^{-7}\]</span>
+<span class="math display">\[\binom{10}{1} 0.8^1 (1 - 0.8)^{10 - 1} = 4.096 \cdot 10^{-6}\]</span>
+<span class="math display">\[\binom{10}{2} 0.8^2 (1 - 0.8)^{10 - 2} = 7.3728 \cdot 10^{-5}\]</span>
+<span class="math display">\[\binom{10}{3} 0.8^3 (1 - 0.8)^{10 - 3} = 7.86432\cdot 10^{-4}\]</span>
+So the probabilities are not zero, just very small.</p></li>
+</ol>
+</div>
+</div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 18.3  (Poisson intuition 1) </strong></span>Below are shown 3 different graphs of the Poisson distribution. Your task
+is to replicate them on your own in R by varying the <span class="math inline">\(\lambda\)</span> parameter.</p>
+<p>Hint: You can use dpois() to get the probabilities.</p>
+</div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="fold">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="distributions-intutition.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="distributions-intutition.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-3"><a href="distributions-intutition.html#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="distributions-intutition.html#cb1-4" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">15</span></span>
+<span id="cb1-5"><a href="distributions-intutition.html#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="distributions-intutition.html#cb1-6" tabindex="-1"></a><span class="co"># Create Poisson data</span></span>
+<span id="cb1-7"><a href="distributions-intutition.html#cb1-7" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">0.1</span>))</span>
+<span id="cb1-8"><a href="distributions-intutition.html#cb1-8" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="dv">1</span>))</span>
+<span id="cb1-9"><a href="distributions-intutition.html#cb1-9" tabindex="-1"></a>data3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">7.5</span>))</span>
+<span id="cb1-10"><a href="distributions-intutition.html#cb1-10" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="distributions-intutition.html#cb1-11" tabindex="-1"></a><span class="co"># Create individual ggplot objects</span></span>
+<span id="cb1-12"><a href="distributions-intutition.html#cb1-12" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data1, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb1-13"><a href="distributions-intutition.html#cb1-13" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;Probability&quot;</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb1-14"><a href="distributions-intutition.html#cb1-14" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="distributions-intutition.html#cb1-15" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data2, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb1-16"><a href="distributions-intutition.html#cb1-16" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb1-17"><a href="distributions-intutition.html#cb1-17" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="distributions-intutition.html#cb1-18" tabindex="-1"></a>plot3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data3, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb1-19"><a href="distributions-intutition.html#cb1-19" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb1-20"><a href="distributions-intutition.html#cb1-20" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="distributions-intutition.html#cb1-21" tabindex="-1"></a><span class="co"># Combine the plots</span></span>
+<span id="cb1-22"><a href="distributions-intutition.html#cb1-22" tabindex="-1"></a><span class="fu">grid.arrange</span>(plot1, plot2, plot3, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
+</div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-11" class="exercise"><strong>Exercise 18.4  (Poisson intuition 2) </strong></span>The Poisson distribution is a discrete probability distribution that models
+processes where events occur at a constant mean rate and are independent of each other.</p>
+<p>It has a single parameter <span class="math inline">\(\lambda\)</span>, which represents the constant mean rate.</p>
+<p>A classic example of a scenario that can be modeled using the Poisson distribution
+is the number of calls received by a call center in a day (or in fact any other
+time interval).</p>
+<p>Suppose you work in a call center and have some understanding of probability
+distributions. You overhear your supervisor mentioning that the call center
+receives an average of 2.5 calls per day. Using your knowledge of the Poisson
+distribution, calculate:</p>
+<ol style="list-style-type: lower-alpha">
+<li>The probability you will get no calls today.</li>
+<li>The probability you will get more than 5 calls today.</li>
+</ol>
+</div>
+<div class="fold">
+<div class="solution">
+<p><span id="unlabeled-div-3" class="solution"><em>Solution</em>. </span>First recall the Poisson pmf: <span class="math display">\[p(k) = \frac{\lambda^k e^{-\lambda}}{k!}\]</span></p>
+<p>as stated previously our parameter <span class="math inline">\(\lambda = 2.5\)</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>To get the probability of no calls we simply plug in <span class="math inline">\(k = 0\)</span>, so: <span class="math display">\[p(0) = \frac{2.5^0 e^{-2.5}}{0!} = e^{-2.5} \approx 0.082\]</span></p></li>
+<li><p>The support of the Poisson distribution is non-negative integers. So if we wanted
+to calculate the probability of getting more than 5 calls we would need to add up
+the probabilities of getting 6 calls and 7 calls and so on up to infinity.
+Let us instead remember that the sum of all probabilties will be 1, we will
+reverse the problem and instead ask “What is the probability we get 5 calls or less?”.
+We can subtract the probability of the opposite outcome (the complement) from 1
+to get the probability of our original question.</p></li>
+</ol>
+<p><span class="math display">\[P(k &gt; 5) = 1 - P(k \leq 5)\]</span>
+<span class="math display">\[P(k \leq 5) = \sum_{i=0}^{5} p(i) = p(0) + p(1) + p(2) + p(3) + p(4) + p(5) =\]</span>
+<span class="math display">\[= \frac{2.5^0 e^{-2.5}}{0!} + \frac{2.5^1 e^{-2.5}}{1!} + \dots =\]</span>
+<span class="math display">\[=0.957979\]</span></p>
+<p>So the probability of geting more than 5 calls will be <span class="math inline">\(1 - 0.957979 = 0.042021\)</span></p>
+</div>
+</div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-13" class="exercise"><strong>Exercise 18.5  (Geometric intuition 1) </strong></span>The geometric distribution is a discrete distribution that models the <strong>number of
+failures</strong> before the first success in a sequence of independent Bernoulli trials.
+It has a single parameter <span class="math inline">\(p\)</span>, representing the probability of success.</p>
+<p><em>Disclaimer</em>: There are two forms of this distribution, the one we just described
+and another version that models the <strong>number of trials</strong> before the first success. The
+difference is subtle yet significant and you are likely to encounter both forms,
+though here we will limit ourselves to the former.</p>
+<p>In the graph below we show the pmf of a geometric distribution with <span class="math inline">\(p=0.5\)</span>. This
+can be thought of as the number of successive failures (tails) in the flip of a fair coin.
+You can see that there’s a 50% chance you will have zero failures i.e. you will
+flip a heads on your very first attempt. But there is some smaller chance that you
+will flip a sequence of tails in a row, with longer sequences having ever lower
+probability.</p>
+<p>Suppose you are gambling over coin flips with your friend and they propose if they
+get 5 tails in a row you must give them 100€ and you get 1€ if they fail.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Does it make sense to accept this wager?</li>
+<li>They change their mind and claim that getting 10 tails in a row is half as
+likely, so now they want 200€ if they succeed, but still only offer to pay 1€
+if they fail. Does it make sense to accept this wager?</li>
+<li><em>Bonus</em>: Look up the second form of this distribution and redo problems a) and b).</li>
+</ol>
+</div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="fold">
+<div class="solution">
+<p><span id="unlabeled-div-4" class="solution"><em>Solution</em>. </span>aaa</p>
+</div>
+</div>
+</div>
+<div id="continuous-distributions" class="section level2 hasAnchor" number="18.2">
+<h2><span class="header-section-number">18.2</span> Continuous distributions<a href="distributions-intutition.html#continuous-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
+</div>
+
+
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="bi.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="A1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
