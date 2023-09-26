@@ -327,7 +327,7 @@ $(document).ready(function() {
 <div id="discrete-distributions" class="section level2 hasAnchor" number="18.1">
 <h2><span class="header-section-number">18.1</span> Discrete distributions<a href="distributions-intutition.html#discrete-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 18.1  (Bernoulli intuition 1) </strong></span>Arguably the simplest distribution you will enocounter is the Bernoulli distribution.
+<p><span id="exr:unnamed-chunk-277" class="exercise"><strong>Exercise 18.1  (Bernoulli intuition 1) </strong></span>Arguably the simplest distribution you will enocounter is the Bernoulli distribution.
 It is a discrete probability distribution used to represent the outcome of a yes/no
 question. It has one parameter <span class="math inline">\(p\)</span> which is the probability of success. The
 probability of failure is <span class="math inline">\(1-p\)</span>, sometimes denoted as <span class="math inline">\(q\)</span>.</p>
@@ -345,14 +345,14 @@ to think of events, such that:</p>
 <li><span class="math inline">\(q = \frac{2}{3}\)</span></li>
 </ol>
 </div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-278-1.png" width="672" /></p>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-1" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-96" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>An event that is equally likely to happen or not happen i.e. <span class="math inline">\(p = 0.5\)</span> would be
 throwing an even number. More formally we can name this event <span class="math inline">\(A\)</span> and write:
-<span class="math inline">\(A = \{2,4,6\}\)</span>, <span class="math inline">\(P(A) = 0.5\)</span></p></li>
+<span class="math inline">\(A = \{2,4,6\}\)</span>, its probability being <span class="math inline">\(P(A) = 0.5\)</span></p></li>
 <li><p>An example of an event with <span class="math inline">\(p = \frac{5}{6}\)</span> would be throwing a number
 greater than 1. Defined as <span class="math inline">\(B = \{2,3,4,5,6\}\)</span>.</p></li>
 <li><p>We need an event that fails <span class="math inline">\(\frac{2}{3}\)</span> of the time. Alternatively we can
@@ -363,7 +363,7 @@ is divisible by 3: <span class="math inline">\(C = \{3, 6\}\)</span> satisfies t
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-5" class="exercise"><strong>Exercise 18.2  (Binomial intuition 1) </strong></span>The binomial distribution is a generalization of the Bernoulli distribution.
+<p><span id="exr:unnamed-chunk-280" class="exercise"><strong>Exercise 18.2  (Binomial intuition 1) </strong></span>The binomial distribution is a generalization of the Bernoulli distribution.
 Instead of considering a single Bernoulli trial, we now consider a sequence of <span class="math inline">\(n\)</span> trials,
 which are independent and have the same parameter <span class="math inline">\(p\)</span>. So the binomial distribution
 has two parameters <span class="math inline">\(n\)</span> - the number of trials and <span class="math inline">\(p\)</span> - the probability of success
@@ -385,7 +385,7 @@ into the pmf.</p></li>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-2" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-97" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>The pmf of a binomial distribution is <span class="math inline">\(\binom{n}{k} p^k (1 - p)^{n - k}\)</span>, now
 we insert <span class="math inline">\(n=1\)</span> to get:
@@ -404,39 +404,39 @@ So the probabilities are not zero, just very small.</p></li>
 </ol>
 </div>
 </div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-282-1.png" width="672" /></p>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 18.3  (Poisson intuition 1) </strong></span>Below are shown 3 different graphs of the Poisson distribution. Your task
+<p><span id="exr:unnamed-chunk-283" class="exercise"><strong>Exercise 18.3  (Poisson intuition 1) </strong></span>Below are shown 3 different graphs of the Poisson distribution. Your task
 is to replicate them on your own in R by varying the <span class="math inline">\(\lambda\)</span> parameter.</p>
 <p>Hint: You can use dpois() to get the probabilities.</p>
 </div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-284-1.png" width="672" /></p>
 <div class="fold">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="distributions-intutition.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="distributions-intutition.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
-<span id="cb1-3"><a href="distributions-intutition.html#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="distributions-intutition.html#cb1-4" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">15</span></span>
-<span id="cb1-5"><a href="distributions-intutition.html#cb1-5" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="distributions-intutition.html#cb1-6" tabindex="-1"></a><span class="co"># Create Poisson data</span></span>
-<span id="cb1-7"><a href="distributions-intutition.html#cb1-7" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">0.1</span>))</span>
-<span id="cb1-8"><a href="distributions-intutition.html#cb1-8" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="dv">1</span>))</span>
-<span id="cb1-9"><a href="distributions-intutition.html#cb1-9" tabindex="-1"></a>data3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">7.5</span>))</span>
-<span id="cb1-10"><a href="distributions-intutition.html#cb1-10" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="distributions-intutition.html#cb1-11" tabindex="-1"></a><span class="co"># Create individual ggplot objects</span></span>
-<span id="cb1-12"><a href="distributions-intutition.html#cb1-12" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data1, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb1-13"><a href="distributions-intutition.html#cb1-13" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;Probability&quot;</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb1-14"><a href="distributions-intutition.html#cb1-14" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="distributions-intutition.html#cb1-15" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data2, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb1-16"><a href="distributions-intutition.html#cb1-16" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb1-17"><a href="distributions-intutition.html#cb1-17" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="distributions-intutition.html#cb1-18" tabindex="-1"></a>plot3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data3, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb1-19"><a href="distributions-intutition.html#cb1-19" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb1-20"><a href="distributions-intutition.html#cb1-20" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="distributions-intutition.html#cb1-21" tabindex="-1"></a><span class="co"># Combine the plots</span></span>
-<span id="cb1-22"><a href="distributions-intutition.html#cb1-22" tabindex="-1"></a><span class="fu">grid.arrange</span>(plot1, plot2, plot3, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="distributions-intutition.html#cb333-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb333-2"><a href="distributions-intutition.html#cb333-2" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb333-3"><a href="distributions-intutition.html#cb333-3" tabindex="-1"></a></span>
+<span id="cb333-4"><a href="distributions-intutition.html#cb333-4" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">15</span></span>
+<span id="cb333-5"><a href="distributions-intutition.html#cb333-5" tabindex="-1"></a></span>
+<span id="cb333-6"><a href="distributions-intutition.html#cb333-6" tabindex="-1"></a><span class="co"># Create Poisson data</span></span>
+<span id="cb333-7"><a href="distributions-intutition.html#cb333-7" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">0.1</span>))</span>
+<span id="cb333-8"><a href="distributions-intutition.html#cb333-8" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="dv">1</span>))</span>
+<span id="cb333-9"><a href="distributions-intutition.html#cb333-9" tabindex="-1"></a>data3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">7.5</span>))</span>
+<span id="cb333-10"><a href="distributions-intutition.html#cb333-10" tabindex="-1"></a></span>
+<span id="cb333-11"><a href="distributions-intutition.html#cb333-11" tabindex="-1"></a><span class="co"># Create individual ggplot objects</span></span>
+<span id="cb333-12"><a href="distributions-intutition.html#cb333-12" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data1, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb333-13"><a href="distributions-intutition.html#cb333-13" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;Probability&quot;</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb333-14"><a href="distributions-intutition.html#cb333-14" tabindex="-1"></a></span>
+<span id="cb333-15"><a href="distributions-intutition.html#cb333-15" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data2, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb333-16"><a href="distributions-intutition.html#cb333-16" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb333-17"><a href="distributions-intutition.html#cb333-17" tabindex="-1"></a></span>
+<span id="cb333-18"><a href="distributions-intutition.html#cb333-18" tabindex="-1"></a>plot3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data3, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb333-19"><a href="distributions-intutition.html#cb333-19" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb333-20"><a href="distributions-intutition.html#cb333-20" tabindex="-1"></a></span>
+<span id="cb333-21"><a href="distributions-intutition.html#cb333-21" tabindex="-1"></a><span class="co"># Combine the plots</span></span>
+<span id="cb333-22"><a href="distributions-intutition.html#cb333-22" tabindex="-1"></a><span class="fu">grid.arrange</span>(plot1, plot2, plot3, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-11" class="exercise"><strong>Exercise 18.4  (Poisson intuition 2) </strong></span>The Poisson distribution is a discrete probability distribution that models
+<p><span id="exr:unnamed-chunk-286" class="exercise"><strong>Exercise 18.4  (Poisson intuition 2) </strong></span>The Poisson distribution is a discrete probability distribution that models
 processes where events occur at a constant mean rate and are independent of each other.</p>
 <p>It has a single parameter <span class="math inline">\(\lambda\)</span>, which represents the constant mean rate.</p>
 <p>A classic example of a scenario that can be modeled using the Poisson distribution
@@ -453,7 +453,7 @@ distribution, calculate:</p>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-3" class="solution"><em>Solution</em>. </span>First recall the Poisson pmf: <span class="math display">\[p(k) = \frac{\lambda^k e^{-\lambda}}{k!}\]</span></p>
+<p><span id="unlabeled-div-98" class="solution"><em>Solution</em>. </span>First recall the Poisson pmf: <span class="math display">\[p(k) = \frac{\lambda^k e^{-\lambda}}{k!}\]</span></p>
 <p>as stated previously our parameter <span class="math inline">\(\lambda = 2.5\)</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>To get the probability of no calls we simply plug in <span class="math inline">\(k = 0\)</span>, so: <span class="math display">\[p(0) = \frac{2.5^0 e^{-2.5}}{0!} = e^{-2.5} \approx 0.082\]</span></p></li>
@@ -473,7 +473,7 @@ to get the probability of our original question.</p></li>
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-13" class="exercise"><strong>Exercise 18.5  (Geometric intuition 1) </strong></span>The geometric distribution is a discrete distribution that models the <strong>number of
+<p><span id="exr:unnamed-chunk-288" class="exercise"><strong>Exercise 18.5  (Geometric intuition 1) </strong></span>The geometric distribution is a discrete distribution that models the <strong>number of
 failures</strong> before the first success in a sequence of independent Bernoulli trials.
 It has a single parameter <span class="math inline">\(p\)</span>, representing the probability of success.</p>
 <p><em>Disclaimer</em>: There are two forms of this distribution, the one we just described
@@ -486,21 +486,48 @@ You can see that there’s a 50% chance you will have zero failures i.e. you wi
 flip a heads on your very first attempt. But there is some smaller chance that you
 will flip a sequence of tails in a row, with longer sequences having ever lower
 probability.</p>
-<p>Suppose you are gambling over coin flips with your friend and they propose if they
-get 5 tails in a row you must give them 100€ and you get 1€ if they fail.</p>
 <ol style="list-style-type: lower-alpha">
-<li>Does it make sense to accept this wager?</li>
-<li>They change their mind and claim that getting 10 tails in a row is half as
-likely, so now they want 200€ if they succeed, but still only offer to pay 1€
-if they fail. Does it make sense to accept this wager?</li>
-<li><em>Bonus</em>: Look up the second form of this distribution and redo problems a) and b).</li>
+<li>Create an equivalent graph that represents the probability of rolling a 6 with a fair 6-sided die.</li>
+<li>Use the formula for the <a href="distributions.html#distributions">mean</a> of the geometric distribution and determine the average number of <strong>failures</strong> before you roll a 6.</li>
+<li>Look up the alternative form of the geometric distribtuion and again use the formula for the mean to determine the average number of <strong>trials</strong> before you roll a 6.</li>
 </ol>
 </div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-289-1.png" width="672" /></p>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-4" class="solution"><em>Solution</em>. </span>aaa</p>
+<p><span id="unlabeled-div-99" class="solution"><em>Solution</em>. </span>Parameter p (the probability of success) for rolling a 6 is <span class="math inline">\(p=\frac{1}{6}\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
 </div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="distributions-intutition.html#cb334-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb334-2"><a href="distributions-intutition.html#cb334-2" tabindex="-1"></a></span>
+<span id="cb334-3"><a href="distributions-intutition.html#cb334-3" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb334-4"><a href="distributions-intutition.html#cb334-4" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span></span>
+<span id="cb334-5"><a href="distributions-intutition.html#cb334-5" tabindex="-1"></a>x_vals <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>  <span class="co"># Starting from 0</span></span>
+<span id="cb334-6"><a href="distributions-intutition.html#cb334-6" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">dgeom</span>(x_vals, p)</span>
+<span id="cb334-7"><a href="distributions-intutition.html#cb334-7" tabindex="-1"></a></span>
+<span id="cb334-8"><a href="distributions-intutition.html#cb334-8" tabindex="-1"></a><span class="co"># Data</span></span>
+<span id="cb334-9"><a href="distributions-intutition.html#cb334-9" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x_vals, probs)</span>
+<span id="cb334-10"><a href="distributions-intutition.html#cb334-10" tabindex="-1"></a></span>
+<span id="cb334-11"><a href="distributions-intutition.html#cb334-11" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb334-12"><a href="distributions-intutition.html#cb334-12" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>x_vals, <span class="at">y=</span>probs)) <span class="sc">+</span></span>
+<span id="cb334-13"><a href="distributions-intutition.html#cb334-13" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend=</span>x_vals, <span class="at">yend=</span><span class="dv">0</span>), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb334-14"><a href="distributions-intutition.html#cb334-14" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb334-15"><a href="distributions-intutition.html#cb334-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Number of trials&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>) <span class="sc">+</span></span>
+<span id="cb334-16"><a href="distributions-intutition.html#cb334-16" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb334-17"><a href="distributions-intutition.html#cb334-17" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> x_vals) <span class="co"># This line ensures integer x-axis labels</span></span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-291-1.png" width="672" />
+::: {.solution}
+b)</p>
+<p><span class="math display">\[E[X] = \frac{1-p}{p}= \frac{1- \frac{1}{6}}{\frac{1}{6}} = \frac{5}{6}\cdot 6 = 5\]</span>
+On average we will fail 5 times before we roll our first 6.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>The alternative form of this distribution (with support on all positive integers) has a slightly different formula for the mean. This change reflects the difference in the way we posed our question:</li>
+</ol>
+<p><span class="math display">\[E[X] = \frac{1}{p} = \frac{1}{\frac{1}{6}} = 6\]</span>
+On average we will have to throw the die 6 times before we roll a 6.
+:::</p>
 </div>
 </div>
 <div id="continuous-distributions" class="section level2 hasAnchor" number="18.2">

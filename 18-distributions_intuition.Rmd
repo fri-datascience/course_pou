@@ -86,7 +86,7 @@ ggplot(df, aes(x=factor(outcome), y=probability)) +
 ```{solution, echo = togs}
 a. An event that is equally likely to happen or not happen i.e. $p = 0.5$ would be
 throwing an even number. More formally we can name this event $A$ and write:
-  $A = \{2,4,6\}$, $P(A) = 0.5$
+  $A = \{2,4,6\}$, its probability being $P(A) = 0.5$
 
 
 b. An example of an event with $p = \frac{5}{6}$ would be throwing a number 
@@ -294,14 +294,9 @@ flip a heads on your very first attempt. But there is some smaller chance that y
 will flip a sequence of tails in a row, with longer sequences having ever lower 
 probability.
 
-Suppose you are gambling over coin flips with your friend and they propose if they 
-get 5 tails in a row you must give them 100€ and you get 1€ if they fail.
-
-a) Does it make sense to accept this wager?
-b) They change their mind and claim that getting 10 tails in a row is half as 
-likely, so now they want 200€ if they succeed, but still only offer to pay 1€
-if they fail. Does it make sense to accept this wager?
-c) *Bonus*: Look up the second form of this distribution and redo problems a) and b).
+a) Create an equivalent graph that represents the probability of rolling a 6 with a fair 6-sided die.
+b) Use the formula for the [mean](#distributions) of the geometric distribution and determine the average number of **failures** before you roll a 6.
+c) Look up the alternative form of the geometric distribtuion and again use the formula for the mean to determine the average number of **trials** before you roll a 6.
 
 ```
 
@@ -328,8 +323,43 @@ ggplot(data, aes(x=x_vals, y=probs)) +
 
 <div class="fold">
 ```{solution, echo = togs}
-aaa
+Parameter p (the probability of success) for rolling a 6 is $p=\frac{1}{6}$.
+
+a)
+
+```
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+library(ggplot2)
+
+# Parameters
+p <- 1/6
+x_vals <- 0:9  # Starting from 0
+probs <- dgeom(x_vals, p)
+
+# Data
+data <- data.frame(x_vals, probs)
+
+# Plot
+ggplot(data, aes(x=x_vals, y=probs)) +
+  geom_segment(aes(xend=x_vals, yend=0), color="black", size=1) +
+  geom_point(color="red", size=2) + 
+  labs(x = "Number of trials", y = "Probability") +
+  theme_minimal() +
+  scale_x_continuous(breaks = x_vals) # This line ensures integer x-axis labels
+
+```
+```{solution, echo = togs}
+b)
+
+$$E[X] = \frac{1-p}{p}= \frac{1- \frac{1}{6}}{\frac{1}{6}} = \frac{5}{6}\cdot 6 = 5$$
+  On average we will fail 5 times before we roll our first 6.
+
+c) The alternative form of this distribution (with support on all positive integers) has a slightly different formula for the mean. This change reflects the difference in the way we posed our question:
+  
+  $$E[X] = \frac{1}{p} = \frac{1}{\frac{1}{6}} = 6$$
+    On average we will have to throw the die 6 times before we roll a 6.
 ```
 </div>
 
 ## Continuous distributions 
+
