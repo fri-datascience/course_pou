@@ -349,7 +349,7 @@ ggplot(data, aes(x=x_vals, y=probs)) +
 
 ```
 ```{solution, echo = togs}
-b)
+b) The expected value of a random variable (the mean) is denoted as $E[X]$.
 
 $$E[X] = \frac{1-p}{p}= \frac{1- \frac{1}{6}}{\frac{1}{6}} = \frac{5}{6}\cdot 6 = 5$$
   On average we will fail 5 times before we roll our first 6.
@@ -362,4 +362,133 @@ c) The alternative form of this distribution (with support on all positive integ
 </div>
 
 ## Continuous distributions 
+
+```{exercise, name = "Uniform intuition 1"}
+The need for a randomness is a common problem. A practical solution are so-called random number generators (RNGs). The simplest RNG one would think of is choosing a set of numbers and having the generator return a number at random, where the probability of returning any number from this set is the same. If this set is an interval of real numbers, then we've basically described the continuous uniform distribution.
+
+It has two parameters $a$ and $b$, which define the beginning and end of its support respectively.
+
+a) Let's think of the mean intuitively. The expected value or mean of a distribution is the pivot point on our x-axis, which "balances" the graph. Given parameters $a$ and $b$ what is your intuitive guess of the mean for this distribution?
+b) A special case of the uniform distribution is the **standard uniform distribution** with $a=0$,$b=1$. Write the pdf of this particular case.
+```
+```{r, fig.width=5, fig.height=3, echo=FALSE, warning=FALSE, message=FALSE}
+# Load required libraries
+library(ggplot2)
+
+# Create data for a uniform distribution
+df <- data.frame(x = c("a", "b"), y = c(1, 1))
+
+# Plot
+p <- ggplot(df, aes(x, y)) +
+  geom_line(aes(group = 1), color = "blue") +
+  geom_point(size = 2) +
+  geom_segment(aes(x = "a", xend = "a", y = 0, yend = 1), linetype = "dotted") +
+  geom_segment(aes(x = "b", xend = "b", y = 0, yend = 1), linetype = "dotted") +
+  labs(x = "Value", y = "Density", title = "Uniform Distribution") +
+  theme_minimal() +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  annotate("text", x = "a", y = 1, label = "1/(b-a)", hjust = 1.2, vjust = 0.5) +  
+  annotate("text", x = "a", y = 0, label = "0", hjust = 1.5, vjust = 0.5)
+
+print(p)
+```
+<div class="fold">
+```{solution, echo = togs}
+a. It's the midpoint between $a$ and $b$, so $\frac{b-a}{2}$
+b. Inserting the parameter values we get:$$f(x) = 
+\begin{cases} 
+1 & \text{if } 0 \leq x \leq 1 \\
+0 & \text{otherwise}
+\end{cases}
+$$
+Notice how the pdf is just a constant $1$ across all values of $x \in [0,1]$. Here it is important to distinguish between probability and **probability density**. The density may be 1, but the probability is not and while discreet distributions never exceeded 1 on the y-axis, continuous distributions can go as high as you like.
+```
+</div>
+
+
+```{exercise, name = "Normal intuition 1"}
+a
+```
+
+```{exercise, name = "Beta intuition 1"}
+The beta distribution is a continuous distribution defined on the unit interval $[0,1]$. It has two strictly positive paramters $\alpha$ and $\beta$, which determine its shape. Its support makes it especially suitable to model distribtuions of percentages and proportions.
+
+Below you've been provided with some code that you can copy into Rstudio. Once you run the code, an interactive Shiny app will appear and you will be able to manipulate the graph of the beta distribution.
+
+Play around with the parameters to get:
+
+a) A straight line from (0,0) to (1,2)
+b) A straight line from (0,2) to (1,0)
+c) A symmetric bell curve
+d) A bowl-shaped curve
+e) The standard uniform distribution is actually a special case of the beta distribution. Find the exact parameters $\alpha$ and $\beta$. Once you do, prove the equality by inserting the values into our pdf. 
+
+*Hint*: The beta function is evaluated as $\text{B}(a,b) = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$,
+ the gamma function for **positive integers** $n$ is evaluated as $\Gamma(n)= (n-1)!$
+```
+
+```
+# Install and load necessary packages
+install.packages(c("shiny", "ggplot2"))
+library(shiny)
+library(ggplot2)
+
+# The Shiny App
+ui <- fluidPage(
+  titlePanel("Beta Distribution Viewer"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("alpha", "Alpha:", min = 0.1, max = 10, value = 2, step = 0.1),
+      sliderInput("beta", "Beta:", min = 0.1, max = 10, value = 2, step = 0.1)
+    ),
+    
+    mainPanel(
+      plotOutput("betaPlot")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$betaPlot <- renderPlot({
+    x <- seq(0, 1, by = 0.01)
+    y <- dbeta(x, shape1 = input$alpha, shape2 = input$beta)
+    
+    ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+      geom_line() +
+      labs(x = "Value", y = "Density") +
+      theme_minimal()
+  })
+}
+
+shinyApp(ui = ui, server = server)
+
+```
+<div class="fold">
+```{solution, echo = togs}
+  a) $\alpha = 2, \beta=1$
+  
+  b) $\alpha = 1, \beta=2$
+  
+  c) Possible solution $\alpha = \beta= 5$
+  
+  d) Possible solution $\alpha = \beta= 0.5$
+    
+  e) The correct parameters are $\alpha = 1, \beta=1$, to prove the equality we insert them into the beta pdf:
+    $$\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)} =
+      \frac{x^{1 - 1} (1 - x)^{1 - 1}}{\text{B}(1, 1)} =
+        \frac{1}{\frac{\Gamma(1)\Gamma(1)}{\Gamma(1+1)}}=
+          \frac{1}{\frac{(1-1)!(1-1)!}{(2-1)!}} = 1$$
+```
+</div>
+
+
+```{exercise, name = "Gamma intuition 1"}
+a
+```
+
+```{exercise, name = "Exponential intuition 1"}
+a
+```
 

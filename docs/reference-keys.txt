@@ -119,6 +119,11 @@ exr:unnamed-chunk-280
 exr:unnamed-chunk-283
 exr:unnamed-chunk-286
 exr:unnamed-chunk-288
+exr:unnamed-chunk-293
+exr:unnamed-chunk-296
+exr:unnamed-chunk-297
+exr:unnamed-chunk-299
+exr:unnamed-chunk-300
 introduction
 measure-and-probability-spaces
 properties-of-probability-measures
