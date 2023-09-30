@@ -3,7 +3,7 @@
 This chapter is intended to help you familiarize yourself with the different 
 probability distributions you will encounter in this course.
 
-Use [Appendix B](#distributions) as a reference for the basic properties of distributions. 
+You will need to use [Appendix B](#distributions) extensively as a reference for the basic properties of distributions, so keep it close!
 
 
 ```{r, echo = FALSE}
@@ -44,11 +44,11 @@ $(document).ready(function() {
 Arguably the simplest distribution you will enocounter is the Bernoulli distribution.
 It is a discrete probability distribution used to represent the outcome of a yes/no
 question. It has one parameter $p$ which is the probability of success. The 
-probability of failure is $1-p$, sometimes denoted as $q$.
+probability of failure is $(1-p)$, sometimes denoted as $q$.
 
 A classic way to think about a Bernoulli trial (a yes/no experiment) is a coin 
 flip. Real coins are fair, meaning the probability of either heads (1) 
-or tails (0) are the same i.e. $p=0.5$, shown below in *figure a*. Alternatively
+or tails (0) are the same, so $p=0.5$ as shown below in *figure a*. Alternatively
 we may want to represent a process that doesn't have equal probabilities of outcomes
 like "Will a throw of a fair die result in a 6?". In this case $p=\frac{1}{6}$, 
 shown in *figure b*.
@@ -86,7 +86,7 @@ ggplot(df, aes(x=factor(outcome), y=probability)) +
 ```{solution, echo = togs}
 a. An event that is equally likely to happen or not happen i.e. $p = 0.5$ would be
 throwing an even number. More formally we can name this event $A$ and write:
-  $A = \{2,4,6\}$, $P(A) = 0.5$
+  $A = \{2,4,6\}$, its probability being $P(A) = 0.5$
 
 
 b. An example of an event with $p = \frac{5}{6}$ would be throwing a number 
@@ -233,8 +233,9 @@ grid.arrange(plot1, plot2, plot3, ncol = 3)
 
 
 ```{exercise, name = "Poisson intuition 2"}
-The Poisson distribution is a discrete probability distribution that models 
-processes where events occur at a constant mean rate and are independent of each other.
+The Poisson distribution is a discrete probability distribution that models the 
+probability of a given number of events occuring within processes where events 
+occur at a constant mean rate and independently of each other - a **Poisson process**.
 
 It has a single parameter $\lambda$, which represents the constant mean rate.
 
@@ -282,10 +283,9 @@ The geometric distribution is a discrete distribution that models the **number o
 failures** before the first success in a sequence of independent Bernoulli trials.
 It has a single parameter $p$, representing the probability of success.
 
-*Disclaimer*: There are two forms of this distribution, the one we just described 
-and another version that models the **number of trials** before the first success. The
-difference is subtle yet significant and you are likely to encounter both forms, 
-though here we will limit ourselves to the former.
+NOTE: There are two forms of this distribution, the one we just described 
+and another that models the **number of trials** before the first success. The
+difference is subtle yet significant and you are likely to encounter both forms.
 
 In the graph below we show the pmf of a geometric distribution with $p=0.5$. This
 can be thought of as the number of successive failures (tails) in the flip of a fair coin.
@@ -294,14 +294,9 @@ flip a heads on your very first attempt. But there is some smaller chance that y
 will flip a sequence of tails in a row, with longer sequences having ever lower 
 probability.
 
-Suppose you are gambling over coin flips with your friend and they propose if they 
-get 5 tails in a row you must give them 100€ and you get 1€ if they fail.
-
-a) Does it make sense to accept this wager?
-b) They change their mind and claim that getting 10 tails in a row is half as 
-likely, so now they want 200€ if they succeed, but still only offer to pay 1€
-if they fail. Does it make sense to accept this wager?
-c) *Bonus*: Look up the second form of this distribution and redo problems a) and b).
+a) Create an equivalent graph that represents the probability of rolling a 6 with a fair 6-sided die.
+b) Use the formula for the [mean](#distributions) of the geometric distribution and determine the average number of **failures** before you roll a 6.
+c) Look up the alternative form of the geometric distribtuion and again use the formula for the mean to determine the average number of **trials** before you roll a 6.
 
 ```
 
@@ -328,8 +323,348 @@ ggplot(data, aes(x=x_vals, y=probs)) +
 
 <div class="fold">
 ```{solution, echo = togs}
-aaa
+Parameter p (the probability of success) for rolling a 6 is $p=\frac{1}{6}$.
+
+a)
+
+```
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+library(ggplot2)
+
+# Parameters
+p <- 1/6
+x_vals <- 0:9  # Starting from 0
+probs <- dgeom(x_vals, p)
+
+# Data
+data <- data.frame(x_vals, probs)
+
+# Plot
+ggplot(data, aes(x=x_vals, y=probs)) +
+  geom_segment(aes(xend=x_vals, yend=0), color="black", size=1) +
+  geom_point(color="red", size=2) + 
+  labs(x = "Number of trials", y = "Probability") +
+  theme_minimal() +
+  scale_x_continuous(breaks = x_vals) # This line ensures integer x-axis labels
+
+```
+```{solution, echo = togs}
+b) The expected value of a random variable (the mean) is denoted as $E[X]$.
+
+$$E[X] = \frac{1-p}{p}= \frac{1- \frac{1}{6}}{\frac{1}{6}} = \frac{5}{6}\cdot 6 = 5$$
+  On average we will fail 5 times before we roll our first 6.
+
+c) The alternative form of this distribution (with support on all positive integers) has a slightly different formula for the mean. This change reflects the difference in the way we posed our question:
+  
+  $$E[X] = \frac{1}{p} = \frac{1}{\frac{1}{6}} = 6$$
+    On average we will have to throw the die 6 times before we roll a 6.
 ```
 </div>
 
 ## Continuous distributions 
+
+```{exercise, name = "Uniform intuition 1"}
+The need for a randomness is a common problem. A practical solution are so-called random number generators (RNGs). The simplest RNG one would think of is choosing a set of numbers and having the generator return a number at random, where the probability of returning any number from this set is the same. If this set is an interval of real numbers, then we've basically described the continuous uniform distribution.
+
+It has two parameters $a$ and $b$, which define the beginning and end of its support respectively.
+
+a) Let's think of the mean intuitively. The expected value or mean of a distribution is the pivot point on our x-axis, which "balances" the graph. Given parameters $a$ and $b$ what is your intuitive guess of the mean for this distribution?
+b) A special case of the uniform distribution is the **standard uniform distribution** with $a=0$ and $b=1$. Write the pdf $f(x)$ of this particular distribution.
+```
+```{r, fig.width=5, fig.height=3, echo=FALSE, warning=FALSE, message=FALSE}
+# Load required libraries
+library(ggplot2)
+
+# Create data for a uniform distribution
+df <- data.frame(x = c("a", "b"), y = c(1, 1))
+
+# Plot
+p <- ggplot(df, aes(x, y)) +
+  geom_line(aes(group = 1), color = "blue") +
+  geom_point(size = 2) +
+  geom_segment(aes(x = "a", xend = "a", y = 0, yend = 1), linetype = "dotted") +
+  geom_segment(aes(x = "b", xend = "b", y = 0, yend = 1), linetype = "dotted") +
+  labs(x = "Value", y = "Density", title = "Uniform Distribution") +
+  theme_minimal() +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  annotate("text", x = "a", y = 1, label = "1/(b-a)", hjust = 1.2, vjust = 0.5) +  
+  annotate("text", x = "a", y = 0, label = "0", hjust = 1.5, vjust = 0.5)
+
+print(p)
+```
+<div class="fold">
+```{solution, echo = togs}
+a. It's the midpoint between $a$ and $b$, so $\frac{a+b}{2}$
+b. Inserting the parameter values we get:$$f(x) = 
+\begin{cases} 
+1 & \text{if } 0 \leq x \leq 1 \\
+0 & \text{otherwise}
+\end{cases}
+$$
+Notice how the pdf is just a constant $1$ across all values of $x \in [0,1]$. Here it is important to distinguish between probability and **probability density**. The density may be 1, but the probability is not and while discreet distributions never exceed 1 on the y-axis, continuous distributions can go as high as you like.
+```
+</div>
+
+
+```{exercise, name = "Normal intuition 1"}
+The normal distribution, also known as the Gaussian distribution, is a continuous distribution that encompasses the entire real number line. It has two parameters: the mean, denoted by $\mu$, and the variance, represented by $\sigma^2$. Its shape resembles the iconic bell curve. The position of its peak is determined by the parameter $\mu$, while the variance determines the spread or width of the curve. A smaller variance results in a sharper, narrower peak, while a larger variance leads to a broader, more spread-out curve.
+
+Below, we graph the distribution of IQ scores for two different populations.
+
+We aim to identify individuals with an IQ at or above 140 for an experiment. We can identify them reliably; however, we only have time to examine one of the two groups. Which group should we investigate to have the best chance?
+
+NOTE: The graph below displays the parameter $\sigma$, which is the square root of the variance, more commonly referred to as the **standard deviation**. Keep this in mind when solving the problems.
+
+a) Insert the values of either population into the pdf of a normal distribution and determine which one has a higher density at $x=140$.
+
+b) Generate the graph yourself and zoom into the relevant area to graphically verify your answer.
+
+To determine probability density, we can use the pdf. However, if we wish to know the proportion of the population that falls within certain parameters, we would need to integrate the pdf. Fortunately, the integrals of common distributions are well-established. This integral gives us the cumulative distribution function $F(x)$ (CDF).
+
+c) BONUS: Look up the CDF of the normal distribution and input the appropriate values to determine the percentage of each population that comprises individuals with an IQ of 140 or higher.
+
+
+```
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+library(tidyr)
+
+# Create data
+x <- seq(70, 135, by = 0.01)  # Adjusting the x range to account for the larger standard deviations
+df <- data.frame(x = x)
+
+# Define the IQ distributions
+df$IQ_mu100_sd10 <- dnorm(df$x, mean = 100, sd = 10)
+df$IQ_mu105_sd8 <- dnorm(df$x, mean = 105, sd = 8)
+
+# Convert from wide to long format for ggplot2
+df_long <- gather(df, distribution, density, -x)
+
+# Ensure the levels of the 'distribution' factor match our desired order
+df_long$distribution <- factor(df_long$distribution, levels = c("IQ_mu100_sd10", "IQ_mu105_sd8"))
+
+# Plot
+ggplot(df_long, aes(x = x, y = density, color = distribution)) +
+  geom_line() +
+  labs(x = "IQ Score", y = "Density") +
+  scale_color_manual(
+    name = "IQ Distribution",
+    values = c(IQ_mu100_sd10 = "red", IQ_mu105_sd8 = "blue"),
+    labels = c("Group 1 (µ=100, σ=10)", "Group 2 (µ=105, σ=8)")
+  ) +
+  theme_minimal()
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+a. Group 1: $\mu = 100, \sigma=10 \rightarrow \sigma^2 = 100$
+  $$\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}} =
+    \frac{1}{\sqrt{2 \pi 100}} e^{-\frac{(140 - 100)^2}{2 \cdot 100}} \approx 1.34e-05$$
+  Group 2:  $\mu = 105, \sigma=8 \rightarrow \sigma^2 = 64$
+  $$\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}} =
+    \frac{1}{\sqrt{2 \pi 64}} e^{-\frac{(140 - 105)^2}{2 \cdot 64}} \approx 3.48e-06$$
+  
+  So despite the fact that group 1 has a lower average IQ, we are more likely to find 140 IQ individuals in group 2.
+```
+b.
+```{r, echo=togs}
+library(ggplot2)
+library(tidyr)
+
+# Create data
+x <- seq(135, 145, by = 0.01)  # Adjusting the x range to account for the larger standard deviations
+df <- data.frame(x = x)
+
+# Define the IQ distributions
+df$IQ_mu100_sd10 <- dnorm(df$x, mean = 100, sd = 10)
+df$IQ_mu105_sd8 <- dnorm(df$x, mean = 105, sd = 8)
+
+# Convert from wide to long format for ggplot2
+df_long <- gather(df, distribution, density, -x)
+
+# Ensure the levels of the 'distribution' factor match our desired order
+df_long$distribution <- factor(df_long$distribution, levels = c("IQ_mu100_sd10", "IQ_mu105_sd8"))
+
+# Plot
+ggplot(df_long, aes(x = x, y = density, color = distribution)) +
+  geom_line() +
+  labs(x = "IQ Score", y = "Density") +
+  scale_color_manual(
+    name = "IQ Distribution",
+    values = c(IQ_mu100_sd10 = "red", IQ_mu105_sd8 = "blue"),
+    labels = c("Group 1 (µ=100, σ=10)", "Group 2 (µ=105, σ=8)")
+  ) +
+  theme_minimal()
+```
+```{solution, echo = togs}
+c. The CDF of the normal distribution is $\Phi(x) = \frac{1}{2} \left[ 1 + \text{erf} \left( \frac{x - \mu}{\sigma \sqrt{2}} \right) \right]$. The CDF is defined as the integral of the distribution density up to x. So to get the total percentage of individuals with IQ at 140 or higher we will need to subtract the value from 1.
+
+  Group 1: $$1 - \Phi(140) = \frac{1}{2} \left[ 1 + \text{erf} \left( \frac{140 - 100}{10 \sqrt{2}} \right) \right] \approx 3.17e-05 $$
+    Group 2 : $$1 - \Phi(140) = \frac{1}{2} \left[ 1 + \text{erf} \left( \frac{140 - 105}{8 \sqrt{2}} \right) \right] \approx 6.07e-06 $$
+    So roughly 0.003% and 0.0006% of individuals in groups 1 and 2 respectively have an IQ at or above 140.
+```
+</div>
+
+```{exercise, name = "Beta intuition 1"}
+The beta distribution is a continuous distribution defined on the unit interval $[0,1]$. It has two strictly positive paramters $\alpha$ and $\beta$, which determine its shape. Its support makes it especially suitable to model distribtuions of percentages and proportions.
+
+Below you've been provided with some code that you can copy into Rstudio. Once you run the code, an interactive Shiny app will appear and you will be able to manipulate the graph of the beta distribution.
+
+Play around with the parameters to get:
+
+a) A straight line from (0,0) to (1,2)
+b) A straight line from (0,2) to (1,0)
+c) A symmetric bell curve
+d) A bowl-shaped curve
+e) The standard uniform distribution is actually a special case of the beta distribution. Find the exact parameters $\alpha$ and $\beta$. Once you do, prove the equality by inserting the values into our pdf. 
+
+*Hint*: The beta function is evaluated as $\text{B}(a,b) = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$,
+ the gamma function for **positive integers** $n$ is evaluated as $\Gamma(n)= (n-1)!$
+```
+
+```
+# Install and load necessary packages
+install.packages(c("shiny", "ggplot2"))
+library(shiny)
+library(ggplot2)
+
+# The Shiny App
+ui <- fluidPage(
+  titlePanel("Beta Distribution Viewer"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("alpha", "Alpha:", min = 0.1, max = 10, value = 2, step = 0.1),
+      sliderInput("beta", "Beta:", min = 0.1, max = 10, value = 2, step = 0.1)
+    ),
+    
+    mainPanel(
+      plotOutput("betaPlot")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$betaPlot <- renderPlot({
+    x <- seq(0, 1, by = 0.01)
+    y <- dbeta(x, shape1 = input$alpha, shape2 = input$beta)
+    
+    ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+      geom_line() +
+      labs(x = "Value", y = "Density") +
+      theme_minimal()
+  })
+}
+
+shinyApp(ui = ui, server = server)
+
+```
+<div class="fold">
+```{solution, echo = togs}
+  a) $\alpha = 2, \beta=1$
+  
+  b) $\alpha = 1, \beta=2$
+  
+  c) Possible solution $\alpha = \beta= 5$
+  
+  d) Possible solution $\alpha = \beta= 0.5$
+    
+  e) The correct parameters are $\alpha = 1, \beta=1$, to prove the equality we insert them into the beta pdf:
+    $$\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)} =
+      \frac{x^{1 - 1} (1 - x)^{1 - 1}}{\text{B}(1, 1)} =
+        \frac{1}{\frac{\Gamma(1)\Gamma(1)}{\Gamma(1+1)}}=
+          \frac{1}{\frac{(1-1)!(1-1)!}{(2-1)!}} = 1$$
+```
+</div>
+
+```{exercise, name = "Exponential intuition 1"}
+The exponential distribution represents the distributon of **time between events** in a Poisson process. It is the continuous analogue of the geometric distribution. 
+
+It has a single parameter $\lambda$, which is strictly positive and represents the *constant rate* of the corresponding Poisson process. The support is all positive reals, since time between events is non-negative, but not bound upwards.
+
+Let's revisit the call center from our Poisson problem. We get 2.5 calls per day on average, this is our rate parameter $\lambda$. A work day is 8 hours. 
+
+a) What is the mean time between phone calls?
+
+The cdf $F(x)$ tells us what percentage of calls occur within x amount of time of each other.
+
+b) You want to take an hour long lunch break but are worried about missing calls. Calculate the percentage of calls you are likely to miss if you're gone for an hour. Hint: The cdf is $F(x) = \int_{-\infty}^{x} f(x) dx$
+```
+
+<div class="fold">
+```{solution, echo = togs}
+a. Taking $\lambda = \frac{2.5 \text{ calls}}{8 \text{ hours}} = \frac{1 \text{ call}}{3.2 \text{ hours}}$
+  $$E[X] = \frac{1}{\lambda} = \frac{3.2 \text{ hours}}{\text{call}}$$
+  
+b. First we derive the CDF, we can integrate from 0 instead of $-\infty$, since we have no support in the negatives:
+  \begin{align}
+    F(x) &= \int_{0}^{x} \lambda e^{-\lambda t} dt \\
+         &= \lambda \int_{0}^{x} e^{-\lambda t} dt \\
+         &= \lambda (\frac{1}{-\lambda}e^{-\lambda t} |_{0}^{x}) \\
+         &= \lambda(\frac{1}{\lambda} - \frac{1}{\lambda} e^{-\lambda x}) \\
+         &= 1 - e^{-\lambda x}.
+  \end{align}
+    Then we just evaluate it for a time of 1 hour:
+      $$F(1 \text{ hour}) = 1 - e^{-\frac{1 \text{ call}}{3.2 \text{ hours}} \cdot 1 \text{ hour}}=
+      1 - e^{-\frac{1 \text{ call}}{3.2 \text{ hours}}} \approx 0.268$$
+  So we have about a 27% chance of missing a call if we're gone for an hour.
+```
+</div>
+
+```{exercise, name = "Gamma intuition 1"}
+The gamma distribution is a continuous distribution characterized by two parameters, $\alpha$ and $\beta$, both greater than 0. These parameters afford the distribution a broad range of shapes, leading to it being commonly referred to as a *family of distributions*. Given its support over the positive real numbers, it is well suited for modeling a diverse range of positive-valued phenomena.
+
+a) The exponential distribution is actually just a particular form of the gamma distribution. What are the values of $\alpha$ and $\beta$?
+b) Copy the code from our beta distribution Shiny app and modify it to simulate the gamma distribution. Then get it to show the exponential.
+```
+
+<div class="fold">
+```{solution, echo = togs}
+a. Let's start by taking a look at the pdfs of the two distributions side by side:
+  $$\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x} = \lambda e^{-\lambda x}$$
+  The $x^{\alpha - 1}$ term is not found anywhere in the pdf of the exponential so we need to eliminate it by setting $\alpha = 1$. This also makes the fraction evaluate to $\frac{\beta^1}{\Gamma(1)} = \beta$, which leaves us with $$\beta \cdot e^{-\beta x}$$
+  Now we can see that $\beta = \lambda$ and $\alpha = 1$.
+  
+b.
+```
+```{r, echo = tog_ex, eval=FALSE}
+# Install and load necessary packages
+install.packages(c("shiny", "ggplot2"))
+library(shiny)
+library(ggplot2)
+
+# The Shiny App
+ui <- fluidPage(
+  titlePanel("Gamma Distribution Viewer"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("shape", "Shape (α):", min = 0.1, max = 10, value = 2, step = 0.1),
+      sliderInput("scale", "Scale (β):", min = 0.1, max = 10, value = 2, step = 0.1)
+    ),
+    
+    mainPanel(
+      plotOutput("gammaPlot")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$gammaPlot <- renderPlot({
+    x <- seq(0, 25, by = 0.1)
+    y <- dgamma(x, shape = input$shape, scale = input$scale)
+    
+    ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+      geom_line() +
+      labs(x = "Value", y = "Density") +
+      theme_minimal()
+  })
+}
+
+shinyApp(ui = ui, server = server)
+
+```
+</div>
+

@@ -23,7 +23,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2023-08-28" />
+<meta name="date" content="2023-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -242,6 +242,11 @@ div.csl-indent {
 <li class="chapter" data-level="17.1" data-path="bi.html"><a href="bi.html#conjugate-priors"><i class="fa fa-check"></i><b>17.1</b> Conjugate priors</a></li>
 <li class="chapter" data-level="17.2" data-path="bi.html"><a href="bi.html#posterior-sampling"><i class="fa fa-check"></i><b>17.2</b> Posterior sampling</a></li>
 </ul></li>
+<li class="chapter" data-level="18" data-path="distributions-intutition.html"><a href="distributions-intutition.html"><i class="fa fa-check"></i><b>18</b> Distributions intutition</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="distributions-intutition.html"><a href="distributions-intutition.html#discrete-distributions"><i class="fa fa-check"></i><b>18.1</b> Discrete distributions</a></li>
+<li class="chapter" data-level="18.2" data-path="distributions-intutition.html"><a href="distributions-intutition.html#continuous-distributions"><i class="fa fa-check"></i><b>18.2</b> Continuous distributions</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A1.html"><a href="A1.html"><i class="fa fa-check"></i><b>A</b> R programming language</a>
 <ul>
@@ -271,7 +276,7 @@ div.csl-indent {
 <li class="chapter" data-level="A.6" data-path="A1.html"><a href="A1.html#other-tips"><i class="fa fa-check"></i><b>A.6</b> Other tips</a></li>
 <li class="chapter" data-level="A.7" data-path="A1.html"><a href="A1.html#further-reading-and-references"><i class="fa fa-check"></i><b>A.7</b> Further reading and references</a></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="probability-distributions.html"><a href="probability-distributions.html"><i class="fa fa-check"></i><b>B</b> Probability distributions</a></li>
+<li class="chapter" data-level="B" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>B</b> Probability distributions</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>      
@@ -749,24 +754,24 @@ make modeling much easier.</li>
 <span id="cb154-25"><a href="mrv.html#cb154-25" tabindex="-1"></a>               <span class="fu">dmvnorm</span>(x, mu_v, cov_m)))</span>
 <span id="cb154-26"><a href="mrv.html#cb154-26" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] &quot;My function: 0.0229514237156383, dmvnorm: 0.0229514237156383&quot;
-## [1] &quot;My function: 0.00763138915406231, dmvnorm: 0.00763138915406232&quot;
+## [1] &quot;My function: 0.00763138915406231, dmvnorm: 0.00763138915406231&quot;
 ## [1] &quot;My function: 0.0230688881105741, dmvnorm: 0.0230688881105741&quot;
-## [1] &quot;My function: 0.0113616213114732, dmvnorm: 0.0113616213114732&quot;
-## [1] &quot;My function: 0.00151808500121908, dmvnorm: 0.00151808500121908&quot;
+## [1] &quot;My function: 0.0113616213114731, dmvnorm: 0.0113616213114731&quot;
+## [1] &quot;My function: 0.00151808500121907, dmvnorm: 0.00151808500121907&quot;
 ## [1] &quot;My function: 0.0257658045974509, dmvnorm: 0.0257658045974509&quot;
 ## [1] &quot;My function: 0.0157963825730805, dmvnorm: 0.0157963825730805&quot;
 ## [1] &quot;My function: 0.00408856287529248, dmvnorm: 0.00408856287529248&quot;
 ## [1] &quot;My function: 0.0327793540101256, dmvnorm: 0.0327793540101256&quot;
 ## [1] &quot;My function: 0.0111606542967978, dmvnorm: 0.0111606542967978&quot;
 ## [1] &quot;My function: 0.0147636757585684, dmvnorm: 0.0147636757585684&quot;
-## [1] &quot;My function: 0.0142948300412208, dmvnorm: 0.0142948300412208&quot;
+## [1] &quot;My function: 0.0142948300412207, dmvnorm: 0.0142948300412207&quot;
 ## [1] &quot;My function: 0.0203093820657542, dmvnorm: 0.0203093820657542&quot;
 ## [1] &quot;My function: 0.0287533273357481, dmvnorm: 0.0287533273357481&quot;
 ## [1] &quot;My function: 0.0213402305128623, dmvnorm: 0.0213402305128623&quot;
 ## [1] &quot;My function: 0.0218356957993885, dmvnorm: 0.0218356957993885&quot;
 ## [1] &quot;My function: 0.0250750113961771, dmvnorm: 0.0250750113961771&quot;
 ## [1] &quot;My function: 0.0166498666348048, dmvnorm: 0.0166498666348048&quot;
-## [1] &quot;My function: 0.0018972510687466, dmvnorm: 0.0018972510687466&quot;
+## [1] &quot;My function: 0.00189725106874659, dmvnorm: 0.00189725106874659&quot;
 ## [1] &quot;My function: 0.0196697814975113, dmvnorm: 0.0196697814975113&quot;</code></pre>
 </div>
 

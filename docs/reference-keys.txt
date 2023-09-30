@@ -114,6 +114,16 @@ exr:unnamed-chunk-263
 exr:unnamed-chunk-265
 exr:unnamed-chunk-269
 exr:unnamed-chunk-273
+exr:unnamed-chunk-277
+exr:unnamed-chunk-280
+exr:unnamed-chunk-283
+exr:unnamed-chunk-286
+exr:unnamed-chunk-288
+exr:unnamed-chunk-293
+exr:unnamed-chunk-296
+exr:unnamed-chunk-301
+exr:unnamed-chunk-303
+exr:unnamed-chunk-305
 introduction
 measure-and-probability-spaces
 properties-of-probability-measures
@@ -167,6 +177,9 @@ nhst
 bi
 conjugate-priors
 posterior-sampling
+distributions-intutition
+discrete-distributions
+continuous-distributions
 A1
 basic-characteristics
 why-r
@@ -189,9 +202,4 @@ functions
 writing-functions
 other-tips
 further-reading-and-references
-probability-distributions
-exr:unnamed-chunk-5
-distributions-intutition
-discrete-distributions
-continuous-distributions
 distributions
