@@ -23,7 +23,7 @@
 <meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
 
 
-<meta name="date" content="2023-09-30" />
+<meta name="date" content="2023-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -327,7 +327,7 @@ $(document).ready(function() {
 <div id="discrete-distributions" class="section level2 hasAnchor" number="18.1">
 <h2><span class="header-section-number">18.1</span> Discrete distributions<a href="distributions-intutition.html#discrete-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-2" class="exercise"><strong>Exercise 18.1  (Bernoulli intuition 1) </strong></span>Arguably the simplest distribution you will enocounter is the Bernoulli distribution.
+<p><span id="exr:unnamed-chunk-277" class="exercise"><strong>Exercise 18.1  (Bernoulli intuition 1) </strong></span>Arguably the simplest distribution you will enocounter is the Bernoulli distribution.
 It is a discrete probability distribution used to represent the outcome of a yes/no
 question. It has one parameter <span class="math inline">\(p\)</span> which is the probability of success. The
 probability of failure is <span class="math inline">\((1-p)\)</span>, sometimes denoted as <span class="math inline">\(q\)</span>.</p>
@@ -345,10 +345,10 @@ to think of events, such that:</p>
 <li><span class="math inline">\(q = \frac{2}{3}\)</span></li>
 </ol>
 </div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-278-1.png" width="672" /></p>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-1" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-96" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>An event that is equally likely to happen or not happen i.e. <span class="math inline">\(p = 0.5\)</span> would be
 throwing an even number. More formally we can name this event <span class="math inline">\(A\)</span> and write:
@@ -363,7 +363,7 @@ is divisible by 3: <span class="math inline">\(C = \{3, 6\}\)</span> satisfies t
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-5" class="exercise"><strong>Exercise 18.2  (Binomial intuition 1) </strong></span>The binomial distribution is a generalization of the Bernoulli distribution.
+<p><span id="exr:unnamed-chunk-280" class="exercise"><strong>Exercise 18.2  (Binomial intuition 1) </strong></span>The binomial distribution is a generalization of the Bernoulli distribution.
 Instead of considering a single Bernoulli trial, we now consider a sequence of <span class="math inline">\(n\)</span> trials,
 which are independent and have the same parameter <span class="math inline">\(p\)</span>. So the binomial distribution
 has two parameters <span class="math inline">\(n\)</span> - the number of trials and <span class="math inline">\(p\)</span> - the probability of success
@@ -385,7 +385,7 @@ into the pmf.</p></li>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-2" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-97" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>The pmf of a binomial distribution is <span class="math inline">\(\binom{n}{k} p^k (1 - p)^{n - k}\)</span>, now
 we insert <span class="math inline">\(n=1\)</span> to get:
@@ -404,39 +404,39 @@ So the probabilities are not zero, just very small.</p></li>
 </ol>
 </div>
 </div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-282-1.png" width="672" /></p>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Exercise 18.3  (Poisson intuition 1) </strong></span>Below are shown 3 different graphs of the Poisson distribution. Your task
+<p><span id="exr:unnamed-chunk-283" class="exercise"><strong>Exercise 18.3  (Poisson intuition 1) </strong></span>Below are shown 3 different graphs of the Poisson distribution. Your task
 is to replicate them on your own in R by varying the <span class="math inline">\(\lambda\)</span> parameter.</p>
 <p>Hint: You can use dpois() to get the probabilities.</p>
 </div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-284-1.png" width="672" /></p>
 <div class="fold">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="distributions-intutition.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href="distributions-intutition.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
-<span id="cb1-3"><a href="distributions-intutition.html#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="distributions-intutition.html#cb1-4" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">15</span></span>
-<span id="cb1-5"><a href="distributions-intutition.html#cb1-5" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="distributions-intutition.html#cb1-6" tabindex="-1"></a><span class="co"># Create Poisson data</span></span>
-<span id="cb1-7"><a href="distributions-intutition.html#cb1-7" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">0.1</span>))</span>
-<span id="cb1-8"><a href="distributions-intutition.html#cb1-8" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="dv">1</span>))</span>
-<span id="cb1-9"><a href="distributions-intutition.html#cb1-9" tabindex="-1"></a>data3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">7.5</span>))</span>
-<span id="cb1-10"><a href="distributions-intutition.html#cb1-10" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="distributions-intutition.html#cb1-11" tabindex="-1"></a><span class="co"># Create individual ggplot objects</span></span>
-<span id="cb1-12"><a href="distributions-intutition.html#cb1-12" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data1, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb1-13"><a href="distributions-intutition.html#cb1-13" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;Probability&quot;</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb1-14"><a href="distributions-intutition.html#cb1-14" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="distributions-intutition.html#cb1-15" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data2, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb1-16"><a href="distributions-intutition.html#cb1-16" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb1-17"><a href="distributions-intutition.html#cb1-17" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="distributions-intutition.html#cb1-18" tabindex="-1"></a>plot3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data3, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb1-19"><a href="distributions-intutition.html#cb1-19" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb1-20"><a href="distributions-intutition.html#cb1-20" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="distributions-intutition.html#cb1-21" tabindex="-1"></a><span class="co"># Combine the plots</span></span>
-<span id="cb1-22"><a href="distributions-intutition.html#cb1-22" tabindex="-1"></a><span class="fu">grid.arrange</span>(plot1, plot2, plot3, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="distributions-intutition.html#cb333-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb333-2"><a href="distributions-intutition.html#cb333-2" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb333-3"><a href="distributions-intutition.html#cb333-3" tabindex="-1"></a></span>
+<span id="cb333-4"><a href="distributions-intutition.html#cb333-4" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">15</span></span>
+<span id="cb333-5"><a href="distributions-intutition.html#cb333-5" tabindex="-1"></a></span>
+<span id="cb333-6"><a href="distributions-intutition.html#cb333-6" tabindex="-1"></a><span class="co"># Create Poisson data</span></span>
+<span id="cb333-7"><a href="distributions-intutition.html#cb333-7" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">0.1</span>))</span>
+<span id="cb333-8"><a href="distributions-intutition.html#cb333-8" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="dv">1</span>))</span>
+<span id="cb333-9"><a href="distributions-intutition.html#cb333-9" tabindex="-1"></a>data3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> <span class="fu">dpois</span>(x, <span class="at">lambda =</span> <span class="fl">7.5</span>))</span>
+<span id="cb333-10"><a href="distributions-intutition.html#cb333-10" tabindex="-1"></a></span>
+<span id="cb333-11"><a href="distributions-intutition.html#cb333-11" tabindex="-1"></a><span class="co"># Create individual ggplot objects</span></span>
+<span id="cb333-12"><a href="distributions-intutition.html#cb333-12" tabindex="-1"></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data1, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb333-13"><a href="distributions-intutition.html#cb333-13" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;Probability&quot;</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb333-14"><a href="distributions-intutition.html#cb333-14" tabindex="-1"></a></span>
+<span id="cb333-15"><a href="distributions-intutition.html#cb333-15" tabindex="-1"></a>plot2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data2, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb333-16"><a href="distributions-intutition.html#cb333-16" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb333-17"><a href="distributions-intutition.html#cb333-17" tabindex="-1"></a></span>
+<span id="cb333-18"><a href="distributions-intutition.html#cb333-18" tabindex="-1"></a>plot3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data3, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb333-19"><a href="distributions-intutition.html#cb333-19" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="cn">NULL</span>) <span class="sc">+</span> <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb333-20"><a href="distributions-intutition.html#cb333-20" tabindex="-1"></a></span>
+<span id="cb333-21"><a href="distributions-intutition.html#cb333-21" tabindex="-1"></a><span class="co"># Combine the plots</span></span>
+<span id="cb333-22"><a href="distributions-intutition.html#cb333-22" tabindex="-1"></a><span class="fu">grid.arrange</span>(plot1, plot2, plot3, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code></pre></div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-11" class="exercise"><strong>Exercise 18.4  (Poisson intuition 2) </strong></span>The Poisson distribution is a discrete probability distribution that models the
+<p><span id="exr:unnamed-chunk-286" class="exercise"><strong>Exercise 18.4  (Poisson intuition 2) </strong></span>The Poisson distribution is a discrete probability distribution that models the
 probability of a given number of events occuring within processes where events
 occur at a constant mean rate and independently of each other - a <strong>Poisson process</strong>.</p>
 <p>It has a single parameter <span class="math inline">\(\lambda\)</span>, which represents the constant mean rate.</p>
@@ -454,7 +454,7 @@ distribution, calculate:</p>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-3" class="solution"><em>Solution</em>. </span>First recall the Poisson pmf: <span class="math display">\[p(k) = \frac{\lambda^k e^{-\lambda}}{k!}\]</span></p>
+<p><span id="unlabeled-div-98" class="solution"><em>Solution</em>. </span>First recall the Poisson pmf: <span class="math display">\[p(k) = \frac{\lambda^k e^{-\lambda}}{k!}\]</span></p>
 <p>as stated previously our parameter <span class="math inline">\(\lambda = 2.5\)</span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>To get the probability of no calls we simply plug in <span class="math inline">\(k = 0\)</span>, so: <span class="math display">\[p(0) = \frac{2.5^0 e^{-2.5}}{0!} = e^{-2.5} \approx 0.082\]</span></p></li>
@@ -474,7 +474,7 @@ to get the probability of our original question.</p></li>
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-13" class="exercise"><strong>Exercise 18.5  (Geometric intuition 1) </strong></span>The geometric distribution is a discrete distribution that models the <strong>number of
+<p><span id="exr:unnamed-chunk-288" class="exercise"><strong>Exercise 18.5  (Geometric intuition 1) </strong></span>The geometric distribution is a discrete distribution that models the <strong>number of
 failures</strong> before the first success in a sequence of independent Bernoulli trials.
 It has a single parameter <span class="math inline">\(p\)</span>, representing the probability of success.</p>
 <p>NOTE: There are two forms of this distribution, the one we just described
@@ -492,32 +492,32 @@ probability.</p>
 <li>Look up the alternative form of the geometric distribtuion and again use the formula for the mean to determine the average number of <strong>trials</strong> before you roll a 6.</li>
 </ol>
 </div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-289-1.png" width="672" /></p>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-4" class="solution"><em>Solution</em>. </span>Parameter p (the probability of success) for rolling a 6 is <span class="math inline">\(p=\frac{1}{6}\)</span>.</p>
+<p><span id="unlabeled-div-99" class="solution"><em>Solution</em>. </span>Parameter p (the probability of success) for rolling a 6 is <span class="math inline">\(p=\frac{1}{6}\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li></li>
 </ol>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="distributions-intutition.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-2"><a href="distributions-intutition.html#cb2-2" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="distributions-intutition.html#cb2-3" tabindex="-1"></a><span class="co"># Parameters</span></span>
-<span id="cb2-4"><a href="distributions-intutition.html#cb2-4" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span></span>
-<span id="cb2-5"><a href="distributions-intutition.html#cb2-5" tabindex="-1"></a>x_vals <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>  <span class="co"># Starting from 0</span></span>
-<span id="cb2-6"><a href="distributions-intutition.html#cb2-6" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">dgeom</span>(x_vals, p)</span>
-<span id="cb2-7"><a href="distributions-intutition.html#cb2-7" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="distributions-intutition.html#cb2-8" tabindex="-1"></a><span class="co"># Data</span></span>
-<span id="cb2-9"><a href="distributions-intutition.html#cb2-9" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x_vals, probs)</span>
-<span id="cb2-10"><a href="distributions-intutition.html#cb2-10" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="distributions-intutition.html#cb2-11" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb2-12"><a href="distributions-intutition.html#cb2-12" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>x_vals, <span class="at">y=</span>probs)) <span class="sc">+</span></span>
-<span id="cb2-13"><a href="distributions-intutition.html#cb2-13" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend=</span>x_vals, <span class="at">yend=</span><span class="dv">0</span>), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb2-14"><a href="distributions-intutition.html#cb2-14" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
-<span id="cb2-15"><a href="distributions-intutition.html#cb2-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Number of trials&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>) <span class="sc">+</span></span>
-<span id="cb2-16"><a href="distributions-intutition.html#cb2-16" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb2-17"><a href="distributions-intutition.html#cb2-17" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> x_vals) <span class="co"># This line ensures integer x-axis labels</span></span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="distributions-intutition.html#cb334-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb334-2"><a href="distributions-intutition.html#cb334-2" tabindex="-1"></a></span>
+<span id="cb334-3"><a href="distributions-intutition.html#cb334-3" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb334-4"><a href="distributions-intutition.html#cb334-4" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span></span>
+<span id="cb334-5"><a href="distributions-intutition.html#cb334-5" tabindex="-1"></a>x_vals <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>  <span class="co"># Starting from 0</span></span>
+<span id="cb334-6"><a href="distributions-intutition.html#cb334-6" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">dgeom</span>(x_vals, p)</span>
+<span id="cb334-7"><a href="distributions-intutition.html#cb334-7" tabindex="-1"></a></span>
+<span id="cb334-8"><a href="distributions-intutition.html#cb334-8" tabindex="-1"></a><span class="co"># Data</span></span>
+<span id="cb334-9"><a href="distributions-intutition.html#cb334-9" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x_vals, probs)</span>
+<span id="cb334-10"><a href="distributions-intutition.html#cb334-10" tabindex="-1"></a></span>
+<span id="cb334-11"><a href="distributions-intutition.html#cb334-11" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb334-12"><a href="distributions-intutition.html#cb334-12" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>x_vals, <span class="at">y=</span>probs)) <span class="sc">+</span></span>
+<span id="cb334-13"><a href="distributions-intutition.html#cb334-13" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend=</span>x_vals, <span class="at">yend=</span><span class="dv">0</span>), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb334-14"><a href="distributions-intutition.html#cb334-14" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;red&quot;</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb334-15"><a href="distributions-intutition.html#cb334-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Number of trials&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Probability&quot;</span>) <span class="sc">+</span></span>
+<span id="cb334-16"><a href="distributions-intutition.html#cb334-16" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb334-17"><a href="distributions-intutition.html#cb334-17" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> x_vals) <span class="co"># This line ensures integer x-axis labels</span></span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-291-1.png" width="672" />
 ::: {.solution}
 b) The expected value of a random variable (the mean) is denoted as <span class="math inline">\(E[X]\)</span>.</p>
 <p><span class="math display">\[E[X] = \frac{1-p}{p}= \frac{1- \frac{1}{6}}{\frac{1}{6}} = \frac{5}{6}\cdot 6 = 5\]</span>
@@ -533,17 +533,17 @@ On average we will have to throw the die 6 times before we roll a 6.
 <div id="continuous-distributions" class="section level2 hasAnchor" number="18.2">
 <h2><span class="header-section-number">18.2</span> Continuous distributions<a href="distributions-intutition.html#continuous-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-18" class="exercise"><strong>Exercise 18.6  (Uniform intuition 1) </strong></span>The need for a randomness is a common problem. A practical solution are so-called random number generators (RNGs). The simplest RNG one would think of is choosing a set of numbers and having the generator return a number at random, where the probability of returning any number from this set is the same. If this set is an interval of real numbers, then we’ve basically described the continuous uniform distribution.</p>
+<p><span id="exr:unnamed-chunk-293" class="exercise"><strong>Exercise 18.6  (Uniform intuition 1) </strong></span>The need for a randomness is a common problem. A practical solution are so-called random number generators (RNGs). The simplest RNG one would think of is choosing a set of numbers and having the generator return a number at random, where the probability of returning any number from this set is the same. If this set is an interval of real numbers, then we’ve basically described the continuous uniform distribution.</p>
 <p>It has two parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, which define the beginning and end of its support respectively.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Let’s think of the mean intuitively. The expected value or mean of a distribution is the pivot point on our x-axis, which “balances” the graph. Given parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> what is your intuitive guess of the mean for this distribution?</li>
 <li>A special case of the uniform distribution is the <strong>standard uniform distribution</strong> with <span class="math inline">\(a=0\)</span> and <span class="math inline">\(b=1\)</span>. Write the pdf <span class="math inline">\(f(x)\)</span> of this particular distribution.</li>
 </ol>
 </div>
-<img src="bookdown-pou_files/figure-html/unnamed-chunk-19-1.png" width="480" />
+<img src="bookdown-pou_files/figure-html/unnamed-chunk-294-1.png" width="480" />
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-5" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-100" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li>It’s the midpoint between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, so <span class="math inline">\(\frac{a+b}{2}\)</span></li>
 <li>Inserting the parameter values we get:<span class="math display">\[f(x) =
@@ -557,7 +557,7 @@ Notice how the pdf is just a constant <span class="math inline">\(1\)</span> acr
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-21" class="exercise"><strong>Exercise 18.7  (Normal intuition 1) </strong></span>The normal distribution, also known as the Gaussian distribution, is a continuous distribution that encompasses the entire real number line. It has two parameters: the mean, denoted by <span class="math inline">\(\mu\)</span>, and the variance, represented by <span class="math inline">\(\sigma^2\)</span>. Its shape resembles the iconic bell curve. The position of its peak is determined by the parameter <span class="math inline">\(\mu\)</span>, while the variance determines the spread or width of the curve. A smaller variance results in a sharper, narrower peak, while a larger variance leads to a broader, more spread-out curve.</p>
+<p><span id="exr:unnamed-chunk-296" class="exercise"><strong>Exercise 18.7  (Normal intuition 1) </strong></span>The normal distribution, also known as the Gaussian distribution, is a continuous distribution that encompasses the entire real number line. It has two parameters: the mean, denoted by <span class="math inline">\(\mu\)</span>, and the variance, represented by <span class="math inline">\(\sigma^2\)</span>. Its shape resembles the iconic bell curve. The position of its peak is determined by the parameter <span class="math inline">\(\mu\)</span>, while the variance determines the spread or width of the curve. A smaller variance results in a sharper, narrower peak, while a larger variance leads to a broader, more spread-out curve.</p>
 <p>Below, we graph the distribution of IQ scores for two different populations.</p>
 <p>We aim to identify individuals with an IQ at or above 140 for an experiment. We can identify them reliably; however, we only have time to examine one of the two groups. Which group should we investigate to have the best chance?</p>
 <p>NOTE: The graph below displays the parameter <span class="math inline">\(\sigma\)</span>, which is the square root of the variance, more commonly referred to as the <strong>standard deviation</strong>. Keep this in mind when solving the problems.</p>
@@ -570,10 +570,10 @@ Notice how the pdf is just a constant <span class="math inline">\(1\)</span> acr
 <li>BONUS: Look up the CDF of the normal distribution and input the appropriate values to determine the percentage of each population that comprises individuals with an IQ of 140 or higher.</li>
 </ol>
 </div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-297-1.png" width="672" /></p>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-6" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-101" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li>Group 1: <span class="math inline">\(\mu = 100, \sigma=10 \rightarrow \sigma^2 = 100\)</span>
 <span class="math display">\[\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}} =
@@ -587,34 +587,34 @@ Group 2: <span class="math inline">\(\mu = 105, \sigma=8 \rightarrow \sigma^2 = 
 <ol start="2" style="list-style-type: lower-alpha">
 <li></li>
 </ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="distributions-intutition.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb3-2"><a href="distributions-intutition.html#cb3-2" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb3-3"><a href="distributions-intutition.html#cb3-3" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="distributions-intutition.html#cb3-4" tabindex="-1"></a><span class="co"># Create data</span></span>
-<span id="cb3-5"><a href="distributions-intutition.html#cb3-5" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">135</span>, <span class="dv">145</span>, <span class="at">by =</span> <span class="fl">0.01</span>)  <span class="co"># Adjusting the x range to account for the larger standard deviations</span></span>
-<span id="cb3-6"><a href="distributions-intutition.html#cb3-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x)</span>
-<span id="cb3-7"><a href="distributions-intutition.html#cb3-7" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="distributions-intutition.html#cb3-8" tabindex="-1"></a><span class="co"># Define the IQ distributions</span></span>
-<span id="cb3-9"><a href="distributions-intutition.html#cb3-9" tabindex="-1"></a>df<span class="sc">$</span>IQ_mu100_sd10 <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(df<span class="sc">$</span>x, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
-<span id="cb3-10"><a href="distributions-intutition.html#cb3-10" tabindex="-1"></a>df<span class="sc">$</span>IQ_mu105_sd8 <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(df<span class="sc">$</span>x, <span class="at">mean =</span> <span class="dv">105</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span>
-<span id="cb3-11"><a href="distributions-intutition.html#cb3-11" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="distributions-intutition.html#cb3-12" tabindex="-1"></a><span class="co"># Convert from wide to long format for ggplot2</span></span>
-<span id="cb3-13"><a href="distributions-intutition.html#cb3-13" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> <span class="fu">gather</span>(df, distribution, density, <span class="sc">-</span>x)</span>
-<span id="cb3-14"><a href="distributions-intutition.html#cb3-14" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="distributions-intutition.html#cb3-15" tabindex="-1"></a><span class="co"># Ensure the levels of the &#39;distribution&#39; factor match our desired order</span></span>
-<span id="cb3-16"><a href="distributions-intutition.html#cb3-16" tabindex="-1"></a>df_long<span class="sc">$</span>distribution <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_long<span class="sc">$</span>distribution, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;IQ_mu100_sd10&quot;</span>, <span class="st">&quot;IQ_mu105_sd8&quot;</span>))</span>
-<span id="cb3-17"><a href="distributions-intutition.html#cb3-17" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="distributions-intutition.html#cb3-18" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb3-19"><a href="distributions-intutition.html#cb3-19" tabindex="-1"></a><span class="fu">ggplot</span>(df_long, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> density, <span class="at">color =</span> distribution)) <span class="sc">+</span></span>
-<span id="cb3-20"><a href="distributions-intutition.html#cb3-20" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb3-21"><a href="distributions-intutition.html#cb3-21" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;IQ Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
-<span id="cb3-22"><a href="distributions-intutition.html#cb3-22" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
-<span id="cb3-23"><a href="distributions-intutition.html#cb3-23" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;IQ Distribution&quot;</span>,</span>
-<span id="cb3-24"><a href="distributions-intutition.html#cb3-24" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="at">IQ_mu100_sd10 =</span> <span class="st">&quot;red&quot;</span>, <span class="at">IQ_mu105_sd8 =</span> <span class="st">&quot;blue&quot;</span>),</span>
-<span id="cb3-25"><a href="distributions-intutition.html#cb3-25" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Group 1 (µ=100, σ=10)&quot;</span>, <span class="st">&quot;Group 2 (µ=105, σ=8)&quot;</span>)</span>
-<span id="cb3-26"><a href="distributions-intutition.html#cb3-26" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb3-27"><a href="distributions-intutition.html#cb3-27" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="distributions-intutition.html#cb335-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb335-2"><a href="distributions-intutition.html#cb335-2" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb335-3"><a href="distributions-intutition.html#cb335-3" tabindex="-1"></a></span>
+<span id="cb335-4"><a href="distributions-intutition.html#cb335-4" tabindex="-1"></a><span class="co"># Create data</span></span>
+<span id="cb335-5"><a href="distributions-intutition.html#cb335-5" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">135</span>, <span class="dv">145</span>, <span class="at">by =</span> <span class="fl">0.01</span>)  <span class="co"># Adjusting the x range to account for the larger standard deviations</span></span>
+<span id="cb335-6"><a href="distributions-intutition.html#cb335-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x)</span>
+<span id="cb335-7"><a href="distributions-intutition.html#cb335-7" tabindex="-1"></a></span>
+<span id="cb335-8"><a href="distributions-intutition.html#cb335-8" tabindex="-1"></a><span class="co"># Define the IQ distributions</span></span>
+<span id="cb335-9"><a href="distributions-intutition.html#cb335-9" tabindex="-1"></a>df<span class="sc">$</span>IQ_mu100_sd10 <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(df<span class="sc">$</span>x, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb335-10"><a href="distributions-intutition.html#cb335-10" tabindex="-1"></a>df<span class="sc">$</span>IQ_mu105_sd8 <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(df<span class="sc">$</span>x, <span class="at">mean =</span> <span class="dv">105</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span>
+<span id="cb335-11"><a href="distributions-intutition.html#cb335-11" tabindex="-1"></a></span>
+<span id="cb335-12"><a href="distributions-intutition.html#cb335-12" tabindex="-1"></a><span class="co"># Convert from wide to long format for ggplot2</span></span>
+<span id="cb335-13"><a href="distributions-intutition.html#cb335-13" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> <span class="fu">gather</span>(df, distribution, density, <span class="sc">-</span>x)</span>
+<span id="cb335-14"><a href="distributions-intutition.html#cb335-14" tabindex="-1"></a></span>
+<span id="cb335-15"><a href="distributions-intutition.html#cb335-15" tabindex="-1"></a><span class="co"># Ensure the levels of the &#39;distribution&#39; factor match our desired order</span></span>
+<span id="cb335-16"><a href="distributions-intutition.html#cb335-16" tabindex="-1"></a>df_long<span class="sc">$</span>distribution <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_long<span class="sc">$</span>distribution, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;IQ_mu100_sd10&quot;</span>, <span class="st">&quot;IQ_mu105_sd8&quot;</span>))</span>
+<span id="cb335-17"><a href="distributions-intutition.html#cb335-17" tabindex="-1"></a></span>
+<span id="cb335-18"><a href="distributions-intutition.html#cb335-18" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb335-19"><a href="distributions-intutition.html#cb335-19" tabindex="-1"></a><span class="fu">ggplot</span>(df_long, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> density, <span class="at">color =</span> distribution)) <span class="sc">+</span></span>
+<span id="cb335-20"><a href="distributions-intutition.html#cb335-20" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb335-21"><a href="distributions-intutition.html#cb335-21" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;IQ Score&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
+<span id="cb335-22"><a href="distributions-intutition.html#cb335-22" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
+<span id="cb335-23"><a href="distributions-intutition.html#cb335-23" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;IQ Distribution&quot;</span>,</span>
+<span id="cb335-24"><a href="distributions-intutition.html#cb335-24" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="at">IQ_mu100_sd10 =</span> <span class="st">&quot;red&quot;</span>, <span class="at">IQ_mu105_sd8 =</span> <span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb335-25"><a href="distributions-intutition.html#cb335-25" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Group 1 (µ=100, σ=10)&quot;</span>, <span class="st">&quot;Group 2 (µ=105, σ=8)&quot;</span>)</span>
+<span id="cb335-26"><a href="distributions-intutition.html#cb335-26" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb335-27"><a href="distributions-intutition.html#cb335-27" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-299-1.png" width="672" />
 ::: {.solution}
 c. The CDF of the normal distribution is <span class="math inline">\(\Phi(x) = \frac{1}{2} \left[ 1 + \text{erf} \left( \frac{x - \mu}{\sigma \sqrt{2}} \right) \right]\)</span>. The CDF is defined as the integral of the distribution density up to x. So to get the total percentage of individuals with IQ at 140 or higher we will need to subtract the value from 1.</p>
 <p>Group 1: <span class="math display">\[1 - \Phi(140) = \frac{1}{2} \left[ 1 + \text{erf} \left( \frac{140 - 100}{10 \sqrt{2}} \right) \right] \approx 3.17e-05 \]</span>
@@ -623,7 +623,7 @@ So roughly 0.003% and 0.0006% of individuals in groups 1 and 2 respectively have
 :::</p>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-26" class="exercise"><strong>Exercise 18.8  (Beta intuition 1) </strong></span>The beta distribution is a continuous distribution defined on the unit interval <span class="math inline">\([0,1]\)</span>. It has two strictly positive paramters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, which determine its shape. Its support makes it especially suitable to model distribtuions of percentages and proportions.</p>
+<p><span id="exr:unnamed-chunk-301" class="exercise"><strong>Exercise 18.8  (Beta intuition 1) </strong></span>The beta distribution is a continuous distribution defined on the unit interval <span class="math inline">\([0,1]\)</span>. It has two strictly positive paramters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, which determine its shape. Its support makes it especially suitable to model distribtuions of percentages and proportions.</p>
 <p>Below you’ve been provided with some code that you can copy into Rstudio. Once you run the code, an interactive Shiny app will appear and you will be able to manipulate the graph of the beta distribution.</p>
 <p>Play around with the parameters to get:</p>
 <ol style="list-style-type: lower-alpha">
@@ -673,7 +673,7 @@ shinyApp(ui = ui, server = server)
 </code></pre>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-7" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-102" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math inline">\(\alpha = 2, \beta=1\)</span></p></li>
 <li><p><span class="math inline">\(\alpha = 1, \beta=2\)</span></p></li>
@@ -688,7 +688,7 @@ shinyApp(ui = ui, server = server)
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-28" class="exercise"><strong>Exercise 18.9  (Exponential intuition 1) </strong></span>The exponential distribution represents the distributon of <strong>time between events</strong> in a Poisson process. It is the continuous analogue of the geometric distribution.</p>
+<p><span id="exr:unnamed-chunk-303" class="exercise"><strong>Exercise 18.9  (Exponential intuition 1) </strong></span>The exponential distribution represents the distributon of <strong>time between events</strong> in a Poisson process. It is the continuous analogue of the geometric distribution.</p>
 <p>It has a single parameter <span class="math inline">\(\lambda\)</span>, which is strictly positive and represents the <em>constant rate</em> of the corresponding Poisson process. The support is all positive reals, since time between events is non-negative, but not bound upwards.</p>
 <p>Let’s revisit the call center from our Poisson problem. We get 2.5 calls per day on average, this is our rate parameter <span class="math inline">\(\lambda\)</span>. A work day is 8 hours.</p>
 <ol style="list-style-type: lower-alpha">
@@ -701,7 +701,7 @@ shinyApp(ui = ui, server = server)
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-8" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-103" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Taking <span class="math inline">\(\lambda = \frac{2.5 \text{ calls}}{8 \text{ hours}} = \frac{1 \text{ call}}{3.2 \text{ hours}}\)</span>
 <span class="math display">\[E[X] = \frac{1}{\lambda} = \frac{3.2 \text{ hours}}{\text{call}}\]</span></p></li>
@@ -721,7 +721,7 @@ So we have about a 27% chance of missing a call if we’re gone for an hour.</p>
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-30" class="exercise"><strong>Exercise 18.10  (Gamma intuition 1) </strong></span>The gamma distribution is a continuous distribution characterized by two parameters, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, both greater than 0. These parameters afford the distribution a broad range of shapes, leading to it being commonly referred to as a <em>family of distributions</em>. Given its support over the positive real numbers, it is well suited for modeling a diverse range of positive-valued phenomena.</p>
+<p><span id="exr:unnamed-chunk-305" class="exercise"><strong>Exercise 18.10  (Gamma intuition 1) </strong></span>The gamma distribution is a continuous distribution characterized by two parameters, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, both greater than 0. These parameters afford the distribution a broad range of shapes, leading to it being commonly referred to as a <em>family of distributions</em>. Given its support over the positive real numbers, it is well suited for modeling a diverse range of positive-valued phenomena.</p>
 <ol style="list-style-type: lower-alpha">
 <li>The exponential distribution is actually just a particular form of the gamma distribution. What are the values of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>?</li>
 <li>Copy the code from our beta distribution Shiny app and modify it to simulate the gamma distribution. Then get it to show the exponential.</li>
@@ -729,7 +729,7 @@ So we have about a 27% chance of missing a call if we’re gone for an hour.</p>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-9" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-104" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Let’s start by taking a look at the pdfs of the two distributions side by side:
 <span class="math display">\[\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x} = \lambda e^{-\lambda x}\]</span>
@@ -738,40 +738,40 @@ Now we can see that <span class="math inline">\(\beta = \lambda\)</span> and <sp
 <li></li>
 </ol>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="distributions-intutition.html#cb5-1" tabindex="-1"></a><span class="co"># Install and load necessary packages</span></span>
-<span id="cb5-2"><a href="distributions-intutition.html#cb5-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>))</span>
-<span id="cb5-3"><a href="distributions-intutition.html#cb5-3" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb5-4"><a href="distributions-intutition.html#cb5-4" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb5-5"><a href="distributions-intutition.html#cb5-5" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="distributions-intutition.html#cb5-6" tabindex="-1"></a><span class="co"># The Shiny App</span></span>
-<span id="cb5-7"><a href="distributions-intutition.html#cb5-7" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb5-8"><a href="distributions-intutition.html#cb5-8" tabindex="-1"></a>  <span class="fu">titlePanel</span>(<span class="st">&quot;Gamma Distribution Viewer&quot;</span>),</span>
-<span id="cb5-9"><a href="distributions-intutition.html#cb5-9" tabindex="-1"></a>  </span>
-<span id="cb5-10"><a href="distributions-intutition.html#cb5-10" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
-<span id="cb5-11"><a href="distributions-intutition.html#cb5-11" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(</span>
-<span id="cb5-12"><a href="distributions-intutition.html#cb5-12" tabindex="-1"></a>      <span class="fu">sliderInput</span>(<span class="st">&quot;shape&quot;</span>, <span class="st">&quot;Shape (α):&quot;</span>, <span class="at">min =</span> <span class="fl">0.1</span>, <span class="at">max =</span> <span class="dv">10</span>, <span class="at">value =</span> <span class="dv">2</span>, <span class="at">step =</span> <span class="fl">0.1</span>),</span>
-<span id="cb5-13"><a href="distributions-intutition.html#cb5-13" tabindex="-1"></a>      <span class="fu">sliderInput</span>(<span class="st">&quot;scale&quot;</span>, <span class="st">&quot;Scale (β):&quot;</span>, <span class="at">min =</span> <span class="fl">0.1</span>, <span class="at">max =</span> <span class="dv">10</span>, <span class="at">value =</span> <span class="dv">2</span>, <span class="at">step =</span> <span class="fl">0.1</span>)</span>
-<span id="cb5-14"><a href="distributions-intutition.html#cb5-14" tabindex="-1"></a>    ),</span>
-<span id="cb5-15"><a href="distributions-intutition.html#cb5-15" tabindex="-1"></a>    </span>
-<span id="cb5-16"><a href="distributions-intutition.html#cb5-16" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
-<span id="cb5-17"><a href="distributions-intutition.html#cb5-17" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="st">&quot;gammaPlot&quot;</span>)</span>
-<span id="cb5-18"><a href="distributions-intutition.html#cb5-18" tabindex="-1"></a>    )</span>
-<span id="cb5-19"><a href="distributions-intutition.html#cb5-19" tabindex="-1"></a>  )</span>
-<span id="cb5-20"><a href="distributions-intutition.html#cb5-20" tabindex="-1"></a>)</span>
-<span id="cb5-21"><a href="distributions-intutition.html#cb5-21" tabindex="-1"></a></span>
-<span id="cb5-22"><a href="distributions-intutition.html#cb5-22" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
-<span id="cb5-23"><a href="distributions-intutition.html#cb5-23" tabindex="-1"></a>  output<span class="sc">$</span>gammaPlot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb5-24"><a href="distributions-intutition.html#cb5-24" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
-<span id="cb5-25"><a href="distributions-intutition.html#cb5-25" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">dgamma</span>(x, <span class="at">shape =</span> input<span class="sc">$</span>shape, <span class="at">scale =</span> input<span class="sc">$</span>scale)</span>
-<span id="cb5-26"><a href="distributions-intutition.html#cb5-26" tabindex="-1"></a>    </span>
-<span id="cb5-27"><a href="distributions-intutition.html#cb5-27" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb5-28"><a href="distributions-intutition.html#cb5-28" tabindex="-1"></a>      <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb5-29"><a href="distributions-intutition.html#cb5-29" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Value&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
-<span id="cb5-30"><a href="distributions-intutition.html#cb5-30" tabindex="-1"></a>      <span class="fu">theme_minimal</span>()</span>
-<span id="cb5-31"><a href="distributions-intutition.html#cb5-31" tabindex="-1"></a>  })</span>
-<span id="cb5-32"><a href="distributions-intutition.html#cb5-32" tabindex="-1"></a>}</span>
-<span id="cb5-33"><a href="distributions-intutition.html#cb5-33" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="distributions-intutition.html#cb5-34" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="distributions-intutition.html#cb337-1" tabindex="-1"></a><span class="co"># Install and load necessary packages</span></span>
+<span id="cb337-2"><a href="distributions-intutition.html#cb337-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;shiny&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>))</span>
+<span id="cb337-3"><a href="distributions-intutition.html#cb337-3" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb337-4"><a href="distributions-intutition.html#cb337-4" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb337-5"><a href="distributions-intutition.html#cb337-5" tabindex="-1"></a></span>
+<span id="cb337-6"><a href="distributions-intutition.html#cb337-6" tabindex="-1"></a><span class="co"># The Shiny App</span></span>
+<span id="cb337-7"><a href="distributions-intutition.html#cb337-7" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb337-8"><a href="distributions-intutition.html#cb337-8" tabindex="-1"></a>  <span class="fu">titlePanel</span>(<span class="st">&quot;Gamma Distribution Viewer&quot;</span>),</span>
+<span id="cb337-9"><a href="distributions-intutition.html#cb337-9" tabindex="-1"></a>  </span>
+<span id="cb337-10"><a href="distributions-intutition.html#cb337-10" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb337-11"><a href="distributions-intutition.html#cb337-11" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(</span>
+<span id="cb337-12"><a href="distributions-intutition.html#cb337-12" tabindex="-1"></a>      <span class="fu">sliderInput</span>(<span class="st">&quot;shape&quot;</span>, <span class="st">&quot;Shape (α):&quot;</span>, <span class="at">min =</span> <span class="fl">0.1</span>, <span class="at">max =</span> <span class="dv">10</span>, <span class="at">value =</span> <span class="dv">2</span>, <span class="at">step =</span> <span class="fl">0.1</span>),</span>
+<span id="cb337-13"><a href="distributions-intutition.html#cb337-13" tabindex="-1"></a>      <span class="fu">sliderInput</span>(<span class="st">&quot;scale&quot;</span>, <span class="st">&quot;Scale (β):&quot;</span>, <span class="at">min =</span> <span class="fl">0.1</span>, <span class="at">max =</span> <span class="dv">10</span>, <span class="at">value =</span> <span class="dv">2</span>, <span class="at">step =</span> <span class="fl">0.1</span>)</span>
+<span id="cb337-14"><a href="distributions-intutition.html#cb337-14" tabindex="-1"></a>    ),</span>
+<span id="cb337-15"><a href="distributions-intutition.html#cb337-15" tabindex="-1"></a>    </span>
+<span id="cb337-16"><a href="distributions-intutition.html#cb337-16" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb337-17"><a href="distributions-intutition.html#cb337-17" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="st">&quot;gammaPlot&quot;</span>)</span>
+<span id="cb337-18"><a href="distributions-intutition.html#cb337-18" tabindex="-1"></a>    )</span>
+<span id="cb337-19"><a href="distributions-intutition.html#cb337-19" tabindex="-1"></a>  )</span>
+<span id="cb337-20"><a href="distributions-intutition.html#cb337-20" tabindex="-1"></a>)</span>
+<span id="cb337-21"><a href="distributions-intutition.html#cb337-21" tabindex="-1"></a></span>
+<span id="cb337-22"><a href="distributions-intutition.html#cb337-22" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb337-23"><a href="distributions-intutition.html#cb337-23" tabindex="-1"></a>  output<span class="sc">$</span>gammaPlot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb337-24"><a href="distributions-intutition.html#cb337-24" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">25</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb337-25"><a href="distributions-intutition.html#cb337-25" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">dgamma</span>(x, <span class="at">shape =</span> input<span class="sc">$</span>shape, <span class="at">scale =</span> input<span class="sc">$</span>scale)</span>
+<span id="cb337-26"><a href="distributions-intutition.html#cb337-26" tabindex="-1"></a>    </span>
+<span id="cb337-27"><a href="distributions-intutition.html#cb337-27" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb337-28"><a href="distributions-intutition.html#cb337-28" tabindex="-1"></a>      <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb337-29"><a href="distributions-intutition.html#cb337-29" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Value&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
+<span id="cb337-30"><a href="distributions-intutition.html#cb337-30" tabindex="-1"></a>      <span class="fu">theme_minimal</span>()</span>
+<span id="cb337-31"><a href="distributions-intutition.html#cb337-31" tabindex="-1"></a>  })</span>
+<span id="cb337-32"><a href="distributions-intutition.html#cb337-32" tabindex="-1"></a>}</span>
+<span id="cb337-33"><a href="distributions-intutition.html#cb337-33" tabindex="-1"></a></span>
+<span id="cb337-34"><a href="distributions-intutition.html#cb337-34" tabindex="-1"></a><span class="fu">shinyApp</span>(<span class="at">ui =</span> ui, <span class="at">server =</span> server)</span></code></pre></div>
 </div>
 
 </div>
