@@ -203,3 +203,16 @@ writing-functions
 other-tips
 further-reading-and-references
 distributions
+exr:unnamed-chunk-5
+exr:unnamed-chunk-22
+exr:unnamed-chunk-24
+exr:unnamed-chunk-25
+exr:unnamed-chunk-26
+exr:unnamed-chunk-27
+create-data
+define-the-iq-distributions
+convert-from-wide-to-long-format-for-ggplot2
+ensure-the-levels-of-the-distribution-factor-match-our-desired-order
+plot
+exr:unnamed-chunk-28
+exr:unnamed-chunk-29
