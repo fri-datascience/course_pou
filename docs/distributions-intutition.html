@@ -327,7 +327,7 @@ $(document).ready(function() {
 <div id="discrete-distributions" class="section level2 hasAnchor" number="18.1">
 <h2><span class="header-section-number">18.1</span> Discrete distributions<a href="distributions-intutition.html#discrete-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-277" class="exercise"><strong>Exercise 18.1  (Bernoulli intuition 1) </strong></span>Arguably the simplest distribution you will enocounter is the Bernoulli distribution.
+<p><span id="exr:unnamed-chunk-277" class="exercise"><strong>Exercise 18.1  (Bernoulli intuition 1) </strong></span>Arguably the simplest distribution you will encounter is the Bernoulli distribution.
 It is a discrete probability distribution used to represent the outcome of a yes/no
 question. It has one parameter <span class="math inline">\(p\)</span> which is the probability of success. The
 probability of failure is <span class="math inline">\((1-p)\)</span>, sometimes denoted as <span class="math inline">\(q\)</span>.</p>
@@ -389,7 +389,7 @@ into the pmf.</p></li>
 <ol style="list-style-type: lower-alpha">
 <li><p>The pmf of a binomial distribution is <span class="math inline">\(\binom{n}{k} p^k (1 - p)^{n - k}\)</span>, now
 we insert <span class="math inline">\(n=1\)</span> to get:
-<span class="math display">\[\binom{1}{k} p^k (1 - p)^{1 - k}\]</span>.
+<span class="math display">\[\binom{1}{k} p^k (1 - p)^{1 - k}\]</span>
 Not quite equivalent to
 a Bernoulli, however note that the support of the binomial distribution is
 defined as <span class="math inline">\(k \in \{0,1,\dots,n\}\)</span>, so in our case <span class="math inline">\(k = \{0,1\}\)</span>, then:
@@ -441,7 +441,7 @@ probability of a given number of events occuring within processes where events
 occur at a constant mean rate and independently of each other - a <strong>Poisson process</strong>.</p>
 <p>It has a single parameter <span class="math inline">\(\lambda\)</span>, which represents the constant mean rate.</p>
 <p>A classic example of a scenario that can be modeled using the Poisson distribution
-is the number of calls received by a call center in a day (or in fact any other
+is the number of calls received at a call center in a day (or in fact any other
 time interval).</p>
 <p>Suppose you work in a call center and have some understanding of probability
 distributions. You overhear your supervisor mentioning that the call center
@@ -476,10 +476,13 @@ to get the probability of our original question.</p></li>
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-288" class="exercise"><strong>Exercise 18.5  (Geometric intuition 1) </strong></span>The geometric distribution is a discrete distribution that models the <strong>number of
 failures</strong> before the first success in a sequence of independent Bernoulli trials.
-It has a single parameter <span class="math inline">\(p\)</span>, representing the probability of success.</p>
+It has a single parameter <span class="math inline">\(p\)</span>, representing the probability of success and its
+support is all non-negative integers <span class="math inline">\(\{0,1,2,\dots\}\)</span>.</p>
 <p>NOTE: There are two forms of this distribution, the one we just described
 and another that models the <strong>number of trials</strong> before the first success. The
-difference is subtle yet significant and you are likely to encounter both forms.</p>
+difference is subtle yet significant and you are likely to encounter both forms.
+The key to telling them apart is to check their support, since the number of trials
+has to be at least <span class="math inline">\(1\)</span>, for this case we have <span class="math inline">\(\{1,2,\dots\}\)</span>.</p>
 <p>In the graph below we show the pmf of a geometric distribution with <span class="math inline">\(p=0.5\)</span>. This
 can be thought of as the number of successive failures (tails) in the flip of a fair coin.
 You can see that there’s a 50% chance you will have zero failures i.e. you will
@@ -552,14 +555,14 @@ On average we will have to throw the die 6 times before we roll a 6.
 0 &amp; \text{otherwise}
 \end{cases}
 \]</span>
-Notice how the pdf is just a constant <span class="math inline">\(1\)</span> across all values of <span class="math inline">\(x \in [0,1]\)</span>. Here it is important to distinguish between probability and <strong>probability density</strong>. The density may be 1, but the probability is not and while discreet distributions never exceed 1 on the y-axis, continuous distributions can go as high as you like.</li>
+Notice how the pdf is just a constant <span class="math inline">\(1\)</span> across all values of <span class="math inline">\(x \in [0,1]\)</span>. Here it is important to distinguish between probability and <strong>probability density</strong>. The density may be 1, but the probability is not and while discrete distributions never exceed 1 on the y-axis, continuous distributions can go as high as you like.</li>
 </ol>
 </div>
 </div>
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-296" class="exercise"><strong>Exercise 18.7  (Normal intuition 1) </strong></span>The normal distribution, also known as the Gaussian distribution, is a continuous distribution that encompasses the entire real number line. It has two parameters: the mean, denoted by <span class="math inline">\(\mu\)</span>, and the variance, represented by <span class="math inline">\(\sigma^2\)</span>. Its shape resembles the iconic bell curve. The position of its peak is determined by the parameter <span class="math inline">\(\mu\)</span>, while the variance determines the spread or width of the curve. A smaller variance results in a sharper, narrower peak, while a larger variance leads to a broader, more spread-out curve.</p>
 <p>Below, we graph the distribution of IQ scores for two different populations.</p>
-<p>We aim to identify individuals with an IQ at or above 140 for an experiment. We can identify them reliably; however, we only have time to examine one of the two groups. Which group should we investigate to have the best chance?</p>
+<p>We aim to identify individuals with an IQ at or above 140 for an experiment. We can identify them reliably; however, we only have time to examine one of the two groups. Which group should we investigate to have the best chance of finding such individuals?</p>
 <p>NOTE: The graph below displays the parameter <span class="math inline">\(\sigma\)</span>, which is the square root of the variance, more commonly referred to as the <strong>standard deviation</strong>. Keep this in mind when solving the problems.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Insert the values of either population into the pdf of a normal distribution and determine which one has a higher density at <span class="math inline">\(x=140\)</span>.</p></li>
@@ -582,7 +585,7 @@ Group 2: <span class="math inline">\(\mu = 105, \sigma=8 \rightarrow \sigma^2 = 
 <span class="math display">\[\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}} =
 \frac{1}{\sqrt{2 \pi 64}} e^{-\frac{(140 - 105)^2}{2 \cdot 64}} \approx 3.48e-06\]</span></li>
 </ol>
-<p>So despite the fact that group 1 has a lower average IQ, we are more likely to find 140 IQ individuals in group 2.</p>
+<p>So despite the fact that group 1 has a lower average IQ, we are more likely to find 140 IQ individuals in this group.</p>
 </div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li></li>
