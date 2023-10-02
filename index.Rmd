@@ -1,6 +1,6 @@
 --- 
 title: "Principles of Uncertainty -- exercises"
-author: "Gregor Pirš and Erik Štrumbelj"
+author: "Gregor Pirš, Erik Štrumbelj, David Nabergoj and Leon Hvastja"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book

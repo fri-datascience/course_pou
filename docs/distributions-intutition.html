@@ -20,10 +20,10 @@
   <meta name="twitter:description" content="Course notes" />
   
 
-<meta name="author" content="Gregor Pirš and Erik Štrumbelj" />
+<meta name="author" content="Gregor Pirš, Erik Štrumbelj, David Nabergoj and Leon Hvastja" />
 
 
-<meta name="date" content="2023-10-01" />
+<meta name="date" content="2023-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -327,10 +327,10 @@ $(document).ready(function() {
 <div id="discrete-distributions" class="section level2 hasAnchor" number="18.1">
 <h2><span class="header-section-number">18.1</span> Discrete distributions<a href="distributions-intutition.html#discrete-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-277" class="exercise"><strong>Exercise 18.1  (Bernoulli intuition 1) </strong></span>Arguably the simplest distribution you will encounter is the Bernoulli distribution.
+<p><span id="exr:unnamed-chunk-277" class="exercise"><strong>Exercise 18.1  (Bernoulli intuition 1) </strong></span>The simplest distribution you will encounter is the Bernoulli distribution.
 It is a discrete probability distribution used to represent the outcome of a yes/no
-question. It has one parameter <span class="math inline">\(p\)</span> which is the probability of success. The
-probability of failure is <span class="math inline">\((1-p)\)</span>, sometimes denoted as <span class="math inline">\(q\)</span>.</p>
+question. It has one parameter <span class="math inline">\(0 \leq p \leq 1\)</span>, which is the probability of success. The
+probability of failure is <span class="math inline">\(q = (1-p)\)</span>.</p>
 <p>A classic way to think about a Bernoulli trial (a yes/no experiment) is a coin
 flip. Real coins are fair, meaning the probability of either heads (1)
 or tails (0) are the same, so <span class="math inline">\(p=0.5\)</span> as shown below in <em>figure a</em>. Alternatively
@@ -364,7 +364,7 @@ is divisible by 3: <span class="math inline">\(C = \{3, 6\}\)</span> satisfies t
 </div>
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-280" class="exercise"><strong>Exercise 18.2  (Binomial intuition 1) </strong></span>The binomial distribution is a generalization of the Bernoulli distribution.
-Instead of considering a single Bernoulli trial, we now consider a sequence of <span class="math inline">\(n\)</span> trials,
+Instead of considering a single Bernoulli trial, we now consider a sum of a sequence of <span class="math inline">\(n\)</span> trials,
 which are independent and have the same parameter <span class="math inline">\(p\)</span>. So the binomial distribution
 has two parameters <span class="math inline">\(n\)</span> - the number of trials and <span class="math inline">\(p\)</span> - the probability of success
 for each trial.</p>
@@ -378,7 +378,7 @@ number of times the coin landed heads.</p>
 <li><p>Take the <a href="distributions.html#distributions">pmf of the binomial distribution</a> and plug in <span class="math inline">\(n=1\)</span>,
 check that it is in fact equivalent to a Bernoulli distribution.</p></li>
 <li><p>In our examples we show the graph of a binomial distribution over 10 trials with
-<span class="math inline">\(p=0.8\)</span>. If we take a look at the graph, it appears as though the probabilities of getting 0,1,2 or 3
+<span class="math inline">\(p=0.8\)</span>. If we take a look at the graph, it appears as though the probabilities of getting 0,1, 2 or 3
 heads in 10 flips are zero. Is it actually zero? Check by plugging in the values
 into the pmf.</p></li>
 </ol>
@@ -478,8 +478,8 @@ to get the probability of our original question.</p></li>
 failures</strong> before the first success in a sequence of independent Bernoulli trials.
 It has a single parameter <span class="math inline">\(p\)</span>, representing the probability of success and its
 support is all non-negative integers <span class="math inline">\(\{0,1,2,\dots\}\)</span>.</p>
-<p>NOTE: There are two forms of this distribution, the one we just described
-and another that models the <strong>number of trials</strong> before the first success. The
+<p>NOTE: There is an alternative way to think about this distribution, one that models
+the <strong>number of trials</strong> before the first success. The
 difference is subtle yet significant and you are likely to encounter both forms.
 The key to telling them apart is to check their support, since the number of trials
 has to be at least <span class="math inline">\(1\)</span>, for this case we have <span class="math inline">\(\{1,2,\dots\}\)</span>.</p>
@@ -492,7 +492,7 @@ probability.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Create an equivalent graph that represents the probability of rolling a 6 with a fair 6-sided die.</li>
 <li>Use the formula for the <a href="distributions.html#distributions">mean</a> of the geometric distribution and determine the average number of <strong>failures</strong> before you roll a 6.</li>
-<li>Look up the alternative form of the geometric distribtuion and again use the formula for the mean to determine the average number of <strong>trials</strong> before you roll a 6.</li>
+<li>Look up the alternative form of the geometric distribtuion and again use the formula for the mean to determine the average number of <strong>trials</strong> up to and including rolling a 6.</li>
 </ol>
 </div>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-289-1.png" width="672" /></p>
@@ -539,7 +539,7 @@ On average we will have to throw the die 6 times before we roll a 6.
 <p><span id="exr:unnamed-chunk-293" class="exercise"><strong>Exercise 18.6  (Uniform intuition 1) </strong></span>The need for a randomness is a common problem. A practical solution are so-called random number generators (RNGs). The simplest RNG one would think of is choosing a set of numbers and having the generator return a number at random, where the probability of returning any number from this set is the same. If this set is an interval of real numbers, then we’ve basically described the continuous uniform distribution.</p>
 <p>It has two parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, which define the beginning and end of its support respectively.</p>
 <ol style="list-style-type: lower-alpha">
-<li>Let’s think of the mean intuitively. The expected value or mean of a distribution is the pivot point on our x-axis, which “balances” the graph. Given parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> what is your intuitive guess of the mean for this distribution?</li>
+<li>Let’s think about the mean intuitively. Think of the area under the graph as a geometric shape. The expected value or mean of a distribution is the x-axis value of its center of mass. Given parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> what is your intuitive guess of the mean for the uniform distribution?</li>
 <li>A special case of the uniform distribution is the <strong>standard uniform distribution</strong> with <span class="math inline">\(a=0\)</span> and <span class="math inline">\(b=1\)</span>. Write the pdf <span class="math inline">\(f(x)\)</span> of this particular distribution.</li>
 </ol>
 </div>
@@ -548,7 +548,7 @@ On average we will have to throw the die 6 times before we roll a 6.
 <div class="solution">
 <p><span id="unlabeled-div-100" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
-<li>It’s the midpoint between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, so <span class="math inline">\(\frac{a+b}{2}\)</span></li>
+<li>The center of mass is the center of the square from <span class="math inline">\(a\)</span> to <span class="math inline">\(b\)</span> and from 0 to <span class="math inline">\(\frac{1}{b-a}\)</span>. Its value on the x-axis is the midpoint between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, so <span class="math inline">\(\frac{a+b}{2}\)</span></li>
 <li>Inserting the parameter values we get:<span class="math display">\[f(x) =
 \begin{cases}
 1 &amp; \text{if } 0 \leq x \leq 1 \\
@@ -630,8 +630,6 @@ So roughly 0.003% and 0.0006% of individuals in groups 1 and 2 respectively have
 <p>Below you’ve been provided with some code that you can copy into Rstudio. Once you run the code, an interactive Shiny app will appear and you will be able to manipulate the graph of the beta distribution.</p>
 <p>Play around with the parameters to get:</p>
 <ol style="list-style-type: lower-alpha">
-<li>A straight line from (0,0) to (1,2)</li>
-<li>A straight line from (0,2) to (1,0)</li>
 <li>A symmetric bell curve</li>
 <li>A bowl-shaped curve</li>
 <li>The standard uniform distribution is actually a special case of the beta distribution. Find the exact parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>. Once you do, prove the equality by inserting the values into our pdf.</li>
@@ -678,8 +676,6 @@ shinyApp(ui = ui, server = server)
 <div class="solution">
 <p><span id="unlabeled-div-102" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
-<li><p><span class="math inline">\(\alpha = 2, \beta=1\)</span></p></li>
-<li><p><span class="math inline">\(\alpha = 1, \beta=2\)</span></p></li>
 <li><p>Possible solution <span class="math inline">\(\alpha = \beta= 5\)</span></p></li>
 <li><p>Possible solution <span class="math inline">\(\alpha = \beta= 0.5\)</span></p></li>
 <li><p>The correct parameters are <span class="math inline">\(\alpha = 1, \beta=1\)</span>, to prove the equality we insert them into the beta pdf:
@@ -699,7 +695,7 @@ shinyApp(ui = ui, server = server)
 </ol>
 <p>The cdf <span class="math inline">\(F(x)\)</span> tells us what percentage of calls occur within x amount of time of each other.</p>
 <ol start="2" style="list-style-type: lower-alpha">
-<li>You want to take an hour long lunch break but are worried about missing calls. Calculate the percentage of calls you are likely to miss if you’re gone for an hour. Hint: The cdf is <span class="math inline">\(F(x) = \int_{-\infty}^{x} f(x) dx\)</span></li>
+<li>You want to take an hour long lunch break but are worried about missing calls. Calculate the probability of missing at least one call if you’re gone for an hour. Hint: The cdf is <span class="math inline">\(F(x) = \int_{-\infty}^{x} f(x) dx\)</span></li>
 </ol>
 </div>
 <div class="fold">
@@ -719,12 +715,12 @@ F(x) &amp;= \int_{0}^{x} \lambda e^{-\lambda t} dt \\
 Then we just evaluate it for a time of 1 hour:
 <span class="math display">\[F(1 \text{ hour}) = 1 - e^{-\frac{1 \text{ call}}{3.2 \text{ hours}} \cdot 1 \text{ hour}}=
    1 - e^{-\frac{1 \text{ call}}{3.2 \text{ hours}}} \approx 0.268\]</span>
-So we have about a 27% chance of missing a call if we’re gone for an hour.</p></li>
+So we have about a 27% chance of missing at least one call if we’re gone for an hour.</p></li>
 </ol>
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-305" class="exercise"><strong>Exercise 18.10  (Gamma intuition 1) </strong></span>The gamma distribution is a continuous distribution characterized by two parameters, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, both greater than 0. These parameters afford the distribution a broad range of shapes, leading to it being commonly referred to as a <em>family of distributions</em>. Given its support over the positive real numbers, it is well suited for modeling a diverse range of positive-valued phenomena.</p>
+<p><span id="exr:unnamed-chunk-305" class="exercise"><strong>Exercise 18.10  (Gamma intuition 1) </strong></span>The gamma distribution is a continuous distribution with by two parameters, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, both greater than 0. These parameters afford the distribution a broad range of shapes, leading to it being commonly referred to as a <em>family of distributions</em>. Given its support over the positive real numbers, it is well suited for modeling a diverse range of positive-valued phenomena.</p>
 <ol style="list-style-type: lower-alpha">
 <li>The exponential distribution is actually just a particular form of the gamma distribution. What are the values of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>?</li>
 <li>Copy the code from our beta distribution Shiny app and modify it to simulate the gamma distribution. Then get it to show the exponential.</li>
