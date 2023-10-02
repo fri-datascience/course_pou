@@ -41,10 +41,10 @@ $(document).ready(function() {
 ## Discrete distributions
 
 ```{exercise, name = "Bernoulli intuition 1"}
-Arguably the simplest distribution you will encounter is the Bernoulli distribution.
+The simplest distribution you will encounter is the Bernoulli distribution.
 It is a discrete probability distribution used to represent the outcome of a yes/no
-question. It has one parameter $p$ which is the probability of success. The 
-probability of failure is $(1-p)$, sometimes denoted as $q$.
+question. It has one parameter $0 \leq p \leq 1$, which is the probability of success. The 
+probability of failure is $q = (1-p)$.
 
 A classic way to think about a Bernoulli trial (a yes/no experiment) is a coin 
 flip. Real coins are fair, meaning the probability of either heads (1) 
@@ -101,7 +101,7 @@ is divisible by 3: $C = \{3, 6\}$ satisfies this condition.
 
 ```{exercise, name = "Binomial intuition 1"}
 The binomial distribution is a generalization of the Bernoulli distribution. 
-Instead of considering a single Bernoulli trial, we now consider a sequence of $n$ trials,
+Instead of considering a single Bernoulli trial, we now consider a sum of a sequence of $n$ trials,
 which are independent and have the same parameter $p$. So the binomial distribution
 has two parameters $n$ - the number of trials and $p$ - the probability of success
 for each trial.
@@ -118,7 +118,7 @@ a. Take the [pmf of the binomial distribution](#distributions)  and plug in $n=1
 check that it is in fact equivalent to a Bernoulli distribution.
 
 b. In our examples we show the graph of a binomial distribution over 10 trials with
-$p=0.8$. If we take a look at the graph, it appears as though the probabilities of getting 0,1,2 or 3
+$p=0.8$. If we take a look at the graph, it appears as though the probabilities of getting 0,1, 2 or 3
 heads in 10 flips are zero. Is it actually zero? Check by plugging in the values
 into the pmf.
 ```
@@ -284,8 +284,8 @@ failures** before the first success in a sequence of independent Bernoulli trial
 It has a single parameter $p$, representing the probability of success and its 
 support is all non-negative integers $\{0,1,2,\dots\}$.
 
-NOTE: There are two forms of this distribution, the one we just described 
-and another that models the **number of trials** before the first success. The
+NOTE: There is an alternative way to think about this distribution, one that models 
+the **number of trials** before the first success. The
 difference is subtle yet significant and you are likely to encounter both forms.
 The key to telling them apart is to check their support, since the number of trials
 has to be at least $1$, for this case we have $\{1,2,\dots\}$.
@@ -299,7 +299,7 @@ probability.
 
 a) Create an equivalent graph that represents the probability of rolling a 6 with a fair 6-sided die.
 b) Use the formula for the [mean](#distributions) of the geometric distribution and determine the average number of **failures** before you roll a 6.
-c) Look up the alternative form of the geometric distribtuion and again use the formula for the mean to determine the average number of **trials** before you roll a 6.
+c) Look up the alternative form of the geometric distribtuion and again use the formula for the mean to determine the average number of **trials** up to and including rolling a 6.
 
 ```
 
@@ -371,7 +371,7 @@ The need for a randomness is a common problem. A practical solution are so-calle
 
 It has two parameters $a$ and $b$, which define the beginning and end of its support respectively.
 
-a) Let's think of the mean intuitively. The expected value or mean of a distribution is the pivot point on our x-axis, which "balances" the graph. Given parameters $a$ and $b$ what is your intuitive guess of the mean for this distribution?
+a) Let's think about the mean intuitively. Think of the area under the graph as a geometric shape. The expected value or mean of a distribution is the x-axis value of its center of mass. Given parameters $a$ and $b$ what is your intuitive guess of the mean for the uniform distribution?
 b) A special case of the uniform distribution is the **standard uniform distribution** with $a=0$ and $b=1$. Write the pdf $f(x)$ of this particular distribution.
 ```
 ```{r, fig.width=5, fig.height=3, echo=FALSE, warning=FALSE, message=FALSE}
@@ -398,7 +398,7 @@ print(p)
 ```
 <div class="fold">
 ```{solution, echo = togs}
-a. It's the midpoint between $a$ and $b$, so $\frac{a+b}{2}$
+a. The center of mass is the center of the square from $a$ to $b$ and from 0 to $\frac{1}{b-a}$. Its value on the x-axis is the midpoint between $a$ and $b$, so $\frac{a+b}{2}$
 b. Inserting the parameter values we get:$$f(x) = 
 \begin{cases} 
 1 & \text{if } 0 \leq x \leq 1 \\
@@ -517,11 +517,9 @@ Below you've been provided with some code that you can copy into Rstudio. Once y
 
 Play around with the parameters to get:
 
-a) A straight line from (0,0) to (1,2)
-b) A straight line from (0,2) to (1,0)
-c) A symmetric bell curve
-d) A bowl-shaped curve
-e) The standard uniform distribution is actually a special case of the beta distribution. Find the exact parameters $\alpha$ and $\beta$. Once you do, prove the equality by inserting the values into our pdf. 
+a) A symmetric bell curve
+b) A bowl-shaped curve
+c) The standard uniform distribution is actually a special case of the beta distribution. Find the exact parameters $\alpha$ and $\beta$. Once you do, prove the equality by inserting the values into our pdf. 
 
 *Hint*: The beta function is evaluated as $\text{B}(a,b) = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$,
  the gamma function for **positive integers** $n$ is evaluated as $\Gamma(n)= (n-1)!$
@@ -566,15 +564,11 @@ shinyApp(ui = ui, server = server)
 ```
 <div class="fold">
 ```{solution, echo = togs}
-  a) $\alpha = 2, \beta=1$
+  a) Possible solution $\alpha = \beta= 5$
   
-  b) $\alpha = 1, \beta=2$
-  
-  c) Possible solution $\alpha = \beta= 5$
-  
-  d) Possible solution $\alpha = \beta= 0.5$
+  b) Possible solution $\alpha = \beta= 0.5$
     
-  e) The correct parameters are $\alpha = 1, \beta=1$, to prove the equality we insert them into the beta pdf:
+  c) The correct parameters are $\alpha = 1, \beta=1$, to prove the equality we insert them into the beta pdf:
     $$\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)} =
       \frac{x^{1 - 1} (1 - x)^{1 - 1}}{\text{B}(1, 1)} =
         \frac{1}{\frac{\Gamma(1)\Gamma(1)}{\Gamma(1+1)}}=
@@ -593,7 +587,7 @@ a) What is the mean time between phone calls?
 
 The cdf $F(x)$ tells us what percentage of calls occur within x amount of time of each other.
 
-b) You want to take an hour long lunch break but are worried about missing calls. Calculate the percentage of calls you are likely to miss if you're gone for an hour. Hint: The cdf is $F(x) = \int_{-\infty}^{x} f(x) dx$
+b) You want to take an hour long lunch break but are worried about missing calls. Calculate the probability of missing at least one call if you're gone for an hour. Hint: The cdf is $F(x) = \int_{-\infty}^{x} f(x) dx$
 ```
 
 <div class="fold">
@@ -612,12 +606,12 @@ b. First we derive the CDF, we can integrate from 0 instead of $-\infty$, since 
     Then we just evaluate it for a time of 1 hour:
       $$F(1 \text{ hour}) = 1 - e^{-\frac{1 \text{ call}}{3.2 \text{ hours}} \cdot 1 \text{ hour}}=
       1 - e^{-\frac{1 \text{ call}}{3.2 \text{ hours}}} \approx 0.268$$
-  So we have about a 27% chance of missing a call if we're gone for an hour.
+  So we have about a 27% chance of missing at least one call if we're gone for an hour.
 ```
 </div>
 
 ```{exercise, name = "Gamma intuition 1"}
-The gamma distribution is a continuous distribution characterized by two parameters, $\alpha$ and $\beta$, both greater than 0. These parameters afford the distribution a broad range of shapes, leading to it being commonly referred to as a *family of distributions*. Given its support over the positive real numbers, it is well suited for modeling a diverse range of positive-valued phenomena.
+The gamma distribution is a continuous distribution with by two parameters, $\alpha$ and $\beta$, both greater than 0. These parameters afford the distribution a broad range of shapes, leading to it being commonly referred to as a *family of distributions*. Given its support over the positive real numbers, it is well suited for modeling a diverse range of positive-valued phenomena.
 
 a) The exponential distribution is actually just a particular form of the gamma distribution. What are the values of $\alpha$ and $\beta$?
 b) Copy the code from our beta distribution Shiny app and modify it to simulate the gamma distribution. Then get it to show the exponential.
