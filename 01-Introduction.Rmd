@@ -191,9 +191,9 @@ Now notice that $c^c \in C$ because $c \in C$ and $C$ is a $\sigma$-algebra.
 But this means that $c^c \cap U \in C^\prime$ by definition of $C^\prime$.
 This is the same as saying $B^c \in C^\prime$, which proves the complements property.
 
-Suppose $B_n = C_n \cap U$  and $\{C_n \cap U\}_{n \in \mathbb{N}}$ is a sequence of sets in $C^\prime$. Then $\cup_{n \in \mathbb{N}} \in C$. It follows that:
+Suppose $B_n = C_n \cap U$  and $\{C_n \cap U\}_{n \in \mathbb{N}}$ is a sequence of sets in $C^\prime$. Then $\cup_{n \in \mathbb{N}}C_n \in C$. It follows that:
 $$
-\cup_{n \in \mathbb{N}}B_n = \cup_{n \in \mathbb{N}} (U \cap C_n) = (\cup_{n \in \mathbb{N}}C_n) \cap U \in C^\prime,
+\cup_{n \in \mathbb{N}} B_n = \cup_{n \in \mathbb{N}} (U \cap C_n) = (\cup_{n \in \mathbb{N}}C_n) \cap U \in C^\prime,
 $$
 because the final union is in $C$. This proves the countable union property.
 ```
