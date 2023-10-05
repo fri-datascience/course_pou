@@ -23,7 +23,7 @@
 <meta name="author" content="Gregor Pirš, Erik Štrumbelj, David Nabergoj and Leon Hvastja" />
 
 
-<meta name="date" content="2023-10-02" />
+<meta name="date" content="2023-10-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -299,8 +299,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="introduction" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Probability spaces<a href="introduction.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This chapter deals with measures and probability spaces. At the end of
-the chapter, we look more closely at discrete probability spaces.</p>
+<p>This chapter deals with measures and probability spaces. At the end of the chapter, we look more closely at discrete probability spaces.</p>
 <p>The students are expected to acquire the following knowledge:</p>
 <p><strong>Theoretical</strong></p>
 <ul>
@@ -432,7 +431,32 @@ Since <span class="math inline">\(\sigma(A) \subseteq \sigma(B)\)</span> and <sp
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-11" class="exercise"><strong>Exercise 1.6  (Intro to measure) </strong></span>Take the measurable space <span class="math inline">\(\Omega = \{1,2\}\)</span>, <span class="math inline">\(F = 2^{\Omega}\)</span>. Which of the
+<p><span id="exr:unnamed-chunk-11" class="exercise"><strong>Exercise 1.6  (Intersection of sigma algebra and a set) </strong></span>This exercise is adapted from Guy Lebanon, <em>Probability: The Analysis of Data, Volume 1</em> (2012).</p>
+<p>Let <span class="math inline">\(C\)</span> be a <span class="math inline">\(\sigma\)</span>-algebra over <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(U \subset \Omega\)</span>.
+Prove that <span class="math inline">\(C^\prime = \{c \cap U | c \in C\}\)</span> is a <span class="math inline">\(\sigma\)</span>-algebra over <span class="math inline">\(U\)</span>.</p>
+</div>
+<div class="fold">
+<div class="solution">
+<p><span id="unlabeled-div-6" class="solution"><em>Solution</em>. </span>The empty set is an element of <span class="math inline">\(C^\prime\)</span>. We see this by partitioning <span class="math inline">\(C^\prime\)</span> into a subset without the empty set and a subset containing the empty set exclusively:
+<span class="math display">\[
+C^\prime = \{c \cap U | c \in C\} = \{c \cap U | c \in C \setminus \emptyset \} \cup \{ c \cap U | c \in \{ \emptyset \} \} = \{c \cap U | c \in C \setminus \emptyset \} \cup \{\emptyset\}.
+\]</span></p>
+<p>Suppose <span class="math inline">\(B \in C^\prime\)</span>. We verify that <span class="math inline">\(B^c \in C^\prime\)</span>. <span class="math inline">\(B \in C^\prime \Rightarrow B = c \cap U\)</span> for some <span class="math inline">\(c \in C^\prime\)</span>. Also note that <span class="math inline">\(B^c = U \cap B^c\)</span> since we consider <span class="math inline">\(U\)</span> our universal set. We then have
+<span class="math display">\[
+B^c = U \cap B^c = U \cap (c \cap U)^c = U \cap (c^c \cup U^c) = (U \cap c^c) \cup (U \cap U^c) = (U \cap c^c) \cup \emptyset = (U \cap c^c).
+\]</span>
+Now notice that <span class="math inline">\(c^c \in C\)</span> because <span class="math inline">\(c \in C\)</span> and <span class="math inline">\(C\)</span> is a <span class="math inline">\(\sigma\)</span>-algebra.
+But this means that <span class="math inline">\(c^c \cap U \in C^\prime\)</span> by definition of <span class="math inline">\(C^\prime\)</span>.
+This is the same as saying <span class="math inline">\(B^c \in C^\prime\)</span>, which proves the complements property.</p>
+<p>Suppose <span class="math inline">\(B_n = C_n \cap U\)</span> and <span class="math inline">\(\{C_n \cap U\}_{n \in \mathbb{N}}\)</span> is a sequence of sets in <span class="math inline">\(C^\prime\)</span>. Then <span class="math inline">\(\cup_{n \in \mathbb{N}} \in C\)</span>. It follows that:
+<span class="math display">\[
+\cup_{n \in \mathbb{N}}B_n = \cup_{n \in \mathbb{N}} (U \cap C_n) = (\cup_{n \in \mathbb{N}}C_n) \cap U \in C^\prime,
+\]</span>
+because the final union is in <span class="math inline">\(C\)</span>. This proves the countable union property.</p>
+</div>
+</div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-13" class="exercise"><strong>Exercise 1.7  (Intro to measure) </strong></span>Take the measurable space <span class="math inline">\(\Omega = \{1,2\}\)</span>, <span class="math inline">\(F = 2^{\Omega}\)</span>. Which of the
 following is a measure? Which is a probability measure?</p>
 <ol style="list-style-type: lower-alpha">
 <li><span class="math inline">\(\mu(\emptyset) = 0\)</span>, <span class="math inline">\(\mu(\{1\}) = 5\)</span>, <span class="math inline">\(\mu(\{2\}) = 6\)</span>, <span class="math inline">\(\mu(\{1,2\}) = 11\)</span></li>
@@ -444,7 +468,7 @@ following is a measure? Which is a probability measure?</p>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-6" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-7" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li>Measure. Not probability measure since <span class="math inline">\(\mu(\Omega) &gt; 1\)</span>.</li>
 <li>Neither due to countable additivity.</li>
@@ -455,11 +479,11 @@ following is a measure? Which is a probability measure?</p>
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-13" class="exercise"><strong>Exercise 1.7  </strong></span>Define a probability space that could be used to model the outcome of throwing two fair 6-sided dice.</p>
+<p><span id="exr:unnamed-chunk-15" class="exercise"><strong>Exercise 1.8  </strong></span>Define a probability space that could be used to model the outcome of throwing two fair 6-sided dice.</p>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-7" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-8" class="solution"><em>Solution</em>. </span></p>
 <ul>
 <li><p><span class="math inline">\(\Omega = \{\{i,j\}, i = 1,...,6, j = 1,...,6\}\)</span></p></li>
 <li><p><span class="math inline">\(F = 2^{\Omega}\)</span></p></li>
@@ -471,7 +495,7 @@ following is a measure? Which is a probability measure?</p>
 <div id="properties-of-probability-measures" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> Properties of probability measures<a href="introduction.html#properties-of-probability-measures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-15" class="exercise"><strong>Exercise 1.8  </strong></span>A standard deck (52 cards) is distributed to two persons: 26 cards to each
+<p><span id="exr:unnamed-chunk-17" class="exercise"><strong>Exercise 1.9  </strong></span>A standard deck (52 cards) is distributed to two persons: 26 cards to each
 person. All partitions are equally likely. Find the probability that:</p>
 <ol style="list-style-type: lower-alpha">
 <li>The first person gets 4 Queens.</li>
@@ -482,7 +506,7 @@ answers. </span></li>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-8" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-9" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math inline">\(\frac{\binom{48}{22}}{\binom{52}{26}}\)</span></p></li>
 <li><p>1 - <span class="math inline">\(\frac{\binom{48}{26} + 4 \times \binom{48}{25}}{\binom{52}{26}}\)</span></p></li>
@@ -508,7 +532,7 @@ let 1 through 4 represent Queens.</p></li>
 <pre><code>## [1] 0.6894</code></pre>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-18" class="exercise"><strong>Exercise 1.9  </strong></span>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be events with probabilities <span class="math inline">\(P(A) = \frac{2}{3}\)</span> and
+<p><span id="exr:unnamed-chunk-20" class="exercise"><strong>Exercise 1.10  </strong></span>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be events with probabilities <span class="math inline">\(P(A) = \frac{2}{3}\)</span> and
 <span class="math inline">\(P(B) = \frac{1}{2}\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Show that <span class="math inline">\(\frac{1}{6} \leq P(A\cap B) \leq \frac{1}{2}\)</span>,
@@ -520,7 +544,7 @@ and give examples to show that both extremes are possible.</li>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-9" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-10" class="solution"><em>Solution</em>. </span></p>
 <ul>
 <li>From the properties of probability we have</li>
 </ul>
@@ -590,7 +614,7 @@ Again from the properties of probability we have</li>
 <pre><code>## [1] 0.4913</code></pre>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-21" class="exercise"><strong>Exercise 1.10  </strong></span>A fair coin is tossed repeatedly.</p>
+<p><span id="exr:unnamed-chunk-23" class="exercise"><strong>Exercise 1.11  </strong></span>A fair coin is tossed repeatedly.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Show that, with probability one, a head turns up sooner or later.</p></li>
 <li><p>Show similarly that any given finite sequence of heads and
@@ -599,7 +623,7 @@ tails occurs eventually with probability one.</p></li>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-10" class="solution"><em>Solution</em>. </span><span class="math display">\[\begin{align}
+<p><span id="unlabeled-div-11" class="solution"><em>Solution</em>. </span><span class="math display">\[\begin{align}
 P(\text{no heads}) &amp;= \lim_{n \rightarrow \infty} P(\text{no heads in first }n
                                  \text{ tosses}) \\
                    &amp;= \lim_{n \rightarrow \infty} \frac{1}{2^n} \\
@@ -625,7 +649,7 @@ P(s \text{ occurs}) &amp;\geq \lim_{n \rightarrow \infty}
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-23" class="exercise"><strong>Exercise 1.11  </strong></span>An Erdos-Renyi random graph <span class="math inline">\(G(n,p)\)</span> is a model with <span class="math inline">\(n\)</span> nodes, where
+<p><span id="exr:unnamed-chunk-25" class="exercise"><strong>Exercise 1.12  </strong></span>An Erdos-Renyi random graph <span class="math inline">\(G(n,p)\)</span> is a model with <span class="math inline">\(n\)</span> nodes, where
 each pair of nodes is connected with probability <span class="math inline">\(p\)</span>.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Calculate the probability that there exists a node that is not
@@ -636,7 +660,7 @@ connected to any other node in <span class="math inline">\(G(4,0.6)\)</span>.</l
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-11" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-12" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li>Let <span class="math inline">\(A_i\)</span> be the event that the <span class="math inline">\(i\)</span>-th node is not connected to
 any other node. Then our goal is to calculate <span class="math inline">\(P(\cup_{i=1}^n A_i)\)</span>.
@@ -688,7 +712,7 @@ P(\cup_{i&lt;j}A_{ij}) &amp;\leq \sum_{i&lt;j} (1 - p)^{2(n-2) + 1} \\
 <div id="discrete-probability-spaces" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> Discrete probability spaces<a href="introduction.html#discrete-probability-spaces" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:binomialpmf" class="exercise"><strong>Exercise 1.12  </strong></span>Show that the standard measurable space on <span class="math inline">\(\Omega = \{0,1,...,n\}\)</span> equipped with binomial measure is a discrete probability space.</p>
+<p><span id="exr:binomialpmf" class="exercise"><strong>Exercise 1.13  </strong></span>Show that the standard measurable space on <span class="math inline">\(\Omega = \{0,1,...,n\}\)</span> equipped with binomial measure is a discrete probability space.</p>
 <ol style="list-style-type: lower-alpha">
 <li>Define another probability measure on this measurable space.</li>
 <li>Show that for <span class="math inline">\(n=1\)</span> the binomial measure is the same as the Bernoulli measure.</li>
@@ -697,7 +721,7 @@ P(\cup_{i&lt;j}A_{ij}) &amp;\leq \sum_{i&lt;j} (1 - p)^{2(n-2) + 1} \\
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-12" class="solution"><em>Solution</em>. </span>We need to show that the terms of
+<p><span id="unlabeled-div-13" class="solution"><em>Solution</em>. </span>We need to show that the terms of
 <span class="math inline">\(\sum_{k=0}^n \binom{n}{k} p^k (1 - p)^{n - k}\)</span> sum to 1. For that we use the
 binomial theorem <span class="math inline">\(\sum_{k=0}^n \binom{n}{k} x^k y^{n-k} = (x + y)^n\)</span>. So</p>
 <p><span class="math display">\[\begin{equation}
@@ -723,10 +747,10 @@ which is the Bernoulli measure.</li>
 <span id="cb11-10"><a href="introduction.html#cb11-10" tabindex="-1"></a>bin_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> bin_samp, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> n, <span class="at">fill =</span> type)) <span class="sc">+</span></span>
 <span id="cb11-11"><a href="introduction.html#cb11-11" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span>
 <span id="cb11-12"><a href="introduction.html#cb11-12" tabindex="-1"></a><span class="fu">plot</span>(bin_plot)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 </div>
 <div class="exercise">
-<p><span id="exr:geopoispmf" class="exercise"><strong>Exercise 1.13  </strong></span>Show that the standard measurable space on <span class="math inline">\(\Omega = \{0,1,...,\infty\}\)</span></p>
+<p><span id="exr:geopoispmf" class="exercise"><strong>Exercise 1.14  </strong></span>Show that the standard measurable space on <span class="math inline">\(\Omega = \{0,1,...,\infty\}\)</span></p>
 <ol style="list-style-type: lower-alpha">
 <li>equipped with geometric measure is a discrete probability space,</li>
 <li>equipped with Poisson measure is a discrete probability space.</li>
@@ -736,7 +760,7 @@ which is the Bernoulli measure.</li>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-13" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-14" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p><span class="math inline">\(\sum_{k = 0}^{\infty} p(1 - p)^k = p \sum_{k = 0}^{\infty} (1 - p)^k =  p \frac{1}{1 - 1 + p} = 1\)</span>. We used the formula for geometric series.</p></li>
 <li><p><span class="math inline">\(\sum_{k = 0}^{\infty} \frac{\lambda^k e^{-\lambda}}{k!} =  e^{-\lambda} \sum_{k = 0}^{\infty} \frac{\lambda^k}{k!} =  e^{-\lambda} e^{\lambda} = 1.\)</span> We used the Taylor expansion of
@@ -767,10 +791,10 @@ chapter.</p>
 <span id="cb12-8"><a href="introduction.html#cb12-8" tabindex="-1"></a>pois_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> pois_samp, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> n, <span class="at">fill =</span> type)) <span class="sc">+</span></span>
 <span id="cb12-9"><a href="introduction.html#cb12-9" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span>
 <span id="cb12-10"><a href="introduction.html#cb12-10" tabindex="-1"></a><span class="fu">plot</span>(pois_plot)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-30" class="exercise"><strong>Exercise 1.14  </strong></span></p>
+<p><span id="exr:unnamed-chunk-32" class="exercise"><strong>Exercise 1.15  </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Define a probability measure on <span class="math inline">\((\Omega = \mathbb{Z}, 2^{\mathbb{Z}})\)</span>.</p></li>
 <li><p>Define a probability measure such that <span class="math inline">\(P(\omega) &gt; 0, \forall \omega \in \Omega\)</span>.</p></li>
@@ -782,7 +806,7 @@ measure </span>.</p></li>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-14" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-15" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><span class="math inline">\(P(0) = 1, P(\omega) = 0, \forall \omega \neq 0\)</span>.</li>
 <li><span class="math inline">\(P(\{k\}) = \sum_{k = -\infty}^{\infty} \frac{p(1 - p)^{|k|}}{2^{1 - 1_0(k)}}\)</span>,
@@ -807,10 +831,10 @@ equals to zero in every other case.</li>
 <span id="cb13-15"><a href="introduction.html#cb13-15" tabindex="-1"></a>geom_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> geom_samps, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> n, <span class="at">fill =</span> type)) <span class="sc">+</span></span>
 <span id="cb13-16"><a href="introduction.html#cb13-16" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span>
 <span id="cb13-17"><a href="introduction.html#cb13-17" tabindex="-1"></a><span class="fu">plot</span>(geom_plot)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-33" class="exercise"><strong>Exercise 1.15  </strong></span>Define a probability measure on <span class="math inline">\(\Omega = \{1,2,3,4,5,6\}\)</span> with parameter <span class="math inline">\(m \in \{1,2,3,4,5,6\}\)</span>, so that the probability of outcome at distance <span class="math inline">\(1\)</span> from
+<p><span id="exr:unnamed-chunk-35" class="exercise"><strong>Exercise 1.16  </strong></span>Define a probability measure on <span class="math inline">\(\Omega = \{1,2,3,4,5,6\}\)</span> with parameter <span class="math inline">\(m \in \{1,2,3,4,5,6\}\)</span>, so that the probability of outcome at distance <span class="math inline">\(1\)</span> from
 <span class="math inline">\(m\)</span> is half of the probability at distance <span class="math inline">\(0\)</span>, at distance <span class="math inline">\(2\)</span> is half of
 the probability at distance <span class="math inline">\(1\)</span>, etc. <span style="color:blue">R:
 Implement a random generator that will generate
@@ -820,7 +844,7 @@ measure </span>.</p>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-15" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-16" class="solution"><em>Solution</em>. </span></p>
 <ul>
 <li><span class="math inline">\(P(\{k\}) = \frac{\frac{1}{2}^{|m - k|}}{\sum_{i=1}^6 \frac{1}{2}^{|m - i|}}\)</span></li>
 </ul>
@@ -848,7 +872,7 @@ measure </span>.</p>
 <span id="cb14-21"><a href="introduction.html#cb14-21" tabindex="-1"></a>my_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> samps, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> n, <span class="at">fill =</span> type)) <span class="sc">+</span></span>
 <span id="cb14-22"><a href="introduction.html#cb14-22" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span>
 <span id="cb14-23"><a href="introduction.html#cb14-23" tabindex="-1"></a><span class="fu">plot</span>(my_plot)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 </div>
 
 </div>

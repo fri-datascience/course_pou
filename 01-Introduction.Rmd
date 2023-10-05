@@ -183,7 +183,7 @@ $$
 C^\prime = \{c \cap U | c \in C\} = \{c \cap U | c \in C \setminus \emptyset \} \cup \{ c \cap U | c \in \{ \emptyset \} \} = \{c \cap U | c \in C \setminus \emptyset \} \cup \{\emptyset\}.
 $$
 
-Suppose $B \in C^\prime$. We verify that $B^c \in C^\prime$. $B \in C^\prime \Rightarrow B = c \cap U$ for some $c \in C^\prime$.  Also note that $B^c = U \cap B^c$, since we are taking $U$ as our universal set. We then have 
+Suppose $B \in C^\prime$. We verify that $B^c \in C^\prime$. $B \in C^\prime \Rightarrow B = c \cap U$ for some $c \in C^\prime$.  Also note that $B^c = U \cap B^c$ since we consider $U$ our universal set. We then have 
 $$
 B^c = U \cap B^c = U \cap (c \cap U)^c = U \cap (c^c \cup U^c) = (U \cap c^c) \cup (U \cap U^c) = (U \cap c^c) \cup \emptyset = (U \cap c^c).
 $$
