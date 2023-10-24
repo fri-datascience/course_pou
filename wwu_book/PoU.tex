@@ -69,7 +69,7 @@
 
 \newcommand\eqas{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily a. s.}}}{=}}}
 
-\title{\textbf{Working with uncertainty}\\ \begin{small}v0.65\end{small}}
+\title{\textbf{Working with uncertainty}\\ \begin{small}v0.66\end{small}}
 
 \author{Erik \v{S}trumbelj}
 
@@ -84,7 +84,7 @@
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-I would like to thank my students Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Valter Hudovernik, Leon Hvastja, Martin Jurkovi\v{c}, Ma\v{s}a Kljun, Uro\v{s} Kozole, Timur Kulenovi\'{c}, Haris Kupini\'{c}, Miha Marke\v{z}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, \v{Z}iga Rot, Jovana Videnovi\'{c}, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
+I would like to thank my students Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Valter Hudovernik, Leon Hvastja, Martin Jurkovi\v{c}, Ma\v{s}a Kljun, Alja\v{z} Konec, Uro\v{s} Kozole, Timur Kulenovi\'{c}, Haris Kupini\'{c}, Miha Marke\v{z}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, \v{Z}iga Rot, Jovana Videnovi\'{c}, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
 
 Special thanks to Alja\v{z} Zalar for reading an early version of the book and providing feedback.
 
@@ -503,7 +503,7 @@ Now consider the intersection of all sets in our set $\mathfrak{F} = \bigcap_{i}
 Finally, for every $\mathcal{F}_i$, we have $\mathfrak{F} \subseteq \mathcal{F}_i$. So, $\mathfrak{F}$ is at most as large as any $\sigma$-algebra that contains $\mathcal{C}$ and is therefore the smallest $\sigma$-algebra that contains $\mathcal{C}$.
 \end{proof}
 
-So, if we define $\mathcal{C}$ to be the set of all open intervals $(a,b) \subset (0,1]$, we know that there exists $\sigma(\mathcal{C})$ that is a $\sigma$-algebra with the fewest additional elements. If fact, such $\sigma$-algebras are so important that they have a name:
+So, if we define $\mathcal{C}$ to be the set of all open intervals $(a,b) \subset (0,1]$, we know that there exists $\sigma(\mathcal{C})$ that is a $\sigma$-algebra with the fewest additional elements. In fact, such $\sigma$-algebras are so important that they have a name:
 
 \begin{definition}[Borel $\sigma$-algebra] Let $\mathcal{C}$ be the set of all open intervals $(a, b)$ in $(0,1]$. The generated $\sigma$-algebra $\sigma(\mathcal{C})$ is called the \textbf{Borel $\sigma$-algebra} and is denoted by $\mathcal{B}_{(0,1]}$. Elements of Borel $\sigma$-algebras are called \emph{Borel sets.}
 \end{definition}
@@ -1215,11 +1215,11 @@ The probability law $P_X$ is a probability measure on $(\mathbb{R},\mathcal{B}_\
 \end{proposition}
 
 \begin{proof}
-$P_X(\emptyset) = 0$ follows from the fact that $P_X$ is a finite measure. $P_X(\mathbb{R}) = P(\{\omega \in \Omega | f(\omega) \in \mathbb{R}\}) = P(\Omega) = 1$. What remains is to show countable additivity. Note that the pre-images under $X$ of two disjoint Borel sets are disjoint, because $X$ maps each element of $\Omega$ to a single element of $\mathbb{R}$. Therefore,
+$P_X(\emptyset) = 0$ follows from the fact that $P_X$ is a finite measure. $P_X(\mathbb{R}) = P(\{\omega \in \Omega | X(\omega) \in \mathbb{R}\}) = P(\Omega) = 1$. What remains is to show countable additivity. Note that the pre-images under $X$ of two disjoint Borel sets are disjoint, because $X$ maps each element of $\Omega$ to a single element of $\mathbb{R}$. Therefore,
 
 \begin{align*}
-    P_X(\bigcup_{i=1}^\infty A_i) &= P(\bigcup_{i=1}^\infty  \{\omega \in \Omega | f(\omega) \in A_i\}) \\
-    &= \sum_{i=1}^\infty P(\{\omega \in \Omega | f(\omega) \in A_i\}) \\
+    P_X(\bigcup_{i=1}^\infty A_i) &= P(\bigcup_{i=1}^\infty  \{\omega \in \Omega | X(\omega) \in A_i\}) \\
+    &= \sum_{i=1}^\infty P(\{\omega \in \Omega | X(\omega) \in A_i\}) \\
     &= \sum_{i=1}^\infty P_X(A_i).
 \end{align*}
 
