@@ -84,7 +84,7 @@
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-I would like to thank my students Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Valter Hudovernik, Leon Hvastja, Martin Jurkovi\v{c}, Ma\v{s}a Kljun, Alja\v{z} Konec, Uro\v{s} Kozole, Timur Kulenovi\'{c}, Haris Kupini\'{c}, Miha Marke\v{z}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, \v{Z}iga Rot, Ja\v{s}a Samec, Jovana Videnovi\'{c}, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
+I would like to thank my students Jakob Bo\v{z}i\v{c}, Benjamin Džubur, Greta Ga\v{s}parac, Jan Hartman, Valter Hudovernik, Leon Hvastja, Martin Jurkovi\v{c}, Matej Klan\v{c}ar, Ma\v{s}a Kljun, Alja\v{z} Konec, Uro\v{s} Kozole, Timur Kulenovi\'{c}, Haris Kupini\'{c}, Miha Marke\v{z}, Toma\v{z} Martin\v{c}i\v{c}, Andrej Mi\v{s}\v{c}i\v{c}, Jurij Nastran, Samo Pahor, Boris Radovič, \v{Z}iga Rot, Ja\v{s}a Samec, Jovana Videnovi\'{c}, and Luka \v{Z}ontar, whose comments and suggestions helped improve this text.
 
 Special thanks to Alja\v{z} Zalar for reading an early version of the book and providing feedback.
 
@@ -578,7 +578,7 @@ Because the set of open intervals generates $\mathcal{B}_{(0,1]}$, the set of se
 
 Now we can return to the task of constructing a uniform measure $\lambda$ on $\Omega = (0,1]$. Instead of using the power set, our measurable space will be $((0,1], \mathcal{B}_{(0,1]})$. Hopefully this removes the pathological sets that made it impossible (see Theorem \ref{thm:nonexistence}).
 
-Let us recall our notion of a uniform measure, as we defined it in Definition \ref{def:naive_uniform}. We required such a method to have the following two properties:
+Let us recall our notion of a uniform measure, as we defined it in Definition \ref{def:naive_uniform}. We required such a measure to have the following two properties:
 
 \begin{enumerate}[(i)]
 \item $P((a,b)) = P([a,b)) = P((a,b]) = P([a,b])$ for all $(a,b) \in \mathcal{F}$ \emph{(uniformity)}.
@@ -610,14 +610,14 @@ In our case we have already determined that our uniform measure of an interval s
 \end{proposition}
 
 \begin{proof}
-The proof of (a) is straightforward. We have $\mathcal{F}_0 \subseteq \mathcal{B}_{(0,1]}$, so $\sigma(\mathcal{F}_0) \subseteq \mathcal{B}_{(0,1]}$. We also know from before that the set of all half-open intervals generates $\mathcal{B}_{(0,1]}$, so $\mathcal{B}_{(0,1]} \subset \sigma(\mathcal{F}_0)$.
+The proof of (a) is straightforward. We have $\mathcal{F}_0 \subseteq \mathcal{B}_{(0,1]}$, so $\sigma(\mathcal{F}_0) \subseteq \mathcal{B}_{(0,1]}$. We also know from before that the set of all half-open intervals generates $\mathcal{B}_{(0,1]}$, so $\mathcal{B}_{(0,1]} \subseteq \sigma(\mathcal{F}_0)$.
 
 In order for $\mathcal{F}_0$ to be an algebra, it must contain the empty set (it does, by definition) and must be closed under complementation and under finite unions. A union of two half-open intervals of the form $(a, b]$ is either another interval of the form $(a, b]$ or a union of two such intervals. Both cases are by definition in $\mathcal{F}_0$. Similarly, the complement of any finite union of such intervals is again a finite union of such intervals.
 
 We can show (c) by observing the countable union $\cup_{i=1}^\infty (0, \frac{i}{i+1}]$. All of the terms in the union are intervals of the form $(a, b]$ and are therefore in $\mathcal{F}_0$. However, their union is $(0, 1)$, which is not in $\mathcal{F}_0$.
 \end{proof}
 
-So far, we have introduced the Borel $\sigma$-algebra, which is the smallest $\sigma-$algebra that contains the sets we are interested in in practice. We have now introduced an algebra $\mathcal{F}_0$ that generates the Borel $\sigma$-algebra. Before we can invoke Caratheorory's theorem to show that our uniform probability can indeed be uniquely extended to the Borel $\sigma$-algebra, we must complete our uniform measure so that it is indeed a pre-measure on $\mathcal{F}_0$.
+So far, we have introduced the Borel $\sigma$-algebra, which is the smallest $\sigma-$algebra that contains the sets we are interested in in practice. We have now introduced an algebra $\mathcal{F}_0$ that generates the Borel $\sigma$-algebra. Before we can invoke Caratheodory's theorem to show that our uniform probability can indeed be uniquely extended to the Borel $\sigma$-algebra, we must complete our uniform measure so that it is indeed a pre-measure on $\mathcal{F}_0$.
 
 We have already determined how we are going to measure the intervals of the form $(a, b]$: $\lambda((a, b]) = b - a$. Because our measure will be finite, we have $\lambda(\emptyset) = 0$. All other sets in $\mathcal{F}_0$ are finite unions of disjoints half-open intervals, for example $(\frac{1}{3}, \frac{1}{2}] \cup (\frac{4}{5}, \frac{5}{6}]$, for which our measure $\lambda$ is not yet defined. In general, sets
 
@@ -1463,7 +1463,7 @@ An example of a singular RV is the Cantor distribution.
 \section{Decomposition of probability measures}
 
 \begin{theorem}[Decomposition theorem]
-Every CDF $F$ can written as $$F = w_1 F_\text{continuous} + w_2 F_\text{discrete} + w_3 F_\text{singular},$$ where $w_i \geq 0$, $\sum w_i = 1$, and the CDFs on the right-hand side correspond to a continuous, discrete, and singular RV.
+Every CDF $F$ can be written as $$F = w_1 F_\text{continuous} + w_2 F_\text{discrete} + w_3 F_\text{singular},$$ where $w_i \geq 0$, $\sum w_i = 1$, and the CDFs on the right-hand side correspond to a continuous, discrete, and singular RV.
 \end{theorem}
 
 The theorem states that every RV is a combination of the three pure types. While singular random variables are only of theoretical interest, RVs that are a mix of a discrete and continuous RV are very common in practice.
