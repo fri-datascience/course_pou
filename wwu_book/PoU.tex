@@ -1125,7 +1125,7 @@ Statements (a-c) and (e) are left as an exercise.
 
 Abstract integration also elegantly generalizes sums and infinite series. First, let's define a new measure:
 
-\begin{definition}[Counting function] Let $(\Omega, \mathcal{F})$ be a measurable space. A function $\#:\mathcal{F} \longrightarrow [0,\infty)$ is defined as $\#(A) = |A|$ if $|A|$ is finite and $\infty$ otherwise.
+\begin{definition}[Counting function] Let $(\Omega, \mathcal{F})$ be a measurable space. A function $\#:\mathcal{F} \longrightarrow [0,\infty]$ is defined as $\#(A) = |A|$ if $|A|$ is finite and $\infty$ otherwise.
 \end{definition}
 
 \begin{proposition}
@@ -2581,7 +2581,7 @@ where $\Sigma_{WZ} = \Cov(X_W, X_Z)$. For any such partition, we have
 
 \begin{enumerate}[(a)]
 \item $X_A \sim N(\E[X_A], \Sigma_{AA})$.
-\item $X_A | X_B = x_b \sim N(\mu_A + \Sigma_{AB}\Sigma_{BB}^{-1}(x_B - \E[X_B]), \Sigma_{AA} - \Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{BA})$.
+\item $X_A | X_B = x_B \sim N(\mu_A + \Sigma_{AB}\Sigma_{BB}^{-1}(x_B - \E[X_B]), \Sigma_{AA} - \Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{BA})$.
 
 \end{enumerate}\label{prop:marginal}
 
