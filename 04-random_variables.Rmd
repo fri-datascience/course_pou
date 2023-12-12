@@ -1038,6 +1038,62 @@ $\{-2, -1, 0, 1, 2\}$. Find the PMF of $Y = X^2$.
 ```
 </div>
 
+```{exercise, name = "Continuous uniform random variable"}
+Let $X \sim U(-1, 1)$ be uniformly distributed on $[-1, 1]$ and let $Y = X^2$.
+Find the CDF of $Y$, the PDF of $Y$, and ensure that the obtained PDF integrates to 1.
+
+a. Find the CDF of $Y$.
+b. Find the PDF of $Y$ and verify that it integrates to 1.
+c. <span style="color:blue">R: Plot histograms of samples from $X$ and $Y$ and overlay the true densities.</span>
+
+```
+<div class="fold">
+```{solution, echo = togs2}
+
+a.
+We first observe that $Y \in [0, 1]$. If a sample from $Y$ is less than $\alpha$, the corresponding sample from $X$ must be in $\left[-\sqrt{\alpha}, \sqrt{\alpha}\right]$.
+
+\begin{align}
+  F_Y(\alpha) = P_X(X \in \left[-\sqrt{\alpha}, \sqrt{\alpha}\right]) &= F_X(\sqrt{\alpha}) - F_X(-\sqrt{\alpha}) \\
+  &= \frac{\sqrt{\alpha} + 1}{2} - \frac{-\sqrt{\alpha} + 1}{2} = \sqrt{\alpha}.
+\end{align}
+
+b.
+
+\begin{align}
+  f_Y(\alpha) = \frac{\partial}{\partial \alpha} F_Y(\alpha) = \frac{\partial}{\partial \alpha} \sqrt{\alpha} = \frac{1}{2\sqrt{\alpha}}.
+\end{align}
+  
+\begin{align}
+  \int_{0}^1f_Y(\alpha)d\alpha = 0.5\int_{0}^1 \frac{1}{\alpha}d\alpha = 0.5\left[\frac{\alpha^{0.5}}{0.5}\right]_0^1 = 1 - 0 = 1.
+\end{align}
+
+c.
+```
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
+# Draw samples to plot
+set.seed(0)
+n <- 10000
+x <- runif(n, min=-1, max=1)
+y <- runif(n, min=-1, max=1)^2
+
+# Dataframe of samples
+df <- data.frame(value=c(x, y), RV=c(
+  rep("X", n),
+  rep("Y", n)
+))
+
+# Dataframe with analytically computed density of Y
+df_y_analytic <- data.frame(y=seq(1e-2, 1, length.out=1000))
+df_y_analytic$density <- 1 / (2 * sqrt(df_y_analytic$y))
+
+library(ggplot2)
+ggplot(df) +
+  geom_histogram(aes(x=value, after_stat(density), fill=RV), alpha=0.5, bins=50, position = "identity") +
+  stat_function(fun = function(u) 1/2, color="red") +
+  geom_path(data=df_y_analytic, aes(x=y, y=density), color="blue")
+```
+</div>
 
 
 ```{exercise, name = "Lognormal random variable", label = lognpdf}
