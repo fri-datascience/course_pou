@@ -379,3 +379,232 @@ bootstrap(x, T_max)
 # In general, bootstrap will fail when estimating the CI for the maximum.
 ```
 </div> 
+
+```{exercise, name = "Practical - and fictional - confidence interval comparison"}
+In this exercise, we investigate how different kinds of CI's behave as we vary the number of measurements.
+
+The story behind the data: it's 2025 and we've discovered that Slovenia has rich deposits of a rare mineral called Moustachium, which can be used to accelerate moustache growth. This mineral is highly sought, so the government has decided to contract two different companies to provide information on where to begin mining. Both companies investigated mining sites in each statistical region and gave their best estimate of the average Moustachium concentration in tonnes per square kilometer. The Data Science team has been called to estimate the uncertainty in these estimates and help avoid mining in the wrong region.
+
+Generate synthetic data with the script below:
+
+    set.seed(0)
+    
+    library(comprehenr)
+    
+    regions <- c("pomurska", "podravska", "koroska", "savinjska", "zasavska", "posavska", "JV Slovenija", "primorsko-notranjska", "osrednjeslovenska", "gorenjska", "goriska", "obalno-kraska")
+    region_rates <- seq(1.3, 2.3, length.out=length(regions))
+    region_rates <- region_rates[sample.int(length(regions), length(regions))]
+
+    make_dataset <- function(n_contractors) {
+        measurements <- matrix(nrow=length(regions), ncol=n_contractors)
+        for (i in 1:length(regions)) {
+            measurements[i,] <- rgamma(n_contractors, 5.0, region_rates[i])
+        }
+
+        df <- data.frame(measurements)
+        row.names(df) <- regions
+        names(df) <- to_vec(for(i in 1:n_contractors) paste("Contractor", i))
+        return(df)
+    }
+
+    set.seed(0)
+    df_2025 <- make_dataset(2)
+
+    set.seed(0)
+    df_2027 <- make_dataset(10)
+
+    set.seed(0)
+    df_2028 <- make_dataset(100)
+
+    set.seed(0)
+    df_2029 <- make_dataset(1000)
+
+    saveRDS(df_2025, file="moustachium_2025.Rda")
+    saveRDS(df_2027, file="moustachium_2027.Rda")
+    saveRDS(df_2028, file="moustachium_2028.Rda")
+    saveRDS(df_2029, file="moustachium_2029.Rda")
+
+  a. <span style="color:blue">Estimate the average concentration for different regions.</span>
+
+  b. <span style="color:blue">Estimate the average concentration uncertainty using 95% CI's (asymptotic normality with biased and unbiased standard error, standard bootstrap CI, bootstrap percentile CI).</span>
+
+  c. <span style="color:blue">Visualize uncertainties with a histogram and discuss the best location to start mining.</span>
+  
+  d. <span style="color:blue">The year is 2027 and the government has decided to contract 10 companies. Rerun the code with new measurements and discuss how CI's change.</span>
+
+  e. <span style="color:blue">Technological advancements in robotics have enabled site surveys on a massive scale. Repeat the last point for 100 surveyor robots in 2028 and 1000 surveyor robots in 2029.</span>
+```
+<div class = "fold">
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(data.table)
+
+set.seed(0)
+
+input_dataset_path = "moustachium_2025.Rda"  # Change this for points d and e
+output_plot_path = "moustachium_2025.pdf"  # Change this for points d and e
+
+df <- readRDS(input_dataset_path)  # Data comes from here
+n_contractors <- ncol(df)
+results_df <- data.frame(region=row.names(df))  # Store CI bounds here
+
+# 1. average concentration for different mining sites
+results_df$average_concetration <- rowMeans(df)
+
+# CI for the mean based on asymptotic normality (biased SE estimate)
+biased_SE <- sqrt(apply(df, 1, function(vec) {sum((vec - mean(vec))^2) / length(vec)}) / n_contractors)
+results_df$ci95.an.biased_var.low <- results_df$average_concetration - 1.96 * biased_SE
+results_df$ci95.an.biased_var.high <- results_df$average_concetration + 1.96 * biased_SE
+
+# CI for the mean based on asymptotic normality (unbiased SE estimate)
+unbiased_SE <- sqrt(apply(df, 1, var) / n_contractors)
+results_df$ci95.an.unbiased_var.low <- results_df$average_concetration - 1.96 * unbiased_SE
+results_df$ci95.an.unbiased_var.high <- results_df$average_concetration + 1.96 * unbiased_SE
+
+# Standard bootstrap CI with 1000 samples
+bootstrap_variance <- function(data, n_samples) {
+  # n_samples is m in pseudocode
+  output <- numeric(n_samples)
+  for (i in 1:n_samples) {
+    index <- sample(1:length(data), length(data), rep = TRUE)
+    resampled_data <- data[index]
+    output[i] <- mean(resampled_data)
+  }
+  return(var(output))
+}
+
+bootstrap_1000_sd <- sqrt(apply(df, 1, function(vec){bootstrap_variance(vec, 1000)}))
+results_df$ci95.bootstrap.standard.1000.low <- results_df$average_concetration - 1.96 * bootstrap_1000_sd
+results_df$ci95.bootstrap.standard.1000.high <- results_df$average_concetration + 1.96 * bootstrap_1000_sd
+
+# Bootstrap percentile CI with 1000 samples
+
+bootstrap_quantile <- function(data, functional, n_samples, probs) {
+    # n_samples is m in pseudocode
+    output <- numeric(n_samples)
+    for (i in 1:n_samples) {
+        index <- sample(1:length(data), length(data), rep = TRUE)
+        resampled_data <- data[index]
+        output[i] <- functional(resampled_data)
+    }
+    return(quantile(output, probs=probs))
+}
+
+results_df$ci95.bootstrap.percentile.1000.low <- apply(df, 1, function(vec){bootstrap_quantile(vec, mean, 1000, 0.025)})
+results_df$ci95.bootstrap.percentile.1000.high <- apply(df, 1, function(vec){bootstrap_quantile(vec, mean, 1000, 0.975)})
+
+results_df
+
+# Visualization: we use a bar chart with uncertainty bands
+
+plot_moustachium_per_region <- function(region_names, average, ci_low, ci_high) {
+    df_visualization <- data.frame(region=region_names, average=average, low=ci_low, high=ci_high)
+    ggplot(df_visualization, aes(x=region, y=average)) + geom_bar(stat="identity")
+}
+
+mask <- endsWith(colnames(results_df), "low")
+mask[c(1, 2)] <- T
+results_df_low <- results_df[, mask]
+colnames(results_df_low) <- gsub('.low','', colnames(results_df_low))
+
+mask <- endsWith(colnames(results_df), "high")
+mask[c(1, 2)] <- T
+results_df_high <- results_df[, mask]
+colnames(results_df_high) <- gsub('.high','', colnames(results_df_high))
+
+long_results_df_low <- melt(setDT(results_df_low), id.vars=c("region", "average_concetration"))
+names(long_results_df_low) <- c("region", "average_concentration", "variable", "low")
+
+long_results_df_high <- melt(setDT(results_df_high), id.vars=c("region", "average_concetration"))
+names(long_results_df_high) <- c("region", "average_concentration", "variable", "high")
+
+long_results_df <- merge(long_results_df_low, long_results_df_high, by=c("region", "variable", "average_concentration"), all=T)
+
+moustachium_plot <- ggplot(long_results_df, aes(x=region, y=average_concentration)) +
+    geom_bar(stat="identity", position="dodge", alpha=0.2) +
+    geom_errorbar(aes(ymin=low, ymax=high, color=variable), width=0.2, position=position_dodge(0.9)) +
+    scale_x_discrete(guide = guide_axis(angle = 45)) +
+    ylim(-1, 8)
+
+# ggsave(plot=moustachium_plot, width=12, height=8, dpi=300, filename=output_plot_path)
+moustachium_plot
+
+# Visualization: we can also use a map. Circle size denotes concentration in region, low transparency denotes high uncertainty.
+
+library(maps)
+
+map_data_slo <- map_data('world')[map_data('world')$region == "Slovenia",]
+
+map_df <- long_results_df[long_results_df$variable == "ci95.an.biased_var", ]
+
+# VERY approximate longitudes and latitudes for different regions.
+map_df$long <- rep(0, nrow(map_df))
+map_df$lat <- rep(0, nrow(map_df))
+
+map_df[map_df$region == "gorenjska"]$long <- 14.2
+map_df[map_df$region == "gorenjska"]$lat <- 46.3
+
+map_df[map_df$region == "goriska"]$long <- 13.85
+map_df[map_df$region == "goriska"]$lat <- 46.0
+
+map_df[map_df$region == "obalno-kraska"]$long <- 13.9
+map_df[map_df$region == "obalno-kraska"]$lat <- 45.65
+
+map_df[map_df$region == "osrednjeslovenska"]$long <- 14.5
+map_df[map_df$region == "osrednjeslovenska"]$lat <- 46.
+
+map_df[map_df$region == "primorsko-notranjska"]$long <- 14.3
+map_df[map_df$region == "primorsko-notranjska"]$lat <- 45.7
+
+map_df[map_df$region == "zasavska"]$long <- 15
+map_df[map_df$region == "zasavska"]$lat <- 46.1
+
+map_df[map_df$region == "savinjska"]$long <- 15.2
+map_df[map_df$region == "savinjska"]$lat <- 46.25
+
+map_df[map_df$region == "posavska"]$long <- 15.4
+map_df[map_df$region == "posavska"]$lat <- 46
+
+map_df[map_df$region == "koroska"]$long <- 15.1
+map_df[map_df$region == "koroska"]$lat <- 46.5
+
+map_df[map_df$region == "podravska"]$long <- 15.7
+map_df[map_df$region == "podravska"]$lat <- 46.45
+
+map_df[map_df$region == "pomurska"]$long <- 16.2
+map_df[map_df$region == "pomurska"]$lat <- 46.65
+
+map_df[map_df$region == "JV Slovenija"]$long <- 15.
+map_df[map_df$region == "JV Slovenija"]$lat <- 45.7
+
+map_df$ci_size <- (map_df$high - map_df$low)
+map_df$ci_y <- map_df$lat - 0.05
+map_df$ci_label <- sprintf("(%.2f, %.2f)", map_df$low, map_df$high)
+map_df$avg_label <- sprintf("%.2f", map_df$average_concentration)
+
+country_plot <- ggplot() +
+    # First layer: worldwide map
+    geom_polygon(data = map_data("world"),
+                 aes(x=long, y=lat, group = group),
+                 color = '#9c9c9c', fill = '#f3f3f3') +
+    # Second layer: Country map
+    geom_polygon(
+        data = map_data_slo,
+        aes(x=long, y=lat, group = group),
+        color='darkgreen', 
+        fill='green', 
+        alpha=0.2
+    ) +
+    geom_point(data=map_df, aes(x=long, y=lat, fill=region, size=average_concentration, alpha=ci_size), color="black", pch=21) +
+    geom_text(data=map_df, aes(x=long, y=ci_y, label=ci_label), size=3) +
+    geom_text(data=map_df, aes(x=long, y=lat, label=avg_label), size=3) +
+    scale_size_continuous(range = c(3, 12), trans = "exp") +
+    scale_alpha_continuous(range = c(0.15, 0.75), trans = "reverse") +
+    ggtitle("Estimated average Moustachium concentration with 95% CI") +
+    coord_cartesian(xlim=c(13.2, 16.7), ylim=c(45.4, 47.))
+
+# ggsave(plot=country_plot, width=18, height=12, dpi=300, filename="country.pdf")
+country_plot
+```
+</div> 
