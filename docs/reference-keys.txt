@@ -214,3 +214,4 @@ exr:unnamed-chunk-10
 exr:unnamed-chunk-19
 exr:unnamed-chunk-22
 exr:unnamed-chunk-24
+exr:unnamed-chunk-26

@@ -526,11 +526,11 @@ Its logarithm is
   \log p(x; \mu, \sigma) = -0.5\log(2\pi) - \log \sigma - 0.5 \frac{(x-\mu)^2}{\sigma^2}.
 \end{equation*}
   
-The second order partial derivatives are:
+The second order partial derivatives are
 \begin{align*}
   \frac{\partial}{\partial \mu^2} p(x; \mu, \sigma) &= -\frac{1}{\sigma^2}, \\
   \frac{\partial}{\partial \mu \partial  \sigma} p(x; \mu, \sigma) &= -\frac{2(x-\mu)^2}{\sigma^3}, \\
-  \frac{\partial^2}{\partial \sigma^2} p(x; \mu, \sigma) &= \frac{1}{\sigma^2} - \frac{3(x-\mu)^2}{\sigma^4}
+  \frac{\partial^2}{\partial \sigma^2} p(x; \mu, \sigma) &= \frac{1}{\sigma^2} - \frac{3(x-\mu)^2}{\sigma^4}.
 \end{align*}
 
 The unit Fisher information matrix is then
@@ -548,6 +548,39 @@ I(\mu, \sigma) =
     \end{bmatrix},
 \end{align*}
 where we used the fact that $E[X - \mu] = 0$ and $E[(X - \mu)^2] = \sigma^2$.
+
+```
+</div>
+
+```{exercise}
+Find the unit Fisher information for the binomial distribution with fixed $n$.
+```
+<div class="fold">
+```{solution, echo = togs}
+
+The binomial mass is
+\begin{equation*}
+  P(X = k; n, p) = \binom{n}{k}p^k(1-p)^{n-k}.
+\end{equation*}
+
+Its logarithm is 
+\begin{equation*}
+  \log P(X = k; n, p) = \log \binom{n}{k} + k\log p + (n-k)\log(1-p).
+\end{equation*}
+  
+The partial derivatives are
+\begin{align*}
+  \frac{\partial}{\partial p} \log P(X = k; n, p) &= \frac{k}{p} - \frac{n-k}{1-p}, \\
+  \frac{\partial^2}{\partial p^2} \log P(X = k; n, p) &= -\frac{k}{p^2} - \frac{n-k}{(1-p)^2}.
+\end{align*}
+
+The unit Fisher information is
+\begin{align*}
+I(p) =
+  -  E\left[ \frac{\partial^2}{\partial p^2} \log P(X = k; n, p) \right] = 
+  \frac{n}{p(1-p)},
+\end{align*}
+where we used the fact that $E[k] = np$ for $k \sim X$.
 
 ```
 </div>

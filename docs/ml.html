@@ -813,11 +813,11 @@ I(\alpha, \beta) =
 <span class="math display">\[\begin{equation*}
   \log p(x; \mu, \sigma) = -0.5\log(2\pi) - \log \sigma - 0.5 \frac{(x-\mu)^2}{\sigma^2}.
 \end{equation*}\]</span></p>
-<p>The second order partial derivatives are:
+<p>The second order partial derivatives are
 <span class="math display">\[\begin{align*}
   \frac{\partial}{\partial \mu^2} p(x; \mu, \sigma) &amp;= -\frac{1}{\sigma^2}, \\
   \frac{\partial}{\partial \mu \partial  \sigma} p(x; \mu, \sigma) &amp;= -\frac{2(x-\mu)^2}{\sigma^3}, \\
-  \frac{\partial^2}{\partial \sigma^2} p(x; \mu, \sigma) &amp;= \frac{1}{\sigma^2} - \frac{3(x-\mu)^2}{\sigma^4}
+  \frac{\partial^2}{\partial \sigma^2} p(x; \mu, \sigma) &amp;= \frac{1}{\sigma^2} - \frac{3(x-\mu)^2}{\sigma^4}.
 \end{align*}\]</span></p>
 <p>The unit Fisher information matrix is then
 <span class="math display">\[\begin{align*}
@@ -836,11 +836,38 @@ I(\mu, \sigma) =
 where we used the fact that <span class="math inline">\(E[X - \mu] = 0\)</span> and <span class="math inline">\(E[(X - \mu)^2] = \sigma^2\)</span>.</p>
 </div>
 </div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-24" class="exercise"><strong>Exercise 15.9  </strong></span>Find the unit Fisher information for the binomial distribution with fixed <span class="math inline">\(n\)</span>.</p>
+</div>
+<div class="fold">
+<div class="solution">
+<p><span id="unlabeled-div-7" class="solution"><em>Solution</em>. </span>The binomial mass is
+<span class="math display">\[\begin{equation*}
+  P(X = k; n, p) = \binom{n}{k}p^k(1-p)^{n-k}.
+\end{equation*}\]</span></p>
+<p>Its logarithm is
+<span class="math display">\[\begin{equation*}
+  \log P(X = k; n, p) = \log \binom{n}{k} + k\log p + (n-k)\log(1-p).
+\end{equation*}\]</span></p>
+<p>The partial derivatives are
+<span class="math display">\[\begin{align*}
+  \frac{\partial}{\partial p} \log P(X = k; n, p) &amp;= \frac{k}{p} - \frac{n-k}{1-p}, \\
+  \frac{\partial^2}{\partial p^2} \log P(X = k; n, p) &amp;= -\frac{k}{p^2} - \frac{n-k}{(1-p)^2}.
+\end{align*}\]</span></p>
+<p>The unit Fisher information is
+<span class="math display">\[\begin{align*}
+I(p) =
+  -  E\left[ \frac{\partial^2}{\partial p^2} \log P(X = k; n, p) \right] =
+  \frac{n}{p(1-p)},
+\end{align*}\]</span>
+where we used the fact that <span class="math inline">\(E[k] = np\)</span> for <span class="math inline">\(k \sim X\)</span>.</p>
+</div>
+</div>
 </div>
 <div id="the-german-tank-problem" class="section level2 hasAnchor" number="15.3">
 <h2><span class="header-section-number">15.3</span> The German tank problem<a href="ml.html#the-german-tank-problem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-24" class="exercise"><strong>Exercise 15.9  (The German tank problem) </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
+<p><span id="exr:unnamed-chunk-26" class="exercise"><strong>Exercise 15.10  (The German tank problem) </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
 <ol style="list-style-type: lower-alpha">
 <li>What assumptions were made by using the above model? Do you think they are reasonable assumptions in practice?</li>
 <li>Show that the plug-in estimate for the maximum (i.e. the maximum of the sample) is a biased estimator.</li>
@@ -850,7 +877,7 @@ where we used the fact that <span class="math inline">\(E[X - \mu] = 0\)</span> 
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-7" class="solution"><em>Solution</em>. </span>The data are the serial numbers of the tanks. The parameter is <span class="math inline">\(n\)</span>, the total production of the tank. The distribution of the serial numbers is a discrete uniform distribution over all serial numbers.</p>
+<p><span id="unlabeled-div-8" class="solution"><em>Solution</em>. </span>The data are the serial numbers of the tanks. The parameter is <span class="math inline">\(n\)</span>, the total production of the tank. The distribution of the serial numbers is a discrete uniform distribution over all serial numbers.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>One of the assumptions is that we have i.i.d samples, however in practice this might not be true, as some tanks produced later could be sent to the field later, therefore already in theory we would not be able to recover some values from the population.</p></li>
 <li><p>To find the expected value we first need to find the distribution of <span class="math inline">\(m\)</span>. Let us start with the CDF.
@@ -887,7 +914,7 @@ The bias of this estimator is then
 <span id="cb37-9"><a href="ml.html#cb37-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)</span>
 <span id="cb37-10"><a href="ml.html#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
 <span id="cb37-11"><a href="ml.html#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 ::: {.solution}</p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li><p>(continued) We observe that the maximum of this function lies at the maximum value of the sample. Therefore <span class="math inline">\(n^* = m\)</span> and ML estimate equals the plug-in estimate.</p></li>
