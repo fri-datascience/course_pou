@@ -507,6 +507,51 @@ ggplot() +
 ```
 </div>
 
+```{exercise}
+
+
+Find the unit Fisher information matrix for the univariate normal distribution.
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+The normal density is
+\begin{equation*}
+  p(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left(-0.5 \frac{(x-\mu)^2}{\sigma^2}\right).
+\end{equation*}
+
+Its logarithm is 
+\begin{equation*}
+  \log p(x; \mu, \sigma) = -0.5\log(2\pi) - \log \sigma - 0.5 \frac{(x-\mu)^2}{\sigma^2}.
+\end{equation*}
+  
+The second order partial derivatives are:
+\begin{align*}
+  \frac{\partial}{\partial \mu^2} p(x; \mu, \sigma) &= -\frac{1}{\sigma^2}, \\
+  \frac{\partial}{\partial \mu \partial  \sigma} p(x; \mu, \sigma) &= -\frac{2(x-\mu)^2}{\sigma^3}, \\
+  \frac{\partial^2}{\partial \sigma^2} p(x; \mu, \sigma) &= \frac{1}{\sigma^2} - \frac{3(x-\mu)^2}{\sigma^4}
+\end{align*}
+
+The unit Fisher information matrix is then
+\begin{align*}
+I(\mu, \sigma) =
+  -  E\left[
+    \begin{bmatrix}
+    -\frac{1}{\sigma^2}       & -\frac{2(x-\mu)}{\sigma^3} \\
+    -\frac{2(x-\mu)}{\sigma^3} & \frac{1}{\sigma^2} - \frac{3(x-\mu)^2}{\sigma^4}
+  \end{bmatrix}
+  \right] = 
+  \begin{bmatrix}
+      \frac{1}{\sigma^2}       & 0 \\
+      0 & \frac{2}{\sigma^2}
+    \end{bmatrix},
+\end{align*}
+where we used the fact that $E[X - \mu] = 0$ and $E[(X - \mu)^2] = \sigma^2$.
+
+```
+</div>
+
 ## The German tank problem
 ```{exercise, name = "The German tank problem"}
 During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).

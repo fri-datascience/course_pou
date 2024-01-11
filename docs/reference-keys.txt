@@ -210,3 +210,7 @@ exr:unnamed-chunk-32
 exr:unnamed-chunk-35
 exr:unnamed-chunk-5
 exr:unnamed-chunk-40
+exr:unnamed-chunk-10
+exr:unnamed-chunk-19
+exr:unnamed-chunk-22
+exr:unnamed-chunk-24
