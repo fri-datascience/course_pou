@@ -380,7 +380,7 @@ bootstrap(x, T_max)
 ```
 </div> 
 
-```{exercise, name = "Practical - and fictional - confidence interval comparison"}
+```{exercise, name = "Practical - and fictional - coverage interval comparison"}
 In this exercise, we investigate how different kinds of CI's behave as we vary the number of measurements.
 
 The story behind the data: it's 2025 and we've discovered that Slovenia has rich deposits of a rare mineral called Moustachium, which can be used to accelerate moustache growth. This mineral is highly sought, so the government has decided to contract two different companies to provide information on where to begin mining. Both companies investigated mining sites in each statistical region and gave their best estimate of the average Moustachium concentration in tonnes per square kilometer. The Data Science team has been called to estimate the uncertainty in these estimates and help avoid mining in the wrong region.
