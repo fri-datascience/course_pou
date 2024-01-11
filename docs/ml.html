@@ -657,11 +657,151 @@ Equating above with zero, we get
 ## jave -0.3419099 -0.058519366  0.30619617  0.13093187
 ## 1500  0.1868704 -0.007310045  0.45688227 -0.24311846</code></pre>
 </div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-15" class="exercise"><strong>Exercise 15.6  (Classification) </strong></span>Let <span class="math inline">\(D = \{(x_i, y_i)\}_{i=1}^n\)</span> be a dataset of feature vectors and their corresponding integer class labels. We wish to classify feature vectors into correct classes.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Choose a suitable probability distribution <span class="math inline">\(P_\theta(Y|X)\)</span> and write its log likelihood <span class="math inline">\(\ell\)</span>.</li>
+<li>Choose a differentiable function <span class="math inline">\(f_\phi\)</span> that predicts parameters <span class="math inline">\(\theta\)</span> from a feature vector, i.e. <span class="math inline">\(f_\phi(x_i) = \theta_i\)</span>.</li>
+<li><span style="color:blue">Load the <em>iris</em> dataset with <code>data(iris)</code> and split it into train and test subsets.</span></li>
+<li><span style="color:blue">Use gradient descent to find parameters <span class="math inline">\(\phi\)</span> that minimize the negative log likelihood on the <em>iris</em> dataset (equivalently: maximize the log likelihood). Reminder: gradient descent is an iterative optimization procedure <span class="math inline">\(\phi_{t+1} = \phi_t - \eta \nabla_\phi \ell\)</span>. Try <span class="math inline">\(\eta = 0.01\)</span> and run optimization for 30 steps. Compute the gradient with <code>numDeriv::grad</code>.</span></li>
+<li><span style="color:blue">Print the classification accuracy for the train and test subsets.</span></li>
+</ol>
+</div>
+<div class="fold">
+<div class="solution">
+<p><span id="unlabeled-div-4" class="solution"><em>Solution</em>. </span></p>
+<ol style="list-style-type: lower-alpha">
+<li>We pick the categorical distribution.</li>
+<li>Categorical distribution parameters are class probabilities that sum to 1. If there are <span class="math inline">\(m\)</span> classes, we can pick any differentiable function that takes as input a vector of features and predicts a vector of size <span class="math inline">\(m\)</span> whose elements are real numbers. We can then use a softmax transformation to map the predicted vector into one with non-negative entries that sum to 1. For simplicity, we can pick a linear transformation with <span class="math inline">\(\phi = (W, b)\)</span>, followed by softmax:
+<span class="math display">\[\begin{align*}
+f_\phi(x) &amp;= \textrm{softmax}(Wx + b), \\
+\textrm{softmax}(u)_i &amp;= \frac{\exp(u_i)}{\sum_{j=1}^m \exp(u_j)},
+  \end{align*}\]</span>
+where <span class="math inline">\(W \in \mathbb{R}^{d\times m}, b \in \mathbb{R}^m\)</span> and <span class="math inline">\(d\)</span> is the number of features.</li>
+</ol>
+</div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="ml.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb31-2"><a href="ml.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="ml.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model:</span></span>
+<span id="cb33-2"><a href="ml.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># y ~ Categorical(softmax(weights * features + bias))</span></span>
+<span id="cb33-3"><a href="ml.html#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Want to maximize the (log) likelihood of y w.r.t. weights and bias.</span></span>
+<span id="cb33-4"><a href="ml.html#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Need gradient of log likelihood w.r.t. weights and bias.</span></span>
+<span id="cb33-5"><a href="ml.html#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Proceed by gradient descent on negative log likelihood.</span></span>
+<span id="cb33-6"><a href="ml.html#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="ml.html#cb33-7" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data=</span><span class="fu">rnorm</span>(<span class="dv">4</span> <span class="sc">*</span> <span class="dv">3</span>), <span class="at">nrow=</span><span class="dv">4</span>, <span class="at">ncol=</span><span class="dv">3</span>)</span>
+<span id="cb33-8"><a href="ml.html#cb33-8" aria-hidden="true" tabindex="-1"></a>bias <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data=</span><span class="fu">rnorm</span>(<span class="dv">3</span>), <span class="at">nrow=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">3</span>)</span>
+<span id="cb33-9"><a href="ml.html#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="ml.html#cb33-10" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="cf">function</span>(features, weights, bias) {</span>
+<span id="cb33-11"><a href="ml.html#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># parameters is a 5-element vector. First four are weights, last is bias.</span></span>
+<span id="cb33-12"><a href="ml.html#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">t</span>(features <span class="sc">%*%</span> weights <span class="sc">+</span> bias))</span>
+<span id="cb33-13"><a href="ml.html#cb33-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-14"><a href="ml.html#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="ml.html#cb33-15" aria-hidden="true" tabindex="-1"></a>softmax <span class="ot">&lt;-</span> <span class="cf">function</span>(v) {</span>
+<span id="cb33-16"><a href="ml.html#cb33-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">exp</span>(v) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">exp</span>(v)))</span>
+<span id="cb33-17"><a href="ml.html#cb33-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-18"><a href="ml.html#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-19"><a href="ml.html#cb33-19" aria-hidden="true" tabindex="-1"></a>categorical_mass <span class="ot">&lt;-</span> <span class="cf">function</span>(targets, probs) {</span>
+<span id="cb33-20"><a href="ml.html#cb33-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># targets: matrix of size (n_data, n_classes) whose rows are one-hot vectors</span></span>
+<span id="cb33-21"><a href="ml.html#cb33-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># probs: matrix of size (n_data, n_classes) whose rows are class probabilities</span></span>
+<span id="cb33-22"><a href="ml.html#cb33-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply</span>(probs <span class="sc">*</span> targets, <span class="dv">1</span>, sum)</span>
+<span id="cb33-23"><a href="ml.html#cb33-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-24"><a href="ml.html#cb33-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-25"><a href="ml.html#cb33-25" aria-hidden="true" tabindex="-1"></a>predict_probs <span class="ot">&lt;-</span> <span class="cf">function</span>(features, model, parameters) {</span>
+<span id="cb33-26"><a href="ml.html#cb33-26" aria-hidden="true" tabindex="-1"></a>  weights <span class="ot">&lt;-</span> parameters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, ]</span>
+<span id="cb33-27"><a href="ml.html#cb33-27" aria-hidden="true" tabindex="-1"></a>  bias <span class="ot">&lt;-</span> parameters[<span class="dv">5</span>, ]</span>
+<span id="cb33-28"><a href="ml.html#cb33-28" aria-hidden="true" tabindex="-1"></a>  u <span class="ot">&lt;-</span> <span class="fu">model</span>(features, weights, bias)</span>
+<span id="cb33-29"><a href="ml.html#cb33-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply</span>(u, <span class="dv">1</span>, softmax)</span>
+<span id="cb33-30"><a href="ml.html#cb33-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-31"><a href="ml.html#cb33-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-32"><a href="ml.html#cb33-32" aria-hidden="true" tabindex="-1"></a>accuracy <span class="ot">&lt;-</span> <span class="cf">function</span>(features, targets, model, parameters) {</span>
+<span id="cb33-33"><a href="ml.html#cb33-33" aria-hidden="true" tabindex="-1"></a>  probs <span class="ot">&lt;-</span> <span class="fu">predict_probs</span>(features, model, parameters)</span>
+<span id="cb33-34"><a href="ml.html#cb33-34" aria-hidden="true" tabindex="-1"></a>  argmax_mat <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">apply</span>(probs, <span class="dv">1</span>, <span class="cf">function</span>(v) {v <span class="sc">==</span> <span class="fu">max</span>(v)}))</span>
+<span id="cb33-35"><a href="ml.html#cb33-35" aria-hidden="true" tabindex="-1"></a>  correct_predictions <span class="ot">&lt;-</span> <span class="fu">apply</span>(argmax_mat <span class="sc">*</span> targets, <span class="dv">1</span>, sum)</span>
+<span id="cb33-36"><a href="ml.html#cb33-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">mean</span>(correct_predictions))</span>
+<span id="cb33-37"><a href="ml.html#cb33-37" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-38"><a href="ml.html#cb33-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-39"><a href="ml.html#cb33-39" aria-hidden="true" tabindex="-1"></a>neg_log_lik <span class="ot">&lt;-</span> <span class="cf">function</span>(features, targets, model, parameters) {</span>
+<span id="cb33-40"><a href="ml.html#cb33-40" aria-hidden="true" tabindex="-1"></a>  probs <span class="ot">&lt;-</span> <span class="fu">predict_probs</span>(features, model, parameters)</span>
+<span id="cb33-41"><a href="ml.html#cb33-41" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span><span class="fu">sum</span>(<span class="fu">log</span>(<span class="fu">categorical_mass</span>(targets, probs)))</span>
+<span id="cb33-42"><a href="ml.html#cb33-42" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-43"><a href="ml.html#cb33-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-44"><a href="ml.html#cb33-44" aria-hidden="true" tabindex="-1"></a>grad_neg_log_lik <span class="ot">&lt;-</span> <span class="cf">function</span>(features, targets, model, parameters){</span>
+<span id="cb33-45"><a href="ml.html#cb33-45" aria-hidden="true" tabindex="-1"></a>  numDeriv<span class="sc">::</span><span class="fu">grad</span>(<span class="cf">function</span>(par){<span class="fu">neg_log_lik</span>(features, targets, model, par)}, parameters)</span>
+<span id="cb33-46"><a href="ml.html#cb33-46" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-47"><a href="ml.html#cb33-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-48"><a href="ml.html#cb33-48" aria-hidden="true" tabindex="-1"></a>gradient_descent <span class="ot">&lt;-</span> <span class="cf">function</span>(initial_parameters, features, targets, <span class="at">step_size =</span> <span class="fl">0.01</span>, <span class="at">n_steps =</span> <span class="dv">30</span>) {</span>
+<span id="cb33-49"><a href="ml.html#cb33-49" aria-hidden="true" tabindex="-1"></a>  parameters <span class="ot">&lt;-</span> initial_parameters</span>
+<span id="cb33-50"><a href="ml.html#cb33-50" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_steps) {</span>
+<span id="cb33-51"><a href="ml.html#cb33-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">sprintf</span>(<span class="st">&quot;[%d] loss: %.4f, accuracy: %.2f&quot;</span>, i, <span class="fu">neg_log_lik</span>(features, targets, model, parameters), <span class="fu">accuracy</span>(features, targets, model, parameters)))</span>
+<span id="cb33-52"><a href="ml.html#cb33-52" aria-hidden="true" tabindex="-1"></a>    parameters <span class="ot">&lt;-</span> parameters <span class="sc">-</span> step_size <span class="sc">*</span> <span class="fu">grad_neg_log_lik</span>(features, targets, model, parameters)</span>
+<span id="cb33-53"><a href="ml.html#cb33-53" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-54"><a href="ml.html#cb33-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(parameters)</span>
+<span id="cb33-55"><a href="ml.html#cb33-55" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-56"><a href="ml.html#cb33-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-57"><a href="ml.html#cb33-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-58"><a href="ml.html#cb33-58" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">subset</span>(iris, <span class="at">select=</span><span class="sc">-</span><span class="fu">c</span>(Species)))</span>
+<span id="cb33-59"><a href="ml.html#cb33-59" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow=</span><span class="fu">nrow</span>(iris), <span class="at">ncol=</span><span class="dv">3</span>)</span>
+<span id="cb33-60"><a href="ml.html#cb33-60" aria-hidden="true" tabindex="-1"></a>y[, <span class="dv">1</span>] <span class="ot">&lt;-</span> iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span></span>
+<span id="cb33-61"><a href="ml.html#cb33-61" aria-hidden="true" tabindex="-1"></a>y[, <span class="dv">2</span>] <span class="ot">&lt;-</span> iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;versicolor&quot;</span></span>
+<span id="cb33-62"><a href="ml.html#cb33-62" aria-hidden="true" tabindex="-1"></a>y[, <span class="dv">3</span>] <span class="ot">&lt;-</span> iris<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;virginica&quot;</span></span>
+<span id="cb33-63"><a href="ml.html#cb33-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-64"><a href="ml.html#cb33-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Take an equal number of representatives for every class for the training and test subsets</span></span>
+<span id="cb33-65"><a href="ml.html#cb33-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: code is written so that shuffling does not matter during optimization</span></span>
+<span id="cb33-66"><a href="ml.html#cb33-66" aria-hidden="true" tabindex="-1"></a>x_train <span class="ot">&lt;-</span> x[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">35</span>, <span class="dv">51</span><span class="sc">:</span><span class="dv">85</span>, <span class="dv">101</span><span class="sc">:</span><span class="dv">135</span>), ]</span>
+<span id="cb33-67"><a href="ml.html#cb33-67" aria-hidden="true" tabindex="-1"></a>y_train <span class="ot">&lt;-</span> y[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">35</span>, <span class="dv">51</span><span class="sc">:</span><span class="dv">85</span>, <span class="dv">101</span><span class="sc">:</span><span class="dv">135</span>), ]</span>
+<span id="cb33-68"><a href="ml.html#cb33-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-69"><a href="ml.html#cb33-69" aria-hidden="true" tabindex="-1"></a>x_test <span class="ot">&lt;-</span> x[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">35</span>, <span class="dv">51</span><span class="sc">:</span><span class="dv">85</span>, <span class="dv">101</span><span class="sc">:</span><span class="dv">135</span>), ]</span>
+<span id="cb33-70"><a href="ml.html#cb33-70" aria-hidden="true" tabindex="-1"></a>y_test <span class="ot">&lt;-</span> y[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">35</span>, <span class="dv">51</span><span class="sc">:</span><span class="dv">85</span>, <span class="dv">101</span><span class="sc">:</span><span class="dv">135</span>), ]</span>
+<span id="cb33-71"><a href="ml.html#cb33-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-72"><a href="ml.html#cb33-72" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb33-73"><a href="ml.html#cb33-73" aria-hidden="true" tabindex="-1"></a>optimized_parameters <span class="ot">&lt;-</span> <span class="fu">gradient_descent</span>(<span class="fu">rbind</span>(weights, bias), x_train, y_train)</span></code></pre></div>
+<pre><code>## [1] &quot;[1] loss: 687.3208, accuracy: 0.02&quot;
+## [1] &quot;[2] loss: 452.4356, accuracy: 0.66&quot;
+## [1] &quot;[3] loss: 429.3215, accuracy: 0.92&quot;
+## [1] &quot;[4] loss: 427.2969, accuracy: 0.93&quot;
+## [1] &quot;[5] loss: 425.9729, accuracy: 0.93&quot;
+## [1] &quot;[6] loss: 424.9825, accuracy: 0.95&quot;
+## [1] &quot;[7] loss: 424.1846, accuracy: 0.95&quot;
+## [1] &quot;[8] loss: 423.5169, accuracy: 0.95&quot;
+## [1] &quot;[9] loss: 422.9466, accuracy: 0.95&quot;
+## [1] &quot;[10] loss: 422.4535, accuracy: 0.94&quot;
+## [1] &quot;[11] loss: 422.0234, accuracy: 0.94&quot;
+## [1] &quot;[12] loss: 421.6456, accuracy: 0.93&quot;
+## [1] &quot;[13] loss: 421.3116, accuracy: 0.92&quot;
+## [1] &quot;[14] loss: 421.0144, accuracy: 0.92&quot;
+## [1] &quot;[15] loss: 420.7485, accuracy: 0.92&quot;
+## [1] &quot;[16] loss: 420.5091, accuracy: 0.92&quot;
+## [1] &quot;[17] loss: 420.2926, accuracy: 0.92&quot;
+## [1] &quot;[18] loss: 420.0955, accuracy: 0.92&quot;
+## [1] &quot;[19] loss: 419.9153, accuracy: 0.92&quot;
+## [1] &quot;[20] loss: 419.7498, accuracy: 0.92&quot;
+## [1] &quot;[21] loss: 419.5969, accuracy: 0.92&quot;
+## [1] &quot;[22] loss: 419.4552, accuracy: 0.92&quot;
+## [1] &quot;[23] loss: 419.3233, accuracy: 0.92&quot;
+## [1] &quot;[24] loss: 419.2000, accuracy: 0.92&quot;
+## [1] &quot;[25] loss: 419.0843, accuracy: 0.92&quot;
+## [1] &quot;[26] loss: 418.9755, accuracy: 0.92&quot;
+## [1] &quot;[27] loss: 418.8727, accuracy: 0.92&quot;
+## [1] &quot;[28] loss: 418.7754, accuracy: 0.92&quot;
+## [1] &quot;[29] loss: 418.6831, accuracy: 0.92&quot;
+## [1] &quot;[30] loss: 418.5952, accuracy: 0.92&quot;</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="ml.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(x_train, y_train, model, optimized_parameters)</span></code></pre></div>
+<pre><code>## [1] 0.9238095</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="ml.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(x_test, y_test, model, optimized_parameters)</span></code></pre></div>
+<pre><code>## [1] 0.9555556</code></pre>
+</div>
 </div>
 <div id="fisher-information" class="section level2 hasAnchor" number="15.2">
 <h2><span class="header-section-number">15.2</span> Fisher information<a href="ml.html#fisher-information" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-15" class="exercise"><strong>Exercise 15.6  </strong></span>Let us assume a Poisson likelihood.</p>
+<p><span id="exr:unnamed-chunk-18" class="exercise"><strong>Exercise 15.7  </strong></span>Let us assume a Poisson likelihood.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Derive the MLE estimate of the mean.</p></li>
 <li><p>Derive the Fisher information.</p></li>
@@ -669,10 +809,10 @@ Equating above with zero, we get
 <li><p><span style="color:blue">Use bootstrap to construct the CI for the mean. Compare with c) and discuss.</span></p></li>
 </ol>
 </div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="ml.html#cb31-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="ml.html#cb39-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span></code></pre></div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-4" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-5" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>The log likelihood of the Poisson is
 <span class="math display">\[\begin{align*}
@@ -696,28 +836,28 @@ Now taking the expectation of the negative of the above, we get
   &amp;= \frac{n}{\lambda}.
 \end{align*}\]</span></p>
 </div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="ml.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb32-2"><a href="ml.html#cb32-2" aria-hidden="true" tabindex="-1"></a>x          <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb32-3"><a href="ml.html#cb32-3" aria-hidden="true" tabindex="-1"></a>lambda_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
-<span id="cb32-4"><a href="ml.html#cb32-4" aria-hidden="true" tabindex="-1"></a>finfo      <span class="ot">&lt;-</span> <span class="fu">length</span>(x) <span class="sc">/</span> lambda_hat</span>
-<span id="cb32-5"><a href="ml.html#cb32-5" aria-hidden="true" tabindex="-1"></a>mle_CI     <span class="ot">&lt;-</span> <span class="fu">c</span>(lambda_hat <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> finfo),</span>
-<span id="cb32-6"><a href="ml.html#cb32-6" aria-hidden="true" tabindex="-1"></a>                lambda_hat <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> finfo))</span>
-<span id="cb32-7"><a href="ml.html#cb32-7" aria-hidden="true" tabindex="-1"></a>boot_lambda <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb32-8"><a href="ml.html#cb32-8" aria-hidden="true" tabindex="-1"></a>nboot       <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb32-9"><a href="ml.html#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nboot) {</span>
-<span id="cb32-10"><a href="ml.html#cb32-10" aria-hidden="true" tabindex="-1"></a>  tmp_x          <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, <span class="fu">length</span>(x), <span class="at">replace =</span> T)</span>
-<span id="cb32-11"><a href="ml.html#cb32-11" aria-hidden="true" tabindex="-1"></a>  boot_lambda[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(tmp_x)</span>
-<span id="cb32-12"><a href="ml.html#cb32-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb32-13"><a href="ml.html#cb32-13" aria-hidden="true" tabindex="-1"></a>boot_CI <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">quantile</span>(boot_lambda, <span class="fl">0.025</span>),</span>
-<span id="cb32-14"><a href="ml.html#cb32-14" aria-hidden="true" tabindex="-1"></a>             <span class="fu">quantile</span>(boot_lambda, <span class="fl">0.975</span>))</span>
-<span id="cb32-15"><a href="ml.html#cb32-15" aria-hidden="true" tabindex="-1"></a>mle_CI</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="ml.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb40-2"><a href="ml.html#cb40-2" aria-hidden="true" tabindex="-1"></a>x          <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb40-3"><a href="ml.html#cb40-3" aria-hidden="true" tabindex="-1"></a>lambda_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb40-4"><a href="ml.html#cb40-4" aria-hidden="true" tabindex="-1"></a>finfo      <span class="ot">&lt;-</span> <span class="fu">length</span>(x) <span class="sc">/</span> lambda_hat</span>
+<span id="cb40-5"><a href="ml.html#cb40-5" aria-hidden="true" tabindex="-1"></a>mle_CI     <span class="ot">&lt;-</span> <span class="fu">c</span>(lambda_hat <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> finfo),</span>
+<span id="cb40-6"><a href="ml.html#cb40-6" aria-hidden="true" tabindex="-1"></a>                lambda_hat <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> finfo))</span>
+<span id="cb40-7"><a href="ml.html#cb40-7" aria-hidden="true" tabindex="-1"></a>boot_lambda <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb40-8"><a href="ml.html#cb40-8" aria-hidden="true" tabindex="-1"></a>nboot       <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb40-9"><a href="ml.html#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>nboot) {</span>
+<span id="cb40-10"><a href="ml.html#cb40-10" aria-hidden="true" tabindex="-1"></a>  tmp_x          <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, <span class="fu">length</span>(x), <span class="at">replace =</span> T)</span>
+<span id="cb40-11"><a href="ml.html#cb40-11" aria-hidden="true" tabindex="-1"></a>  boot_lambda[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(tmp_x)</span>
+<span id="cb40-12"><a href="ml.html#cb40-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-13"><a href="ml.html#cb40-13" aria-hidden="true" tabindex="-1"></a>boot_CI <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">quantile</span>(boot_lambda, <span class="fl">0.025</span>),</span>
+<span id="cb40-14"><a href="ml.html#cb40-14" aria-hidden="true" tabindex="-1"></a>             <span class="fu">quantile</span>(boot_lambda, <span class="fl">0.975</span>))</span>
+<span id="cb40-15"><a href="ml.html#cb40-15" aria-hidden="true" tabindex="-1"></a>mle_CI</span></code></pre></div>
 <pre><code>## [1] 1.045656 2.754344</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="ml.html#cb34-1" aria-hidden="true" tabindex="-1"></a>boot_CI</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="ml.html#cb42-1" aria-hidden="true" tabindex="-1"></a>boot_CI</span></code></pre></div>
 <pre><code>##  2.5% 97.5% 
 ##   1.0   2.7</code></pre>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-19" class="exercise"><strong>Exercise 15.7  </strong></span></p>
+<p><span id="exr:unnamed-chunk-22" class="exercise"><strong>Exercise 15.8  </strong></span></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Find the Fisher information matrix for the Gamma distribution.</p></li>
 <li><p><span style="color:blue">Generate 20 samples from a Gamma distribution and plot a confidence ellipse of the inverse of Fisher information matrix around the ML estimates of the parameters. Also plot the theoretical values. Repeat the sampling several times. What do you observe?</span></p></li>
@@ -727,7 +867,7 @@ Now taking the expectation of the negative of the above, we get
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-5" class="solution"><em>Solution</em>. </span></p>
+<p><span id="unlabeled-div-6" class="solution"><em>Solution</em>. </span></p>
 <ol style="list-style-type: lower-alpha">
 <li>The log likelihood of the Gamma is
 <span class="math display">\[\begin{equation*}
@@ -761,51 +901,51 @@ I(\alpha, \beta) =
 <li>A non-diagonal Fisher matrix implies that the parameter estimates are linearly dependent.</li>
 </ol>
 </div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="ml.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb36-2"><a href="ml.html#cb36-2" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb36-3"><a href="ml.html#cb36-3" aria-hidden="true" tabindex="-1"></a>pars_theor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>)</span>
-<span id="cb36-4"><a href="ml.html#cb36-4" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(n, <span class="dv">5</span>, <span class="dv">2</span>)</span>
-<span id="cb36-5"><a href="ml.html#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-6"><a href="ml.html#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-7"><a href="ml.html#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># MLE for alpha and beta</span></span>
-<span id="cb36-8"><a href="ml.html#cb36-8" aria-hidden="true" tabindex="-1"></a>log_lik <span class="ot">&lt;-</span> <span class="cf">function</span> (pars, x) {</span>
-<span id="cb36-9"><a href="ml.html#cb36-9" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb36-10"><a href="ml.html#cb36-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (<span class="sc">-</span> (n <span class="sc">*</span> pars[<span class="dv">1</span>] <span class="sc">*</span> <span class="fu">log</span>(pars[<span class="dv">2</span>]) <span class="sc">-</span></span>
-<span id="cb36-11"><a href="ml.html#cb36-11" aria-hidden="true" tabindex="-1"></a>             n <span class="sc">*</span> <span class="fu">log</span>(<span class="fu">gamma</span>(pars[<span class="dv">1</span>])) <span class="sc">+</span></span>
-<span id="cb36-12"><a href="ml.html#cb36-12" aria-hidden="true" tabindex="-1"></a>             (pars[<span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">log</span>(x)) <span class="sc">-</span></span>
-<span id="cb36-13"><a href="ml.html#cb36-13" aria-hidden="true" tabindex="-1"></a>             pars[<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">sum</span>(x)))</span>
-<span id="cb36-14"><a href="ml.html#cb36-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb36-15"><a href="ml.html#cb36-15" aria-hidden="true" tabindex="-1"></a>my_optim <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">fn =</span> log_lik, <span class="at">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</span>
-<span id="cb36-16"><a href="ml.html#cb36-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">lower =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.001</span>), <span class="at">upper =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">8</span>), <span class="at">x =</span> x)</span>
-<span id="cb36-17"><a href="ml.html#cb36-17" aria-hidden="true" tabindex="-1"></a>pars_mle <span class="ot">&lt;-</span> my_optim<span class="sc">$</span>par</span>
-<span id="cb36-18"><a href="ml.html#cb36-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-19"><a href="ml.html#cb36-19" aria-hidden="true" tabindex="-1"></a>fish_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="cn">NA</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb36-20"><a href="ml.html#cb36-20" aria-hidden="true" tabindex="-1"></a>fish_mat[<span class="dv">1</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="sc">-</span> n <span class="sc">/</span> pars_mle[<span class="dv">2</span>]</span>
-<span id="cb36-21"><a href="ml.html#cb36-21" aria-hidden="true" tabindex="-1"></a>fish_mat[<span class="dv">2</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="sc">-</span> n <span class="sc">/</span> pars_mle[<span class="dv">2</span>]</span>
-<span id="cb36-22"><a href="ml.html#cb36-22" aria-hidden="true" tabindex="-1"></a>fish_mat[<span class="dv">2</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> (n <span class="sc">*</span> pars_mle[<span class="dv">1</span>]) <span class="sc">/</span> (pars_mle[<span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb36-23"><a href="ml.html#cb36-23" aria-hidden="true" tabindex="-1"></a>fish_mat[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> n <span class="sc">*</span> <span class="fu">grad</span>(digamma, pars_mle[<span class="dv">1</span>])</span>
-<span id="cb36-24"><a href="ml.html#cb36-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-25"><a href="ml.html#cb36-25" aria-hidden="true" tabindex="-1"></a>fish_mat_inv <span class="ot">&lt;-</span> <span class="fu">solve</span>(fish_mat)</span>
-<span id="cb36-26"><a href="ml.html#cb36-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-27"><a href="ml.html#cb36-27" aria-hidden="true" tabindex="-1"></a>est_ellip <span class="ot">&lt;-</span> <span class="fu">ellipse</span>(pars_mle, fish_mat_inv, <span class="at">draw =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb36-28"><a href="ml.html#cb36-28" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(est_ellip) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>)</span>
-<span id="cb36-29"><a href="ml.html#cb36-29" aria-hidden="true" tabindex="-1"></a>est_ellip <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(est_ellip)</span>
-<span id="cb36-30"><a href="ml.html#cb36-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-31"><a href="ml.html#cb36-31" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb36-32"><a href="ml.html#cb36-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> pars_mle[<span class="dv">1</span>], <span class="at">y =</span> pars_mle[<span class="dv">2</span>]), <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb36-33"><a href="ml.html#cb36-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">data =</span> est_ellip, <span class="fu">aes</span>(<span class="at">x =</span> X1, <span class="at">y =</span> X2)) <span class="sc">+</span></span>
-<span id="cb36-34"><a href="ml.html#cb36-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> pars_theor[<span class="dv">1</span>], <span class="at">y =</span> pars_theor[<span class="dv">2</span>]), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb36-35"><a href="ml.html#cb36-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> pars_theor[<span class="dv">1</span>], <span class="at">y =</span> pars_theor[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;Theoretical parameters&quot;</span>), </span>
-<span id="cb36-36"><a href="ml.html#cb36-36" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb36-37"><a href="ml.html#cb36-37" aria-hidden="true" tabindex="-1"></a>            <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.2</span>)</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="ml.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb44-2"><a href="ml.html#cb44-2" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb44-3"><a href="ml.html#cb44-3" aria-hidden="true" tabindex="-1"></a>pars_theor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb44-4"><a href="ml.html#cb44-4" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(n, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb44-5"><a href="ml.html#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="ml.html#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="ml.html#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co"># MLE for alpha and beta</span></span>
+<span id="cb44-8"><a href="ml.html#cb44-8" aria-hidden="true" tabindex="-1"></a>log_lik <span class="ot">&lt;-</span> <span class="cf">function</span> (pars, x) {</span>
+<span id="cb44-9"><a href="ml.html#cb44-9" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb44-10"><a href="ml.html#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (<span class="sc">-</span> (n <span class="sc">*</span> pars[<span class="dv">1</span>] <span class="sc">*</span> <span class="fu">log</span>(pars[<span class="dv">2</span>]) <span class="sc">-</span></span>
+<span id="cb44-11"><a href="ml.html#cb44-11" aria-hidden="true" tabindex="-1"></a>             n <span class="sc">*</span> <span class="fu">log</span>(<span class="fu">gamma</span>(pars[<span class="dv">1</span>])) <span class="sc">+</span></span>
+<span id="cb44-12"><a href="ml.html#cb44-12" aria-hidden="true" tabindex="-1"></a>             (pars[<span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">log</span>(x)) <span class="sc">-</span></span>
+<span id="cb44-13"><a href="ml.html#cb44-13" aria-hidden="true" tabindex="-1"></a>             pars[<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">sum</span>(x)))</span>
+<span id="cb44-14"><a href="ml.html#cb44-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-15"><a href="ml.html#cb44-15" aria-hidden="true" tabindex="-1"></a>my_optim <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">fn =</span> log_lik, <span class="at">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,</span>
+<span id="cb44-16"><a href="ml.html#cb44-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">lower =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.001</span>), <span class="at">upper =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">8</span>), <span class="at">x =</span> x)</span>
+<span id="cb44-17"><a href="ml.html#cb44-17" aria-hidden="true" tabindex="-1"></a>pars_mle <span class="ot">&lt;-</span> my_optim<span class="sc">$</span>par</span>
+<span id="cb44-18"><a href="ml.html#cb44-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-19"><a href="ml.html#cb44-19" aria-hidden="true" tabindex="-1"></a>fish_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="cn">NA</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb44-20"><a href="ml.html#cb44-20" aria-hidden="true" tabindex="-1"></a>fish_mat[<span class="dv">1</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="sc">-</span> n <span class="sc">/</span> pars_mle[<span class="dv">2</span>]</span>
+<span id="cb44-21"><a href="ml.html#cb44-21" aria-hidden="true" tabindex="-1"></a>fish_mat[<span class="dv">2</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="sc">-</span> n <span class="sc">/</span> pars_mle[<span class="dv">2</span>]</span>
+<span id="cb44-22"><a href="ml.html#cb44-22" aria-hidden="true" tabindex="-1"></a>fish_mat[<span class="dv">2</span>,<span class="dv">2</span>] <span class="ot">&lt;-</span> (n <span class="sc">*</span> pars_mle[<span class="dv">1</span>]) <span class="sc">/</span> (pars_mle[<span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb44-23"><a href="ml.html#cb44-23" aria-hidden="true" tabindex="-1"></a>fish_mat[<span class="dv">1</span>,<span class="dv">1</span>] <span class="ot">&lt;-</span> n <span class="sc">*</span> <span class="fu">grad</span>(digamma, pars_mle[<span class="dv">1</span>])</span>
+<span id="cb44-24"><a href="ml.html#cb44-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-25"><a href="ml.html#cb44-25" aria-hidden="true" tabindex="-1"></a>fish_mat_inv <span class="ot">&lt;-</span> <span class="fu">solve</span>(fish_mat)</span>
+<span id="cb44-26"><a href="ml.html#cb44-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-27"><a href="ml.html#cb44-27" aria-hidden="true" tabindex="-1"></a>est_ellip <span class="ot">&lt;-</span> <span class="fu">ellipse</span>(pars_mle, fish_mat_inv, <span class="at">draw =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb44-28"><a href="ml.html#cb44-28" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(est_ellip) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>)</span>
+<span id="cb44-29"><a href="ml.html#cb44-29" aria-hidden="true" tabindex="-1"></a>est_ellip <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(est_ellip)</span>
+<span id="cb44-30"><a href="ml.html#cb44-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-31"><a href="ml.html#cb44-31" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb44-32"><a href="ml.html#cb44-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> pars_mle[<span class="dv">1</span>], <span class="at">y =</span> pars_mle[<span class="dv">2</span>]), <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb44-33"><a href="ml.html#cb44-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">data =</span> est_ellip, <span class="fu">aes</span>(<span class="at">x =</span> X1, <span class="at">y =</span> X2)) <span class="sc">+</span></span>
+<span id="cb44-34"><a href="ml.html#cb44-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> pars_theor[<span class="dv">1</span>], <span class="at">y =</span> pars_theor[<span class="dv">2</span>]), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb44-35"><a href="ml.html#cb44-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> pars_theor[<span class="dv">1</span>], <span class="at">y =</span> pars_theor[<span class="dv">2</span>], <span class="at">label =</span> <span class="st">&quot;Theoretical parameters&quot;</span>), </span>
+<span id="cb44-36"><a href="ml.html#cb44-36" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb44-37"><a href="ml.html#cb44-37" aria-hidden="true" tabindex="-1"></a>            <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">0.2</span>)</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-22" class="exercise"><strong>Exercise 15.8  </strong></span>Find the unit Fisher information matrix for the univariate normal distribution.</p>
+<p><span id="exr:unnamed-chunk-25" class="exercise"><strong>Exercise 15.9  </strong></span>Find the unit Fisher information matrix for the univariate normal distribution.</p>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-6" class="solution"><em>Solution</em>. </span>The normal density is
+<p><span id="unlabeled-div-7" class="solution"><em>Solution</em>. </span>The normal density is
 <span class="math display">\[\begin{equation*}
   p(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left(-0.5 \frac{(x-\mu)^2}{\sigma^2}\right).
 \end{equation*}\]</span></p>
@@ -837,11 +977,11 @@ where we used the fact that <span class="math inline">\(E[X - \mu] = 0\)</span> 
 </div>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-24" class="exercise"><strong>Exercise 15.9  </strong></span>Find the unit Fisher information for the binomial distribution with fixed <span class="math inline">\(n\)</span>.</p>
+<p><span id="exr:unnamed-chunk-27" class="exercise"><strong>Exercise 15.10  </strong></span>Find the unit Fisher information for the binomial distribution with fixed <span class="math inline">\(n\)</span>.</p>
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-7" class="solution"><em>Solution</em>. </span>The binomial mass is
+<p><span id="unlabeled-div-8" class="solution"><em>Solution</em>. </span>The binomial mass is
 <span class="math display">\[\begin{equation*}
   P(X = k; n, p) = \binom{n}{k}p^k(1-p)^{n-k}.
 \end{equation*}\]</span></p>
@@ -867,7 +1007,7 @@ where we used the fact that <span class="math inline">\(E[k] = np\)</span> for <
 <div id="the-german-tank-problem" class="section level2 hasAnchor" number="15.3">
 <h2><span class="header-section-number">15.3</span> The German tank problem<a href="ml.html#the-german-tank-problem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-26" class="exercise"><strong>Exercise 15.10  (The German tank problem) </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
+<p><span id="exr:unnamed-chunk-29" class="exercise"><strong>Exercise 15.11  (The German tank problem) </strong></span>During WWII the allied intelligence were faced with an important problem of estimating the total production of certain German tanks, such as the Panther. What turned out to be a successful approach was to estimate the maximum from the serial numbers of the small sample of captured or destroyed tanks (describe the statistical model used).</p>
 <ol style="list-style-type: lower-alpha">
 <li>What assumptions were made by using the above model? Do you think they are reasonable assumptions in practice?</li>
 <li>Show that the plug-in estimate for the maximum (i.e. the maximum of the sample) is a biased estimator.</li>
@@ -877,7 +1017,7 @@ where we used the fact that <span class="math inline">\(E[k] = np\)</span> for <
 </div>
 <div class="fold">
 <div class="solution">
-<p><span id="unlabeled-div-8" class="solution"><em>Solution</em>. </span>The data are the serial numbers of the tanks. The parameter is <span class="math inline">\(n\)</span>, the total production of the tank. The distribution of the serial numbers is a discrete uniform distribution over all serial numbers.</p>
+<p><span id="unlabeled-div-9" class="solution"><em>Solution</em>. </span>The data are the serial numbers of the tanks. The parameter is <span class="math inline">\(n\)</span>, the total production of the tank. The distribution of the serial numbers is a discrete uniform distribution over all serial numbers.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>One of the assumptions is that we have i.i.d samples, however in practice this might not be true, as some tanks produced later could be sent to the field later, therefore already in theory we would not be able to recover some values from the population.</p></li>
 <li><p>To find the expected value we first need to find the distribution of <span class="math inline">\(m\)</span>. Let us start with the CDF.
@@ -903,18 +1043,18 @@ The bias of this estimator is then
 <li><p>The probability that we observed our sample <span class="math inline">\(Y = {Y_1, Y_2,...,,Y_k}\)</span> given <span class="math inline">\(n\)</span> is <span class="math inline">\(\frac{1}{{n}\choose{k}}\)</span>. We need to find such <span class="math inline">\(n^*\)</span> that this function is maximized. Additionally, we have a constraint that <span class="math inline">\(n^* \geq m = \max{(Y)}\)</span>. Let us plot this function for <span class="math inline">\(m = 10\)</span> and <span class="math inline">\(k = 4\)</span>.</p></li>
 </ol>
 </div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="ml.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb37-2"><a href="ml.html#cb37-2" aria-hidden="true" tabindex="-1"></a>my_fun <span class="ot">&lt;-</span> <span class="cf">function</span> (x, m, k) {</span>
-<span id="cb37-3"><a href="ml.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  tmp        <span class="ot">&lt;-</span>  <span class="dv">1</span> <span class="sc">/</span> (<span class="fu">choose</span>(x, k))</span>
-<span id="cb37-4"><a href="ml.html#cb37-4" aria-hidden="true" tabindex="-1"></a>  tmp[x <span class="sc">&lt;</span> m] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb37-5"><a href="ml.html#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (tmp)</span>
-<span id="cb37-6"><a href="ml.html#cb37-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb37-7"><a href="ml.html#cb37-7" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
-<span id="cb37-8"><a href="ml.html#cb37-8" aria-hidden="true" tabindex="-1"></a>y  <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(x, <span class="dv">10</span>, <span class="dv">4</span>)</span>
-<span id="cb37-9"><a href="ml.html#cb37-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)</span>
-<span id="cb37-10"><a href="ml.html#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb37-11"><a href="ml.html#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="ml.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb45-2"><a href="ml.html#cb45-2" aria-hidden="true" tabindex="-1"></a>my_fun <span class="ot">&lt;-</span> <span class="cf">function</span> (x, m, k) {</span>
+<span id="cb45-3"><a href="ml.html#cb45-3" aria-hidden="true" tabindex="-1"></a>  tmp        <span class="ot">&lt;-</span>  <span class="dv">1</span> <span class="sc">/</span> (<span class="fu">choose</span>(x, k))</span>
+<span id="cb45-4"><a href="ml.html#cb45-4" aria-hidden="true" tabindex="-1"></a>  tmp[x <span class="sc">&lt;</span> m] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb45-5"><a href="ml.html#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (tmp)</span>
+<span id="cb45-6"><a href="ml.html#cb45-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-7"><a href="ml.html#cb45-7" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb45-8"><a href="ml.html#cb45-8" aria-hidden="true" tabindex="-1"></a>y  <span class="ot">&lt;-</span> <span class="fu">my_fun</span>(x, <span class="dv">10</span>, <span class="dv">4</span>)</span>
+<span id="cb45-9"><a href="ml.html#cb45-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)</span>
+<span id="cb45-10"><a href="ml.html#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb45-11"><a href="ml.html#cb45-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bookdown-pou_files/figure-html/unnamed-chunk-31-1.png" width="672" />
 ::: {.solution}</p>
 <ol start="3" style="list-style-type: lower-alpha">
 <li><p>(continued) We observe that the maximum of this function lies at the maximum value of the sample. Therefore <span class="math inline">\(n^* = m\)</span> and ML estimate equals the plug-in estimate.</p></li>
