@@ -351,6 +351,108 @@ my_pca$rotation
 ```
 </div>
 
+```{exercise, name = "Classification"}
+Let $D = \{(x_i, y_i)\}_{i=1}^n$ be a dataset of feature vectors and their corresponding integer class labels. We wish to classify feature vectors into correct classes.
+
+a. Choose a suitable probability distribution $P_\theta(Y|X)$ and write its log likelihood $\ell$.
+b. Choose a differentiable function $f_\phi$ that predicts parameters $\theta$ from a feature vector, i.e.\ $f_\phi(x_i) = \theta_i$.
+c. <span style="color:blue">Load the _iris_ dataset with `data(iris)` and split it into train and test subsets.</span>
+d. <span style="color:blue">Use gradient descent to find parameters $\phi$ that minimize the negative log likelihood on the _iris_ dataset (equivalently: maximize the log likelihood). Reminder: gradient descent is an iterative optimization procedure $\phi_{t+1} = \phi_t - \eta \nabla_\phi \ell$. Try $\eta = 0.01$ and run optimization for 30 steps. Compute the gradient with `numDeriv::grad`.</span>
+e. <span style="color:blue">Print the classification accuracy for the train and test subsets.</span>
+```
+<div class="fold">
+```{solution, echo = togs}
+a. We pick the categorical distribution.
+b. Categorical distribution parameters are class probabilities that sum to 1. If there are $m$ classes, we can pick any differentiable function that takes as input a vector of features and predicts a vector of size $m$ whose elements are real numbers. We can then use a softmax transformation to map the predicted vector into one with non-negative entries that sum to 1. For simplicity, we can pick a linear transformation with $\phi = (W, b)$, followed by softmax:
+  \begin{align*}
+    f_\phi(x) &= \textrm{softmax}(Wx + b), \\
+    \textrm{softmax}(u)_i &= \frac{\exp(u_i)}{\sum_{j=1}^m \exp(u_j)},
+  \end{align*}
+where $W \in \mathbb{R}^{d\times m}, b \in \mathbb{R}^m$ and $d$ is the number of features.
+```
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+data(iris)
+head(iris)
+
+# Model:
+# y ~ Categorical(softmax(weights * features + bias))
+# Want to maximize the (log) likelihood of y w.r.t. weights and bias.
+# Need gradient of log likelihood w.r.t. weights and bias.
+# Proceed by gradient descent on negative log likelihood.
+
+weights <- matrix(data=rnorm(4 * 3), nrow=4, ncol=3)
+bias <- matrix(data=rnorm(3), nrow=1, ncol=3)
+
+model <- function(features, weights, bias) {
+  # parameters is a 5-element vector. First four are weights, last is bias.
+  return(t(features %*% weights + bias))
+}
+
+softmax <- function(v) {
+  return(exp(v) / sum(exp(v)))
+}
+
+categorical_mass <- function(targets, probs) {
+  # targets: matrix of size (n_data, n_classes) whose rows are one-hot vectors
+  # probs: matrix of size (n_data, n_classes) whose rows are class probabilities
+  apply(probs * targets, 1, sum)
+}
+
+predict_probs <- function(features, model, parameters) {
+  weights <- parameters[1:4, ]
+  bias <- parameters[5, ]
+  u <- model(features, weights, bias)
+  apply(u, 1, softmax)
+}
+
+accuracy <- function(features, targets, model, parameters) {
+  probs <- predict_probs(features, model, parameters)
+  argmax_mat <- t(apply(probs, 1, function(v) {v == max(v)}))
+  correct_predictions <- apply(argmax_mat * targets, 1, sum)
+  return(mean(correct_predictions))
+}
+
+neg_log_lik <- function(features, targets, model, parameters) {
+  probs <- predict_probs(features, model, parameters)
+  -sum(log(categorical_mass(targets, probs)))
+}
+
+grad_neg_log_lik <- function(features, targets, model, parameters){
+  numDeriv::grad(function(par){neg_log_lik(features, targets, model, par)}, parameters)
+}
+
+gradient_descent <- function(initial_parameters, features, targets, step_size = 0.01, n_steps = 30) {
+  parameters <- initial_parameters
+  for (i in 1:n_steps) {
+    print(sprintf("[%d] loss: %.4f, accuracy: %.2f", i, neg_log_lik(features, targets, model, parameters), accuracy(features, targets, model, parameters)))
+    parameters <- parameters - step_size * grad_neg_log_lik(features, targets, model, parameters)
+  }
+  return(parameters)
+}
+
+
+x <- as.matrix(subset(iris, select=-c(Species)))
+y <- matrix(nrow=nrow(iris), ncol=3)
+y[, 1] <- iris$Species == "setosa"
+y[, 2] <- iris$Species == "versicolor"
+y[, 3] <- iris$Species == "virginica"
+
+# Take an equal number of representatives for every class for the training and test subsets
+# Note: code is written so that shuffling does not matter during optimization
+x_train <- x[c(1:35, 51:85, 101:135), ]
+y_train <- y[c(1:35, 51:85, 101:135), ]
+
+x_test <- x[-c(1:35, 51:85, 101:135), ]
+y_test <- y[-c(1:35, 51:85, 101:135), ]
+
+set.seed(0)
+optimized_parameters <- gradient_descent(rbind(weights, bias), x_train, y_train)
+
+accuracy(x_train, y_train, model, optimized_parameters)
+accuracy(x_test, y_test, model, optimized_parameters)
+```
+</div>
+
 
 ## Fisher information
 ```{exercise}
@@ -503,6 +605,84 @@ ggplot() +
   geom_text(aes(x = pars_theor[1], y = pars_theor[2], label = "Theoretical parameters"), 
             color = "red",
             nudge_y = -0.2)
+
+```
+</div>
+
+```{exercise}
+
+
+Find the unit Fisher information matrix for the univariate normal distribution.
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+The normal density is
+\begin{equation*}
+  p(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp\left(-0.5 \frac{(x-\mu)^2}{\sigma^2}\right).
+\end{equation*}
+
+Its logarithm is 
+\begin{equation*}
+  \log p(x; \mu, \sigma) = -0.5\log(2\pi) - \log \sigma - 0.5 \frac{(x-\mu)^2}{\sigma^2}.
+\end{equation*}
+  
+The second order partial derivatives are
+\begin{align*}
+  \frac{\partial}{\partial \mu^2} p(x; \mu, \sigma) &= -\frac{1}{\sigma^2}, \\
+  \frac{\partial}{\partial \mu \partial  \sigma} p(x; \mu, \sigma) &= -\frac{2(x-\mu)^2}{\sigma^3}, \\
+  \frac{\partial^2}{\partial \sigma^2} p(x; \mu, \sigma) &= \frac{1}{\sigma^2} - \frac{3(x-\mu)^2}{\sigma^4}.
+\end{align*}
+
+The unit Fisher information matrix is then
+\begin{align*}
+I(\mu, \sigma) =
+  -  E\left[
+    \begin{bmatrix}
+    -\frac{1}{\sigma^2}       & -\frac{2(x-\mu)}{\sigma^3} \\
+    -\frac{2(x-\mu)}{\sigma^3} & \frac{1}{\sigma^2} - \frac{3(x-\mu)^2}{\sigma^4}
+  \end{bmatrix}
+  \right] = 
+  \begin{bmatrix}
+      \frac{1}{\sigma^2}       & 0 \\
+      0 & \frac{2}{\sigma^2}
+    \end{bmatrix},
+\end{align*}
+where we used the fact that $E[X - \mu] = 0$ and $E[(X - \mu)^2] = \sigma^2$.
+
+```
+</div>
+
+```{exercise}
+Find the unit Fisher information for the binomial distribution with fixed $n$.
+```
+<div class="fold">
+```{solution, echo = togs}
+
+The binomial mass is
+\begin{equation*}
+  P(X = k; n, p) = \binom{n}{k}p^k(1-p)^{n-k}.
+\end{equation*}
+
+Its logarithm is 
+\begin{equation*}
+  \log P(X = k; n, p) = \log \binom{n}{k} + k\log p + (n-k)\log(1-p).
+\end{equation*}
+  
+The partial derivatives are
+\begin{align*}
+  \frac{\partial}{\partial p} \log P(X = k; n, p) &= \frac{k}{p} - \frac{n-k}{1-p}, \\
+  \frac{\partial^2}{\partial p^2} \log P(X = k; n, p) &= -\frac{k}{p^2} - \frac{n-k}{(1-p)^2}.
+\end{align*}
+
+The unit Fisher information is
+\begin{align*}
+I(p) =
+  -  E\left[ \frac{\partial^2}{\partial p^2} \log P(X = k; n, p) \right] = 
+  \frac{n}{p(1-p)},
+\end{align*}
+where we used the fact that $E[k] = np$ for $k \sim X$.
 
 ```
 </div>
