@@ -69,7 +69,7 @@
 
 \newcommand\eqas{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily a. s.}}}{=}}}
 
-\title{\textbf{Working with uncertainty}\\ \begin{small}v0.66\end{small}}
+\title{\textbf{Working with uncertainty}\\ \begin{small}v0.7\end{small}}
 
 \author{Erik \v{S}trumbelj}
 
@@ -955,7 +955,7 @@ That is, the \emph{pre-image} $f^{-1}$ of every set in $\mathcal{S}$ is in $\mat
 
 Our interest lies in the measurable spaces where $S$ is the real line and $\mathcal{S}$ is the Borel sigma algebra on the real line. Unless otherwise noted, $\mathcal{F}$-measurable implies that the preimage of every Borel set is in $\mathcal{F}$.
 
-The following proposition, which we state without proof, will be useful when dealing with sums and products of measurable functions.
+The following proposition will be useful when dealing with sums and products of measurable functions.
 
 \begin{proposition}
 Let $(\Omega, \mathcal{F})$ be a measurable space and let $f: \Omega \rightarrow \mathbb{R}$ and $g: \Omega \rightarrow \mathbb{R}$ be $\mathcal{F}$-measurable functions. Then,
@@ -967,6 +967,23 @@ Let $(\Omega, \mathcal{F})$ be a measurable space and let $f: \Omega \rightarrow
 
 are $\mathcal{F}$-measurable.
 \end{proposition}
+
+\begin{proof}
+Measurability of $f+g$ follows from the equality
+
+    $$
+    \{x\in \Omega\colon (f+g)(x)< a\}
+    =
+    \bigcup_{q\in \mathbb{Q}}
+    \{x\in \Omega\colon f(x)<q\}
+    \cap
+    \{x\in \Omega\colon g(x)<a-q\},
+    $$
+
+where $a\in \mathbb{R}$ is arbitrary.
+    
+Measurability of $fg$ follows by similar reasoning and separating cases according to the sign of $f,g$ and $a$ in $\{x\in \Omega\colon (fg)(x)<a\}$.
+\end{proof}    
 
 Let $(\Omega, \mathcal{F}, \mu)$ be a measure space. Let $f: \Omega \rightarrow \mathbb{R}$ be an $\mathcal{F}$-measurable function.
 
@@ -1089,6 +1106,37 @@ The proof of these theorems is beyond the scope of this text.
 
 Note that the MCT allows for infinite integrals - the function $f$ is not necessarily integrable. The existence of an dominating function $g$ in the DCT, however, implies that $f$ and $f_n$ are integrable.
 
+An important ingredient in the development of the integration theory is the denseness of simple measurable functions as stated in the following proposition. 
+    
+\begin{proposition}
+    For every measurable function $f:\Omega \to [0,\infty)$ there exists
+    an increasing sequence of simple measurable functions $s_n:\Omega \to [0,\infty)$ converging to $f$ pointwise, i.e., 
+    $\displaystyle\forall w\in \Omega\colon \lim_{n\to \infty} s_n(w)=f(w).$\label{prop:dense}
+    \end{proposition}
+
+    \begin{proof}
+        For every $n\in \mathbb{N}$ and $j=0,\ldots,n2^n-1$ we define the set 
+        $$A_{n,j}=
+        f^{-1}
+        \Big(
+        \left[
+        \frac{j}{2^n},\frac{j+1}{2^n}
+        \right)
+        \Big)
+        \quad\text{and}\quad
+        A_n=f^{-1}([n,\infty)).
+        $$
+        Let
+        $$
+        s_n=
+        \sum_{j=0}^{n2^n-1} \frac{j}{2^n}\cdot\chi_{A_{n,j}}
+        +
+        n\cdot \chi_{A_n}.
+        $$
+        By construction of the sequence $s_n$ it is easy to check that
+        $s_n$ satisfies the requirements in the proposition.
+\end{proof}
+
 \begin{proposition}
 
 Let $f$ and $g$ be integrable functions and $A$ a measurable set. Some properties of abstract integration are:
@@ -1102,8 +1150,7 @@ Let $f$ and $g$ be integrable functions and $A$ a measurable set. Some propertie
 \end{enumerate}\label{prop:abstract}
 \end{proposition}
 
-\begin{proof}
-We will prove (d) for the case of non-negative simple functions (the general case is beyond the scope of this text):
+\begin{proof}{For (d) in the special case of non-negative simple functions}
 
 Let $f(\omega) = \sum_{i=1}^n a_i I_{A_i}(\omega)$ and  $g(\omega) = \sum_{j=1}^m b_i I_{B_j}(\omega)$ be the canonical representations of $f$ and $g$ as simple functions. By definition of a canonical representation, sets $A_i$ are disjoint as are sets $B_j$. So, the sets $A_i \cap B_j$ are also disjoint. Then
 
@@ -1116,6 +1163,64 @@ $$(f + g)(\omega) = \sum_{i=1}^n \sum_{j=1}^m (a_i + b_i) I_{A_i \cap B_j}(\omeg
  \mu(A_i) + \sum_{j=1}^m b_i \mu(B_j) && \text{(marginalize)} \\
 &= \int f(\omega) d\mu + \int g(\omega) d\mu
 \end{align*}
+\end{proof}
+
+\begin{proof}{For (d) in the general case}
+
+Assume first that $f$ and $g$ are non-negative functions. 
+
+Let $\{s_n\}_n$ (resp.\ $\{t_n\}_n$) be an increasing sequence of simple measurable non-negative functions converging pointwise to $f$ (resp.\ $g$) (see Proposition \ref{prop:dense}).
+
+Define $v_n=s_n+t_n$ for $n\in \mathbb{N}$. Note that the sequence $\{v_n\}_n$ is an increasing sequence of simple measurable non-negative functions converging pointwise to $f+g$. 
+
+Then we have
+    \begin{align*}
+    \int (f+g) d\mu
+    &=
+    \lim_{n\to \infty} \int v_n d\mu\\
+    &=\lim_{n\to \infty} \Big(\int s_n d\mu + \int t_n d\mu\Big)\\
+    &=
+    \lim_{n\to \infty} \int s_n d\mu
+    +
+    \lim_{n\to \infty} \int t_n d\mu\\
+    &=
+    \int f d\mu + \int g d\mu,
+    \end{align*}
+
+where we used the MCT in the first and the last equality, the validity of $(d)$ for simple functions in the second equality, and properties of a limit of a term-wise sum of two non-negative sequences.
+
+Assume now that $f$ and $g$ are arbitrary measurable functions. By definition of the integral we have to prove that
+    $$
+    \int (f+g)_+d\mu-\int (f+g)_-d\mu
+    =
+    \int f_+d\mu-\int f_-d\mu
+    +
+    \int g_+d\mu-\int g_-d\mu,
+    $$
+    or equivalently
+    $$
+    \int (f+g)_+d\mu+\int f_-d\mu+\int g_-d\mu
+    =
+    \int (f+g)_-d\mu
+    +
+    \int f_+d\mu
+    +
+    \int g_+d\mu.
+    $$
+
+By the additivity of the integral for non-negative measurable functions, the latter is further equivalent to
+    \begin{equation}
+    \label{equality-061123}
+    \int \big((f+g)_++f_-+g_-\big)d\mu
+    =
+    \int \big((f+g)_-+f_++g_+\big)d\mu
+    \end{equation}
+
+Since 
+        $$(f_+-f_-)+(g_+-g_-)=f+g=(f+g)_+-(f+g)_-,$$
+it follows that
+        $$(f+g)_++f_-+g_-=(f+g)_-+f_++g_+.$$
+Hence, the integrands in both sides of \eqref{equality-061123} are the same, which implies the integral values are also the same. This concludes the proof of $(d)$.
 \end{proof}
 
 Statements (a-c) and (e) are left as an exercise.
@@ -1510,7 +1615,7 @@ $X$ is a discrete RV so $Y$ is also a discrete RV, because its support can't be 
 
 
 \begin{proposition}[Transformation of a continuous RV]
-Let $X$ be a continuous RV, $g: \mathbb{R} \rightarrow \mathbb{R}$ a Borel measurable, monotone increasing or monotone decreasing, and continuously differentiable function, and $Y = g(X)$. Then,
+Let $X$ be a continuous RV, $g: \mathbb{R} \rightarrow \mathbb{R}$ a Borel measurable, strictly increasing or strictly decreasing, and continuously differentiable function, and $Y = g(X)$. Then,
 
 $$f_Y(y) = f_X(g^{-1}(y)) |\frac{d}{dy}g^{-1}(y)|,$$
 
@@ -1519,28 +1624,27 @@ almost everywhere with respect to the Lebesgue measure.
 
 \begin{proof} First note that the purpose of the conditions regarding $g$ in the statement of the theorem are for $g$ to have an inverse and for that inverse to be differentiable. To be more precise, non-differentiable at most on a set of Lebesgue measure 0, so that $Y$ has a PDF. Another consequence of $g^{-1}$ being differentiable almost everywhere is that the statement in the Proposition is also true almost everywhere.
 
-Monotonicity also simplifies the relationship between the CDF of $X$ and the CDF of $Y$. If $g$ is a monotone increasing function, we have
+Strict monotonicity also simplifies the relationship between the CDF of $X$ and the CDF of $Y$. If $g$ is a strictly increasing function, we have
 
 $$F_Y(y) = P(Y \leq y) = P(g(X) \leq y) = P(X \leq g^{-1}(y)) = F_X(g^{-1}(y)).$$
 
-Note that the above is useful on its own, because it applies to any RV and monotone increasing $g$.
+Note that the above is useful on its own, because it applies to any RV and strictly increasing $g$.
 
 Differentiating both sides with respect to $y$, we get
 
 $$f_Y(y) = f_X(g^{-1}(y)) \frac{d}{dy}g^{-1}(y).$$
 
-Similarly, if $g$ is a monotone decreasing function, we get
+Similarly, if $g$ is a strictly decreasing function, we get
 
 $$F_Y(y) = P(X \geq g^{-1}(y)) = 1 - P(X < g^{-1}(y)) = 1 - F_X(g^{-1}(y)).$$
 
-Again, the above is useful on its own, because it applies to any RV and monotone decreasing $g$.
+Again, the above is useful on its own, because it applies to any RV and strictly decreasing $g$.
 
 Differentiating both sides with respect to $y$, we get
 
 $$f_Y(y) = - f_X(g^{-1}(y)) \frac{d}{dy}g^{-1}(y).$$
 
-However, because $g$ is monotone decreasing, so is $g^{-1}$. The derivative is therefore negative and the increasing and decreasing cases can be summarized as
-
+However, because $g$ is strictly decreasing, so is $g^{-1}$. The derivative is therefore negative and the increasing and decreasing cases can be summarized as
 
 $$f_Y(y) = f_X(g^{-1}(y)) |\frac{d}{dy}g^{-1}(y)|.$$
 \end{proof}
@@ -1840,7 +1944,15 @@ By Proposition \ref{prop:indep2} we have $F_{X,Y}(x,y) = F_X(x)F_Y(y)$, $\forall
 &= \int_{-\infty}^x \int_{-\infty}^y f_{X}(u) f_{Y}(v)du dv
 \end{align*}
 
-This implies that $f_{X,Y}(x,y) = f_{X}(x)f_{Y}(y)$ almost everywhere. the set where this does not hold has Lebesgue measure 0 (see Chapter \ref{ch:abstract} where \emph{almost everywhere} is defined).
+This implies that $f_{X,Y}(x,y) = f_{X}(x)f_{Y}(y)$ almost everywhere. Taking the derivative w.r.t.\ $x$ it follows that
+
+    $$
+    \int_{-\infty}^y f_{X,Y}(x,v)du
+    =
+    \int_{-\infty}^y f_{X}(x)f_Y(v)dv
+     \text{ a.e.}$$
+    
+Now we take the derivative w.r.t.\ $y$ and get $f_{X,Y}(x,y)=f_X(x)f_Y(y)$ a.e.
 \end{proof}
 
 \begin{definition}
@@ -2120,7 +2232,18 @@ Properties of expected values:
 \end{enumerate}\label{prop:properties_of_expectation}
 \end{proposition}
 
-\begin{proof}
+\begin{proof} Note that $X+Y$ in (d) stands for the new random variable, which we denote by $Z:\Omega\to \mathbb{R}$ and is defined by $Z(w):=X(w)+Y(w)$. Then  
+    \begin{align*}
+    E[Z]
+    &=\int_\Omega Z(w) dP(w)
+    =\int_{\mathbb{R}} (X(w)+Y(w)) dP(w)\\
+    &=
+    \int_{\mathbb{R}} X(w)dP(w)
+    +
+    \int_{\mathbb{R}} Y(w) dP(w)
+    =E[X]+E[Y].
+    \end{align*}
+    
 (a-e) are just special cases of Proposition \ref{prop:abstract}. (f) combines (d) and (e). We state (g) without proof.
 %(f): \url{https://math.stackexchange.com/questions/897876/a-nonnegative-random-variable-has-zero-expectation-if-and-only-if-it-is-zero-alm/897893}
 \end{proof}
@@ -2167,7 +2290,20 @@ $$g(E[X]) \geq E[g(X)].$$
 \end{proposition}
 
 \begin{proof}
-We will prove the first statement, the proof of the second is similar. Let $bx + a$ be a line tangent to $g$ at the point $E[X]$. That is, $bE[X] + a = g(E[X])$. Because $g$ is convex, it lies above any of it's tangents, so
+We will prove the first statement, the proof of the second is similar.
+
+Let $$k^{(l)}=\displaystyle\lim_{x\uparrow E[x]} \frac{g(x)-g(E[X])}{x-E[X]}$$
+
+    and 
+        $$k^{(r)}=\displaystyle\lim_{x\downarrow E[x]}
+        \frac{g(x)-g(E[X])}{x-E[X]}.$$
+        
+Since $g$ is a convex function, $k^{(l)}$ and $k^{(r)}$ exist.
+    Let $m:=\min(k^{(l)},k^{(r)})$ and $M=\max(k^{(l)},k^{(r)})$.
+
+Any number on the interval $[m,M]$ is called a subderivative of $g$ at $E[X]$ and all lines that pass through the point $(E[X],g(E[X]))$ with the slope $k\in [m,M]$ lie below the graph of $g$.
+
+From this it follows that
 $$E[g(X)] \geq E[bX + a] = bE[X] + a = g(E[X]).$$
 \end{proof}
 
@@ -2216,6 +2352,67 @@ E[XY] &= \int_\Omega X(\cdot)Y(\cdot) dP  \\
 &= \left(\int_\mathbb{R} y dP_Y \right)  \left(\int_\mathbb{R} x dP_X \right) \\
 &= E[X]E[Y].
 \end{align*}
+
+Note that for the second line we used a generalization of Proposition \ref{prop:exp_law} from one to two variables:
+    \begin{enumerate}
+    \item First observe that 
+            $$(xy)=(xy)_+-(xy)_-=x_+y_++x_-y_--x_+y_--x_-y_+.$$
+        So it suffices to prove the equality for each of the summands
+        $x_+y_+$, $x_+y_-$, $x_-y_+$, $x_-y_-$.
+    \item 
+        To prove that 
+            \begin{equation}
+            \label{bivariate-integration}
+            \int_{\Omega} X(w)_+Y(w)_+ dP(w)
+            =
+            \int_{\mathbb{R}^2} x_+y_+ dP_{X,Y}(x,y),
+            \end{equation}
+        construct monotone increasing sequences $s_n:\mathbb{R}\to [0,\infty)$ and $t_n:\mathbb{R}\to [0,\infty)$ of simple non-negative measurable functions converging to $x_+$
+        and $y_+$, respectively. 
+        Write
+        $$s_n:=\sum_{i=1}^{m_n}s_{n,i} I_{A_i},\quad
+        t_n:=\sum_{j=1}^{\tilde m_n}t_{n,j} I_{B_j}$$
+        and
+        define
+        $$
+        \tilde s_n:=\sum_{i=1}^{m_n}s_{n,i} I_{X^{-1}(A_i)},\quad
+        \tilde t_n:=\sum_{j=1}^{\tilde m_n}t_{n,j} I_{Y^{-1}(B_j)}.
+        $$
+        Further on, let
+        \begin{align*}
+            v_n:\mathbb{R}^2\to [0,\infty),\quad  &v_n(x,y)=s_n(x)t_n(y)
+            =\sum_{i,j}s_{n,i}t_{t_n,j}I_{A_i\times B_j}
+            ,\\
+            \tilde v_n:\Omega\to [0,\infty),\quad  
+            &\tilde v_n(w)=\tilde s_n(w)\tilde t_n(w)
+            =
+            \sum_{i,j}s_{n,i}t_{t_n,j}I_{X^{-1}(A_i)\cap Y^{-1}(B_j)}.
+        \end{align*}
+        Note that $v_n$ and $\tilde v_n$ are monotone increasing sequences of non-negative measurable functions converging to
+        $x_+y_+$ and $X(w)_+Y(w)_+$, respectively. By the MCT,
+        \begin{align*}
+            \lim_{n\to \infty} 
+            \int_{\mathbb{R}^2} v_n(x,y) dP_{X,Y}(x,y)
+            &=
+            \int_{\mathbb{R}^2} x_+y_+ dP_{X,Y},\\
+            \lim_{n\to \infty} \int_{\Omega} \tilde v_n(w) dP(w)
+            &=
+            \int_{\Omega} X(w)_+Y(w)_+ dP_{X,Y}.
+        \end{align*}
+        From 
+        \begin{align*}
+        \int_{\Omega} \tilde v_n(w) dP(w)
+        &=
+        \sum_{i,j}s_{n,i}t_{t_n,j}P_{X,Y}(A_i\times B_j)\\
+        &=
+        \sum_{i,j}s_{n,i}t_{t_n,j}P((X,Y)^{-1}(A_i\times B_j))\\
+        &=
+        \sum_{i,j}s_{n,i}t_{t_n,j}P(X^{-1}(A_i)\cap Y^{-1}(B_j))\\
+        &=
+        \int_{\mathbb{R}^2} \tilde v_n(w)dP(w),
+        \end{align*}
+        the equality \eqref{bivariate-integration} follows.
+    \end{enumerate}
 \end{proof}
 
 
@@ -2297,21 +2494,42 @@ The proof of this theorem is left as an exercise. In words, the theorem says tha
 \begin{proposition}[Cauchy-Schwarz inequality on expectations]
 Let $X$ and $Y$ be random variables with finite variance. Then,
 
-$$\E[XY] \leq \sqrt{\E[X^2]\E[Y^2]}.$$
+$$\E[XY] \leq \sqrt{\E[X^2]\E[Y^2]}.$$\label{prop:cs1}
 \end{proposition}
 
 \begin{proof}
 This is a direct application of the Cauchy-Schwarz inequality with the (semi) inner product defined with the expectation of the product of random variables.
+
+On the vector space of all random variables with a finite variance we define the semi-inner product $\langle X, Y\rangle:=E[XY]$. Note that this is well-defined by
+    \begin{align*}
+        |E[XY]|
+        &=
+        \Big|\int_{\Omega} X(w)Y(w) dP(w)\Big|
+        \leq 
+        \int_{\Omega}  |X(w)Y(w)| dP(w)\\
+        &\leq
+        \int_{\Omega}  \frac{X(w)^2+Y(w)^2}{2} dP(w)\\
+        &=
+        \int_{\Omega}  \frac{X(w)^2}{2} dP(w)
+        +
+        \int_{\Omega}  \frac{Y(w)^2}{2} dP(w)
+        <\infty,
+    \end{align*}
+where we used the arithmetic-geometric mean inequality in the second inequality and $E[X^2]<\infty$, $E[Y^2]<\infty$
+in the last inequality (which follows from $Var[X]<\infty$ and  $Var[Y]<\infty$).
 \end{proof}
 
 \begin{proposition}[Cauchy-Schwarz inequality on covariance]
 Let $X$ and $Y$ be random variables with finite variance. Then,
+$$\Cov[X,Y]^2 \leq \Var[X]\Var[Y],$$
 
-$$\Cov[X,Y]^2 \leq \Var[X]\Var[Y].$$
+with equality if and only if $X$ and $Y$ are linearly dependent.
 \end{proposition}
 
 \begin{proof}
-This is a direct application of the Cauchy-Schwarz inequality with the (semi) inner product defined with $Cov[X,Y]$.
+This is a direct application of the Cauchy-Schwarz inequality with the (semi) inner product defined with $Cov[X,Y]$. The argument that this is well defined is similar to the one in the proof of Proposition \ref{prop:cs1}.
+
+The proof of the final statement is left as an exercise.
 \end{proof}
 
 \begin{corollary}
@@ -2508,6 +2726,47 @@ It turns out that $\det J_h = 1/\det J_g$, where $J_g$ has elements of the form 
 
 We omit the proof of this proposition.
 
+
+\begin{cexample}
+
+Let us integrate $I:=\int_{-\infty}^{\infty}e^{-x^2}dx$.
+
+We have
+    \begin{align}
+    \label{Gaussian-density}
+    \begin{split}
+        I^2
+        &=
+        \Big(\int_{-\infty}^{\infty}e^{-x^2}dx\Big)
+        \Big(\int_{-\infty}^{\infty}e^{-y^2}dy\Big)
+        =
+        \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}
+            e^{-(x^2+y^2)}dxdy\\
+        &=
+            \int_{0}^{\infty}\int_{0}^{2\pi}
+            e^{-r^2}rd\varphi dr
+        =\pi \int_{0}^{\infty}e^{-v}dv
+        =\pi, 
+    \end{split}
+    \end{align}
+    where we used the substitution 
+    $(x,y)=\phi^{-1}(r,\varphi)=(r\cos\varphi,r\sin\varphi)$
+    in the third and $v=r^2$ in the fourth equality.
+    Hence, 
+    $$
+    \det J\phi^{-1}
+    =
+    \begin{pmatrix}
+        \cos\varphi & -r\sin\varphi\\
+        \sin\varphi & r\cos\varphi
+    \end{pmatrix}
+    =
+    r(\cos\varphi^2+\sin\varphi^2)=r
+    $$
+    and $dv=rdr$.
+    It follows from \eqref{Gaussian-density} that $I=\sqrt{\pi}.$
+\end{cexample}
+
 \section{The multivariate normal distribution}
 
 \begin{definition}
@@ -2515,8 +2774,67 @@ The probability density function of a $k$-variate normal distribution ($k \geq 1
 
 $$f(x) = \frac{1}{(2\pi)^\frac{k}{2}(\det\Sigma)^\frac{1}{2}} \exp\left(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x - \mu)\right), x \in \mathbb{R}^k$$
 
-where the two parameters are $\mu \in \mathbb{R}^k$ (mean vector) and $k \times k$ positive definite matrix $\Sigma$ (covariance matrix).
+where the two parameters are $\mu \in \mathbb{R}^k$ (mean vector) and $k \times k$ positive definite matrix $\Sigma$ (covariance matrix).\label{def:normal}
 \end{definition}
+
+    \begin{proposition}
+        \label{density}
+        $f(x)$ from Definition \ref{def:normal} is indeed a density.
+    \end{proposition}
+
+\begin{proof}
+    Let $\Sigma=U^TDU$ be the spectral decomposition of
+    $\Sigma$, i.e., $U$ is orthogonal and $D=\mathrm{diag}(\sigma_1^2,\ldots,\sigma_k^2)$ is diagonal with $\sigma_i>0$.
+    Let $z=\phi(x)=U(x-\mu)$ be the change of variables. Note that
+    $x=\phi^{-1}(z)=U^Tz+\mu$ and
+    hence 
+    $$|\det J\phi^{-1}(z)|=
+        |\det U^T|=1.$$
+    Then
+    \begin{align*}
+    \int_{\mathbb{R}^k} f(x)dx
+    &=
+    \frac{1}{
+    (\sqrt{2\pi})^k
+    \sqrt{\det D}
+    }\int_{\mathbb{R}^k} 
+    \exp\left(
+    -\frac{1}{2}
+    z^T D^{-1} z
+    \right)
+    dz\\
+    &=
+    \frac{1}{
+    (\sqrt{2\pi})^k
+    \sigma_1\cdots\sigma_k}
+    \int_{\mathbb{R}^k} 
+    \exp\left(
+    -\frac{1}{2}
+    \sum_{i=1}^k
+    \sigma_i^{-2}
+    z_i^2
+    \right)
+    dz\\
+    &=
+    \prod_{i=1}^k
+    \left(
+    \frac{1}{\sqrt{2\pi}\sigma_i}
+    \int_{\mathbb{R}}
+    \exp\left(-\frac{z_i^2}{2\sigma_i^2}\right)
+    \right)\\
+    &=
+    \prod_{i=1}^k
+    \left(
+    \frac{1}{\sqrt{\pi}}
+    \int_{\mathbb{R}}
+    \exp\left(-v_i^2\right)
+    \right)=1,
+    \end{align*}
+    where we used substitutions 
+    $v_i=\frac{z_i}{\sqrt{2}\sigma_i}$
+    and hence $dv_i=\frac{1}{\sqrt{2}\sigma_i}dz_i$
+    in the last equality.
+    \end{proof}
 
 \begin{proposition}
 Let $Z = [Z_1, Z_2,...,Z_k]^T$ be a random vector, such that $Z_i$ are independent univariate standard normal variables $Z_i \sim N(0,1)$. Let $\mu \in \mathbb{R}^k$ and $A$ a $k \times k$ non-singular matrix. Then,
@@ -2587,7 +2905,250 @@ where $\Sigma_{WZ} = \Cov(X_W, X_Z)$. For any such partition, we have
 
 \end{proposition}
 
-The proof is left as an exercise.
+    \begin{proof}
+        Let us first prove $(a)$.
+        Let $k_A, k_B$ be the dimensions of $X_A$, $X_B$, respectively
+        and $k=k_A+k_B$.
+        An LDU decomposition of $\Sigma$ is the following factorization:
+        \begin{equation}
+        \label{LDU}
+        \begin{pmatrix}
+            \Sigma_{AA} & \Sigma_{AB}\\
+            \Sigma_{BA} & \Sigma_{BB}
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            I_{k_A} & 0\\
+            \Sigma_{BA}\Sigma_{AA}^{-1} & I_{k_B}
+        \end{pmatrix}
+        \begin{pmatrix}
+            \Sigma_{AA} & 0\\
+            0 & \Sigma/\Sigma_{AA}
+        \end{pmatrix}
+        \begin{pmatrix}
+            I_{k_A} & \Sigma_{AA}^{-1}\Sigma_{AB}\\
+            0 & I_{k_B}
+        \end{pmatrix}
+        \end{equation}
+        where 
+            $$
+            \Sigma/\Sigma_{AA}
+            =
+            \Sigma_{BB}-\Sigma_{BA}\Sigma_{AA}^{-1}\Sigma_{AB}$$
+        is the \textit{Schur complement of $\Sigma_{AA}$ in $\Sigma$}.
+        Taking the inverse of $\Sigma$ in the LDU decomposition \eqref{LDU} above we get
+        \begin{align}
+        \label{LDU-inverse}
+        \begin{split}
+        &\begin{pmatrix}
+            \Sigma_{AA} & \Sigma_{AB}\\
+            \Sigma_{BA} & \Sigma_{BB}
+        \end{pmatrix}^{-1}
+        =\\
+        &=\begin{pmatrix}
+            I_{k_A} & -\Sigma_{AA}^{-1}\Sigma_{AB}\\
+            0 & I_{k_B}
+        \end{pmatrix}
+        \begin{pmatrix}
+            \Sigma^{-1}_{AA} & 0\\
+            0 & (\Sigma/\Sigma_{AA})^{-1}
+        \end{pmatrix}
+        \begin{pmatrix}
+            I_{k_A} & 0\\
+            -\Sigma_{BA}\Sigma_{AA}^{-1} & I_{k_B}
+        \end{pmatrix}
+        \end{split}
+        \end{align}
+        Note that in \eqref{LDU-inverse} we used 
+        $$
+        \begin{pmatrix}
+            I & X \\ 0 & I
+        \end{pmatrix}^{-1}
+        =
+        \begin{pmatrix}
+            I & -X \\ 0 & I
+        \end{pmatrix}
+        \quad\text{and}\quad
+        \begin{pmatrix}
+            I & 0 \\ Y & I
+        \end{pmatrix}^{-1}
+        =
+        \begin{pmatrix}
+            I & 0 \\ -Y & I
+        \end{pmatrix}
+        $$
+        By the change of variables $(z_A,z_B)=\phi(x_A,x_B)$, defined by
+        \begin{align*}
+            \begin{pmatrix}
+                z_A \\ z_B
+            \end{pmatrix}  
+            &=
+            \begin{pmatrix}
+            I_{k_A} & 0\\[0.2em]
+            -\Sigma_{BA}\Sigma_{AA}^{-1} & I_{k_B}
+            \end{pmatrix}
+            \begin{pmatrix}
+                x_A-E[X_A] \\[0.2em]
+                x_B-E[X_B]
+            \end{pmatrix}\\[0.3em]
+            &=
+            \begin{pmatrix}
+                x_A-E[X_A] \\[0.2em] -\Sigma_{BA}\Sigma_{AA}^{-1} 
+                (x_A-E[X_A])+(x_B-E[X_B])
+            \end{pmatrix}
+        \end{align*}
+        we get
+        \begin{align*}
+        &f_{(Z_A,Z_B)}(z_A,z_B)=\\
+        &=
+        f_{(X_A,X_B)}(\phi^{-1}(z_A,z_B))
+        \cdot
+        |\det J\phi^{-1}(z_A,z_B)|\\[0.2em]
+        &=
+        f_{(X_A,X_B)}(z_A+E[X_A], \Sigma_{BA}\Sigma_{AA}^{-1} z_A+z_B+E[X_B])\\
+        &=
+        \frac{1}{(\sqrt{2\pi})^k \sqrt{\det \Sigma}}
+        \exp\left(-\frac{1}{2} z_A^T \Sigma_{AA}^{-1} z_A\right)
+        \exp\left(-\frac{1}{2} z_B^T (\Sigma/\Sigma_{AA})^{-1} z_B\right)\\
+        &=
+        \frac{1}{(\sqrt{2\pi})^{k_{A}} \sqrt{\det \Sigma_{AA}}}
+        \exp\left(-\frac{1}{2} z_A^T \Sigma_{AA}^{-1} z_A\right)\\
+        &\hspace{2cm}\cdot 
+        \frac{1}{(\sqrt{2\pi})^{k_{B}} \sqrt{\det \Sigma/\Sigma_{AA}}}
+        \exp\left(-\frac{1}{2} z_B^T (\Sigma/\Sigma_{AA})^{-1} z_B\right),
+        \end{align*}
+        where we used that 
+        $$
+        \det J\phi^{-1}(z_A,z_B)=
+            \det \begin{pmatrix}
+            I_{k_A} & 0\\[0.2em]
+            \Sigma_{BA}\Sigma_{AA}^{-1} & I_{k_B}
+            \end{pmatrix}=1
+        $$
+        in the second equality
+        and
+        $$\det \Sigma=(\det \Sigma_{AA})(\det \Sigma/\Sigma_{AA})$$
+        in the last equality (this fact follows from \eqref{LDU}).
+        To obtain the marginal density
+        $f_{Z_A}(z_A)$ we compute
+        \begin{align*}
+        f_{Z_A}(z_A)
+        &=
+        \int_{\mathbb{R}}\cdots \int_{\mathbb{R}}
+        f_{(Z_A,Z_B)}(z_A,z_B) \;dz_B\\
+        &=
+        \frac{1}{(\sqrt{2\pi})^{k_{A}} \sqrt{\det \Sigma_{AA}}}
+        \exp\left(-\frac{1}{2} z_A^T \Sigma_{AA}^{-1} z_A\right),
+        \end{align*}
+        where we used the observation that 
+        $$\frac{1}{(\sqrt{2\pi})^{k_{B}} \sqrt{\det \Sigma/\Sigma_{AA}}}
+        \exp\left(-\frac{1}{2} z_B^T (\Sigma/\Sigma_{AA})^{-1} z_B\right)$$
+        is the density of $N(0,\Sigma/\Sigma_{AA})$.
+        Since $f_{Z_A}(z_A)$ is the density of 
+        $N(0,\Sigma_{AA})$, it follows that 
+        $Z_A\sim N(0,\Sigma_{AA})$
+        and from $X_A=Z_A+E[X_A]$, we have that
+        $X_A\sim N(E[X_A],\Sigma_{AA})$.\\
+
+        It remains to prove $(b)$.
+        Observe that
+        \begin{align*}
+            &f_{X_B|X_A=x_A}(x_B)
+            =
+            \frac{f_{(X_A,X_B)}(x_A,x_B)}{f_{X_A}(x_A)}\\
+            &=
+            \frac
+            {(\sqrt{2\pi})^{k_A} \sqrt{\det \Sigma_{AA}}}
+            {(\sqrt{2\pi})^k \sqrt{\det \Sigma}}\cdot\\
+            &\hspace{0.5cm}
+            \cdot
+            \exp\left(
+            -\frac{1}{2}
+            \begin{pmatrix}
+                x_A-E[X_A] \\ x_B-E[X_B]
+            \end{pmatrix}^T
+            \Big(
+            \Sigma^{-1}
+            -
+            \begin{pmatrix}
+                \Sigma_{AA}^{-1} & 0 \\ 0 & 0
+            \end{pmatrix}
+            \Big)
+            \begin{pmatrix}
+                x_A-E[X_A] \\ x_B-E[X_B]
+            \end{pmatrix}
+            \right).
+        \end{align*}
+        Now note that
+        \begin{equation}
+        \label{LDU-inverse-v2}
+        \begin{pmatrix}
+            \Sigma_{AA}^{-1} & 0\\
+            0 & 0
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            I_{k_A} & -\Sigma_{AA}^{-1}\Sigma_{AB}\\
+            0 & I_{k_B}
+        \end{pmatrix}
+        \begin{pmatrix}
+            \Sigma^{-1}_{AA} & 0\\
+            0 & 0
+        \end{pmatrix}
+        \begin{pmatrix}
+            I_{k_A} & 0\\
+            -\Sigma_{BA}\Sigma_{AA}^{-1} & I_{k_B}
+        \end{pmatrix}
+        \end{equation}
+        Therefore, \eqref{LDU-inverse} and \eqref{LDU-inverse-v2} imply
+        that
+        \begin{align}
+        \label{LDU-inverse-v3}
+        \begin{split}
+        &\Sigma^{-1}
+            -
+            \begin{pmatrix}
+                \Sigma_{AA}^{-1} & 0 \\ 0 & 0
+            \end{pmatrix}
+        =\\
+        &=
+                \begin{pmatrix}
+            I_{k_A} & -\Sigma_{AA}^{-1}\Sigma_{AB}\\
+            0 & I_{k_B}
+        \end{pmatrix}
+        \begin{pmatrix}
+            0 & 0\\
+            0 & (\Sigma/\Sigma_{AA})^{-1}
+        \end{pmatrix}
+        \begin{pmatrix}
+            I_{k_A} & 0\\
+            -\Sigma_{BA}\Sigma_{AA}^{-1} & I_{k_B}
+        \end{pmatrix}.
+        \end{split}
+        \end{align}
+        Using \eqref{LDU-inverse-v3} in $f_{X_B|X_A=x_A}(x_B)$
+        above we get
+        \begin{align*}
+            f_{X_B|X_A=x_A}(x_B)
+            &=
+            \frac
+            {1}
+            {(\sqrt{2\pi})^{k_B} \sqrt{\det \Sigma/\Sigma_{AA}}}
+            \exp\left(
+            -\frac{1}{2}
+            z^T
+            (\Sigma/\Sigma_{AA})^{-1}
+            z
+            \right),
+        \end{align*}
+        where
+        $$z:=x_B-E[X_B]-\Sigma_{BA}\Sigma_{AA}^{-1}(x_A-E[X_A]).$$
+        But this is the density of 
+        $$N(E[X_B]+\Sigma_{BA}\Sigma_{AA}^{-1}(X_A-E[X_A])
+        ,\Sigma/\Sigma_{AA}),$$
+        which concludes the symmetric version of part $(b)$ (with 
+        the roles of $X_A$ and $X_B$ exchanged).
+    \end{proof}
 
 Note that the univariate marginals of a multivariate normal are univariate normal. However, the converse is not always true. There exist multivariate distributions with univariate normal marginals that are not multivariate normal. Finding a counterexample is left as an exercise.
 
@@ -3774,7 +4335,6 @@ Null-hypothesis significance testing has a long tradition of both use and misuse
 \end{cexample}
 
 
-
 \chapter{Plug-in estimators and the bootstrap}
 
 \section{Empirical CDF}
@@ -3833,9 +4393,70 @@ The proof is left as an exercise.
 \begin{definition} A point estimator $\hat{\theta}_n$  is \textit{asymptotically normal} if $$\frac{\hat{\theta}_n - \theta}{\sigma_{\hat{\theta}_n}} \myrightarrow{D} N(0,1).$$
 \end{definition}
 
-For most common functionals, their plug-in estimators have at least some of these desirable properties (see Exercises). Unfortunately, there are no general rules for when a plug-in estimator is a good estimator. Although the Glivenko-Cantelli theorem has very strong implications, it is not enough to imply $T(F_n) \rightarrow T(F)$, because a small change in $F_n$ could still cause a big change in $T(F_n)$. In order for the implication to work, $T$ has to be sufficiently smooth, where the notion of smoothness here is more general, because we are talking about functions.
+For most common functionals, their plug-in estimators have at least some of these desirable properties (see Exercises).
 
-\section{TODO: Linear functionals, influence function}
+\section{Robustness of estimators}
+
+The Glivenko-Cantelli theorem is a very strong statement about the convergence of the ECDF - it tells us that we can, with enough data, estimate the CDF to an arbitrary precision without any assumptions. However, despite this, it is not strong enough to imply $T(F_n) \rightarrow T(F)$, because a small change in $F_n$ could still cause a big change in $T(F_n)$. In order for the implication to work, $T$ has to be sufficiently smooth at $F$, where the notion of smoothness here is more general, because we are talking about functions. Before we give an example, we introduce the influence function of a statistical functional:
+
+\begin{definition} The \emph{influence function} $L$ of a statistical functional $T$ at distribution $F$ is defined as
+
+$$L_T(x; F) = \lim_{\epsilon \rightarrow 0} \frac{T((1 - \epsilon)F + \epsilon\delta_x) - T(F)}{\epsilon},$$
+
+where $\delta_x$ is the distribution that assigns mass 1 to $x$.
+\end{definition}
+
+The influence function can be viewed as a generalization of the usual directional derivative to functions (a special case of the G\^{a}teaux derivative), in this case the CDF F. That is, how does a small contamination of the distribution F at $x$ change the value of the estimator $T$. For a finite data sample, the influence function provides (a linear approximation to) insight into the behaviour of the estimator: $T(F_n) \approx T(F_{n-1}) + \frac{1}{n}L_T(x;F)$.
+
+Now we give an example of a non-robust estimator:
+
+\begin{cexample}[Density estimation] Let us estimate the density of a continuous distribution $f$ at point $x_0$ with the plug-in estimator. That is, our functional is $T(F) = f(x_0)$.
+
+So, while the CDF can be estimated without assumptions, the estimation of a PDF does not work in general!
+\end{cexample}
+
+In practice, we prefer estimators that are robust in the sense that a small change in the value of a data point results in a small change of the estimator. And, that the influence of a data point is bounded. That is, that a single data point cannot have an arbitrarily high effect on the value of the estimator. Before we discuss this further, we introduce a special case of statistical functionals that are easier to study.
+
+
+\begin{definition} A statistical functional $T$ of the form
+
+$$T(F) = \int g(x)dF(x),$$
+
+where $g$ is a function, is called \emph{linear}.
+\end{definition}
+
+\begin{proposition}
+If statistical functional $T$ is linear, then for any distributions $F$ and $G$ and any real values $a$ and $b$, we have $T(aF + bG) = aT(F) + bT(G)$.\label{prop:lin_func}
+\end{proposition}
+
+The proof is left as an exercise.
+
+\begin{proposition}
+The influence function of a linear functional $T(F) = \int g(x)dF(x)$ is $L_T(x; F) = g(x) - T(F)$.
+\end{proposition}
+
+\begin{proof}
+Using Proposition \ref{prop:lin_func}, the limiting term in the definition of the influence function simplifies to 
+
+$$\frac{(1 - \epsilon)T(F) + \epsilon T(\delta_x) - T(F)}{\epsilon} = \frac{(- \epsilon)T(F) + \epsilon g(x)}{\epsilon} = g(x) - T(F).$$
+\end{proof}
+
+\begin{proposition}
+
+The following are the influence functions of some of the most common statistical functionals:
+
+\begin{enumerate}[(a)]
+\item Mean: The influence function of $T(F) = \int x dF(x)$ is $x - T(F)$.
+\item Variance: The influence function of $T(F) = \int x^2 dF(x) - (\int x dF)^2$ is $x - T(F)$.in
+\item Median: The influence function of $T(F) = F^{-1}(\frac{1}{2})$ is $\frac{\text{sign}(x - T(F))}{2f(T(F))}$.
+\end{enumerate}
+
+\end{proposition}
+
+\begin{proof}
+(a) follows from the fact that the mean is a linear functional.
+\end{proof}
+
 
 \section{Bootstrapping the variance of an estimator}
 
@@ -4026,7 +4647,7 @@ The MLE has several other nice properties. The MLE is consistent and asymptotica
 \item[\textbf{R1}] $\theta \neq \theta_0 \Leftrightarrow p(\cdot|\theta) \neq p(\cdot|\theta_0)$ \emph{(identifiability)}.
 \item[\textbf{R2}] The support of $p(y|\theta)$ is the same for all $\theta$. That is, the same values of $y$ have non-zero $p(y|\theta)$ for all $\theta$.
 \item[\textbf{R3}] The point $\theta_0$ is an interior point of the parameter space $\Theta$.
-\item[\textbf{R4}] $p(y|\theta)$ is differentiable in $\theta$ on $\Theta$.
+\item[\textbf{R4}] $p(y|\theta)$ is differentiable a. e. in $\theta$ on $\Theta$.
 \item[\textbf{R5}] $p(y|\theta)$ is three times differentiable in $\theta$ on $\Theta$ and for all $\theta \in \Theta$ there exist a constant $c$ and a function $M(y)$ such that $$|\frac{\partial^3}{\partial \theta^3} \log p(y|\theta)| \leq M(y),$$
 with $\E_{\theta_0}[M(y)] < \infty$, for all $\theta_0 - c < \theta < \theta_0 + c$ and all $y$ in the support of $Y$.
 \item[\textbf{R6}] The integral $\int p(x|\theta)dx$ can be differentiated twice under the integral sign as a function of $\theta$.
