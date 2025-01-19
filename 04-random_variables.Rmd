@@ -756,7 +756,7 @@ We write
 \begin{equation}
   X | \alpha, \beta \sim \text{Gamma}(\alpha, \beta)
 \end{equation}
-and it's CDF is
+and its CDF is
 \begin{equation}
   \frac{\gamma(\alpha, \beta x)}{\Gamma(\alpha)},
 \end{equation}
@@ -794,7 +794,7 @@ This is the PDF of the exponential distribution with parameter $\beta$.
 
 b.
 \begin{align}
-  p(x) &= \frac{1}{\Gamma(k)\beta^k} x^{k - 1}e^{-\frac{x}{\theta}}.
+  p(x) &= \frac{1}{\Gamma(k)\theta^k} x^{k - 1}e^{-\frac{x}{\theta}}.
 \end{align}
 
 ```
@@ -820,7 +820,7 @@ Many statistical methods assume a normal distribution. We denote
 \begin{equation}
   X | \mu, \sigma \sim \text{N}(\mu, \sigma^2),
 \end{equation}
-and it's CDF is
+and its CDF is
 \begin{equation}
   F(x) = \int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(t - \mu)^2}{2 \sigma^2}} dt,
 \end{equation}
