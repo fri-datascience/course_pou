@@ -110,7 +110,7 @@ a sigma algebra.
 "$\Leftarrow$" Let $\mathcal{F} = \cap_i F_i$ be the intersection of all
 sigma algebras that contain $\mathcal{C}$. Then
 $\sigma(\mathcal{C}) = \mathcal{F}$.
-Additionally, $\forall i: \mathcal{C} \in F_i$. So each $F_i$ can be written
+Additionally, $\forall i: \mathcal{C} \subseteq F_i$. So each $F_i$ can be written
 as $F_i = \mathcal{C} \cup D$, where $D$ are the rest of the elements in the
 sigma algebra. In other words, each sigma algebra in the collection contains
 at least $\mathcal{C}$, but can contain other elements. Now for some $j$,

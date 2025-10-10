@@ -6,6 +6,11 @@ _bookdown_files
 *.rds
 .Rapp.history
 my_ignore/
+.vscode
+libs/
+*_files/
+run.py
+*.html
 
 *.toc
 
