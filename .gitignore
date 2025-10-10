@@ -8,9 +8,7 @@ _bookdown_files
 my_ignore/
 .vscode
 libs/
-*_files/
 run.py
-*.html
 
 *.toc
 

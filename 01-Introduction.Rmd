@@ -501,7 +501,7 @@ sum(conn_samp) / n_samp
 
 ## Discrete probability spaces
 
-```{exercise, label = binomialpmf}
+```{exercise, label = binomialpmf} {#exr:binomialpmf}
 Show that the standard measurable space on $\Omega = \{0,1,...,n\}$ equipped with binomial measure is a discrete probability space.
 
 a. Define another probability measure on this measurable space.
@@ -544,7 +544,7 @@ plot(bin_plot)
 ```
 :::
 
-```{exercise, label = geopoispmf}
+```{exercise, label = geopoispmf} {#exr:geopoispmf}
 Show that the standard measurable space on $\Omega = \{0,1,...,\infty\}$
   
    
