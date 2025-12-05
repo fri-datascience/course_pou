@@ -219,3 +219,6 @@ exr:unnamed-chunk-28
 exr:unnamed-chunk-27
 exr:unnamed-chunk-29
 exr:unnamed-chunk-12
+exr:nnbivrv
+non-normal-bivariate-random-variable
+exr:unnamed-chunk-16

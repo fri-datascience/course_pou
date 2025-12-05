@@ -235,6 +235,48 @@ ggplot(data = plot_df, aes(x = D1, y = D2, colour = as.factor(var))) +
 ```
 </div>
 
+## Non-normal bivariate random variable
+```{exercise, name = "Non-normal bivariate random variable", label = nnbivrv}
+Find a non-normal bivariate random variable $(X, Y)$ with normal marginals.
+
+Hint: there are many possible solutions. Try starting with $N(0, I)$, but set density to zero when $XY < 0$.
+```
+
+<div class="fold">
+```{solution, echo = togs}
+Let $\varphi(t) = \frac{1}{\sqrt{2\pi}} \exp(-t^2/2)$ be the univariate standard normal density.
+The following bivariate density is one possible solution:
+\begin{align}
+    p_{XY}(x,y) = 2 \varphi(x)\varphi(y) \; \textrm{if}\; xy>0\textrm{, and 0 otherwise.}
+\end{align}
+We multiply by $2$ because we took away half the total mass from the original bivariate normal.
+```
+```{proof, echo = togs}
+Let $f(x) = \int_{0}^\infty p_{XY}(x, y) dy$ and $g(x) = \int_{-\infty}^0 p_{XY}(x, y) dy$.
+The marginal $p_X(x)$ is then:
+\begin{align}
+    p_X(x) = \int_{-\infty}^\infty p_{XY}(x, y) dy = \begin{cases}
+        f(x), & x \ge 0, \\
+        g(x),  & x < 0.
+    \end{cases}
+\end{align}
+
+\noindent
+Simplify $f(x)$:
+\begin{align}
+    f(x) = \int_{0}^\infty p_{XY}(x, y) dy = 2\varphi(x) \int_{0}^\infty \varphi(y) dy = 2\varphi(x) \frac{1}{2} = \varphi(x)
+\end{align}
+
+\noindent
+Simplify $g(x)$:
+\begin{align}
+    f(x) = \int_{-\infty}^0 p_{XY}(x, y) dy  2\varphi(x) \int_{-\infty}^0 \varphi(y) dy = 2\varphi(x) \frac{1}{2} = \varphi(x)
+\end{align}
+
+\noindent
+Since $f(x) = g(x) = \varphi(x)$, we conclude that $p_X(x) = \varphi(x)$ regardless of $x$. Therefore $X \sim N(0, 1)$ and $Y \sim N(0, 1)$ by symmetry.
+```
+</div>
 
 ```{exercise, name = "Eigendecomposition", label = mvneigen}
 <span style="color:blue">R: Let $\Sigma = U \Lambda U^T$ be the eigendecomposition of covariance matrix $\Sigma$. Follow the procedure below, to sample from a multivariate normal with $\mu = [-2, 1]^T$ and $\Sigma =
