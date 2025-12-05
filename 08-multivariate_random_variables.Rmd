@@ -539,6 +539,48 @@ ggplot(df, aes(x = x, y = y, color = vrs)) +
 </div>
 
 ```{exercise}
+The following is an adaptation of exercise 6.53 from [Ross: A first course in probability](https://www.pearson.com/en-us/pearsonplus/p/9780138027889).
+Let $(X, Y)$ be a bivariate random variable with $X \sim \mathrm{Uniform}(0, 1)$ and $Y \sim \mathrm{Uniform}(0, 1)$.
+Let $R = \sqrt{X^2 + Y^2}$ and $\Theta = \tan^{-1}(Y / X)$.
+
+Find the joint PDF of $(R, \Theta)$.
+```
+
+<div class="fold">
+```{solution, echo = togs}
+Define: $f([x, y]) = [r, \theta]$.
+The inverse is $f^{-1}([r, \theta]) = [r \cos \theta, r \sin \theta]$. We want to find $p_{R\Theta}(r, \theta)$ by applying the change-of-variables formula:
+\begin{align}
+  p_{R\Theta}([r, \theta]) = p_{XY}(f^{-1}([r, \theta])) |\det J_{f^{-1}} ([r, \theta])|.
+\end{align}
+Since $X, Y \sim \mathrm{Uniform}(0, 1)$, we conclude that $p_XY([x, y]) = 1$ for all valid inputs $x, y \in [0, 1]$.
+
+The Jacobian of $f^{-1}$ equals:
+\begin{align}
+  J_{f^{-1}} = \begin{bmatrix}
+  \frac{\partial r \cos \theta}{\partial r} & \frac{\partial r \cos \theta}{\partial \theta} \\
+  \frac{\partial r \sin \theta}{\partial r} & \frac{\partial r \sin \theta}{\partial \theta}
+\end{bmatrix} = \begin{bmatrix}
+  \cos \theta & -r \sin \theta \\
+  \sin \theta & r \cos \theta
+\end{bmatrix}.
+\end{align}
+
+The determinant equals:
+\begin{align}
+\det J_{f^{-1}} &= \cos \theta \cdot r \cos \theta - (\sin \theta \cdot (-\sin \theta)) \\
+                &= r (\cos \theta)^2 + r (\sin \theta)^2 = r ((\cos \theta)^2 + (\sin \theta)^2) = r.
+\end{align}
+
+The final joint density is thus:
+\begin{align}
+  p_{R\Theta}([r, \theta]) &= p_{XY}(f^{-1}([r, \theta])) |\det J_{f^{-1}} ([r, \theta])| \\
+                           &= 1 |r| = r.
+\end{align}
+```
+</div>
+
+```{exercise}
 <span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with _dmvnorm_ from the __mvtnorm__ package.</span>
 
 

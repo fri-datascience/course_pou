@@ -782,7 +782,43 @@ make modeling much easier.</li>
 <p><img src="bookdown-pou_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-16" class="exercise"><strong>Exercise 8.8  </strong></span><span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with <em>dmvnorm</em> from the <strong>mvtnorm</strong> package.</span></p>
+<p><span id="exr:unnamed-chunk-16" class="exercise"><strong>Exercise 8.8  </strong></span>The following is an adaptation of exercise 6.53 from <a href="https://www.pearson.com/en-us/pearsonplus/p/9780138027889">Ross: A first course in probability</a>.
+Let <span class="math inline">\((X, Y)\)</span> be a bivariate random variable with <span class="math inline">\(X \sim \mathrm{Uniform}(0, 1)\)</span> and <span class="math inline">\(Y \sim \mathrm{Uniform}(0, 1)\)</span>.
+Let <span class="math inline">\(R = \sqrt{X^2 + Y^2}\)</span> and <span class="math inline">\(\Theta = \tan^{-1}(Y / X)\)</span>.</p>
+<p>Find the joint PDF of <span class="math inline">\((R, \Theta)\)</span>.</p>
+</div>
+<div class="fold">
+<div class="solution">
+<p><span id="unlabeled-div-8" class="solution"><em>Solution</em>. </span>Define: <span class="math inline">\(f([x, y]) = [r, \theta]\)</span>.
+The inverse is <span class="math inline">\(f^{-1}([r, \theta]) = [r \cos \theta, r \sin \theta]\)</span>. We want to find <span class="math inline">\(p_{R\Theta}(r, \theta)\)</span> by applying the change-of-variables formula:
+<span class="math display">\[\begin{align}
+  p_{R\Theta}([r, \theta]) = p_{XY}(f^{-1}([r, \theta])) |\det J_{f^{-1}} ([r, \theta])|.
+\end{align}\]</span>
+Since <span class="math inline">\(X, Y \sim \mathrm{Uniform}(0, 1)\)</span>, we conclude that <span class="math inline">\(p_XY([x, y]) = 1\)</span> for all valid inputs <span class="math inline">\(x, y \in [0, 1]\)</span>.</p>
+<p>The Jacobian of <span class="math inline">\(f^{-1}\)</span> equals:
+<span class="math display">\[\begin{align}
+  J_{f^{-1}} = \begin{bmatrix}
+  \frac{\partial r \cos \theta}{\partial r} &amp; \frac{\partial r \cos \theta}{\partial \theta} \\
+  \frac{\partial r \sin \theta}{\partial r} &amp; \frac{\partial r \sin \theta}{\partial \theta}
+\end{bmatrix} = \begin{bmatrix}
+  \cos \theta &amp; -r \sin \theta \\
+  \sin \theta &amp; r \cos \theta
+\end{bmatrix}.
+\end{align}\]</span></p>
+<p>The determinant equals:
+<span class="math display">\[\begin{align}
+\det J_{f^{-1}} &amp;= \cos \theta \cdot r \cos \theta - (\sin \theta \cdot (-\sin \theta)) \\
+                &amp;= r (\cos \theta)^2 + r (\sin \theta)^2 = r ((\cos \theta)^2 + (\sin \theta)^2) = r.
+\end{align}\]</span></p>
+<p>The final joint density is thus:
+<span class="math display">\[\begin{align}
+  p_{R\Theta}([r, \theta]) &amp;= p_{XY}(f^{-1}([r, \theta])) |\det J_{f^{-1}} ([r, \theta])| \\
+                           &amp;= 1 |r| = r.
+\end{align}\]</span></p>
+</div>
+</div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-18" class="exercise"><strong>Exercise 8.9  </strong></span><span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with <em>dmvnorm</em> from the <strong>mvtnorm</strong> package.</span></p>
 </div>
 <div class="fold">
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="mrv.html#cb19-1" tabindex="-1"></a><span class="fu">library</span>(mvtnorm)</span>
