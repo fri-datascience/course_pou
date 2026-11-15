@@ -15,6 +15,7 @@ Open `docs/index.html` to view the result. CI runs the same script, so new packa
 
 ## Publish
 
+- **Check a change:** open a PR to `master`. The book is built but not deployed.
 - **Update dev:** push to `master`.
 - **Promote dev to latest:** publish a GitHub Release with a new tag on `master`.
 - **Roll back:** mark an older release as latest, then run the workflow from the Actions tab.

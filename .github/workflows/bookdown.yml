@@ -4,13 +4,15 @@
 #
 # Promote dev to latest: publish a GitHub Release (tag on master).
 # Roll back: mark an older release as "Latest", then Actions -> Run workflow.
-# Pushes to the test branch only build (no deploy).
+# Pushes to the test branch and PRs to master only build (no deploy).
 
 name: Build and deploy book
 
 on:
   push:
     branches: [master, ci/bookdown-actions]
+  pull_request:
+    branches: [master]   # build only, never deploys
   release:
     types: [published]
   workflow_dispatch:
@@ -20,9 +22,11 @@ permissions:
   pages: write
   id-token: write
 
+# Deploys share one queue; each PR gets its own group, and a new push to the PR
+# cancels its previous build.
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.ref) || 'pages' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build-latest:
