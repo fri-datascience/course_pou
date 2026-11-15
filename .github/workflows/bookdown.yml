@@ -4,13 +4,13 @@
 #
 # Promote dev to latest: publish a GitHub Release (tag on master).
 # Roll back: mark an older release as "Latest", then Actions -> Run workflow.
-# Pushes to the test branch and PRs to master only build (no deploy).
+# PRs to master only build (no deploy).
 
 name: Build and deploy book
 
 on:
   push:
-    branches: [master, ci/bookdown-actions]
+    branches: [master]
   pull_request:
     branches: [master]   # build only, never deploys
   release:
