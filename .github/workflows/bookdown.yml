@@ -31,7 +31,7 @@ concurrency:
 
 jobs:
   # CI image with R, pandoc and all packages, tagged by a hash of .github/docker/.
-  # Built only when no image exists for the current Dockerfile; otherwise reused.
+  # Built only when no image exists for the current Dockerfile and DESCRIPTION; otherwise reused.
   image:
     runs-on: ubuntu-latest
     permissions:
@@ -40,10 +40,10 @@ jobs:
     outputs:
       ref: ${{ steps.tag.outputs.ref }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - id: tag
-        run: echo "ref=ghcr.io/fri-datascience/course_pou-ci:${{ hashFiles('.github/docker/**') }}" >> "$GITHUB_OUTPUT"
-      - uses: docker/login-action@v3
+        run: echo "ref=ghcr.io/fri-datascience/course_pou-ci:${{ hashFiles('.github/docker/**', 'exercise-handbook/DESCRIPTION') }}" >> "$GITHUB_OUTPUT"
+      - uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -56,9 +56,10 @@ jobs:
             echo "found=false" >> "$GITHUB_OUTPUT"
           fi
       - if: steps.exists.outputs.found != 'true'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
-          context: .github/docker
+          context: .
+          file: .github/docker/Dockerfile
           push: true
           tags: ${{ steps.tag.outputs.ref }}
 
@@ -72,11 +73,11 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.release.tag_name }}
       - name: Render latest
-        run: Rscript build.R latest _out
+        run: Rscript exercise-handbook/build.R latest _out
       - name: Attach site.zip to release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -93,13 +94,13 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # On a release event, dev still comes from master HEAD, not the tag.
           ref: ${{ github.event_name == 'release' && github.event.repository.default_branch || github.ref }}
       - name: Render dev
-        run: Rscript build.R dev _out
-      - uses: actions/upload-artifact@v4
+        run: Rscript exercise-handbook/build.R dev _out
+      - uses: actions/upload-artifact@v7
         with:
           name: dev-site
           path: _out
@@ -128,13 +129,18 @@ jobs:
             echo "::warning::No release with site.zip found; root will redirect to /dev/ until the first release is published."
             printf '<!doctype html><meta http-equiv="refresh" content="0; url=dev/">\n' > _site/index.html
           fi
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: dev-site
           path: _site/dev
       - run: touch _site/.nojekyll
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
+          include-hidden-files: true
+          # Unique per attempt, so "Re-run failed jobs" doesn't find two artifacts.
+          name: github-pages-${{ github.run_attempt }}
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}

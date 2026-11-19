@@ -1,1 +1,0 @@
-- Limitni izreki -> utemelji Monte Carlo integriranje.
