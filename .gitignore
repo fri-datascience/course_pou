@@ -1,27 +1,20 @@
+# R / RStudio
 .Rproj.user
 .Rhistory
-.RData
-_bookdown_files
-.DS_Store
-*.rds
 .Rapp.history
-my_ignore/
-.vscode
+.RData
+*.rds
+
+# Build output and caches
+docs/
+_out/
+_bookdown_files
 libs/
-run.py
-docs/*
-CLAUDE.md
 
-*.toc
+# Editors and OS
+.vscode
+.DS_Store
 
-wwu_book/PoU.synctex.gz
-
-wwu_book/PoU.log
-
-wwu_book/PoU.blg
-
-wwu_book/PoU.bbl
-
-wwu_book/PoU.aux
-
+# Local files
+my_ignore/
 CLAUDE.md
