@@ -6,7 +6,7 @@
 *.rds
 
 # Build output and caches
-docs/*
+docs/
 _out/
 _bookdown_files
 libs/
