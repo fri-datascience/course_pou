@@ -105,6 +105,7 @@ jobs:
           name: dev-site
           path: _out
           include-hidden-files: true
+          if-no-files-found: error
 
   deploy:
     needs: [build-latest, build-dev]

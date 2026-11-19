@@ -18,6 +18,9 @@ book_dir <- if (length(file_arg)) dirname(normalizePath(sub("^--file=", "", file
 args    <- commandArgs(trailingOnly = TRUE)
 channel <- if (length(args) >= 1) args[[1]] else "latest"
 outdir  <- if (length(args) >= 2) args[[2]] else file.path(book_dir, "docs")
+# Make outdir absolute before changing directory. normalizePath() alone is not
+# enough: on Linux it returns non-existent paths unchanged (still relative).
+if (!grepl("^(/|[A-Za-z]:[/\\\\]|~)", outdir)) outdir <- file.path(getwd(), outdir)
 outdir  <- normalizePath(outdir, mustWork = FALSE)
 
 setwd(book_dir)
