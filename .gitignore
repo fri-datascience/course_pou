@@ -9,6 +9,8 @@ my_ignore/
 .vscode
 libs/
 run.py
+docs/*
+CLAUDE.md
 
 *.toc
 
