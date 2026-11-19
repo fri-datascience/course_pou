@@ -10,7 +10,7 @@ Exercise handbook:
 
 ## Build the exercise handbook locally
 
-R packages are managed with [renv](https://rstudio.github.io/renv/): they install into a project-local library (`exercise-handbook/renv/library/`, like a Python venv), at the exact versions pinned in [`exercise-handbook/renv.lock`](exercise-handbook/renv.lock). From the repository root, install them with:
+R packages are managed with [renv](https://rstudio.github.io/renv/). From the repository root, install them with:
 
 ```sh
 Rscript -e 'renv::restore()'
