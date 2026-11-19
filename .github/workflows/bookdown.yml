@@ -1,0 +1,105 @@
+# Builds the book and deploys it to GitHub Pages as two channels:
+#   /      latest -> the rendered site attached (site.zip) to the release marked "Latest"
+#   /dev/  dev    -> rendered from master HEAD
+#
+# Promote dev to latest: publish a GitHub Release (tag on master).
+# Roll back: mark an older release as "Latest", then Actions -> Run workflow.
+# PRs to master only build (no deploy).
+
+name: Build and deploy book
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]   # build only, never deploys
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write   # upload site.zip to releases
+  pages: write
+  id-token: write
+
+# Deploys share one queue; each PR gets its own group, and a new push to the PR
+# cancels its previous build.
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.ref) || 'pages' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build-latest:
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+      - name: Render latest
+        run: Rscript build.R latest _out
+      - name: Attach site.zip to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          (cd _out && zip -qr ../site.zip .)
+          gh release upload "${{ github.event.release.tag_name }}" site.zip --clobber
+
+  build-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # On a release event, dev still comes from master HEAD, not the tag.
+          ref: ${{ github.event_name == 'release' && github.event.repository.default_branch || github.ref }}
+      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+      - name: Render dev
+        run: Rscript build.R dev _out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dev-site
+          path: _out
+          include-hidden-files: true
+
+  deploy:
+    needs: [build-latest, build-dev]
+    if: >-
+      always() &&
+      needs.build-dev.result == 'success' &&
+      (needs.build-latest.result == 'success' || needs.build-latest.result == 'skipped') &&
+      (github.event_name == 'release' || github.ref == 'refs/heads/master')
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Fetch latest release site
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p _site
+          if gh release download --repo "${{ github.repository }}" --pattern site.zip --dir . ; then
+            unzip -q site.zip -d _site
+          else
+            echo "::warning::No release with site.zip found; root will redirect to /dev/ until the first release is published."
+            printf '<!doctype html><meta http-equiv="refresh" content="0; url=dev/">\n' > _site/index.html
+          fi
+      - uses: actions/download-artifact@v4
+        with:
+          name: dev-site
+          path: _site/dev
+      - run: touch _site/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
