@@ -10,11 +10,15 @@ Exercise handbook:
 
 ## Build the exercise handbook locally
 
-Install the R packages listed in [`exercise-handbook/DESCRIPTION`](exercise-handbook/DESCRIPTION):
+R packages are managed with [renv](https://rstudio.github.io/renv/): they install into a project-local library (`exercise-handbook/renv/library/`, like a Python venv), at the exact versions pinned in [`exercise-handbook/renv.lock`](exercise-handbook/renv.lock). From the repository root, install them with:
 
 ```sh
-Rscript -e 'install.packages("remotes"); remotes::install_deps("exercise-handbook", dependencies = TRUE)'
+Rscript -e 'renv::restore()'
 ```
+
+R started in the repository root or in `exercise-handbook/` activates the project library automatically (and installs renv itself if needed).
+
+To add a package, add it to `Imports:` in [`exercise-handbook/DESCRIPTION`](exercise-handbook/DESCRIPTION), then run `Rscript -e 'renv::install("<package>"); renv::snapshot()'` and commit both files. To update all packages, run `Rscript -e 'renv::update(); renv::snapshot()'`.
 
 Then build (from the repository root or any other directory):
 
@@ -25,7 +29,7 @@ Rscript exercise-handbook/build.R dev    # dev version (with banner)
 
 Open `exercise-handbook/docs/index.html` to view the result. In RStudio, open `bookdown_pou.Rproj` and use *Build Book*.
 
-CI runs the same script inside a Docker image built from the same `DESCRIPTION`, so a new R package only needs to be added to `Imports:` in `DESCRIPTION` (the image is rebuilt automatically), and any data file a chapter reads must be committed.
+CI runs the same script inside a Docker image built from the same `renv.lock`, so CI and local builds use the same package versions. The image is rebuilt automatically when `renv.lock` changes. Any data file a chapter reads must be committed.
 
 ## Publish the exercise handbook
 

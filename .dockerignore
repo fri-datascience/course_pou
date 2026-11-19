@@ -1,3 +1,3 @@
-# The CI image only needs the package list; keep the build context small.
+# The CI image only needs the package lockfile; keep the build context small.
 *
-!exercise-handbook/DESCRIPTION
+!exercise-handbook/renv.lock

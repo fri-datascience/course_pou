@@ -3,12 +3,14 @@
 .Rhistory
 .Rapp.history
 .RData
+.exercise-handbook/renv
 *.rds
 
 # Build output and caches
 docs/
 _out/
 _bookdown_files
+bookdown-pou_files/
 libs/
 
 # Editors and OS

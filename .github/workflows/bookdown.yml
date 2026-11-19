@@ -31,7 +31,7 @@ concurrency:
 
 jobs:
   # CI image with R, pandoc and all packages, tagged by a hash of .github/docker/.
-  # Built only when no image exists for the current Dockerfile and DESCRIPTION; otherwise reused.
+  # Built only when no image exists for the current Dockerfile and renv.lock; otherwise reused.
   image:
     runs-on: ubuntu-latest
     permissions:
@@ -42,7 +42,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - id: tag
-        run: echo "ref=ghcr.io/fri-datascience/course_pou-ci:${{ hashFiles('.github/docker/**', 'exercise-handbook/DESCRIPTION') }}" >> "$GITHUB_OUTPUT"
+        run: echo "ref=ghcr.io/fri-datascience/course_pou-ci:${{ hashFiles('.github/docker/**', 'exercise-handbook/renv.lock') }}" >> "$GITHUB_OUTPUT"
       - uses: docker/login-action@v4
         with:
           registry: ghcr.io
