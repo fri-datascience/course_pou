@@ -1,0 +1,55 @@
+```{exercise, label = "geopoispmf"}
+Show that the standard measurable space on $\Omega = \{0,1,...,\infty\}$
+  
+   
+a. equipped with geometric measure is a discrete probability space,
+b. equipped with Poisson measure is a discrete probability space.
+c. Define another probability measure on this measurable space.
+d. <span style="color:blue">R: Draw 1000 samples from the Poisson distribution $\lambda = 10$ (_rpois_) and compare relative frequencies with theoretical probability measure</span>.
+
+```
+
+::: fold
+```{solution, echo = togs}
+
+
+a. $\sum_{k = 0}^{\infty} p(1 - p)^k = p \sum_{k = 0}^{\infty} (1 - p)^k =
+  p \frac{1}{1 - 1 + p} = 1$. We used the formula for geometric series.
+
+b. $\sum_{k = 0}^{\infty} \frac{\lambda^k e^{-\lambda}}{k!} = 
+  e^{-\lambda} \sum_{k = 0}^{\infty} \frac{\lambda^k}{k!} =
+  e^{-\lambda} e^{\lambda} = 1.$ We used the Taylor expansion of
+  the exponential function.
+  
+c. Since we only have to define a probability
+measure, we could only assign probabilities that sum to one to a finite 
+number of events in $\Omega$, and probability zero to the other infinite 
+number of events. However to make this solution more educational, we will 
+try to find a measure that assigns a non-zero probability to all events in 
+$\Omega$. A good start for this would be to find a converging infinite series,
+as the probabilities will have to sum to one. One simple converging series is 
+the geometric series $\sum_{k=0}^{\infty} p^k$ for $|p| < 1$. Let us choose an 
+arbitrary $p = 0.5$. Then $\sum_{k=0}^{\infty} p^k = \frac{1}{1 - 0.5} = 2$.
+To complete the measure, we have to normalize it, so it sums to one,
+therefore $P(\{k\}) = \frac{0.5^k}{2}$ is a probability measure on $\Omega$.
+
+We could make it even more difficult by making this measure dependent
+on some parameter $\alpha$, but this is out of the scope of this introductory
+chapter.
+
+  
+```
+
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+set.seed(1)
+pois_samp <- rpois(n = 1000, lambda = 10)
+pois_samp <- data.frame(x = pois_samp) %>%
+  count(x) %>%
+  mutate(n = n / 1000, type = "empirical_frequencies") %>%
+  bind_rows(data.frame(x = 0:25, n = dpois(0:25, lambda = 10), type = "theoretical_measure"))
+
+pois_plot <- ggplot(data = pois_samp, aes(x = x, y = n, fill = type)) +
+  geom_bar(stat="identity", position = "dodge")
+plot(pois_plot)
+```
+:::

@@ -1,0 +1,60 @@
+# Conditional probability {#condprob}
+
+This chapter deals with conditional probability.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- Identify whether variables are independent.
+- Calculation of conditional probabilities.
+- Understanding of conditional dependence and independence.
+- How to apply Bayes' theorem to solve difficult probabilistic questions.
+
+**R**
+
+- Simulating conditional probabilities.
+- _cumsum_.
+- _apply_.
+
+
+## Calculating conditional probabilities
+
+
+```{r, child = "chapters/03-conditional_probability/enemy-aircraft-identification.Rmd"}
+```
+
+```{r, child = "chapters/03-conditional_probability/die-independence-simulation.Rmd"}
+```
+
+```{r, child = "chapters/03-conditional_probability/unreliable-die-machine.Rmd"}
+```
+
+```{r, child = "chapters/03-conditional_probability/coin-toss-rewards.Rmd"}
+```
+
+
+```{r, child = "chapters/03-conditional_probability/biased-coin-drawer.Rmd"}
+```
+
+
+```{r, child = "chapters/03-conditional_probability/womens-day-flowers.Rmd"}
+```
+
+
+## Conditional independence
+```{r, child = "chapters/03-conditional_probability/dependence-examples.Rmd"}
+```
+
+```{r, child = "chapters/03-conditional_probability/fair-and-biased-coin.Rmd"}
+```
+
+## Monty Hall problem
+The Monty Hall problem is a famous probability puzzle with non-intuitive
+outcome. Many established mathematicians and statisticians had problems
+solving it and many even disregarded the correct solution until they've seen
+the proof by simulation. Here we will show how it can be solved relatively
+simply with the use of Bayes' theorem if we select the variables in a smart way.
+
+```{r, child = "chapters/03-conditional_probability/monty-hall.Rmd"}
+```

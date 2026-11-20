@@ -1,0 +1,60 @@
+```{exercise}
+Below is a table of values for random variables $X$ and $Y$.
+
+X | Y
+-- | --
+2.1 | 8
+-0.5 | 11
+1 | 10
+-2 | 12
+4 | 9
+
+
+
+a. Find sample covariance of $X$ and $Y$.
+
+b. Find sample variances of $X$ and $Y$.
+
+c. Find sample correlation of $X$ and $Y$.
+
+d. Find sample variance of $Z = 2X - 3Y$.
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs2}
+
+a. $\bar{X} = 0.92$ and $\bar{Y} = 10$.
+\begin{align}
+  s(X, Y) &= \frac{1}{n - 1} \sum_{i=1}^5 (X_i - 0.92) (Y_i - 10) \\
+            &= -3.175.
+\end{align}
+
+b.
+\begin{align}
+  s(X) &= \frac{\sum_{i=1}^5(X_i - 0.92)^2}{5 - 1} \\
+       &= 5.357.
+\end{align}
+\begin{align}
+  s(Y) &= \frac{\sum_{i=1}^5(Y_i - 10)^2}{5 - 1} \\
+       &= 2.5.
+\end{align}
+  
+c.
+\begin{align}
+  r(X,Y) &= \frac{Cov(X,Y)}{\sqrt{Var[X]Var[Y]}} \\
+            &= \frac{-3.175}{\sqrt{5.357 \times 2.5}} \\
+            &= -8.68.
+\end{align}
+
+d.
+\begin{align}
+  s(Z) &= 2^2 s(X) + 3^2 s(Y) + 2 \times 2 \times 3 s(X, Y) \\
+       &= 4 \times 5.357 + 9 \times 2.5 + 12 \times 3.175 \\
+       &= 82.028.
+\end{align}
+
+
+```
+</div>

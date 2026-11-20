@@ -1,0 +1,50 @@
+```{exercise}
+<span style="color:blue">R: Let $X$ be a sum of 100 Beta distributions with random parameters. Take 1000 samples and plot the Chebyshev bound, Hoeffding bound, and the empirical probabilities.</span>
+
+```
+
+<div class="fold">
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+set.seed(1)
+nvars   <- 100
+nsamps  <- 1000
+samps   <- matrix(data = NA, nrow = nsamps, ncol = nvars)
+Sn_mean <- 0
+Sn_var  <- 0
+for (i in 1:nvars) {
+  alpha1  <- rgamma(1, 10, 1)
+  beta1   <- rgamma(1, 10, 1)
+  X       <- rbeta(nsamps, alpha1, beta1)
+  Sn_mean <- Sn_mean + alpha1 / (alpha1 + beta1)
+  Sn_var  <- Sn_var + 
+    alpha1 * beta1 / ((alpha1 + beta1)^2 * (alpha1 + beta1 + 1))
+  
+    samps[ ,i] <- X
+}
+mean(apply(samps, 1, sum))
+Sn_mean
+var(apply(samps, 1, sum))
+Sn_var
+a            <- 1:30
+b            <- a / sqrt(Sn_var)
+ci_chebyshev <- 1 / b^2
+ci_hoeffding <- 2 * exp(- 2 * a^2 / nvars)
+empirical    <- NULL
+for (i in 1:length(a)) {
+  empirical[i] <- sum(abs((apply(samps, 1, sum)) - Sn_mean) >= a[i])/ nsamps
+}
+
+plot_df     <- rbind(
+  data.frame(x = a, y = ci_chebyshev, type = "Chebyshev"),
+  data.frame(x = a, y = ci_hoeffding, type = "Hoeffding"),
+  data.frame(x = a, y = empirical, type = "Empirical")
+)
+
+ggplot(plot_df, aes(x = x, y = y, color = type)) +
+  geom_line()
+
+ggplot(plot_df, aes(x = x, y = y, color = type)) +
+  geom_line() +
+  coord_cartesian(xlim = c(15, 25), ylim = c(0, 0.05))
+```
+</div>

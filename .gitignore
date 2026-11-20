@@ -10,6 +10,7 @@ docs/
 _out/
 _bookdown_files
 libs/
+exercise-handbook/bookdown-pou_files/*
 
 # Editors and OS
 .vscode

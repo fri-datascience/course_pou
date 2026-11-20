@@ -1,0 +1,100 @@
+```{exercise}
+Judy goes around the company for Women's day and shares flowers. In every
+office she leaves a flower, if there is at least one woman inside. 
+The probability
+that there's a woman in the office is $\frac{3}{5}$.
+
+a. What is the probability that Judy leaves her first flower in the 
+fourth office?
+  
+b. Given that she has given away exactly three flowers in the first four 
+offices,
+what is the probability that she gives her fourth flower in the eighth office?
+  
+c. What is the probability that she leaves the second flower in the fifth 
+office?
+  
+d. What is the probability that she leaves the second flower in the fifth 
+office,
+given that she did not leave the second flower in the second office?
+  
+e. Judy needs a new supply of flowers immediately after the office, where she 
+gives away her last flower. What is the probability that she visits at least
+five offices, if she starts with two flowers?
+
+f. <span style="color:blue">R: simulate Judy's walk 10000 times to
+check your answers a) - e).</span>
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+Let $X_i = k$ denote the event that ... $i$-th sample on the $k$-th run.
+
+a. Since the events are independent, we can multiply their probabilities to get
+\begin{equation}
+  P(X_1 = 4) = 0.4^3 \times 0.6 = 0.0384.
+\end{equation}
+  
+b. Same as in a) as we have a fresh start after first four offices.
+
+c. For this to be possible, she had to leave the first flower in one of the
+first four offices. Therefore there are four possibilities, and for each
+of those the probability is $0.4^3 \times 0.6$. Additionally, the probability
+that she leaves a flower in the fifth office is $0.6$. So
+\begin{equation}
+  P(X_2 = 5) = \binom{4}{1} \times 0.4^3 \times 0.6^2 = 0.09216. 
+\end{equation}
+
+
+d. We use Bayes' theorem.
+\begin{align}
+  P(X_2 = 5 | X_2 \neq 2) &= \frac{P(X_2 \neq 2 | X_2 = 5)P(X_2 = 5)}{P(X_2 \neq 2)} \\
+                          &= \frac{0.09216}{0.64} \\
+                          &= 0.144.
+\end{align}
+The denominator in the second equation can be calculated as follows. One of
+three things has to happen for the second not to be dealt in the second
+round. First, both are zero, so $0.4^2$. Second, first is zero, and second is 
+one, so $0.4 \times 0.6$. Third,
+the first is one and the second one zero, so $0.6 \times 0.4$. Summing these
+values we get $0.64$.
+
+e. We will look at the complement, so the events that she gave away exactly 
+two flowers
+after two, three and four offices.
+\begin{equation}
+  P(X_2 \geq 5) = 1 - 0.6^2 - 2 \times 0.4 \times 0.6^2 - 3 \times 0.4^2 \times 0.6^2 = 0.1792.
+\end{equation}
+The multiplying parts represent the possibilities of the first flower.
+
+
+```
+```{r, echo = togs, eval = togs}
+set.seed(1)
+nsamps     <- 100000
+Judyswalks <- matrix(data = NA, nrow = nsamps, ncol = 8)
+for (i in 1:nsamps) {
+  thiswalk <- sample(c(0,1), size = 8, replace = TRUE, prob = c(0.4, 0.6))
+  Judyswalks[i, ] <- thiswalk
+}
+csJudy <- t(apply(Judyswalks, 1, cumsum))
+
+# a
+sum(csJudy[ ,4] == 1 & csJudy[ ,3] == 0) / nsamps
+
+# b
+csJsubset <- csJudy[csJudy[ ,4] == 3 & csJudy[ ,3] == 2, ]
+sum(csJsubset[ ,8] == 4 & csJsubset[ ,7] == 3) / nrow(csJsubset)
+
+# c
+sum(csJudy[ ,5] == 2 & csJudy[ ,4] == 1) / nsamps
+
+# d
+sum(csJudy[ ,5] == 2 & csJudy[ ,4] == 1) / sum(csJudy[ ,2] != 2)
+
+# e
+sum(csJudy[ ,4] < 2) / nsamps
+
+```
+</div>

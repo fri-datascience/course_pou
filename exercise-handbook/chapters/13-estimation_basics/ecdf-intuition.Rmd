@@ -1,0 +1,39 @@
+```{exercise, name = "ECDF intuition"}
+
+
+a. Take any univariate continuous distribution that is readily available in R and plot its CDF ($F$).
+b. Draw one sample ($n = 1$) from the chosen distribution and draw the ECDF ($F_n$) of that one sample. Use the definition of the ECDF, not an existing function in R. Implementation hint: ECDFs are always piecewise constant - they only jump at the sampled values and by $1/n$. 
+c. Repeat (b) for $n = 5, 10, 100, 1000...$ Theory says that $F_n$ should converge to $F$. Can you observe that?
+d. For $n = 100$ repeat the process $m = 20$ times and plot every $F_n^{(m)}$. Theory says that $F_n$ will converge to $F$ the slowest where $F$ is close to 0.5 (where the variance is largest). Can you observe that?
+
+
+```
+<div class = "fold">
+```{r, echo = togs, eval = togs, message = FALSE, warning=FALSE}
+library(ggplot2)
+set.seed(1)
+ggplot(data = data.frame(x = seq(-5, 5, by = 0.01))) +
+  # stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))
+  stat_function(aes(x = x), fun = pnorm, args = list(mean = 0, sd = 1))
+
+one_samp <- rnorm(1)
+X        <- data.frame(x = c(-5, one_samp, 5), y = c(0,1,1))
+ggplot(data = data.frame(x = seq(-5, 5, by = 0.01))) +
+  # stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))
+  stat_function(aes(x = x), fun = pnorm, args = list(mean = 0, sd = 1)) +
+  geom_step(data = X, aes(x = x, y = y))
+
+N <- c(5, 10, 100, 1000)
+X <- NULL
+for (n in N) {
+  tmp   <- rnorm(n)
+  tmp_X <- data.frame(x = c(-5, sort(tmp), 5), y = c(0, seq(1/n, 1, by = 1/n), 1), n = n)
+  X     <- rbind(X, tmp_X)
+}
+ggplot(data = data.frame(x = seq(-5, 5, by = 0.01))) +
+  # stat_function(aes(x = x), fun = pbeta, args = list(shape1 = 1, shape2 = 2))
+  stat_function(aes(x = x), fun = pnorm, args = list(mean = 0, sd = 1)) +
+  geom_step(data = X, aes(x = x, y = y, color = as.factor(n))) +
+  labs(color = "N")
+```
+</div>

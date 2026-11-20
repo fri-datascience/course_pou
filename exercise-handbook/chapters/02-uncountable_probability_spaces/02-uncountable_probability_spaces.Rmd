@@ -1,0 +1,52 @@
+# Uncountable probability spaces {#uprobspaces}
+
+This chapter deals with uncountable probability spaces.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- Understand Borel sets and identify them.
+- Estimate Lebesgue measure for different sets.
+- Know when sets are Borel-measurable.
+- Understanding of countable and uncountable sets.
+
+**R**
+
+- Uniform sampling.
+
+
+## Borel sets {#bset}
+
+```{r, child = "chapters/02-uncountable_probability_spaces/sigma-algebra-intersection.Rmd"}
+```
+
+```{r, child = "chapters/02-uncountable_probability_spaces/generated-sigma-algebra-fixed-point.Rmd"}
+```
+
+
+```{r, child = "chapters/02-uncountable_probability_spaces/generated-sigma-algebra-monotonicity.Rmd"}
+```
+
+
+```{r, child = "chapters/02-uncountable_probability_spaces/borel-measurable-sets.Rmd"}
+```
+
+
+```{r, child = "chapters/02-uncountable_probability_spaces/countable-cocountable-sigma-algebra.Rmd"}
+```
+
+
+## Lebesgue measure
+
+```{r, child = "chapters/02-uncountable_probability_spaces/lebesgue-measure-rationals.Rmd"}
+```
+
+
+```{r, child = "chapters/02-uncountable_probability_spaces/lebesgue-measure-reals.Rmd"}
+```
+
+
+```{r, child = "chapters/02-uncountable_probability_spaces/measure-space-transformation.Rmd"}
+```
+

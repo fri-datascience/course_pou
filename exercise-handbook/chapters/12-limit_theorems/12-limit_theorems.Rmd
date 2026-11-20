@@ -1,0 +1,17 @@
+# Limit theorems {#lt}
+
+This chapter deals with limit theorems.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- Monte Carlo integration convergence.
+- Difference between weak and strong law of large numbers.
+
+
+```{r, child = "chapters/12-limit_theorems/monte-carlo-convergence.Rmd"}
+```
+
+```{r, child = "chapters/12-limit_theorems/geometric-alternating-series.Rmd"}
+```

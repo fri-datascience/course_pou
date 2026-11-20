@@ -1,0 +1,44 @@
+```{exercise, name = "Convolutions", label = conv}
+Convolutions are probability distributions that correspond to sums of
+independent random variables.
+
+a. Let $X$ and $Y$ be independent discrete variables. 
+Find the PMF of $Z = X + Y$. Hint: Use the law of
+total probability.
+
+b. Let $X$ and $Y$ be independent continuous variables. 
+Find the PDF of $Z = X + Y$. 
+Hint: Start with the CDF.
+
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+a.
+\begin{align}
+  P(Z = z) &= P(X + Y = z) & \\ 
+           &= \sum_{k = -\infty}^\infty P(X + Y = z | Y = k) P(Y = k) & \text{ (law of total probability)} \\
+           &= \sum_{k = -\infty}^\infty P(X + k = z | Y = k) P(Y = k) & \\
+           &= \sum_{k = -\infty}^\infty P(X + k = z) P(Y = k) & \text{ (independence of $X$ and $Y$)} \\
+           &= \sum_{k = -\infty}^\infty P(X = z - k) P(Y = k). &
+\end{align}
+  
+b. Let $f$ and $g$ be the PDFs of $X$ and $Y$ respectively.
+\begin{align}
+  F(z)     &= P(Z < z) \\ 
+           &= P(X + Y < z) \\ 
+           &= \int_{-\infty}^{\infty} P(X + Y < z | Y = y)P(Y = y)dy \\
+           &= \int_{-\infty}^{\infty} P(X + y < z | Y = y)P(Y = y)dy \\
+           &= \int_{-\infty}^{\infty} P(X + y < z)P(Y = y)dy \\
+           &= \int_{-\infty}^{\infty} P(X < z - y)P(Y = y)dy \\
+           &= \int_{-\infty}^{\infty} (\int_{-\infty}^{z - y} f(x) dx) g(y) dy
+\end{align}
+Now
+\begin{align}
+  p(z) &= \frac{d}{dz} F(z) & \\
+       &= \int_{-\infty}^{\infty} (\frac{d}{dz}\int_{-\infty}^{z - y} f(x) dx) g(y) dy & \\
+       &= \int_{-\infty}^{\infty} f(z - y) g(y) dy & \text{ (fundamental theorem of calculus)}.
+\end{align}
+```
+</div>

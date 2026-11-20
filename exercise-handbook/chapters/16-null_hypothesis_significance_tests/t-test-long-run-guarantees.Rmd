@@ -1,0 +1,86 @@
+```{exercise, name = "Long-run guarantees of the t-test"}
+
+
+
+a. <span style="color:blue">Generate a sample of size $n = 10$ from the standard normal. Use the two-sided t-test with $H0: \mu = 0$ and record the p-value. Can you reject H0 at 0.05 significance level?</span>
+b. <span style="color:blue">(before simulating) If we repeated (b) many times, what would be the relative frequency of false positives/Type I errors (rejecting the null that is true)? What would be the relative frequency of false negatives /Type II errors (retaining the null when the null is false)?</span>
+c. <span style="color:blue">(now simulate b and check if the simulation results match your answer in b)</span>
+d. <span style="color:blue">Similar to (a-c) but now we generate data from N(-0.5, 1).</span>
+e. <span style="color:blue">Similar to (a-c) but now we generate data from N($\mu$, 1) where we every time pick a different $\mu < 0$ and use a one-sided test $H0: \mu <= 0$.</span>
+
+
+
+```
+<div class="fold">
+
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+set.seed(2)
+
+# a
+x       <- rnorm(10)
+my_test <- t.test(x, alternative = "two.sided", mu = 0)
+my_test
+# we can not reject the null hypothesis
+
+
+# b
+# The expected value of false positives would be 0.05. The expected value of 
+# true negatives would be 0, as there are no negatives (the null hypothesis is 
+# always the truth).
+nit       <- 1000
+typeIerr  <- vector(mode = "logical", length = nit)
+typeIIerr <- vector(mode = "logical", length = nit)
+for (i in 1:nit) {
+  x       <- rnorm(10)
+  my_test <- t.test(x, alternative = "two.sided", mu = 0)
+  if (my_test$p.value < 0.05) {
+    typeIerr[i] <- T
+  } else {
+    typeIerr[i] <- F
+
+  }
+}
+mean(typeIerr)
+sd(typeIerr) / sqrt(nit)
+
+
+# d
+# We can not estimate the percentage of true negatives, but it will probably be 
+# higher than 0.05. There will be no false positives as the null hypothesis is
+# always false.
+typeIIerr <- vector(mode = "logical", length = nit)
+for (i in 1:nit) {
+  x       <- rnorm(10, -0.5)
+  my_test <- t.test(x, alternative = "two.sided", mu = 0)
+  if (my_test$p.value < 0.05) {
+    typeIIerr[i] <- F
+  } else {
+    typeIIerr[i] <- T
+
+  }
+}
+mean(typeIIerr)
+sd(typeIIerr) / sqrt(nit)
+
+
+# e
+# The expected value of false positives would be lower than 0.05. The expected 
+# value of true negatives would be 0, as there are no negatives (the null 
+# hypothesis is always the truth).
+typeIerr <- vector(mode = "logical", length = nit)
+for (i in 1:nit) {
+  u       <- runif(1, -1, 0)
+  x       <- rnorm(10, u)
+  my_test <- t.test(x, alternative = "greater", mu = 0)
+  if (my_test$p.value < 0.05) {
+    typeIerr[i] <- T
+  } else {
+    typeIerr[i] <- F
+
+  }
+}
+mean(typeIerr)
+sd(typeIerr) / sqrt(nit)
+
+```
+</div>

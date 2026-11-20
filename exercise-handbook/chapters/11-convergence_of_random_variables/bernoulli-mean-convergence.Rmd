@@ -1,0 +1,35 @@
+```{exercise}
+Let $X_1$, $X_2$,..., $X_n$ be a sequence of Bernoulli random variables. Let $Y_n = \frac{X_1 + X_2 + ... + X_n}{n^2}$. Show that this sequence converges point-wise to the zero random variable.
+<span style="color:blue">R: Use a simulation to check your answer.</span>
+
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+Let $\epsilon$ be arbitrary. We need to find such $n_0$, that for every $n$ greater than $n_0$ $|Y_n| < \epsilon$ holds.
+
+\begin{align}
+  |Y_n| &= |\frac{X_1 + X_2 + ... + X_n}{n^2}|  \\
+        &\leq |\frac{n}{n^2}| \\
+        &= \frac{1}{n}.
+\end{align}
+So we need to find such $n_0$, that for every $n > n_0$ we will have $\frac{1}{n} < \epsilon$. So $n_0 > \frac{1}{\epsilon}$.
+
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE}
+x <- 1:1000
+X <- matrix(data = NA, nrow = length(x), ncol = 100)
+y <- vector(mode = "numeric", length = length(x))
+for (i in 1:length(x)) {
+  X[i, ] <- rbinom(100, size = 1, prob = 0.5)
+}
+X <- apply(X, 2, cumsum)
+tmp_mat <- matrix(data = (1:1000)^2, nrow = 1000, ncol = 100)
+X <- X / tmp_mat
+y <- apply(X, 1, mean)
+ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+  geom_line()
+```
+</div>

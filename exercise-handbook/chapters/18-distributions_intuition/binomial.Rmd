@@ -1,0 +1,71 @@
+```{exercise, name = "Binomial intuition 1"}
+The binomial distribution is a generalization of the Bernoulli distribution. 
+Instead of considering a single Bernoulli trial, we now consider a sum of a sequence of $n$ trials,
+which are independent and have the same parameter $p$. So the binomial distribution
+has two parameters $n$ - the number of trials and $p$ - the probability of success
+for each trial.
+
+If we return to our coin flip representation, we now flip a coin several times.
+The binomial distribution will give us the probabilities of all possible outcomes.
+Below we show the distribution for a series of 10 coin flips with a fair coin 
+(left) and a biased coin (right). The numbers on the x axis represent the 
+number of times the coin landed heads.
+
+Using your knowledge of the binomial distribution:
+
+a. Take the [pmf of the binomial distribution](#distributions)  and plug in $n=1$,
+check that it is in fact equivalent to a Bernoulli distribution.
+
+b. In our examples we show the graph of a binomial distribution over 10 trials with
+$p=0.8$. If we take a look at the graph, it appears as though the probabilities of getting 0,1, 2 or 3
+heads in 10 flips are zero. Is it actually zero? Check by plugging in the values
+into the pmf.
+```
+
+<div class="fold">
+```{solution, echo = togs}
+a. The pmf of a binomial distribution is $\binom{n}{k} p^k (1 - p)^{n - k}$, now
+we insert $n=1$ to get: 
+  $$\binom{1}{k} p^k (1 - p)^{1 - k}$$
+Not quite equivalent to
+a Bernoulli, however note that the support of the binomial distribution is 
+defined as $k \in \{0,1,\dots,n\}$, so in our case $k = \{0,1\}$, then:
+  $$\binom{1}{0} = \binom{1}{1} = 1$$ 
+  we get:  $p^k (1 - p)^{1 - k}$ ,the Bernoulli distribution.
+
+b. As we already know $p=0.8, n=10$, so:
+  $$\binom{10}{0} 0.8^0 (1 - 0.8)^{10 - 0} = 1.024 \cdot 10^{-7}$$
+  $$\binom{10}{1} 0.8^1 (1 - 0.8)^{10 - 1} = 4.096 \cdot 10^{-6}$$
+  $$\binom{10}{2} 0.8^2 (1 - 0.8)^{10 - 2} = 7.3728 \cdot 10^{-5}$$
+  $$\binom{10}{3} 0.8^3 (1 - 0.8)^{10 - 3} = 7.86432\cdot 10^{-4}$$
+  So the probabilities are not zero, just very small.
+```
+</div>
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+
+# Data for binomial distribution
+df1 <- data.frame(
+  outcome = 0:10,
+  probability = dbinom(0:10, size=10, prob=0.5),
+  p_value = "p = 0.5"
+)
+
+df2 <- data.frame(
+  outcome = 0:10,
+  probability = dbinom(0:10, size=10, prob=0.8),
+  p_value = "p = 0.8"
+)
+
+df <- rbind(df1, df2)
+
+ggplot(df, aes(x=factor(outcome), y=probability)) +
+  geom_segment(aes(xend=factor(outcome), yend=0), color='black') +
+  geom_point(color="red", size=2) +
+  labs(y = "Probability", x = "Outcome") +
+  theme(legend.position="none") +
+  facet_wrap(~p_value, ncol=2, scales = "free_x")
+
+```

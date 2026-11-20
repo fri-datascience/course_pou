@@ -1,0 +1,45 @@
+```{exercise}
+
+
+a. Prove that the intersection of two sigma algebras on $\Omega$ is a sigma 
+algebra.
+
+b. Prove that the collection of all open subsets $(a,b)$ on $(0,1]$ is not a 
+sigma algebra of $(0,1]$.
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. 
+Empty set:
+\begin{equation}
+  \emptyset \in \mathcal{A} \wedge \emptyset \in \mathcal{B} 
+  \Rightarrow \emptyset \in \mathcal{A} \cap \mathcal{B} 
+\end{equation}
+Complement:
+\begin{equation}
+  \text{Let } A \in \mathcal{A} \cap \mathcal{B} \Rightarrow
+  A \in \mathcal{A} \wedge A \in \mathcal{B} \Rightarrow
+  A^c \in \mathcal{A} \wedge A^c \in \mathcal{B} \Rightarrow
+  A^c \in \mathcal{A} \cap \mathcal{B}
+\end{equation}
+Countable additivity: Let $\{A_i\}$ be a countable sequence of subsets in 
+$\mathcal{A} \cap \mathcal{B}$.
+\begin{equation}
+  \forall i: A_i \in \mathcal{A} \cap \mathcal{B} \Rightarrow 
+  A_i \in \mathcal{A} \wedge A_i \in \mathcal{B} \Rightarrow
+  \cup A_i \in \mathcal{A} \wedge  \cup A_i \in \mathcal{B} \Rightarrow
+  \cup A_i \in \mathcal{A} \cap \mathcal{B}
+\end{equation}
+
+
+b. Let $A$ denote the collection of all open subsets $(a,b)$ on $(0,1]$. Then
+$(0,1) \in A$. But $(0,1)^c = 1 \notin A$.
+
+
+
+```
+</div>

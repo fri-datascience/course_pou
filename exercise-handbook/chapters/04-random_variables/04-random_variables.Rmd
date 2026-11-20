@@ -1,0 +1,86 @@
+# Random variables {#rvs}
+
+This chapter deals with random variables and their distributions.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- Identification of random variables.
+- Convolutions of random variables.
+- Derivation of PDF, PMF, CDF, and quantile function.
+- Definitions and properties of common discrete random variables.
+- Definitions and properties of common continuous random variables.
+- Transforming univariate random variables.
+
+**R**
+
+- Familiarize with PDF, PMF, CDF, and quantile functions for several distributions.
+- Visual inspection of probability distributions.
+- Analytical and empirical calculation of probabilities based on distributions.
+- New R functions for plotting (for example, _facet_wrap_).
+- Creating random number generators based on the Uniform distribution.
+
+
+## General properties and calculations
+```{r, child = "chapters/04-random_variables/valid-cdfs.Rmd"}
+```
+
+```{r, child = "chapters/04-random_variables/cdf-probabilities.Rmd"}
+```
+
+```{r, child = "chapters/04-random_variables/convolutions.Rmd"}
+```
+
+## Discrete random variables
+```{r, child = "chapters/04-random_variables/binomial.Rmd"}
+```
+
+```{r, child = "chapters/04-random_variables/geometric.Rmd"}
+```
+
+```{r, child = "chapters/04-random_variables/poisson.Rmd"}
+```
+
+```{r, child = "chapters/04-random_variables/negative-binomial.Rmd"}
+```
+
+## Continuous random variables
+```{r, child = "chapters/04-random_variables/exponential.Rmd"}
+```
+
+
+```{r, child = "chapters/04-random_variables/uniform.Rmd"}
+```
+
+
+```{r, child = "chapters/04-random_variables/beta.Rmd"}
+```
+
+```{r, child = "chapters/04-random_variables/gamma.Rmd"}
+```
+
+```{r, child = "chapters/04-random_variables/normal.Rmd"}
+```
+
+
+```{r, child = "chapters/04-random_variables/logistic.Rmd"}
+```
+
+## Singular random variables
+```{r, child = "chapters/04-random_variables/cantor-distribution.Rmd"}
+```
+
+## Transformations
+```{r, child = "chapters/04-random_variables/discrete-uniform-squared.Rmd"}
+```
+
+```{r, child = "chapters/04-random_variables/continuous-uniform-squared.Rmd"}
+```
+
+
+```{r, child = "chapters/04-random_variables/lognormal.Rmd"}
+```
+
+```{r, child = "chapters/04-random_variables/probability-integral-transform.Rmd"}
+```

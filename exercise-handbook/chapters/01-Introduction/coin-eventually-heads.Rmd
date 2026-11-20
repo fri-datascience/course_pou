@@ -1,0 +1,41 @@
+```{exercise}
+A fair coin is tossed repeatedly. 
+
+a. Show that, with probability one, a head turns up sooner or later. 
+
+b. Show similarly that any given finite sequence of heads and
+tails occurs eventually with probability one.
+```
+
+::: fold
+```{solution, echo = tog_ex}
+\begin{align}
+P(\text{no heads}) &= \lim_{n \rightarrow \infty} P(\text{no heads in first }n 
+                                 \text{ tosses}) \\
+                   &= \lim_{n \rightarrow \infty} \frac{1}{2^n} \\
+                   &= 0.
+\end{align}
+
+For the second part, let us fix the given sequence of heads and tails of length 
+$k$ as $s$. A probability that this happens in $k$ tosses is $\frac{1}{2^k}$.
+
+\begin{align}
+P(s \text{ occurs}) &= \lim_{n \rightarrow \infty} P(s \text{ occurs in first } 
+                                                     nk \text{ tosses})
+\end{align}
+
+The right part of the upper equation is greater than if $s$ occurs either in the
+first $k$ tosses, second $k$ tosses,..., $n$-th $k$ tosses. Therefore
+
+\begin{align}
+P(s \text{ occurs}) &\geq \lim_{n \rightarrow \infty} 
+                  P(s \text{ occurs in first } n \text{ disjoint sequences of length } k) \\
+                  &= \lim_{n \rightarrow \infty} 
+                  (1 - P(s \text{ does not occur in first } n \text{ disjoint sequences})) \\
+                  &= 1 -  \lim_{n \rightarrow \infty} P(s \text{ does not occur in first } n \text{ disjoint sequences}) \\
+                  &= 1 - \lim_{n \rightarrow \infty} (1 - \frac{1}{2^k})^n \\ 
+                  &= 1.
+\end{align}
+
+```
+:::

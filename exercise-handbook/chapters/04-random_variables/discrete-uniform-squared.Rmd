@@ -1,0 +1,19 @@
+```{exercise}
+Let $X$ be a random variable that is uniformly distributed on 
+$\{-2, -1, 0, 1, 2\}$. Find the PMF of $Y = X^2$.
+```
+
+<div class="fold">
+```{solution, echo = togs2}
+
+\begin{align}
+  P_Y(y) = \sum_{x \in \sqrt(y)} P_X(x) = \begin{cases}
+    0           & y \notin \{0,1,4\} \\
+    \frac{1}{5} & y = 0 \\
+    \frac{2}{5} & y \in \{1,4\}
+  \end{cases}
+\end{align}
+
+
+```
+</div>

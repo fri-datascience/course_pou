@@ -1,0 +1,38 @@
+```{exercise}
+<span style="color:blue">R: Write a function that will calculate the probability density of an arbitraty multivariate normal distribution, based on independent standardized normal PDFs. Compare with _dmvnorm_ from the __mvtnorm__ package.</span>
+
+
+```
+
+<div class="fold">
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+library(mvtnorm)
+set.seed(1)
+mvn_dens <- function (y, mu, Sigma) {
+  L     <- chol(Sigma)
+  L_inv <- solve(t(L))
+  g_inv <- L_inv %*% t(y - mu)
+  J     <- L_inv
+  J_det <- det(J)
+  return(prod(dnorm(g_inv)) * J_det)
+}
+mu_v  <- c(-2, 0, 1)
+cov_m <- matrix(c(1, -0.2, 0.5,
+                  -0.2, 2, 0.3,
+                  0.5, 0.3, 1.6),
+                ncol  = 3,
+                byrow = TRUE)
+n_comp <- 20
+for (i in 1:n_comp) {
+  x <- rmvnorm(1, 
+             mean  = mu_v,
+             sigma = cov_m)
+  print(paste0("My function: ",
+               mvn_dens(x, mu_v, cov_m),
+               ", dmvnorm: ",
+               dmvnorm(x, mu_v, cov_m)))
+}
+
+
+```
+</div>

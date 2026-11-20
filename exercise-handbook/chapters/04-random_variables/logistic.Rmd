@@ -1,0 +1,68 @@
+```{exercise, name = "Logistic random variable", label = logitpdf}
+A logistic random variable has CDF
+\begin{equation}
+  F(x) = \frac{1}{1 + e^{-\frac{x - \mu}{s}}},
+\end{equation}
+where $\mu$ is real and $s > 0$. The support is on the real axis. We denote
+\begin{equation}
+  X | \mu, s \sim \text{Logistic}(\mu, s).
+\end{equation}
+The distribution of the logistic random variable resembles a normal random 
+variable, however it has heavier tails.
+
+a. Find the PDF of a logistic random variable.
+
+b. <span style="color:blue">R: Implement logistic PDF and CDF and visually
+compare both for $X \sim \text{N}(0, 1)$ and $Y \sim \text{logit}(0, \sqrt{\frac{3}{\pi^2}})$. 
+These distributions have the same mean and variance. Additionally, plot
+the same plot on the interval [5,10], to better see the difference
+in the tails. </span>
+
+c. <span style="color:blue">R: For the distributions in b) find the 
+probability $P(|X| > 4)$ and interpret the result.  </span>
+
+```
+
+<div class="fold">
+```{solution, echo = togs2}
+
+
+a. 
+\begin{align}
+  p(x) &= \frac{d}{dx} \frac{1}{1 + e^{-\frac{x - \mu}{s}}} \\
+       &= \frac{- \frac{d}{dx} (1 + e^{-\frac{x - \mu}{s}})}{(1 + e{-\frac{x - \mu}{s}})^2} \\
+       &= \frac{e^{-\frac{x - \mu}{s}}}{s(1 + e{-\frac{x - \mu}{s}})^2}.
+\end{align}
+
+
+```
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
+# b
+set.seed(1)
+logit_pdf <- function (x, mu, s) {
+  return ((exp(-(x - mu)/(s))) / (s * (1 + exp(-(x - mu)/(s)))^2))
+}
+nl_plot <- ggplot(data = data.frame(x = seq(-12, 12, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 2), aes(color = "normal")) +
+  stat_function(fun = logit_pdf, args = list(mu = 0, s = sqrt(12/pi^2)), aes(color = "logit"))
+plot(nl_plot)
+
+nl_plot <- ggplot(data = data.frame(x = seq(5, 10, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 2), aes(color = "normal")) +
+  stat_function(fun = logit_pdf, args = list(mu = 0, s = sqrt(12/pi^2)), aes(color = "logit"))
+plot(nl_plot)
+
+
+# c
+logit_cdf <- function (x, mu, s) {
+  return (1 / (1 + exp(-(x - mu) / s)))
+}
+
+p_logistic <- 1 - logit_cdf(4, 0, sqrt(12/pi^2)) + logit_cdf(-4, 0, sqrt(12/pi^2))
+p_norm     <- 1 - pnorm(4, 0, 2) + pnorm(-4, 0, 2)
+p_logistic
+p_norm
+# Logistic distribution has wider tails, therefore the probability of larger
+# absolute values is higher.
+```
+</div>

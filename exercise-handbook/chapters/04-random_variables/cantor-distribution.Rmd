@@ -1,0 +1,57 @@
+```{exercise, name = "Cantor distribution"}
+The Cantor set is a subset of $[0,1]$, which we create by iteratively deleting the middle third of the interval. For example, in the first iteration, we get the sets $[0,\frac{1}{3}]$ and $[\frac{2}{3},1]$. In the second iteration, we get $[0,\frac{1}{9}]$, $[\frac{2}{9},\frac{1}{3}]$, $[\frac{2}{3}, \frac{7}{9}]$, and $[\frac{8}{9}, 1]$. On the $n$-th iteration, we have
+\begin{equation}
+  C_n = \frac{C_{n-1}}{3} \cup \bigg(\frac{2}{3} + \frac{C_{n-1}}{3} \bigg),
+\end{equation}
+where $C_0 = [0,1]$. The Cantor set is then defined as the intersection of these sets
+\begin{equation}
+  C = \cap_{n=1}^{\infty} C_n.
+\end{equation}
+It has the same cardinality as $[0,1]$. Another way to define the Cantor set is the set of all numbers on $[0,1]$, that do not have a 1 in the ternary representation $x = \sum_{n=1}^\infty \frac{x_i}{3^i}, x_i \in \{0,1,2\}$.
+
+A random variable follows the Cantor distribution, if its CDF is the Cantor function (below). You can find the implementations of random number generator, CDF, and quantile functions for the Cantor distributions at https://github.com/Henrygb/CantorDist.R.
+
+
+a. Show that the Lebesgue measure of the Cantor set is 0.
+
+b. (__Jagannathan__) Let us look at an infinite sequence of independent fair-coin tosses. If the outcome is heads, let $x_i = 2$ and $x_i = 0$, when tails. Then use these to create $x = \sum_{n=1}^\infty \frac{x_i}{3^i}$. This is a random variable with the Cantor distribution. Show that $X$ has a singular distribution.
+
+```
+```{r, echo = FALSE, message = FALSE, warning=FALSE, eval = TRUE}
+pCantor <- function(q, lower.tail = TRUE, log.p = FALSE, bits=32){
+    first1already <- logical(length(q))
+    p <- numeric(length(q))
+    qtest <- numeric(length(q))
+    for (b in 1:bits) { 
+        low1  <-  (qtest +   3^(-b) < q)
+        low2  <-  (qtest + 2*3^(-b) < q)
+        qtest <- qtest + ifelse(low1, 3^(-b), 0) + ifelse(low2, 3^(-b), 0)
+        p     <- p + ifelse(low1 & ! first1already, 2^(-b), 0)      
+        first1already <- first1already | (low1 & ! low2)
+        }
+    #p <- p + 2^{-bits}
+    p <- ifelse( q >= 1, 1, ifelse( q <= 0, 0, p ))
+    if(! lower.tail){ p <- 1-p    }
+    if(log.p){        p <- log(p) }
+    p
+}
+cant_cdf <- pCantor(seq(0,1, by = 0.00001))
+ggplot(data.frame(x = seq(0,1, by = 0.00001), y = cant_cdf), aes(x = x, y = y)) +
+  geom_line()
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. 
+\begin{align}
+\lambda(C) &= 1 - \lambda(C^c) \\
+           &= 1 - \frac{1}{3}\sum_{k = 0}^\infty (\frac{2}{3})^k \\
+           &= 1 - \frac{\frac{1}{3}}{1 - \frac{2}{3}} \\
+           &= 0.
+\end{align}
+
+b. First, for every $x$, the probability of observing it is $\lim_{n \rightarrow \infty} \frac{1}{2^n} = 0$. Second, the probability that we observe one of all the possible sequences is 1. Therefore $P(C) = 1$. So this is a singular variable. The CDF only increments on the elements of the Cantor set.
+
+```
+</div>

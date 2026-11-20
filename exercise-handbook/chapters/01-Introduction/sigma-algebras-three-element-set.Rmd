@@ -1,0 +1,17 @@
+```{exercise}
+Find all sigma algebras for $\Omega = \{0, 1, 2\}$.
+
+```
+
+::: fold
+```{solution, echo = togs}
+
+
+- $A = \{\emptyset, \Omega\}$
+- $A = 2^{\Omega}$
+- $A = \{\emptyset, \{0\}, \{1,2\}, \Omega\}$
+- $A = \{\emptyset, \{1\}, \{0,2\}, \Omega\}$
+- $A = \{\emptyset, \{2\}, \{0,1\}, \Omega\}$
+
+```
+:::

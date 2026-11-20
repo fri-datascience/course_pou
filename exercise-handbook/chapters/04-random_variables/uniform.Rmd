@@ -1,0 +1,74 @@
+```{exercise, name = "Uniform random variable", label = unifpdf}
+Continuous uniform random variable with parameters $a$ and $b$ has the PDF 
+\begin{equation}
+  p(x) = \begin{cases}
+           \frac{1}{b - a} & x \in [a,b] \\
+           0 & \text{otherwise}.
+         \end{cases}
+\end{equation}
+  
+
+a. Find the CDF of the uniform random variable.
+
+b. Find the quantile function of the uniform random variable.
+
+c. Let $X \sim \text{Uniform}(a,b)$. Find the CDF of the variable 
+$Y = \frac{X - a}{b - a}$. This is the **standard uniform random variable**.
+
+d. Let $X \sim \text{Uniform}(-1, 3)$. 
+Find such $z$ that $P(X < z + \mu_x) = \frac{1}{5}$.
+
+e. <span style="color:blue">R: Check your result from d) using 
+simulation.</span>
+  
+```
+
+<div class="fold">
+```{solution, echo = togs2}
+
+a.
+\begin{align}
+  F(x) &= \int_{a}^x \frac{1}{b - a} dt \\
+       &= \frac{1}{b - a} \int_{a}^x dt \\
+       &= \frac{x - a}{b - a}.
+\end{align}
+
+b.
+\begin{align}
+  F(F^{-1}(p))                &= p \\
+  \frac{F^{-1}(p) - a}{b - a} &= p \\
+  F^{-1}(p)                   &= p(b - a) + a.
+\end{align}
+
+c.
+\begin{align}
+  F_Y(y) &= P(Y < y) \\
+         &= P(\frac{X - a}{b - a} < y) \\
+         &= P(X < y(b - a) + a) \\
+         &= F_X(y(b - a) + a) \\
+         &= \frac{(y(b - a) + a) - a}{b - a} \\
+         &= y.
+\end{align}
+
+d.
+\begin{align}
+  P(X < z + 1) &= \frac{1}{5} \\
+  F(z + 1)     &= \frac{1}{5} \\
+  z + 1        &= F^{-1}(\frac{1}{5}) \\
+  z            &= \frac{1}{5}4 - 1 - 1 \\
+  z            &= -1.2.
+\end{align}
+
+```
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
+set.seed(1)
+a         <- -1
+b         <- 3
+nsamps    <- 10000
+unif_samp <- runif(nsamps, a, b)
+mu_x      <- mean(unif_samp)
+new_samp  <- unif_samp - mu_x
+quantile(new_samp, probs = 1/5)
+punif(-0.2, -1, 3)
+```
+</div>

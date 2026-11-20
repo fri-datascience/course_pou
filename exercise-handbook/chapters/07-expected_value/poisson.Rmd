@@ -1,0 +1,36 @@
+```{exercise, name = "Poisson", label = poisev}
+Let $X \sim \text{Poisson}(\lambda)$. 
+
+a. Find $E[X]$.
+
+b. Find $Var[X]$.
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a.
+\begin{align*}
+  E[X] &= \sum_{k=0}^\infty \frac{\lambda^k e^{-\lambda}}{k!} k & \\
+       &= \sum_{k=1}^\infty \frac{\lambda^k e^{-\lambda}}{k!} k & \text{term at $k=0$ is 0} \\
+       &= e^{-\lambda} \lambda \sum_{k=1}^\infty \frac{\lambda^{k-1}}{(k - 1)!} & \\
+       &= e^{-\lambda} \lambda \sum_{k=0}^\infty \frac{\lambda^{k}}{k!} & \\
+       &= e^{-\lambda} \lambda e^\lambda & \\
+       &= \lambda.
+\end{align*}
+  
+b. 
+\begin{align*}
+  Var[X] &= E[X^2] - E[X]^2 & \\
+         &= e^{-\lambda} \lambda \sum_{k=1}^\infty k \frac{\lambda^{k-1}}{(k - 1)!} - \lambda^2 & \\
+         &= e^{-\lambda} \lambda \sum_{k=1}^\infty (k - 1) + 1) \frac{\lambda^{k-1}}{(k - 1)!} - \lambda^2 & \\
+         &= e^{-\lambda} \lambda \big(\sum_{k=1}^\infty (k - 1) \frac{\lambda^{k-1}}{(k - 1)!} + \sum_{k=1}^\infty \frac{\lambda^{k-1}}{(k - 1)!}\Big) - \lambda^2 & \\
+         &= e^{-\lambda} \lambda \big(\lambda\sum_{k=2}^\infty \frac{\lambda^{k-2}}{(k - 2)!} + e^\lambda\Big) - \lambda^2 & \\
+         &= e^{-\lambda} \lambda \big(\lambda e^\lambda + e^\lambda\Big) - \lambda^2 & \\
+         &= \lambda^2 + \lambda - \lambda^2 & \\
+         &= \lambda.
+\end{align*}
+```
+</div>

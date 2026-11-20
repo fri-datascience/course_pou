@@ -1,0 +1,55 @@
+```{exercise}
+
+<span style="color:blue">
+  In this problem we will illustrate the use of the nonparametric bootstrap for estimating CIs of regression model coefficients.
+</span>
+
+
+a. <span style="color:blue">Load the longley dataset from base R with data(longley).</span>
+
+b. <span style="color:blue">Use lm() to apply linear regression using "Employed" as the target (dependent) variable and all other variables as the predictors (independent). Using lm() results, print the estimated regression coefficients and standard errors. Estimate 95% CI for the coefficients using +/- 1.96 * SE.</span>
+
+c. <span style="color:blue">Use nonparametric bootstrap with 100 replications to estimate the SE of the coefficients from (b). Compare the SE from (c) with those from (b).</span>
+
+```
+<div class = "fold">
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+# a
+data(longley)
+
+# b
+res <- lm(Employed ~ . , longley)
+tmp <- data.frame(summary(res)$coefficients[,1:2])
+tmp$LB <- tmp[,1] - 1.96 * tmp[,2]
+tmp$UB <- tmp[,1] + 1.96 * tmp[,2]
+tmp
+
+# c
+set.seed(0)
+m <- 100
+n <- nrow(longley)
+T_coef <- function(x) {
+  lm(Employed ~ . , x)$coefficients
+}
+
+est_boot <- array(NA, c(m, ncol(longley)))
+for (i in 1:m) {
+  idx <- sample(1:n, n, rep = T)
+  est_boot[i,] <- T_coef(longley[idx,])
+}
+
+SE <- apply(est_boot, 2, sd)
+SE
+
+# Show the standard errors around coefficients
+library(ggplot2)
+library(reshape2)
+df <- data.frame(index = 1:7, bootstrap_SE = SE, lm_SE = tmp$Std..Error)
+melted_df <- melt(df[2:nrow(df), ], id.vars = "index")  # Ignore bias which has a really large magnitude
+ggplot(melted_df, aes(x = index, y = value, fill = variable)) +
+  geom_bar(stat="identity", position="dodge") +
+  xlab("Coefficient") +
+  ylab("Standard error") # + scale_y_continuous(trans = "log") # If you want to also plot bias
+  
+```
+</div> 

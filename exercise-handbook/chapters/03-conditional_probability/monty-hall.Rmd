@@ -1,0 +1,84 @@
+```{exercise, name = "Monty Hall problem"}
+A prize is placed at random behind one of three doors. You pick a door. Now
+Monty Hall chooses one of the other two doors, opens it and shows you that it is
+empty. He then gives you the opportunity to keep your door or switch to the 
+other unopened door. Should you stay or switch?  Use Bayes' theorem to calculate the probability of winning if you switch and if you do not.
+<span style="color:blue">R: Check your answers in R.</span>
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+W.L.O.G. assume we always pick the first door. The host can only open door 2
+or door 3, as he can not open the door we picked. Let $k \in \{2,3\}$.
+
+Let us first look at what happens if we do not change. Then we have
+
+\begin{align}
+  P(\text{car in 1} | \text{open $k$}) &= \frac{P(\text{open $k$} | \text{car in 1})P(\text{car in 1})}{P(\text{open $k$})} \\
+                                     &= \frac{P(\text{open $k$} | \text{car in 1})P(\text{car in 1})}{\sum_{n=1}^3 P(\text{open $k$} |  \text{car in $n$})P(\text{car in $n$)}}.
+\end{align}
+  
+The probability that he opened $k$ if the car is in 1 is $\frac{1}{2}$, 
+as he can choose
+between door 2 and 3 as both have a goat behind it. Let us look at the
+normalization constant. When $n = 1$ we get the value in the nominator. When
+$n=k$, we get 0, as he will not open the door if there's a prize behind. The
+remaining option is that we select 1, the car is behind $k$ and he opens the
+only door left. Since he can't open 1 due to it being our pick and $k$ due to
+having the prize, the probability of opening the remaining door is 1, and the
+prior probability of the car being behind this door is $\frac{1}{3}$. So
+we have
+
+\begin{align}
+  P(\text{car in 1} | \text{open $k$}) &= \frac{\frac{1}{2}\frac{1}{3}}{\frac{1}{2}\frac{1}{3} + \frac{1}{3}} \\
+                                       &= \frac{1}{3}.
+\end{align}
+
+Now let us look at what happens if we do change. Let $k' \in \{2,3\}$ be the 
+door that is not opened. If we change, we select this door, so we have
+
+\begin{align}
+  P(\text{car in $k'$} | \text{open $k$}) &= \frac{P(\text{open $k$} | \text{car in $k'$})P(\text{car in $k'$})}{P(\text{open $k$})} \\
+                                          &= \frac{P(\text{open $k$} | \text{car in $k'$})P(\text{car in $k'$})}{\sum_{n=1}^3 P(\text{open $k$} |  \text{car in $n$})P(\text{car in $n$)}}.
+\end{align}
+
+The denominator stays the same, the only thing that is different from before is
+$P(\text{open $k$} | \text{car in $k'$})$. We have a situation where we 
+initially
+selected door 1 and the car is in door $k'$. The probability that the host will
+open door $k$ is then 1, as he can not pick any other door. So we have
+
+\begin{align}
+  P(\text{car in $k'$} | \text{open $k$}) &= \frac{\frac{1}{3}}{\frac{1}{2}\frac{1}{3} + \frac{1}{3}} \\
+                                       &= \frac{2}{3}.
+\end{align}
+
+Therefore it makes sense to change the door.
+
+
+```
+
+```{r, echo = togs, eval = togs}
+set.seed(1)
+nsamps <- 1000
+ifchange <- vector(mode = "logical", length = nsamps)
+ifstay   <- vector(mode = "logical", length = nsamps)
+for (i in 1:nsamps) {
+  where_car      <- sample(c(1:3), 1)
+  where_player   <- sample(c(1:3), 1)
+  open_samp      <- (1:3)[where_car != (1:3) & where_player != (1:3)]
+  if (length(open_samp) == 1) {
+    where_open <- open_samp
+  } else {
+      where_open <- sample(open_samp, 1)
+  }
+  ifstay[i]      <- where_car == where_player
+  where_ifchange <- (1:3)[where_open != (1:3) & where_player != (1:3)]
+  ifchange[i]    <- where_ifchange == where_car
+}
+sum(ifstay) / nsamps
+sum(ifchange) / nsamps
+```
+</div>

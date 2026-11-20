@@ -1,0 +1,56 @@
+```{exercise, name = "Multinomial expected value", label = mnomev}
+Find the expected value, variance and covariance of the multinomial distribution. Hint: First find the expected value for $n = 1$ and then use the fact that the trials are independent.
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+Let us first calculate the expected value of $X_1$, when $n = 1$.
+
+\begin{align}
+  E[X_1] &= \sum_{n_1 = 0}^1 \sum_{n_2 = 0}^1 ... \sum_{n_k = 0}^1 \frac{1}{n_1!n_2!...n_k!}p_1^{n_1}p_2^{n_2}...p_k^{n_k}n_1 \\
+         &= \sum_{n_1 = 0}^1 \frac{p_1^{n_1} n_1}{n_1!} \sum_{n_2 = 0}^1 ... \sum_{n_k = 0}^1 \frac{1}{n_2!...n_k!}p_2^{n_2}...p_k^{n_k}
+\end{align}
+When $n_1 = 0$ then the whole terms is zero, so we do not need to evaluate other sums. When $n_1 = 1$, all other $n_i$ must be zero, as we have $1 = \sum_{i=1}^k n_i$. Therefore the other sums equal $1$. So $E[X_1] = p_1$ and $E[X_i] = p_i$ for $i = 1,...,k$.
+Now let $Y_j$, $j = 1,...,n$, have a multinomial distribution with $n = 1$, and let $X$ have a multinomial distribution with an arbitrary $n$. Then we can write $X = \sum_{j=1}^n Y_j$. And due to independence
+\begin{align}
+  E[X] &= E[\sum_{j=1}^n Y_j] \\
+       &= \sum_{j=1}^n E[Y_j] \\
+       &= np.
+\end{align}
+For the variance, we need $E[X^2]$. Let us follow the same procedure as above and first calculate $E[X_i]$ for $n = 1$. The only thing that changes is that the term $n_i$ becomes $n_i^2$. Since we only have $0$ and $1$ this does not change the outcome. So
+\begin{align}
+  Var[X_i] &= E[X_i^2] - E[X_i]^2\\
+           &= p_i(1 - p_i).
+\end{align}
+Analogous to above for arbitrary $n$
+\begin{align}
+  Var[X] &= E[X^2] - E[X]^2 \\
+         &= \sum_{j=1}^n E[Y_j^2] - \sum_{j=1}^n E[Y_j]^2 \\
+         &= \sum_{j=1}^n E[Y_j^2] -  E[Y_j]^2 \\
+         &= \sum_{j=1}^n p(1-p) \\
+         &= np(1-p).
+\end{align}
+To calculate the covariance, we need $E[X_i X_j]$. Again, let us start with $n = 1$. Without loss of generality, let us assume $i = 1$ and $j = 2$.
+\begin{align}
+  E[X_1 X_2] = \sum_{n_1 = 0}^1 \sum_{n_2 = 0}^1 \frac{p_1^{n_1} n_1}{n_1!} \frac{p_2^{n_2} n_2}{n_2!} \sum_{n_3 = 0}^1 ... \sum_{n_k = 0}^1 \frac{1}{n_3!...n_k!}p_3^{n_3}...p_k^{n_k}.
+\end{align}
+In the above expression, at each iteration we multiply with $n_1$ and $n_2$. Since $n = 1$, one of these always has to be zero. Therefore $E[X_1 X_2] = 0$ and
+\begin{align}
+  Cov(X_i, X_j) &= E[X_i X_j] - E[X_i]E[X_j] \\
+                &= - p_i p_j.
+\end{align}
+For arbitrary $n$, let $X = \sum_{t = 1}^n Y_t$ be the sum of independent multinomial random variables $Y_t = [X_{1t}, X_{2t},...,X_{kt}]^T$ with $n=1$. Then $X_1 = \sum_{t = 1}^n X_{1t}$ and $X_2 = \sum_{l = 1}^n X_{2l}$.
+\begin{align}
+  Cov(X_1, X_2) &= E[X_1 X_2] - E[X_1] E[X_2] \\
+                &= E[\sum_{t = 1}^n X_{1t} \sum_{l = 1}^n X_{2l}] - n^2 p_1 p_2 \\
+                &= \sum_{t = 1}^n \sum_{l = 1}^n E[X_{1t} X_{2l}] - n^2 p_1 p_2.
+\end{align}
+For $X_{1t}$ and $X_{2l}$ the expected value is zero when $t = l$. When $t \neq l$ then they are independent, so the expected value is the product $p_1 p_2$. There are $n^2$ total terms, and for $n$ of them $t = l$ holds. So $E[X_1 X_2] = (n^2 - n) p_1 p_2$. Inserting into the above
+\begin{align}
+  Cov(X_1, X_2) &= (n^2 - n) p_1 p_2 - n^2 p_1 p_2 \\
+                &= - n p_1 p_2.
+\end{align}
+
+```
+</div>

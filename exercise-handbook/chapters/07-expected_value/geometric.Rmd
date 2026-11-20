@@ -1,0 +1,24 @@
+```{exercise, name = "Geometric", label = geoev}
+Let $X \sim \text{Geometric}(p)$. 
+
+a. Find $E[X]$. Hint: $\frac{d}{dx} x^k = k x^{(k - 1)}$.
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a.
+\begin{align*}
+  E[X] &= \sum_{k=0}^\infty (1 - p)^k p k & \\
+       &= p (1 - p) \sum_{k=0}^\infty (1 - p)^{k-1} k & \\
+       &= p (1 - p) \sum_{k=0}^\infty -\frac{d}{dp}(1 - p)^k & \\
+       &= p (1 - p) \Big(-\frac{d}{dp}\Big) \sum_{k=0}^\infty (1 - p)^k & \\
+       &= p (1 - p) \Big(-\frac{d}{dp}\Big) \frac{1}{1 - (1 - p)} & \text{geometric series} \\
+       &= \frac{1 - p}{p}
+\end{align*}
+
+```
+</div>

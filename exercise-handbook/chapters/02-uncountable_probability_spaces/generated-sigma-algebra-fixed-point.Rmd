@@ -1,0 +1,27 @@
+```{exercise}
+Show that $\mathcal{C} = \sigma(\mathcal{C})$ if and only if $\mathcal{C}$ is
+a sigma algebra.
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+"$\Rightarrow$" This follows from the definition of a generated sigma algebra.
+
+"$\Leftarrow$" Let $\mathcal{F} = \cap_i F_i$ be the intersection of all
+sigma algebras that contain $\mathcal{C}$. Then
+$\sigma(\mathcal{C}) = \mathcal{F}$.
+Additionally, $\forall i: \mathcal{C} \subseteq F_i$. So each $F_i$ can be written
+as $F_i = \mathcal{C} \cup D$, where $D$ are the rest of the elements in the
+sigma algebra. In other words, each sigma algebra in the collection contains
+at least $\mathcal{C}$, but can contain other elements. Now for some $j$,
+$F_j = \mathcal{C}$ as $\{F_i\}$ contains all sigma algebras that contain
+$\mathcal{C}$
+and $\mathcal{C}$ is such a sigma algebra.
+Since this is the smallest subset in the intersection it follows that
+$\sigma(\mathcal{C}) = \mathcal{F} = \mathcal{C}$.
+
+```
+</div>

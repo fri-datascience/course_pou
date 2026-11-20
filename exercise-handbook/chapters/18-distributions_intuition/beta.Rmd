@@ -1,0 +1,65 @@
+```{exercise, name = "Beta intuition 1"}
+The beta distribution is a continuous distribution defined on the unit interval $[0,1]$. It has two strictly positive paramters $\alpha$ and $\beta$, which determine its shape. Its support makes it especially suitable to model distribtuions of percentages and proportions.
+
+Below you've been provided with some code that you can copy into Rstudio. Once you run the code, an interactive Shiny app will appear and you will be able to manipulate the graph of the beta distribution.
+
+Play around with the parameters to get:
+
+a) A symmetric bell curve
+b) A bowl-shaped curve
+c) The standard uniform distribution is actually a special case of the beta distribution. Find the exact parameters $\alpha$ and $\beta$. Once you do, prove the equality by inserting the values into our pdf. 
+
+*Hint*: The beta function is evaluated as $\text{B}(a,b) = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$,
+ the gamma function for **positive integers** $n$ is evaluated as $\Gamma(n)= (n-1)!$
+```
+
+```
+# Install and load necessary packages
+install.packages(c("shiny", "ggplot2"))
+library(shiny)
+library(ggplot2)
+
+# The Shiny App
+ui <- fluidPage(
+  titlePanel("Beta Distribution Viewer"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("alpha", "Alpha:", min = 0.1, max = 10, value = 2, step = 0.1),
+      sliderInput("beta", "Beta:", min = 0.1, max = 10, value = 2, step = 0.1)
+    ),
+    
+    mainPanel(
+      plotOutput("betaPlot")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$betaPlot <- renderPlot({
+    x <- seq(0, 1, by = 0.01)
+    y <- dbeta(x, shape1 = input$alpha, shape2 = input$beta)
+    
+    ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+      geom_line() +
+      labs(x = "Value", y = "Density") +
+      theme_minimal()
+  })
+}
+
+shinyApp(ui = ui, server = server)
+
+```
+<div class="fold">
+```{solution, echo = togs}
+  a) Possible solution $\alpha = \beta= 5$
+  
+  b) Possible solution $\alpha = \beta= 0.5$
+    
+  c) The correct parameters are $\alpha = 1, \beta=1$, to prove the equality we insert them into the beta pdf:
+    $$\frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)} =
+      \frac{x^{1 - 1} (1 - x)^{1 - 1}}{\text{B}(1, 1)} =
+        \frac{1}{\frac{\Gamma(1)\Gamma(1)}{\Gamma(1+1)}}=
+          \frac{1}{\frac{(1-1)!(1-1)!}{(2-1)!}} = 1$$
+```
+</div>

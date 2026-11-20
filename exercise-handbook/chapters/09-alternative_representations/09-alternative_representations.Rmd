@@ -1,0 +1,26 @@
+# Alternative representation of distributions {#ard}
+
+This chapter deals with alternative representation of distributions.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- Probability generating functions.
+- Moment generating functions.
+
+
+## Probability generating functions (PGFs)
+```{r, child = "chapters/09-alternative_representations/poisson-sum.Rmd"}
+```
+
+```{r, child = "chapters/09-alternative_representations/negative-binomial-moments.Rmd"}
+```
+
+## Moment generating functions (MGFs)
+```{r, child = "chapters/09-alternative_representations/geometric-variance.Rmd"}
+```
+
+```{r, child = "chapters/09-alternative_representations/normal-sum.Rmd"}
+```
+

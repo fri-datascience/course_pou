@@ -1,0 +1,33 @@
+```{exercise}
+<span style="color:blue">R: Let $X$ be geometric random variable with $p = 0.7$. Visually compare the Markov bound, Chernoff bound, and the theoretical probabilities for $x = 1,...,12$. To get the best fitting Chernoff bound, you will need to optimize the bound depending on $t$. Use either analytical or numerical optimization.</span>
+
+```
+
+<div class="fold">
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+bound_chernoff <- function (t, p, a) {
+  return ((p / (1 - exp(t) + p * exp(t))) / exp(a * t))
+}
+
+set.seed(1)
+p <- 0.7
+a <- seq(1, 12, by = 1)
+ci_markov <- (1 - p) / p / a
+t <- vector(mode = "numeric", length = length(a))
+for (i in 1:length(t)) {
+  t[i] <- optimize(bound_chernoff, interval = c(0, log(1 / (1 - p))), p = p, a = a[i])$minimum
+}
+t
+ci_chernoff <- (p / (1 - exp(t) + p * exp(t))) / exp(a * t)
+actual      <- 1 - pgeom(a, 0.7)
+plot_df     <- rbind(
+  data.frame(x = a, y = ci_markov, type = "Markov"),
+  data.frame(x = a, y = ci_chernoff, type = "Chernoff"),
+  data.frame(x = a, y = actual, type = "Actual")
+)
+ggplot(plot_df, aes(x = x, y = y, color = type)) +
+  geom_line()
+
+
+```
+</div>

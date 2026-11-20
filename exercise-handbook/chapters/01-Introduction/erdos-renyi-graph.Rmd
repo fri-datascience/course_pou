@@ -1,0 +1,69 @@
+```{exercise}
+An Erdos-Renyi random graph $G(n,p)$ is a model with $n$ nodes, where
+each pair of nodes is connected with probability $p$.
+
+
+a. Calculate the probability that there exists a node that is not
+connected to any other node in $G(4,0.6)$.
+b. Show that the upper bound for the probability that there exist 2 nodes that are not connected to any other node for an arbitrary $G(n,p)$ is $\binom{n}{2} (1-p)^{2n - 3}$.
+c. <span style="color:blue">R: Estimate the probability from the first point using simulation.</span>
+  
+
+```
+
+::: fold
+```{solution, echo = togs}
+
+
+a. Let $A_i$ be the event that the $i$-th node is not connected to
+any other node. Then our goal is to calculate $P(\cup_{i=1}^n A_i)$.
+Using the inclusion-exclusion principle, we get
+
+\begin{align}
+  P(\cup_{i=1}^n A_i) &= \sum_i A_i - \sum_{i<j} P(A_i \cap A_j) +
+    \sum_{i<j<k} P(A_i \cap A_j \cap A_k) - P(A_1 \cap A_2 \cap A_3 \cap A_4) \\
+                      &=4 (1 - p)^3 - \binom{4}{2} (1 - p)^5 +
+                        \binom{4}{3} (1 - p)^6 - (1 - p)^6 \\
+                      &\approx 0.21.
+\end{align}
+  
+b. Let $A_{ij}$ be the event that nodes $i$ and $j$ are not connected to any other node. We are interested in $P(\cup_{i<j}A_{ij})$. By using Boole`s inequality, we get
+
+\begin{align}
+P(\cup_{i<j}A_{ij}) \leq \sum_{i<j} P(A_{ij}).
+\end{align}
+
+What is the probability of $A_{ij}$? There need to be no connections to the $i$-th node to the remaining nodes (excluding $j$), the same for the $j$-th node, and there can be no connection between them. Therefore
+
+\begin{align}
+P(\cup_{i<j}A_{ij}) &\leq \sum_{i<j} (1 - p)^{2(n-2) + 1} \\
+                    &= \binom{n}{2} (1 - p)^{2n - 3}.
+\end{align}
+
+
+```
+
+```{r, echo = togs, eval = togs}
+set.seed(1)
+n_samp <- 100000
+n      <- 4
+p      <- 0.6
+conn_samp <- vector(mode = "logical", length = n_samp)
+for (i in 1:n_samp) {
+  tmp_mat                     <- matrix(data = 0, nrow = n, ncol = n)
+  samp_conn                   <- sample(c(0,1), 
+                                        choose(4,2), 
+                                        replace = TRUE, 
+                                        prob    = c(1 - p, p))
+  tmp_mat[lower.tri(tmp_mat)] <- samp_conn
+  tmp_mat[upper.tri(tmp_mat)] <- t(tmp_mat)[upper.tri(t(tmp_mat))]
+  not_conn                    <- apply(tmp_mat, 1, sum)
+  if (any(not_conn == 0)) {
+    conn_samp[i] <- TRUE
+  } else {
+    conn_samp[i] <- FALSE
+  }
+}
+sum(conn_samp) / n_samp
+```
+:::

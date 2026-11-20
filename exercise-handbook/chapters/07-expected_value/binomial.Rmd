@@ -1,0 +1,25 @@
+```{exercise, name = "Binomial", label = binomev}
+Let $X \sim \text{Binomial}(n,p)$. 
+
+a. Find $E[X]$.
+
+b. Find $Var[X]$.
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. Let $X = \sum_{i=0}^n X_i$, where $X_i \sim \text{Bernoulli}(p)$. Then, due to linearity of expectation
+\begin{align*}
+  E[X] = E[\sum_{i=0}^n X_i] = \sum_{i=0}^n E[X_i] = np.
+\end{align*}
+  
+b. Again let $X = \sum_{i=0}^n X_i$, where $X_i \sim \text{Bernoulli}(p)$. Since the Bernoulli variables $X_i$ are independent we have
+\begin{align*}
+  Var[X] = Var[\sum_{i=0}^n X_i] = \sum_{i=0}^n Var[X_i] = np(1-p).
+\end{align*}
+
+```
+</div>

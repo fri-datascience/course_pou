@@ -1,0 +1,52 @@
+```{exercise}
+
+Take the measure space $(\Omega_1 = (0,1], B_{(0,1]}, \lambda)$ (we know
+that this is a probability space on $(0,1]$).
+
+a. Define a map (function) from $\Omega_1$ to
+$\Omega_2 = \{1,2,3,4,5,6\}$ such that the measure space
+$(\Omega_2, 2^{\Omega_2}, \lambda(f^{-1}()))$ will be a discrete probability
+space with uniform probabilities
+($P(\omega) = \frac{1}{6}, \forall \omega \in \Omega_2)$.
+b. Is the map that you defined in (a) the only such map?
+c. How would you in the same fashion define a map that would result
+in a probability space that can be interpreted as a coin toss with probability
+$p$ of heads?
+d. <span style="color:blue">R: Use the map in (a) as a basis for a random
+generator for this fair die.</span>
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. In other words, we have to assign disjunct intervals of the same size to
+each element of $\Omega_2$. Therefore
+
+\begin{equation}
+  f(x) = \lceil 6x \rceil.
+\end{equation}
+
+b. No, we could for example rearrange the order in which the intervals are
+mapped to integers. Additionally, we could have several disjoint intervals that
+mapped to the same integer, as long as the Lebesgue measure of their union
+would be $\frac{1}{6}$ and the function would remain injective.
+c. We have $\Omega_3 = \{0,1\}$, where zero represents heads and one represents
+tails. Then
+\begin{equation}
+  f(x) = 0^{I_{A}(x)},
+\end{equation}
+where $A = \{y \in (0,1] : y < p\}$.
+
+
+```
+
+```{r, echo = togs, eval = togs}
+set.seed(1)
+unif_s <- runif(1000)
+die_s  <- ceiling(6 * unif_s)
+summary(as.factor(die_s))
+```
+</div>
