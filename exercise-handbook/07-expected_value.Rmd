@@ -601,7 +601,7 @@ ggplot(df, aes(x = n, y = value)) +
 b.
 \begin{align}
   \int_0^\infty \frac{x}{1 + x^2} dx &= \frac{1}{2} \int_1^\infty \frac{1}{u} du & u = 1 + x^2 \\
-                                     &= \frac{1}{2} \ln(x) |_0^\infty.
+                                     &= \frac{1}{2} \ln(u) |_1^\infty.
 \end{align}
 
 
