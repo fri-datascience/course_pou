@@ -1,0 +1,27 @@
+# Integration {#integ}
+
+This chapter deals with abstract and Monte Carlo integration.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- How to calculate Lebesgue integrals for non-simple functions.
+
+**R**
+
+- Monte Carlo integration.
+
+
+## Monte Carlo integration
+```{r, child = "chapters/06-integration/bivariate-expectation-integral.Rmd"}
+```
+
+## Lebesgue integrals
+```{r, child = "chapters/06-integration/lebesgue-integrals.Rmd"}
+```
+
+
+```{r, child = "chapters/06-integration/lebesgue-integral-constant-measure.Rmd"}
+```
+

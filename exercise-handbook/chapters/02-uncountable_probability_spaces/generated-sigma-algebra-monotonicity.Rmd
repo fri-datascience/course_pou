@@ -1,0 +1,25 @@
+```{exercise}
+Let $\mathcal{C}$ and $\mathcal{D}$ be two collections of subsets on $\Omega$
+such that $\mathcal{C} \subset \mathcal{D}$. Prove that
+$\sigma(\mathcal{C}) \subseteq \sigma(\mathcal{D})$.
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+$\sigma(\mathcal{D})$ is a sigma algebra that contains $\mathcal{D}$. It
+follows that $\sigma(\mathcal{D})$ is a sigma algebra that contains
+$\mathcal{C}$. Let us write $\sigma(\mathcal{C}) = \cap_i F_i$, where $\{F_i\}$
+is the collection of all sigma algebras that contain $\mathcal{C}$. Since
+$\sigma(\mathcal{D})$ is such a sigma algebra, there exists an index $j$,
+so that $F_j = \sigma(\mathcal{D})$. Then we can write
+
+\begin{align}
+  \sigma(\mathcal{C}) &= (\cap_{i \neq j} F_i) \cap \sigma(\mathcal{D}) \\
+                      &\subseteq \sigma(\mathcal{D}).
+\end{align}
+
+
+```
+</div>

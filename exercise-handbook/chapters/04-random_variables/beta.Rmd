@@ -1,0 +1,67 @@
+```{exercise, name = "Beta random variable", label = betacdf}
+A variable $X$ with PDF 
+\begin{equation}
+  p(x) = \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)},
+\end{equation}
+where $\text{B}(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}$ and 
+$\Gamma(x) = \int_0^{\infty} x^{z - 1} e^{-x} dx$
+  is a Beta random 
+variable with support on $[0,1]$. It has two positive 
+parameters $\alpha$ and $\beta$. Notation:
+\begin{equation}
+  X | \alpha, \beta \sim \text{Beta}(\alpha, \beta)
+\end{equation}
+It is often used in modeling rates. 
+<!--The CDF of a Beta random variable is--> 
+<!--\begin{equation}--> 
+<!--  F(x) = \frac{\text{B}(x; \alpha, \beta)}{\text{B}(\alpha, \beta)},--> 
+<!--\end{equation}--> 
+<!--  where $\text{B}(x; \alpha, \beta) = \int_0^x t^{\alpha+1} (1 - t)^{\beta - 1} dt$.--> 
+
+
+a. Calculate the PDF for $\alpha = 1$ and $\beta = 1$. What do you notice?
+
+b. <span style="color:blue">R: Plot densities of the beta distribution
+for parameter pairs (2, 2), (4, 1), (1, 4), (2, 5), and (0.1, 0.1).</span>
+
+c. <span style="color:blue">R: Sample from $X \sim \text{Beta}(2, 5)$ and
+compare the histogram with Beta PDF.</span>
+
+```
+
+<div class="fold">
+```{solution, echo = togs2}
+
+
+a.
+\begin{equation}
+  p(x) = \frac{x^{1 - 1} (1 - x)^{1 - 1}}{\text{B}(1, 1)} = 1.
+\end{equation}
+This is the standard uniform distribution.
+
+
+```
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
+set.seed(1)
+ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dbeta, args = list(shape1 = 2, shape2 = 2), aes(color = "alpha = 0.5")) +
+  stat_function(fun = dbeta, args = list(shape1 = 4, shape2 = 1), aes(color = "alpha = 4")) +
+  stat_function(fun = dbeta, args = list(shape1 = 1, shape2 = 4), aes(color = "alpha = 1")) +
+  stat_function(fun = dbeta, args = list(shape1 = 2, shape2 = 5), aes(color = "alpha = 25")) +
+  stat_function(fun = dbeta, args = list(shape1 = 0.1, shape2 = 0.1), aes(color = "alpha = 0.1"))
+
+```
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
+set.seed(1)
+nsamps <- 1000
+samps  <- rbeta(nsamps, 2, 5)
+ggplot(data = data.frame(x = samps), aes(x = x)) +
+  geom_histogram(aes(y = ..density..), color = "black") +
+  stat_function(data  = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x), 
+                fun   = dbeta, 
+                args  = list(shape1 = 2, shape2 = 5), 
+                color = "red", 
+                size  = 1.2)
+
+```
+</div>

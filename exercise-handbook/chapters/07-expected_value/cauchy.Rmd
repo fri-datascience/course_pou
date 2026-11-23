@@ -1,0 +1,58 @@
+```{exercise, name = "Cauchy distribution"}
+Let $p(x | x_0, \gamma) = \frac{1}{\pi \gamma \Big(1 + \big(\frac{x - x_0}{\gamma}\big)^2\Big)}$. A random variable with this PDF follows a Cauchy distribution. This distribution is symmetric and has wider tails than the normal distribution. 
+
+a. <span style="color:blue">R: Draw $n = 1,...,1000$ samples from a standard normal and $\text{Cauchy}(0, 1)$. For each $n$ plot the mean and the median of the sample using facets. Interpret the results.</span>
+  
+b. To get a mathematical explanation of the results in a), evaluate the integral $\int_0^\infty \frac{x}{1 + x^2} dx$ and consider that $E[X] = \int_{-\infty}^\infty \frac{x}{1 + x^2}dx$.
+
+```
+
+<div class="fold">
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
+set.seed(1)
+n         <- 1000
+means_n   <- vector(mode = "numeric", length = n)
+means_c   <- vector(mode = "numeric", length = n)
+medians_n <- vector(mode = "numeric", length = n)
+medians_c <- vector(mode = "numeric", length = n)
+for (i in 1:n) {
+  tmp_n        <- rnorm(i)
+  tmp_c        <- rcauchy(i)
+  means_n[i]   <- mean(tmp_n)
+  means_c[i]   <- mean(tmp_c)
+  medians_n[i] <- median(tmp_n)
+  medians_c[i] <- median(tmp_c)
+}
+df <- data.frame("distribution" = c(rep("normal", 2 * n),
+                                    rep("Cauchy", 2 * n)),
+                 "type"         = c(rep("mean", n),
+                                    rep("median", n),
+                                    rep("mean", n),
+                                    rep("median", n)),
+                 "value"        = c(means_n, medians_n, means_c, medians_c),
+                 "n"            = rep(1:n, times = 4))
+ggplot(df, aes(x = n, y = value)) +
+  geom_line(alpha = 0.5) +
+  facet_wrap(~ type + distribution , scales = "free")
+```
+
+```{solution, echo = togs2}
+
+b.
+\begin{align}
+  \int_0^\infty \frac{x}{1 + x^2} dx &= \frac{1}{2} \int_1^\infty \frac{1}{u} du & u = 1 + x^2 \\
+                                     &= \frac{1}{2} \ln(x) |_0^\infty.
+\end{align}
+
+
+This integral is not finite. The same holds for the negative part. Therefore, the expectation is undefined, as $E[|X|] = \infty$.
+
+Why can we not just claim that $f(x) = x / (1 + x^2)$ is odd and $\int_{-\infty}^\infty f(x) = 0$?
+By definition of the Lebesgue integral $\int_{-\infty}^{\infty} f= \int_{-\infty}^{\infty} f_+-\int_{-\infty}^{\infty} f_-$.
+At least one of the two integrals needs to be finite for $\int_{-\infty}^{\infty} f$ to be well-defined.
+However $\int_{-\infty}^{\infty} f_+=\int_0^{\infty} x/(1+x^2)$ and $\int_{-\infty}^{\infty} f_-=\int_{-\infty}^{0} |x|/(1+x^2)$.
+We have just shown that both of these integrals are infinite, which implies that their sum is also infinite.
+
+
+```
+</div>

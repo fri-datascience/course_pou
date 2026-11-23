@@ -1,0 +1,18 @@
+```{exercise, name = "Diversity of sigma algebras"}
+Let $\Omega$ be a set.
+
+a. Find the smallest sigma algebra of $\Omega$.
+b. Find the largest sigma algebra of $\Omega$.
+
+```
+
+::: fold
+```{solution, echo = togs}
+
+
+a. $A = \{\emptyset, \Omega\}$
+  
+b. $2^{\Omega}$
+
+```
+:::

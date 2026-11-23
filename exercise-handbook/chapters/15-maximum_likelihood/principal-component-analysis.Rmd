@@ -1,0 +1,30 @@
+```{exercise, name = "Principal component analysis"}
+<span style="color:blue">Load the _olympic_ data set from package _ade4_. The data show decathlon results for 33 men in 1988 Olympic Games. This data set serves as a great example of finding the latent structure in the data, as there are certain characteristics of the athletes that make them excel at different events. For example an explosive athlete will do particulary well in sprints and long jumps.</span>
+
+a. <span style="color:blue">Perform PCA (_prcomp_) on the data set and interpret the first 2 latent dimensions. Hint: Standardize the data first to get meaningful results.</span>
+
+b. <span style="color:blue">Use MLE to estimate the covariance of the standardized multivariate distribution.</span>
+
+c. <span style="color:blue">Decompose the estimated covariance matrix with the eigendecomposition. Compare the eigenvectors to the output of PCA.</span>
+
+```
+<div class="fold">
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+data(olympic)
+
+X        <- olympic$tab
+X_scaled <- scale(X)
+my_pca   <- prcomp(X_scaled)
+summary(my_pca)
+
+autoplot(my_pca, data = X, loadings = TRUE, loadings.colour = 'blue',
+         loadings.label = TRUE, loadings.label.size = 3)
+
+Sigma_est <- (1 / nrow(X_scaled)) * t(X_scaled) %*% X_scaled
+Sigma_dec <- eigen(Sigma_est)
+
+Sigma_dec$vectors
+my_pca$rotation
+
+```
+</div>

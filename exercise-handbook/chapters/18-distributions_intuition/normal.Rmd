@@ -1,0 +1,99 @@
+```{exercise, name = "Normal intuition 1"}
+The normal distribution, also known as the Gaussian distribution, is a continuous distribution that encompasses the entire real number line. It has two parameters: the mean, denoted by $\mu$, and the variance, represented by $\sigma^2$. Its shape resembles the iconic bell curve. The position of its peak is determined by the parameter $\mu$, while the variance determines the spread or width of the curve. A smaller variance results in a sharper, narrower peak, while a larger variance leads to a broader, more spread-out curve.
+
+Below, we graph the distribution of IQ scores for two different populations.
+
+We aim to identify individuals with an IQ at or above 140 for an experiment. We can identify them reliably; however, we only have time to examine one of the two groups. Which group should we investigate to have the best chance of finding such individuals?
+
+NOTE: The graph below displays the parameter $\sigma$, which is the square root of the variance, more commonly referred to as the **standard deviation**. Keep this in mind when solving the problems.
+
+a) Insert the values of either population into the pdf of a normal distribution and determine which one has a higher density at $x=140$.
+
+b) Generate the graph yourself and zoom into the relevant area to graphically verify your answer.
+
+To determine probability density, we can use the pdf. However, if we wish to know the proportion of the population that falls within certain parameters, we would need to integrate the pdf. Fortunately, the integrals of common distributions are well-established. This integral gives us the cumulative distribution function $F(x)$ (CDF).
+
+c) BONUS: Look up the CDF of the normal distribution and input the appropriate values to determine the percentage of each population that comprises individuals with an IQ of 140 or higher.
+
+
+```
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+library(tidyr)
+
+# Create data
+x <- seq(70, 135, by = 0.01)  # Adjusting the x range to account for the larger standard deviations
+df <- data.frame(x = x)
+
+# Define the IQ distributions
+df$IQ_mu100_sd10 <- dnorm(df$x, mean = 100, sd = 10)
+df$IQ_mu105_sd8 <- dnorm(df$x, mean = 105, sd = 8)
+
+# Convert from wide to long format for ggplot2
+df_long <- gather(df, distribution, density, -x)
+
+# Ensure the levels of the 'distribution' factor match our desired order
+df_long$distribution <- factor(df_long$distribution, levels = c("IQ_mu100_sd10", "IQ_mu105_sd8"))
+
+# Plot
+ggplot(df_long, aes(x = x, y = density, color = distribution)) +
+  geom_line() +
+  labs(x = "IQ Score", y = "Density") +
+  scale_color_manual(
+    name = "IQ Distribution",
+    values = c(IQ_mu100_sd10 = "red", IQ_mu105_sd8 = "blue"),
+    labels = c("Group 1 (µ=100, σ=10)", "Group 2 (µ=105, σ=8)")
+  ) +
+  theme_minimal()
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+a. Group 1: $\mu = 100, \sigma=10 \rightarrow \sigma^2 = 100$
+  $$\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}} =
+    \frac{1}{\sqrt{2 \pi 100}} e^{-\frac{(140 - 100)^2}{2 \cdot 100}} \approx 1.34e-05$$
+  Group 2:  $\mu = 105, \sigma=8 \rightarrow \sigma^2 = 64$
+  $$\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}} =
+    \frac{1}{\sqrt{2 \pi 64}} e^{-\frac{(140 - 105)^2}{2 \cdot 64}} \approx 3.48e-06$$
+  
+  So despite the fact that group 1 has a lower average IQ, we are more likely to find 140 IQ individuals in this group.
+```
+b.
+```{r, echo=togs}
+library(ggplot2)
+library(tidyr)
+
+# Create data
+x <- seq(135, 145, by = 0.01)  # Adjusting the x range to account for the larger standard deviations
+df <- data.frame(x = x)
+
+# Define the IQ distributions
+df$IQ_mu100_sd10 <- dnorm(df$x, mean = 100, sd = 10)
+df$IQ_mu105_sd8 <- dnorm(df$x, mean = 105, sd = 8)
+
+# Convert from wide to long format for ggplot2
+df_long <- gather(df, distribution, density, -x)
+
+# Ensure the levels of the 'distribution' factor match our desired order
+df_long$distribution <- factor(df_long$distribution, levels = c("IQ_mu100_sd10", "IQ_mu105_sd8"))
+
+# Plot
+ggplot(df_long, aes(x = x, y = density, color = distribution)) +
+  geom_line() +
+  labs(x = "IQ Score", y = "Density") +
+  scale_color_manual(
+    name = "IQ Distribution",
+    values = c(IQ_mu100_sd10 = "red", IQ_mu105_sd8 = "blue"),
+    labels = c("Group 1 (µ=100, σ=10)", "Group 2 (µ=105, σ=8)")
+  ) +
+  theme_minimal()
+```
+```{solution, echo = togs}
+c. The CDF of the normal distribution is $\Phi(x) = \frac{1}{2} \left[ 1 + \text{erf} \left( \frac{x - \mu}{\sigma \sqrt{2}} \right) \right]$. The CDF is defined as the integral of the distribution density up to x. So to get the total percentage of individuals with IQ at 140 or higher we will need to subtract the value from 1.
+
+  Group 1: $$1 - \Phi(140) = \frac{1}{2} \left[ 1 + \text{erf} \left( \frac{140 - 100}{10 \sqrt{2}} \right) \right] \approx 3.17e-05 $$
+    Group 2 : $$1 - \Phi(140) = \frac{1}{2} \left[ 1 + \text{erf} \left( \frac{140 - 105}{8 \sqrt{2}} \right) \right] \approx 6.07e-06 $$
+    So roughly 0.003% and 0.0006% of individuals in groups 1 and 2 respectively have an IQ at or above 140.
+```
+</div>

@@ -1,0 +1,22 @@
+
+# Bayesian inference {#bi}
+
+This chapter deals with Bayesian inference.
+
+The students are expected to acquire the following knowledge:
+
+- How to set prior distribution.
+- Compute posterior distribution.
+- Compute posterior predictive distribution.
+- Use sampling for inference.
+
+
+## Conjugate priors
+```{r, child = "chapters/17-Bayesian_inference/poisson-gamma-model.Rmd"}
+```
+
+
+## Posterior sampling
+
+```{r, child = "chapters/17-Bayesian_inference/bayesian-logistic-regression.Rmd"}
+```

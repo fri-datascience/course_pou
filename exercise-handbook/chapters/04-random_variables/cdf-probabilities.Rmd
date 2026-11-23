@@ -1,0 +1,53 @@
+```{exercise}
+Let $X$ be a random variable with CDF 
+\begin{equation}
+  F(x) = \begin{cases}
+            0 & x < 0 \\
+            \frac{x^2}{2} & 0 \leq x < 1 \\
+            \frac{1}{2} + \frac{p}{2} & 1 \leq x < 2 \\
+            \frac{1}{2} + \frac{p}{2} + \frac{1 - p}{2} & x \geq 2
+          \end{cases}
+\end{equation}
+
+a. <span style="color:blue">R: Plot this CDF for $p = 0.3$. Is it a discrete, 
+continuous, or mixed random 
+varible?</span>
+  
+b. Find the probability density/mass of $X$. 
+
+```
+<div class="fold">
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+f1 <- function (x, p) {
+  tmp          <- x
+  tmp[x >= 2]  <- 0.5 + (p * 0.5) + ((1-p) * 0.5)
+  tmp[x < 2]   <- 0.5 + (p * 0.5) 
+  tmp[x < 1]   <- (x[x < 1])^2 / 2
+  tmp[x < 0]   <- 0
+  return(tmp)
+}
+
+cdf_data <- tibble(x = seq(-1, 5, by = 0.001), y = f1(x, 0.3))
+cdf_plot <- ggplot(data = cdf_data, aes(x = x, y = y)) +
+  geom_hline(yintercept = 1) +
+  geom_line(color = "blue")
+plot(cdf_plot)
+
+```
+```{solution, echo = togs}
+
+
+a. $X$ is a mixed random variable.
+
+b. Since $X$ is a mixed random variable, we have to find the PDF of the
+continuous part and the PMF of the discrete part. We get the continuous
+part by differentiating the corresponding CDF, $\frac{d}{dx}\frac{x^2}{2} = x$. 
+So the PDF, when $0 \leq x < 1$, is $p(x) = x$. Let us look at the discrete
+part now. It has two steps, so this is a discrete distribution with two
+outcomes -- numbers 1 and 2. The first happens with probability 
+$\frac{p}{2}$, and the second with probability $\frac{1 - p}{2}$. This reminds
+us of the Bernoulli distribution. The PMF
+for the discrete part is $P(X = x) = (\frac{p}{2})^{2 - x} 
+(\frac{1 - p}{2})^{x - 1}$.
+```
+</div>

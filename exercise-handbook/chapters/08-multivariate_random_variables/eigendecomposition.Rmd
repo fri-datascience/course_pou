@@ -1,0 +1,72 @@
+```{exercise, name = "Eigendecomposition", label = mvneigen}
+<span style="color:blue">R: Let $\Sigma = U \Lambda U^T$ be the eigendecomposition of covariance matrix $\Sigma$. Follow the procedure below, to sample from a multivariate normal with $\mu = [-2, 1]^T$ and $\Sigma =
+\begin{bmatrix} 
+  0.3, -0.5 \\
+  -0.5, 1.6 
+\end{bmatrix}$:</span>
+
+1. <span style="color:blue">Sample from two independent standardized normal distributions to get $X$.</span>
+  
+2. <span style="color:blue">Find the eigendecomposition of $X$ (_eigen_).</span>
+
+3. <span style="color:blue">Multiply $X$ by $\Lambda^{\frac{1}{2}}$ to get $X2$. Consider how the eigendecomposition for $X2$ changes compared to $X$. </span>
+    
+4. <span style="color:blue">Multiply $X2$ by $U$ to get $X3$. Consider how the eigendecomposition for $X3$ changes compared to $X2$. </span>
+    
+5. <span style="color:blue">Add $\mu$ to $X3$. Consider how the eigendecomposition for $X4$ changes compared to $X3$. </span>
+    
+6. <span style="color:blue">Plot the data and the eigenvectors (scaled with $\Lambda^{\frac{1}{2}}$) at each step. Hint: Use _geom_segment_ for the eigenvectors. </span>
+
+```
+
+<div class="fold">
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+# a
+set.seed(1)
+sigma <- matrix(data = c(0.3, -0.5,
+                         -0.5, 1.6),
+                nrow  = 2,
+                byrow = TRUE)
+ed    <- eigen(sigma)
+e_val  <- ed$values
+e_vec  <- ed$vectors
+
+
+
+# b
+set.seed(1)
+nsamps <- 1000
+X      <- matrix(data = rnorm(nsamps * 2), ncol = 2)
+vec1   <- matrix(c(1,0,0,1), nrow = 2)
+
+X2     <- t(sqrt(diag(e_val)) %*% t(X))
+vec2   <- sqrt(diag(e_val)) %*% vec1
+
+X3     <- t(e_vec %*% t(X2))
+vec3   <- e_vec %*% vec2
+
+X4     <- t(c(-2, 1) + t(X3))
+vec4   <- c(-2, 1) + vec3
+
+vec_mat <- data.frame(matrix(c(0,0,0,0,0,0,0,0,0,0,0,0,-2,1,-2,1), ncol = 2, byrow = TRUE),
+                      t(cbind(vec1, vec2, vec3, vec4)),
+                      c(1,1,2,2,3,3,4,4))
+
+
+df     <- data.frame(rbind(X, X2, X3, X4), c(rep(1, nsamps),
+                                             rep(2, nsamps),
+                                             rep(3, nsamps),
+                                             rep(4, nsamps)))
+
+
+colnames(df) <- c("D1", "D2", "wh")
+colnames(vec_mat) <- c("D1", "D2", "E1", "E2", "wh")
+ggplot(data = df, aes(x = D1, y = D2)) +
+  geom_point() +
+  geom_segment(data = vec_mat, aes(xend = E1, yend = E2), color = "red") +
+  facet_wrap(~ wh) +
+  coord_fixed()
+
+
+```
+</div>

@@ -1,0 +1,70 @@
+# Expected value {#ev}
+
+This chapter deals with expected values of random variables.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- Calculation of the expected value.
+- Calculation of variance and covariance.
+- Cauchy distribution.
+
+**R**
+
+- Estimation of expected value.
+- Estimation of variance and covariance.
+
+
+## Discrete random variables
+```{r, child = "chapters/07-expected_value/bernoulli.Rmd"}
+```
+
+```{r, child = "chapters/07-expected_value/binomial.Rmd"}
+```
+
+```{r, child = "chapters/07-expected_value/poisson.Rmd"}
+```
+
+
+```{r, child = "chapters/07-expected_value/geometric.Rmd"}
+```
+
+## Continuous random variables
+```{r, child = "chapters/07-expected_value/gamma.Rmd"}
+```
+
+```{r, child = "chapters/07-expected_value/beta.Rmd"}
+```
+
+
+```{r, child = "chapters/07-expected_value/exponential.Rmd"}
+```
+
+
+```{r, child = "chapters/07-expected_value/normal.Rmd"}
+```
+
+## Sums, functions, conditional expectations
+
+```{r, child = "chapters/07-expected_value/transformations.Rmd"}
+```
+
+```{r, child = "chapters/07-expected_value/sum-of-iid.Rmd"}
+```
+
+
+```{r, child = "chapters/07-expected_value/conditional-expectation.Rmd"}
+```
+
+```{r, child = "chapters/07-expected_value/cauchy.Rmd"}
+```
+
+## Covariance
+```{r, child = "chapters/07-expected_value/covariance-from-table.Rmd"}
+```
+
+
+```{r, child = "chapters/07-expected_value/uniform-hierarchical-covariance.Rmd"}
+```
+

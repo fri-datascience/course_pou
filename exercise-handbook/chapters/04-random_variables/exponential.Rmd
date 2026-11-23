@@ -1,0 +1,94 @@
+```{exercise, name = "Exponential random variable", label = expcdf}
+A variable $X$ with PDF $\lambda e^{-\lambda x}$ is an exponential random 
+variable with support in non-negative real numbers. It has one positive 
+parameter $\lambda$. We denote
+\begin{equation}
+  X | \lambda \sim \text{Exp}(\lambda).
+\end{equation}
+
+a. Find the CDF of an exponential random variable.
+
+b. Find the quantile function of an exponential random variable.
+
+c. Calculate the probability $P(1 \leq X \leq 3)$, where $X \sim \text{Exp(1.5)}$.
+
+d. <span style="color:blue">R: Check your answer to c) with a
+simulation (_rexp_). Plot the probability in a meaningful way.</span>
+  
+e. <span style="color:blue">R: Implement PDF, CDF, and the quantile
+function and compare their values with corresponding R
+functions visually. Hint: use the __size__ parameter to
+make one of the curves wider.</span>
+
+```
+
+<div class="fold">
+```{solution, echo = togs2}
+
+
+a.
+\begin{align}
+  F(x) &= \int_{0}^{x} \lambda e^{-\lambda t} dt \\
+       &= \lambda \int_{0}^{x} e^{-\lambda t} dt \\
+       &= \lambda (\frac{1}{-\lambda}e^{-\lambda t} |_{0}^{x}) \\
+       &= \lambda(\frac{1}{\lambda} - \frac{1}{\lambda} e^{-\lambda x}) \\
+       &= 1 - e^{-\lambda x}.
+\end{align}
+
+b.
+\begin{align}
+  F(F^{-1}(x))               &= x \\
+  1 - e^{-\lambda F^{-1}(x)} &= x \\
+  e^{-\lambda F^{-1}(x)}     &= 1 - x \\
+  -\lambda F^{-1}(x)         &= \ln(1 - x) \\
+  F^{-1}(x)                  &= - \frac{ln(1 - x)}{\lambda}.
+\end{align}
+
+c. 
+\begin{align}
+  P(1 \leq X \leq 3) &= P(X  \leq 3) - P(X \leq 1) \\
+                     &= P(X \leq 3) - P(X \leq 1) \\
+                     &= 1 - e^{-1.5 \times 3} - 1 + e^{-1.5 \times 1} \\
+                     &\approx 0.212.
+\end{align}
+
+```
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
+set.seed(1)
+nsamps <- 1000
+samps  <- rexp(nsamps, rate = 1.5)
+sum(samps >= 1 & samps <= 3) / nsamps
+exp_plot <- ggplot(data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dexp, args = list(rate = 1.5)) +
+  stat_function(fun = dexp, args = list(rate = 1.5), xlim = c(1,3), geom = "area", fill = "red")
+plot(exp_plot)
+```
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
+exp_pdf <- function(x, lambda) {
+  return (lambda * exp(-lambda * x))
+}
+
+exp_cdf <- function(x, lambda) {
+  return (1 - exp(-lambda * x))
+}
+
+exp_quant <- function(q, lambda) {
+  return (-(log(1 - q) / lambda))
+}
+
+ggplot(data = data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dexp, args = list(rate = 1.5), aes(color = "R"), size = 2.5) +
+  stat_function(fun = exp_pdf, args = list(lambda = 1.5), aes(color = "Mine"), size = 1.2) +
+  scale_color_manual(values = c("red", "black"))
+
+ggplot(data = data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
+  stat_function(fun = pexp, args = list(rate = 1.5), aes(color = "R"), size = 2.5) +
+  stat_function(fun = exp_cdf, args = list(lambda = 1.5), aes(color = "Mine"), size = 1.2) +
+  scale_color_manual(values = c("red", "black"))
+
+ggplot(data = data.frame(x = seq(0, 1, by = 0.01)), aes(x = x)) +
+  stat_function(fun = qexp, args = list(rate = 1.5), aes(color = "R"), size = 2.5) +
+  stat_function(fun = exp_quant, args = list(lambda = 1.5), aes(color = "Mine"), size = 1.2) +
+  scale_color_manual(values = c("red", "black"))
+```
+</div>

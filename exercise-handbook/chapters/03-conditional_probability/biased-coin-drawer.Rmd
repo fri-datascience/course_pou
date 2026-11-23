@@ -1,0 +1,34 @@
+```{exercise}
+A drawer contains two coins. One is an unbiased coin, the other is a biased
+coin, which will turn up heads with probability $p$ and tails with
+probability $1-p$. One coin is selected uniformly at random.
+
+a. The selected coin is tossed $n$ times. The coin turns up heads $k$ times and
+tails $n-k$ times. What is the probability that the coin is biased?
+  
+b. The selected coin is tossed repeatedly until it turns up heads $k$ times.
+Given that it is tossed $n$ times in total, what is the probability that the
+coin is biased?
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. Let $B = 1$ denote that the coin is biased and let $H = k$ denote that
+we've seen $k$ heads.
+\begin{align}
+  P(B = 1 | H = k) &= \frac{P(H = k | B = 1)P(B = 1)}{P(H = k)} \\
+                   &= \frac{P(H = k | B = 1)P(B = 1)}{P(H = k | B = 1)P(B = 1) + P(H = k | B = 0)P(B = 0)} \\
+                   &= \frac{p^k(1-p)^{n-k} 0.5}{p^k(1-p)^{n-k} 0.5 + 0.5^{n+1}} \\
+                   &= \frac{p^k(1-p)^{n-k}}{p^k(1-p)^{n-k} + 0.5^n}.
+\end{align}
+
+b. The same results as in a). The only difference between these two scenarios
+is that in b) the last throw must be heads. However, this holds for the biased
+and the unbiased coin and therefore does not affect the probability of the
+coin being biased.
+```
+</div>

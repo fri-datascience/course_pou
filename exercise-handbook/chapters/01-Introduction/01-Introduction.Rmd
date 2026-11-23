@@ -1,0 +1,74 @@
+# Probability spaces {#introduction}
+
+This chapter deals with measures and probability spaces. At the end of the chapter, we look more closely at discrete probability spaces.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+-   Use properties of probability to calculate probabilities.
+-   Combinatorics.
+-   Understanding of continuity of probability.
+
+**R**
+
+-   Vectors and vector operations.
+-   For loop.
+-   Estimating probability with simulation.
+-   *sample* function.
+-   Matrices and matrix operations.
+
+
+## Measure and probability spaces
+
+```{r, child = "chapters/01-Introduction/completing-sigma-algebra.Rmd"}
+```
+
+```{r, child = "chapters/01-Introduction/sigma-algebra-diversity.Rmd"}
+```
+
+```{r, child = "chapters/01-Introduction/sigma-algebras-three-element-set.Rmd"}
+```
+
+```{r, child = "chapters/01-Introduction/algebra-vs-sigma-algebra.Rmd"}
+```
+
+```{r, child = "chapters/01-Introduction/generated-sigma-algebra.Rmd"}
+```
+
+```{r, child = "chapters/01-Introduction/sigma-algebra-intersection-with-set.Rmd"}
+```
+
+```{r, child = "chapters/01-Introduction/intro-to-measure.Rmd"}
+```
+
+```{r, child = "chapters/01-Introduction/two-dice-probability-space.Rmd"}
+```
+
+## Properties of probability measures
+
+```{r, child = "chapters/01-Introduction/card-deck-split.Rmd"}
+```
+
+```{r, child = "chapters/01-Introduction/event-probability-bounds.Rmd"}
+```
+
+```{r, child = "chapters/01-Introduction/coin-eventually-heads.Rmd"}
+```
+
+```{r, child = "chapters/01-Introduction/erdos-renyi-graph.Rmd"}
+```
+
+## Discrete probability spaces
+
+```{r, child = "chapters/01-Introduction/binomial-measure.Rmd"}
+```
+
+```{r, child = "chapters/01-Introduction/geometric-poisson-measure.Rmd"}
+```
+
+```{r, child = "chapters/01-Introduction/measure-on-integers.Rmd"}
+```
+
+```{r, child = "chapters/01-Introduction/die-distance-measure.Rmd"}
+```

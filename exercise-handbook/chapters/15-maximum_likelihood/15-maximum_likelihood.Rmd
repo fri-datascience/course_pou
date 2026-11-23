@@ -1,0 +1,54 @@
+
+# Maximum likelihood {#ml}
+
+This chapter deals with maximum likelihood estimation.
+
+The students are expected to acquire the following knowledge:
+
+- How to derive MLE.
+- Applying MLE in R.
+- Calculating and interpreting Fisher information.
+- Practical use of MLE.
+
+
+## Deriving MLE
+```{r, child = "chapters/15-maximum_likelihood/normal-variance-mle.Rmd"}
+```
+
+
+```{r, child = "chapters/15-maximum_likelihood/multivariate-normal-mle.Rmd"}
+```
+
+
+```{r, child = "chapters/15-maximum_likelihood/logistic-regression.Rmd"}
+```
+
+
+```{r, child = "chapters/15-maximum_likelihood/linear-regression.Rmd"}
+```
+
+
+```{r, child = "chapters/15-maximum_likelihood/principal-component-analysis.Rmd"}
+```
+
+```{r, child = "chapters/15-maximum_likelihood/classification.Rmd"}
+```
+
+
+## Fisher information
+```{r, child = "chapters/15-maximum_likelihood/poisson-mle.Rmd"}
+```
+
+
+```{r, child = "chapters/15-maximum_likelihood/gamma-fisher-information.Rmd"}
+```
+
+```{r, child = "chapters/15-maximum_likelihood/normal-fisher-information.Rmd"}
+```
+
+```{r, child = "chapters/15-maximum_likelihood/binomial-fisher-information.Rmd"}
+```
+
+## The German tank problem
+```{r, child = "chapters/15-maximum_likelihood/german-tank-problem.Rmd"}
+```

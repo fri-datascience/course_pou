@@ -1,0 +1,47 @@
+```{exercise}
+Define a probability measure on $\Omega = \{1,2,3,4,5,6\}$ with parameter $m 
+\in \{1,2,3,4,5,6\}$, so that the probability of outcome at distance $1$ from
+$m$ is half of the probability at distance $0$, at distance $2$ is half of
+the probability at distance $1$, etc. <span style="color:blue">R: 
+Implement a random generator that will generate 
+samples with the relative frequency that corresponds to your probability
+measure. Compare relative frequencies with theoretical probability 
+measure </span>. 
+
+```
+
+::: fold
+```{solution, echo = togs}
+
+
+- $P(\{k\}) = \frac{\frac{1}{2}^{|m - k|}}{\sum_{i=1}^6 \frac{1}{2}^{|m - i|}}$
+
+  
+```
+
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+n          <- 10000
+m <- 4
+my_pmf <- function (k, m) {
+  denom <- sum(0.5^abs(m - 1:6))
+  return (0.5^abs(m - k) / denom)
+}
+samps <- c()
+for (i in 1:n) {
+  a <- sample(1:6, 1)
+  a_val <- my_pmf(a, m)
+  prob  <- runif(1)
+  if (prob < a_val) {
+    samps <- c(samps, a)
+  }
+}
+samps <- data.frame(x = samps) %>%
+  count(x) %>%
+  mutate(n = n / length(samps), type = "empirical_frequencies") %>%
+  bind_rows(data.frame(x = 1:6, n = my_pmf(1:6, m), type = "theoretical_measure"))
+
+my_plot <- ggplot(data = samps, aes(x = x, y = n, fill = type)) +
+  geom_bar(stat="identity", position = "dodge")
+plot(my_plot)
+```
+:::

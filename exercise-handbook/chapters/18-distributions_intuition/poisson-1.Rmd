@@ -1,0 +1,58 @@
+```{exercise, name = "Poisson intuition 1"}
+Below are shown 3 different graphs of the Poisson distribution. Your task 
+is to replicate them on your own in R by varying the $\lambda$ parameter.
+
+Hint: You can use dpois() to get the probabilities.
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+library(gridExtra)
+
+x = 0:15
+
+# Create Poisson data
+data1 <- data.frame(x = x, y = dpois(x, lambda = 0.1))
+data2 <- data.frame(x = x, y = dpois(x, lambda = 1))
+data3 <- data.frame(x = x, y = dpois(x, lambda = 7.5))
+
+# Create individual ggplot objects
+plot1 <- ggplot(data1, aes(x, y)) + geom_col() +
+  xlab("x") + ylab("Probability") + ylim(0,1)
+
+plot2 <- ggplot(data2, aes(x, y)) + geom_col() +
+  xlab("x") + ylab(NULL) + ylim(0,1)
+
+plot3 <- ggplot(data3, aes(x, y)) + geom_col() +
+  xlab("x") + ylab(NULL) + ylim(0,1)
+
+# Combine the plots
+grid.arrange(plot1, plot2, plot3, ncol = 3)
+```
+
+<div class="fold">
+```{r, echo = tog_ex, eval=FALSE}
+library(ggplot2)
+library(gridExtra)
+
+x = 0:15
+
+# Create Poisson data
+data1 <- data.frame(x = x, y = dpois(x, lambda = 0.1))
+data2 <- data.frame(x = x, y = dpois(x, lambda = 1))
+data3 <- data.frame(x = x, y = dpois(x, lambda = 7.5))
+
+# Create individual ggplot objects
+plot1 <- ggplot(data1, aes(x, y)) + geom_col() +
+  xlab("x") + ylab("Probability") + ylim(0,1)
+
+plot2 <- ggplot(data2, aes(x, y)) + geom_col() +
+  xlab("x") + ylab(NULL) + ylim(0,1)
+
+plot3 <- ggplot(data3, aes(x, y)) + geom_col() +
+  xlab("x") + ylab(NULL) + ylim(0,1)
+
+# Combine the plots
+grid.arrange(plot1, plot2, plot3, ncol = 3)
+```
+</div>

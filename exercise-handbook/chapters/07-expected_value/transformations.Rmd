@@ -1,0 +1,59 @@
+```{exercise, name = "Expectation of transformations"}
+Let $X$ follow a normal distribution with mean $\mu$ and variance $\sigma^2$.
+
+a. Find $E[2X + 4]$.
+
+b. Find $E[X^2]$.
+
+c. Find $E[\exp(X)]$. Hint: Use the error function $\text{erf}(x) = \frac{1}{\sqrt(\pi)} \int_{-x}^x e^{-t^2} dt$. Also, $\text{erf}(\infty) = 1$.
+
+d. <span style="color:blue">R: Check your results numerically for $\mu = 0.4$ and $\sigma^2 = 0.25$ and plot the densities of all four distributions.</span>
+
+```
+
+<div class="fold">
+```{solution, echo = togs2}
+
+
+a.
+\begin{align}
+  E[2X + 4] &= 2E[X] + 4 & \text{linearity of expectation} \\
+            &= 2\mu + 4. \\
+\end{align}
+  
+  
+b.
+\begin{align}
+  E[X^2] &= E[X]^2 + Var[X] & \text{definition of variance} \\
+         &= \mu^2 + \sigma^2.
+\end{align}
+  
+
+c.
+\begin{align}
+  E[\exp(X)] &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} e^x dx & \\
+             &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty  e^{\frac{2 \sigma^2 x}{2\sigma^2} -\frac{(x - \mu)^2}{2\sigma^2}} dx & \\
+             &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty  e^{-\frac{x^2 - 2x(\mu + \sigma^2) + \mu^2}{2\sigma^2}} dx & \\
+             &= \frac{1}{\sqrt{2\pi \sigma^2}} \int_{-\infty}^\infty  e^{-\frac{(x - (\mu + \sigma^2))^2 + \mu^2 - (\mu + \sigma^2)^2}{2\sigma^2}} dx & \text{complete the square} \\
+             &= \frac{1}{\sqrt{2\pi \sigma^2}} e^{\frac{- \mu^2 + (\mu + \sigma^2)^2}{2\sigma^2}} \int_{-\infty}^\infty  e^{-\frac{(x - (\mu + \sigma^2))^2}{2\sigma^2}} dx &  \\
+             &= \frac{1}{\sqrt{2\pi \sigma^2}} e^{\frac{- \mu^2 + (\mu + \sigma^2)^2}{2\sigma^2}} \sigma \sqrt{2 \pi} \text{erf}(\infty) &  \\
+             &= e^{\frac{2\mu + \sigma^2}{2}}.
+\end{align}
+
+```
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
+set.seed(1)
+mu    <- 0.4
+sigma <- 0.5
+x     <- rnorm(100000, mean = mu, sd = sigma)
+
+mean(2*x + 4)
+2 * mu + 4
+
+mean(x^2)
+mu^2 + sigma^2
+
+mean(exp(x))
+exp((2 * mu + sigma^2) / 2)
+```
+</div>

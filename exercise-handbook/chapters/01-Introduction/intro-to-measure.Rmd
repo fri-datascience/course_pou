@@ -1,0 +1,25 @@
+```{exercise, name = "Intro to measure"}
+
+Take the measurable space $\Omega = \{1,2\}$, $F = 2^{\Omega}$. Which of the
+following is a measure? Which is a probability measure?
+
+a. $\mu(\emptyset) = 0$, $\mu(\{1\}) = 5$, $\mu(\{2\}) = 6$, $\mu(\{1,2\}) = 11$
+b. $\mu(\emptyset) = 0$, $\mu(\{1\}) = 0$, $\mu(\{2\}) = 0$, $\mu(\{1,2\}) = 1$
+c. $\mu(\emptyset) = 0$, $\mu(\{1\}) = 0$, $\mu(\{2\}) = 0$, $\mu(\{1,2\}) = 0$
+d. $\mu(\emptyset) = 0$, $\mu(\{1\}) = 0$, $\mu(\{2\}) = 1$, $\mu(\{1,2\}) = 1$
+e. $\mu(\emptyset)=0$, $\mu(\{1\})=0$, $\mu(\{2\})=\infty$, $\mu(\{1,2\})=\infty$
+
+```
+
+::: fold
+```{solution, echo = tog_ex}
+
+
+  a. Measure. Not probability measure since $\mu(\Omega) > 1$.
+  b. Neither due to countable additivity.
+  c. Measure. Not probability measure since $\mu(\Omega) = 0$.
+  d. Probability measure.
+  e. Measure. Not probability measure since $\mu(\Omega) > 1$.
+
+```
+:::

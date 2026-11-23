@@ -1,0 +1,22 @@
+```{exercise}
+Show that the Lebesgue measure of rational numbers on $[0,1]$ is 0.
+<span style="color:blue">R: Implement a random number generator, which
+generates uniform samples of irrational numbers in $[0,1]$ by uniformly sampling
+from $[0,1]$ and rejecting a sample if it is rational.</span>
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+There are a countable number of rational numbers. Therefore, we can write
+\begin{align}
+  \lambda(\mathbb{Q}) &= \lambda(\cup_{i = 1}^{\infty} q_i) &\\
+                      &= \sum_{i = 1}^{\infty} \lambda(q_i) &\text{ (countable additivity)} \\
+                      &= \sum_{i = 1}^{\infty} 0  &\text{ (Lebesgue measure of a singleton)} \\
+                      &= 0.
+\end{align}
+
+```
+</div>

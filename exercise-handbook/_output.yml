@@ -1,5 +1,7 @@
 bookdown::gitbook:
   css: style.css
+  includes:
+    after_body: _includes/fold.html
   split_by: chapter
   config:
     toc:

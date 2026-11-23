@@ -1,0 +1,55 @@
+```{exercise, name = "Gamma", label = gammaev}
+Let $X \sim \text{Gamma}(\alpha, \beta)$. Hint: $\Gamma(z) = \int_0^\infty t^{z-1}e^{-t} dt$ and $\Gamma(z + 1) = z \Gamma(z)$.
+
+
+a. Find $E[X]$.
+
+b. Find $Var[X]$.
+  
+c. <span style="color:blue">R: Let $\alpha = 10$ and $\beta = 2$. Plot the density of $X$. Add a horizontal line at the expected value that touches the density curve (_geom_segment_). Shade the area within a standard deviation of the expected value. </span>
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a.
+\begin{align*}
+  E[X] &= \int_0^\infty \frac{\beta^\alpha}{\Gamma(\alpha)}x^\alpha e^{-\beta x} dx & \\
+       &= \frac{\beta^\alpha}{\Gamma(\alpha)} \int_0^\infty x^\alpha e^{-\beta x} dx & \text{ (let $t = \beta x$)} \\
+       &= \frac{\beta^\alpha}{\Gamma(\alpha) }\int_0^\infty \frac{t^\alpha}{\beta^\alpha} e^{-t} \frac{dt}{\beta} & \\
+       &= \frac{1}{\beta \Gamma(\alpha) }\int_0^\infty t^\alpha e^{-t} dt & \\
+       &= \frac{\Gamma(\alpha + 1)}{\beta \Gamma(\alpha)} & \\
+       &= \frac{\alpha \Gamma(\alpha)}{\beta \Gamma(\alpha)} & \\
+       &= \frac{\alpha}{\beta}. &
+\end{align*}
+
+  
+b.
+\begin{align*}
+ Var[X] &= E[X^2] - E[X]^2 \\
+        &= \int_0^\infty \frac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha+1} e^{-\beta x} dx - \frac{\alpha^2}{\beta^2} \\
+        &= \frac{\Gamma(\alpha + 2)}{\beta^2 \Gamma(\alpha)} - \frac{\alpha^2}{\beta^2} \\
+        &= \frac{(\alpha + 1)\alpha\Gamma(\alpha)}{\beta^2 \Gamma(\alpha)} - \frac{\alpha^2}{\beta^2} \\
+        &= \frac{\alpha^2 + \alpha}{\beta^2} - \frac{\alpha^2}{\beta^2} \\
+        &= \frac{\alpha}{\beta^2}.
+\end{align*}
+
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+set.seed(1)
+x  <- seq(0, 25, by = 0.01)
+y  <- dgamma(x, shape = 10, rate = 2)
+df <- data.frame(x = x, y = y)
+ggplot(df, aes(x = x, y = y)) +
+  geom_line() +
+  geom_segment(aes(x = 5, y = 0, xend = 5,
+                   yend = dgamma(5, shape = 10, rate = 2)),
+               color = "red") +
+  stat_function(fun = dgamma, args = list(shape = 10, rate = 2), 
+                xlim = c(5 - sqrt(10/4), 5 + sqrt(10/4)), geom = "area", fill = "gray", alpha = 0.4)
+
+```
+</div>

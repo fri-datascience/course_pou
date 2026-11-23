@@ -1,0 +1,79 @@
+```{exercise, name = "Normal random variable", label = normalpdf}
+A random variable with PDF 
+\begin{equation}
+ p(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}}
+\end{equation}
+is a normal random variable with support on the real axis and 
+parameters $\mu$ in reals and $\sigma^2 > 0$.
+The first is the mean parameter and the second is the variance parameter.
+Many statistical methods assume a normal distribution. We denote
+\begin{equation}
+  X | \mu, \sigma \sim \text{N}(\mu, \sigma^2),
+\end{equation}
+and its CDF is
+\begin{equation}
+  F(x) = \int_{-\infty}^x \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(t - \mu)^2}{2 \sigma^2}} dt,
+\end{equation}
+which is intractable and is usually approximated.
+Due to its flexibility
+it is also one of the most researched distributions. For that reason 
+statisticians often use transformations of variables or approximate
+distributions with the normal distribution.
+
+a. Show that a variable $\frac{X - \mu}{\sigma} \sim \text{N}(0,1)$. This
+transformation is called standardization, and $\text{N}(0,1)$ is
+a **standard normal distribution**.
+
+b. <span style="color:blue">R: Plot the normal distribution with
+$\mu = 0$ and different values for the $\sigma$ parameter.</span>
+
+c. <span style="color:blue">R: The normal distribution provides a good 
+approximation for the Poisson distribution with a large $\lambda$. 
+Let $X \sim \text{Poisson}(50)$.
+Approximate $X$ with the normal distribution and compare its density with
+the Poisson histogram. What are the values of $\mu$ and $\sigma^2$ that
+should provide the best approximation? Note that R function _rnorm_ takes
+standard deviation ($\sigma$) as a parameter and not variance.</span>
+```
+
+<div class="fold">
+```{solution, echo = togs2}
+
+
+a.
+\begin{align}
+  P(\frac{X - \mu}{\sigma} < x) &= P(X < \sigma x + \mu) \\
+  &= F(\sigma x + \mu) \\
+  &= \int_{-\infty}^{\sigma x + \mu} \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(t - \mu)^2}{2\sigma^2}} dt
+\end{align}
+Now let $s = f(t) = \frac{t - \mu}{\sigma}$, then $ds = \frac{dt}{\sigma}$ and
+$f(\sigma x + \mu) = x$, so
+\begin{align}
+  P(\frac{X - \mu}{\sigma} < x) &= \int_{-\infty}^{x} \frac{1}{\sqrt{2 \pi}} 
+    e^{-\frac{s^2}{2}} ds.
+\end{align}
+There is no need to evaluate this integral, as we recognize it as the CDF
+of a normal distribution with $\mu = 0$ and $\sigma^2 = 1$.
+
+
+```
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
+set.seed(1)
+# b
+ggplot(data = data.frame(x = seq(-15, 15, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 1), aes(color = "sd = 1")) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 0.4), aes(color = "sd = 0.1")) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 2), aes(color = "sd = 2")) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 5), aes(color = "sd = 5"))
+
+# c
+mean_par   <- 50
+nsamps     <- 100000
+pois_samps <- rpois(nsamps, lambda = mean_par)
+norm_samps <- rnorm(nsamps, mean = mean_par, sd = sqrt(mean_par))
+my_plot    <- ggplot() +
+  geom_bar(data = tibble(x = pois_samps), aes(x = x, y = (..count..)/sum(..count..))) +
+  geom_density(data = tibble(x = norm_samps), aes(x = x), color = "red")
+plot(my_plot)
+```
+</div>

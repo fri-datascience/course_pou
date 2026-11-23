@@ -1,0 +1,76 @@
+```{exercise}
+Let $X \sim \text{Uniform}(0,1)$ and $Y | X = x \sim \text{Uniform(0,x)}$.
+
+a. Find the covariance of $X$ and $Y$.
+
+b. Find the correlation of $X$ and $Y$.
+
+c. <span style="color:blue">R: check your answers to a) and b) with simulation. Plot $X$ against $Y$ on a scatterplot.</span>
+
+```
+
+<div class="fold">
+```{solution, echo = togs2}
+
+a. The joint PDF is $p(x,y) = p(x)p(y|x) = \frac{1}{x}$.
+\begin{align}
+  Cov(X,Y) &= E[XY] - E[X]E[Y] \\
+\end{align}
+Let us first evaluate the first term:
+\begin{align}
+  E[XY] &= \int_0^1 \int_0^x x y \frac{1}{x} dy dx \\
+        &= \int_0^1 \int_0^x y dy dx \\
+        &= \int_0^1 \frac{x^2}{2} dx \\
+        &= \frac{1}{6}.
+\end{align}
+Now let us find $E[Y]$, $E[X]$ is trivial.
+\begin{align}
+  E[Y] = E[E[Y | X]] = E[\frac{X}{2}] = \frac{1}{2} \int_0^1 x dx = \frac{1}{4}.
+\end{align}
+Combining all:
+\begin{align}
+  Cov(X,Y) &= \frac{1}{6} - \frac{1}{2} \frac{1}{4} = \frac{1}{24}.
+\end{align}
+  
+b. 
+\begin{align}
+  \rho(X,Y) &= \frac{Cov(X,Y)}{\sqrt{Var[X]Var[Y]}} \\
+\end{align}
+Let us calculate $Var[X]$.
+\begin{align}
+  Var[X] &= E[X^2] - \frac{1}{4} \\
+         &= \int_0^1 x^2 - \frac{1}{4} \\
+         &= \frac{1}{3} - \frac{1}{4} \\
+         &= \frac{1}{12}.
+\end{align}
+Let us calculate $E[E[Y^2|X]]$.
+\begin{align}
+  E[E[Y^2|X]] &= E[\frac{x^2}{3}] \\
+              &= \frac{1}{9}.
+\end{align}
+Then $Var[Y] = \frac{1}{9} - \frac{1}{16} = \frac{7}{144}$. Combining all
+\begin{align}
+  \rho(X,Y) &= \frac{\frac{1}{24}}{\sqrt{\frac{1}{12}\frac{7}{144}}} \\
+            &= 0.65.
+\end{align}
+
+
+
+```
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
+set.seed(1)
+nsamps <- 10000
+x      <- runif(nsamps)
+y      <- runif(nsamps, 0, x)
+
+cov(x, y)
+1/24
+
+cor(x, y)
+(1 / 24) / (sqrt(7 / (12 * 144)))
+
+ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "lm")
+```
+</div>

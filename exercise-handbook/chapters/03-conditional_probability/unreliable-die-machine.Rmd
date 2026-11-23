@@ -1,0 +1,64 @@
+```{exercise}
+A machine reports the true value of a thrown 12-sided die 5 out of 6 times.
+
+a. If the machine reports a 1 has been tossed, what is the probability that
+it is actually a 1?
+  
+b. Now let the machine only report whether a 1 has been
+tossed or not. Does the probability change?
+  
+c. <span style="color:blue">R: Use simulation to check your answers
+to a) and b). </span>
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. Let $T = 1$ denote that the toss is 1 and $M = 1$ that the machine reports a 1.
+\begin{align}
+  P(T = 1 | M = 1) &= \frac{P(M = 1 | T = 1)P(T = 1)}{P(M = 1)} \\ 
+                   &= \frac{P(M = 1 | T = 1)P(T = 1)}{\sum_{k=1}^{12} 
+                     P(M = 1 | T = k)P(T = k)} \\
+                   &= \frac{\frac{5}{6}\frac{1}{12}}{\frac{5}{6}\frac{1}{12} + 11 \frac{1}{6} \frac{1}{11} \frac{1}{12}} \\
+                   &= \frac{5}{6}.
+\end{align}
+  
+b. Yes.
+\begin{align}
+  P(T = 1 | M = 1) &= \frac{P(M = 1 | T = 1)P(T = 1)}{P(M = 1)} \\ 
+                   &= \frac{P(M = 1 | T = 1)P(T = 1)}{\sum_{k=1}^{12} 
+                     P(M = 1 | T = k)P(T = k)} \\
+                   &= \frac{\frac{5}{6}\frac{1}{12}}{\frac{5}{6}\frac{1}{12} + 11 \frac{1}{6} \frac{1}{12}} \\
+                   &= \frac{5}{16}.
+\end{align}
+  
+```
+```{r, echo = togs, eval = togs}
+set.seed(1)
+nsamps   <- 10000
+report_a <- vector(mode = "numeric", length = nsamps)
+report_b <- vector(mode = "logical", length = nsamps)
+truths   <- vector(mode = "logical", length = nsamps)
+for (i in 1:10000) {
+  toss      <- sample(1:12, size = 1)
+  truth     <- sample(c(TRUE, FALSE), size = 1, prob = c(5/6, 1/6))
+  truths[i] <- truth
+  if (truth) {
+    report_a[i] <- toss
+    report_b[i] <- toss == 1
+  } else {
+    remaining   <- (1:12)[1:12 != toss]
+    report_a[i] <- sample(remaining, size = 1)
+    report_b[i] <- toss != 1
+  }
+}
+truth_a1 <- truths[report_a == 1]
+sum(truth_a1) / length(truth_a1)
+
+truth_b1 <- truths[report_b]
+sum(truth_b1) / length(truth_b1)
+```
+</div>

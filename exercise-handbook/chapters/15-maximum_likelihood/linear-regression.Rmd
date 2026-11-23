@@ -1,0 +1,74 @@
+```{exercise, name = "Linear regression"}
+<span style="color:blue">For the data generated below, do the following:</span>
+  
+  
+a. <span style="color:blue">Compute the least squares (MLE) estimate of coefficients beta using the matrix exact solution.</span>
+b. <span style="color:blue">Compute the MLE by minimizing the sum of squared residuals using black-box optimization (_optim()_).</span>
+c. <span style="color:blue">Compute the MLE by using the output built-in linear regression (lm() ). Compare (a-c and the true coefficients).</span>
+d. <span style="color:blue">Compute 95% CI on the beta coefficients using the output of built-in linear regression.</span>
+e. <span style="color:blue">Compute 95% CI on the beta coefficients by using (a or b) and the bootstrap with percentile method for CI. Compare with d.</span>
+
+```
+```{r, message = FALSE, warning=FALSE}
+set.seed(1)
+n <- 100
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+x3 <- rnorm(n)
+
+X <- cbind(x1, x2, x3)
+beta <- c(0.2, 0.6, -1.2)
+
+y <- as.vector(t(beta %*% t(X))) + rnorm(n, sd = 0.2)
+
+```
+<div class="fold">
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+
+set.seed(1)
+n <- 100
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+x3 <- rnorm(n)
+
+X <- cbind(x1, x2, x3)
+beta <- c(0.2, 0.6, -1.2)
+
+y <- as.vector(t(beta %*% t(X))) + rnorm(n, sd = 0.2)
+LS_fun <- function (beta, X, y) {
+  return(sum((y - beta %*% t(X))^2))
+}
+my_optim <- optim(par = c(0, 0, 0), fn = LS_fun, lower = -5, upper = 5,
+                  X = X, y = y, method = "L-BFGS-B")
+my_optim$par
+
+
+df <- data.frame(y = y, x1 = x1, x2 = x2, x3 = x3)
+my_lm <- lm(y ~ x1 + x2 + x3 - 1, data = df)
+my_lm
+
+# matrix solution
+beta_hat <- solve(t(X) %*% X) %*% t(X) %*% y
+beta_hat
+
+out <- summary(my_lm)
+out$coefficients[ ,2]
+
+# bootstrap CI
+nboot <- 1000
+beta_boot <- matrix(data = NA, ncol = length(beta), nrow = nboot)
+for (i in 1:nboot) {
+  inds     <- sample(1:n, n, replace = T)
+  new_df   <- df[inds, ]
+  X_tmp    <- as.matrix(new_df[ ,-1])
+  y_tmp    <- new_df[ ,1]
+  # print(nrow(new_df))
+  tmp_beta <- solve(t(X_tmp) %*% X_tmp) %*% t(X_tmp) %*% y_tmp
+  beta_boot[i, ] <- tmp_beta
+}
+apply(beta_boot, 2, mean)
+apply(beta_boot, 2, quantile, probs = c(0.025, 0.975))
+out$coefficients[ ,2]
+
+```
+</div>

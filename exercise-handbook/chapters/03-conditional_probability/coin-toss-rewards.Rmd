@@ -1,0 +1,60 @@
+```{exercise}
+A coin is tossed independently $n$ times. The probability of heads at each
+toss is $p$. At each time $k$, $(k = 2,3,...,n)$ we get a reward at time $k+1$
+if $k$-th toss was a head and the previous toss was a tail. Let $A_k$ be the
+event that a reward is obtained at time $k$.
+
+a. Are events $A_k$ and $A_{k+1}$ independent?
+  
+b. Are events $A_k$ and $A_{k+2}$ independent?
+  
+c. <span style="color:blue">R: simulate 10 tosses 10000 times, where
+$p = 0.7$. Check your
+answers to a) and b) by counting the frequencies of the events $A_5$,
+$A_6$, and $A_7$.</span>
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. For $A_k$ to happen, we need the tosses $k-2$ and $k-1$ be tails and heads
+respectively. For $A_{k+1}$ to happen, we need tosses $k-1$ and $k$ be tails
+and heads respectively. As the toss $k-1$ need to be heads for one and tails
+for the other, these two events can not happen simultaneously. Therefore the
+probability of their intersection is 0. But the probability of each of them 
+separately is $p(1-p) > 0$. Therefore, they are not independent. 
+
+b. For $A_k$ to happen, we need the tosses $k-2$ and $k-1$ be tails and heads
+respectively. For $A_{k+2}$ to happen, we need tosses $k$ and $k+1$ be tails
+and heads respectively. So the probability of intersection is $p^2(1-p)^2$.
+And the probability of each separately is again $p(1-p)$. Therefore, they
+are independent.
+  
+```
+```{r, echo = togs, eval = togs}
+set.seed(1)
+nsamps <- 10000
+p      <- 0.7
+rewardA_5  <- vector(mode = "logical", length = nsamps)
+rewardA_6  <- vector(mode = "logical", length = nsamps)
+rewardA_7  <- vector(mode = "logical", length = nsamps)
+rewardA_56 <- vector(mode = "logical", length = nsamps)
+rewardA_57 <- vector(mode = "logical", length = nsamps)
+for (i in 1:nsamps) {
+  samps <- sample(c(0,1), size = 10, replace = TRUE, prob = c(0.7, 0.3))
+  rewardA_5[i]  <- (samps[4] == 0 & samps[3] == 1)
+  rewardA_6[i]  <- (samps[5] == 0 & samps[4] == 1)
+  rewardA_7[i]  <- (samps[6] == 0 & samps[5] == 1)
+  rewardA_56[i] <- (rewardA_5[i] & rewardA_6[i])
+  rewardA_57[i] <- (rewardA_5[i] & rewardA_7[i])
+}
+sum(rewardA_5) / nsamps
+sum(rewardA_6) / nsamps
+sum(rewardA_7) / nsamps
+sum(rewardA_56) / nsamps
+sum(rewardA_57) / nsamps
+```
+</div>

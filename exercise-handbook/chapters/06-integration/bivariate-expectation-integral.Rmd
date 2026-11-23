@@ -1,0 +1,26 @@
+```{exercise}
+<span style="color:blue">Let $X$ and $Y$ be continuous random variables on the unit interval and $p(x,y) = 6(x - y)^2$. Use Monte Carlo integration to estimate the probability $P(0.2 \leq X  \leq 0.5, \: 0.1 \leq Y \leq 0.2)$. Can you find the exact value?</span>
+```
+
+<div class="fold">
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+set.seed(1)
+nsamps <- 1000
+V  <- (0.5 - 0.2) * (0.2 - 0.1)
+x1 <- runif(nsamps, 0.2, 0.5)
+x2 <- runif(nsamps, 0.1, 0.2)
+f_1 <- function (x, y) {
+  return (6 * (x - y)^2)
+}
+mcint  <- V * (1 / nsamps) * sum(f_1(x1, x2))
+sdm    <- sqrt((V^2 / nsamps) * var(f_1(x1, x2)))
+
+mcint
+sdm
+
+F_1 <- function (x, y) {
+  return (2 * x^3 * y - 3 * x^2 * y^2 + 2 * x * y^3)
+}
+F_1(0.5, 0.2) - F_1(0.2, 0.2) - F_1(0.5, 0.1) + F_1(0.2, 0.1)
+```
+</div>
