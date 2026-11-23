@@ -1,0 +1,45 @@
+```{exercise}
+
+
+a. Prove that the Lebesgue measure of $\mathbb{R}$ is infinity.
+
+b. _Paradox_. Show that the cardinality of $\mathbb{R}$ and $(0,1)$ is the same,
+while their Lebesgue measures are infinity and one respectively.
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. Let $a_i$ be the $i$-th integer for $i \in \mathbb{Z}$. We can write
+$\mathbb{R} = \cup_{-\infty}^{\infty} (a_i, a_{i + 1}]$.
+
+\begin{align}
+  \lambda(\mathbb{R}) &= \lambda(\cup_{i = -\infty}^{\infty} (a_i, a_{i + 1}]) \\
+                      &= \lambda(\lim_{n \rightarrow \infty} \cup_{i = -n}^{n} (a_i, a_{i + 1}]) \\
+                      &= \lim_{n \rightarrow \infty} \lambda(\cup_{i = -n}^{n} (a_i, a_{i + 1}]) \\
+                      &= \lim_{n \rightarrow \infty} \sum_{i = -n}^{n} \lambda((a_i, a_{i + 1}]) \\
+                      &= \lim_{n \rightarrow \infty} \sum_{i = -n}^{n} 1 \\
+                      &= \lim_{n \rightarrow \infty} 2n \\
+                      &= \infty.
+
+\end{align}
+
+b. We need to find a bijection between $\mathbb{R}$ and $(0,1)$. A well-known
+function that maps from a bounded interval to $\mathbb{R}$ is the tangent.
+To make the bijection easier to achieve, we will take the inverse, which
+maps from $\mathbb{R}$ to $(-\frac{\pi}{2}, \frac{\pi}{2})$. However, we need
+to change the function so it maps to $(0,1)$. First we add $\frac{\pi}{2}$, so
+that we move the function above zero. Then we only have to divide by the max
+value, which in this case is $\pi$. So our bijection is
+
+\begin{equation}
+ f(x) = \frac{\tan^{-1}(x) + \frac{\pi}{2}}{\pi}.
+\end{equation}
+
+
+
+```
+</div>

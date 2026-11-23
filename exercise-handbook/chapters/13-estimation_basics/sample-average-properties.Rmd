@@ -1,0 +1,33 @@
+```{exercise}
+Show that the sample average is, as an estimator of the mean:
+
+a. unbiased,
+b. consistent,
+c. asymptotically normal.
+
+
+
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+a.
+\begin{align*}
+E[\frac{1}{n} \sum_{i=1}^n X_i] &= \frac{1}{n} \sum_{i=i}^n E[X_i] \\
+                                &= E[X].
+\end{align*}
+b.
+\begin{align*}
+  \lim_{n \rightarrow \infty} P(|\frac{1}{n} \sum_{i=1}^n X_i - E[X]| > \epsilon) &= \lim_{n \rightarrow \infty} P((\frac{1}{n} \sum_{i=1}^n X_i - E[X])^2 > \epsilon^2) \\
+  & \leq \lim_{n \rightarrow \infty} \frac{E[(\frac{1}{n} \sum_{i=1}^n X_i - E[X])^2]}{\epsilon^2} & \text{Markov inequality} \\
+  & = \lim_{n \rightarrow \infty} \frac{E[(\frac{1}{n} \sum_{i=1}^n X_i)^2 - 2 \frac{1}{n} \sum_{i=1}^n X_i E[X] + E[X]^2]}{\epsilon^2} \\
+  & = \lim_{n \rightarrow \infty} \frac{E[(\frac{1}{n} \sum_{i=1}^n X_i)^2] - 2 E[X]^2 + E[X]^2}{\epsilon^2} \\
+  &= 0
+\end{align*}
+For the last equality see the solution to \@ref(exr:vardecomp).
+
+c. Follows directly from the CLT.
+
+```
+</div>

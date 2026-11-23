@@ -1,0 +1,54 @@
+# Multivariate random variables {#mrv}
+
+This chapter deals with multivariate random variables.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- Multinomial distribution.
+- Multivariate normal distribution.
+- Cholesky decomposition.
+- Eigendecomposition.
+
+
+**R**
+
+- Sampling from the multinomial distribution.
+- Sampling from the multivariate normal distribution.
+- Matrix decompositions.
+
+
+## Multinomial random variables
+```{r, child = "chapters/08-multivariate_random_variables/multinomial-pmf.Rmd"}
+```
+
+
+```{r, child = "chapters/08-multivariate_random_variables/multinomial-moments.Rmd"}
+```
+
+
+## Multivariate normal random variables
+```{r, child = "chapters/08-multivariate_random_variables/cholesky-decomposition.Rmd"}
+```
+
+## Non-normal bivariate random variable
+```{r, child = "chapters/08-multivariate_random_variables/non-normal-bivariate.Rmd"}
+```
+
+```{r, child = "chapters/08-multivariate_random_variables/eigendecomposition.Rmd"}
+```
+
+```{r, child = "chapters/08-multivariate_random_variables/marginal-and-conditional-normal.Rmd"}
+```
+
+
+## Transformations
+```{r, child = "chapters/08-multivariate_random_variables/transformation-of-variables.Rmd"}
+```
+
+```{r, child = "chapters/08-multivariate_random_variables/ross-uniform-bivariate.Rmd"}
+```
+
+```{r, child = "chapters/08-multivariate_random_variables/multivariate-normal-density-function.Rmd"}
+```

@@ -1,0 +1,39 @@
+```{exercise, name = "Beta", label = betaev}
+Let $X \sim \text{Beta}(\alpha, \beta)$.
+
+
+a. Find $E[X]$. Hint 1: $\text{B}(x,y) = \int_0^1 t^{x-1} (1 - t)^{y-1} dt$. Hint 2: $\text{B}(x + 1, y) = \text{B}(x,y)\frac{x}{x + y}$. 
+
+b. Find $Var[X]$.
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a.
+\begin{align*}
+  E[X] &= \int_0^1 \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)} x dx \\
+       &= \frac{1}{\text{B}(\alpha, \beta)}\int_0^1 x^{\alpha} (1 - x)^{\beta - 1} dx \\
+       &= \frac{1}{\text{B}(\alpha, \beta)} \text{B}(\alpha + 1, \beta) \\
+       &= \frac{1}{\text{B}(\alpha, \beta)} \text{B}(\alpha, \beta) \frac{\alpha}{\alpha + \beta} \\
+       &= \frac{\alpha}{\alpha + \beta}. \\
+\end{align*}
+
+  
+b.
+\begin{align*}
+  Var[X] &= E[X^2] - E[X]^2 \\
+       &= \int_0^1 \frac{x^{\alpha - 1} (1 - x)^{\beta - 1}}{\text{B}(\alpha, \beta)} x^2 dx - \frac{\alpha^2}{(\alpha + \beta)^2} \\
+       &= \frac{1}{\text{B}(\alpha, \beta)}\int_0^1 x^{\alpha + 1} (1 - x)^{\beta - 1} dx - \frac{\alpha^2}{(\alpha + \beta)^2} \\
+       &= \frac{1}{\text{B}(\alpha, \beta)} \text{B}(\alpha + 2, \beta) - \frac{\alpha^2}{(\alpha + \beta)^2} \\
+       &= \frac{1}{\text{B}(\alpha, \beta)} \text{B}(\alpha + 1, \beta) \frac{\alpha + 1}{\alpha + \beta + 1} - \frac{\alpha^2}{(\alpha + \beta)^2} \\
+       &= \frac{\alpha + 1}{\alpha + \beta + 1} \frac{\alpha}{\alpha + \beta} - \frac{\alpha^2}{(\alpha + \beta)^2}\\
+       &= \frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}.
+\end{align*}
+
+
+```
+</div>

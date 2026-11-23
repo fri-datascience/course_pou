@@ -1,0 +1,21 @@
+```{exercise, name = "Completing a set to a sigma algebra"}
+Let $\Omega = \{1,2,...,10\}$ and let $A = \{\emptyset, \{1\}, \{2\}, \Omega \}$.
+
+a. Show that $A$ is not a sigma algebra of $\Omega$.
+b. Find the minimum number of elements to complete A to a sigma algebra of
+$\Omega$.
+
+```
+
+::: fold
+```{solution, echo = tog_ex}
+
+
+a. $1^c = \{2,3,...,10\} \notin A \implies$ $A$ is not sigma algebra.
+b. First we need the complements of all elements, so we need to add sets
+$\{2,3,...,10\}$ and $\{1,3,4,...,10\}$. Next we need unions of all sets --
+we add the set $\{1,2\}$. Again we need the complement of this set, so we add
+$\{3,4,...,10\}$. So the minimum number of elements we need to add is 4.
+
+```
+:::

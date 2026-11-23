@@ -1,0 +1,74 @@
+```{exercise}
+
+<span style="color:blue">
+  We are given a sample of 10 independent paired (bivariate) observations:
+  
+  | Index   | 1    | 2     | 3    | 4    | 5     | 6     | 7     | 8     | 9     | 10 |
+  | :-- | --:  | --:	 | --:	| --:	 | --:   | --:   | --:   | --:   | --:   | --:   |
+  | X   | 1.26 | -0.33 | 1.33 | 1.27 | 0.41  | -1.54 | -0.93 | -0.29 | -0.01 |  2.40 |
+  | Y   | 2.64 | 0.33  | 0.48 | 0.06 | -0.88 | -2.14 | -2.21 | 0.95  | 0.83  | 1.45  |
+
+</span>
+
+
+a. <span style="color:blue">Compute Pearson correlation between X and Y.</span>
+
+b. <span style="color:blue">Use the cor.test() from R to estimate a 95% CI for the estimate from (a).</span>
+
+c. <span style="color:blue">Apply nonparametric bootstrap with 1000 bootstrap replications and estimate the 95% CI for the Pearson correlation with percentile-based CI.</span>
+  
+d. <span style="color:blue">Compare CI from (b) and (c). Are they similar?</span>
+  
+e. <span style="color:blue">How would the bootstrap estimation of CI change if we were interested in Spearman or Kendall correlation instead?</span>
+
+```
+<div class = "fold">
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+x <- c(1.26, -0.33,  1.33,  1.27,  0.41, -1.54, -0.93, -0.29, -0.01,  2.40)
+y <- c(2.64,  0.33,  0.48,  0.06, -0.88, -2.14, -2.21,  0.95,  0.83,  1.45)
+
+# a
+cor(x, y)
+
+# b
+res <- cor.test(x, y)
+res$conf.int[1:2]
+
+# c
+set.seed(0)
+m  <- 1000
+n  <- length(x) 
+T_cor <- function(x, y) {cor(x, y)}
+
+est_boot <- array(NA, m)
+for (i in 1:m) {
+  idx <- sample(1:n, n, rep = T) # !!! important to use same indices to keep dependency between x and y
+  est_boot[i] <- T_cor(x[idx], y[idx])
+}
+
+quantile(est_boot, p = c(0.025, 0.975))
+
+# d
+# Yes, but the bootstrap CI is more narrow.
+
+# e
+# We just use the functions for Kendall/Spearman coefficients instead:
+T_kendall <- function(x, y) {cor(x, y, method = "kendall")}
+T_spearman <- function(x, y) {cor(x, y, method = "spearman")}
+
+# Put this in a function that returns the CI
+bootstrap_95_ci <- function(x, y, t, m = 1000) {
+  n <- length(x)
+  est_boot <- array(NA, m)
+  for (i in 1:m) {
+    idx <- sample(1:n, n, rep = T) # !!! important to use same indices to keep dependency between x and y
+    est_boot[i] <- t(x[idx], y[idx])
+  }
+  quantile(est_boot, p = c(0.025, 0.975))
+}
+
+bootstrap_95_ci(x, y, T_kendall)
+bootstrap_95_ci(x, y, T_spearman)
+
+```
+</div> 

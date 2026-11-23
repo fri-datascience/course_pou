@@ -1,0 +1,84 @@
+```{exercise, name = "Negative binomial random variable", label = negbinpdf}
+A variable with PMF 
+\begin{equation}
+  p(k) = \binom{k + r - 1}{k}(1-p)^r p^k
+\end{equation}
+is a negative binomial random 
+variable with support in non-negative integers. It has two parameters 
+$r > 0$ and $p \in (0,1)$. We denote
+\begin{equation}
+  X | r,p \sim \text{NB}(r,p).
+\end{equation}
+
+a. Let us reparameterize the negative binomial distribution with $q = 1 - p$.
+Find the PMF of $X \sim \text{NB}(1, q)$. Do you recognize this distribution?
+
+b. Show that the sum of two negative binomial random variables with the same
+$p$ is also a negative binomial random variable. Hint: Use the fact that
+the number of ways to place $n$ indistinct balls into $k$ boxes is
+$\binom{n + k - 1}{n}$.
+
+c. <span style="color:blue">R: Draw samples from $X \sim \text{NB}(5, 0.4)$
+and $Y \sim \text{NB}(3, 0.4)$. 
+Draw samples from $Z = X + Y$, where you use the parameters calculated in 
+b). Plot both distributions, their sum, and $Z$ using _facet_wrap_. 
+Be careful, as R uses a different 
+parameterization _size_=$r$ and _prob_=$1 - p$.</span>
+
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+a.
+\begin{align}
+  P(X = k) &= \binom{k + 1 - 1}{k}q^1 (1-q)^k \\
+           &= q(1-q)^k.
+\end{align}
+This is the geometric distribution.
+  
+b. Let $X \sim \text{NB}(r_1, p)$ and $Y \sim \text{NB}(r_2, p)$.
+Let $Z = X + Y$.
+\begin{align}
+  P(Z = z) &= \sum_{k = 0}^{\infty} P(X = z - k)P(Y = k),  \text{   if k < 0, then the probabilities are 0} \\
+           &= \sum_{k = 0}^{z} P(X = z - k)P(Y = k), \text{   if k > z, then the probabilities are 0} \\
+           &= \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k}(1 - p)^{r_1} p^{z - k} \binom{k + r_2 - 1}{k}(1 - p)^{r_2} p^{k} & \\
+           &= \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}(1 - p)^{r_1 + r_2} p^{z} & \\
+           &= (1 - p)^{r_1 + r_2} p^{z} \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}&
+\end{align}
+The part before the sum reminds us of the negative binomial distribution with
+parameters $r_1 + r_2$ and $p$. To complete this term to the
+negative binomial PMF we need $\binom{z + r_1 + r_2 -1}{z}$. So the
+only thing we need to prove is that the sum equals this term. 
+Both terms in the sum can be interpreted as numbers of ways to
+place a number of balls into boxes. For the left term it is
+$z-k$ balls into $r_1$ boxes, and for the right $k$ balls into
+$r_2$ boxes. For each $k$ we are distributing $z$ balls in total. 
+By summing over all $k$, we actually get all the
+possible placements of $z$ balls into $r_1 + r_2$ boxes.
+Therefore
+\begin{align}
+  P(Z = z) &= (1 - p)^{r_1 + r_2} p^{z} \sum_{k = 0}^{z} \binom{z - k + r_1 - 1}{z - k} \binom{k + r_2 - 1}{k}& \\
+           &= \binom{z + r_1 + r_2 -1}{z} (1 - p)^{r_1 + r_2} p^{z}.
+\end{align}
+From this it also follows that the sum of geometric distributions with the same
+parameter is a negative binomial distribution.
+
+c. $Z \sim \text{NB}(8, 0.4)$.
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+set.seed(1)
+nsamps <- 10000
+x      <- rnbinom(nsamps, size = 5, prob = 0.6)
+y      <- rnbinom(nsamps, size = 3, prob = 0.6)
+xpy    <- x + y
+z      <- rnbinom(nsamps, size = 8, prob = 0.6)
+samps  <- tibble(x, y, xpy, z)
+samps  <- melt(samps)
+ggplot(data = samps, aes(x = value)) +
+  geom_bar() +
+  facet_wrap(~ variable)
+
+```
+</div>

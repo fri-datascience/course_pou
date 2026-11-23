@@ -12,6 +12,8 @@ _out/
 _bookdown_files
 bookdown-pou_files/
 libs/
+exercise-handbook/bookdown-pou_files/*
+exercise-handbook/renv/*
 
 # Editors and OS
 .vscode

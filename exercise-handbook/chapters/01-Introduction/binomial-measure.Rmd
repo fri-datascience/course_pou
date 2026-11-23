@@ -1,0 +1,42 @@
+```{exercise, label = "binomialpmf"}
+Show that the standard measurable space on $\Omega = \{0,1,...,n\}$ equipped with binomial measure is a discrete probability space.
+
+a. Define another probability measure on this measurable space.
+b. Show that for $n=1$ the binomial measure is the same as the Bernoulli measure.
+c. <span style="color:blue">R: Draw 1000 samples from the binomial distribution $p=0.5$, $n=20$ (_rbinom_) and compare relative frequencies with theoretical probability measure</span>.
+
+```
+
+::: fold
+```{solution, echo = tog_ex}
+We need to show that the terms of 
+$\sum_{k=0}^n \binom{n}{k} p^k (1 - p)^{n - k}$ sum to 1. For that we use the
+binomial theorem $\sum_{k=0}^n \binom{n}{k} x^k y^{n-k} = (x + y)^n$. So
+
+\begin{equation}
+  \sum_{k=0}^n \binom{n}{k} p^k (1 - p)^{n - k} = (p + 1 - p)^n = 1.
+\end{equation}
+
+- $P(\{k\}) = \frac{1}{n + 1}$.
+- When $n=1$ then $k \in \{0,1\}$. Inserting $n=1$ into the binomial measure, 
+we get $\binom{1}{k}p^k (1-p)^{1 - k}$. Now 
+$\binom{1}{1} = \binom{1}{0} = 1$, so the measure is $p^k (1-p)^{1 - k}$, 
+which is the Bernoulli measure.
+
+```
+
+```{r, echo = tog_ex, message = FALSE, warning=FALSE, eval = tog_ex}
+set.seed(1)
+library(ggplot2)
+library(dplyr)
+bin_samp <- rbinom(n = 1000, size = 20, prob = 0.5)
+bin_samp <- data.frame(x = bin_samp) %>%
+  count(x) %>%
+  mutate(n = n / 1000, type = "empirical_frequencies") %>%
+  bind_rows(data.frame(x = 0:20, n = dbinom(0:20, size = 20, prob = 0.5), type = "theoretical_measure"))
+
+bin_plot <- ggplot(data = bin_samp, aes(x = x, y = n, fill = type)) +
+  geom_bar(stat="identity", position = "dodge")
+plot(bin_plot)
+```
+:::

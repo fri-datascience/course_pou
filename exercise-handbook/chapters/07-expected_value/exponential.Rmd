@@ -1,0 +1,39 @@
+```{exercise, name = "Exponential", label = expev}
+Let $X \sim \text{Exp}(\lambda)$.
+
+
+a. Find $E[X]$. Hint: $\Gamma(z + 1) = z\Gamma(z)$ and $\Gamma(1) = 1$.
+
+b. Find $Var[X]$.
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a.
+\begin{align*}
+  E[X] &= \int_0^\infty \lambda e^{-\lambda x} x dx & \\
+       &= \lambda \int_0^\infty x e^{-\lambda x} dx & \\
+       &= \lambda \int_0^\infty \frac{t}{\lambda} e^{-t} \frac{dt}{\lambda} & \text{$t = \lambda x$}\\
+       &= \lambda \lambda^{-2} \Gamma(2) & \text{definition of gamma function}  \\
+       &= \lambda^{-1}.
+\end{align*}
+
+
+b.
+\begin{align*}
+  Var[X] &= E[X^2] - E[X]^2  & \\
+         &= \int_0^\infty \lambda e^{-\lambda x} x^2 dx - \lambda^{-2} & \\
+         &= \lambda \int_0^\infty \frac{t^2}{\lambda^2} e^{-t} \frac{dt}{\lambda} - \lambda^{-2} &  \text{$t = \lambda x$} \\
+         &= \lambda \lambda^{-3} \Gamma(3) - \lambda^{-2} &  \text{definition of gamma function} &  \\
+         &= \lambda^{-2} 2 \Gamma(2) - \lambda^{-2} & \\
+         &= 2 \lambda^{-2} - \lambda^{-2} & \\
+         &= \lambda^{-2}. & \\
+\end{align*}
+
+
+```
+</div>

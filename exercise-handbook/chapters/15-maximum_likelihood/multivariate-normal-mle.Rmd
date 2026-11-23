@@ -1,0 +1,75 @@
+```{exercise, name = "Multivariate normal distribution"}
+
+
+a. Derive the maximum likelihood estimate for the mean and covariance matrix of the multivariate normal.
+
+b. <span style="color:blue">Simulate $n = 40$ samples from a bivariate normal distribution (choose non-trivial parameters, that is, mean $\neq 0$ and covariance $\neq 0$). Compute the MLE for the sample. Overlay the data with an ellipse that is determined by the MLE and an ellipse that is determined by the chosen true parameters.</span>
+
+c. <span style="color:blue">Repeat b. several times and observe how the estimates (ellipses) vary around the true value.</span>
+
+Hint: For the derivation of MLE, these identities will be helpful: $\frac{\partial b^T a}{\partial a} = \frac{\partial a^T b}{\partial a} = b$, $\frac{\partial a^T A a}{\partial a} = (A + A^T)a$, $\frac{\partial \text{tr}(BA)}{\partial A} = B^T$, $\frac{\partial \ln |A|}{\partial A} = (A^{-1})^T$, $a^T A a = \text{tr}(a^T A a) = \text{tr}(a a^T A) = \text{tr}(Aaa^T)$.
+
+
+```
+<div class="fold">
+```{solution, echo = togs}
+The log likelihood of the MVN distribution is
+\begin{align*}
+  l(\mu, \Sigma ; x) &= -\frac{1}{2}\Big(\sum_{i=1}^n k\ln(2\pi) + |\Sigma| + (x_i - \mu)^T \Sigma^{-1} (x_i - \mu)\Big) \\
+    &= -\frac{n}{2}\ln|\Sigma| + -\frac{1}{2}\Big(\sum_{i=1}^n(x_i - \mu)^T \Sigma^{-1} (x_i - \mu)\Big) + c,
+\end{align*}
+where $c$ is a constant with respect to $\mu$ and $\Sigma$.
+To find the MLE we first need to find partial derivatives. Let us start with $\mu$.
+\begin{align*}
+  \frac{\partial}{\partial \mu}l(\mu, \Sigma ; x) &= \frac{\partial}{\partial \mu} -\frac{1}{2}\Big(\sum_{i=1}^n x_i^T \Sigma^{-1} x_i - x_i^T \Sigma^{-1} \mu - \mu^T \Sigma^{-1} x_i + \mu^T \Sigma^{-1} \mu \Big) \\
+  &= -\frac{1}{2}\Big(\sum_{i=1}^n - \Sigma^{-1} x_i - \Sigma^{-1} x_i + 2 \Sigma^{-1} \mu \Big) \\
+  &= -\Sigma^{-1}\Big(\sum_{i=1}^n - x_i + \mu \Big).
+\end{align*}
+Equating above with zero, we get
+\begin{align*}
+  \sum_{i=1}^n - x_i + \mu &= 0 \\
+  \hat{\mu} = \frac{1}{n} \sum_{i=1}^n x_i,
+\end{align*}
+which is the dimension-wise empirical mean. Now for the covariance matrix
+\begin{align*}
+  \frac{\partial}{\partial \Sigma^{-1}}l(\mu, \Sigma ; x) &= \frac{\partial}{\partial \Sigma^{-1}} -\frac{n}{2}\ln|\Sigma| + -\frac{1}{2}\Big(\sum_{i=1}^n(x_i - \mu)^T \Sigma^{-1} (x_i - \mu)\Big) \\
+  &= \frac{\partial}{\partial \Sigma^{-1}} -\frac{n}{2}\ln|\Sigma| + -\frac{1}{2}\Big(\sum_{i=1}^n \text{tr}((x_i - \mu)^T \Sigma^{-1} (x_i - \mu))\Big) \\
+  &= \frac{\partial}{\partial \Sigma^{-1}} -\frac{n}{2}\ln|\Sigma| + -\frac{1}{2}\Big(\sum_{i=1}^n \text{tr}((\Sigma^{-1} (x_i - \mu) (x_i - \mu)^T )\Big) \\
+  &= \frac{n}{2}\Sigma + -\frac{1}{2}\Big(\sum_{i=1}^n (x_i - \mu) (x_i - \mu)^T \Big).
+\end{align*}
+Equating above with zero, we get
+\begin{align*}
+  \hat{\Sigma} = \frac{1}{n}\sum_{i=1}^n (x_i - \mu) (x_i - \mu)^T.
+\end{align*}
+
+
+```
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+set.seed(1)
+n     <- 40
+mu    <- c(1, -2)
+Sigma <- matrix(data = c(2, -1.6, -1.6, 1.8), ncol = 2)
+X     <- mvrnorm(n = n, mu = mu, Sigma = Sigma)
+colnames(X) <- c("X1", "X2")
+X     <- as.data.frame(X)
+
+# plot.new()
+tru_ellip <- ellipse(mu, Sigma, draw = FALSE)
+colnames(tru_ellip) <- c("X1", "X2")
+tru_ellip <- as.data.frame(tru_ellip)
+
+mu_est    <- apply(X, 2, mean)
+tmp       <- as.matrix(sweep(X, 2, mu_est))
+Sigma_est <- (1 / n) * t(tmp) %*% tmp
+
+est_ellip <- ellipse(mu_est, Sigma_est, draw = FALSE)
+colnames(est_ellip) <- c("X1", "X2")
+est_ellip <- as.data.frame(est_ellip)
+
+ggplot(data = X, aes(x = X1, y = X2)) +
+  geom_point() +
+  geom_path(data = tru_ellip, aes(x = X1, y = X2, color = "truth")) +
+  geom_path(data = est_ellip, aes(x = X1, y = X2, color = "estimated")) +
+  labs(color = "type")
+```
+</div>

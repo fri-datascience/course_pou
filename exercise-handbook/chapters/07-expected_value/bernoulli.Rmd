@@ -1,0 +1,34 @@
+```{exercise, name = "Bernoulli", label = Bernev}
+Let $X \sim \text{Bernoulli}(p)$. 
+
+a. Find $E[X]$.
+
+b. Find $Var[X]$.
+
+c. <span style="color:blue">R: Let $p = 0.4$. Check your answers to a) and b) with a simulation.</span>
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. 
+\begin{align*}
+  E[X] = \sum_{k=0}^1 p^k (1-p)^{1-k} k = p.
+\end{align*}
+  
+b.
+\begin{align*}
+  Var[X] = E[X^2] - E[X]^2 = \sum_{k=0}^1 (p^k (1-p)^{1-k} k^2) - p^2 = p(1-p).
+\end{align*}
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+set.seed(1)
+nsamps <- 1000
+x      <- rbinom(nsamps, 1, 0.4)
+mean(x)
+var(x)
+0.4 * (1 - 0.4)
+```
+</div>

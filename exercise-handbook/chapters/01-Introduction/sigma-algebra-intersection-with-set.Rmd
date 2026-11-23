@@ -1,0 +1,29 @@
+```{exercise, name = "Intersection of sigma algebra and a set"}
+This exercise is adapted from Guy Lebanon, *Probability: The Analysis of Data, Volume 1* (2012).
+
+Let $C$ be a $\sigma$-algebra over $\Omega$ and $U \subset \Omega$. 
+Prove that $C^\prime = \{c \cap U | c \in C\}$ is a $\sigma$-algebra over $U$.
+```
+
+::: fold
+```{solution, echo = togs}
+The empty set is an element of $C^\prime$. We see this by partitioning $C^\prime$ into a subset without the empty set and a subset containing the empty set exclusively: 
+$$
+C^\prime = \{c \cap U | c \in C\} = \{c \cap U | c \in C \setminus \emptyset \} \cup \{ c \cap U | c \in \{ \emptyset \} \} = \{c \cap U | c \in C \setminus \emptyset \} \cup \{\emptyset\}.
+$$
+
+Suppose $B \in C^\prime$. We verify that $B^c \in C^\prime$. $B \in C^\prime \Rightarrow B = c \cap U$ for some $c \in C^\prime$.  Also note that $B^c = U \cap B^c$ since we consider $U$ our universal set. We then have 
+$$
+B^c = U \cap B^c = U \cap (c \cap U)^c = U \cap (c^c \cup U^c) = (U \cap c^c) \cup (U \cap U^c) = (U \cap c^c) \cup \emptyset = (U \cap c^c).
+$$
+Now notice that $c^c \in C$ because $c \in C$ and $C$ is a $\sigma$-algebra.
+But this means that $c^c \cap U \in C^\prime$ by definition of $C^\prime$.
+This is the same as saying $B^c \in C^\prime$, which proves the complements property.
+
+Suppose $B_n = C_n \cap U$  and $\{C_n \cap U\}_{n \in \mathbb{N}}$ is a sequence of sets in $C^\prime$. Then $\cup_{n \in \mathbb{N}}C_n \in C$. It follows that:
+$$
+\cup_{n \in \mathbb{N}} B_n = \cup_{n \in \mathbb{N}} (U \cap C_n) = (\cup_{n \in \mathbb{N}}C_n) \cap U \in C^\prime,
+$$
+because the final union is in $C$. This proves the countable union property.
+```
+:::

@@ -1,0 +1,19 @@
+```{exercise}
+Let $f(x,y) = cx^2y$ for $x^2 \leq y \leq 1$ and zero otherwise. 
+Find such $c$ that $f$ is a PDF of a bivariate random
+variable. This exercise is borrowed from Wasserman.
+```
+
+<div class="fold">
+```{solution, echo = togs}
+\begin{align}
+  1 &= \int_{-1}^{1} \int_{x^2}^1 cx^2y dy dx \\
+    &= \int_{-1}^{1} cx^2 (\frac{1}{2} - \frac{x^4}{2}) dx \\
+    &= \frac{c}{2} \int_{-1}^{1} x^2 - x^6 dx \\
+    &= \frac{c}{2} (\frac{1}{3} + \frac{1}{3} - \frac{1}{7} - \frac{1}{7}) \\
+    &= \frac{c}{2} \frac{8}{21} \\
+    &= \frac{4c}{21}
+\end{align}
+It follows $c = \frac{21}{4}$.
+```
+</div>

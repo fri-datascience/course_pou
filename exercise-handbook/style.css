@@ -12,3 +12,13 @@ pre {
 pre code {
   white-space: inherit;
 }
+
+/* Folded solutions, see _includes/fold.html */
+.fold-btn {
+  float: right;
+  margin: 5px 5px 0 0;
+}
+.fold {
+  border: 1px solid black;
+  min-height: 40px;
+}

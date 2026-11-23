@@ -1,0 +1,35 @@
+```{exercise, name = "Consistent but biased estimator", label = "cbest"}
+
+
+a. Show that sample variance (the plug-in estimator of variance) is a biased estimator of variance.
+b. Show that sample variance is a consistent estimator of variance.
+c. Show that the estimator with ($N-1$) (Bessel correction) is unbiased.
+
+
+
+
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+a.
+\begin{align*}
+  E[\frac{1}{n} \sum_{i=1}^n (Y_i - \bar{Y})^2] &= \frac{1}{n} \sum_{i=1}^n E[(Y_i - \bar{Y})^2] \\
+  &= \frac{1}{n} \sum_{i=1}^n E[Y_i^2] - 2 E[Y_i \bar{Y}] + \bar{Y}^2)] \\
+  &= \frac{1}{n} \sum_{i=1}^n E[Y_i^2 - 2 Y_i \bar{Y} + \bar{Y}^2] \\
+  &= \frac{1}{n} \sum_{i=1}^n E[Y_i^2 - \frac{2}{n} Y_i^2 - \frac{2}{n} \sum_{i \neq j} Y_i Y_j  + \frac{1}{n^2}\sum_j \sum_{k \neq j} Y_j Y_k + \frac{1}{n^2} \sum_j Y_j^2] \\
+  &= \frac{1}{n} \sum_{i=1}^n \frac{n - 2}{n} (\sigma^2 + \mu^2) - \frac{2}{n} (n - 1) \mu^2 + \frac{1}{n^2}n(n-1)\mu^2 + \frac{1}{n^2}n(\sigma^2 + \mu^2) \\
+  &= \frac{n-1}{n}\sigma^2 \\
+  < \sigma^2.
+\end{align*}
+b. Let $S_n$ denote the sample variance. Then we can write it as
+\begin{align*}
+  S_n &= \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2 + 2(X_i - \mu)(\mu - \bar{X}) + (\mu - \bar{X})^2.
+\end{align*}
+Now $\bar{X}$ converges in probability (by WLLN) to $\mu$ therefore the right terms converge in probability to zero. The left term converges in probability to $\sigma^2$, also by WLLN. Therefore the sample variance is a consistent estimatior of the variance.
+
+c. The denominator changes in the second-to-last line of a., therefore the last line is now equality.
+
+```
+</div>

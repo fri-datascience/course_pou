@@ -1,0 +1,26 @@
+# Bootstrap {#boot}
+
+This chapter deals with bootstrap.
+
+The students are expected to acquire the following knowledge:
+
+- How to use bootstrap to generate coverage intervals.
+
+
+```{r, child = "chapters/14-bootstrap/ci-coverage.Rmd"}
+```
+
+
+```{r, child = "chapters/14-bootstrap/bootstrap-sample-ci.Rmd"}
+```
+
+
+```{r, child = "chapters/14-bootstrap/bootstrap-paired-correlation.Rmd"}
+```
+
+
+```{r, child = "chapters/14-bootstrap/bootstrap-regression.Rmd"}
+```
+
+```{r, child = "chapters/14-bootstrap/bootstrap-maximum-shortcoming.Rmd"}
+```

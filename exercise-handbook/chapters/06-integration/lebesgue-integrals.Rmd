@@ -1,0 +1,51 @@
+```{exercise, name = "borrowed from Jagannathan"}
+Find the Lebesgue integral of the following functions on ($\mathbb{R}$, $\mathcal{B}(\mathbb{R})$, $\lambda$).
+
+a.
+\begin{align}
+  f(\omega) = 
+    \begin{cases}
+      \omega, & \text{for } \omega = 0,1,...,n \\
+      0, & \text{elsewhere}
+    \end{cases}
+\end{align}
+  
+b.
+\begin{align}
+  f(\omega) = 
+    \begin{cases}
+      1, & \text{for } \omega = \mathbb{Q}^c \cap [0,1] \\
+      0, & \text{elsewhere}
+    \end{cases}
+\end{align}
+  
+c.
+\begin{align}
+  f(\omega) = 
+    \begin{cases}
+      n, & \text{for } \omega = \mathbb{Q}^c \cap [0,n] \\
+      0, & \text{elsewhere}
+    \end{cases}
+\end{align}
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a.
+\begin{align}
+  \int f(\omega) d\lambda = \sum_{\omega = 0}^n \omega \lambda(\omega) = 0.
+\end{align}
+
+b.
+\begin{align}
+  \int f(\omega) d\lambda = 1 \times \lambda(\mathbb{Q}^c \cap [0,1]) = 1.
+\end{align}
+
+c.
+\begin{align}
+  \int f(\omega) d\lambda = n \times \lambda(\mathbb{Q}^c \cap [0,n]) = n^2.
+\end{align}
+```
+</div>

@@ -1,0 +1,45 @@
+```{exercise, name = "Poisson intuition 2"}
+The Poisson distribution is a discrete probability distribution that models the 
+probability of a given number of events occuring within processes where events 
+occur at a constant mean rate and independently of each other - a **Poisson process**.
+
+It has a single parameter $\lambda$, which represents the constant mean rate.
+
+A classic example of a scenario that can be modeled using the Poisson distribution 
+is the number of calls received at a call center in a day (or in fact any other
+                                                           time interval).
+
+Suppose you work in a call center and have some understanding of probability 
+distributions. You overhear your supervisor mentioning that the call center 
+receives an average of 2.5 calls per day. Using your knowledge of the Poisson 
+distribution, calculate:
+  
+a. The probability you will get no calls today.
+b. The probability you will get more than 5 calls today.
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+First recall the Poisson pmf: $$p(k) = \frac{\lambda^k e^{-\lambda}}{k!}$$
+  
+ as stated previously our parameter $\lambda = 2.5$
+
+a. To get the probability of no calls we simply plug in $k = 0$, so: $$p(0) = \frac{2.5^0 e^{-2.5}}{0!} = e^{-2.5} \approx 0.082$$
+  
+b. The support of the Poisson distribution is non-negative integers. So if we wanted
+to calculate the probability of getting more than 5 calls we would need to add up 
+the probabilities of getting 6 calls and 7 calls and so on up to infinity.
+Let us instead remember that the sum of all probabilties will be 1, we will
+reverse the problem and instead ask "What is the probability we get 5 calls or less?".
+We can subtract the probability of the opposite outcome (the complement) from 1
+to get the probability of our original question.
+
+ $$P(k > 5) = 1 - P(k \leq 5)$$
+  $$P(k \leq 5) = \sum_{i=0}^{5} p(i) = p(0) + p(1) + p(2) + p(3) + p(4) + p(5) =$$
+  $$= \frac{2.5^0 e^{-2.5}}{0!} + \frac{2.5^1 e^{-2.5}}{1!} + \dots =$$
+  $$=0.957979$$
+
+  So the probability of geting more than 5 calls will be $1 - 0.957979 = 0.042021$
+```
+</div>

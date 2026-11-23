@@ -1,0 +1,37 @@
+```{exercise}
+Prove that the following subsets of $(0,1]$ are Borel-measurable by finding their measure.
+
+a. Any countable set.
+
+b. The set of numbers in (0,1] whose decimal expansion does not contain 7.
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. This follows directly from the fact that every countable set is a union
+of singletons, whose measure is 0.
+
+b. Let us first look at numbers which have a 7 as the first decimal numbers.
+Their measure is 0.1. Then we take all the numbers with a 7 as the second
+decimal number (excluding those who already have it as the first). These have
+the measure 0.01, and there are 9 of them, so their total measure is 0.09. We
+can continue to do so infinitely many times. At each $n$, we have the measure
+of the intervals which is $10^n$ and the number of those intervals is $9^{n-1}$.
+Now
+
+\begin{align}
+  \lambda(A) &= 1 - \sum_{n = 0}^{\infty} \frac{9^n}{10^{n+1}} \\
+             &= 1 - \frac{1}{10} \sum_{n = 0}^{\infty} (\frac{9}{10})^n \\
+             &= 1 - \frac{1}{10} \frac{10}{1} \\
+             &= 0.
+\end{align}
+
+Since we have shown that the measure of the set is $0$, we have also shown
+that the set is measurable.
+
+```
+</div>

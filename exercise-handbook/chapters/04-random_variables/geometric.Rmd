@@ -1,0 +1,46 @@
+```{exercise, name = "Geometric random variable", label = geocdf}
+A variable with PMF 
+\begin{equation}
+  P(k) = p(1-p)^k
+\end{equation}
+is a geometric random 
+variable with support in non-negative 
+integers. It has one parameter 
+$p \in (0,1]$. We denote
+\begin{equation}
+  X | p \sim \text{geometric}(p)
+\end{equation}
+
+a. Derive the CDF of a geometric random variable.
+
+b. <span style="color:blue">R: Draw 1000 samples from the geometric
+distribution with $p = 0.3$ and compare their frequencies to
+theoretical values.</span>
+
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+a.
+\begin{align}
+  P(X \leq k) &= \sum_{i = 0}^k p(1-p)^i \\
+            &= p \sum_{i = 0}^k (1-p)^i \\
+            &= p \frac{1 - (1-p)^{k+1}}{1 - (1 - p)} \\
+            &= 1 - (1-p)^{k + 1}
+\end{align}
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+set.seed(1)
+geo_samp <- rgeom(n = 1000, prob = 0.3)
+geo_samp <- data.frame(x = geo_samp) %>%
+  count(x) %>%
+  mutate(n = n / 1000, type = "empirical_frequencies") %>%
+  bind_rows(data.frame(x = 0:20, n = dgeom(0:20, prob = 0.3), type = "theoretical_measure"))
+
+geo_plot <- ggplot(data = geo_samp, aes(x = x, y = n, fill = type)) +
+  geom_bar(stat="identity", position = "dodge")
+plot(geo_plot)
+```
+</div>

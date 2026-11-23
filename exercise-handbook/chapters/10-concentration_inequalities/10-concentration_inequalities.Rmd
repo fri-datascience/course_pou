@@ -1,0 +1,28 @@
+# Concentration inequalities {#ci}
+
+This chapter deals with concentration inequalities.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- More assumptions produce closer bounds.
+
+
+**R**
+
+- Optimization.
+- Estimating probability inequalities.
+
+
+## Comparison
+```{r, child = "chapters/10-concentration_inequalities/markov-chernoff-geometric.Rmd"}
+```
+
+
+```{r, child = "chapters/10-concentration_inequalities/beta-sum-bounds.Rmd"}
+```
+
+## Practical
+```{r, child = "chapters/10-concentration_inequalities/jagannathan-sample-mean-bound.Rmd"}
+```

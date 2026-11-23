@@ -1,0 +1,42 @@
+# Multiple random variables {#mrvs}
+
+This chapter deals with multiple random variables and their distributions.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- Calculation of PDF of transformed multiple random variables.
+- Finding marginal and conditional distributions.
+
+**R**
+
+- Scatterplots of bivariate random variables.
+- New R functions (for example, _expand.grid_).
+
+
+## General
+```{r, child = "chapters/05-multiple_random_variables/independent-normals.Rmd"}
+```
+
+
+## Bivariate distribution examples
+```{r, child = "chapters/05-multiple_random_variables/discrete-bivariate.Rmd"}
+```
+
+```{r, child = "chapters/05-multiple_random_variables/continuous-bivariate.Rmd"}
+```
+
+
+```{r, child = "chapters/05-multiple_random_variables/mixed-bivariate.Rmd"}
+```
+
+```{r, child = "chapters/05-multiple_random_variables/bivariate-normalizing-constant.Rmd"}
+```
+
+
+## Transformations
+```{r, child = "chapters/05-multiple_random_variables/unit-ball.Rmd"}
+```
+
+

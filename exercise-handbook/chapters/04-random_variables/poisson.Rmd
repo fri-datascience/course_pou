@@ -1,0 +1,37 @@
+```{exercise, name = "Poisson random variable", label = poisex}
+A variable with PMF 
+\begin{equation}
+  P(k) = \frac{\lambda^k e^{-\lambda}}{k!}
+\end{equation}
+ is a Poisson random 
+variable with support in non-negative integers. It has one positive parameter 
+$\lambda$, 
+which also represents its mean value and variance (a measure of the deviation
+of the values from the mean -- more on mean and variance in the next chapter). 
+We denote
+\begin{equation}
+  X | \lambda \sim \text{Poisson}(\lambda).
+\end{equation}
+This distribution is usually the default choice for modeling counts. We have
+already encountered a Poisson random variable in exercise \@ref(exr:geopoispmf),
+where we also sampled from this distribution.
+
+The CDF of a Poisson random variable is $P(X <= x) = e^{-\lambda} \sum_{i=0}^x \frac{\lambda^{i}}{i!}$.
+
+a. <span style="color:blue">R: Draw 1000 samples from the Poisson
+distribution with $\lambda = 5$ and compare their empirical cumulative
+distribution function with the theoretical CDF.</span>
+
+```
+<div class="fold">
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+set.seed(1)
+pois_samp <- rpois(n = 1000, lambda = 5)
+pois_samp <- data.frame(x = pois_samp)
+pois_plot <- ggplot(data = pois_samp, aes(x = x, colour = "ECDF")) +
+  stat_ecdf(geom = "step") +
+  geom_step(data = tibble(x = 0:17, y = ppois(x, 5)), aes(x = x, y = y, colour = "CDF")) +
+  scale_colour_manual("Lgend title", values = c("black", "red"))
+plot(pois_plot)
+```
+</div>

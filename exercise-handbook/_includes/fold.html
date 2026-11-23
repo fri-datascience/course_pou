@@ -1,0 +1,13 @@
+<script type="text/javascript">
+// Collapse every <div class="fold"> (solutions) behind a Fold/Unfold button.
+$(document).ready(function() {
+  var $folds = $(".fold");
+  $folds.wrapInner("<div class=\"fold-blck\">");
+  $folds.prepend("<button class=\"fold-btn\">Unfold</button>");
+  $(".fold-blck").toggle();
+  $(".fold-btn").on("click", function() {
+    $(this).text($(this).text() === "Fold" ? "Unfold" : "Fold");
+    $(this).next(".fold-blck").toggle("linear");
+  });
+});
+</script>

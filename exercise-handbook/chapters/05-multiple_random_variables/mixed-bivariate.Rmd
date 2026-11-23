@@ -1,0 +1,77 @@
+```{exercise, name = "Mixed bivariate random variable"}
+Let $f(x,y) = \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}$
+be the PDF of a bivariate random variable, where $x \in (0, \infty)$ and
+$y \in \mathbb{N}_0$.
+
+
+a. Find the marginal distribution of $X$. Do you recognize this distribution?
+
+b. Find the conditional distribution of $Y | X$. Do you recognize this
+distribution?
+
+c. Calculate the probability $P(Y = 2 | X = 2.5)$ for $(X,Y)$.
+
+d. Find the marginal distribution of $Y$. Do you recognize this distribution?
+
+e. <span style="color:blue">R: Take 1000 random samples from $(X,Y)$ with 
+parameters $\beta = 1$ and 
+$\alpha = 1$. Plot a scatterplot. Plot a bar plot of the marginal distribution
+of $Y$, and the theoretical PMF calculated from d) on the range from 0 to 10.
+Hint: Use the __gamma__ function in R.?</span>
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a.
+\begin{align}
+  p(x) &= \sum_{k = 0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)k!} x^{k + \alpha -1} e^{-x(1 + \beta)} & \\
+       &= \sum_{k = 0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)k!} x^{k} x^{\alpha -1} e^{-x} e^{-\beta x} & \\
+       &= \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x} \sum_{k = 0}^{\infty} \frac{1}{k!} x^{k} e^{-x} & \\
+       &= \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x} & \text{the last term above sums to one}
+\end{align}
+This is the Gamma PDF.
+
+b.
+\begin{align}
+  p(y|x) &= \frac{p(x,y)}{p(x)} \\
+         &= \frac{\frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y+ \alpha -1} e^{-x(1 + \beta)}}{\frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha -1} e^{-\beta x}} \\
+         &= \frac{x^y e^{-x}}{y!}.
+\end{align}
+This is the Poisson PMF.
+  
+c.
+\begin{align}
+  P(Y = 2 | X = 2.5) = \frac{2.5^2 e^{-2.5}}{2!} \approx 0.26.
+\end{align}
+  
+d. 
+\begin{align}
+  p(y) &= \int_{0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)y!} x^{y + \alpha -1} e^{-x(1 + \beta)} dx & \\
+       &= \frac{1}{y!} \int_{0}^{\infty} \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx & \\
+       &= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \int_{0}^{\infty} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}} \frac{(1 + \beta)^{y + \alpha}}{\Gamma(y + \alpha)} x^{(y + \alpha) -1} e^{-(1 + \beta)x} dx & \text{complete to Gamma PDF} \\
+       &= \frac{1}{y!} \frac{\beta^{\alpha}}{\Gamma(\alpha)} \frac{\Gamma(y + \alpha)}{(1 + \beta)^{y + \alpha}}.
+\end{align}
+We add the terms in the third equality to get a Gamma PDF inside the integral, 
+which then integrates to one.
+We do not recognize this distribution.
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE}
+set.seed(1)
+px <- function (x, alpha, beta) {
+  return((1 / factorial(x)) * (beta^alpha / gamma(alpha)) * 
+           (gamma(x + alpha) / (1 + beta)^(x + alpha)))
+}
+nsamps <- 1000
+rx     <- rgamma(nsamps, 1, 1)
+ryx    <- rpois(nsamps, rx)
+ggplot(data = data.frame(x = rx, y = ryx), aes(x = x, y = y)) + geom_point()
+ggplot(data = data.frame(x = rx, y = ryx), aes(x = y)) + 
+  geom_bar(aes(y = (..count..)/sum(..count..))) +
+  stat_function(fun = px, args = list(alpha = 1, beta = 1), color = "red")
+
+```
+</div>

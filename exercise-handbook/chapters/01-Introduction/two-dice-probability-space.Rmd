@@ -1,0 +1,17 @@
+```{exercise}
+Define a probability space that could be used to model the outcome of throwing two fair 6-sided dice.
+
+```
+
+::: fold
+```{solution, echo = togs}
+
+
+- $\Omega = \{\{i,j\}, i = 1,...,6, j = 1,...,6\}$
+  
+- $F = 2^{\Omega}$
+  
+- $\forall \omega \in \Omega$, $P(\omega) = \frac{1}{6} \times \frac{1}{6} = \frac{1}{36}$
+
+```
+:::

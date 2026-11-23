@@ -1,0 +1,46 @@
+```{exercise, label = poissum}
+Show that the sum of independent Poisson random variables is itself a Poisson random variable. <span style="color:blue">R: Let $X$ be a sum of three Poisson distributions with $\lambda_i \in \{2, 5.2, 10\}$. Take 1000 samples and plot the three distributions and the sum. Then take 1000 samples from the theoretical distribution of $X$ and compare them to the sum.</span>
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+Let $X_i \sim \text{Poisson}(\lambda_i)$ for $i = 1,...,n$, and let $X = \sum_{i=1}^n X_i$.
+\begin{align}
+  \alpha_X(t) &= \prod_{i=1}^n \alpha_{X_i}(t) \\
+              &= \prod_{i=1}^n \bigg( \sum_{j=0}^\infty t^j \frac{\lambda_i^j e^{-\lambda_i}}{j!} \bigg) \\
+              &= \prod_{i=1}^n \bigg( e^{-\lambda_i} \sum_{j=0}^\infty \frac{(t\lambda_i)^j }{j!} \bigg) \\
+              &= \prod_{i=1}^n \bigg( e^{-\lambda_i} e^{t \lambda_i} \bigg) & \text{power series} \\
+              &= \prod_{i=1}^n \bigg( e^{\lambda_i(t - 1)} \bigg)  \\
+              &= e^{\sum_{i=1}^n \lambda_i(t - 1)} \\
+              &= e^{t \sum_{i=1}^n \lambda_i - \sum_{i=1}^n \lambda_i} \\
+              &= e^{-\sum_{i=1}^n \lambda_i} \sum_{j=0}^\infty \frac{(t \sum_{i=1}^n \lambda_i)^j}{j!}\\
+              &=  \sum_{j=0}^\infty \frac{e^{-\sum_{i=1}^n \lambda_i} (t \sum_{i=1}^n \lambda_i)^j}{j!}\\
+\end{align}
+The last term is the PGF of a Poisson random variable with parameter $\sum_{i=1}^n \lambda_i$. Because the PGF is unique, $X$ is a Poisson random variable.
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+set.seed(1)
+library(tidyr)
+nsamps           <- 1000
+samps            <- matrix(data = NA, nrow = nsamps, ncol = 4)
+samps[ ,1]       <- rpois(nsamps, 2)
+samps[ ,2]       <- rpois(nsamps, 5.2)
+samps[ ,3]       <- rpois(nsamps, 10)
+samps[ ,4]       <- samps[ ,1] + samps[ ,2] + samps[ ,3]
+colnames(samps)  <- c(2, 2.5, 10, "sum")
+gsamps           <- as_tibble(samps)
+gsamps           <- gather(gsamps, key = "dist", value = "value")
+ggplot(gsamps, aes(x = value)) +
+  geom_bar() +
+  facet_wrap(~ dist)
+
+samps              <- cbind(samps, "theoretical" = rpois(nsamps, 2 + 5.2 + 10))
+gsamps             <- as_tibble(samps[ ,4:5])
+gsamps             <- gather(gsamps, key = "dist", value = "value")
+ggplot(gsamps, aes(x = value, fill = dist)) +
+  geom_bar(position = "dodge")
+
+```
+</div>

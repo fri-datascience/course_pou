@@ -1,0 +1,43 @@
+```{exercise}
+
+A standard deck (52 cards) is distributed to two persons: 26 cards to each
+person. All partitions are equally likely. Find the probability that:
+
+a. The first person gets 4 Queens.
+b. The first person gets at least 2 Queens.
+c. <span style="color:blue"> R: Use simulation (_sample_) to check the above
+answers. </span>
+
+```
+
+::: fold
+```{solution, echo = togs}
+
+
+a. $\frac{\binom{48}{22}}{\binom{52}{26}}$
+  
+b. 1 - $\frac{\binom{48}{26} + 4 \times \binom{48}{25}}{\binom{52}{26}}$
+
+c. For the simulation, let us represent cards with numbers from 1 to 52, and
+let 1 through 4 represent Queens.
+
+```
+
+```{r, echo = togs, eval = togs}
+set.seed(1)
+cards <- 1:52
+n     <- 10000
+q4    <- vector(mode = "logical", length = n)
+q2    <- vector(mode = "logical", length = n)
+
+tmp <- vector(mode = "logical", length = n)
+for (i in 1:n) {
+  p1      <- sample(1:52, 26)
+  q4[i]   <- sum(1:4 %in% p1) == 4
+  q2[i]   <- sum(1:4 %in% p1) >= 2
+}
+sum(q4) / n
+sum(q2) / n
+
+```
+:::

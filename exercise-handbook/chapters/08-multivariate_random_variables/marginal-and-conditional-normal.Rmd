@@ -1,0 +1,118 @@
+```{exercise, name = "Marginal and conditional distributions", label = mvncond}
+Let $X \sim \text{N}(\mu, \Sigma)$, where $\mu = [2, 0, -1]^T$ and $\Sigma =
+\begin{bmatrix} 
+  1 & -0.2 & 0.5 \\
+  -0.2 & 1.4 & -1.2 \\
+  0.5 & -1.2 & 2 \\
+\end{bmatrix}$. Let $A$ represent the first two random variables and $B$ the third random variable. <span style="color:blue">R: For the calculation in the following points, you can use R.</span>
+    
+a. Find the marginal distribution of $B$.
+
+b. Find the conditional distribution of $B | A = [a_1, a_2]^T$.
+
+c. Find the marginal distribution of $A$.
+
+d. Find the conditional distribution of $A | B = b$.
+
+e.  <span style="color:blue">R: Visually compare the distributions of a) and b), and c) and d) at three different conditional values.</span>
+```
+
+<div class="fold">
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+mu    <- c(2, 0, -1)
+Sigma <- matrix(c(1, -0.2, 0.5,
+                  -0.2, 1.4, -1.2,
+                  0.5, -1.2, 2),
+                nrow = 3,
+                byrow = TRUE)
+mu_A     <- c(2, 0)
+mu_B     <- -1
+Sigma_A  <- Sigma[1:2, 1:2]
+Sigma_B  <- Sigma[3, 3]
+Sigma_AB <- Sigma[1:2, 3]
+
+
+# b
+tmp_b   <- t(Sigma_AB) %*% solve(Sigma_A)
+mu_b    <- mu_B - tmp_b %*% mu_A
+Sigma_b <- Sigma_B - t(Sigma_AB) %*% solve(Sigma_A) %*% Sigma_AB
+
+mu_b
+tmp_b
+Sigma_b
+
+# d
+tmp_a   <- Sigma_AB * (1 / Sigma_B)
+mu_a    <- mu_A - tmp_a * mu_B
+Sigma_d <- Sigma_A - (Sigma_AB * (1 / Sigma_B)) %*% t(Sigma_AB)
+mu_a
+tmp_a
+Sigma_d
+
+```
+```{solution, echo = togs}
+
+
+a. $B \sim \text{N}(-1, 2)$.
+
+b. $B | A = a \sim \text{N}(-1.68 + [0.34, -0.81] a, 0.86)$.
+
+c. $\mu_A = [2, 0]^T$ and $\Sigma_A =
+\begin{bmatrix} 
+  1 & -0.2 & \\
+  -0.2 & 1.4 \\
+\end{bmatrix}$. 
+  
+d. 
+\begin{align}
+  A | B = b &\sim \text{N}(\mu_t, \Sigma_t), \\
+  \mu_t     &= [2.25, -0.6]^T + [0.25, -0.6]^T b, \\
+  \Sigma_t  &= 
+  \begin{bmatrix} 
+  0.875 & 0.1 \\
+  0.1 & 0.68 \\
+\end{bmatrix}
+\end{align}
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+library(mvtnorm)
+set.seed(1)
+nsamps <- 1000
+
+# a and b
+samps  <- as.data.frame(matrix(data = NA, nrow = 4 * nsamps, ncol = 2))
+samps[1:nsamps,1] <- rnorm(nsamps, mu_B, Sigma_B)
+samps[1:nsamps,2] <- "marginal"
+for (i in 1:3) {
+  a <- rmvnorm(1, mu_A, Sigma_A)
+  samps[(i*nsamps + 1):((i + 1) * nsamps), 1] <- rnorm(nsamps,
+                                                       mu_b + tmp_b %*% t(a),
+                                                       Sigma_b)
+  samps[(i*nsamps + 1):((i + 1) * nsamps), 2] <- paste0(# "cond", 
+                                                        round(a, digits = 2), 
+                                                        collapse = "-")
+}
+colnames(samps) <- c("x", "dist")
+ggplot(samps, aes(x = x)) +
+  geom_density() +
+  facet_wrap(~ dist)
+
+# c and d
+samps  <- as.data.frame(matrix(data = NA, nrow = 4 * nsamps, ncol = 3))
+samps[1:nsamps,1:2] <- rmvnorm(nsamps, mu_A, Sigma_A)
+samps[1:nsamps,3]   <- "marginal"
+for (i in 1:3) {
+  b <- rnorm(1, mu_B, Sigma_B)
+  samps[(i*nsamps + 1):((i + 1) * nsamps), 1:2] <- rmvnorm(nsamps,
+                                                           mu_a + tmp_a * b,
+                                                           Sigma_d)
+  samps[(i*nsamps + 1):((i + 1) * nsamps), 3] <- b
+}
+colnames(samps) <- c("x", "y", "dist")
+ggplot(samps, aes(x = x, y = y)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(~ dist)
+```
+</div>

@@ -1,0 +1,54 @@
+```{exercise, name = "Gamma intuition 1"}
+The gamma distribution is a continuous distribution with by two parameters, $\alpha$ and $\beta$, both greater than 0. These parameters afford the distribution a broad range of shapes, leading to it being commonly referred to as a *family of distributions*. Given its support over the positive real numbers, it is well suited for modeling a diverse range of positive-valued phenomena.
+
+a) The exponential distribution is actually just a particular form of the gamma distribution. What are the values of $\alpha$ and $\beta$?
+b) Copy the code from our beta distribution Shiny app and modify it to simulate the gamma distribution. Then get it to show the exponential.
+```
+
+<div class="fold">
+```{solution, echo = togs}
+a. Let's start by taking a look at the pdfs of the two distributions side by side:
+  $$\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x} = \lambda e^{-\lambda x}$$
+  The $x^{\alpha - 1}$ term is not found anywhere in the pdf of the exponential so we need to eliminate it by setting $\alpha = 1$. This also makes the fraction evaluate to $\frac{\beta^1}{\Gamma(1)} = \beta$, which leaves us with $$\beta \cdot e^{-\beta x}$$
+  Now we can see that $\beta = \lambda$ and $\alpha = 1$.
+  
+b.
+```
+```{r, echo = tog_ex, eval=FALSE}
+# Install and load necessary packages
+install.packages(c("shiny", "ggplot2"))
+library(shiny)
+library(ggplot2)
+
+# The Shiny App
+ui <- fluidPage(
+  titlePanel("Gamma Distribution Viewer"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("shape", "Shape (α):", min = 0.1, max = 10, value = 2, step = 0.1),
+      sliderInput("scale", "Scale (β):", min = 0.1, max = 10, value = 2, step = 0.1)
+    ),
+    
+    mainPanel(
+      plotOutput("gammaPlot")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$gammaPlot <- renderPlot({
+    x <- seq(0, 25, by = 0.1)
+    y <- dgamma(x, shape = input$shape, scale = input$scale)
+    
+    ggplot(data.frame(x = x, y = y), aes(x = x, y = y)) +
+      geom_line() +
+      labs(x = "Value", y = "Density") +
+      theme_minimal()
+  })
+}
+
+shinyApp(ui = ui, server = server)
+
+```
+</div>

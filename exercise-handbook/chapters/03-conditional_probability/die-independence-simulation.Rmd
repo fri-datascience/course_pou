@@ -1,0 +1,26 @@
+```{exercise}
+<span style="color:blue">R: Consider tossing a fair die. Let $A = \{2,4,6\}$ 
+  and $B = \{1,2,3,4\}$. Then $P(A) = \frac{1}{2}$, $P(B) = \frac{2}{3}$ and
+$P(AB) = \frac{1}{3}$. Since $P(AB) = P(A)P(B)$, the events $A$ and $B$ are
+independent. Simulate draws from the sample space and verify that the
+proportions are the same. Then find two events $C$ and $D$ that are not
+independent and repeat the simulation.</span>
+```
+
+<div class="fold">
+```{r, echo = togs, eval = togs}
+set.seed(1)
+nsamps <- 10000
+tosses <- sample(1:6, nsamps, replace = TRUE)
+PA <- sum(tosses %in% c(2,4,6)) / nsamps
+PB <- sum(tosses %in% c(1,2,3,4)) / nsamps
+PA * PB
+sum(tosses %in% c(2,4)) / nsamps
+
+# Let C = {1,2} and D = {2,3}
+PC <- sum(tosses %in% c(1,2)) / nsamps
+PD <- sum(tosses %in% c(2,3)) / nsamps
+PC * PD
+sum(tosses %in% c(2)) / nsamps
+```
+</div>

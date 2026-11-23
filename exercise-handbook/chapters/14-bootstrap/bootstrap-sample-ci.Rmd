@@ -1,0 +1,51 @@
+```{exercise}
+
+<span style="color:blue">
+  You are given a sample of independent observations from a process of interest:
+  
+  | Index | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   |
+  | :-- | --: | --:	| --:	| --: | --: | --: | --: | --: |
+  | X   | 7   | 2   | 4   | 6   | 4   | 5   | 9   | 10  |
+  
+</span>
+
+
+a. <span style="color:blue">Compute the plug-in estimate of mean and 95% symmetric CI based on asymptotic normality. Use the plug-in estimate of SE.</span>
+
+b. <span style="color:blue">Same as (a), but use the unbiased estimate of SE.</span>
+
+c. <span style="color:blue">Apply nonparametric bootstrap with 1000 bootstrap replications and estimate the 95% CI for the mean with percentile-based CI.</span>
+
+```
+<div class = "fold">
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+# a
+x <- c(7, 2, 4, 6, 4, 5, 9, 10)
+n <- length(x)
+mu <- mean(x)
+
+SE <- sqrt(mean((x - mu)^2)) / sqrt(n)
+SE
+z <- qnorm(1 - 0.05 / 2)
+c(mu - z * SE, mu + z * SE)
+
+# b
+SE <- sd(x) / sqrt(n)
+SE
+c(mu - z * SE, mu + z * SE)
+
+# c
+set.seed(0)
+
+m  <- 1000
+T_mean <- function(x) {mean(x)}
+
+est_boot <- array(NA, m)
+for (i in 1:m) {
+  x_boot <- x[sample(1:n, n, rep = T)]
+  est_boot[i] <- T_mean(x_boot)
+}
+
+quantile(est_boot, p = c(0.025, 0.975))
+```
+</div> 

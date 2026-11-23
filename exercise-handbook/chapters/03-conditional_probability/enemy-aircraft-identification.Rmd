@@ -1,0 +1,27 @@
+```{exercise}
+A military officer is in charge of identifying enemy aircraft and shooting them 
+down. He is able to positively identify an enemy airplane 95% of the time 
+and positively identify a friendly airplane 90% of the time. Furthermore, 99% 
+  of the airplanes are friendly. When the officer identifies an airplane as an 
+enemy airplane, what is the probability that it is not and they will shoot at 
+a friendly airplane?
+
+```
+
+
+<div class="fold">
+```{solution, echo = togs}
+Let $E = 0$ denote that the observed plane is friendly and $E=1$ that it
+is an enemy. Let $I = 0$ denote that the officer identified it as friendly and
+$I = 1$ as enemy. Then
+
+\begin{align}
+  P(E = 0 | I = 1) &= \frac{P(I = 1 | E = 0)P(E = 0)}{P(I = 1)} \\ 
+                   &= \frac{P(I = 1 | E = 0)P(E = 0)}{P(I = 1 | E = 0)P(E = 0) + 
+                       P(I = 1 | E = 1)P(E = 1)} \\
+                   &= \frac{0.1 \times 0.99}{0.1 \times 0.99 + 
+                      0.95  \times 0.01} \\
+                   &= 0.91.
+\end{align}
+```
+</div>

@@ -1,0 +1,34 @@
+```{exercise, label = geovar}
+Find the variance of the geometric distribution.
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+Let $X \sim \text{Geometric}(p)$. The MGF of the geometric distribution is
+\begin{align}
+  M_X(t) &= E[e^{tX}] \\
+         &= \sum_{k=0}^\infty p(1 - p)^k e^{tk} \\
+         &= p \sum_{k=0}^\infty ((1 - p)e^t)^k.
+\end{align}
+Let us assume that $(1 - p)e^t < 1$. Then, by using the geometric series we get
+\begin{align}
+  M_X(t) &= \frac{p}{1 - e^t + pe^t}.
+\end{align}
+The first derivative of the above expression is
+\begin{align}
+  \frac{d}{dt}M_X(t) &= \frac{-p(-e^t + pe^t)}{(1 - e^t + pe^t)^2},
+\end{align}
+and evaluating at $t = 0$, we get $\frac{1 - p}{p}$, which we already recognize as the expected value of the geometric distribution.
+The second derivative is
+\begin{align}
+  \frac{d^2}{dt^2}M_X(t) &= \frac{(p-1)pe^t((p-1)e^t - 1)}{((p - 1)e^t + 1)^3},
+\end{align}
+and evaluating at $t = 0$, we get $\frac{(p - 1)(p - 2)}{p^2}$. Combining we get the variance
+\begin{align}
+  Var(X) &= \frac{(p - 1)(p - 2)}{p^2} - \frac{(1 - p)^2}{p^2} \\
+         &= \frac{(p-1)(p-2) - (1-p)^2}{p^2} \\
+         &= \frac{1 - p}{p^2}.
+\end{align}
+```
+</div>

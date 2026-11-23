@@ -1,0 +1,31 @@
+```{exercise, name = "Binomial test"}
+We assume $y_i \in \{0,1\}$, $i = 1,...,n$ and $y_i | \theta = 0.5 \sim i.i.d.$ Bernoulli$(\theta)$. The test statistic is $X = \sum_{i=1}^n$ and the rejection region R is defined as the region where the probability of obtaining such or more extreme $X$ given $\theta = 0.5$ is less than 0.05.
+
+
+a. Derive and plot the power function of the test for $n=100$.
+b. What is the significance level of this test if $H0: \theta = 0.5$? At which values of X will we reject the null hypothesis?
+
+
+```
+<div class="fold">
+
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+# a
+# First we need the rejection region, so we need to find X_min and X_max
+n <- 100
+qbinom(0.025, n, 0.5)
+qbinom(0.975, n, 0.5)
+pbinom(40, n, 0.5)
+pbinom(60, n, 0.5)
+X_min <- 39
+X_max <- 60
+thetas <- seq(0, 1, by = 0.01)
+beta_t <- 1 - pbinom(X_max, size = n, prob = thetas) + pbinom(X_min, size = n, prob = thetas)
+plot(beta_t)
+
+# b
+# The significance level is
+beta_t[51]
+# We will reject the null hypothesis at X values below X_min and above X_max.
+```
+</div>

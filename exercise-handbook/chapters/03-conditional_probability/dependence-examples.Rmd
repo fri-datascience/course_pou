@@ -1,0 +1,28 @@
+```{exercise}
+Describe:
+  
+a. A real-world example of two events $A$ and $B$ that are dependent but
+become conditionally independent if conditioned on a third event $C$.
+
+b. A real-world example of two events $A$ and $B$ that are independent, but
+become dependent if conditioned on some third event $C$.
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. Let $A$ be the height of a person and let $B$ be the person's knowledge
+of the Dutch language. These events are dependent since the Dutch are known
+to be taller than average. However if $C$ is the nationality of the person,
+then $A$ and $B$ are independent given $C$.
+
+b. Let $A$ be the event that Mary passes the exam and let $B$ be the event
+that John passes the exam. These events are independent. However, if the
+event $C$ is that Mary and John studied together, then $A$ and $B$ are
+conditionally dependent given $C$.
+
+
+```
+</div>

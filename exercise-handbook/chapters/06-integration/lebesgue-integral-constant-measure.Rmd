@@ -1,0 +1,15 @@
+```{exercise, name = "borrowed from Jagannathan"}
+Let $c \in \mathbb{R}$ be fixed and ($\mathbb{R}$, $\mathcal{B}(\mathbb{R})$) a measurable space. If for any Borel set $A$, $\delta_c (A) = 1$ if $c \in A$, and $\delta_c (A) = 0$ otherwise, then $\delta_c$ is called a _Dirac measure_. Let $g$ be a non-negative, measurable function. Show that $\int g d \delta_c = g(c)$.
+```
+
+<div class="fold">
+```{solution, echo = togs}
+\begin{align}
+  \int g d \delta_c &= \sup_{q \in S(g)} \int q d \delta_c \\
+                    &= \sup_{q \in S(g)} \sum_{i = 1}^n a_i \delta_c(A_i) \\
+                    &= \sup_{q \in S(g)} \sum_{i = 1}^n a_i \text{I}_{A_i}(c) \\
+                    &= \sup_{q \in S(g)} q(c) \\
+                    &= g(c)
+\end{align}
+```
+</div>

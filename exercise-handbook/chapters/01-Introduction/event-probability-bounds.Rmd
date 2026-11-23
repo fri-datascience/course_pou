@@ -1,0 +1,97 @@
+```{exercise}
+Let $A$ and $B$ be events with probabilities $P(A) = \frac{2}{3}$ and
+$P(B) = \frac{1}{2}$.
+
+a. Show that $\frac{1}{6} \leq P(A\cap B) \leq \frac{1}{2}$,
+and give examples to show that both extremes are possible.
+b. Find corresponding bounds for $P(A\cup B)$.
+c. <span style="color:blue"> R: Draw samples from the examples and show the probability bounds of 
+$P(A \cap B)$ </span>.
+
+```
+
+::: fold
+```{solution, echo = togs}
+
+- From the properties of probability we have
+
+\begin{equation}
+  P(A \cup B) = P(A) + P(B) - P(A \cap B) \leq 1.
+\end{equation}
+  
+From this follows
+
+\begin{align}
+  P(A \cap B) &\geq P(A) + P(B) -  1 \\
+              &= \frac{2}{3} + \frac{1}{2} - 1 \\
+              &= \frac{1}{6},
+\end{align}
+
+which is the lower bound for the intersection. Conversely, we have
+
+\begin{equation}
+  P(A \cup B) = P(A) + P(B) - P(A \cap B) \geq P(A).
+\end{equation}
+
+From this follows
+
+\begin{align}
+  P(A \cap B) &\leq P(B) \\
+              &= \frac{1}{2},
+\end{align}
+  
+which is the upper bound for the intersection.
+
+For an example take a fair die. To achieve the lower bound let $A = \{3,4,5,6\}$
+and $B = \{1,2,3\}$, then their intersection is $A \cap B = \{3\}$. To
+achieve the upper bound take $A = \{1,2,3,4\}$ and $B = \{1,2,3\} $.
+
+
+- For the bounds of the union we will use the results from the first part. 
+Again from the properties of probability we have
+
+\begin{align}
+  P(A \cup B) &= P(A) + P(B) - P(A \cap B) \\
+              &\geq P(A) + P(B) - \frac{1}{2} \\
+              &= \frac{2}{3}.
+\end{align}
+  
+Conversely
+
+\begin{align}
+  P(A \cup B) &= P(A) + P(B) - P(A \cap B) \\
+              &\leq P(A) + P(B) - \frac{1}{6} \\
+              &= 1.
+\end{align}
+  
+Therefore $\frac{2}{3} \leq P(A \cup B) \leq 1$.
+
+
+- We use _sample_ in R:
+
+```
+
+```{r, echo = togs, eval = togs}
+set.seed(1)
+n      <- 10000
+samps  <- sample(1:6, n, replace = TRUE)
+
+# lower bound
+lb     <- vector(mode = "logical", length = n)
+A      <- c(1,2,3)
+B      <- c(3,4,5,6)
+for (i in 1:n) {
+  lb[i] <- samps[i] %in% A & samps[i] %in% B
+}
+sum(lb) / n
+
+# upper bound
+ub     <- vector(mode = "logical", length = n)
+A      <- c(1,2,3)
+B      <- c(1,2,3,4)
+for (i in 1:n) {
+  ub[i] <- samps[i] %in% A & samps[i] %in% B
+}
+sum(ub) / n
+```
+:::

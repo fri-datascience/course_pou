@@ -1,0 +1,24 @@
+# Convergence of random variables {#crv}
+
+This chapter deals with convergence of random variables.
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- Finding convergences of random variables.
+
+
+```{r, child = "chapters/11-convergence_of_random_variables/bernoulli-mean-convergence.Rmd"}
+```
+
+```{r, child = "chapters/11-convergence_of_random_variables/interval-indicator-sequence.Rmd"}
+```
+
+
+```{r, child = "chapters/11-convergence_of_random_variables/normal-convergence-in-distribution.Rmd"}
+```
+
+
+```{r, child = "chapters/11-convergence_of_random_variables/weak-law-of-large-numbers.Rmd"}
+```

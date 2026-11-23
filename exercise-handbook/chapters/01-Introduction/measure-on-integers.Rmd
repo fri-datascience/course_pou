@@ -1,0 +1,48 @@
+```{exercise}
+
+
+a. Define a probability measure on $(\Omega = \mathbb{Z}, 2^{\mathbb{Z}})$.
+
+b. Define a probability measure such that $P(\omega) > 0, \forall \omega \in \Omega$.
+
+c. <span style="color:blue">R: Implement a random generator that will generate 
+samples with the relative frequency that corresponds to your probability
+measure. Compare relative frequencies with theoretical probability 
+measure </span>.
+
+```
+
+::: fold
+```{solution, echo = togs}
+
+
+a. $P(0) = 1, P(\omega) = 0, \forall \omega \neq 0$.
+b. $P(\{k\}) = \sum_{k = -\infty}^{\infty} \frac{p(1 - p)^{|k|}}{2^{1 - 1_0(k)}}$,
+  where $1_0(k)$ is the indicator function, which equals to one if $k$ is 0, and
+  equals to zero in every other case.
+
+  
+```
+
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+n          <- 1000
+geom_samps <- rgeom(n, prob = 0.5)
+sign_samps <- sample(c(FALSE, TRUE), size = n, replace = TRUE)
+geom_samps[sign_samps] <- -geom_samps[sign_samps]
+my_pmf <- function (k, p) {
+  indic         <- rep(1, length(k))
+  indic[k == 0] <- 0
+  return ((p * (1 - p)^(abs(k))) / 2^indic)
+}
+geom_samps <- data.frame(x = geom_samps) %>%
+  count(x) %>%
+  mutate(n = n / 1000, type = "empirical_frequencies") %>%
+  bind_rows(data.frame(x = -10:10, n = my_pmf(-10:10, 0.5), type = "theoretical_measure"))
+
+geom_plot <- ggplot(data = geom_samps, aes(x = x, y = n, fill = type)) +
+  geom_bar(stat="identity", position = "dodge")
+plot(geom_plot)
+
+
+```
+:::

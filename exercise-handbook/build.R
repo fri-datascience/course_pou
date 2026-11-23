@@ -37,9 +37,11 @@ if (!channel %in% c("latest", "dev")) {
 
 output_options <- list()
 if (channel == "dev") {
+  # This replaces `includes` from _output.yml, so repeat its after_body here.
   output_options$includes <- list(
     in_header   = "_dev/head.html",
-    before_body = "_dev/banner.html"
+    before_body = "_dev/banner.html",
+    after_body  = "_includes/fold.html"
   )
 }
 

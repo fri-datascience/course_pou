@@ -1,0 +1,28 @@
+```{exercise, name = "Difference between algebra and sigma algebra"}
+
+Let $\Omega = \mathbb{N}$ and $\mathcal{A} = \{A \subseteq \mathbb{N}: 
+A \text{ is finite or } A^c \text{ is finite.} \}$. Show that 
+$\mathcal{A}$ is an algebra but not a sigma algebra.
+
+
+```
+
+::: fold
+```{solution, echo = togs}
+
+
+- $\emptyset$ is finite so $\emptyset \in \mathcal{A}$.
+
+- Let $A \in \mathcal{A}$ and $B \in \mathcal{A}$. If both are finite, then
+their union is also finite and therefore in $\mathcal{A}$. Let at least 
+one of them not
+be finite. Then their union is not finite. But $(A \cup B)^c = A^c \cap B^c$.
+And since at least one is infinite, then its complement is finite and the
+intersection is too. So finite unions are in $\mathcal{A}$.
+
+- Let us look at numbers $2n$. For any $n$, $2n \in \mathcal{A}$ 
+as it is finite. But $\bigcup_{k = 1}^{\infty} 2n \notin \mathcal{A}$.
+
+
+```
+:::

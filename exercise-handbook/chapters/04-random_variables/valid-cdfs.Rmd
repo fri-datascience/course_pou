@@ -1,0 +1,105 @@
+```{exercise}
+Which of the functions below are valid CDFs? Find their respective densities.
+<span style="color:blue">R: Plot the three functions.</span>
+  
+a. 
+\begin{equation}
+  F(x) = \begin{cases}
+            1 - e^{-x^2} & x \geq 0    \\
+            0 & x < 0.
+          \end{cases}
+\end{equation}
+            
+b. 
+\begin{equation}
+  F(x) = \begin{cases}
+           e^{-\frac{1}{x}} & x > 0    \\
+            0 & x \leq 0.
+          \end{cases}
+\end{equation}
+            
+c. 
+\begin{equation}
+  F(x) = \begin{cases}
+           0 & x \leq 0 \\
+           \frac{1}{3} & 0 < x \leq \frac{1}{2} \\
+           1 & x > \frac{1}{2}.
+         \end{cases}
+\end{equation}
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. Yes.
+  - First, let us check the limits. 
+    $\lim_{x \rightarrow -\infty} (0) = 0$.
+    $\lim_{x \rightarrow \infty} (1 - e^{-x^2}) = 1 - 
+    \lim_{x \rightarrow \infty} e^{-x^2} = 1 - 0 = 1$.
+  - Second, let us check whether the function is increasing. Let $x > y \geq 0$.
+    Then $1 - e^{-x^2} \geq 1 - e^{-y^2}$.
+  - We only have to check right continuity for the point zero. $F(0) = 0$ and
+    $\lim_{\epsilon \downarrow 0}F (0 + \epsilon) = 
+      \lim_{\epsilon \downarrow 0} 1 - e^{-\epsilon^2} =
+       1 - \lim_{\epsilon \downarrow 0} e^{-\epsilon^2} =
+      1 - 1 = 0$.
+  - We get the density by differentiating the CDF. 
+  $p(x) = \frac{d}{dx} 1 - e^{-x^2} = 2xe^{-x^2}.$ Students are encouraged to
+  check that this is a proper PDF.
+  
+
+b. Yes.
+  - First, let us check the limits. 
+    $\lim_{x \rightarrow -\infty} (0) = 0 and 
+    $\lim_{x \rightarrow \infty} (e^{-\frac{1}{x}}) = 1$.
+  - Second, let us check whether the function is increasing. Let $x > y \geq 0$.
+    Then $e^{-\frac{1}{x}} \geq e^{-\frac{1}{y}}$.
+  - We only have to check right continuity for the point zero. $F(0) = 0$ and
+    $\lim_{\epsilon \downarrow 0}F (0 + \epsilon) = 
+      \lim_{\epsilon \downarrow 0} e^{-\frac{1}{\epsilon}} = 0$.
+  - We get the density by differentiating the CDF. 
+  $p(x) = \frac{d}{dx} e^{-\frac{1}{x}} = \frac{1}{x^2}e^{-\frac{1}{x}}.$ 
+      Students are encouraged to
+  check that this is a proper PDF.
+
+c. No. The function is not right continuous as $F(\frac{1}{2}) = \frac{1}{3}$,
+but $\lim_{\epsilon \downarrow 0} F(\frac{1}{2} + \epsilon) = 1$.
+
+```
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+f1 <- function (x) {
+  tmp        <- 1 - exp(-x^2)
+  tmp[x < 0] <- 0
+  return(tmp)
+}
+
+f2 <- function (x) {
+  tmp         <- exp(-(1 / x))
+  tmp[x <= 0] <- 0
+  return(tmp)
+}
+
+f3 <- function (x) {
+  tmp           <- x
+  tmp[x == x]   <- 1
+  tmp[x <= 0.5] <- 1/3
+  tmp[x <= 0]   <- 0
+  return(tmp)
+}
+
+cdf_data <- tibble(x  = seq(-1, 20, by = 0.001),
+                   f1 = f1(x),
+                   f2 = f2(x),
+                   f3 = f3(x)) %>%
+  melt(id.vars = "x")
+
+
+cdf_plot <- ggplot(data = cdf_data, aes(x = x, y = value, color = variable)) +
+  geom_hline(yintercept = 1) +
+  geom_line()
+plot(cdf_plot)
+```
+</div>

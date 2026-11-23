@@ -1,0 +1,63 @@
+```{exercise, name = "Gamma random variable", label = gammapdf}
+A random variable with PDF 
+\begin{equation}
+ p(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1}e^{-\beta x}
+\end{equation}
+is a Gamma random variable with support on the positive numbers and 
+parameters shape $\alpha > 0$ and rate 
+$\beta > 0$.
+We write
+\begin{equation}
+  X | \alpha, \beta \sim \text{Gamma}(\alpha, \beta)
+\end{equation}
+and its CDF is
+\begin{equation}
+  \frac{\gamma(\alpha, \beta x)}{\Gamma(\alpha)},
+\end{equation}
+where $\gamma(s, x) = \int_0^x t^{s-1} e^{-t} dt$.
+It is usually used in modeling positive phenomena (for example insurance 
+claims and rainfalls). 
+
+a. Let $X \sim \text{Gamma}(1, \beta)$. Find the PDF of $X$. 
+Do you recognize this PDF?
+
+b. Let $k = \alpha$ and $\theta = \frac{1}{\beta}$. Find the PDF
+of $X | k, \theta \sim \text{Gamma}(k, \theta)$. Random variables can be reparameterized, and sometimes a reparameterized
+distribution is more suitable for certain calculations. The first
+parameterization is for example usually used in Bayesian statistics, while this
+parameterization is more common in econometrics and some other applied fields.
+Note that you also need to pay attention to the parameters in statistical
+software, so diligently read the help files when using functions like
+_rgamma_ to see how the function is parameterized.
+
+c. <span style="color:blue">R: Plot gamma CDF for random variables
+with shape and rate parameters (1,1), (10,1), (1,10). </span>
+
+```
+
+<div class="fold">
+```{solution, echo = togs2}
+
+
+a. 
+\begin{align}
+  p(x) &= \frac{\beta^1}{\Gamma(1)} x^{1 - 1}e^{-\beta x} \\
+       &= \beta e^{-\beta x}
+\end{align}
+This is the PDF of the exponential distribution with parameter $\beta$.
+
+b.
+\begin{align}
+  p(x) &= \frac{1}{\Gamma(k)\theta^k} x^{k - 1}e^{-\frac{x}{\theta}}.
+\end{align}
+
+```
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
+set.seed(1)
+ggplot(data = data.frame(x = seq(0, 25, by = 0.01)), aes(x = x)) +
+  stat_function(fun = pgamma, args = list(shape = 1, rate = 1), aes(color = "Gamma(1,1)")) +
+  stat_function(fun = pgamma, args = list(shape = 10, rate = 1), aes(color = "Gamma(10,1)")) +
+  stat_function(fun = pgamma, args = list(shape = 1, rate = 10), aes(color = "Gamma(1,10)"))
+
+```
+</div>

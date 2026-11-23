@@ -1,0 +1,68 @@
+```{exercise, name = "Binomial random variable", label = bincdf}
+Let $X_k$, $k = 1,...,n$, be random variables with the Bernoulli measure as the 
+PMF. Let $X = \sum_{k=1}^n X_k$.
+
+a. We call $X_k$ a Bernoulli random variable with parameter $p \in (0,1)$. 
+Find the CDF of $X_k$.
+
+b. Find PMF of $X$. 
+This is a Binomial random variable with support in $\{0,1,2,...,n\}$ and
+parameters $p \in (0,1)$ and $n \in \mathbb{N}_0$. We denote
+\begin{equation}
+  X | n,p \sim \text{binomial}(n,p).
+\end{equation}
+
+c. Find CDF of $X$. 
+
+d. <span style="color:blue">R: Simulate from the binomial distribution
+with $n = 10$ and $p = 0.5$, and from $n$ Bernoulli distributions with
+$p = 0.5$. Visually compare the sum of Bernoullis and the binomial. Hint:
+  there is no standard function like _rpois_ for a Bernoulli random
+variable. Check exercise \@ref(exr:binomialpmf) to find out how to sample 
+from a Bernoulli
+distribution.</span>
+
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. There are two outcomes -- zero and one. Zero happens with probability
+$1 - p$. Therefore
+\begin{equation}
+  F(k) = \begin{cases}
+            0 & k < 0 \\
+            1 - p & 0 \leq k < 1 \\
+            1 & k \geq 1.
+          \end{cases}
+\end{equation}
+            
+b. For the probability of $X$ to be equal to some $k \leq n$, exactly $k$
+  Bernoulli variables need to be one, and the others zero. So $p^k(1-p)^{n-k}$.
+There are $\binom{n}{k}$ such possible arrangements. Therefore
+\begin{align}
+  P(X = k) = \binom{n}{k} p^k (1 - p)^{n-k}.
+\end{align}
+  
+c. 
+\begin{equation}
+  F(k) = \sum_{i = 0}^{\lfloor k \rfloor} \binom{n}{i} p^i (1 - p)^{n - i}
+\end{equation}      
+            
+```
+```{r, echo = togs, message = FALSE, warning=FALSE, eval = togs}
+set.seed(1)
+nsamps        <- 10000
+binom_samp    <- rbinom(nsamps, size = 10, prob = 0.5)
+bernoulli_mat <- matrix(data = NA, nrow = nsamps, ncol = 10)
+for (i in 1:nsamps) {
+  bernoulli_mat[i, ] <- rbinom(10, size = 1, prob = 0.5)
+}
+bern_samp <- apply(bernoulli_mat, 1, sum)
+b_data    <- tibble(x    = c(binom_samp, bern_samp), 
+                    type = c(rep("binomial", 10000), rep("Bernoulli_sum", 10000)))
+b_plot    <- ggplot(data = b_data, aes(x = x, fill = type)) +
+  geom_bar(position = "dodge")
+plot(b_plot)
+```
+</div>

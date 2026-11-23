@@ -1,0 +1,99 @@
+```{exercise, name = "Poisson-gamma model"}
+Let us assume a Poisson likelihood and a gamma prior on the Poisson mean parameter (this is a [conjugate prior](https://en.wikipedia.org/wiki/Conjugate_prior)). 
+
+
+a. Derive posterior
+b. Below we have some data, which represents number of goals in a football match. Choose sensible prior for this data (draw the gamma density if necessary), justify it. Compute the posterior. <span style="color:blue">Compute an interval such that the probability that the true mean is in there is 95%. What is the probability that the true mean is greater than 2.5?</span>
+c. Back to theory: Compute prior predictive and posterior predictive. Discuss why the posterior predictive is overdispersed and not Poisson?
+d. <span style="color:blue">Draw a histogram of the prior predictive and posterior predictive for the data from (b). Discuss.</span>
+e. <span style="color:blue">Generate 10 and 100 random samples from a Poisson distribution and compare the posteriors with a flat prior, and a prior concentrated away from the truth.</span>
+
+
+
+```
+```{r, echo = T, message = FALSE, eval = F, warning=FALSE}
+x <- c(3, 2, 1, 1, 5, 4, 0, 0, 4, 3)
+
+```
+<div class="fold">
+```{solution, echo = togs}
+
+
+a. 
+\begin{align*}
+  p(\lambda | X) &= \frac{p(X | \lambda) p(\lambda)}{\int_0^\infty p(X | \lambda) p(\lambda) d\lambda} \\
+  &\propto p(X | \lambda) p(\lambda) \\
+  &= \Big(\prod_{i=1}^n \frac{1}{x_i!} \lambda^{x_i} e^{-\lambda}\Big) \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha - 1} e^{-\beta \lambda} \\
+  &\propto \lambda^{\sum_{i=1}^n x_i + \alpha - 1} e^{- \lambda (n + \beta)} \\
+\end{align*}
+We recognize this as the shape of a gamma distribution, therefore
+\begin{align*}
+  \lambda | X \sim \text{gamma}(\alpha + \sum_{i=1}^n x_i, \beta + n)
+\end{align*}
+
+c. For the prior predictive, we have
+\begin{align*}
+  p(x^*) &= \int_0^\infty p(x^*, \lambda) d\lambda \\
+  &= \int_0^\infty p(x^* | \lambda) p(\lambda) d\lambda \\
+  &= \int_0^\infty \frac{1}{x^*!} \lambda^{x^*} e^{-\lambda} \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha - 1} e^{-\beta \lambda} d\lambda \\
+  &= \frac{\beta^\alpha}{\Gamma(x^* + 1)\Gamma(\alpha)} \int_0^\infty \lambda^{x^* + \alpha - 1} e^{-\lambda (1 + \beta)} d\lambda \\
+  &= \frac{\beta^\alpha}{\Gamma(x^* + 1)\Gamma(\alpha)}  \frac{\Gamma(x^* + \alpha)}{(1 + \beta)^{x^* + \alpha}} \int_0^\infty \frac{(1 + \beta)^{x^* + \alpha}}{\Gamma(x^* + \alpha)} \lambda^{x^* + \alpha - 1} e^{-\lambda (1 + \beta)} d\lambda \\
+  &= \frac{\beta^\alpha}{\Gamma(x^* + 1)\Gamma(\alpha)}  \frac{\Gamma(x^* + \alpha)}{(1 + \beta)^{x^* + \alpha}} \\
+  &= \frac{\Gamma(x^* + \alpha)}{\Gamma(x^* + 1)\Gamma(\alpha)} (\frac{\beta}{1 + \beta})^\alpha (\frac{1}{1 + \beta})^{x^*},
+\end{align*}
+which we recognize as the negative binomial distribution with $r = \alpha$ and $p = \frac{1}{\beta + 1}$. For the posterior predictive, the calculation is the same, only now the parameters are $r = \alpha + \sum_{i=1}^n x_i$ and $p = \frac{1}{\beta + n + 1}$.
+There are two sources of uncertainty in the predictive distribution. First is the uncertainty about the population. Second is the variability in sampling from the population. When $n$ is large, the latter is going to be very small. But when $n$ is small, the latter is going to be higher, resulting in an overdispersed predictive distribution.
+```
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+x <- c(3, 2, 1, 1, 5, 4, 0, 0, 4, 3)
+
+# b
+# quick visual check of the prior
+ggplot(data = data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dgamma, args = list(shape = 1, rate = 1))
+palpha <- 1
+pbeta  <- 1
+alpha_post <- palpha + sum(x)
+beta_post  <- pbeta + length(x)
+ggplot(data = data.frame(x = seq(0, 5, by = 0.01)), aes(x = x)) +
+  stat_function(fun = dgamma, args = list(shape = alpha_post, rate = beta_post))
+
+
+# probability of being higher than 2.5
+1 - pgamma(2.5, alpha_post, beta_post)
+
+# interval
+qgamma(c(0.025, 0.975), alpha_post, beta_post)
+
+
+# d
+prior_pred <- rnbinom(1000, size = palpha, prob = 1 - 1 / (pbeta + 1))
+post_pred  <- rnbinom(1000, size = palpha + sum(x), prob = 1 - 1 / (pbeta + 10 + 1))
+df         <- data.frame(prior = prior_pred, posterior = post_pred)
+df         <- gather(df)
+ggplot(df, aes(x = value, fill = key)) +
+  geom_histogram(position = "dodge")
+
+# e
+set.seed(1)
+x1 <- rpois(10, 2.5)
+x2 <- rpois(100, 2.5)
+alpha_flat <- 1
+beta_flat  <- 0.1
+alpha_conc <- 50
+beta_conc  <- 10
+n          <- 10000
+df_flat    <- data.frame(x1 = rgamma(n, alpha_flat + sum(x1), beta_flat + 10), 
+                         x2 = rgamma(n, alpha_flat + sum(x2), beta_flat + 100), 
+                         type = "flat")
+df_flat    <- tidyr::gather(df_flat, key = "key", value = "value", - type)
+df_conc    <- data.frame(x1 = rgamma(n, alpha_conc + sum(x1), beta_conc + 10), 
+                         x2 = rgamma(n, alpha_conc + sum(x2), beta_conc + 100), 
+                         type = "conc")
+df_conc    <- tidyr::gather(df_conc, key = "key", value = "value", - type)
+df         <- rbind(df_flat, df_conc)
+ggplot(data = df, aes(x = value, color = type)) +
+  facet_wrap(~ key) +
+  geom_density()
+```
+</div>

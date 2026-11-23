@@ -1,0 +1,24 @@
+```{exercise}
+From Jagannathan. Let $X_i$, $i = 1,...n$, be a random sample of size $n$ of a random variable $X$. Let $X$ have mean $\mu$ and variance $\sigma^2$. Find the size of the sample $n$ required so that the probability that the difference between sample mean and true mean is smaller than $\frac{\sigma}{10}$ is at least 0.95. Hint: Derive a version of the Chebyshev inequality for $P(|X - \mu| \geq a)$ using Markov inequality.
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+Let $\bar{X} = \sum_{i=1}^n X_i$. Then $E[\bar{X}] = \mu$ and $Var[\bar{X}] = \frac{\sigma^2}{n}$. Let us first derive another representation of Chebyshev inequality.
+\begin{align}
+  P(|X - \mu| \geq a) = P(|X - \mu|^2 \geq a^2) \leq \frac{E[|X - \mu|^2]}{a^2} = \frac{Var[X]}{a^2}.
+\end{align}
+Let us use that on our sampling distribution:
+\begin{align}
+  P(|\bar{X} - \mu| \geq \frac{\sigma}{10}) \leq \frac{100 Var[\bar{X}]}{\sigma^2} = \frac{100 Var[X]}{n \sigma^2} = \frac{100}{n}.
+\end{align}
+We are interested in the difference being smaller, therefore
+\begin{align}
+P(|\bar{X} - \mu| < \frac{\sigma}{10}) = 1 - P(|\bar{X} - \mu| \geq \frac{\sigma}{10}) \geq 1 - \frac{100}{n} \geq 0.95.
+\end{align}
+It follows that we need a sample size of $n \geq \frac{100}{0.05} = 2000$.
+
+
+```
+</div>

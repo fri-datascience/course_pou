@@ -1,0 +1,42 @@
+```{exercise, name = "Uniform intuition 1"}
+The need for a randomness is a common problem. A practical solution are so-called random number generators (RNGs). The simplest RNG one would think of is choosing a set of numbers and having the generator return a number at random, where the probability of returning any number from this set is the same. If this set is an interval of real numbers, then we've basically described the continuous uniform distribution.
+
+It has two parameters $a$ and $b$, which define the beginning and end of its support respectively.
+
+a) Let's think about the mean intuitively. Think of the area under the graph as a geometric shape. The expected value or mean of a distribution is the x-axis value of its center of mass. Given parameters $a$ and $b$ what is your intuitive guess of the mean for the uniform distribution?
+b) A special case of the uniform distribution is the **standard uniform distribution** with $a=0$ and $b=1$. Write the pdf $f(x)$ of this particular distribution.
+```
+```{r, fig.width=5, fig.height=3, echo=FALSE, warning=FALSE, message=FALSE}
+# Load required libraries
+library(ggplot2)
+
+# Create data for a uniform distribution
+df <- data.frame(x = c("a", "b"), y = c(1, 1))
+
+# Plot
+p <- ggplot(df, aes(x, y)) +
+  geom_line(aes(group = 1), color = "blue") +
+  geom_point(size = 2) +
+  geom_segment(aes(x = "a", xend = "a", y = 0, yend = 1), linetype = "dotted") +
+  geom_segment(aes(x = "b", xend = "b", y = 0, yend = 1), linetype = "dotted") +
+  labs(x = "Value", y = "Density", title = "Uniform Distribution") +
+  theme_minimal() +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  annotate("text", x = "a", y = 1, label = "1/(b-a)", hjust = 1.2, vjust = 0.5) +  
+  annotate("text", x = "a", y = 0, label = "0", hjust = 1.5, vjust = 0.5)
+
+print(p)
+```
+<div class="fold">
+```{solution, echo = togs}
+a. The center of mass is the center of the square from $a$ to $b$ and from 0 to $\frac{1}{b-a}$. Its value on the x-axis is the midpoint between $a$ and $b$, so $\frac{a+b}{2}$
+b. Inserting the parameter values we get:$$f(x) = 
+\begin{cases} 
+1 & \text{if } 0 \leq x \leq 1 \\
+0 & \text{otherwise}
+\end{cases}
+$$
+Notice how the pdf is just a constant $1$ across all values of $x \in [0,1]$. Here it is important to distinguish between probability and **probability density**. The density may be 1, but the probability is not and while discrete distributions never exceed 1 on the y-axis, continuous distributions can go as high as you like.
+```
+</div>

@@ -1,0 +1,45 @@
+```{exercise, name = "T-test, confidence intervals, and bootstrap"}
+<span style="color:blue">Sample $n=20$ from a standard normal distribution and calculate the p-value using t-test, confidence intervals based on normal distribution, and bootstrap. Repeat this several times and check how many times we rejected the null hypothesis (made a type I error). Hint: For the confidence intervals you can use function *CI* from the *Rmisc* package.</span>
+
+
+```
+<div class="fold">
+
+```{r, echo = togs, message = FALSE, eval = togs, warning=FALSE}
+set.seed(1)
+library(Rmisc)
+nit    <- 1000
+n_boot <- 100
+
+t_logic    <- rep(F, nit)
+boot_logic <- rep(F, nit)
+norm_logic <- rep(F, nit)
+for (i in 1:nit) {
+  x       <- rnorm(20)
+  my_test <- t.test(x)
+  my_CI   <- CI(x)
+  if (my_test$p.value <= 0.05) t_logic[i] <- T
+  boot_tmp <- vector(mode = "numeric", length = n_boot)
+  for (j in 1:n_boot) {
+    tmp_samp    <- sample(x, size = 20, replace = T)
+    boot_tmp[j] <- mean(tmp_samp)
+  }
+  if ((quantile(boot_tmp, 0.025) >= 0) | (quantile(boot_tmp, 0.975) <= 0)) {
+    boot_logic[i] <- T
+  }
+  if ((my_CI[3] >= 0) | (my_CI[1] <= 0)) {
+    norm_logic[i] <- T
+  }
+}
+mean(t_logic)
+sd(t_logic) / sqrt(nit)
+
+mean(boot_logic)
+sd(boot_logic) / sqrt(nit)
+
+mean(norm_logic)
+sd(norm_logic) / sqrt(nit)
+
+
+```
+</div>

@@ -1,0 +1,48 @@
+```{exercise, name = "Lognormal random variable", label = lognpdf}
+A lognormal random variable is a variable whose logarithm is normally
+distributed. In practice, we often encounter skewed data. Usually
+using a log transformation on such data makes it more symmetric and therefore
+more suitable for modeling with the normal distribution (more on why we wish 
+to model data with the normal distribution in the following chapters).
+
+a. Let $X \sim \text{N}(\mu,\sigma)$. Find the PDF of $Y: \log(Y) = X$.
+
+b. <span style="color:blue">R: Sample from the lognormal distribution with
+parameters $\mu = 5$ and $\sigma = 2$. 
+Plot a histogram of the samples. 
+Then log-transform the samples and plot a histogram along with the
+theoretical normal PDF.</span>
+
+
+```
+
+<div class="fold">
+```{solution, echo = togs2}
+
+
+a. 
+\begin{align}
+  p_Y(y) &= p_X(\log(y)) \frac{d}{dy} \log(y) \\
+         &= \frac{1}{\sqrt{2 \pi \sigma^2}} e^{\frac{(\log(y) - \mu)^2}{2 \sigma^2}} \frac{1}{y} \\
+         &= \frac{1}{y \sqrt{2 \pi \sigma^2}} e^{\frac{(\log(y) - \mu)^2}{2 \sigma^2}}.
+\end{align}
+
+
+```
+```{r, echo = togs2, message = FALSE, warning=FALSE, eval = togs2}
+set.seed(1)
+nsamps   <- 10000
+mu       <- 0.5
+sigma    <- 0.4
+ln_samps <- rlnorm(nsamps, mu, sigma)
+ln_plot  <- ggplot(data = data.frame(x = ln_samps), aes(x = x)) +
+  geom_histogram(color = "black")
+plot(ln_plot)
+
+norm_samps <- log(ln_samps)
+n_plot     <- ggplot(data = data.frame(x = norm_samps), aes(x = x)) +
+  geom_histogram(aes(y = ..density..), color = "black") +
+  stat_function(fun = dnorm, args = list(mean = mu, sd = sigma), color = "red")
+plot(n_plot)
+```
+</div>
