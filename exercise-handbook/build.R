@@ -8,8 +8,8 @@
 #   outdir  output directory, relative to the current directory
 #           (default: docs/ next to this script, as in _bookdown.yml)
 #
-# Install dependencies first, from this directory:
-#   Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+# Install dependencies first (from the repository root or this directory):
+#   Rscript -e 'renv::restore()'
 
 # Directory of this script, so the book renders no matter where it is called from.
 file_arg <- grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)
@@ -24,6 +24,12 @@ if (!grepl("^(/|[A-Za-z]:[/\\\\]|~)", outdir)) outdir <- file.path(getwd(), outd
 outdir  <- normalizePath(outdir, mustWork = FALSE)
 
 setwd(book_dir)
+
+# Use the renv project library (renv.lock), unless an .Rprofile already did.
+# CI sets RENV_ACTIVATE_PROJECT=FALSE, and its image has the packages installed.
+if (!"renv" %in% loadedNamespaces() && file.exists("renv/activate.R")) {
+  source("renv/activate.R")
+}
 
 if (!channel %in% c("latest", "dev")) {
   stop("channel must be 'latest' or 'dev', got: ", channel)

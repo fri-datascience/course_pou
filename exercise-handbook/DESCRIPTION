@@ -2,9 +2,9 @@ Package: placeholder
 Type: Book
 Title: Principles of Uncertainty
 Version: 0.0.1
-Description: R packages needed to build the book. This is the single list of
-    dependencies: install locally with remotes::install_deps(), and the CI
-    image (.github/docker/Dockerfile) installs from this file too.
+Description: R packages needed to build the book. renv reads this list
+    (explicit snapshot type) and pins exact versions in renv.lock, which is
+    what local installs (renv::restore()) and the CI image use.
 Imports:
     ade4,
     bookdown,

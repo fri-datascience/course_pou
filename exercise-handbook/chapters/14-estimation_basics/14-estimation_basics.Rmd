@@ -1,0 +1,30 @@
+# Estimation basics {#eb}
+
+This chapter deals with estimation basics.
+
+The students are expected to acquire the following knowledge:
+
+- Biased and unbiased estimators.
+- Consistent estimators.
+- Empirical cumulative distribution function.
+
+
+## ECDF
+```{r, child = "chapters/14-estimation_basics/ecdf-intuition.Rmd"}
+```
+
+
+## Properties of estimators
+```{r, child = "chapters/14-estimation_basics/sample-average-properties.Rmd"}
+```
+
+
+```{r, child = "chapters/14-estimation_basics/consistent-but-biased-estimator.Rmd"}
+```
+
+
+```{r, child = "chapters/14-estimation_basics/median-estimation.Rmd"}
+```
+
+```{r, child = "chapters/14-estimation_basics/matrix-trace-estimation.Rmd"}
+```

@@ -1,0 +1,25 @@
+# Moment-generating functions {#mgf}
+
+This chapter deals with practical applications of moment-generating functions (MGFs).
+
+The students are expected to acquire the following knowledge:
+
+**Theoretical**
+
+- Identifying distributions of sums of independent random variables.
+- Distributions of random sums (compound distributions).
+- Chernoff bounds and their comparison to Chebyshev's inequality.
+- Large deviations, the rate function, and exponential tilting.
+- Ruin probabilities in the Cramér-Lundberg model.
+- Exponential utility and the entropic risk measure.
+
+**R**
+
+- Rare-event estimation with importance sampling.
+
+Throughout, $M_X(t) = E[e^{tX}]$, and $\text{Gamma}(\alpha, \beta)$ has density $\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha - 1} e^{-\beta x}$ for $x > 0$.
+
+## Sums of independent random variables
+
+```{r, child = "chapters/13-moment-generating-functions/exp-gamma-mgf-sum.Rmd"}
+```

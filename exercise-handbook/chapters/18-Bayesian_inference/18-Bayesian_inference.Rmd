@@ -12,11 +12,11 @@ The students are expected to acquire the following knowledge:
 
 
 ## Conjugate priors
-```{r, child = "chapters/17-Bayesian_inference/poisson-gamma-model.Rmd"}
+```{r, child = "chapters/18-Bayesian_inference/poisson-gamma-model.Rmd"}
 ```
 
 
 ## Posterior sampling
 
-```{r, child = "chapters/17-Bayesian_inference/bayesian-logistic-regression.Rmd"}
+```{r, child = "chapters/18-Bayesian_inference/bayesian-logistic-regression.Rmd"}
 ```
