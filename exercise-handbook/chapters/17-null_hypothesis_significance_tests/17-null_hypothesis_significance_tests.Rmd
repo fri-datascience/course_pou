@@ -1,0 +1,25 @@
+
+# Null hypothesis significance testing {#nhst}
+
+This chapter deals with null hypothesis significance testing.
+
+The students are expected to acquire the following knowledge:
+
+- Binomial test.
+- t-test.
+- Chi-squared test.
+
+
+```{r, child = "chapters/17-null_hypothesis_significance_tests/binomial-test.Rmd"}
+```
+
+
+```{r, child = "chapters/17-null_hypothesis_significance_tests/t-test-long-run-guarantees.Rmd"}
+```
+
+```{r, child = "chapters/17-null_hypothesis_significance_tests/t-test-ci-bootstrap.Rmd"}
+```
+
+
+```{r, child = "chapters/17-null_hypothesis_significance_tests/chi-squared-test.Rmd"}
+```

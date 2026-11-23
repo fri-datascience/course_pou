@@ -3,7 +3,6 @@
 .Rhistory
 .Rapp.history
 .RData
-exercise-handbook/renv/*
 *.rds
 
 # Build output and caches
@@ -13,7 +12,7 @@ _bookdown_files
 bookdown-pou_files/
 libs/
 exercise-handbook/bookdown-pou_files/*
-exercise-handbook/renv/*
+exercise-handbook/renv/library/
 
 # Editors and OS
 .vscode

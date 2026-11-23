@@ -1,0 +1,45 @@
+# Distributions intutition
+
+This chapter is intended to help you familiarize yourself with the different 
+probability distributions you will encounter in this course.
+
+You will need to use [Appendix B](#distributions) extensively as a reference for the basic properties of distributions, so keep it close!
+
+
+## Discrete distributions
+
+```{r, child = "chapters/19-distributions_intuition/bernoulli.Rmd"}
+```
+
+```{r, child = "chapters/19-distributions_intuition/binomial.Rmd"}
+```
+
+
+```{r, child = "chapters/19-distributions_intuition/poisson-1.Rmd"}
+```
+
+
+```{r, child = "chapters/19-distributions_intuition/poisson-2.Rmd"}
+```
+
+```{r, child = "chapters/19-distributions_intuition/geometric.Rmd"}
+```
+
+## Continuous distributions 
+
+```{r, child = "chapters/19-distributions_intuition/uniform.Rmd"}
+```
+
+
+```{r, child = "chapters/19-distributions_intuition/normal.Rmd"}
+```
+
+```{r, child = "chapters/19-distributions_intuition/beta.Rmd"}
+```
+
+```{r, child = "chapters/19-distributions_intuition/exponential.Rmd"}
+```
+
+```{r, child = "chapters/19-distributions_intuition/gamma.Rmd"}
+```
+

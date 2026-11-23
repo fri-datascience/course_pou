@@ -1,0 +1,38 @@
+```{exercise, label = "mgf-exp-gamma"}
+a. Derive the MGF of $X \sim \text{Exp}(\lambda)$. For which $t$ does it exist?
+
+b. Derive the MGF of $X \sim \text{Gamma}(\alpha, \beta)$. For which $t$ does it exist?
+
+c. Let $X_1, \dots, X_n$ be i.i.d. $\text{Exp}(\lambda)$. Using MGFs, prove that $S_n = X_1 + \dots + X_n \sim \text{Gamma}(n, \lambda)$.
+
+```
+
+<div class="fold">
+```{solution, echo = togs}
+a. The density of $X$ is $\lambda e^{-\lambda x}$ for $x > 0$, so
+\begin{equation}
+  M_X(t) = \int_0^\infty e^{tx} \lambda e^{-\lambda x} dx = \lambda \int_0^\infty e^{-(\lambda - t)x} dx.
+\end{equation}
+For $t < \lambda$ the exponent is negative and the integral equals $\frac{1}{\lambda - t}$. For $t \geq \lambda$ the integrand does not decay and the integral is infinite. Therefore
+\begin{equation}
+  M_X(t) = \frac{\lambda}{\lambda - t}, \quad t < \lambda.
+\end{equation}
+
+b. Similarly,
+\begin{equation}
+  M_X(t) = \frac{\beta^\alpha}{\Gamma(\alpha)} \int_0^\infty x^{\alpha - 1} e^{-(\beta - t)x} dx.
+\end{equation}
+For $t < \beta$, the integrand is the kernel of the $\text{Gamma}(\alpha, \beta - t)$ density, so the integral equals $\frac{\Gamma(\alpha)}{(\beta - t)^\alpha}$. For $t \geq \beta$ the integral is infinite. Therefore
+\begin{equation}
+  M_X(t) = \left(\frac{\beta}{\beta - t}\right)^\alpha, \quad t < \beta.
+\end{equation}
+Note that $\text{Exp}(\lambda) = \text{Gamma}(1, \lambda)$, which agrees with a.
+
+c. By independence, the MGF of a sum is the product of the MGFs:
+\begin{equation}
+  M_{S_n}(t) = \prod_{i=1}^n M_{X_i}(t) = \left(\frac{\lambda}{\lambda - t}\right)^n, \quad t < \lambda.
+\end{equation}
+This is the MGF of $\text{Gamma}(n, \lambda)$ from b. Both MGFs exist on the interval $(-\infty, \lambda)$, which contains a neighbourhood of 0, so by the uniqueness theorem for MGFs, $S_n \sim \text{Gamma}(n, \lambda)$.
+
+```
+</div>
